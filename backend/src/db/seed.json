@@ -1,0 +1,370 @@
+[
+  {
+    "name": "Réseaux",
+    "color": "blue",
+    "questions": [
+      {
+        "question_text": "Quel port TCP utilise HTTPS par défaut ?",
+        "choice_a": "80",
+        "choice_b": "443",
+        "choice_c": "8080",
+        "choice_d": "21",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Que signifie DNS ?",
+        "choice_a": "Domain Name System",
+        "choice_b": "Data Network Service",
+        "choice_c": "Digital Naming Standard",
+        "choice_d": "Direct Node Server",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Quel protocole est utilisé pour envoyer des emails ?",
+        "choice_a": "FTP",
+        "choice_b": "SMTP",
+        "choice_c": "HTTP",
+        "choice_d": "SNMP",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quelle couche du modèle OSI gère le routage ?",
+        "choice_a": "Couche 2 (liaison)",
+        "choice_b": "Couche 3 (réseau)",
+        "choice_c": "Couche 4 (transport)",
+        "choice_d": "Couche 7 (application)",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quel est le masque de sous-réseau par défaut pour un réseau de classe C ?",
+        "choice_a": "255.0.0.0",
+        "choice_b": "255.255.0.0",
+        "choice_c": "255.255.255.0",
+        "choice_d": "255.255.255.255",
+        "correct_choice": "C"
+      }
+    ]
+  },
+  {
+    "name": "Algorithmique",
+    "color": "violet",
+    "questions": [
+      {
+        "question_text": "Quelle est la complexité temporelle moyenne d'un tri rapide (quicksort) ?",
+        "choice_a": "O(n)",
+        "choice_b": "O(n log n)",
+        "choice_c": "O(n^2)",
+        "choice_d": "O(log n)",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quelle structure de données utilise le principe LIFO ?",
+        "choice_a": "File (Queue)",
+        "choice_b": "Pile (Stack)",
+        "choice_c": "Arbre binaire",
+        "choice_d": "Liste chaînée",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quel algorithme de recherche nécessite un tableau trié ?",
+        "choice_a": "Recherche linéaire",
+        "choice_b": "Recherche dichotomique",
+        "choice_c": "Parcours en largeur",
+        "choice_d": "Tri à bulles",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quelle structure garantit un accès en O(1) à un élément par sa clé, en moyenne ?",
+        "choice_a": "Liste chaînée",
+        "choice_b": "Arbre binaire de recherche",
+        "choice_c": "Table de hachage",
+        "choice_d": "Pile",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "Quel algorithme de tri a une complexité O(n^2) dans le pire cas mais reste stable ?",
+        "choice_a": "Quicksort",
+        "choice_b": "Tri à bulles",
+        "choice_c": "Tri fusion",
+        "choice_d": "Tri rapide",
+        "correct_choice": "B"
+      }
+    ]
+  },
+  {
+    "name": "Sécurité",
+    "color": "red",
+    "questions": [
+      {
+        "question_text": "Que signifie l'acronyme XSS ?",
+        "choice_a": "Cross-Site Scripting",
+        "choice_b": "External System Security",
+        "choice_c": "Extended Session State",
+        "choice_d": "X-Server Security",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Quel algorithme est un hachage cryptographique couramment utilisé ?",
+        "choice_a": "AES",
+        "choice_b": "RSA",
+        "choice_c": "SHA-256",
+        "choice_d": "Base64",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "Qu'est-ce qu'une attaque par injection SQL exploite ?",
+        "choice_a": "Une faille dans le pare-feu",
+        "choice_b": "Une entrée utilisateur non filtrée dans une requête SQL",
+        "choice_c": "Un certificat expiré",
+        "choice_d": "Un port ouvert",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Que fait le protocole HTTPS en plus de HTTP ?",
+        "choice_a": "Compresse les données",
+        "choice_b": "Chiffre la communication via TLS/SSL",
+        "choice_c": "Accélère le chargement",
+        "choice_d": "Bloque les cookies",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Qu'est-ce que le principe du moindre privilège ?",
+        "choice_a": "Donner tous les droits par défaut",
+        "choice_b": "Donner uniquement les droits nécessaires à une tâche",
+        "choice_c": "Chiffrer tous les mots de passe",
+        "choice_d": "Interdire tout accès distant",
+        "correct_choice": "B"
+      }
+    ]
+  },
+  {
+    "name": "Systèmes & Linux",
+    "color": "amber",
+    "questions": [
+      {
+        "question_text": "Quelle commande affiche l'espace disque utilisé par les systèmes de fichiers ?",
+        "choice_a": "top",
+        "choice_b": "ps aux",
+        "choice_c": "df -h",
+        "choice_d": "free -m",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "Quelle commande change les permissions d'un fichier ?",
+        "choice_a": "chmod",
+        "choice_b": "chown",
+        "choice_c": "chgrp",
+        "choice_d": "chattr",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Quel fichier contient la liste des utilisateurs sous Linux ?",
+        "choice_a": "/etc/passwd",
+        "choice_b": "/etc/hosts",
+        "choice_c": "/etc/fstab",
+        "choice_d": "/etc/shadow",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Que fait la commande grep ?",
+        "choice_a": "Compresse des fichiers",
+        "choice_b": "Recherche du texte dans des fichiers",
+        "choice_c": "Copie des fichiers",
+        "choice_d": "Change les permissions",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quel signal est envoyé par défaut par la commande kill ?",
+        "choice_a": "SIGKILL",
+        "choice_b": "SIGSTOP",
+        "choice_c": "SIGTERM",
+        "choice_d": "SIGINT",
+        "correct_choice": "C"
+      }
+    ]
+  },
+  {
+    "name": "Bases de données",
+    "color": "teal",
+    "questions": [
+      {
+        "question_text": "Que signifie ACID en base de données ?",
+        "choice_a": "Atomicity, Consistency, Isolation, Durability",
+        "choice_b": "Access, Control, Index, Data",
+        "choice_c": "Advanced Cache Indexing Database",
+        "choice_d": "Automated Consistent Integrity Design",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Quel type de jointure retourne uniquement les lignes correspondantes dans les deux tables ?",
+        "choice_a": "LEFT JOIN",
+        "choice_b": "RIGHT JOIN",
+        "choice_c": "INNER JOIN",
+        "choice_d": "FULL OUTER JOIN",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "Quelle commande SQL sert à supprimer une table entière ?",
+        "choice_a": "DELETE",
+        "choice_b": "DROP TABLE",
+        "choice_c": "TRUNCATE",
+        "choice_d": "REMOVE",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Qu'est-ce qu'une clé étrangère (foreign key) ?",
+        "choice_a": "Une clé qui identifie de façon unique une ligne",
+        "choice_b": "Une référence vers la clé primaire d'une autre table",
+        "choice_c": "Un index sur une colonne",
+        "choice_d": "Un mot de passe chiffré",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quel type de base de données est SQLite ?",
+        "choice_a": "NoSQL orientée document",
+        "choice_b": "Relationnelle embarquée",
+        "choice_c": "Graphe",
+        "choice_d": "Clé-valeur distribuée",
+        "correct_choice": "B"
+      }
+    ]
+  },
+  {
+    "name": "Langages de programmation",
+    "color": "indigo",
+    "questions": [
+      {
+        "question_text": "En JavaScript, que retourne typeof null ?",
+        "choice_a": "'null'",
+        "choice_b": "'undefined'",
+        "choice_c": "'object'",
+        "choice_d": "'number'",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "En Python, quelle structure est immuable ?",
+        "choice_a": "list",
+        "choice_b": "dict",
+        "choice_c": "set",
+        "choice_d": "tuple",
+        "correct_choice": "D"
+      },
+      {
+        "question_text": "Quel mot-clé déclare une constante en JavaScript (ES6+) ?",
+        "choice_a": "var",
+        "choice_b": "let",
+        "choice_c": "const",
+        "choice_d": "static",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "En Python, que fait l'opérateur // ?",
+        "choice_a": "Division flottante",
+        "choice_b": "Division entière",
+        "choice_c": "Modulo",
+        "choice_d": "Commentaire",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quel paradigme met l'accent sur les fonctions pures et l'immutabilité ?",
+        "choice_a": "Programmation orientée objet",
+        "choice_b": "Programmation fonctionnelle",
+        "choice_c": "Programmation procédurale",
+        "choice_d": "Programmation événementielle",
+        "correct_choice": "B"
+      }
+    ]
+  },
+  {
+    "name": "Web",
+    "color": "cyan",
+    "questions": [
+      {
+        "question_text": "Que signifie CSS ?",
+        "choice_a": "Computer Style Sheets",
+        "choice_b": "Cascading Style Sheets",
+        "choice_c": "Creative Style System",
+        "choice_d": "Content Styling Service",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quelle balise HTML définit un lien hypertexte ?",
+        "choice_a": "<link>",
+        "choice_b": "<a>",
+        "choice_c": "<href>",
+        "choice_d": "<nav>",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quel code de statut HTTP indique \"Non trouvé\" ?",
+        "choice_a": "200",
+        "choice_b": "301",
+        "choice_c": "404",
+        "choice_d": "500",
+        "correct_choice": "C"
+      },
+      {
+        "question_text": "Qu'est-ce que le DOM ?",
+        "choice_a": "Un langage de programmation",
+        "choice_b": "Une représentation en arbre du document HTML",
+        "choice_c": "Un protocole réseau",
+        "choice_d": "Un format d'image",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Quelle méthode HTTP est conventionnellement utilisée pour récupérer des données sans effet de bord ?",
+        "choice_a": "POST",
+        "choice_b": "GET",
+        "choice_c": "PATCH",
+        "choice_d": "DELETE",
+        "correct_choice": "B"
+      }
+    ]
+  },
+  {
+    "name": "DevOps & Cloud",
+    "color": "orange",
+    "questions": [
+      {
+        "question_text": "Que permet Docker de faire ?",
+        "choice_a": "Gérer des bases de données",
+        "choice_b": "Conteneuriser des applications",
+        "choice_c": "Compiler du code",
+        "choice_d": "Héberger des sites statiques uniquement",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Que signifie CI/CD ?",
+        "choice_a": "Continuous Integration / Continuous Deployment",
+        "choice_b": "Code Inspection / Code Delivery",
+        "choice_c": "Cloud Infrastructure / Cloud Deployment",
+        "choice_d": "Container Image / Container Data",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Quel outil est utilisé pour l'orchestration de conteneurs à grande échelle ?",
+        "choice_a": "Docker Compose",
+        "choice_b": "Kubernetes",
+        "choice_c": "Git",
+        "choice_d": "Nginx",
+        "correct_choice": "B"
+      },
+      {
+        "question_text": "Qu'est-ce qu'un reverse proxy ?",
+        "choice_a": "Un serveur qui transmet les requêtes clients vers un ou plusieurs serveurs backend",
+        "choice_b": "Un pare-feu logiciel",
+        "choice_c": "Un système de cache navigateur",
+        "choice_d": "Un protocole de chiffrement",
+        "correct_choice": "A"
+      },
+      {
+        "question_text": "Que signifie \"Infrastructure as Code\" ?",
+        "choice_a": "Écrire l'infrastructure sous forme de schémas",
+        "choice_b": "Gérer et provisionner l'infrastructure via des fichiers de configuration versionnés",
+        "choice_c": "Programmer directement sur les serveurs physiques",
+        "choice_d": "Automatiser uniquement les sauvegardes",
+        "correct_choice": "B"
+      }
+    ]
+  }
+]
