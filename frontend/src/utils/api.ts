@@ -75,6 +75,7 @@ export interface QuestionInput {
   choice_c: string;
   choice_d: string;
   correct_choice: 'A' | 'B' | 'C' | 'D';
+  explanation?: string | null;
 }
 
 export const questionsApi = {

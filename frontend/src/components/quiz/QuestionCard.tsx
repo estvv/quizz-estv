@@ -31,6 +31,8 @@ export function QuestionCard({ question, chosen, revealed, onAnswer }: Props) {
     return 'bg-neutral-50 border-neutral-200 text-neutral-400 cursor-not-allowed';
   }
 
+  const isAnswerCorrect = chosen === question.correct_choice;
+
   return (
     <div>
       <h2 className="text-xl font-semibold text-neutral-900 mb-6">{question.question_text}</h2>
@@ -50,6 +52,17 @@ export function QuestionCard({ question, chosen, revealed, onAnswer }: Props) {
           </button>
         ))}
       </div>
+
+      {revealed && (
+        <div className="mt-4 p-4 rounded-lg border border-neutral-200 bg-neutral-50">
+          <p className={`text-sm font-semibold mb-1 ${isAnswerCorrect ? 'text-emerald-700' : 'text-red-700'}`}>
+            {isAnswerCorrect ? 'Bonne réponse !' : 'Pas tout à fait...'}
+          </p>
+          {question.explanation && (
+            <p className="text-sm text-neutral-600">{question.explanation}</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

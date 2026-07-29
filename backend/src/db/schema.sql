@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS questions (
     choice_c TEXT NOT NULL,
     choice_d TEXT NOT NULL,
     correct_choice TEXT NOT NULL CHECK (correct_choice IN ('A','B','C','D')),
+    explanation TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE

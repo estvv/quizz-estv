@@ -28,6 +28,7 @@ export interface Question {
   choice_c: string;
   choice_d: string;
   correct_choice: Choice;
+  explanation: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -39,6 +40,7 @@ export interface SeedQuestion {
   choice_c: string;
   choice_d: string;
   correct_choice: Choice;
+  explanation?: string;
 }
 
 export interface SeedCategory {

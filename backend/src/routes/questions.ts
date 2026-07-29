@@ -74,6 +74,7 @@ router.post('/', authMiddleware, (req, res) => {
     choice_c: req.body.choice_c,
     choice_d: req.body.choice_d,
     correct_choice: req.body.correct_choice,
+    explanation: req.body.explanation || null,
   });
   res.json({ success: true, data: question });
 });

@@ -25,6 +25,7 @@ export function QuestionForm({ categoryId, initial, onSubmit, onCancel }: Props)
     choice_d: initial?.choice_d ?? '',
   });
   const [correctChoice, setCorrectChoice] = useState<Choice>(initial?.correct_choice ?? 'A');
+  const [explanation, setExplanation] = useState(initial?.explanation ?? '');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -44,6 +45,7 @@ export function QuestionForm({ categoryId, initial, onSubmit, onCancel }: Props)
         choice_c: choices.choice_c.trim(),
         choice_d: choices.choice_d.trim(),
         correct_choice: correctChoice,
+        explanation: explanation.trim() || null,
       });
     } catch (err: any) {
       setError(err.message || 'Échec de l\'enregistrement');
@@ -90,6 +92,19 @@ export function QuestionForm({ categoryId, initial, onSubmit, onCancel }: Props)
         ))}
       </div>
       <p className="text-xs text-neutral-400">Clique sur une lettre pour la marquer comme bonne réponse.</p>
+
+      <div>
+        <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+          Explication (optionnel)
+        </label>
+        <textarea
+          value={explanation}
+          onChange={(e) => setExplanation(e.target.value)}
+          rows={2}
+          placeholder="Affichée après la réponse : explication, exemple, précision..."
+          className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:border-neutral-500"
+        />
+      </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 

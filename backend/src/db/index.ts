@@ -21,8 +21,19 @@ export function initDatabase() {
   const schemaPath = path.join(__dirname, 'schema.sql');
   const schema = fs.readFileSync(schemaPath, 'utf-8');
   db.exec(schema);
+  runMigrations();
   seedIfEmpty();
   console.log('Database initialized');
+}
+
+// Ad-hoc "add column if missing" migration, mirroring the pattern used across
+// the other *-estv apps (no formal migration framework, just idempotent checks).
+function runMigrations() {
+  const columns = db.prepare("PRAGMA table_info(questions)").all() as { name: string }[];
+  const hasExplanation = columns.some((c) => c.name === 'explanation');
+  if (!hasExplanation) {
+    db.exec('ALTER TABLE questions ADD COLUMN explanation TEXT');
+  }
 }
 
 const DIACRITICS_RE = new RegExp('[\\u0300-\\u036f]', 'g');
@@ -47,8 +58,8 @@ function seedIfEmpty() {
 
   const insertCategory = db.prepare('INSERT INTO categories (name, slug, color) VALUES (?, ?, ?)');
   const insertQuestion = db.prepare(`INSERT INTO questions
-    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice)
-    VALUES (?, ?, ?, ?, ?, ?, ?)`);
+    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
 
   const seedAll = db.transaction((categories: SeedCategory[]) => {
     for (const cat of categories) {
@@ -56,7 +67,7 @@ function seedIfEmpty() {
       const result = insertCategory.run(cat.name, slug, cat.color ?? 'slate');
       const categoryId = result.lastInsertRowid as number;
       for (const q of cat.questions ?? []) {
-        insertQuestion.run(categoryId, q.question_text, q.choice_a, q.choice_b, q.choice_c, q.choice_d, q.correct_choice);
+        insertQuestion.run(categoryId, q.question_text, q.choice_a, q.choice_b, q.choice_c, q.choice_d, q.correct_choice, q.explanation ?? null);
       }
     }
   });
@@ -147,16 +158,17 @@ export interface CreateQuestionInput {
   choice_c: string;
   choice_d: string;
   correct_choice: 'A' | 'B' | 'C' | 'D';
+  explanation?: string | null;
 }
 
 export function createQuestion(input: CreateQuestionInput): Question {
   const stmt = db.prepare(`INSERT INTO questions
-    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice)
-    VALUES (?, ?, ?, ?, ?, ?, ?)`);
+    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
   const result = stmt.run(
     input.category_id, input.question_text,
     input.choice_a, input.choice_b, input.choice_c, input.choice_d,
-    input.correct_choice
+    input.correct_choice, input.explanation ?? null
   );
   return getQuestionById(result.lastInsertRowid as number)!;
 }
@@ -173,6 +185,7 @@ export function updateQuestion(id: number, updates: Partial<CreateQuestionInput>
     choice_c: (v) => ['choice_c = ?', v],
     choice_d: (v) => ['choice_d = ?', v],
     correct_choice: (v) => ['correct_choice = ?', v],
+    explanation: (v) => ['explanation = ?', v],
   };
 
   for (const [key, value] of Object.entries(updates)) {

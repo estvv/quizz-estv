@@ -1,369 +1,1561 @@
 [
   {
-    "name": "Réseaux",
+    "name": "Bits & Bas niveau (C)",
     "color": "blue",
     "questions": [
       {
-        "question_text": "Quel port TCP utilise HTTPS par défaut ?",
-        "choice_a": "80",
-        "choice_b": "443",
-        "choice_c": "8080",
-        "choice_d": "21",
-        "correct_choice": "B"
+        "question_text": "Comment transformer un nombre positif non nul en son opposé (négatif) à l'aide d'opérations bitwise ?",
+        "choice_a": "Inverser tous les bits (~n) puis ajouter 1 (complément à deux)",
+        "choice_b": "Décaler tous les bits vers la gauche de 1",
+        "choice_c": "Inverser uniquement le bit de poids fort (MSB)",
+        "choice_d": "Diviser le nombre par -1",
+        "correct_choice": "A",
+        "explanation": "C'est la définition du complément à deux : ~n inverse tous les bits, puis +1 corrige le décalage pour obtenir -n. C'est ainsi que les nombres signés sont représentés en mémoire."
       },
       {
-        "question_text": "Que signifie DNS ?",
-        "choice_a": "Domain Name System",
-        "choice_b": "Data Network Service",
-        "choice_c": "Digital Naming Standard",
-        "choice_d": "Direct Node Server",
-        "correct_choice": "A"
+        "question_text": "Quelle est la différence entre ++i et i++ ?",
+        "choice_a": "i++ est toujours plus rapide que ++i",
+        "choice_b": "++i incrémente puis retourne la valeur ; i++ retourne l'ancienne valeur puis incrémente, ce qui nécessite une variable tampon",
+        "choice_c": "++i modifie une copie, i++ modifie l'original",
+        "choice_d": "Il n'y a aucune différence en pratique",
+        "correct_choice": "B",
+        "explanation": "i++ doit conserver l'ancienne valeur avant d'incrémenter, donc le compilateur crée une copie temporaire — un coût que ++i n'a pas puisqu'il retourne directement la nouvelle valeur."
       },
       {
-        "question_text": "Quel protocole est utilisé pour envoyer des emails ?",
-        "choice_a": "FTP",
-        "choice_b": "SMTP",
-        "choice_c": "HTTP",
-        "choice_d": "SNMP",
-        "correct_choice": "B"
+        "question_text": "Quelle est la différence entre une boucle for et une boucle while ?",
+        "choice_a": "for ne peut pas contenir de condition d'arrêt",
+        "choice_b": "while est toujours plus rapide que for",
+        "choice_c": "for est adapté quand le nombre d'itérations est connu à l'avance ; while répète tant qu'une condition reste vraie",
+        "choice_d": "Il n'existe aucune différence, ce sont des synonymes",
+        "correct_choice": "C",
+        "explanation": "Les deux sont interchangeables en pratique, mais for regroupe initialisation/condition/incrément en une ligne, ce qui le rend plus lisible quand le nombre d'itérations est connu."
       },
       {
-        "question_text": "Quelle couche du modèle OSI gère le routage ?",
-        "choice_a": "Couche 2 (liaison)",
-        "choice_b": "Couche 3 (réseau)",
-        "choice_c": "Couche 4 (transport)",
-        "choice_d": "Couche 7 (application)",
-        "correct_choice": "B"
+        "question_text": "Dans quel cas utilise-t-on plutôt un if ou un switch case ?",
+        "choice_a": "if est toujours interdit en C",
+        "choice_b": "switch peut être plus rapide (table de saut) pour de nombreux cas fixes ; if reste plus flexible pour des conditions complexes — c'est souvent une question de préférence",
+        "choice_c": "switch ne peut tester que des booléens",
+        "choice_d": "if est toujours plus rapide que switch",
+        "correct_choice": "B",
+        "explanation": "Un switch avec des cas denses peut être compilé en table de saut (accès direct en O(1)), alors qu'un if-else enchaîne des comparaisons séquentielles (O(n))."
       },
       {
-        "question_text": "Quel est le masque de sous-réseau par défaut pour un réseau de classe C ?",
-        "choice_a": "255.0.0.0",
-        "choice_b": "255.255.0.0",
-        "choice_c": "255.255.255.0",
-        "choice_d": "255.255.255.255",
-        "correct_choice": "C"
+        "question_text": "Pour écrire 10 caractères, quelle est la meilleure méthode : un seul write() de 10 caractères, ou dix write() d'un caractère ?",
+        "choice_a": "Dix write() d'un caractère, car plus précis",
+        "choice_b": "Cela ne change rien aux performances",
+        "choice_c": "Dix write() d'un caractère, car plus lisible",
+        "choice_d": "Un seul write() de 10 caractères : un seul appel système au lieu de dix",
+        "correct_choice": "D",
+        "explanation": "Chaque appel système (syscall) a un coût fixe non négligeable (changement de contexte noyau/utilisateur) : regrouper les écritures réduit ce nombre d'allers-retours."
+      },
+      {
+        "question_text": "Pourquoi 0.1 + 0.2 != 0.3 ?",
+        "choice_a": "C'est un bug du compilateur",
+        "choice_b": "Les flottants sont stockés en binaire (norme IEEE 754) et 0.1 n'a pas de représentation exacte en base 2, d'où une erreur d'arrondi",
+        "choice_c": "0.1 et 0.2 sont stockés en base 10 exacte, l'erreur vient du CPU",
+        "choice_d": "Les flottants ne peuvent pas être additionnés directement",
+        "correct_choice": "B",
+        "explanation": "En base 2, 0.1 et 0.2 sont des fractions périodiques infinies (comme 1/3 en base 10) : elles sont donc arrondies, et la somme de ces arrondis ne tombe pas exactement sur la représentation de 0.3."
+      },
+      {
+        "question_text": "Pourquoi 1 / 0 est différent de 1.0 / 0.0 en C ?",
+        "choice_a": "Les deux provoquent exactement la même erreur",
+        "choice_b": "1/0 renvoie 0, 1.0/0.0 lève une exception",
+        "choice_c": "1/0 (entiers) est un comportement indéfini ; 1.0/0.0 (flottants) est défini par IEEE 754 et donne +inf ou -inf selon le signe",
+        "choice_d": "Les deux renvoient NaN",
+        "correct_choice": "C",
+        "explanation": "La norme IEEE 754 définit explicitement le comportement des flottants aux limites (±infini, NaN), alors que l'arithmétique entière du C ne prévoit aucune valeur pour représenter une division par zéro."
+      },
+      {
+        "question_text": "Que fait l'opérateur \"~\" (par exemple ~1) ?",
+        "choice_a": "Il décale tous les bits vers la droite",
+        "choice_b": "Il met tous les bits à 0",
+        "choice_c": "C'est l'opérateur de complément à 1 : il inverse chaque bit (0 devient 1, 1 devient 0)",
+        "choice_d": "Il additionne 1 au nombre",
+        "correct_choice": "C",
+        "explanation": "~ est l'opérateur unaire de complément à un (bitwise NOT) : ~1 (0b...0001) donne 0b...1110, soit -2 en complément à deux."
+      },
+      {
+        "question_text": "Pourquoi ~0 == -1 ?",
+        "choice_a": "~0 vaut toujours 0",
+        "choice_b": "~0 inverse tous les bits de 0 (0b000...0) pour obtenir 0b111...1, la représentation en complément à 2 de -1",
+        "choice_c": "~0 dépend du compilateur utilisé",
+        "choice_d": "~0 == -1 seulement sur les systèmes 32 bits",
+        "correct_choice": "B",
+        "explanation": "0 s'écrit avec uniquement des 0 en binaire ; les inverser donne uniquement des 1, qui est précisément la représentation en complément à deux de -1."
+      },
+      {
+        "question_text": "Quelle fonction f(n), avec n le nombre de bits (strictement positif), donne le maximum représentable sur n bits ?",
+        "choice_a": "f(n) = 2^n",
+        "choice_b": "f(n) = 2^(n-1)",
+        "choice_c": "f(n) = n^2 - 1",
+        "choice_d": "f(n) = 2^n - 1",
+        "correct_choice": "D",
+        "explanation": "Avec n bits on peut représenter 2^n valeurs différentes (de 0 à 2^n - 1) ; le maximum est donc 2^n - 1 (tous les bits à 1)."
+      },
+      {
+        "question_text": "Qu'est-ce que les bits MSB et LSB ?",
+        "choice_a": "MSB = Most Significant Bit (bit de poids fort), LSB = Least Significant Bit (bit de poids faible)",
+        "choice_b": "MSB = Main System Bit, LSB = Last System Bit",
+        "choice_c": "MSB et LSB désignent la même chose",
+        "choice_d": "MSB = bit de poids faible, LSB = bit de poids fort",
+        "correct_choice": "A",
+        "explanation": "Dans un nombre binaire, le MSB est le bit le plus à gauche (le plus « lourd », il pèse 2^(n-1)) et le LSB est le bit le plus à droite (il pèse 2^0 = 1)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un nombre dont le MSB vaut 1 ?",
+        "choice_a": "Il est pair",
+        "choice_b": "Il est toujours égal à 0",
+        "choice_c": "Il est négatif (en représentation signée, complément à 2)",
+        "choice_d": "Il est impair",
+        "correct_choice": "C",
+        "explanation": "En complément à deux, le bit de poids fort sert de bit de signe : s'il vaut 1, le nombre est négatif."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un nombre dont le LSB vaut 1 ?",
+        "choice_a": "Il est négatif",
+        "choice_b": "Il est pair",
+        "choice_c": "Il vaut zéro",
+        "choice_d": "Il est impair",
+        "correct_choice": "D",
+        "explanation": "Le LSB représente la parité en binaire : il vaut 1 uniquement si le nombre est impair (exactement comme le dernier chiffre en décimal indique la parité par rapport à 2)."
+      },
+      {
+        "question_text": "Quelle est la différence entre array[0] et 0[array] en C ?",
+        "choice_a": "Ils sont strictement équivalents : array[i] est un sucre syntaxique pour *(array + i), et l'addition étant commutative *(array+0) == *(0+array)",
+        "choice_b": "0[array] est une erreur de syntaxe en C",
+        "choice_c": "array[0] est plus rapide que 0[array]",
+        "choice_d": "0[array] ne fonctionne qu'avec des tableaux de int",
+        "correct_choice": "A",
+        "explanation": "Le compilateur traduit array[i] en *(array + i) avant toute évaluation ; l'addition de pointeurs étant commutative, *(array+0) et *(0+array) désignent la même adresse mémoire."
+      },
+      {
+        "question_text": "Quelle est la différence entre array<:0:> et array[0] en C ?",
+        "choice_a": "<: :> ne fonctionne qu'en C++",
+        "choice_b": "array<:0:> provoque un débordement mémoire",
+        "choice_c": "Rien, <: :> sont des « digraphes » strictement équivalents à [ ] en C",
+        "choice_d": "<: :> sont réservés aux tableaux multidimensionnels",
+        "correct_choice": "C",
+        "explanation": "Les digraphes <: :> ont été ajoutés à la norme C pour permettre d'écrire du code sur des claviers ne disposant pas des caractères [ ], sans changer le comportement du programme."
+      },
+      {
+        "question_text": "Que signifie et que renvoie la ligne \"0<:x:>\" ?",
+        "choice_a": "C'est une erreur de compilation",
+        "choice_b": "C'est équivalent à x[0] : on accède à l'élément d'indice 0 du tableau x",
+        "choice_c": "Cela accède au dernier élément de x",
+        "choice_d": "Cela crée un nouveau tableau nommé x",
+        "correct_choice": "B",
+        "explanation": "Le préprocesseur remplace <: par [ et :> par ] avant compilation : \"0<:x:>\" devient donc littéralement \"0[x]\", équivalent à x[0]."
+      },
+      {
+        "question_text": "Que signifie et que renvoie la ligne \"~0<:x:>\" ?",
+        "choice_a": "C'est équivalent à -x[0]",
+        "choice_b": "C'est une erreur de syntaxe",
+        "choice_c": "C'est équivalent à ~(x[0]) : on accède à x[0] puis on applique le complément binaire (inverse tous les bits)",
+        "choice_d": "Cela inverse l'ordre du tableau x",
+        "correct_choice": "C",
+        "explanation": "Une fois les digraphes remplacés, l'expression devient ~(0[x]), c'est-à-dire ~(x[0]) : on lit x[0] puis on inverse tous ses bits."
+      },
+      {
+        "question_text": "Quelle est la différence entre x = x++ et x = ++x ?",
+        "choice_a": "Les deux incrémentent x de la même façon",
+        "choice_b": "x = x++ laisse x inchangé (l'assignation récupère l'ancienne valeur) alors que x = ++x incrémente x avant l'affectation",
+        "choice_c": "x = x++ incrémente deux fois",
+        "choice_d": "x = ++x laisse toujours x inchangé",
+        "correct_choice": "B",
+        "explanation": "x = x++ affecte à x la valeur de x AVANT l'incrémentation (donc x semble inchangé), tandis que x = ++x affecte la valeur APRÈS incrémentation. (Note : x = x++ est en réalité un comportement indéfini en C, ce comportement n'est pas garanti par la norme.)"
+      },
+      {
+        "question_text": "Quelle est la différence entre sizeof() et len() ?",
+        "choice_a": "Ce sont des synonymes stricts",
+        "choice_b": "sizeof() ne fonctionne qu'en Python",
+        "choice_c": "sizeof() renvoie la taille en octets d'un type/objet ; len() renvoie le nombre d'éléments d'une collection",
+        "choice_d": "len() renvoie toujours la taille en octets",
+        "correct_choice": "C",
+        "explanation": "sizeof est un opérateur du langage C/C++ évalué à la compilation, qui renvoie une taille en octets ; len() est une fonction (Python...) évaluée à l'exécution, qui compte des éléments."
+      },
+      {
+        "question_text": "Lequel de ces opérateurs n'existe PAS en C ?",
+        "choice_a": "^",
+        "choice_b": "**",
+        "choice_c": "<<",
+        "choice_d": "~",
+        "correct_choice": "B",
+        "explanation": "Le C ne dispose pas d'opérateur d'exponentiation : il faut utiliser la fonction pow() de la librairie standard <math.h> à la place de **."
       }
     ]
   },
   {
-    "name": "Algorithmique",
+    "name": "Culture informatique",
     "color": "violet",
     "questions": [
       {
-        "question_text": "Quelle est la complexité temporelle moyenne d'un tri rapide (quicksort) ?",
-        "choice_a": "O(n)",
-        "choice_b": "O(n log n)",
-        "choice_c": "O(n^2)",
-        "choice_d": "O(log n)",
-        "correct_choice": "B"
+        "question_text": "En quelle année, dans quel langage, et par qui a été créé Tetris ?",
+        "choice_a": "1985, Pascal, Alexey Pajitnov",
+        "choice_b": "1989, C, Alexey Pajitnov",
+        "choice_c": "1984, Pascal, Alexey Pajitnov",
+        "choice_d": "1984, Assembleur, Dennis Ritchie",
+        "correct_choice": "C",
+        "explanation": "Tetris a été créé en juin 1984 par l'ingénieur soviétique Alexey Pajitnov, programmé en Pascal sur un ordinateur Elektronika 60."
       },
       {
-        "question_text": "Quelle structure de données utilise le principe LIFO ?",
-        "choice_a": "File (Queue)",
-        "choice_b": "Pile (Stack)",
-        "choice_c": "Arbre binaire",
-        "choice_d": "Liste chaînée",
-        "correct_choice": "B"
+        "question_text": "À quoi fait référence le 1er janvier 1970 en informatique ?",
+        "choice_a": "La date de création du langage C",
+        "choice_b": "C'est l'epoch Unix (Unix Time), le point de départ (0) du comptage du temps sous Unix",
+        "choice_c": "La date de sortie du premier ordinateur personnel",
+        "choice_d": "La date de création d'Internet",
+        "correct_choice": "B",
+        "explanation": "Cette date a été choisie arbitrairement comme origine (epoch) du temps Unix lors de la conception des premiers systèmes Unix au début des années 1970."
       },
       {
-        "question_text": "Quel algorithme de recherche nécessite un tableau trié ?",
-        "choice_a": "Recherche linéaire",
-        "choice_b": "Recherche dichotomique",
-        "choice_c": "Parcours en largeur",
-        "choice_d": "Tri à bulles",
-        "correct_choice": "B"
+        "question_text": "À quoi sert l'heure Unix ?",
+        "choice_a": "À synchroniser uniquement les serveurs français",
+        "choice_b": "À remplacer le calendrier grégorien",
+        "choice_c": "À représenter le temps de façon simple et universelle (secondes depuis le 1er janvier 1970 UTC), indépendamment des fuseaux horaires",
+        "choice_d": "À mesurer la fréquence du processeur",
+        "correct_choice": "C",
+        "explanation": "En stockant un simple compteur de secondes plutôt qu'une date calendaire, on évite tous les problèmes de fuseaux horaires, d'heure d'été ou de formats de date différents selon les pays."
       },
       {
-        "question_text": "Quelle structure garantit un accès en O(1) à un élément par sa clé, en moyenne ?",
-        "choice_a": "Liste chaînée",
-        "choice_b": "Arbre binaire de recherche",
-        "choice_c": "Table de hachage",
-        "choice_d": "Pile",
-        "correct_choice": "C"
+        "question_text": "Quelle est la différence entre Git et GitHub ?",
+        "choice_a": "Git et GitHub sont la même chose",
+        "choice_b": "Git est un système de gestion de versions ; GitHub est une plateforme cloud d'hébergement de projets qui utilise Git",
+        "choice_c": "GitHub est un langage de programmation basé sur Git",
+        "choice_d": "Git est la propriété de GitHub depuis sa création",
+        "correct_choice": "B",
+        "explanation": "Git peut fonctionner entièrement en local sans aucun réseau ; GitHub (comme GitLab ou Bitbucket) est un service commercial qui ajoute hébergement, interface web, gestion des pull requests, etc."
       },
       {
-        "question_text": "Quel algorithme de tri a une complexité O(n^2) dans le pire cas mais reste stable ?",
-        "choice_a": "Quicksort",
-        "choice_b": "Tri à bulles",
-        "choice_c": "Tri fusion",
-        "choice_d": "Tri rapide",
-        "correct_choice": "B"
+        "question_text": "Sur quoi repose fondamentalement toute l'informatique ?",
+        "choice_a": "Sur le système décimal",
+        "choice_b": "Sur le code hexadécimal uniquement",
+        "choice_c": "Sur des 0 et des 1 (le binaire)",
+        "choice_d": "Sur des circuits analogiques",
+        "correct_choice": "C",
+        "explanation": "Tous les circuits numériques reposent sur deux états électriques distincts (tension haute/basse), naturellement représentés par 0 et 1 : c'est la base du système binaire."
+      },
+      {
+        "question_text": "Qui a inventé le langage C ?",
+        "choice_a": "Ken Thompson",
+        "choice_b": "Dennis Ritchie",
+        "choice_c": "Bjarne Stroustrup",
+        "choice_d": "Linus Torvalds",
+        "correct_choice": "B",
+        "explanation": "Dennis Ritchie a créé le C entre 1969 et 1973 aux Bell Labs, pour réécrire le système d'exploitation Unix (initialement écrit en assembleur)."
+      },
+      {
+        "question_text": "Quel langage a directement influencé la création du C ?",
+        "choice_a": "Le Fortran",
+        "choice_b": "Le COBOL",
+        "choice_c": "Le Pascal",
+        "choice_d": "Le B (lui-même dérivé du BCPL, Basic Combined Programming Language)",
+        "correct_choice": "D",
+        "explanation": "Le langage B, créé par Ken Thompson, a servi de base au C ; Dennis Ritchie y a ajouté un système de types, donnant naissance au C."
+      },
+      {
+        "question_text": "Quelle est la différence entre le code machine et l'assembleur ?",
+        "choice_a": "Ce sont deux noms pour la même chose",
+        "choice_b": "Le code machine est directement exécutable en binaire par le CPU ; l'assembleur est lisible par l'humain et doit être traduit (assemblé) en code machine",
+        "choice_c": "L'assembleur s'exécute plus vite que le code machine",
+        "choice_d": "Le code machine est plus lisible que l'assembleur",
+        "correct_choice": "B",
+        "explanation": "L'assembleur remplace les suites de 0 et 1 par des mnémoniques lisibles (MOV, ADD...) qui correspondent 1 pour 1 aux instructions machine ; un programme assembleur les traduit ensuite en binaire."
+      },
+      {
+        "question_text": "Pourquoi GCC crée-t-il par défaut un binaire nommé \"a.out\" ?",
+        "choice_a": "C'est l'acronyme de « Application Output »",
+        "choice_b": "C'est un nom choisi au hasard",
+        "choice_c": "C'est l'acronyme de « Assembler Output », nom historique donné en l'absence de -o",
+        "choice_d": "C'est l'acronyme de « Auto Output »",
+        "correct_choice": "C",
+        "explanation": "C'est un nom hérité des tout premiers Unix : « a.out » signifiait littéralement la sortie de l'assembleur, et ce nom par défaut a été conservé par convention historique dans GCC."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un paradigme de programmation ?",
+        "choice_a": "Un langage de programmation précis",
+        "choice_b": "Une façon d'aborder la programmation et de formuler les solutions à un problème, propre à un style ou un langage donné",
+        "choice_c": "Un type de données particulier",
+        "choice_d": "Un environnement de développement (IDE)",
+        "correct_choice": "B",
+        "explanation": "Un paradigme définit la manière de structurer et de penser un programme (données, contrôle de flux, état), indépendamment du langage précis utilisé pour l'implémenter."
+      },
+      {
+        "question_text": "Quel paradigme repose sur l'absence d'affectation et l'imbrication de fonctions mathématiques (ex. Haskell) ?",
+        "choice_a": "Orienté objet",
+        "choice_b": "Impératif",
+        "choice_c": "Fonctionnel",
+        "choice_d": "Structuré",
+        "correct_choice": "C",
+        "explanation": "En programmation fonctionnelle pure, il n'y a pas de variables mutables ni d'effets de bord : un programme est une composition de fonctions qui transforment des données en de nouvelles données."
+      },
+      {
+        "question_text": "Quels sont les 3 paradigmes de programmation présents en C ?",
+        "choice_a": "Impératif, Orienté Objet et Fonctionnel",
+        "choice_b": "Fonctionnel, Logique et Orienté Objet",
+        "choice_c": "Procédural, Orienté Objet et Événementiel",
+        "choice_d": "Impératif, Procédural et Structuré",
+        "correct_choice": "D",
+        "explanation": "Le C ne supporte pas nativement l'orienté objet ni le fonctionnel pur : il permet d'écrire du code impératif (suite d'instructions), procédural (organisé en fonctions) et structuré (blocs de contrôle clairs, sans goto anarchique)."
+      },
+      {
+        "question_text": "Quelle est la grosse différence entre le C et le C++ ?",
+        "choice_a": "C++ est un langage interprété contrairement au C",
+        "choice_b": "C++ ajoute la programmation orientée objet (classes, héritage, encapsulation, polymorphisme) par rapport au C, purement procédural",
+        "choice_c": "C est plus récent que C++",
+        "choice_d": "C++ ne supporte pas les pointeurs contrairement au C",
+        "correct_choice": "B",
+        "explanation": "C++ a été conçu comme une extension du C (« C with Classes ») pour y ajouter les concepts de la programmation orientée objet, tout en restant largement compatible avec le C."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un shell ?",
+        "choice_a": "Un langage de programmation compilé",
+        "choice_b": "Un type de système de fichiers",
+        "choice_c": "Un interpréteur de commandes",
+        "choice_d": "Un pilote matériel (driver)",
+        "correct_choice": "C",
+        "explanation": "Le shell (bash, zsh...) lit les commandes tapées par l'utilisateur, les interprète et déclenche les appels système correspondants pour dialoguer avec le noyau."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une variable immuable ?",
+        "choice_a": "Une variable dont la valeur ne peut pas être modifiée après son initialisation (ex. const)",
+        "choice_b": "Une variable globale accessible partout",
+        "choice_c": "Une variable qui change automatiquement de type",
+        "choice_d": "Une variable stockée uniquement en ROM",
+        "correct_choice": "A",
+        "explanation": "Rendre une variable immuable (const, final...) permet d'éviter des bugs liés à des modifications accidentelles, et facilite le raisonnement sur le code."
+      },
+      {
+        "question_text": "Que signifie l'acronyme API ?",
+        "choice_a": "Automated Program Interpreter",
+        "choice_b": "Application Programming Interface",
+        "choice_c": "Application Process Integration",
+        "choice_d": "Advanced Programming Instruction",
+        "correct_choice": "B",
+        "explanation": "Une API définit un contrat (fonctions, endpoints, formats de données) permettant à deux programmes de communiquer sans connaître les détails d'implémentation l'un de l'autre."
+      },
+      {
+        "question_text": "Que signifie l'acronyme IDE ?",
+        "choice_a": "Internal Data Exchange",
+        "choice_b": "Interface de Développement Exécutable",
+        "choice_c": "Integrated Development Environment",
+        "choice_d": "Interpreted Design Engine",
+        "correct_choice": "C",
+        "explanation": "Un IDE regroupe en un seul outil l'éditeur de code, le compilateur/interpréteur, le débogueur et souvent un système de gestion de versions intégré."
+      },
+      {
+        "question_text": "Qu'est-ce que les mnémoniques en assembleur (ASM) ?",
+        "choice_a": "Ce sont des commentaires ajoutés au code assembleur",
+        "choice_b": "Ce sont les noms symboliques donnés aux instructions machine pour les rendre lisibles (ex. MOV, ADD, JMP)",
+        "choice_c": "Ce sont les adresses mémoire des registres",
+        "choice_d": "Ce sont des macros du préprocesseur C",
+        "correct_choice": "B",
+        "explanation": "Sans mnémoniques, il faudrait écrire directement les opcodes en binaire ou hexadécimal ; les mnémoniques rendent l'assembleur lisible tout en gardant une correspondance directe avec les instructions machine."
+      },
+      {
+        "question_text": "Qu'est-ce que la mémoïsation (memoization) ?",
+        "choice_a": "Réserver à l'avance de la mémoire pour un programme",
+        "choice_b": "Compresser les données en mémoire",
+        "choice_c": "Un mécanisme de garbage collection automatique",
+        "choice_d": "Mettre en cache les résultats déjà calculés d'une fonction selon ses paramètres d'entrée, pour éviter de refaire le calcul",
+        "correct_choice": "D",
+        "explanation": "C'est une technique d'optimisation très utilisée en programmation dynamique : si une fonction est appelée plusieurs fois avec les mêmes arguments, on renvoie le résultat déjà calculé au lieu de le recalculer."
       }
     ]
   },
   {
-    "name": "Sécurité",
-    "color": "red",
-    "questions": [
-      {
-        "question_text": "Que signifie l'acronyme XSS ?",
-        "choice_a": "Cross-Site Scripting",
-        "choice_b": "External System Security",
-        "choice_c": "Extended Session State",
-        "choice_d": "X-Server Security",
-        "correct_choice": "A"
-      },
-      {
-        "question_text": "Quel algorithme est un hachage cryptographique couramment utilisé ?",
-        "choice_a": "AES",
-        "choice_b": "RSA",
-        "choice_c": "SHA-256",
-        "choice_d": "Base64",
-        "correct_choice": "C"
-      },
-      {
-        "question_text": "Qu'est-ce qu'une attaque par injection SQL exploite ?",
-        "choice_a": "Une faille dans le pare-feu",
-        "choice_b": "Une entrée utilisateur non filtrée dans une requête SQL",
-        "choice_c": "Un certificat expiré",
-        "choice_d": "Un port ouvert",
-        "correct_choice": "B"
-      },
-      {
-        "question_text": "Que fait le protocole HTTPS en plus de HTTP ?",
-        "choice_a": "Compresse les données",
-        "choice_b": "Chiffre la communication via TLS/SSL",
-        "choice_c": "Accélère le chargement",
-        "choice_d": "Bloque les cookies",
-        "correct_choice": "B"
-      },
-      {
-        "question_text": "Qu'est-ce que le principe du moindre privilège ?",
-        "choice_a": "Donner tous les droits par défaut",
-        "choice_b": "Donner uniquement les droits nécessaires à une tâche",
-        "choice_c": "Chiffrer tous les mots de passe",
-        "choice_d": "Interdire tout accès distant",
-        "correct_choice": "B"
-      }
-    ]
-  },
-  {
-    "name": "Systèmes & Linux",
+    "name": "Systèmes & Hardware",
     "color": "amber",
     "questions": [
       {
-        "question_text": "Quelle commande affiche l'espace disque utilisé par les systèmes de fichiers ?",
-        "choice_a": "top",
-        "choice_b": "ps aux",
-        "choice_c": "df -h",
-        "choice_d": "free -m",
-        "correct_choice": "C"
+        "question_text": "Qu'est-ce que le kernel (noyau) ?",
+        "choice_a": "C'est l'interface graphique du système d'exploitation",
+        "choice_b": "C'est un type de processeur",
+        "choice_c": "Le cœur du système d'exploitation : il fait l'interface entre le matériel (via les drivers) et les logiciels",
+        "choice_d": "C'est le nom donné au BIOS",
+        "correct_choice": "C",
+        "explanation": "Le noyau gère la mémoire, les processus, les périphériques et les appels système : c'est la couche logicielle la plus proche du matériel, sur laquelle repose tout le reste du système."
       },
       {
-        "question_text": "Quelle commande change les permissions d'un fichier ?",
-        "choice_a": "chmod",
-        "choice_b": "chown",
-        "choice_c": "chgrp",
-        "choice_d": "chattr",
-        "correct_choice": "A"
+        "question_text": "Quelle est la différence entre la RAM et la ROM ?",
+        "choice_a": "La RAM est non volatile, la ROM est volatile",
+        "choice_b": "RAM et ROM sont deux noms pour la même mémoire",
+        "choice_c": "La RAM (Random Access Memory) est volatile et stocke temporairement les données ; la ROM (Read Only Memory) est non volatile et stocke des instructions de façon permanente",
+        "choice_d": "La ROM est plus rapide que la RAM et sert de cache",
+        "correct_choice": "C",
+        "explanation": "La RAM perd son contenu à l'extinction (volatile) et sert de mémoire de travail rapide ; la ROM conserve ses données même hors tension et sert typiquement à stocker le firmware/BIOS."
       },
       {
-        "question_text": "Quel fichier contient la liste des utilisateurs sous Linux ?",
-        "choice_a": "/etc/passwd",
-        "choice_b": "/etc/hosts",
-        "choice_c": "/etc/fstab",
-        "choice_d": "/etc/shadow",
-        "correct_choice": "A"
+        "question_text": "En C, dans quel cas utiliser une linked list plutôt qu'un tableau ?",
+        "choice_a": "Quand on a besoin d'un accès aléatoire rapide (O(1)) aux éléments",
+        "choice_b": "Quand la taille des données est inconnue à l'avance ou change souvent, car l'insertion/suppression ne nécessite pas de réallocation globale",
+        "choice_c": "Quand la mémoire disponible est très limitée",
+        "choice_d": "Une linked list est toujours plus rapide qu'un tableau, dans tous les cas",
+        "correct_choice": "B",
+        "explanation": "Un tableau nécessite un bloc mémoire contigu (réallocation coûteuse si la taille change) ; une linked list alloue chaque élément séparément, ce qui rend l'insertion/suppression très rapide mais l'accès à un élément par index plus lent (O(n))."
       },
       {
-        "question_text": "Que fait la commande grep ?",
-        "choice_a": "Compresse des fichiers",
-        "choice_b": "Recherche du texte dans des fichiers",
-        "choice_c": "Copie des fichiers",
-        "choice_d": "Change les permissions",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce que le sticky bit ?",
+        "choice_a": "Un bit qui rend un fichier exécutable en permanence",
+        "choice_b": "Un bit de permission posé sur un répertoire qui empêche un utilisateur de supprimer ou renommer un fichier dont il n'est pas propriétaire",
+        "choice_c": "Un bit qui empêche toute lecture du fichier",
+        "choice_d": "Un bit qui verrouille un fichier en lecture seule pour tous les utilisateurs",
+        "correct_choice": "B",
+        "explanation": "Typiquement posé sur /tmp, le sticky bit permet à tout le monde d'écrire dans un répertoire partagé tout en empêchant les utilisateurs de supprimer les fichiers des autres."
       },
       {
-        "question_text": "Quel signal est envoyé par défaut par la commande kill ?",
-        "choice_a": "SIGKILL",
-        "choice_b": "SIGSTOP",
-        "choice_c": "SIGTERM",
-        "choice_d": "SIGINT",
-        "correct_choice": "C"
+        "question_text": "Qu'est-ce que le swap ?",
+        "choice_a": "Une copie de sauvegarde automatique du disque dur",
+        "choice_b": "Un cache du processeur",
+        "choice_c": "Un espace disque utilisé comme extension de la RAM : quand la mémoire vive est pleine (ou en veille), les données y sont déplacées",
+        "choice_d": "Un protocole d'échange réseau entre deux machines",
+        "correct_choice": "C",
+        "explanation": "Quand la RAM est saturée, le système déplace les pages mémoire les moins utilisées vers le disque (swap) pour libérer de la place, au prix d'un accès beaucoup plus lent."
       }
     ]
   },
   {
-    "name": "Bases de données",
-    "color": "teal",
-    "questions": [
-      {
-        "question_text": "Que signifie ACID en base de données ?",
-        "choice_a": "Atomicity, Consistency, Isolation, Durability",
-        "choice_b": "Access, Control, Index, Data",
-        "choice_c": "Advanced Cache Indexing Database",
-        "choice_d": "Automated Consistent Integrity Design",
-        "correct_choice": "A"
-      },
-      {
-        "question_text": "Quel type de jointure retourne uniquement les lignes correspondantes dans les deux tables ?",
-        "choice_a": "LEFT JOIN",
-        "choice_b": "RIGHT JOIN",
-        "choice_c": "INNER JOIN",
-        "choice_d": "FULL OUTER JOIN",
-        "correct_choice": "C"
-      },
-      {
-        "question_text": "Quelle commande SQL sert à supprimer une table entière ?",
-        "choice_a": "DELETE",
-        "choice_b": "DROP TABLE",
-        "choice_c": "TRUNCATE",
-        "choice_d": "REMOVE",
-        "correct_choice": "B"
-      },
-      {
-        "question_text": "Qu'est-ce qu'une clé étrangère (foreign key) ?",
-        "choice_a": "Une clé qui identifie de façon unique une ligne",
-        "choice_b": "Une référence vers la clé primaire d'une autre table",
-        "choice_c": "Un index sur une colonne",
-        "choice_d": "Un mot de passe chiffré",
-        "correct_choice": "B"
-      },
-      {
-        "question_text": "Quel type de base de données est SQLite ?",
-        "choice_a": "NoSQL orientée document",
-        "choice_b": "Relationnelle embarquée",
-        "choice_c": "Graphe",
-        "choice_d": "Clé-valeur distribuée",
-        "correct_choice": "B"
-      }
-    ]
-  },
-  {
-    "name": "Langages de programmation",
-    "color": "indigo",
-    "questions": [
-      {
-        "question_text": "En JavaScript, que retourne typeof null ?",
-        "choice_a": "'null'",
-        "choice_b": "'undefined'",
-        "choice_c": "'object'",
-        "choice_d": "'number'",
-        "correct_choice": "C"
-      },
-      {
-        "question_text": "En Python, quelle structure est immuable ?",
-        "choice_a": "list",
-        "choice_b": "dict",
-        "choice_c": "set",
-        "choice_d": "tuple",
-        "correct_choice": "D"
-      },
-      {
-        "question_text": "Quel mot-clé déclare une constante en JavaScript (ES6+) ?",
-        "choice_a": "var",
-        "choice_b": "let",
-        "choice_c": "const",
-        "choice_d": "static",
-        "correct_choice": "C"
-      },
-      {
-        "question_text": "En Python, que fait l'opérateur // ?",
-        "choice_a": "Division flottante",
-        "choice_b": "Division entière",
-        "choice_c": "Modulo",
-        "choice_d": "Commentaire",
-        "correct_choice": "B"
-      },
-      {
-        "question_text": "Quel paradigme met l'accent sur les fonctions pures et l'immutabilité ?",
-        "choice_a": "Programmation orientée objet",
-        "choice_b": "Programmation fonctionnelle",
-        "choice_c": "Programmation procédurale",
-        "choice_d": "Programmation événementielle",
-        "correct_choice": "B"
-      }
-    ]
-  },
-  {
-    "name": "Web",
+    "name": "Web & Cloud",
     "color": "cyan",
     "questions": [
       {
-        "question_text": "Que signifie CSS ?",
-        "choice_a": "Computer Style Sheets",
-        "choice_b": "Cascading Style Sheets",
-        "choice_c": "Creative Style System",
-        "choice_d": "Content Styling Service",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce qu'un proxy (direct) ?",
+        "choice_a": "Un serveur qui redirige les requêtes entrantes vers plusieurs serveurs backend",
+        "choice_b": "Un serveur intermédiaire entre un client et Internet qui relaie les requêtes à sa place, masquant ainsi l'IP du client",
+        "choice_c": "Un certificat qui chiffre la connexion HTTPS",
+        "choice_d": "Une base de données de mise en cache DNS",
+        "correct_choice": "B",
+        "explanation": "Le proxy direct est utilisé côté client : c'est lui qui contacte le serveur distant à la place du client, qui reste donc invisible pour ce serveur."
       },
       {
-        "question_text": "Quelle balise HTML définit un lien hypertexte ?",
-        "choice_a": "<link>",
-        "choice_b": "<a>",
-        "choice_c": "<href>",
-        "choice_d": "<nav>",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce qu'un reverse proxy ?",
+        "choice_a": "Un serveur qui masque l'IP du client vers Internet",
+        "choice_b": "Un protocole de chiffrement pour HTTPS",
+        "choice_c": "Un serveur qui reçoit les requêtes des clients et les redirige vers le ou les bons serveurs backend (ex. Nginx, Apache)",
+        "choice_d": "Un outil de version control",
+        "correct_choice": "C",
+        "explanation": "Contrairement au proxy direct (côté client), le reverse proxy est placé côté serveur : les clients ne voient que lui, alors qu'il répartit en coulisses les requêtes vers différents backends."
       },
       {
-        "question_text": "Quel code de statut HTTP indique \"Non trouvé\" ?",
-        "choice_a": "200",
-        "choice_b": "301",
-        "choice_c": "404",
-        "choice_d": "500",
-        "correct_choice": "C"
+        "question_text": "Qu'est-ce qu'un certificat SSL/TLS ?",
+        "choice_a": "Un fichier de configuration du serveur web uniquement",
+        "choice_b": "Une clé privée partagée publiquement",
+        "choice_c": "Un protocole de compression des données HTTP",
+        "choice_d": "Un certificat électronique qui authentifie l'identité d'un site web et permet de chiffrer la connexion (nom de domaine, clé publique, émetteur, signature numérique)",
+        "correct_choice": "D",
+        "explanation": "Délivré par une autorité de certification, il permet au navigateur de vérifier qu'il parle bien au bon serveur (authentification) tout en chiffrant les échanges (confidentialité)."
       },
       {
-        "question_text": "Qu'est-ce que le DOM ?",
-        "choice_a": "Un langage de programmation",
-        "choice_b": "Une représentation en arbre du document HTML",
-        "choice_c": "Un protocole réseau",
-        "choice_d": "Un format d'image",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce que Kubernetes (k8s) ?",
+        "choice_a": "Un langage de programmation pour le cloud",
+        "choice_b": "Une plateforme pour déployer, gérer, scaler et superviser des applications conteneurisées",
+        "choice_c": "Un simple gestionnaire de paquets pour Docker",
+        "choice_d": "Une base de données NoSQL distribuée",
+        "correct_choice": "B",
+        "explanation": "k8s (« k-8 lettres-s ») automatise le déploiement de conteneurs sur un cluster de machines : il redémarre les conteneurs plantés, répartit la charge et peut ajuster automatiquement le nombre de répliques."
       },
       {
-        "question_text": "Quelle méthode HTTP est conventionnellement utilisée pour récupérer des données sans effet de bord ?",
-        "choice_a": "POST",
-        "choice_b": "GET",
-        "choice_c": "PATCH",
-        "choice_d": "DELETE",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce que Docker Swarm ?",
+        "choice_a": "Un antivirus pour conteneurs Docker",
+        "choice_b": "Un registre d'images Docker officiel",
+        "choice_c": "Un outil d'orchestration de conteneurs intégré à Docker, avec un fonctionnement similaire (mais plus simple) que Kubernetes",
+        "choice_d": "Un langage de script propre à Docker",
+        "correct_choice": "C",
+        "explanation": "Swarm est le mode natif d'orchestration multi-hôtes de Docker : plus simple à mettre en place que Kubernetes, mais moins riche en fonctionnalités avancées."
+      },
+      {
+        "question_text": "Qu'est-ce que le serverless ?",
+        "choice_a": "Un hébergement où l'on gère soi-même le serveur physique",
+        "choice_b": "Exécuter du code (fonctions) sur le cloud sans gérer de serveur soi-même ; le fournisseur cloud déploie, exécute et scale automatiquement (ex. Cloudflare Workers, AWS, Vercel)",
+        "choice_c": "Une architecture sans base de données",
+        "choice_d": "Un site statique sans aucun backend possible",
+        "correct_choice": "B",
+        "explanation": "« Serverless » ne veut pas dire qu'il n'y a pas de serveur, mais que le développeur n'a plus à le gérer : le fournisseur cloud s'occupe de l'infrastructure, du scaling et de la facturation à l'usage."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un VPS (Virtual Private Server) ?",
+        "choice_a": "Un serveur physique dédié entièrement à un seul client",
+        "choice_b": "Un service d'hébergement sans aucune virtualisation",
+        "choice_c": "Une machine virtuelle hébergée sur un serveur physique (ex. OVH, AWS), sans scalabilité automatique contrairement au cloud serverless ou k8s",
+        "choice_d": "Une fonction serverless hébergée chez un cloud provider",
+        "correct_choice": "C",
+        "explanation": "Un hyperviseur découpe un serveur physique en plusieurs machines virtuelles indépendantes ; chaque VPS a des ressources fixes (CPU/RAM) allouées, sans scaling automatique."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Bare Metal Server ?",
+        "choice_a": "Une machine virtuelle partagée entre plusieurs clients",
+        "choice_b": "Un serveur physique dédié à un seul client, sans virtualisation, avec un accès direct au matériel (ex. OVH, Hetzner)",
+        "choice_c": "Un service serverless sans matériel dédié",
+        "choice_d": "Un cluster Kubernetes managé",
+        "correct_choice": "B",
+        "explanation": "Sans couche de virtualisation, toute la puissance du serveur est disponible pour un seul client, ce qui offre de meilleures performances brutes mais moins de flexibilité qu'un VPS."
+      },
+      {
+        "question_text": "Qu'est-ce qu'Amazon ECS (Elastic Container Service) ?",
+        "choice_a": "Un service Kubernetes open source concurrent d'AWS",
+        "choice_b": "Un outil de CI/CD indépendant du cloud",
+        "choice_c": "Un service AWS pour déployer, gérer et scaler des conteneurs Docker ; contrairement à k8s, il n'est pas open source mais plus simple à utiliser dans l'écosystème AWS",
+        "choice_d": "Une base de données relationnelle managée par AWS",
+        "correct_choice": "C",
+        "explanation": "ECS s'intègre nativement avec les autres services AWS (IAM, ELB, CloudWatch...), ce qui simplifie son usage pour qui reste dans l'écosystème AWS, au prix d'un fort vendor lock-in."
+      },
+      {
+        "question_text": "Qu'est-ce que l'authentification déléguée ?",
+        "choice_a": "Un système où chaque service a son propre mot de passe indépendant",
+        "choice_b": "Permet à un utilisateur de s'authentifier via un service tiers (Google, Facebook, GitHub...) sans que l'application gère elle-même les mots de passe",
+        "choice_c": "Une authentification qui nécessite obligatoirement une clé physique (2FA hardware)",
+        "choice_d": "Un chiffrement des mots de passe côté client uniquement",
+        "correct_choice": "B",
+        "explanation": "L'application n'a plus besoin de stocker ni de sécuriser des mots de passe : elle délègue cette responsabilité (et la confiance associée) à un fournisseur d'identité tiers."
+      },
+      {
+        "question_text": "À quoi servent OpenID et OAuth ?",
+        "choice_a": "Des algorithmes de chiffrement symétrique",
+        "choice_b": "Des formats de fichiers de configuration serveur",
+        "choice_c": "Des protocoles de transfert de fichiers (comme FTP)",
+        "choice_d": "À vérifier l'identité d'un utilisateur et autoriser l'accès à des ressources de manière sécurisée, sans partager le mot de passe",
+        "correct_choice": "D",
+        "explanation": "OpenID Connect s'occupe de l'authentification (« qui es-tu ? ») tandis qu'OAuth 2.0 s'occupe de l'autorisation (« à quoi as-tu le droit d'accéder ? ») ; les deux sont souvent utilisés ensemble."
+      },
+      {
+        "question_text": "Quelle est la différence entre SQL et NoSQL (ex. MongoDB) ?",
+        "choice_a": "SQL et NoSQL sont deux noms pour le même type de base de données",
+        "choice_b": "NoSQL est un langage de requête utilisé uniquement avec MySQL",
+        "choice_c": "SQL désigne les bases de données relationnelles ; NoSQL désigne des bases non relationnelles adaptées aux données peu structurées",
+        "choice_d": "SQL ne peut pas être utilisé pour des relations entre tables",
+        "correct_choice": "C",
+        "explanation": "Les bases SQL imposent un schéma fixe et des relations entre tables (jointures) ; les bases NoSQL (document, clé-valeur, graphe...) offrent plus de flexibilité pour des données hétérogènes ou à très grande échelle."
+      },
+      {
+        "question_text": "Que signifie une transaction ACID ?",
+        "choice_a": "Authentification, Chiffrement, Intégrité, Disponibilité",
+        "choice_b": "Async, Cache, Index, Durabilité",
+        "choice_c": "Atomicité, Cohérence, Isolation, Durabilité — les 4 propriétés garantissant la fiabilité des transactions, généralement supportées par SQL",
+        "choice_d": "Atomicité, Compression, Isolation, Distribution",
+        "correct_choice": "C",
+        "explanation": "Ces 4 propriétés garantissent qu'une transaction s'exécute entièrement ou pas du tout (atomicité), respecte les contraintes (cohérence), n'interfère pas avec les autres transactions (isolation) et persiste même en cas de panne (durabilité)."
+      },
+      {
+        "question_text": "Qu'est-ce que le CSR (Client Side Rendering) ?",
+        "choice_a": "Le rendu se fait entièrement côté serveur avant l'envoi",
+        "choice_b": "Le rendu de la page se fait côté client (navigateur) via JS/TS, ce qui réduit la charge serveur",
+        "choice_c": "Il n'y a aucun rendu HTML, seulement des images",
+        "choice_d": "Le rendu se fait au moment de la compilation, avant le déploiement",
+        "correct_choice": "B",
+        "explanation": "Le serveur envoie une page HTML quasiment vide avec un gros bundle JavaScript ; c'est le navigateur qui construit ensuite le contenu, ce qui déplace la charge de calcul du serveur vers le client."
+      },
+      {
+        "question_text": "Qu'est-ce que le SSR (Server Side Rendering) ?",
+        "choice_a": "Le rendu se fait uniquement côté client via JavaScript",
+        "choice_b": "Aucun HTML n'est généré, seulement du JSON",
+        "choice_c": "Le serveur génère le HTML et l'envoie déjà construit au client : chargement initial plus rapide mais charge serveur plus élevée",
+        "choice_d": "Le rendu ne peut se faire qu'au moment du build, jamais à la requête",
+        "correct_choice": "C",
+        "explanation": "Le serveur exécute le rendu à chaque requête et renvoie du HTML déjà prêt à afficher, ce qui améliore le temps de premier affichage et le référencement, au prix d'une charge serveur plus importante."
+      },
+      {
+        "question_text": "Que signifie le SEO (Search Engine Optimization) ?",
+        "choice_a": "Un protocole de sécurité pour chiffrer les recherches utilisateur",
+        "choice_b": "Un langage de requête pour les moteurs de recherche",
+        "choice_c": "Une technique de compression des images web",
+        "choice_d": "Un ensemble de techniques pour améliorer la visibilité d'un site dans les moteurs de recherche (le SSR est généralement plus SEO-friendly que le CSR)",
+        "correct_choice": "D",
+        "explanation": "Le SEO regroupe des techniques (structure HTML sémantique, temps de chargement, contenu textuel accessible aux robots d'indexation...) qui influencent le classement d'une page dans les résultats de recherche."
+      },
+      {
+        "question_text": "Parmi ces technologies, laquelle est utilisée pour le développement mobile natif Android ?",
+        "choice_a": "Swift",
+        "choice_b": "Kotlin",
+        "choice_c": "Flutter",
+        "choice_d": "Objective-C",
+        "correct_choice": "B",
+        "explanation": "Kotlin est aujourd'hui le langage recommandé par Google pour le développement Android natif (Java restant supporté) ; Swift et Objective-C sont réservés à iOS, Flutter est multiplateforme."
+      },
+      {
+        "question_text": "Quelle est la différence entre un Dockerfile et Docker Compose ?",
+        "choice_a": "Ce sont deux noms pour le même fichier",
+        "choice_b": "Docker Compose sert à construire des images, Dockerfile à les exécuter",
+        "choice_c": "Un Dockerfile décrit comment construire une seule image Docker ; Docker Compose orchestre plusieurs conteneurs à partir d'un fichier YAML",
+        "choice_d": "Dockerfile ne fonctionne que sur Windows",
+        "correct_choice": "C",
+        "explanation": "Le Dockerfile définit la « recette » d'une seule image (étapes de build) ; Docker Compose décrit et orchestre un ensemble de services (plusieurs conteneurs, réseaux, volumes) qui doivent tourner ensemble."
+      },
+      {
+        "question_text": "Qu'est-ce que le scraping ?",
+        "choice_a": "Le chiffrement des données transmises par HTTPS",
+        "choice_b": "L'extraction automatisée de données depuis des pages web, souvent en parsant leur HTML",
+        "choice_c": "La compression des images d'un site web",
+        "choice_d": "Un type d'attaque par déni de service (DDoS)",
+        "correct_choice": "B",
+        "explanation": "Un script de scraping télécharge une page web puis en extrait les informations utiles en analysant sa structure HTML, souvent pour automatiser une collecte de données à grande échelle."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une PWA (Progressive Web App) ?",
+        "choice_a": "Un protocole de streaming vidéo",
+        "choice_b": "Un langage de programmation pour le web",
+        "choice_c": "Une application web qui offre une expérience proche d'une application native (installable, hors-ligne, notifications)",
+        "choice_d": "Une base de données orientée graphe",
+        "correct_choice": "C",
+        "explanation": "Grâce à un service worker et un manifeste, une PWA peut être installée sur l'écran d'accueil, fonctionner hors-ligne et envoyer des notifications, tout en restant un simple site web."
       }
     ]
   },
   {
-    "name": "DevOps & Cloud",
+    "name": "Programmation Orientée Objet (C++)",
+    "color": "indigo",
+    "questions": [
+      {
+        "question_text": "Que fait le mot-clé \"explicit\" en C++ ?",
+        "choice_a": "Il rend une méthode obligatoirement virtuelle",
+        "choice_b": "Il empêche les conversions implicites via un constructeur à un seul argument",
+        "choice_c": "Il force l'inlining d'une fonction",
+        "choice_d": "Il rend une variable constante",
+        "correct_choice": "B",
+        "explanation": "Sans explicit, un constructeur à un seul argument peut être utilisé implicitement pour convertir un type en un autre (ex. passer un int là où une classe est attendue), ce qui peut créer des bugs subtils."
+      },
+      {
+        "question_text": "Que signifie RAII en C++ ?",
+        "choice_a": "Un design pattern de création d'objets à la volée",
+        "choice_b": "Une technique de compilation à la volée (JIT)",
+        "choice_c": "Resource Acquisition Is Initialization : l'acquisition d'une ressource est liée à la durée de vie d'un objet, libérée automatiquement dans son destructeur",
+        "choice_d": "Un algorithme de tri utilisé en C++",
+        "correct_choice": "C",
+        "explanation": "En liant la libération d'une ressource au destructeur d'un objet (appelé automatiquement à la fin de sa portée), RAII garantit qu'aucune ressource n'est oubliée, même en cas d'exception."
+      },
+      {
+        "question_text": "Qu'est-ce que le CRTP (Curiously Recurring Template Pattern) ?",
+        "choice_a": "Un pattern de gestion d'exceptions récursives",
+        "choice_b": "Une classe hérite d'un template dont elle est elle-même le paramètre, permettant du polymorphisme statique",
+        "choice_c": "Un type de boucle récursive optimisée par le compilateur",
+        "choice_d": "Une méthode de copie profonde (deep copy) automatique",
+        "correct_choice": "B",
+        "explanation": "En héritant de Base<Derived>, la classe de base peut appeler des méthodes de Derived à la compilation (via static_cast<Derived*>(this)), évitant le coût d'un appel virtuel à l'exécution."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une classe dite \"mixin\" ?",
+        "choice_a": "Une classe qui ne peut jamais être héritée (final)",
+        "choice_b": "Une classe abstraite pure sans aucune implémentation",
+        "choice_c": "Une classe conçue pour être combinée avec d'autres via héritage multiple, afin d'ajouter des fonctionnalités réutilisables",
+        "choice_d": "Un synonyme de classe singleton",
+        "correct_choice": "C",
+        "explanation": "Une mixin n'est généralement pas utilisée seule : elle est combinée par héritage à une classe « principale » pour lui apporter une fonctionnalité transversale (ex. sérialisation, logging) sans dupliquer de code."
+      },
+      {
+        "question_text": "À quoi sert le mot-clé friend en C++ ?",
+        "choice_a": "Il rend une méthode accessible uniquement depuis l'extérieur de la classe",
+        "choice_b": "Il empêche l'héritage d'une classe",
+        "choice_c": "Il déclare une méthode virtuelle pure",
+        "choice_d": "Il donne à une fonction ou une classe externe l'accès aux membres privés et protégés de la classe qui la déclare friend",
+        "correct_choice": "D",
+        "explanation": "friend brise volontairement l'encapsulation pour un cas précis (souvent des opérateurs surchargés ou des classes étroitement liées), tout en gardant les membres privés pour le reste du monde."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un itérateur (Iterator) en C++ ?",
+        "choice_a": "Une fonction qui trie automatiquement une collection",
+        "choice_b": "Un objet qui se comporte comme un pointeur pour parcourir les éléments d'une collection (vector, list, array...)",
+        "choice_c": "Une classe qui alloue dynamiquement de la mémoire",
+        "choice_d": "Un type de boucle spécifique à C++ absent des autres langages",
+        "correct_choice": "B",
+        "explanation": "Les itérateurs offrent une interface commune (++, *, ==...) pour parcourir n'importe quel conteneur de la STL, permettant d'écrire des algorithmes génériques indépendants du type de collection."
+      },
+      {
+        "question_text": "À quoi sert le mot-clé inline en C++ ?",
+        "choice_a": "Force la fonction à s'exécuter dans un thread séparé",
+        "choice_b": "Rend la fonction accessible depuis n'importe quel fichier sans déclaration",
+        "choice_c": "Suggère au compilateur d'insérer directement le corps de la fonction à chaque appel, pour réduire l'overhead d'un appel de fonction",
+        "choice_d": "Empêche la fonction d'être récursive",
+        "correct_choice": "C",
+        "explanation": "Historiquement pensé pour éviter le coût d'un appel de fonction sur de petites fonctions, inline sert surtout aujourd'hui à autoriser une même définition dans plusieurs fichiers sans erreur de l'éditeur de liens."
+      }
+    ]
+  },
+  {
+    "name": "IA - Fondamentaux",
+    "color": "rose",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que l'IA faible (Narrow AI) ?",
+        "choice_a": "Une IA capable de raisonner sur n'importe quel sujet comme un humain",
+        "choice_b": "Une IA spécialisée dans une tâche précise (ex. chatbots, reconnaissance d'images, voitures autonomes)",
+        "choice_c": "Une IA qui n'existe que dans la science-fiction",
+        "choice_d": "Une IA qui apprend sans aucune donnée",
+        "correct_choice": "B",
+        "explanation": "C'est le type d'IA le plus répandu aujourd'hui : chaque système est excellent sur sa tâche mais incapable de sortir de son domaine d'entraînement."
+      },
+      {
+        "question_text": "Qu'est-ce que l'IA forte (AGI, Artificial General Intelligence) ?",
+        "choice_a": "Une IA capable de battre n'importe quel humain aux échecs",
+        "choice_b": "Une IA dotée d'une intelligence générale comparable à celle d'un humain, capable de s'adapter à n'importe quelle tâche — un objectif pas encore atteint",
+        "choice_c": "Un synonyme d'IA générative",
+        "choice_d": "Une IA qui fonctionne uniquement hors-ligne",
+        "correct_choice": "B",
+        "explanation": "L'AGI reste un objectif de recherche : aucun système actuel ne possède une intelligence générale comparable à l'humain (le JARVIS d'Iron Man reste de la fiction)."
+      },
+      {
+        "question_text": "Qu'est-ce que l'IA générative ?",
+        "choice_a": "Une IA qui crée du nouveau contenu (texte, images, musique) — ex. DALL·E, MidJourney, GPT-4",
+        "choice_b": "Une IA qui ne fait que classer des données existantes",
+        "choice_c": "Une IA basée uniquement sur des règles logiques",
+        "choice_d": "Un synonyme d'IA forte",
+        "correct_choice": "A",
+        "explanation": "Contrairement aux modèles discriminatifs (qui classent), les modèles génératifs apprennent la distribution des données pour en produire de nouveaux exemples plausibles."
+      },
+      {
+        "question_text": "Qu'est-ce que l'IA symbolique ?",
+        "choice_a": "Une IA qui apprend uniquement par réseaux de neurones",
+        "choice_b": "Une IA basée sur des règles logiques explicites plutôt que sur l'apprentissage à partir de données (ex. systèmes experts, Prolog)",
+        "choice_c": "Une IA qui manipule uniquement des images",
+        "choice_d": "Une IA qui génère des symboles mathématiques",
+        "correct_choice": "B",
+        "explanation": "C'était l'approche dominante de l'IA avant l'essor du deep learning : le raisonnement est encodé à la main sous forme de règles, plutôt qu'appris à partir de données."
+      },
+      {
+        "question_text": "Qu'est-ce que l'IA hybride (neuro-symbolique) ?",
+        "choice_a": "Une IA qui alterne aléatoirement entre plusieurs modèles",
+        "choice_b": "La combinaison de l'IA symbolique (règles) et de l'apprentissage automatique (ex. AlphaFold de DeepMind)",
+        "choice_c": "Une IA qui fonctionne uniquement sur mobile",
+        "choice_d": "Un autre nom pour le deep learning",
+        "correct_choice": "B",
+        "explanation": "L'idée est de tirer parti à la fois de la capacité d'apprentissage des réseaux de neurones et de la fiabilité/interprétabilité des règles symboliques."
+      },
+      {
+        "question_text": "Qu'est-ce que le Deep Learning ?",
+        "choice_a": "Un sous-domaine du Machine Learning utilisant des réseaux de neurones profonds pour modéliser des données complexes",
+        "choice_b": "Un synonyme strict de Machine Learning",
+        "choice_c": "Une technique de programmation symbolique",
+        "choice_d": "Un algorithme de tri de données",
+        "correct_choice": "A",
+        "explanation": "Le deep learning est un sous-ensemble du machine learning, qui est lui-même un sous-ensemble de l'IA : DL ⊂ ML ⊂ IA."
+      }
+    ]
+  },
+  {
+    "name": "Deep Learning - Architectures",
+    "color": "emerald",
+    "questions": [
+      {
+        "question_text": "À quoi servent les CNN (Convolutional Neural Networks) ?",
+        "choice_a": "Au traitement de données séquentielles comme le texte",
+        "choice_b": "Au traitement d'images : classification, détection d'objets",
+        "choice_c": "À l'apprentissage par renforcement",
+        "choice_d": "À la génération de nombres aléatoires",
+        "correct_choice": "B",
+        "explanation": "Les couches de convolution des CNN détectent des motifs visuels locaux (bords, textures) puis les combinent en motifs de plus en plus complexes."
+      },
+      {
+        "question_text": "À quoi servent les RNN (Recurrent Neural Networks) ?",
+        "choice_a": "Au traitement de données séquentielles (texte, audio) comme la traduction automatique",
+        "choice_b": "Exclusivement à la classification d'images",
+        "choice_c": "À la compression d'images",
+        "choice_d": "Au clustering de données",
+        "correct_choice": "A",
+        "explanation": "Un RNN conserve un état interne (mémoire) qui se met à jour à chaque élément de la séquence, ce qui lui permet de tenir compte du contexte passé."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un LSTM (Long Short-Term Memory) ?",
+        "choice_a": "Un type de CNN optimisé pour les images haute résolution",
+        "choice_b": "Un RNN doté d'une mémoire à long terme, utile pour la prédiction de séries temporelles",
+        "choice_c": "Un algorithme de compression sans perte",
+        "choice_d": "Un modèle génératif basé sur la diffusion",
+        "correct_choice": "B",
+        "explanation": "Les LSTM ajoutent des portes (gates) qui contrôlent explicitement ce qui est mémorisé ou oublié, réglant le problème du gradient qui s'évanouit dans les RNN classiques."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un GRU (Gated Recurrent Unit) ?",
+        "choice_a": "Une variante simplifiée du LSTM, utilisée notamment pour le traitement du langage",
+        "choice_b": "Un modèle de génération d'images",
+        "choice_c": "Un algorithme de renforcement",
+        "choice_d": "Un type de CNN pour la segmentation",
+        "correct_choice": "A",
+        "explanation": "Le GRU fusionne certaines portes du LSTM pour réduire le nombre de paramètres, ce qui le rend plus rapide à entraîner tout en gardant des performances comparables."
+      },
+      {
+        "question_text": "Sur quel mécanisme reposent les Transformers (BERT, ViT...) ?",
+        "choice_a": "Sur la récurrence temporelle comme les RNN",
+        "choice_b": "Sur les mécanismes d'attention, qui permettent au modèle de pondérer l'importance de chaque partie des données",
+        "choice_c": "Sur des règles logiques explicites",
+        "choice_d": "Sur la compression de données",
+        "correct_choice": "B",
+        "explanation": "L'attention permet à chaque élément d'une séquence de « regarder » directement tous les autres éléments, sans passer par une chaîne récurrente — ce qui se parallélise bien mieux qu'un RNN."
+      },
+      {
+        "question_text": "Comment fonctionne un GAN (Generative Adversarial Network) ?",
+        "choice_a": "Deux réseaux — un générateur et un discriminateur — s'affrontent : le générateur crée des données, le discriminateur essaie de détecter les faux",
+        "choice_b": "Un seul réseau qui compresse puis décompresse les données",
+        "choice_c": "Un réseau qui classe les images par catégorie",
+        "choice_d": "Un algorithme de recherche d'hyperparamètres",
+        "correct_choice": "A",
+        "explanation": "Ce jeu à somme nulle pousse le générateur à produire des données de plus en plus réalistes, jusqu'à ce que le discriminateur ne parvienne plus à les distinguer des vraies."
+      },
+      {
+        "question_text": "À quoi sert un Autoencoder ?",
+        "choice_a": "À générer du texte à partir d'images",
+        "choice_b": "À compresser puis décompresser des données, utile pour la réduction de dimension ou le débruitage",
+        "choice_c": "À jouer à des jeux vidéo par renforcement",
+        "choice_d": "À traduire automatiquement du texte",
+        "correct_choice": "B",
+        "explanation": "L'autoencoder apprend une représentation compressée (goulot d'étranglement) des données, puis la reconstruit — la qualité de la reconstruction force le modèle à ne garder que l'information essentielle."
+      },
+      {
+        "question_text": "Comment fonctionnent les modèles de diffusion (Diffusion Models, ex. Stable Diffusion) ?",
+        "choice_a": "Ils combinent deux réseaux adverses comme les GANs",
+        "choice_b": "Ils génèrent des images ultra-réalistes en inversant progressivement un processus de bruitage",
+        "choice_c": "Ils utilisent uniquement des règles symboliques",
+        "choice_d": "Ils sont une variante des LSTM",
+        "correct_choice": "B",
+        "explanation": "Le modèle apprend à débruiter une image étape par étape ; en partant de bruit pur et en répétant ce débruitage, il finit par générer une image complète et cohérente."
+      }
+    ]
+  },
+  {
+    "name": "Machine Learning - Concepts",
     "color": "orange",
     "questions": [
       {
-        "question_text": "Que permet Docker de faire ?",
-        "choice_a": "Gérer des bases de données",
-        "choice_b": "Conteneuriser des applications",
-        "choice_c": "Compiler du code",
-        "choice_d": "Héberger des sites statiques uniquement",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce que l'apprentissage supervisé (Supervised Learning) ?",
+        "choice_a": "Apprentissage à partir de données labellisées (ex. classification chat vs chien)",
+        "choice_b": "Apprentissage sans aucune donnée",
+        "choice_c": "Apprentissage par récompenses et pénalités",
+        "choice_d": "Apprentissage sans labels, par découverte de patterns",
+        "correct_choice": "A",
+        "explanation": "Le modèle apprend en comparant ses prédictions à la « bonne réponse » fournie pour chaque exemple d'entraînement."
       },
       {
-        "question_text": "Que signifie CI/CD ?",
-        "choice_a": "Continuous Integration / Continuous Deployment",
-        "choice_b": "Code Inspection / Code Delivery",
-        "choice_c": "Cloud Infrastructure / Cloud Deployment",
-        "choice_d": "Container Image / Container Data",
-        "correct_choice": "A"
+        "question_text": "Qu'est-ce que l'apprentissage non supervisé (Unsupervised Learning) ?",
+        "choice_a": "Apprentissage avec des données entièrement labellisées",
+        "choice_b": "Apprentissage sans labels, pour découvrir des patterns (ex. clustering K-Means, PCA)",
+        "choice_c": "Apprentissage par essais/erreurs",
+        "choice_d": "Apprentissage avec très peu d'exemples",
+        "correct_choice": "B",
+        "explanation": "Sans labels à imiter, le modèle cherche lui-même une structure dans les données : regrouper des points similaires (clustering) ou réduire leur dimension (PCA)."
       },
       {
-        "question_text": "Quel outil est utilisé pour l'orchestration de conteneurs à grande échelle ?",
-        "choice_a": "Docker Compose",
-        "choice_b": "Kubernetes",
-        "choice_c": "Git",
-        "choice_d": "Nginx",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce que l'apprentissage semi-supervisé (Semi-Supervised Learning) ?",
+        "choice_a": "Un mélange de données labellisées et non labellisées",
+        "choice_b": "Un apprentissage entièrement sans données",
+        "choice_c": "Un synonyme du zero-shot learning",
+        "choice_d": "Un apprentissage uniquement par renforcement",
+        "correct_choice": "A",
+        "explanation": "Utile quand labelliser des données coûte cher : un petit nombre d'exemples labellisés guide l'apprentissage sur un plus grand volume de données non labellisées."
       },
       {
-        "question_text": "Qu'est-ce qu'un reverse proxy ?",
-        "choice_a": "Un serveur qui transmet les requêtes clients vers un ou plusieurs serveurs backend",
-        "choice_b": "Un pare-feu logiciel",
-        "choice_c": "Un système de cache navigateur",
-        "choice_d": "Un protocole de chiffrement",
-        "correct_choice": "A"
+        "question_text": "Qu'est-ce que l'apprentissage auto-supervisé (Self-Supervised Learning) ?",
+        "choice_a": "Un apprentissage qui nécessite un humain pour labelliser chaque exemple",
+        "choice_b": "Un apprentissage sans labels externes, via des tâches auxiliaires générées automatiquement (ex. BERT prédisant des mots masqués)",
+        "choice_c": "Un synonyme strict de l'apprentissage supervisé",
+        "choice_d": "Un apprentissage réservé aux images",
+        "correct_choice": "B",
+        "explanation": "Le modèle se crée ses propres labels à partir des données elles-mêmes (ex. cacher un mot et essayer de le deviner), sans intervention humaine."
       },
       {
-        "question_text": "Que signifie \"Infrastructure as Code\" ?",
-        "choice_a": "Écrire l'infrastructure sous forme de schémas",
-        "choice_b": "Gérer et provisionner l'infrastructure via des fichiers de configuration versionnés",
-        "choice_c": "Programmer directement sur les serveurs physiques",
-        "choice_d": "Automatiser uniquement les sauvegardes",
-        "correct_choice": "B"
+        "question_text": "Qu'est-ce que le Few-Shot Learning ?",
+        "choice_a": "Apprendre une tâche à partir d'un très grand nombre d'exemples",
+        "choice_b": "Apprendre une tâche à partir de très peu d'exemples (ex. GPT-3 avec 1-2 exemples)",
+        "choice_c": "Apprendre sans aucun exemple",
+        "choice_d": "Un synonyme de l'apprentissage non supervisé",
+        "correct_choice": "B",
+        "explanation": "Les grands modèles pré-entraînés peuvent souvent généraliser une nouvelle tâche à partir d'une poignée d'exemples fournis directement dans le prompt."
+      },
+      {
+        "question_text": "Qu'est-ce que le Zero-Shot Learning ?",
+        "choice_a": "La capacité d'un modèle à généraliser à une tâche sans avoir vu aucun exemple de cette tâche",
+        "choice_b": "Un apprentissage nécessitant au moins 1000 exemples",
+        "choice_c": "Un apprentissage uniquement par renforcement",
+        "choice_d": "Un synonyme de fine-tuning",
+        "correct_choice": "A",
+        "explanation": "Le modèle s'appuie sur des connaissances générales acquises ailleurs (ex. le sens des mots) pour réaliser une tâche qu'il n'a jamais explicitement vue pendant l'entraînement."
+      },
+      {
+        "question_text": "Qu'est-ce que l'overfitting (surapprentissage) ?",
+        "choice_a": "Un modèle qui n'apprend rien du tout",
+        "choice_b": "Un modèle trop adapté aux données d'entraînement, qui généralise mal à de nouvelles données (ex. 100% sur train, 50% sur test)",
+        "choice_c": "Un modèle qui s'entraîne trop lentement",
+        "choice_d": "Un modèle qui utilise trop peu de paramètres",
+        "correct_choice": "B",
+        "explanation": "Le modèle a « appris par cœur » les exemples d'entraînement (y compris leur bruit) au lieu d'apprendre des règles générales."
+      },
+      {
+        "question_text": "Qu'est-ce que l'underfitting (sous-apprentissage) ?",
+        "choice_a": "Un modèle trop simple pour capturer les patterns des données (ex. 60% sur train ET sur test)",
+        "choice_b": "Un modèle avec une précision de 100% sur l'entraînement",
+        "choice_c": "Un synonyme d'overfitting",
+        "choice_d": "Un modèle qui a trop de paramètres",
+        "correct_choice": "A",
+        "explanation": "Contrairement à l'overfitting, les performances sont mauvaises à la fois sur les données d'entraînement et de test : le modèle n'a pas assez de capacité ou n'a pas assez appris."
+      },
+      {
+        "question_text": "Qu'est-ce que le compromis biais-variance (Bias-Variance Tradeoff) ?",
+        "choice_a": "Le compromis entre la vitesse d'entraînement et la précision",
+        "choice_b": "Le compromis entre un modèle trop simple (sous-apprentissage) et un modèle trop complexe (surapprentissage)",
+        "choice_c": "Le compromis entre la taille du dataset et le nombre de labels",
+        "choice_d": "Un concept propre au reinforcement learning uniquement",
+        "correct_choice": "B",
+        "explanation": "Un modèle simple a un biais élevé (underfitting) ; un modèle très complexe a une variance élevée (overfitting) — le bon modèle trouve l'équilibre entre les deux."
+      },
+      {
+        "question_text": "À quoi sert la validation croisée (Cross-Validation, ex. k-fold) ?",
+        "choice_a": "À augmenter artificiellement la taille du dataset",
+        "choice_b": "À évaluer la robustesse d'un modèle en le testant sur plusieurs découpages différents des données",
+        "choice_c": "À réduire la taille d'un modèle pour le déploiement",
+        "choice_d": "À générer des données synthétiques",
+        "correct_choice": "B",
+        "explanation": "En faisant tourner l'entraînement/test sur plusieurs découpages (folds), on obtient une estimation de performance plus fiable qu'avec un seul split train/test."
+      },
+      {
+        "question_text": "Qu'est-ce que le réglage des hyperparamètres (Hyperparameter Tuning) ?",
+        "choice_a": "L'apprentissage automatique des poids du réseau de neurones",
+        "choice_b": "L'optimisation des paramètres non appris par le modèle (ex. learning rate, batch size), souvent via des outils comme Optuna ou Ray Tune",
+        "choice_c": "La suppression des neurones inutiles",
+        "choice_d": "La réduction de la précision numérique des poids",
+        "correct_choice": "B",
+        "explanation": "Contrairement aux poids du modèle (appris pendant l'entraînement), les hyperparamètres sont fixés avant l'entraînement et doivent être choisis/optimisés séparément."
+      },
+      {
+        "question_text": "Que sont les techniques de régularisation (Regularization) ?",
+        "choice_a": "Des techniques pour accélérer l'entraînement",
+        "choice_b": "Des techniques (L1/L2, Dropout, Early Stopping...) pour réduire l'overfitting et améliorer la généralisation",
+        "choice_c": "Des techniques pour augmenter la taille du dataset",
+        "choice_d": "Des techniques de compression des modèles",
+        "correct_choice": "B",
+        "explanation": "Ces techniques pénalisent la complexité excessive du modèle (poids trop grands, dépendance excessive à certains neurones) pour l'empêcher de mémoriser le bruit des données."
+      },
+      {
+        "question_text": "Qu'est-ce que le Transfer Learning ?",
+        "choice_a": "Réutiliser un modèle déjà pré-entraîné comme point de départ pour une nouvelle tâche (ex. fine-tuning de BERT)",
+        "choice_b": "Transférer des données d'un serveur à un autre",
+        "choice_c": "Entraîner un modèle uniquement à partir de zéro",
+        "choice_d": "Un algorithme de clustering",
+        "correct_choice": "A",
+        "explanation": "Plutôt que repartir de zéro, on réutilise les connaissances déjà apprises par un modèle sur une grande quantité de données, ce qui réduit fortement le besoin de données et de calcul."
+      },
+      {
+        "question_text": "À quoi sert le Data Augmentation ?",
+        "choice_a": "À réduire la taille du modèle",
+        "choice_b": "À augmenter artificiellement la diversité d'un dataset (rotations, flous, bruit...) pour améliorer la robustesse du modèle",
+        "choice_c": "À accélérer l'inférence en production",
+        "choice_d": "À labelliser automatiquement des données",
+        "correct_choice": "B",
+        "explanation": "En générant des variantes plausibles des données existantes, le modèle voit plus de cas de figure et généralise mieux à des situations nouvelles."
+      },
+      {
+        "question_text": "Qu'est-ce que la quantization d'un modèle ?",
+        "choice_a": "Réduire la précision numérique des poids (ex. float32 → int8) pour accélérer l'inférence",
+        "choice_b": "Ajouter des couches supplémentaires au modèle",
+        "choice_c": "Augmenter la taille du dataset d'entraînement",
+        "choice_d": "Une technique de génération d'images",
+        "correct_choice": "A",
+        "explanation": "En utilisant des nombres moins précis pour représenter les poids, on réduit la taille du modèle et on accélère les calculs, avec une perte de précision généralement faible."
+      },
+      {
+        "question_text": "Qu'est-ce que le pruning (élagage) d'un modèle ?",
+        "choice_a": "Une technique pour générer plus de données d'entraînement",
+        "choice_b": "La suppression des neurones/connexions les moins utiles pour réduire la taille du modèle",
+        "choice_c": "L'ajout de bruit aux données",
+        "choice_d": "Un synonyme de quantization",
+        "correct_choice": "B",
+        "explanation": "De nombreux réseaux de neurones sont surdimensionnés : le pruning identifie et retire les poids qui contribuent le moins aux prédictions, sans trop dégrader la précision."
+      }
+    ]
+  },
+  {
+    "name": "Reinforcement Learning",
+    "color": "teal",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que l'apprentissage par renforcement (Reinforcement Learning) ?",
+        "choice_a": "Un apprentissage à partir de données labellisées",
+        "choice_b": "Un apprentissage par interaction avec un environnement, où l'agent maximise une récompense au fil d'essais/erreurs",
+        "choice_c": "Un apprentissage sans aucune donnée ni interaction",
+        "choice_d": "Un synonyme d'apprentissage supervisé",
+        "correct_choice": "B",
+        "explanation": "Il n'y a pas de « bonne réponse » fournie à l'avance : l'agent découvre par lui-même quelles actions maximisent sa récompense cumulée au fil du temps."
+      },
+      {
+        "question_text": "Qu'est-ce que le Q-Learning ?",
+        "choice_a": "Un algorithme de RL basé sur l'apprentissage de la valeur de chaque action possible dans chaque état",
+        "choice_b": "Un algorithme de classification d'images",
+        "choice_c": "Une technique de compression de modèles",
+        "choice_d": "Un algorithme de NLP",
+        "correct_choice": "A",
+        "explanation": "La « Q-valeur » estime la récompense future attendue si l'agent choisit une action donnée dans un état donné ; l'agent choisit alors l'action à la Q-valeur la plus élevée."
+      },
+      {
+        "question_text": "Qu'est-ce que le Policy Gradient ?",
+        "choice_a": "Une méthode de RL qui apprend directement une politique (stratégie d'action) plutôt que des valeurs",
+        "choice_b": "Un algorithme de clustering",
+        "choice_c": "Une technique de data augmentation",
+        "choice_d": "Un synonyme de Q-Learning",
+        "correct_choice": "A",
+        "explanation": "Plutôt que d'estimer la valeur de chaque action puis d'en déduire une stratégie, le policy gradient ajuste directement les paramètres de la politique pour maximiser la récompense attendue."
+      },
+      {
+        "question_text": "Qu'est-ce que PPO (Proximal Policy Optimization) ?",
+        "choice_a": "Un algorithme de compression d'images",
+        "choice_b": "Une variante stable et largement utilisée des méthodes policy gradient",
+        "choice_c": "Un algorithme de NLP pour la traduction",
+        "choice_d": "Une technique de régularisation",
+        "correct_choice": "B",
+        "explanation": "PPO limite l'amplitude des mises à jour de la politique à chaque étape, ce qui rend l'entraînement beaucoup plus stable que les policy gradients classiques."
+      },
+      {
+        "question_text": "Qu'est-ce que DQN (Deep Q-Network) ?",
+        "choice_a": "Un réseau de neurones utilisé pour la génération d'images",
+        "choice_b": "Une combinaison du Q-Learning avec un réseau de neurones profond, popularisée sur les jeux Atari",
+        "choice_c": "Un algorithme de NLP",
+        "choice_d": "Une technique de segmentation d'image",
+        "correct_choice": "B",
+        "explanation": "DQN remplace la table de Q-valeurs (impossible à stocker pour des états complexes comme des pixels d'écran) par un réseau de neurones qui les approxime."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une architecture Actor-Critic en RL ?",
+        "choice_a": "Une combinaison entre l'apprentissage de politique (policy gradient) et l'apprentissage de valeur (value-based)",
+        "choice_b": "Un synonyme de DQN",
+        "choice_c": "Une technique de génération de texte",
+        "choice_d": "Un algorithme de clustering",
+        "correct_choice": "A",
+        "explanation": "L'« Actor » choisit les actions (politique) pendant que le « Critic » évalue si ces actions étaient bonnes (valeur), ce qui stabilise et accélère l'apprentissage par rapport au policy gradient seul."
+      }
+    ]
+  },
+  {
+    "name": "Computer Vision",
+    "color": "pink",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que l'Object Detection en vision par ordinateur ?",
+        "choice_a": "Classer une image entière dans une seule catégorie",
+        "choice_b": "Détecter ET localiser des objets dans une image (ex. détection de visages, de voitures, de logos)",
+        "choice_c": "Générer une nouvelle image à partir de texte",
+        "choice_d": "Compresser une image",
+        "correct_choice": "B",
+        "explanation": "Contrairement à la simple classification, la détection d'objets renvoie aussi une position (bounding box) pour chaque objet trouvé dans l'image."
+      },
+      {
+        "question_text": "Qu'est-ce que la Semantic Segmentation ?",
+        "choice_a": "Classifier chaque pixel d'une image selon sa catégorie (ex. segmentation d'images médicales)",
+        "choice_b": "Détecter uniquement les contours d'un objet",
+        "choice_c": "Un synonyme d'Object Detection",
+        "choice_d": "Une technique de génération de texte",
+        "correct_choice": "A",
+        "explanation": "Plutôt qu'une simple boîte englobante, chaque pixel de l'image reçoit une étiquette de catégorie, ce qui donne un découpage précis des zones."
+      },
+      {
+        "question_text": "Quelle est la différence entre Semantic Segmentation et Instance Segmentation ?",
+        "choice_a": "Il n'y a aucune différence",
+        "choice_b": "La segmentation sémantique classe les pixels par catégorie ; la segmentation d'instance distingue en plus chaque objet individuel d'une même catégorie",
+        "choice_c": "L'instance segmentation ne fonctionne que sur du texte",
+        "choice_d": "La segmentation sémantique est plus précise que l'instance segmentation",
+        "correct_choice": "B",
+        "explanation": "Avec la segmentation sémantique, tous les pixels « voiture » ont la même étiquette ; l'instance segmentation distingue en plus « voiture 1 » de « voiture 2 »."
+      },
+      {
+        "question_text": "Qu'est-ce que l'OCR (Optical Character Recognition) ?",
+        "choice_a": "La détection de visages dans une image",
+        "choice_b": "L'extraction de texte à partir d'images (ex. lecture de plaques d'immatriculation)",
+        "choice_c": "La génération d'images à partir de texte",
+        "choice_d": "Un algorithme de compression d'image",
+        "correct_choice": "B",
+        "explanation": "L'OCR convertit des caractères visuels (photographiés ou scannés) en texte numérique exploitable, par exemple pour lire des panneaux ou des documents."
+      },
+      {
+        "question_text": "Qu'est-ce que la Pose Estimation ?",
+        "choice_a": "La détection des points clés d'un objet ou d'une personne, utilisée pour suivre des mouvements",
+        "choice_b": "L'estimation de la distance entre deux caméras",
+        "choice_c": "La classification d'une image entière",
+        "choice_d": "La génération d'un arrière-plan réaliste",
+        "correct_choice": "A",
+        "explanation": "En repérant des points clés (articulations, coins d'un objet), on peut reconstruire la posture ou le mouvement d'une personne ou d'un objet dans le temps."
+      },
+      {
+        "question_text": "Qu'est-ce que le Neural Architecture Search (NAS) ?",
+        "choice_a": "Une recherche automatique de la meilleure architecture de réseau de neurones pour une tâche donnée",
+        "choice_b": "Une technique de compression de modèle",
+        "choice_c": "Un algorithme de reinforcement learning uniquement",
+        "choice_d": "Une technique d'augmentation de données",
+        "correct_choice": "A",
+        "explanation": "Plutôt que de concevoir manuellement l'architecture d'un réseau, le NAS explore automatiquement de nombreuses architectures possibles pour trouver la plus performante."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Vision Transformer (ViT) ?",
+        "choice_a": "Un CNN classique renommé",
+        "choice_b": "Une architecture qui applique les Transformers (mécanisme d'attention) à la vision par ordinateur, en alternative aux CNN",
+        "choice_c": "Un algorithme de clustering d'images",
+        "choice_d": "Une technique de compression JPEG",
+        "correct_choice": "B",
+        "explanation": "Une image est découpée en petits patchs traités comme une séquence, à laquelle on applique ensuite les mêmes mécanismes d'attention que pour du texte."
+      },
+      {
+        "question_text": "À quoi sert la normalisation des pixels d'une image avant l'entraînement d'un modèle ?",
+        "choice_a": "À améliorer la compression du fichier image",
+        "choice_b": "À ramener les valeurs des pixels dans une plage standard (ex. [0,1] ou [-1,1]) pour stabiliser et accélérer l'entraînement",
+        "choice_c": "À convertir l'image en noir et blanc",
+        "choice_d": "À détecter les contours",
+        "correct_choice": "B",
+        "explanation": "Des valeurs d'entrée à une échelle cohérente évitent que certains gradients dominent les autres pendant l'entraînement, ce qui accélère et stabilise la convergence."
+      },
+      {
+        "question_text": "Qu'est-ce que la détection de contours (Edge Detection, ex. filtre de Canny) ?",
+        "choice_a": "Une technique pour identifier les changements brusques d'intensité dans une image, révélant les contours des objets",
+        "choice_b": "Une technique de génération d'images",
+        "choice_c": "Une méthode de classification d'images",
+        "choice_d": "Une technique d'augmentation de données",
+        "correct_choice": "A",
+        "explanation": "Les contours correspondent souvent à des transitions nettes de luminosité entre un objet et son arrière-plan ; les détecter aide à isoler la forme des objets."
+      },
+      {
+        "question_text": "Qu'est-ce que le Style Transfer ?",
+        "choice_a": "Convertir du texte en image",
+        "choice_b": "Appliquer le style visuel d'une image à une autre, par exemple pour générer des arrière-plans réalistes",
+        "choice_c": "Compresser une image sans perte de qualité",
+        "choice_d": "Un algorithme de segmentation d'image",
+        "correct_choice": "B",
+        "explanation": "Le style transfer sépare le « contenu » d'une image de son « style » (textures, couleurs) pour recombiner le contenu d'une image avec le style d'une autre."
+      },
+      {
+        "question_text": "Qu'est-ce que l'Optical Flow ?",
+        "choice_a": "La détection d'objets sur une seule image statique",
+        "choice_b": "L'estimation du mouvement entre deux frames consécutives d'une vidéo, utile pour suivre des objets dans le temps",
+        "choice_c": "Une technique de compression vidéo",
+        "choice_d": "Un algorithme de génération de texte",
+        "correct_choice": "B",
+        "explanation": "En comparant deux images successives, on estime le déplacement de chaque pixel, ce qui permet de suivre un objet en mouvement dans une vidéo."
+      },
+      {
+        "question_text": "Qu'est-ce que l'Image Inpainting ?",
+        "choice_a": "Ajouter du bruit à une image pour l'augmentation de données",
+        "choice_b": "Reconstruire ou remplir automatiquement des zones manquantes ou supprimées d'une image",
+        "choice_c": "Détecter les visages dans une image",
+        "choice_d": "Convertir une image en niveaux de gris",
+        "correct_choice": "B",
+        "explanation": "Le modèle « invente » un contenu plausible pour la zone masquée en s'appuyant sur le reste de l'image, par exemple pour effacer un objet ou réserver un espace."
+      },
+      {
+        "question_text": "Qu'est-ce que la Super-Resolution en vision par ordinateur ?",
+        "choice_a": "Réduire la résolution d'une image pour accélérer son traitement",
+        "choice_b": "Augmenter la résolution d'une image pour améliorer sa qualité (ex. ESRGAN)",
+        "choice_c": "Une technique de compression sans perte",
+        "choice_d": "Un algorithme de segmentation",
+        "correct_choice": "B",
+        "explanation": "Le modèle « invente » des détails plausibles manquants pour reconstruire une version plus nette et plus détaillée d'une image basse résolution."
+      },
+      {
+        "question_text": "Qu'est-ce que les données synthétiques (Synthetic Data) en Computer Vision ?",
+        "choice_a": "Des données réelles filtrées manuellement",
+        "choice_b": "Des données générées artificiellement (ex. images de synthèse) pour entraîner un modèle sans avoir besoin de collecter des données réelles",
+        "choice_c": "Des données obtenues uniquement par scraping",
+        "choice_d": "Un synonyme de data augmentation",
+        "correct_choice": "B",
+        "explanation": "Générer des images de synthèse permet d'obtenir rapidement de grands volumes de données parfaitement labellisées, utile quand les données réelles sont rares ou coûteuses à annoter."
+      }
+    ]
+  },
+  {
+    "name": "NLP",
+    "color": "slate",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que la Named Entity Recognition (NER) ?",
+        "choice_a": "La génération automatique de texte",
+        "choice_b": "L'extraction d'entités nommées (personnes, lieux, marques...) dans un texte",
+        "choice_c": "La traduction automatique",
+        "choice_d": "La compression de texte",
+        "correct_choice": "B",
+        "explanation": "Le NER repère et catégorise automatiquement les mentions d'entités précises dans un texte brut, par exemple pour identifier les marques citées dans une transcription."
+      },
+      {
+        "question_text": "Qu'est-ce que l'analyse de sentiment (Sentiment Analysis) ?",
+        "choice_a": "La détection d'entités nommées dans un texte",
+        "choice_b": "L'analyse du ton (positif/négatif/neutre) exprimé dans un texte, ex. des commentaires",
+        "choice_c": "La transcription audio en texte",
+        "choice_d": "La traduction automatique",
+        "correct_choice": "B",
+        "explanation": "Ces modèles classent un texte selon la polarité de l'opinion exprimée, ce qui permet par exemple de mesurer la réaction du public à un contenu."
+      },
+      {
+        "question_text": "Qu'est-ce que le Speech-to-Text ?",
+        "choice_a": "La génération de voix à partir de texte",
+        "choice_b": "La transcription automatique de l'audio en texte",
+        "choice_c": "L'analyse de sentiment d'un texte",
+        "choice_d": "La traduction automatique de texte",
+        "correct_choice": "B",
+        "explanation": "Ces modèles (ex. Whisper) convertissent un signal audio parlé en texte écrit, ce qui permet ensuite d'appliquer toute la palette des outils NLP au contenu parlé."
+      },
+      {
+        "question_text": "Qu'est-ce que le Topic Modeling ?",
+        "choice_a": "La transcription audio en texte",
+        "choice_b": "L'identification automatique des sujets/thèmes principaux abordés dans un ensemble de textes",
+        "choice_c": "La détection d'entités nommées",
+        "choice_d": "La génération de résumés",
+        "correct_choice": "B",
+        "explanation": "Sans labels prédéfinis, ces méthodes (comme LDA) regroupent les mots qui apparaissent souvent ensemble pour faire émerger les grands thèmes d'un corpus de textes."
+      },
+      {
+        "question_text": "Qu'est-ce que le Multimodal Learning ?",
+        "choice_a": "Un apprentissage limité à une seule modalité (texte uniquement)",
+        "choice_b": "Combiner plusieurs types de données (texte, image, audio) pour une même prédiction (ex. CLIP, Flamingo)",
+        "choice_c": "Un synonyme de transfer learning",
+        "choice_d": "Une technique de compression audio",
+        "correct_choice": "B",
+        "explanation": "En apprenant conjointement sur plusieurs types de signaux, le modèle peut par exemple relier une image à sa description textuelle ou une mention orale à une image correspondante."
+      },
+      {
+        "question_text": "Qu'est-ce que la classification de texte Zero-Shot ?",
+        "choice_a": "Classifier du texte sans avoir entraîné le modèle spécifiquement sur des exemples de cette tâche",
+        "choice_b": "Classifier du texte avec des milliers d'exemples labellisés",
+        "choice_c": "Un synonyme de sentiment analysis",
+        "choice_d": "Une technique de transcription audio",
+        "correct_choice": "A",
+        "explanation": "Des modèles comme BART ou T5 peuvent classer du texte selon des catégories qu'ils n'ont jamais vues explicitement à l'entraînement, en s'appuyant sur leur compréhension générale du langage."
+      },
+      {
+        "question_text": "Qu'est-ce que la synthèse de texte (Text Summarization) ?",
+        "choice_a": "La traduction automatique d'un texte",
+        "choice_b": "La génération automatique d'un résumé condensé d'un texte plus long",
+        "choice_c": "La détection d'entités nommées",
+        "choice_d": "La transcription audio en texte",
+        "correct_choice": "B",
+        "explanation": "Ces modèles condensent un texte en préservant les informations essentielles, ce qui permet par exemple de résumer rapidement de nombreux commentaires."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un système de dialogue (Dialogue System) ?",
+        "choice_a": "Un outil de compression de texte",
+        "choice_b": "Un système conversationnel (chatbot, assistant) capable d'interagir avec un utilisateur en langage naturel",
+        "choice_c": "Un algorithme de traduction automatique",
+        "choice_d": "Une technique d'analyse de sentiment",
+        "correct_choice": "B",
+        "explanation": "Ces systèmes (ex. basés sur Rasa ou DialoGPT) génèrent des réponses cohérentes en tenant compte du contexte de la conversation en cours."
+      },
+      {
+        "question_text": "Qu'est-ce que Whisper (OpenAI) ?",
+        "choice_a": "Un modèle de génération d'images",
+        "choice_b": "Un modèle de transcription audio vers texte (speech-to-text)",
+        "choice_c": "Un framework de déploiement de modèles",
+        "choice_d": "Une bibliothèque de NER",
+        "correct_choice": "B",
+        "explanation": "Whisper est entraîné sur de grandes quantités d'audio multilingue, ce qui le rend robuste au bruit, aux accents et à plusieurs langues."
+      },
+      {
+        "question_text": "Que propose la bibliothèque Hugging Face Transformers ?",
+        "choice_a": "Des outils de visualisation de données uniquement",
+        "choice_b": "Un accès à de nombreux modèles pré-entraînés (BERT, GPT...) faciles à réutiliser ou fine-tuner",
+        "choice_c": "Un framework de bases de données",
+        "choice_d": "Un outil de compression d'image",
+        "correct_choice": "B",
+        "explanation": "Elle standardise l'accès à des milliers de modèles pré-entraînés partagés par la communauté, ce qui simplifie énormément le transfer learning en NLP."
+      }
+    ]
+  },
+  {
+    "name": "MLOps & Déploiement",
+    "color": "red",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que le Model Serving ?",
+        "choice_a": "L'entraînement initial d'un modèle",
+        "choice_b": "Le déploiement d'un modèle entraîné via une API pour qu'il puisse être utilisé en production (ex. FastAPI, TensorFlow Serving)",
+        "choice_c": "La suppression d'un modèle obsolète",
+        "choice_d": "Une technique de compression de modèle",
+        "correct_choice": "B",
+        "explanation": "Une fois entraîné, le modèle doit être exposé (généralement via une API HTTP) pour que d'autres applications puissent lui envoyer des requêtes et récupérer ses prédictions."
+      },
+      {
+        "question_text": "Qu'est-ce que le Model Monitoring ?",
+        "choice_a": "L'entraînement continu d'un modèle",
+        "choice_b": "La surveillance des performances d'un modèle une fois en production (détection de dérive, baisse de précision...)",
+        "choice_c": "Le déploiement initial d'un modèle",
+        "choice_d": "La génération de nouvelles données d'entraînement",
+        "correct_choice": "B",
+        "explanation": "Un modèle qui fonctionnait bien au moment du déploiement peut se dégrader avec le temps si les données réelles évoluent (data drift) : le monitoring permet de le détecter."
+      },
+      {
+        "question_text": "Pourquoi versionner (Versioning) les modèles et datasets (ex. avec DVC, MLflow) ?",
+        "choice_a": "Pour accélérer l'inférence",
+        "choice_b": "Pour suivre et pouvoir revenir sur les différentes évolutions des modèles et des données au fil du temps",
+        "choice_c": "Pour réduire la taille des modèles",
+        "choice_d": "Pour chiffrer les données sensibles",
+        "correct_choice": "B",
+        "explanation": "Comme pour du code source, versionner les modèles et les données permet de reproduire un résultat, de comparer des expériences, ou de revenir à une version précédente en cas de problème."
+      },
+      {
+        "question_text": "Qu'est-ce que l'optimisation d'un modèle pour le déploiement (ex. ONNX, TensorRT) ?",
+        "choice_a": "Réentraîner le modèle sur plus de données",
+        "choice_b": "Réduire la latence et la taille du modèle afin d'accélérer son exécution en production",
+        "choice_c": "Ajouter des couches supplémentaires au modèle",
+        "choice_d": "Générer des données synthétiques",
+        "correct_choice": "B",
+        "explanation": "Ces outils convertissent et optimisent un modèle entraîné pour qu'il s'exécute plus vite sur le matériel cible, ce qui est crucial pour des prédictions en temps réel."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Model Registry ?",
+        "choice_a": "Un outil qui centralise et versionne les modèles entraînés, pour suivre leurs différentes versions",
+        "choice_b": "Une base de données de logs d'erreurs",
+        "choice_c": "Un outil de génération de données",
+        "choice_d": "Un algorithme d'entraînement",
+        "correct_choice": "A",
+        "explanation": "Un registry (ex. dans MLflow) garde une trace de chaque version d'un modèle, de ses métriques et de son statut (staging, production...), facilitant la gestion du cycle de vie du modèle."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Canary Deployment ?",
+        "choice_a": "Déployer un nouveau modèle à tous les utilisateurs d'un coup",
+        "choice_b": "Déployer un nouveau modèle à un petit sous-ensemble d'utilisateurs avant un déploiement complet, pour limiter les risques",
+        "choice_c": "Un synonyme d'A/B Testing",
+        "choice_d": "Une technique d'entraînement distribué",
+        "correct_choice": "B",
+        "explanation": "En n'exposant d'abord qu'une petite fraction du trafic au nouveau modèle, on peut détecter un problème avant qu'il n'affecte tous les utilisateurs."
+      },
+      {
+        "question_text": "Qu'est-ce que l'A/B Testing appliqué aux modèles ?",
+        "choice_a": "Comparer les performances de deux modèles en production en les exposant à des utilisateurs différents",
+        "choice_b": "Tester un modèle uniquement en local avant tout déploiement",
+        "choice_c": "Un synonyme de Canary Deployment",
+        "choice_d": "Une technique de compression de modèle",
+        "correct_choice": "A",
+        "explanation": "En répartissant aléatoirement le trafic entre deux versions d'un modèle, on peut mesurer objectivement laquelle donne les meilleurs résultats en conditions réelles."
+      },
+      {
+        "question_text": "Qu'est-ce que le Continuous Training ?",
+        "choice_a": "Entraîner un modèle une seule fois puis ne plus jamais le mettre à jour",
+        "choice_b": "Réentraîner automatiquement un modèle au fur et à mesure que de nouvelles données arrivent",
+        "choice_c": "Un synonyme de model monitoring",
+        "choice_d": "Une technique de compression de modèle",
+        "correct_choice": "B",
+        "explanation": "Plutôt que de rester figé, le modèle est régulièrement réentraîné (souvent via un pipeline automatisé comme Airflow ou Kubeflow) pour intégrer les nouvelles données et rester performant."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Feature Store ?",
+        "choice_a": "Un magasin en ligne de modèles pré-entraînés",
+        "choice_b": "Un système qui centralise et permet de réutiliser des features (caractéristiques calculées) entre plusieurs modèles/projets",
+        "choice_c": "Un outil de visualisation de métriques",
+        "choice_d": "Une base de données de logs",
+        "correct_choice": "B",
+        "explanation": "Plutôt que de recalculer les mêmes caractéristiques dans chaque projet, un feature store les stocke une fois pour toutes et les rend accessibles à tous les modèles qui en ont besoin."
+      }
+    ]
+  },
+  {
+    "name": "Métriques & Évaluation IA",
+    "color": "violet",
+    "questions": [
+      {
+        "question_text": "Que mesure l'Accuracy (exactitude) d'un modèle de classification ?",
+        "choice_a": "La proportion de vrais positifs parmi les prédictions positives",
+        "choice_b": "Le pourcentage global de prédictions correctes, tous types confondus",
+        "choice_c": "La proportion de vrais positifs parmi tous les positifs réels",
+        "choice_d": "La moyenne des erreurs au carré",
+        "correct_choice": "B",
+        "explanation": "L'accuracy peut être trompeuse sur des classes déséquilibrées : un modèle qui prédit toujours la classe majoritaire peut avoir une accuracy élevée sans être utile."
+      },
+      {
+        "question_text": "Que mesure la Precision en classification ?",
+        "choice_a": "Le pourcentage total de bonnes prédictions",
+        "choice_b": "La proportion de vrais positifs parmi toutes les prédictions annoncées comme positives (TP / (TP+FP))",
+        "choice_c": "La proportion de vrais positifs parmi tous les cas réellement positifs",
+        "choice_d": "L'erreur quadratique moyenne",
+        "correct_choice": "B",
+        "explanation": "Une precision élevée signifie que quand le modèle dit « positif », il a très souvent raison — important quand les faux positifs coûtent cher."
+      },
+      {
+        "question_text": "Que mesure le Recall (Sensitivity) en classification ?",
+        "choice_a": "La proportion de vrais positifs parmi tous les cas réellement positifs (TP / (TP+FN))",
+        "choice_b": "Le pourcentage total de bonnes prédictions",
+        "choice_c": "La proportion de faux positifs parmi les prédictions positives",
+        "choice_d": "La moyenne harmonique entre precision et accuracy",
+        "correct_choice": "A",
+        "explanation": "Un recall élevé signifie que le modèle rate peu de vrais cas positifs — important quand rater un cas positif coûte cher (ex. diagnostic médical)."
+      },
+      {
+        "question_text": "Qu'est-ce que le F1-Score ?",
+        "choice_a": "La somme de la precision et du recall",
+        "choice_b": "La moyenne harmonique entre precision et recall, utile quand les classes sont déséquilibrées",
+        "choice_c": "Un synonyme d'accuracy",
+        "choice_d": "La racine carrée de l'erreur quadratique moyenne",
+        "correct_choice": "B",
+        "explanation": "La moyenne harmonique pénalise fortement un déséquilibre entre precision et recall : le F1-Score n'est élevé que si les deux le sont."
+      },
+      {
+        "question_text": "À quoi sert une matrice de confusion (Confusion Matrix) ?",
+        "choice_a": "À visualiser la répartition des vrais/faux positifs et négatifs d'un modèle de classification",
+        "choice_b": "À réduire la dimension des données",
+        "choice_c": "À entraîner un modèle plus rapidement",
+        "choice_d": "À générer des données synthétiques",
+        "correct_choice": "A",
+        "explanation": "Elle permet de voir précisément quels types d'erreurs le modèle commet (ex. confond-il souvent deux classes en particulier ?), au-delà d'un simple score global."
+      },
+      {
+        "question_text": "Que représente la courbe ROC et l'aire sous la courbe (ROC-AUC) ?",
+        "choice_a": "La vitesse d'entraînement d'un modèle",
+        "choice_b": "La capacité d'un modèle à distinguer les classes, à différents seuils de décision",
+        "choice_c": "Le nombre de paramètres d'un modèle",
+        "choice_d": "La taille du dataset utilisé",
+        "correct_choice": "B",
+        "explanation": "En faisant varier le seuil de décision, la courbe ROC montre le compromis entre vrais positifs et faux positifs ; une AUC proche de 1 indique une bonne séparation des classes."
+      },
+      {
+        "question_text": "Que mesure le MSE (Mean Squared Error) en régression ?",
+        "choice_a": "La moyenne des erreurs au carré entre les valeurs prédites et réelles",
+        "choice_b": "Le pourcentage de prédictions exactement correctes",
+        "choice_c": "La proportion de vrais positifs",
+        "choice_d": "La variance expliquée par le modèle",
+        "correct_choice": "A",
+        "explanation": "En élevant l'erreur au carré, le MSE pénalise davantage les grosses erreurs que les petites, ce qui le rend sensible aux valeurs aberrantes (outliers)."
+      },
+      {
+        "question_text": "Que représente le RMSE (Root Mean Squared Error) ?",
+        "choice_a": "La moyenne des erreurs absolues",
+        "choice_b": "La racine carrée du MSE, ce qui la ramène dans la même unité que la variable prédite",
+        "choice_c": "Un synonyme de MAE",
+        "choice_d": "La proportion de variance expliquée",
+        "correct_choice": "B",
+        "explanation": "Le MSE est exprimé dans l'unité au carré de la variable prédite (ex. euros²) ; en prenant sa racine carrée, on revient à une unité interprétable (ex. euros)."
+      },
+      {
+        "question_text": "Que mesure le R² (R-Squared) en régression ?",
+        "choice_a": "L'erreur absolue moyenne",
+        "choice_b": "La proportion de la variance des données expliquée par le modèle",
+        "choice_c": "Le nombre de faux positifs",
+        "choice_d": "La vitesse de convergence de l'entraînement",
+        "correct_choice": "B",
+        "explanation": "Un R² proche de 1 signifie que le modèle explique presque toute la variabilité des données ; proche de 0, il n'apporte pas plus d'information qu'une simple moyenne."
+      },
+      {
+        "question_text": "À quoi sert le Silhouette Score en clustering ?",
+        "choice_a": "À mesurer la cohésion au sein des clusters et leur séparation les uns des autres",
+        "choice_b": "À compter le nombre d'itérations nécessaires",
+        "choice_c": "À mesurer l'erreur de prédiction d'un modèle supervisé",
+        "choice_d": "À évaluer la qualité d'une transcription audio",
+        "correct_choice": "A",
+        "explanation": "Un score proche de 1 indique des clusters compacts et bien séparés ; proche de 0 ou négatif, les clusters se chevauchent ou sont mal définis."
+      },
+      {
+        "question_text": "À quoi sert la méthode du coude (Elbow Method) ?",
+        "choice_a": "À déterminer le nombre optimal de clusters, par exemple pour K-Means",
+        "choice_b": "À mesurer la précision d'un modèle de classification",
+        "choice_c": "À optimiser les hyperparamètres d'un réseau de neurones",
+        "choice_d": "À détecter les contours dans une image",
+        "correct_choice": "A",
+        "explanation": "En traçant l'erreur en fonction du nombre de clusters, on cherche le point où ajouter un cluster supplémentaire n'améliore plus significativement le résultat (le « coude » de la courbe)."
+      },
+      {
+        "question_text": "Que représente l'Average Precision (AP) en détection d'objets ?",
+        "choice_a": "La moyenne des précisions obtenues à différents seuils de confiance, pour une classe donnée",
+        "choice_b": "Le nombre moyen d'objets détectés par image",
+        "choice_c": "La vitesse moyenne d'inférence du modèle",
+        "choice_d": "Un synonyme de recall",
+        "correct_choice": "A",
+        "explanation": "En résumant la courbe precision-recall en un seul chiffre, l'AP permet de comparer facilement la performance de détection d'une classe entre différents modèles."
+      },
+      {
+        "question_text": "En Reinforcement Learning, que représente le \"Reward\" ?",
+        "choice_a": "Le nombre d'étapes avant la fin d'un épisode",
+        "choice_b": "La somme des récompenses obtenues par l'agent au cours de ses actions",
+        "choice_c": "La précision du modèle sur un jeu de test",
+        "choice_d": "Le taux d'erreur du modèle",
+        "correct_choice": "B",
+        "explanation": "C'est le signal que l'agent cherche à maximiser : chaque action reçoit une récompense (positive ou négative), et l'objectif est de maximiser leur somme cumulée."
+      },
+      {
+        "question_text": "Que mesure le Success Rate en Reinforcement Learning ?",
+        "choice_a": "La vitesse d'entraînement de l'agent",
+        "choice_b": "Le pourcentage d'épisodes menés à bien (réussis) par l'agent",
+        "choice_c": "Le nombre de paramètres du modèle",
+        "choice_d": "La précision d'un modèle de classification",
+        "correct_choice": "B",
+        "explanation": "Contrairement au reward brut (qui peut être difficile à interpréter), le success rate donne une mesure simple et concrète de la performance de l'agent sur sa tâche."
+      }
+    ]
+  },
+  {
+    "name": "Éthique & Robustesse IA",
+    "color": "cyan",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que le Fairness (équité) en IA ?",
+        "choice_a": "Le fait qu'un modèle s'entraîne rapidement",
+        "choice_b": "Le principe qu'un modèle ne discrimine pas certains groupes (ex. selon la popularité d'une marque, d'un profil...)",
+        "choice_c": "La capacité d'un modèle à généraliser à de nouvelles données",
+        "choice_d": "Un synonyme de robustesse adversariale",
+        "correct_choice": "B",
+        "explanation": "Un modèle entraîné sur des données biaisées peut reproduire ou amplifier des discriminations existantes ; le fairness cherche à détecter et corriger ce problème."
+      },
+      {
+        "question_text": "Qu'est-ce que l'IA explicable (Explainable AI, XAI) ?",
+        "choice_a": "Une IA qui documente automatiquement son propre code",
+        "choice_b": "Des techniques (ex. Grad-CAM, LIME) qui rendent compréhensibles les décisions prises par un modèle",
+        "choice_c": "Un synonyme de fine-tuning",
+        "choice_d": "Une technique de compression de modèle",
+        "correct_choice": "B",
+        "explanation": "Les modèles de deep learning sont souvent des « boîtes noires » : la XAI vise à en extraire des explications compréhensibles par un humain, par exemple en visualisant les zones d'une image qui ont influencé la décision."
+      },
+      {
+        "question_text": "Qu'est-ce que le Privacy-Preserving Machine Learning ?",
+        "choice_a": "Des techniques (federated learning, differential privacy...) qui protègent les données sensibles utilisées pour entraîner un modèle",
+        "choice_b": "Un modèle qui ne peut jamais être audité",
+        "choice_c": "Un synonyme de data augmentation",
+        "choice_d": "Une technique pour accélérer l'inférence",
+        "correct_choice": "A",
+        "explanation": "Ces techniques permettent d'entraîner des modèles performants tout en limitant l'exposition des données personnelles ou sensibles utilisées pour l'entraînement."
+      },
+      {
+        "question_text": "Dans un contexte de détection de marques/logos, qu'est-ce que le \"Brand Safety\" ?",
+        "choice_a": "Le fait de garantir que la détection s'exécute rapidement",
+        "choice_b": "Le fait d'éviter de mettre en avant des contenus/marques inappropriés ou controversés (alcool, tabac...)",
+        "choice_c": "Un synonyme de robustesse adversariale",
+        "choice_d": "Une technique de compression d'image",
+        "correct_choice": "B",
+        "explanation": "Une marque ne veut généralement pas être associée à du contenu sensible ou controversé : le brand safety filtre ces associations à risque."
+      },
+      {
+        "question_text": "Qu'est-ce que la robustesse adversariale (Adversarial Robustness) ?",
+        "choice_a": "La capacité d'un modèle à résister à des perturbations conçues pour le tromper",
+        "choice_b": "La rapidité d'entraînement d'un modèle",
+        "choice_c": "La précision d'un modèle sur des données propres uniquement",
+        "choice_d": "Un synonyme d'overfitting",
+        "correct_choice": "A",
+        "explanation": "Des perturbations imperceptibles à l'œil humain peuvent parfois faire complètement changer la prédiction d'un modèle : un modèle robuste résiste à ce type de manipulation."
+      },
+      {
+        "question_text": "Qu'est-ce que le Domain Adaptation ?",
+        "choice_a": "Adapter un modèle entraîné sur un domaine (ex. images synthétiques) pour qu'il fonctionne bien sur un autre domaine (ex. images réelles)",
+        "choice_b": "Changer le nom de domaine d'un site web",
+        "choice_c": "Une technique de compression de modèle",
+        "choice_d": "Un synonyme de transfer learning au sens strict",
+        "correct_choice": "A",
+        "explanation": "Un modèle entraîné uniquement sur des images de synthèse peut mal généraliser à des images réelles ; le domain adaptation réduit cet écart entre les deux domaines."
+      },
+      {
+        "question_text": "Qu'est-ce que la détection Out-of-Distribution (OOD) ?",
+        "choice_a": "Détecter des entrées qui diffèrent significativement des données vues pendant l'entraînement",
+        "choice_b": "Détecter les données dupliquées dans un dataset",
+        "choice_c": "Une technique d'augmentation de données",
+        "choice_d": "Un synonyme de cross-validation",
+        "correct_choice": "A",
+        "explanation": "Un modèle peut donner une prédiction confiante mais totalement fausse face à une donnée très différente de son entraînement ; la détection OOD identifie ces cas pour les traiter à part."
+      },
+      {
+        "question_text": "Qu'est-ce que la Data Drift Detection ?",
+        "choice_a": "Surveiller si la distribution des données change au fil du temps en production (ex. nouveaux designs de logos)",
+        "choice_b": "Détecter les erreurs de syntaxe dans le code d'entraînement",
+        "choice_c": "Une technique pour accélérer l'inférence",
+        "choice_d": "Un synonyme d'overfitting",
+        "correct_choice": "A",
+        "explanation": "Un modèle performant au déploiement peut se dégrader si les données réelles évoluent progressivement ; détecter ce « data drift » permet de savoir quand réentraîner le modèle."
+      },
+      {
+        "question_text": "Qu'est-ce que le Disparate Impact ?",
+        "choice_a": "Le fait qu'un modèle ait un impact disproportionné et négatif sur certains groupes (ex. certaines marques ou catégories)",
+        "choice_b": "La différence de vitesse d'inférence entre deux modèles",
+        "choice_c": "Un synonyme de data drift",
+        "choice_d": "Une mesure de la taille du dataset",
+        "correct_choice": "A",
+        "explanation": "Même sans intention discriminatoire, un modèle peut favoriser certains groupes au détriment d'autres ; mesurer le disparate impact permet de détecter ce déséquilibre."
+      },
+      {
+        "question_text": "Qu'est-ce que la Demographic Parity ?",
+        "choice_a": "Garantir que les prédictions d'un modèle sont statistiquement indépendantes de caractéristiques protégées ou sensibles",
+        "choice_b": "Une technique d'augmentation de données",
+        "choice_c": "Un synonyme d'accuracy",
+        "choice_d": "Une mesure de la taille du modèle",
+        "correct_choice": "A",
+        "explanation": "C'est l'un des critères d'équité les plus utilisés : il exige que le taux de prédictions positives soit similaire entre les différents groupes, indépendamment de leurs caractéristiques sensibles."
       }
     ]
   }
