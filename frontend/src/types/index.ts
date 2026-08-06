@@ -5,6 +5,7 @@ export interface Category {
   name: string;
   slug: string;
   color: string;
+  parent_id: number | null;
   created_at: string;
   updated_at: string;
   question_count: number;

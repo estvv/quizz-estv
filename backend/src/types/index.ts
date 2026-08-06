@@ -5,6 +5,7 @@ export interface Category {
   name: string;
   slug: string;
   color: string;
+  parent_id: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -46,5 +47,6 @@ export interface SeedQuestion {
 export interface SeedCategory {
   name: string;
   color: string;
+  parent?: string;
   questions: SeedQuestion[];
 }

@@ -29,10 +29,16 @@ export function initDatabase() {
 // Ad-hoc "add column if missing" migration, mirroring the pattern used across
 // the other *-estv apps (no formal migration framework, just idempotent checks).
 function runMigrations() {
-  const columns = db.prepare("PRAGMA table_info(questions)").all() as { name: string }[];
-  const hasExplanation = columns.some((c) => c.name === 'explanation');
+  const questionColumns = db.prepare("PRAGMA table_info(questions)").all() as { name: string }[];
+  const hasExplanation = questionColumns.some((c) => c.name === 'explanation');
   if (!hasExplanation) {
     db.exec('ALTER TABLE questions ADD COLUMN explanation TEXT');
+  }
+
+  const categoryColumns = db.prepare("PRAGMA table_info(categories)").all() as { name: string }[];
+  const hasParentId = categoryColumns.some((c) => c.name === 'parent_id');
+  if (!hasParentId) {
+    db.exec('ALTER TABLE categories ADD COLUMN parent_id INTEGER REFERENCES categories(id) ON DELETE SET NULL');
   }
 }
 
@@ -56,16 +62,23 @@ function seedIfEmpty() {
 
   const seed: SeedCategory[] = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
 
-  const insertCategory = db.prepare('INSERT INTO categories (name, slug, color) VALUES (?, ?, ?)');
+  const insertCategory = db.prepare('INSERT INTO categories (name, slug, color, parent_id) VALUES (?, ?, ?, ?)');
   const insertQuestion = db.prepare(`INSERT INTO questions
     (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
 
   const seedAll = db.transaction((categories: SeedCategory[]) => {
-    for (const cat of categories) {
+    // Two passes so a category can reference a parent by name regardless of
+    // declaration order: parents (no `parent` field) are inserted first.
+    const idByName = new Map<string, number>();
+    const ordered = [...categories].sort((a, b) => (a.parent ? 1 : 0) - (b.parent ? 1 : 0));
+
+    for (const cat of ordered) {
       const slug = slugify(cat.name);
-      const result = insertCategory.run(cat.name, slug, cat.color ?? 'slate');
+      const parentId = cat.parent ? idByName.get(cat.parent) ?? null : null;
+      const result = insertCategory.run(cat.name, slug, cat.color ?? 'slate', parentId);
       const categoryId = result.lastInsertRowid as number;
+      idByName.set(cat.name, categoryId);
       for (const q of cat.questions ?? []) {
         insertQuestion.run(categoryId, q.question_text, q.choice_a, q.choice_b, q.choice_c, q.choice_d, q.correct_choice, q.explanation ?? null);
       }
@@ -97,13 +110,13 @@ export function getCategoryById(id: number): CategoryWithCount | undefined {
   `).get(id) as CategoryWithCount | undefined;
 }
 
-export function createCategory(name: string, color: string): Category {
+export function createCategory(name: string, color: string, parentId: number | null = null): Category {
   const slug = slugify(name);
-  const result = db.prepare('INSERT INTO categories (name, slug, color) VALUES (?, ?, ?)').run(name, slug, color);
+  const result = db.prepare('INSERT INTO categories (name, slug, color, parent_id) VALUES (?, ?, ?, ?)').run(name, slug, color, parentId);
   return db.prepare('SELECT * FROM categories WHERE id = ?').get(result.lastInsertRowid) as Category;
 }
 
-export function updateCategory(id: number, updates: Partial<{ name: string; color: string }>): Category | undefined {
+export function updateCategory(id: number, updates: Partial<{ name: string; color: string; parent_id: number | null }>): Category | undefined {
   const fields: string[] = [];
   const values: any[] = [];
 
@@ -114,6 +127,10 @@ export function updateCategory(id: number, updates: Partial<{ name: string; colo
   if (updates.color !== undefined) {
     fields.push('color = ?');
     values.push(updates.color);
+  }
+  if (updates.parent_id !== undefined) {
+    fields.push('parent_id = ?');
+    values.push(updates.parent_id);
   }
 
   if (fields.length === 0) return db.prepare('SELECT * FROM categories WHERE id = ?').get(id) as Category | undefined;

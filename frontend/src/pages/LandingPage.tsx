@@ -30,9 +30,19 @@ export function LandingPage() {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {categories.map((category) => (
-          <CategoryCard key={category.id} category={category} />
-        ))}
+        {categories
+          .filter((category) => category.parent_id === null)
+          .map((category) => {
+            const children = categories.filter((c) => c.parent_id === category.id);
+            if (children.length === 0) {
+              return <CategoryCard key={category.id} category={category} />;
+            }
+            const groupCategory = {
+              ...category,
+              question_count: children.reduce((sum, c) => sum + c.question_count, 0),
+            };
+            return <CategoryCard key={category.id} category={groupCategory} subcategoryCount={children.length} />;
+          })}
       </div>
     </div>
   );

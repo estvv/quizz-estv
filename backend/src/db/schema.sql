@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS categories (
     name TEXT NOT NULL,
     slug TEXT UNIQUE,
     color TEXT NOT NULL DEFAULT 'slate',
+    parent_id INTEGER REFERENCES categories(id) ON DELETE SET NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

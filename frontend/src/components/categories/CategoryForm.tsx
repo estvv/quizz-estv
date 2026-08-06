@@ -3,14 +3,16 @@ import { CATEGORY_COLOR_TOKENS, getCategoryColorClasses } from '../../utils/colo
 import type { Category } from '../../types';
 
 interface Props {
-  initial?: Pick<Category, 'name' | 'color'>;
-  onSubmit: (input: { name: string; color: string }) => Promise<void>;
+  initial?: Pick<Category, 'name' | 'color' | 'parent_id'>;
+  parentOptions: Category[];
+  onSubmit: (input: { name: string; color: string; parent_id: number | null }) => Promise<void>;
   onCancel: () => void;
 }
 
-export function CategoryForm({ initial, onSubmit, onCancel }: Props) {
+export function CategoryForm({ initial, parentOptions, onSubmit, onCancel }: Props) {
   const [name, setName] = useState(initial?.name ?? '');
   const [color, setColor] = useState(initial?.color ?? 'slate');
+  const [parentId, setParentId] = useState<number | null>(initial?.parent_id ?? null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -20,7 +22,7 @@ export function CategoryForm({ initial, onSubmit, onCancel }: Props) {
     setSaving(true);
     setError('');
     try {
-      await onSubmit({ name: name.trim(), color });
+      await onSubmit({ name: name.trim(), color, parent_id: parentId });
     } catch (err: any) {
       setError(err.message || 'Échec de l\'enregistrement');
     } finally {
@@ -60,6 +62,20 @@ export function CategoryForm({ initial, onSubmit, onCancel }: Props) {
             );
           })}
         </div>
+      </div>
+
+      <div>
+        <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Catégorie parente</label>
+        <select
+          value={parentId ?? ''}
+          onChange={(e) => setParentId(e.target.value ? parseInt(e.target.value) : null)}
+          className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white focus:outline-none focus:border-neutral-500"
+        >
+          <option value="">Aucune (niveau supérieur)</option>
+          {parentOptions.map((opt) => (
+            <option key={opt.id} value={opt.id}>{opt.name}</option>
+          ))}
+        </select>
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}

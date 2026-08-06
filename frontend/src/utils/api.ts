@@ -60,9 +60,9 @@ export const categoriesApi = {
   list: (): Promise<Category[]> => publicRequest('/categories'),
   get: (id: number): Promise<Category> => publicRequest(`/categories/${id}`),
 
-  create: (input: { name: string; color: string }): Promise<Category> =>
+  create: (input: { name: string; color: string; parent_id?: number | null }): Promise<Category> =>
     authRequest('/categories', { method: 'POST', body: JSON.stringify(input) }),
-  update: (id: number, updates: Partial<{ name: string; color: string }>): Promise<Category> =>
+  update: (id: number, updates: Partial<{ name: string; color: string; parent_id: number | null }>): Promise<Category> =>
     authRequest(`/categories/${id}`, { method: 'PUT', body: JSON.stringify(updates) }),
   delete: (id: number): Promise<void> => authRequest(`/categories/${id}`, { method: 'DELETE' }),
 };

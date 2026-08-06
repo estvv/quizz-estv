@@ -665,8 +665,139 @@
         "choice_d": "Empêche la fonction d'être récursive",
         "correct_choice": "A",
         "explanation": "Historiquement pensé pour éviter le coût d'un appel de fonction sur de petites fonctions, inline sert surtout aujourd'hui à autoriser une même définition dans plusieurs fichiers sans erreur de l'éditeur de liens."
+      },
+      {
+        "question_text": "À quoi sert le design pattern Singleton ?",
+        "choice_a": "À garantir qu'une classe n'a qu'une seule instance et à fournir un point d'accès global à celle-ci",
+        "choice_b": "À créer plusieurs instances d'un objet de façon optimisée en mémoire",
+        "choice_c": "À transformer l'interface d'une classe en une autre interface attendue par le client",
+        "choice_d": "À découpler la construction d'un objet complexe de sa représentation",
+        "correct_choice": "A",
+        "explanation": "Le Singleton restreint l'instanciation d'une classe à un seul objet (souvent via un constructeur privé et une méthode statique d'accès), utile pour un état partagé unique comme une configuration ou un gestionnaire de connexion — mais il est aussi critiqué car il introduit un état global et complique les tests."
+      },
+      {
+        "question_text": "Quel est le principe du design pattern Factory Method ?",
+        "choice_a": "Il garantit qu'une seule instance d'une classe existe dans tout le programme",
+        "choice_b": "Il définit une interface pour créer un objet, mais laisse les sous-classes décider quelle classe concrète instancier",
+        "choice_c": "Il permet d'ajouter dynamiquement des responsabilités à un objet sans modifier sa classe",
+        "choice_d": "Il fournit une interface unifiée à un ensemble d'interfaces d'un sous-système",
+        "correct_choice": "B",
+        "explanation": "Factory Method délègue l'instanciation à une méthode surchargeable dans les sous-classes, ce qui permet de créer des objets sans coupler le code appelant aux classes concrètes — utile quand le type exact à instancier dépend du contexte."
+      },
+      {
+        "question_text": "En quoi le pattern Abstract Factory diffère-t-il du Factory Method ?",
+        "choice_a": "L'Abstract Factory ne peut créer qu'un seul type d'objet, contrairement au Factory Method",
+        "choice_b": "Il n'y a aucune différence, ce sont deux noms pour le même pattern",
+        "choice_c": "L'Abstract Factory fournit une interface pour créer des familles d'objets liés/dépendants entre eux, sans préciser leurs classes concrètes",
+        "choice_d": "L'Abstract Factory est utilisé uniquement pour créer des singletons",
+        "correct_choice": "C",
+        "explanation": "Là où Factory Method crée un seul type de produit via une méthode, Abstract Factory regroupe plusieurs Factory Methods pour produire des familles cohérentes d'objets (ex: composants d'UI adaptés à un thème donné : boutons, fenêtres, menus assortis)."
+      },
+      {
+        "question_text": "Quel problème résout le design pattern Builder ?",
+        "choice_a": "Il évite la duplication de code entre classes qui partagent un comportement commun",
+        "choice_b": "Il permet de changer dynamiquement l'algorithme utilisé par un objet à l'exécution",
+        "choice_c": "Il transforme une collection d'objets en une structure arborescente uniforme",
+        "choice_d": "Il sépare la construction d'un objet complexe (étape par étape) de sa représentation finale, évitant un constructeur avec un trop grand nombre de paramètres",
+        "correct_choice": "D",
+        "explanation": "Plutôt qu'un constructeur avec dix paramètres optionnels (souvent illisible), le Builder expose des méthodes chaînées pour configurer un objet pas à pas, puis une méthode finale (ex: build()) qui produit l'objet complet."
+      },
+      {
+        "question_text": "À quoi sert le design pattern Adapter ?",
+        "choice_a": "À convertir l'interface d'une classe existante en une autre interface attendue par le code client, sans modifier la classe existante",
+        "choice_b": "À garantir qu'un objet ne peut être modifié qu'à travers une interface restreinte",
+        "choice_c": "À dupliquer un objet existant pour éviter une reconstruction coûteuse",
+        "choice_d": "À notifier automatiquement plusieurs objets d'un changement d'état",
+        "correct_choice": "A",
+        "explanation": "L'Adapter agit comme un traducteur entre deux interfaces incompatibles (typiquement pour intégrer une bibliothèque tierce sans la modifier), en enveloppant l'objet existant derrière l'interface attendue par le client."
+      },
+      {
+        "question_text": "Comment fonctionne le design pattern Decorator ?",
+        "choice_a": "Il empêche toute sous-classe d'hériter d'une classe donnée",
+        "choice_b": "Il enveloppe un objet dans un autre objet respectant la même interface, pour lui ajouter dynamiquement des responsabilités sans modifier sa classe ni utiliser l'héritage",
+        "choice_c": "Il centralise toute la logique métier d'une application dans une seule classe",
+        "choice_d": "Il transforme une interface complexe en une interface simplifiée",
+        "correct_choice": "B",
+        "explanation": "Chaque décorateur implémente la même interface que l'objet qu'il enveloppe et lui ajoute un comportement avant/après avoir délégué l'appel à l'objet enveloppé — on peut ainsi empiler plusieurs décorateurs (ex: un flux de données compressé ET chiffré) sans exploser la hiérarchie de classes par héritage."
+      },
+      {
+        "question_text": "Quel est le rôle du design pattern Facade ?",
+        "choice_a": "Empêcher l'instanciation directe d'une classe abstraite",
+        "choice_b": "Convertir une structure récursive en une liste plate",
+        "choice_c": "Fournir une interface unifiée et simplifiée à un ensemble d'interfaces plus complexes d'un sous-système, pour le rendre plus facile à utiliser",
+        "choice_d": "Ajouter dynamiquement une nouvelle méthode à une interface existante",
+        "correct_choice": "C",
+        "explanation": "La Facade ne cache pas les sous-systèmes (qui restent accessibles directement si besoin), elle expose juste un point d'entrée simple pour les cas d'usage courants, réduisant le couplage entre le client et les détails internes complexes."
+      },
+      {
+        "question_text": "Que permet le design pattern Composite ?",
+        "choice_a": "De garantir qu'un seul objet composite existe dans le programme",
+        "choice_b": "De réduire la consommation mémoire en partageant les objets identiques",
+        "choice_c": "De limiter l'accès à un objet distant via un intermédiaire",
+        "choice_d": "De traiter uniformément un objet individuel et une composition d'objets (ex: un fichier et un dossier contenant des fichiers), via une interface commune, souvent de façon récursive",
+        "correct_choice": "D",
+        "explanation": "Composite organise les objets en structure arborescente (ex: système de fichiers, éléments d'interface graphique) où feuilles et nœuds composites implémentent la même interface, permettant au code client d'appeler une opération sur toute la structure sans distinguer les deux cas."
+      },
+      {
+        "question_text": "Qu'est-ce que le design pattern Proxy ?",
+        "choice_a": "Un objet qui fait office d'intermédiaire/substitut à un autre objet pour en contrôler l'accès (ex: chargement paresseux, contrôle d'accès, mise en cache), tout en respectant la même interface",
+        "choice_b": "Un objet qui fusionne les interfaces de deux classes incompatibles",
+        "choice_c": "Une classe qui ne peut être instanciée qu'une seule fois dans tout le programme",
+        "choice_d": "Une méthode qui délègue l'algorithme utilisé à une sous-classe",
+        "correct_choice": "A",
+        "explanation": "Le Proxy implémente la même interface que l'objet réel qu'il représente, ce qui permet d'intercepter les appels pour ajouter un comportement (vérification des droits, chargement différé d'un objet coûteux, journalisation) de façon transparente pour le client."
+      },
+      {
+        "question_text": "Comment fonctionne le design pattern Observer ?",
+        "choice_a": "Il centralise toutes les communications entre objets dans un médiateur unique",
+        "choice_b": "Un objet (le sujet/observable) maintient une liste d'observateurs et les notifie automatiquement de tout changement d'état, sans connaître leurs détails concrets",
+        "choice_c": "Il encapsule une requête sous forme d'objet pour la paramétrer, la mettre en file d'attente ou l'annuler",
+        "choice_d": "Il définit le squelette d'un algorithme, en laissant certaines étapes aux sous-classes",
+        "correct_choice": "B",
+        "explanation": "C'est le pattern derrière les architectures événementielles (ex: écouteurs d'événements en UI, pub/sub) : le sujet ne dépend que d'une interface d'observateur générique, ce qui découple totalement les composants qui réagissent au changement."
+      },
+      {
+        "question_text": "Quel est le principe du design pattern Strategy ?",
+        "choice_a": "Garantir qu'un objet ne peut changer d'état qu'une seule fois",
+        "choice_b": "Créer une copie d'un objet existant plutôt que d'en instancier un nouveau",
+        "choice_c": "Encapsuler une famille d'algorithmes interchangeables derrière une interface commune, pour pouvoir changer l'algorithme utilisé par un objet à l'exécution sans modifier le code client",
+        "choice_d": "Notifier tous les objets dépendants d'un changement",
+        "correct_choice": "C",
+        "explanation": "Plutôt qu'un long if/switch choisissant un comportement, Strategy délègue l'algorithme à un objet interchangeable (ex: différentes stratégies de tri ou de calcul de prix) injecté dans la classe qui l'utilise, ce qui permet d'étendre les comportements sans modifier le code existant."
+      },
+      {
+        "question_text": "En quoi le pattern State ressemble-t-il au pattern Strategy, et qu'est-ce qui les distingue ?",
+        "choice_a": "Les deux sont strictement identiques, sans aucune différence",
+        "choice_b": "State change le comportement d'un objet en fonction de contraintes matérielles, Strategy uniquement en fonction du réseau",
+        "choice_c": "State permet uniquement de créer des objets, Strategy de les détruire",
+        "choice_d": "Structurellement proches (délégation à un objet interchangeable), mais State modélise le comportement d'un objet qui change automatiquement selon son état interne (ex: une commande qui passe de 'en attente' à 'expédiée'), alors que Strategy encapsule un choix d'algorithme fait explicitement par le client",
+        "correct_choice": "D",
+        "explanation": "Les deux patterns partagent la même structure (délégation à un objet interchangeable via une interface commune), mais leur intention diffère : State représente une machine à états où l'objet change lui-même de comportement selon des transitions internes, alors que Strategy représente un choix externe et explicite d'algorithme."
+      },
+      {
+        "question_text": "Que fait le design pattern Template Method ?",
+        "choice_a": "Il définit le squelette d'un algorithme dans une méthode d'une classe de base, en déléguant certaines étapes précises à des sous-classes via des méthodes redéfinissables, sans changer la structure globale de l'algorithme",
+        "choice_b": "Il permet de créer une famille d'objets sans préciser leurs classes concrètes",
+        "choice_c": "Il transforme une interface incompatible en une interface utilisable par le client",
+        "choice_d": "Il notifie automatiquement des observateurs d'un changement d'état",
+        "correct_choice": "A",
+        "explanation": "La classe de base fixe l'ordre des étapes de l'algorithme (souvent via une méthode non-virtuelle qui appelle des méthodes virtuelles), et les sous-classes ne redéfinissent que les étapes qui varient — c'est l'inverse du Strategy, ici c'est l'héritage qui structure la variation, pas la composition."
+      },
+      {
+        "question_text": "À quoi sert le design pattern Iterator ?",
+        "choice_a": "À garantir qu'une collection ne contient jamais d'éléments dupliqués",
+        "choice_b": "À fournir un moyen d'accéder séquentiellement aux éléments d'une collection sans exposer sa représentation interne (tableau, liste chaînée, arbre...)",
+        "choice_c": "À convertir une collection en une structure composite récursive",
+        "choice_d": "À encapsuler l'algorithme de tri utilisé par une collection",
+        "correct_choice": "B",
+        "explanation": "L'Iterator sépare la logique de parcours de la structure de données elle-même : le code client parcourt la collection via une interface uniforme (has_next/next, ou les itérateurs C++ begin()/end()) sans savoir si elle est implémentée en tableau, liste chaînée ou arbre."
       }
     ]
+  },
+  {
+    "name": "IA",
+    "color": "amber",
+    "questions": []
   },
   {
     "name": "IA - Fondamentaux",
@@ -726,7 +857,8 @@
         "correct_choice": "C",
         "explanation": "Le deep learning est un sous-ensemble du machine learning, qui est lui-même un sous-ensemble de l'IA : DL ⊂ ML ⊂ IA."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "Deep Learning - Architectures",
@@ -803,8 +935,18 @@
         "choice_d": "Ils combinent deux réseaux adverses comme les GANs",
         "correct_choice": "B",
         "explanation": "Le modèle apprend à débruiter une image étape par étape ; en partant de bruit pur et en répétant ce débruitage, il finit par générer une image complète et cohérente."
+      },
+      {
+        "question_text": "Quelle est la différence entre les architectures Transformer encoder-only, decoder-only et encoder-decoder ?",
+        "choice_a": "Il n'y a aucune différence fonctionnelle, seul le nom change selon l'entreprise qui a entraîné le modèle",
+        "choice_b": "encoder-only et decoder-only sont deux noms pour la même architecture, seul encoder-decoder diffère réellement",
+        "choice_c": "decoder-only désigne des modèles qui ne peuvent pas générer de texte, seulement le classifier",
+        "choice_d": "encoder-only (ex: BERT) encode le texte en représentations riches pour la compréhension ; decoder-only (ex: GPT) génère du texte token par token de façon autorégressive ; encoder-decoder (ex: T5) combine les deux, l'encodeur traite l'entrée et le décodeur génère la sortie",
+        "correct_choice": "D",
+        "explanation": "Ces trois familles reposent sur le même mécanisme d'attention, mais leur usage diffère : encoder-only excelle en compréhension/classification (pas de génération), decoder-only est optimisé pour la génération de texte, et encoder-decoder est adapté aux tâches de transformation séquence-à-séquence comme la traduction ou le résumé."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "Machine Learning - Concepts",
@@ -953,8 +1095,18 @@
         "choice_d": "L'ajout de bruit aux données",
         "correct_choice": "B",
         "explanation": "De nombreux réseaux de neurones sont surdimensionnés : le pruning identifie et retire les poids qui contribuent le moins aux prédictions, sans trop dégrader la précision."
+      },
+      {
+        "question_text": "En apprentissage automatique, que désigne une 'epoch' ?",
+        "choice_a": "Le nombre total de paramètres appris par le modèle",
+        "choice_b": "Un seul exemple du dataset présenté au modèle",
+        "choice_c": "Un passage complet du modèle sur l'intégralité du dataset d'entraînement",
+        "choice_d": "La date à laquelle un modèle a été mis en production",
+        "correct_choice": "C",
+        "explanation": "Une epoch correspond à un cycle complet d'entraînement sur tout le jeu de données, généralement découpé en plusieurs batches ; on entraîne un modèle sur plusieurs epochs pour qu'il voie les données plusieurs fois. À ne pas confondre avec l'epoch Unix (1er janvier 1970), un terme informatique homonyme sans rapport."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "Reinforcement Learning",
@@ -1014,7 +1166,8 @@
         "correct_choice": "B",
         "explanation": "L'« Actor » choisit les actions (politique) pendant que le « Critic » évalue si ces actions étaient bonnes (valeur), ce qui stabilise et accélère l'apprentissage par rapport au policy gradient seul."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "Computer Vision",
@@ -1146,7 +1299,8 @@
         "correct_choice": "B",
         "explanation": "Générer des images de synthèse permet d'obtenir rapidement de grands volumes de données parfaitement labellisées, utile quand les données réelles sont rares ou coûteuses à annoter."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "NLP",
@@ -1242,7 +1396,8 @@
         "correct_choice": "D",
         "explanation": "Elle standardise l'accès à des milliers de modèles pré-entraînés partagés par la communauté, ce qui simplifie énormément le transfer learning en NLP."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "MLOps & Déploiement",
@@ -1329,7 +1484,8 @@
         "correct_choice": "A",
         "explanation": "Plutôt que de recalculer les mêmes caractéristiques dans chaque projet, un feature store les stocke une fois pour toutes et les rend accessibles à tous les modèles qui en ont besoin."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "Métriques & Évaluation IA",
@@ -1461,7 +1617,8 @@
         "correct_choice": "B",
         "explanation": "Contrairement au reward brut (qui peut être difficile à interpréter), le success rate donne une mesure simple et concrète de la performance de l'agent sur sa tâche."
       }
-    ]
+    ],
+    "parent": "IA"
   },
   {
     "name": "Éthique & Robustesse IA",
@@ -1557,6 +1714,104 @@
         "correct_choice": "D",
         "explanation": "C'est l'un des critères d'équité les plus utilisés : il exige que le taux de prédictions positives soit similaire entre les différents groupes, indépendamment de leurs caractéristiques sensibles."
       }
-    ]
+    ],
+    "parent": "IA"
+  },
+  {
+    "name": "LLM & Génération de texte",
+    "color": "indigo",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce qu'un embedding en machine learning ?",
+        "choice_a": "Une représentation vectorielle dense d'un objet (mot, image, phrase...) dans un espace continu, où la proximité géométrique reflète une similarité sémantique",
+        "choice_b": "Un algorithme de compression sans perte des poids d'un réseau de neurones",
+        "choice_c": "Une technique pour intégrer (embed) du code Python directement dans un notebook Jupyter",
+        "choice_d": "Un format de fichier utilisé pour sauvegarder les checkpoints d'un modèle",
+        "correct_choice": "A",
+        "explanation": "Un embedding transforme une donnée discrète (mot, token, image) en vecteur de nombres réels de dimension fixe, appris de façon à ce que des objets sémantiquement proches (ex: 'chat' et 'chaton') aient des vecteurs proches dans l'espace vectoriel."
+      },
+      {
+        "question_text": "Qu'est-ce que le RAG (Retrieval-Augmented Generation) ?",
+        "choice_a": "Une technique de compression des poids d'un LLM pour le faire tenir sur un GPU grand public",
+        "choice_b": "Une architecture qui combine un LLM avec un système de recherche documentaire externe, pour ancrer ses réponses sur des données récupérées à la volée",
+        "choice_c": "Un format d'image utilisé pour l'entraînement des modèles de vision",
+        "choice_d": "Une méthode de fine-tuning qui réentraîne uniquement la dernière couche d'un réseau",
+        "correct_choice": "B",
+        "explanation": "Le RAG interroge une base documentaire (souvent une base vectorielle) au moment de la requête, puis injecte les passages pertinents trouvés dans le prompt du LLM — ce qui permet de répondre avec des informations à jour ou spécifiques sans réentraîner le modèle."
+      },
+      {
+        "question_text": "À quoi sert le paramètre 'temperature' lors de la génération de texte par un LLM ?",
+        "choice_a": "Il contrôle la taille du contexte (nombre de tokens) que le modèle peut lire",
+        "choice_b": "Il détermine le nombre de couches du réseau utilisées pendant l'inférence",
+        "choice_c": "Il contrôle le degré d'aléa de la distribution de probabilité des tokens : proche de 0 rend la sortie déterministe/répétitive, une valeur élevée la rend plus diverse/créative",
+        "choice_d": "Il mesure la charge GPU pendant l'entraînement du modèle",
+        "correct_choice": "C",
+        "explanation": "La temperature redistribue les probabilités en sortie du softmax avant l'échantillonnage : plus elle est basse, plus le modèle privilégie le token le plus probable (greedy) ; plus elle est haute, plus la distribution s'aplatit et laisse de la place à des choix improbables."
+      },
+      {
+        "question_text": "Que fait le top-k sampling lors de la génération de texte ?",
+        "choice_a": "Il sélectionne toujours les k derniers tokens générés pour les répéter",
+        "choice_b": "Il limite la longueur de la réponse à k tokens maximum",
+        "choice_c": "Il garde les k couches du modèle les plus utiles et ignore les autres",
+        "choice_d": "Il restreint le tirage aléatoire du prochain token aux k tokens les plus probables, en ignorant le reste de la distribution",
+        "correct_choice": "D",
+        "explanation": "En ne conservant que les k candidats les plus probables avant de tirer aléatoirement, le top-k sampling évite que le modèle choisisse un token totalement improbable/absurde, tout en gardant une part de diversité — contrairement au top-p (nucleus sampling) qui fixe un seuil de probabilité cumulée plutôt qu'un nombre fixe de candidats."
+      },
+      {
+        "question_text": "À quoi sert le KV Cache (cache clé-valeur) dans l'inférence d'un Transformer ?",
+        "choice_a": "Il stocke les clés et valeurs d'attention déjà calculées pour les tokens précédents, évitant de les recalculer à chaque nouveau token généré",
+        "choice_b": "Il sauvegarde une copie des poids du modèle sur le disque pour accélérer le chargement",
+        "choice_c": "Il met en cache les résultats des requêtes utilisateur pour répondre plus vite aux questions identiques",
+        "choice_d": "Il stocke les valeurs de la fonction de perte à chaque epoch d'entraînement",
+        "correct_choice": "A",
+        "explanation": "La génération autorégressive produit un token à la fois, mais recalculer l'attention sur tout le contexte à chaque étape serait redondant : le KV cache garde en mémoire les clés/valeurs déjà calculées, ce qui réduit fortement le temps de génération au prix d'une consommation mémoire GPU croissante avec la longueur du contexte."
+      },
+      {
+        "question_text": "Que représente le 'confidence score' (score de confiance) d'un modèle de classification ?",
+        "choice_a": "La proportion du dataset d'entraînement sur laquelle le modèle a été validé",
+        "choice_b": "La probabilité, calculée par le modèle (souvent via softmax), qu'il attribue à sa prédiction — mais ce n'est pas une garantie statistique sans calibration",
+        "choice_c": "Le nombre de fois où le modèle a donné la même réponse lors de plusieurs entraînements",
+        "choice_d": "Un score fixé manuellement par les développeurs pour chaque classe",
+        "correct_choice": "B",
+        "explanation": "Un modèle mal calibré peut être 'confiant' (score proche de 1) tout en se trompant souvent : le score de confiance brut reflète la distribution de sortie du modèle, pas une probabilité réelle de succès, d'où l'importance des techniques de calibration (ex: temperature scaling)."
+      },
+      {
+        "question_text": "Qu'est-ce que le RLHF (Reinforcement Learning from Human Feedback) ?",
+        "choice_a": "Une méthode qui entraîne un LLM uniquement sur des données générées par d'autres LLM",
+        "choice_b": "Un algorithme de compression des poids d'un modèle basé sur le feedback des utilisateurs",
+        "choice_c": "Une technique d'alignement qui entraîne un modèle de récompense sur des préférences humaines (ex: comparaison de réponses), puis affine le LLM par apprentissage par renforcement pour maximiser cette récompense",
+        "choice_d": "Une méthode de labellisation manuelle du dataset d'entraînement initial d'un LLM",
+        "correct_choice": "C",
+        "explanation": "Le RLHF est la technique (popularisée par ChatGPT) qui a permis de rendre les LLM plus utiles et alignés avec les attentes humaines : des annotateurs humains classent des réponses du modèle, ce classement entraîne un reward model, puis un algorithme comme PPO ajuste le LLM pour maximiser la récompense prédite."
+      },
+      {
+        "question_text": "Qu'est-ce que le LoRA (Low-Rank Adaptation) ?",
+        "choice_a": "Un algorithme de quantification qui réduit la précision des poids de 32 à 8 bits",
+        "choice_b": "Une architecture de réseau de neurones concurrente du Transformer",
+        "choice_c": "Une méthode qui supprime les couches inutiles d'un modèle pré-entraîné",
+        "choice_d": "Une technique de fine-tuning efficace qui gèle les poids du modèle pré-entraîné et n'entraîne que de petites matrices de faible rang insérées dans certaines couches",
+        "correct_choice": "D",
+        "explanation": "Au lieu de réentraîner les milliards de paramètres d'un LLM, LoRA n'entraîne que des matrices de faible rang représentant une petite fraction des paramètres, ce qui divise fortement le coût mémoire/calcul du fine-tuning tout en gardant des performances proches d'un fine-tuning complet."
+      },
+      {
+        "question_text": "Comment fonctionne une architecture Mixture of Experts (MoE) ?",
+        "choice_a": "Un routeur sélectionne, pour chaque entrée, un sous-ensemble de sous-réseaux ('experts') spécialisés à activer, plutôt que d'utiliser tout le réseau à chaque fois",
+        "choice_b": "Plusieurs modèles indépendants sont entraînés séparément puis leurs réponses sont moyennées à la fin",
+        "choice_c": "Chaque couche du réseau est dupliquée et exécutée en parallèle sur des GPU différents",
+        "choice_d": "Le modèle interroge plusieurs experts humains en temps réel pour valider ses réponses",
+        "correct_choice": "A",
+        "explanation": "Un modèle MoE (ex: Mixtral) contient de nombreux sous-réseaux experts, mais un routeur n'en active qu'un petit nombre par token traité : cela permet d'augmenter fortement la capacité totale du modèle (nombre de paramètres) sans augmenter proportionnellement le coût de calcul par inférence."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un State Space Model (SSM, ex. Mamba) en deep learning ?",
+        "choice_a": "Un modèle qui prédit uniquement l'état final d'une séquence, sans traiter les éléments intermédiaires",
+        "choice_b": "Une famille de modèles séquentiels, alternative aux Transformers, qui traite la séquence via un état caché mis à jour récursivement, avec une complexité linéaire en longueur de séquence (contre quadratique pour l'attention)",
+        "choice_c": "Un algorithme de recherche d'hyperparamètres basé sur des états stochastiques",
+        "choice_d": "Une technique de visualisation des poids d'un réseau de neurones sous forme de graphe d'états",
+        "correct_choice": "B",
+        "explanation": "Contrairement à l'attention des Transformers, dont le coût croît de façon quadratique avec la longueur de la séquence, les SSM (dérivés de la théorie du contrôle) propagent un état caché de façon linéaire — Mamba est l'implémentation la plus connue, et des modèles commerciaux comme les LFM de Liquid AI s'appuient sur des idées proches."
+      }
+    ],
+    "parent": "IA"
   }
 ]

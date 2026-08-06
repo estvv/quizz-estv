@@ -4,6 +4,7 @@ import type { Category, QuestionBrief } from '../types';
 import { categoriesApi, questionsApi } from '../utils/api';
 import { getCategoryColorClasses } from '../utils/colors';
 import { QuestionListRow } from '../components/questions/QuestionListRow';
+import { CategoryCard } from '../components/categories/CategoryCard';
 
 type RandomCount = 'all' | 5 | 10;
 
@@ -21,6 +22,7 @@ export function CategoryPage() {
   const navigate = useNavigate();
 
   const [category, setCategory] = useState<Category | null>(null);
+  const [children, setChildren] = useState<Category[]>([]);
   const [questions, setQuestions] = useState<QuestionBrief[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -34,10 +36,16 @@ export function CategoryPage() {
     if (!id) return;
     const categoryId = parseInt(id);
     setLoading(true);
-    Promise.all([categoriesApi.get(categoryId), questionsApi.brief(categoryId)])
-      .then(([cat, qs]) => {
+    Promise.all([categoriesApi.get(categoryId), categoriesApi.list()])
+      .then(async ([cat, all]) => {
         setCategory(cat);
-        setQuestions(qs);
+        const childCategories = all.filter((c) => c.parent_id === categoryId);
+        setChildren(childCategories);
+        // A parent category is a pure container: skip fetching its own questions,
+        // it never has any directly attached.
+        if (childCategories.length === 0) {
+          setQuestions(await questionsApi.brief(categoryId));
+        }
       })
       .catch((err) => setError(err.message || 'Catégorie introuvable'))
       .finally(() => setLoading(false));
@@ -90,6 +98,25 @@ export function CategoryPage() {
       <div className="max-w-3xl mx-auto px-4 py-10">
         <p className="text-red-600 mb-4">{error || 'Catégorie introuvable'}</p>
         <Link to="/" className="text-emerald-700 font-medium">← Retour à l'accueil</Link>
+      </div>
+    );
+  }
+
+  if (children.length > 0) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-10">
+        <Link to="/" className="text-sm text-neutral-500 hover:text-neutral-800 mb-4 inline-block">← Toutes les catégories</Link>
+
+        <div className="flex items-center gap-2 mb-8">
+          <span className={`w-3 h-3 rounded-full ${colors.dot}`} />
+          <h1 className="text-2xl font-bold text-neutral-900">{category.name}</h1>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {children.map((child) => (
+            <CategoryCard key={child.id} category={child} />
+          ))}
+        </div>
       </div>
     );
   }
