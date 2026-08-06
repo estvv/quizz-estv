@@ -410,6 +410,60 @@
         "choice_d": "Une copie de sauvegarde automatique du disque dur",
         "correct_choice": "C",
         "explanation": "Quand la RAM est saturée, le système déplace les pages mémoire les moins utilisées vers le disque (swap) pour libérer de la place, au prix d'un accès beaucoup plus lent."
+      },
+      {
+        "question_text": "Quelle est la différence entre un processus et un thread (fil d'exécution) ?",
+        "choice_a": "Un thread est simplement un processus qui s'exécute plus lentement",
+        "choice_b": "Il n'y a aucune différence, ce sont deux synonymes du même concept",
+        "choice_c": "Un processus dispose de son propre espace mémoire isolé, alors que les threads d'un même processus partagent le même espace mémoire — ce qui facilite la communication entre eux mais impose de les synchroniser",
+        "choice_d": "Un processus ne peut jamais contenir plus d'un seul thread",
+        "correct_choice": "C",
+        "explanation": "L'isolation mémoire des processus les rend plus sûrs mais plus coûteux à créer et à faire communiquer (IPC) ; les threads, plus légers, partagent tout l'espace mémoire du processus parent, ce qui les rend rapides à créer mais exposés aux conditions de course sans synchronisation adéquate."
+      },
+      {
+        "question_text": "À quoi sert un mutex (mutual exclusion) ?",
+        "choice_a": "Accélérer l'exécution parallèle de plusieurs threads",
+        "choice_b": "Allouer dynamiquement de la mémoire partagée entre threads",
+        "choice_c": "Planifier l'ordre d'exécution des processus sur le CPU",
+        "choice_d": "Garantir qu'une seule section critique de code / une ressource partagée n'est accédée que par un seul thread à la fois, pour éviter les conditions de course (race conditions)",
+        "correct_choice": "D",
+        "explanation": "Sans mutex, deux threads qui lisent et modifient la même variable partagée simultanément peuvent produire un résultat incohérent (race condition) ; le mutex garantit qu'un seul thread à la fois entre dans la section critique protégée."
+      },
+      {
+        "question_text": "Quel est le rôle de l'ordonnanceur (scheduler) du système d'exploitation ?",
+        "choice_a": "Décider quel processus/thread s'exécute sur le CPU à un instant donné, et pendant combien de temps, en partageant le temps processeur entre les tâches actives selon une politique (ex: round-robin, priorités)",
+        "choice_b": "Allouer la mémoire virtuelle à chaque processus au démarrage",
+        "choice_c": "Gérer les interruptions matérielles envoyées par le disque dur",
+        "choice_d": "Compiler le code source en code machine exécutable",
+        "correct_choice": "A",
+        "explanation": "Sur un système multitâche préemptif, l'ordonnanceur interrompt régulièrement les processus en cours pour donner leur tour aux autres, donnant l'illusion d'une exécution simultanée même avec un nombre de cœurs limité."
+      },
+      {
+        "question_text": "Qu'est-ce que la mémoire virtuelle et la pagination ?",
+        "choice_a": "Une technique de compression des fichiers avant leur écriture sur le disque",
+        "choice_b": "Elle donne à chaque processus l'illusion de disposer d'un espace d'adressage continu et isolé, indépendant de la RAM physique réellement disponible ; la pagination découpe cet espace en blocs de taille fixe (pages) que l'OS fait correspondre à des emplacements physiques (ou au disque via le swap)",
+        "choice_c": "L'espace mémoire réservé exclusivement au noyau du système",
+        "choice_d": "Une copie de sauvegarde automatique et périodique de la RAM",
+        "correct_choice": "B",
+        "explanation": "Cette abstraction permet à chaque processus de croire qu'il dispose de toute la mémoire pour lui seul, isole les processus entre eux (un processus ne peut pas accidentellement écrire dans la mémoire d'un autre), et permet d'utiliser le swap (disque) pour simuler plus de RAM que physiquement disponible."
+      },
+      {
+        "question_text": "Pourquoi un processeur possède-t-il plusieurs niveaux de cache (L1, L2, L3) ?",
+        "choice_a": "Chaque niveau correspond à un cœur physique différent du processeur",
+        "choice_b": "Ils stockent chacun un système d'exploitation différent, sélectionné au démarrage",
+        "choice_c": "Pour réduire la latence d'accès aux données fréquemment utilisées : le L1 est le plus petit/rapide (proche du cœur), le L3 le plus grand/lent (souvent partagé entre cœurs), formant une hiérarchie qui compense la lenteur relative de la RAM",
+        "choice_d": "Ils ne servent que pendant le démarrage (boot) de la machine",
+        "correct_choice": "C",
+        "explanation": "Accéder à la RAM prend des dizaines voire centaines de cycles CPU, alors qu'un accès au cache L1 en prend seulement quelques-uns — la hiérarchie de cache exploite le principe de localité (temporelle et spatiale) des accès mémoire pour garder les données les plus utiles au plus près du cœur."
+      },
+      {
+        "question_text": "Qu'est-ce que l'endianness (boutisme) d'un système ?",
+        "choice_a": "La vitesse à laquelle le CPU exécute les instructions machine",
+        "choice_b": "Le sens de lecture du code source par le compilateur",
+        "choice_c": "Le protocole utilisé pour envoyer des données sur le réseau",
+        "choice_d": "L'ordre dans lequel les octets d'une donnée multi-octets (ex: un int sur 4 octets) sont stockés en mémoire — poids fort en premier (big-endian) ou poids faible en premier (little-endian, utilisé par la majorité des architectures x86/ARM modernes)",
+        "correct_choice": "D",
+        "explanation": "Cette différence n'a d'importance que lors de l'échange de données binaires brutes entre systèmes différents (ex: réseau, fichiers binaires) : les protocoles réseau standardisent généralement le big-endian ('network byte order') pour éviter toute ambiguïté."
       }
     ]
   },
@@ -434,15 +488,6 @@
         "choice_d": "Un protocole de chiffrement pour HTTPS",
         "correct_choice": "B",
         "explanation": "Contrairement au proxy direct (côté client), le reverse proxy est placé côté serveur : les clients ne voient que lui, alors qu'il répartit en coulisses les requêtes vers différents backends."
-      },
-      {
-        "question_text": "Qu'est-ce qu'un certificat SSL/TLS ?",
-        "choice_a": "Un protocole de compression des données HTTP",
-        "choice_b": "Un certificat électronique qui authentifie l'identité d'un site web et permet de chiffrer la connexion (nom de domaine, clé publique, émetteur, signature numérique)",
-        "choice_c": "Une clé privée partagée publiquement",
-        "choice_d": "Un fichier de configuration du serveur web uniquement",
-        "correct_choice": "B",
-        "explanation": "Délivré par une autorité de certification, il permet au navigateur de vérifier qu'il parle bien au bon serveur (authentification) tout en chiffrant les échanges (confidentialité)."
       },
       {
         "question_text": "Qu'est-ce que Kubernetes (k8s) ?",
@@ -515,24 +560,6 @@
         "choice_d": "Des protocoles de transfert de fichiers (comme FTP)",
         "correct_choice": "B",
         "explanation": "OpenID Connect s'occupe de l'authentification (« qui es-tu ? ») tandis qu'OAuth 2.0 s'occupe de l'autorisation (« à quoi as-tu le droit d'accéder ? ») ; les deux sont souvent utilisés ensemble."
-      },
-      {
-        "question_text": "Quelle est la différence entre SQL et NoSQL (ex. MongoDB) ?",
-        "choice_a": "SQL ne peut pas être utilisé pour des relations entre tables",
-        "choice_b": "SQL désigne les bases de données relationnelles ; NoSQL désigne des bases non relationnelles adaptées aux données peu structurées",
-        "choice_c": "SQL et NoSQL sont deux noms pour le même type de base de données",
-        "choice_d": "NoSQL est un langage de requête utilisé uniquement avec MySQL",
-        "correct_choice": "B",
-        "explanation": "Les bases SQL imposent un schéma fixe et des relations entre tables (jointures) ; les bases NoSQL (document, clé-valeur, graphe...) offrent plus de flexibilité pour des données hétérogènes ou à très grande échelle."
-      },
-      {
-        "question_text": "Que signifie une transaction ACID ?",
-        "choice_a": "Atomicité, Compression, Isolation, Distribution",
-        "choice_b": "Atomicité, Cohérence, Isolation, Durabilité — les 4 propriétés garantissant la fiabilité des transactions, généralement supportées par SQL",
-        "choice_c": "Async, Cache, Index, Durabilité",
-        "choice_d": "Authentification, Chiffrement, Intégrité, Disponibilité",
-        "correct_choice": "B",
-        "explanation": "Ces 4 propriétés garantissent qu'une transaction s'exécute entièrement ou pas du tout (atomicité), respecte les contraintes (cohérence), n'interfère pas avec les autres transactions (isolation) et persiste même en cas de panne (durabilité)."
       },
       {
         "question_text": "Qu'est-ce que le CSR (Client Side Rendering) ?",
@@ -795,6 +822,600 @@
     ]
   },
   {
+    "name": "Rust",
+    "color": "orange",
+    "questions": [
+      {
+        "question_text": "Quelle est la règle fondamentale de l'ownership (possession) en Rust ?",
+        "choice_a": "Chaque valeur a exactement un seul propriétaire (owner) à la fois ; quand ce propriétaire sort de portée, la valeur est automatiquement libérée",
+        "choice_b": "Chaque valeur peut avoir plusieurs propriétaires simultanés, comme en C++ avec shared_ptr",
+        "choice_c": "L'ownership ne s'applique qu'aux types alloués sur le tas (heap), jamais à la pile",
+        "choice_d": "L'ownership est un concept optionnel qu'on peut désactiver avec le mot-clé unsafe",
+        "correct_choice": "A",
+        "explanation": "Ce système, vérifié entièrement à la compilation, permet à Rust de garantir la sécurité mémoire (pas de use-after-free, pas de double-free) sans ramasse-miettes (garbage collector) : dès que le propriétaire d'une valeur sort de sa portée, son destructeur (Drop) est appelé automatiquement."
+      },
+      {
+        "question_text": "Quelles sont les règles du borrowing (emprunt) en Rust ?",
+        "choice_a": "On peut avoir autant de références mutables simultanées que l'on veut, tant qu'elles pointent vers le même type",
+        "choice_b": "À un instant donné, on peut avoir soit plusieurs références immutables (&T), soit une seule référence mutable (&mut T), mais jamais les deux en même temps",
+        "choice_c": "Une référence peut être utilisée même après que la valeur qu'elle emprunte a été libérée",
+        "choice_d": "Le borrowing ne s'applique qu'aux paramètres de fonctions, jamais aux variables locales",
+        "correct_choice": "B",
+        "explanation": "Cette règle (vérifiée par le borrow checker à la compilation) élimine par construction les data races : impossible de lire une donnée pendant qu'une autre partie du code la modifie, sans même avoir besoin d'un runtime ou d'un ramasse-miettes."
+      },
+      {
+        "question_text": "À quoi servent les lifetimes ('a) en Rust ?",
+        "choice_a": "À mesurer le temps d'exécution d'une fonction pour l'optimiser",
+        "choice_b": "À définir combien de fois une variable peut être clonée",
+        "choice_c": "À indiquer au compilateur pendant combien de temps une référence reste valide, pour garantir qu'elle ne survit jamais à la donnée qu'elle emprunte (pas de dangling reference)",
+        "choice_d": "À planifier l'ordre d'exécution des threads dans un programme concurrent",
+        "correct_choice": "C",
+        "explanation": "Les lifetimes n'ont aucun effet à l'exécution : ce sont des annotations purement analysées par le compilateur pour vérifier statiquement qu'une référence ne pointe jamais vers une donnée déjà libérée — souvent inférées automatiquement, elles ne doivent être écrites explicitement que dans les cas ambigus."
+      },
+      {
+        "question_text": "Pourquoi Rust utilise-t-il Option<T> plutôt qu'une valeur null ?",
+        "choice_a": "Parce que null est plus lent à vérifier que Option<T> à l'exécution",
+        "choice_b": "Option<T> et null sont strictement équivalents en Rust, seul le nom change",
+        "choice_c": "Parce que null nécessite un ramasse-miettes pour être géré correctement",
+        "choice_d": "Pour forcer, à la compilation, la gestion explicite du cas 'absence de valeur' (None) : le compilateur refuse d'utiliser la valeur contenue dans un Option sans d'abord vérifier qu'elle est bien présente (Some), éliminant toute une classe de bugs de type null pointer",
+        "correct_choice": "D",
+        "explanation": "C'est ce qu'on appelle parfois 'l'erreur à un milliard de dollars' (le null de Tony Hoare) : en rendant l'absence de valeur explicite dans le système de types via Option<T>, Rust déplace la détection de ce bug de l'exécution à la compilation."
+      },
+      {
+        "question_text": "Comment Rust gère-t-il les erreurs récupérables, contrairement aux exceptions d'autres langages ?",
+        "choice_a": "Via le type Result<T, E>, qui représente soit un succès (Ok(T)) soit une erreur (Err(E)) ; l'appelant doit explicitement gérer les deux cas (souvent avec match ou l'opérateur ?), le compilateur ne le laisse pas ignorer une erreur silencieusement",
+        "choice_b": "Rust utilise exactement le même mécanisme try/catch que Java ou Python",
+        "choice_c": "Toute erreur en Rust provoque un arrêt immédiat et irrécupérable du programme (panic)",
+        "choice_d": "Les erreurs sont gérées via des codes de retour entiers, comme en C",
+        "correct_choice": "A",
+        "explanation": "L'opérateur ? propage automatiquement une erreur vers l'appelant si le Result est un Err, ce qui rend la gestion d'erreurs explicite (visible dans la signature des fonctions) mais concise à l'usage — panic! reste réservé aux erreurs non récupérables (bugs)."
+      },
+      {
+        "question_text": "Quelle garantie apporte le mot-clé match en Rust par rapport à un switch classique ?",
+        "choice_a": "match ne peut être utilisé qu'avec des nombres entiers, jamais avec des enums",
+        "choice_b": "Le compilateur vérifie l'exhaustivité : le code ne compile pas si tous les cas possibles ne sont pas couverts (sauf à ajouter explicitement un cas _ par défaut)",
+        "choice_c": "match exécute systématiquement tous les bras (branches) au lieu d'un seul",
+        "choice_d": "match ne fonctionne qu'à l'intérieur d'une fonction main()",
+        "correct_choice": "B",
+        "explanation": "Cette exhaustivité obligatoire est particulièrement puissante combinée aux enums : si on ajoute une nouvelle variante à un enum plus tard, le compilateur signale immédiatement tous les match qui ne la gèrent pas encore, évitant les oublis."
+      },
+      {
+        "question_text": "En quoi un trait Rust diffère-t-il d'une classe abstraite en programmation orientée objet classique ?",
+        "choice_a": "Un trait ne peut jamais fournir d'implémentation par défaut pour ses méthodes",
+        "choice_b": "Un trait ne peut être implémenté que par un seul type dans tout le programme",
+        "choice_c": "Un trait définit un ensemble de comportements qu'un type peut implémenter (composition), sans relation d'héritage ni hiérarchie de classes : un même type peut implémenter plusieurs traits indépendants, y compris des traits définis après coup sur des types existants",
+        "choice_d": "Un trait est strictement identique à une interface Java, sans aucune différence",
+        "correct_choice": "C",
+        "explanation": "Rust privilégie la composition de traits à l'héritage de classes : il n'existe pas de hiérarchie de classes en Rust, et on peut même implémenter un trait qu'on a défini sur un type qui vient d'une autre bibliothèque (sous certaines règles de cohérence, la 'orphan rule')."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une slice (&[T] ou &str) en Rust ?",
+        "choice_a": "Une copie complète d'une collection, indépendante de l'originale",
+        "choice_b": "Un type qui ne peut contenir que des caractères, jamais d'autres types",
+        "choice_c": "Un pointeur brut sans aucune information de longueur, comme en C",
+        "choice_d": "Une référence vers une portion contiguë d'une collection (tableau, Vec, String...), composée d'un pointeur et d'une longueur, sans posséder les données ni en faire une copie",
+        "correct_choice": "D",
+        "explanation": "Les slices permettent de manipuler efficacement une partie d'une collection sans copie ni ownership : &str est justement une slice de String, ce qui explique pourquoi on passe généralement &str en paramètre de fonction plutôt que String."
+      },
+      {
+        "question_text": "À quoi sert Box<T> en Rust ?",
+        "choice_a": "À allouer une valeur sur le tas (heap) plutôt que sur la pile, tout en gardant un ownership unique classique — utile notamment pour les types récursifs (ex: un nœud d'arbre) dont la taille ne peut pas être connue à la compilation",
+        "choice_b": "À créer plusieurs références partagées vers la même valeur sans compteur de références",
+        "choice_c": "À rendre une valeur accessible depuis plusieurs threads sans synchronisation",
+        "choice_d": "À convertir automatiquement un type en un autre type compatible",
+        "correct_choice": "A",
+        "explanation": "Un type récursif comme 'enum Arbre { Noeud(Arbre, Arbre), Feuille }' aurait une taille infinie sans indirection : Box<Arbre> stocke un pointeur de taille fixe vers le tas, ce qui résout le problème tout en conservant les règles d'ownership standard (un seul propriétaire, libération automatique)."
+      },
+      {
+        "question_text": "Quelle est la différence entre Rc<T> et Arc<T> en Rust ?",
+        "choice_a": "Rc<T> est utilisé pour les nombres, Arc<T> pour les chaînes de caractères",
+        "choice_b": "Les deux permettent le partage d'une même valeur entre plusieurs propriétaires via un compteur de références, mais Rc<T> n'est pas thread-safe (compteur non atomique, plus rapide) alors qu'Arc<T> l'est (compteur atomique, utilisable entre threads)",
+        "choice_c": "Rc<T> et Arc<T> sont strictement identiques, Arc<T> est juste un alias historique de Rc<T>",
+        "choice_d": "Arc<T> ne peut contenir que des types immuables, contrairement à Rc<T>",
+        "correct_choice": "B",
+        "explanation": "'Arc' signifie 'Atomically Reference Counted' : l'incrémentation/décrémentation atomique du compteur a un coût en performance par rapport à Rc<T>, d'où l'intérêt de n'utiliser Arc<T> que lorsque le partage entre threads est réellement nécessaire."
+      },
+      {
+        "question_text": "Que signifie le fait que les iterators de Rust soient 'paresseux' (lazy) ?",
+        "choice_a": "Ils exécutent automatiquement leurs opérations dans un thread séparé en arrière-plan",
+        "choice_b": "Ils mettent en cache tous les résultats intermédiaires en mémoire avant de les retourner",
+        "choice_c": "Les adaptateurs comme map() ou filter() ne font aucun calcul tant qu'une méthode consommatrice (comme collect(), sum() ou un for) n'est pas appelée : la chaîne d'opérations n'est évaluée qu'à ce moment-là, élément par élément",
+        "choice_d": "Ils ne peuvent parcourir une collection qu'une seule fois dans toute la durée du programme",
+        "correct_choice": "C",
+        "explanation": "Cette paresse permet au compilateur de fusionner (via l'inlining) toute une chaîne d'adaptateurs en une seule boucle optimisée à la compilation, offrant des performances comparables à une boucle écrite à la main tout en gardant un style déclaratif et lisible."
+      },
+      {
+        "question_text": "Comment Rust implémente-t-il les génériques (generics) à la compilation ?",
+        "choice_a": "Via un typage dynamique résolu entièrement à l'exécution, comme en Python",
+        "choice_b": "Via un unique code binaire partagé pour tous les types, comme les generics de Java (type erasure)",
+        "choice_c": "Les génériques ne sont qu'une convention de nommage, sans aucun effet sur le code généré",
+        "choice_d": "Par monomorphisation : le compilateur génère une version spécialisée et optimisée du code pour chaque type concret utilisé avec le générique, ce qui élargit la taille du binaire mais élimine tout coût d'indirection à l'exécution (zero-cost abstraction)",
+        "correct_choice": "D",
+        "explanation": "Contrairement au 'type erasure' de Java où les generics n'existent qu'à la compilation puis disparaissent derrière Object, la monomorphisation de Rust génère du code machine distinct et optimisé pour chaque instanciation concrète (ex: Vec<i32> et Vec<String> produisent chacun leur propre code), sans coût de performance à l'exécution."
+      },
+      {
+        "question_text": "Que se passe-t-il quand on écrit `let s2 = s1;` où s1 est une String en Rust ?",
+        "choice_a": "L'ownership de la donnée est déplacé (moved) de s1 vers s2 ; s1 devient invalide et toute tentative de l'utiliser après provoque une erreur de compilation",
+        "choice_b": "s1 et s2 pointent tous les deux vers la même donnée, comme une référence partagée automatique",
+        "choice_c": "Rust effectue automatiquement une copie profonde (deep copy) de la donnée, comme en C++ par défaut",
+        "choice_d": "Cela provoque une erreur de compilation immédiate, cette syntaxe n'est pas autorisée pour les String",
+        "correct_choice": "A",
+        "explanation": "Pour les types alloués sur le tas comme String, l'affectation déplace l'ownership plutôt que de copier les données (contrairement aux types simples comme i32, qui implémentent le trait Copy et sont dupliqués automatiquement) — c'est ce mécanisme de 'move' qui garantit qu'il n'existe jamais deux propriétaires de la même donnée."
+      },
+      {
+        "question_text": "Qu'est-ce que le shadowing (masquage) de variable en Rust ?",
+        "choice_a": "Une erreur de compilation qui survient quand deux variables portent le même nom",
+        "choice_b": "La possibilité de redéclarer une variable avec let en réutilisant le même nom, ce qui crée une toute nouvelle variable (potentiellement d'un type différent) masquant la précédente dans la portée courante, sans passer par une mutation (mut)",
+        "choice_c": "Un mécanisme réservé exclusivement aux constantes globales",
+        "choice_d": "La conversion automatique et implicite d'un type de variable vers un autre type",
+        "correct_choice": "B",
+        "explanation": "Contrairement à `mut` qui permet de modifier la valeur d'une variable existante en gardant son type, le shadowing crée une variable totalement nouvelle (pouvant même changer de type), ce qui est notamment pratique pour transformer une valeur étape par étape (ex: parser une String en un nombre) sans avoir à inventer plusieurs noms."
+      },
+      {
+        "question_text": "Que permet le mot-clé unsafe en Rust, et que ne permet-il PAS ?",
+        "choice_a": "Il désactive complètement le compilateur pour ce bloc de code, qui n'est alors plus du tout vérifié",
+        "choice_b": "Il rend le code plus rapide en désactivant automatiquement toutes les vérifications de type",
+        "choice_c": "Il permet d'effectuer certaines opérations que le compilateur ne peut pas vérifier automatiquement (ex: déréférencer un pointeur brut, appeler une fonction FFI, muter une variable statique globale) — mais il ne désactive ni le borrow checker sur le code sûr environnant, ni le typage : le développeur assume juste la responsabilité de garantir manuellement la sécurité mémoire pour ces opérations précises",
+        "choice_d": "Il autorise l'utilisation de code écrit dans un autre langage sans aucune restriction ni précaution",
+        "correct_choice": "C",
+        "explanation": "unsafe n'est pas un interrupteur qui coupe toutes les vérifications : les règles de base du langage (typage, la plupart des vérifications du borrow checker) continuent de s'appliquer ; il ouvre juste l'accès à un petit ensemble d'opérations bas niveau dont la sécurité mémoire doit être garantie manuellement par le développeur plutôt que par le compilateur."
+      },
+      {
+        "question_text": "Que signifient les traits marqueurs Send et Sync en Rust ?",
+        "choice_a": "Send permet d'envoyer des messages réseau, Sync de synchroniser l'horloge système",
+        "choice_b": "Ce sont des macros qui génèrent automatiquement du code de sérialisation JSON",
+        "choice_c": "Send et Sync ne concernent que les types définis dans la bibliothèque standard, jamais les types créés par l'utilisateur",
+        "choice_d": "Send indique qu'un type peut être transféré en toute sécurité vers un autre thread (son ownership peut changer de thread) ; Sync indique qu'un type peut être partagé en toute sécurité entre plusieurs threads via une référence (&T est alors Send) — le compilateur les vérifie automatiquement et interdit à la compilation le partage non sûr entre threads",
+        "correct_choice": "D",
+        "explanation": "Ce sont des 'marker traits' (sans méthode) implémentés automatiquement par le compilateur quand c'est sûr (ex: Rc<T> n'est ni Send ni Sync car son compteur n'est pas atomique, contrairement à Arc<T>) — c'est ce mécanisme, entièrement vérifié à la compilation, qui permet à Rust de garantir l'absence de data races sans avoir besoin d'un runtime de détection à l'exécution."
+      },
+      {
+        "question_text": "Comment l'ownership est-il géré quand on crée un nouveau thread avec std::thread::spawn en Rust ?",
+        "choice_a": "Les données utilisées par la closure du thread doivent généralement être déplacées (move) dans celle-ci, car le compilateur ne peut pas garantir qu'une référence empruntée à la pile du thread parent restera valide pendant toute la durée de vie du nouveau thread",
+        "choice_b": "Toutes les variables du thread parent sont automatiquement et implicitement partagées avec le nouveau thread, sans aucune restriction",
+        "choice_c": "Un nouveau thread ne peut jamais accéder à aucune donnée créée par le thread parent, même en la déplaçant explicitement",
+        "choice_d": "Rust ne permet pas de créer plusieurs threads dans la bibliothèque standard sans une dépendance externe comme Tokio",
+        "correct_choice": "A",
+        "explanation": "Le mot-clé `move` force la closure passée à thread::spawn à prendre l'ownership des variables qu'elle utilise plutôt que de les emprunter, ce qui évite tout risque que le thread principal libère une donnée pendant que le nouveau thread l'utilise encore — combiné aux traits Send/Sync, cela élimine les data races dès la compilation."
+      },
+      {
+        "question_text": "Quelle est la différence fondamentale entre un thread système et une tâche async/await en Rust ?",
+        "choice_a": "Il n'y a aucune différence, async/await n'est qu'un sucre syntaxique pour std::thread::spawn",
+        "choice_b": "Un thread système est géré par l'OS et possède sa propre pile mémoire (coûteux à créer en grand nombre) ; une tâche async est une machine à états légère exécutée coopérativement par un runtime (ex: Tokio) sur un petit nombre de threads, ce qui permet de gérer un très grand nombre de tâches concurrentes (ex: connexions réseau) à faible coût",
+        "choice_c": "async/await ne fonctionne qu'avec des opérations mathématiques, jamais avec des entrées/sorties (I/O)",
+        "choice_d": "Le mot-clé async rend une fonction automatiquement plus rapide à exécuter en la parallélisant sur tous les cœurs disponibles",
+        "correct_choice": "B",
+        "explanation": "Contrairement à certains langages, Rust n'inclut pas de runtime async dans sa bibliothèque standard : une fonction async ne fait rien tant qu'elle n'est pas exécutée par un exécuteur externe (comme Tokio ou async-std), qui se charge de planifier ces tâches légères sur un pool de threads."
+      },
+      {
+        "question_text": "Quelle est la différence entre une macro (macro_rules! ou procédurale) et une fonction classique en Rust ?",
+        "choice_a": "Une macro est simplement une fonction plus rapide à l'exécution, sans autre différence",
+        "choice_b": "Les macros ne peuvent être utilisées qu'à l'intérieur d'autres macros, jamais dans du code normal",
+        "choice_c": "Une macro opère sur le code source lui-même (au niveau syntaxique, avant ou pendant la compilation) et peut donc générer du code variable ou accepter un nombre variable d'arguments de types différents (ex: println!), alors qu'une fonction opère sur des valeurs déjà typées, avec une signature fixe",
+        "choice_d": "Les macros sont strictement interdites en dehors de la bibliothèque standard de Rust",
+        "correct_choice": "C",
+        "explanation": "C'est pour cette raison que println! se termine par un '!' et accepte un nombre variable d'arguments de types différents (chose impossible pour une fonction normale en Rust, qui a une signature fixe) : la macro génère, à la compilation, le code Rust final correspondant à cet appel spécifique."
+      },
+      {
+        "question_text": "À quoi servent les types associés (associated types, ex: `type Item;` dans le trait Iterator) ?",
+        "choice_a": "À définir des constantes numériques globales partagées par tous les types implémentant le trait",
+        "choice_b": "À interdire à un trait d'être implémenté par plus d'un seul type",
+        "choice_c": "Ce sont un synonyme exact des génériques classiques, sans aucune différence pratique",
+        "choice_d": "À déclarer un type placeholder dans un trait, dont la valeur concrète est fixée une seule fois par chaque implémentation (ex: `impl Iterator for Compteur { type Item = u32; }`), plutôt que d'être choisie à chaque site d'appel comme avec un paramètre générique classique",
+        "correct_choice": "D",
+        "explanation": "Avec un générique classique, un même type pourrait implémenter Iterator<u32> ET Iterator<String> simultanément, ce qui serait ambigu à l'usage ; avec un type associé, chaque type ne peut fournir qu'une seule définition de Item, ce qui rend l'utilisation du trait plus simple et non ambiguë pour l'appelant."
+      },
+      {
+        "question_text": "Quelle est la différence entre utiliser un générique (`fn f<T: Trait>(x: T)`) et un trait object (`fn f(x: &dyn Trait)`) en Rust ?",
+        "choice_a": "Le générique utilise la monomorphisation : le compilateur génère une version spécialisée par type concret (dispatch statique, sans coût à l'exécution, mais taille de binaire plus grande) ; le trait object utilise une table de fonctions virtuelles (vtable) résolue à l'exécution (dispatch dynamique, léger coût d'indirection, mais permet de stocker des types différents derrière une même interface, ex: dans un Vec<Box<dyn Trait>>)",
+        "choice_b": "Les deux syntaxes produisent exactement le même code machine, ce n'est qu'une question de style d'écriture",
+        "choice_c": "Un trait object ne peut être utilisé qu'avec des types numériques primitifs",
+        "choice_d": "Un générique ne peut être utilisé qu'à l'intérieur d'une seule et même fonction, jamais partagé entre plusieurs fonctions",
+        "correct_choice": "A",
+        "explanation": "Le choix entre les deux dépend du besoin : les génériques sont préférés quand la performance maximale prime et que les types sont connus à la compilation, les trait objects quand on a besoin de stocker dynamiquement des types hétérogènes implémentant le même trait dans une seule collection."
+      },
+      {
+        "question_text": "Qu'est-ce que Cargo dans l'écosystème Rust ?",
+        "choice_a": "Le nom du compilateur officiel de Rust, qui traduit le code source en code machine",
+        "choice_b": "Le gestionnaire de paquets et outil de build officiel de Rust : il télécharge/gère les dépendances (crates) déclarées dans Cargo.toml, compile le projet, exécute les tests, génère la documentation, et publie des paquets sur crates.io",
+        "choice_c": "Une bibliothèque standard alternative, plus rapide que celle fournie par défaut avec Rust",
+        "choice_d": "Un outil de formatage automatique du code source, équivalent à Prettier en JavaScript",
+        "correct_choice": "B",
+        "explanation": "Cargo (comparable à npm pour JavaScript ou pip pour Python, mais aussi intégré au build) résout automatiquement l'arbre de dépendances transitives, verrouille les versions exactes utilisées dans Cargo.lock pour des builds reproductibles, et unifie build/test/doc/publication sous une seule commande."
+      },
+      {
+        "question_text": "À quoi sert un workspace Cargo ?",
+        "choice_a": "À isoler chaque dépendance dans un environnement virtuel séparé, comme un venv Python",
+        "choice_b": "C'est un synonyme de 'crate', les deux termes désignent exactement la même chose",
+        "choice_c": "À regrouper plusieurs crates (paquets) liés dans un même projet, partageant un seul fichier Cargo.lock et un répertoire de compilation commun (target/), ce qui évite de recompiler les dépendances partagées pour chaque crate et facilite le développement de projets multi-paquets",
+        "choice_d": "À exécuter automatiquement le code sur plusieurs machines distantes en parallèle",
+        "correct_choice": "C",
+        "explanation": "Un cas d'usage typique : séparer une bibliothèque cœur (crate lib), un binaire CLI qui l'utilise, et des crates internes utilitaires, tout en gardant un seul Cargo.lock cohérent pour l'ensemble et en accélérant les recompilations grâce au cache de build partagé."
+      },
+      {
+        "question_text": "Comment Rust gère-t-il la libération déterministe des ressources (fichiers, mémoire, verrous...) sans ramasse-miettes ?",
+        "choice_a": "Il faut appeler manuellement une fonction free() à la fin de chaque portée, comme en C",
+        "choice_b": "Un thread d'arrière-plan scanne périodiquement la mémoire pour libérer les ressources non utilisées",
+        "choice_c": "Il n'existe aucun mécanisme automatique en Rust : chaque développeur doit gérer la libération à la main dans chaque cas",
+        "choice_d": "Via le trait Drop et le principe RAII (Resource Acquisition Is Initialization) : dès qu'une valeur sort de sa portée (fin de bloc, fin de fonction...), sa méthode drop() est appelée automatiquement par le compilateur, ce qui libère déterministement la ressource associée (mémoire désallouée, fichier fermé, verrou relâché...) exactement au bon moment",
+        "correct_choice": "D",
+        "explanation": "Ce mécanisme, hérité du RAII popularisé par le C++, permet à Rust de libérer les ressources de façon prévisible et immédiate (contrairement à un ramasse-miettes dont le passage est non déterministe), tout en étant garanti par le compilateur : c'est ce même mécanisme qui libère la mémoire d'une String ou relâche le verrou d'un Mutex automatiquement."
+      }
+    ]
+  },
+  {
+    "name": "Réseau",
+    "color": "blue",
+    "questions": [
+      {
+        "question_text": "À quoi sert le modèle OSI (7 couches) ?",
+        "choice_a": "À décomposer les communications réseau en 7 couches indépendantes (physique, liaison, réseau, transport, session, présentation, application), chacune ayant un rôle précis, ce qui facilite la conception, le débogage et l'interopérabilité entre équipements de fabricants différents",
+        "choice_b": "À chiffrer automatiquement toutes les communications réseau",
+        "choice_c": "À remplacer le protocole TCP/IP dans les réseaux modernes",
+        "choice_d": "À mesurer la latence entre deux machines sur un réseau",
+        "correct_choice": "A",
+        "explanation": "Chaque couche ne communique qu'avec les couches immédiatement voisines et ignore les détails d'implémentation des autres : par exemple, la couche application (HTTP) n'a pas besoin de savoir comment les bits sont transmis physiquement sur le câble (couche 1)."
+      },
+      {
+        "question_text": "Quelle est la principale différence entre le modèle OSI et le modèle TCP/IP (souvent utilisé en pratique) ?",
+        "choice_a": "TCP/IP n'a aucune couche, contrairement à OSI",
+        "choice_b": "TCP/IP condense les 7 couches théoriques d'OSI en 4 couches plus pragmatiques (accès réseau, internet, transport, application), reflétant l'organisation réellement utilisée par Internet plutôt qu'un modèle purement académique",
+        "choice_c": "OSI ne concerne que les réseaux locaux, TCP/IP uniquement Internet",
+        "choice_d": "Les deux modèles sont rigoureusement identiques, seuls les noms des couches changent",
+        "correct_choice": "B",
+        "explanation": "OSI reste surtout un outil pédagogique et de référence pour raisonner sur le réseau par couches, alors que TCP/IP (avec ses 4 couches) décrit la pile de protocoles effectivement implémentée sur Internet."
+      },
+      {
+        "question_text": "Quelle est la différence fondamentale entre TCP et UDP ?",
+        "choice_a": "UDP garantit toujours la livraison des données dans l'ordre, contrairement à TCP",
+        "choice_b": "TCP est utilisé uniquement pour le streaming vidéo, UDP pour le reste",
+        "choice_c": "TCP est un protocole orienté connexion, fiable (accusés de réception, retransmission, ordre garanti) mais plus lent ; UDP est sans connexion, plus rapide mais sans garantie de livraison ni d'ordre — adapté aux cas où la vitesse prime sur la fiabilité (ex: streaming, jeux en ligne, DNS)",
+        "choice_d": "TCP et UDP sont deux noms pour le même protocole, à des époques différentes",
+        "correct_choice": "C",
+        "explanation": "Le choix entre les deux dépend du besoin : un formulaire web ou un transfert de fichier utilise TCP (chaque octet doit arriver, dans l'ordre), alors qu'un appel vidéo préfère UDP (mieux vaut perdre une image que ralentir tout le flux pour la retransmettre)."
+      },
+      {
+        "question_text": "En quoi consiste le three-way handshake (triple poignée de main) de TCP ?",
+        "choice_a": "Un échange de trois paquets de données utilisateur avant de commencer la vraie communication",
+        "choice_b": "Une vérification d'identité par mot de passe entre le client et le serveur",
+        "choice_c": "L'envoi simultané de trois copies du même paquet pour garantir sa livraison",
+        "choice_d": "L'établissement d'une connexion TCP en 3 étapes : le client envoie un paquet SYN, le serveur répond par un SYN-ACK, puis le client confirme par un ACK — après quoi la connexion est établie et les données peuvent être échangées",
+        "correct_choice": "D",
+        "explanation": "Ce mécanisme permet aux deux parties de se synchroniser sur les numéros de séquence initiaux qu'elles utiliseront pour suivre l'ordre des paquets échangés pendant toute la durée de la connexion."
+      },
+      {
+        "question_text": "Pourquoi IPv6 a-t-il été créé alors qu'IPv4 existait déjà ?",
+        "choice_a": "Parce qu'IPv4 (adresses sur 32 bits, environ 4,3 milliards de combinaisons) s'est révélé insuffisant face à la croissance du nombre d'appareils connectés à Internet ; IPv6 utilise des adresses sur 128 bits, offrant un espace d'adressage considérablement plus grand",
+        "choice_b": "Parce qu'IPv4 ne permettait pas du tout de naviguer sur le web",
+        "choice_c": "IPv6 remplace uniquement le protocole HTTP, sans lien avec les adresses IP",
+        "choice_d": "IPv4 a été abandonné car il était plus rapide qu'IPv6 mais moins sécurisé",
+        "correct_choice": "A",
+        "explanation": "L'épuisement des adresses IPv4 disponibles (accéléré par la multiplication des smartphones, objets connectés, etc.) a rendu la transition vers IPv6 nécessaire à long terme, même si des techniques comme le NAT ont largement permis de prolonger la durée de vie d'IPv4 en attendant."
+      },
+      {
+        "question_text": "Quelle est la différence entre une adresse MAC et une adresse IP ?",
+        "choice_a": "Une adresse MAC change à chaque connexion réseau, contrairement à l'adresse IP",
+        "choice_b": "L'adresse MAC est un identifiant physique unique attribué à une carte réseau (couche 2, valable seulement sur le réseau local), alors que l'adresse IP est un identifiant logique et routable (couche 3) qui peut changer selon le réseau auquel l'appareil est connecté",
+        "choice_c": "Une adresse IP identifie un fabricant de matériel, une adresse MAC identifie un pays",
+        "choice_d": "Les adresses MAC et IP sont strictement identiques, exprimées dans deux formats différents",
+        "correct_choice": "B",
+        "explanation": "Sur un réseau local, la communication effective entre deux appareils se fait finalement via leur adresse MAC ; c'est le protocole ARP qui fait la correspondance entre l'adresse IP (logique, utilisée pour le routage) et l'adresse MAC (physique, utilisée sur le segment local)."
+      },
+      {
+        "question_text": "À quoi sert le DNS (Domain Name System) ?",
+        "choice_a": "À chiffrer les échanges entre un navigateur et un serveur web",
+        "choice_b": "À attribuer automatiquement une adresse IP à chaque nouvel appareil qui rejoint le réseau",
+        "choice_c": "À traduire un nom de domaine lisible par un humain (ex: exemple.com) en l'adresse IP correspondante utilisée pour router la connexion, via une hiérarchie de serveurs (racine, TLD comme .com, puis serveurs faisant autorité pour le domaine)",
+        "choice_d": "À compresser les pages web avant de les envoyer au navigateur",
+        "correct_choice": "C",
+        "explanation": "Sans DNS, il faudrait retenir des adresses IP numériques pour visiter chaque site ; la résolution passe généralement par plusieurs serveurs en cascade (résolveur local, serveur racine, serveur du TLD, serveur faisant autorité pour le domaine), avec un système de cache à chaque étape pour accélérer les requêtes suivantes."
+      },
+      {
+        "question_text": "À quoi sert un numéro de port dans une communication réseau ?",
+        "choice_a": "À identifier de façon unique une machine sur Internet, comme une adresse IP",
+        "choice_b": "À chiffrer les données échangées entre le client et le serveur",
+        "choice_c": "À mesurer la bande passante disponible sur une connexion",
+        "choice_d": "À permettre à une même adresse IP de faire tourner et distinguer plusieurs services/applications réseau simultanément (ex: le port 80 pour HTTP, le port 443 pour HTTPS, le port 22 pour SSH), en identifiant vers quel processus une donnée entrante doit être dirigée",
+        "correct_choice": "D",
+        "explanation": "Une connexion réseau est en réalité identifiée par la combinaison adresse IP + port (et protocole) : c'est ce qui permet à un même serveur de répondre simultanément à des requêtes web, SSH et mail sans confusion, chaque service écoutant sur son propre port."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un socket, dans le contexte de la programmation réseau ?",
+        "choice_a": "Une abstraction fournie par le système d'exploitation représentant une extrémité d'une connexion réseau, généralement identifiée par la combinaison d'une adresse IP et d'un port, à travers laquelle une application peut envoyer et recevoir des données",
+        "choice_b": "Un protocole de chiffrement utilisé exclusivement par HTTPS",
+        "choice_c": "Le nom donné à un paquet de données une fois qu'il a atteint sa destination",
+        "choice_d": "Un type spécifique de câble réseau utilisé pour les connexions à haut débit",
+        "correct_choice": "A",
+        "explanation": "C'est l'interface de programmation (API) que les applications utilisent concrètement pour communiquer sur le réseau : ouvrir un socket, s'y connecter (ou écouter dessus côté serveur), puis lire/écrire des données, sans avoir à gérer directement les détails bas niveau du protocole."
+      },
+      {
+        "question_text": "Quelle propriété distingue GET et PUT de POST dans les méthodes HTTP ?",
+        "choice_a": "GET et PUT ne peuvent jamais renvoyer d'erreur, contrairement à POST",
+        "choice_b": "GET et PUT sont censées être idempotentes (répéter la même requête plusieurs fois produit le même effet qu'une seule fois), alors que POST ne l'est généralement pas (ex: soumettre deux fois un même formulaire de commande peut créer deux commandes distinctes)",
+        "choice_c": "GET et PUT ne peuvent pas transporter de données dans le corps de la requête, contrairement à POST",
+        "choice_d": "POST est utilisé uniquement pour lire des données, GET et PUT pour les modifier",
+        "correct_choice": "B",
+        "explanation": "L'idempotence est une convention sémantique du protocole HTTP (pas une contrainte technique imposée par le serveur) : GET est censé ne faire que lire des données sans effet de bord, PUT remplace intégralement une ressource par la même valeur à chaque appel, alors que POST crée typiquement une nouvelle ressource à chaque appel."
+      },
+      {
+        "question_text": "Que signifient globalement les familles de codes de statut HTTP 2xx, 4xx et 5xx ?",
+        "choice_a": "2xx = erreur côté client, 4xx = succès, 5xx = redirection",
+        "choice_b": "Ils indiquent uniquement la taille de la réponse renvoyée par le serveur",
+        "choice_c": "2xx signale un succès (ex: 200 OK), 4xx signale une erreur causée par le client (ex: 404 Not Found, requête invalide ou ressource inexistante), 5xx signale une erreur côté serveur (ex: 500 Internal Server Error, le serveur n'a pas réussi à traiter une requête pourtant valide)",
+        "choice_d": "Ce sont des codes obsolètes, remplacés par des messages JSON dans les API modernes",
+        "correct_choice": "C",
+        "explanation": "Cette classification (avec aussi 1xx pour les réponses informatives et 3xx pour les redirections) permet au client de réagir différemment selon la cause du problème : un 4xx invite à corriger la requête envoyée, un 5xx suggère de réessayer plus tard car le problème vient du serveur."
+      },
+      {
+        "question_text": "Que se passe-t-il, schématiquement, lors du handshake TLS qui établit une connexion HTTPS ?",
+        "choice_a": "Le client envoie son mot de passe en clair, que le serveur vérifie avant d'autoriser la connexion",
+        "choice_b": "Le serveur envoie l'intégralité du contenu du site avant même que la connexion soit sécurisée",
+        "choice_c": "Aucune vérification n'a lieu, TLS se contente de compresser les données échangées",
+        "choice_d": "Le client et le serveur négocient une version du protocole et un algorithme de chiffrement, le serveur présente son certificat (vérifié via une autorité de certification), puis les deux parties génèrent une clé de session partagée (souvent via un échange de clés Diffie-Hellman) utilisée pour chiffrer symétriquement le reste de la communication",
+        "correct_choice": "D",
+        "explanation": "Le certificat prouve que le serveur est bien celui qu'il prétend être (authentification), et l'échange de clés permet d'établir un secret partagé sans jamais le transmettre en clair sur le réseau — une fois cette négociation terminée, toutes les données HTTP échangées sont chiffrées."
+      },
+      {
+        "question_text": "À quoi sert le NAT (Network Address Translation) ?",
+        "choice_a": "À permettre à plusieurs appareils d'un réseau local (avec des adresses IP privées) de partager une seule adresse IP publique pour accéder à Internet, le routeur traduisant les adresses/ports à la volée dans les deux sens",
+        "choice_b": "À chiffrer automatiquement tout le trafic sortant d'un réseau local",
+        "choice_c": "À convertir un nom de domaine en adresse IP, comme le DNS",
+        "choice_d": "À répartir la charge entre plusieurs serveurs web identiques",
+        "correct_choice": "A",
+        "explanation": "Le NAT a été un facteur clé qui a permis de retarder l'épuisement des adresses IPv4 : la majorité des appareils domestiques (ordinateurs, smartphones, objets connectés) partagent une seule adresse IP publique attribuée par le fournisseur d'accès, invisible individuellement depuis l'extérieur du réseau local."
+      },
+      {
+        "question_text": "Quel est le rôle du protocole DHCP ?",
+        "choice_a": "Chiffrer les communications entre deux appareils du même réseau local",
+        "choice_b": "Attribuer automatiquement une adresse IP (et d'autres paramètres réseau comme la passerelle et le DNS) à un appareil qui rejoint un réseau, sans configuration manuelle",
+        "choice_c": "Traduire un nom de domaine en adresse IP correspondante",
+        "choice_d": "Détecter et bloquer les intrusions sur un réseau local",
+        "correct_choice": "B",
+        "explanation": "Sans DHCP, chaque appareil devrait se voir attribuer manuellement une adresse IP unique et cohérente avec le reste du réseau — DHCP automatise ce processus en louant temporairement une adresse disponible à chaque appareil qui en fait la demande au démarrage."
+      },
+      {
+        "question_text": "Quelle est la différence entre un routeur et un switch (commutateur) ?",
+        "choice_a": "Un switch relie des réseaux différents entre eux, un routeur relie des appareils au sein d'un même réseau local",
+        "choice_b": "Il n'y a aucune différence, ce sont deux noms commerciaux pour le même équipement",
+        "choice_c": "Un switch opère principalement au niveau de la couche 2 (liaison) et relie des appareils au sein d'un même réseau local en utilisant leur adresse MAC, alors qu'un routeur opère au niveau de la couche 3 (réseau) et achemine le trafic entre des réseaux différents en se basant sur les adresses IP",
+        "choice_d": "Un routeur ne peut connecter que deux appareils au maximum, un switch un nombre illimité",
+        "correct_choice": "C",
+        "explanation": "Concrètement, à la maison, la 'box' internet combine généralement les deux fonctions : elle agit comme switch pour relier les appareils du réseau local entre eux, et comme routeur pour acheminer leur trafic vers Internet."
+      },
+      {
+        "question_text": "À quoi sert le protocole ARP (Address Resolution Protocol) ?",
+        "choice_a": "À chiffrer les adresses IP échangées sur le réseau",
+        "choice_b": "À attribuer dynamiquement une adresse IP aux nouveaux appareils du réseau",
+        "choice_c": "À traduire un nom de domaine en adresse IP",
+        "choice_d": "À trouver l'adresse MAC correspondant à une adresse IP donnée sur le réseau local, en diffusant une requête ('qui a cette IP ?') à laquelle l'appareil concerné répond avec sa propre adresse MAC",
+        "correct_choice": "D",
+        "explanation": "Cette résolution est nécessaire car la communication effective sur un réseau local se fait via les adresses MAC (couche 2) : avant d'envoyer un paquet IP à un voisin du réseau local, un appareil doit d'abord connaître son adresse MAC, obtenue et mise en cache via ARP."
+      },
+      {
+        "question_text": "Comment un CDN (Content Delivery Network) réduit-il la latence perçue par les utilisateurs ?",
+        "choice_a": "En répliquant le contenu (souvent statique : images, vidéos, scripts) sur un réseau de serveurs répartis géographiquement, et en servant chaque utilisateur depuis le serveur le plus proche de lui plutôt que depuis un unique serveur d'origine potentiellement éloigné",
+        "choice_b": "En compressant systématiquement toutes les données avant de les envoyer, quelle que soit la distance",
+        "choice_c": "En chiffrant le contenu pour accélérer son transfert sur le réseau",
+        "choice_d": "En augmentant artificiellement la bande passante de la connexion de l'utilisateur",
+        "correct_choice": "A",
+        "explanation": "Réduire la distance physique (et donc le nombre de sauts réseau) entre l'utilisateur et le serveur qui répond réduit directement la latence perçue ; un CDN sert aussi de tampon qui absorbe une partie du trafic, soulageant le serveur d'origine."
+      },
+      {
+        "question_text": "Quelle est la différence entre la latence et la bande passante d'une connexion réseau ?",
+        "choice_a": "Ce sont deux termes différents pour désigner exactement la même chose",
+        "choice_b": "La latence mesure le délai (temps) nécessaire pour qu'une donnée fasse l'aller (ou l'aller-retour) entre deux points, alors que la bande passante mesure le volume de données pouvant être transmis par unité de temps (le débit) ; une connexion peut avoir une bande passante élevée mais une latence élevée (ex: satellite), et inversement",
+        "choice_c": "La bande passante ne concerne que les connexions filaires, la latence uniquement le Wi-Fi",
+        "choice_d": "Augmenter la bande passante réduit toujours proportionnellement la latence",
+        "correct_choice": "B",
+        "explanation": "Un bon exemple : le streaming vidéo tolère bien une latence modérée tant que la bande passante est suffisante (le flux arrive en continu), alors qu'un jeu vidéo en ligne ou un appel visio sont surtout sensibles à la latence, même avec une bande passante confortable."
+      },
+      {
+        "question_text": "Qu'est-ce que le MTU (Maximum Transmission Unit) ?",
+        "choice_a": "Le nombre maximal d'appareils pouvant être connectés simultanément à un même réseau",
+        "choice_b": "La durée maximale pendant laquelle une connexion TCP peut rester inactive",
+        "choice_c": "La taille maximale (en octets) qu'un seul paquet peut avoir pour être transmis sans être fragmenté sur un lien réseau donné (typiquement 1500 octets pour Ethernet) ; un paquet plus grand que le MTU doit être fragmenté en plusieurs morceaux, ce qui ajoute de l'overhead",
+        "choice_d": "La vitesse maximale théorique d'une carte réseau, en mégabits par seconde",
+        "correct_choice": "C",
+        "explanation": "Un MTU trop souvent dépassé entraîne une fragmentation fréquente des paquets, ce qui dégrade les performances (overhead de traitement supplémentaire, risque accru de perte partielle) ; c'est pourquoi les protocoles cherchent généralement à découvrir et respecter le MTU du chemin emprunté (Path MTU Discovery)."
+      },
+      {
+        "question_text": "Quelle évolution majeure caractérise le passage de HTTP/1.1 à HTTP/2 puis à HTTP/3 ?",
+        "choice_a": "HTTP/2 et HTTP/3 abandonnent totalement le chiffrement TLS pour gagner en vitesse",
+        "choice_b": "Chaque version supprime la compatibilité avec les méthodes GET et POST des versions précédentes",
+        "choice_c": "HTTP/2 et HTTP/3 ne fonctionnent que sur les réseaux mobiles, jamais en Wi-Fi ou filaire",
+        "choice_d": "HTTP/2 introduit le multiplexage de plusieurs requêtes sur une seule connexion TCP (évitant le blocage en tête de ligne d'HTTP/1.1, qui devait souvent ouvrir plusieurs connexions), tandis que HTTP/3 remplace TCP par QUIC (basé sur UDP) pour éliminer le blocage en tête de ligne au niveau transport et réduire la latence d'établissement de connexion",
+        "correct_choice": "D",
+        "explanation": "HTTP/1.1 traite les requêtes d'une même connexion de façon largement séquentielle, ce qui limite les performances sur les pages chargeant de nombreuses ressources ; HTTP/2 corrige cela au niveau applicatif, et HTTP/3 va plus loin en corrigeant aussi les limitations inhérentes à TCP lui-même."
+      }
+    ]
+  },
+  {
+    "name": "Algorithmie",
+    "color": "teal",
+    "questions": [
+      {
+        "question_text": "À quoi sert la notation Big-O (ex: O(n), O(log n), O(n²)) en algorithmique ?",
+        "choice_a": "À décrire comment le temps d'exécution (ou l'espace mémoire) d'un algorithme croît en fonction de la taille de son entrée, dans le pire des cas, indépendamment du matériel ou du langage utilisé — c'est un outil de comparaison asymptotique, pas une mesure de temps réel en secondes",
+        "choice_b": "À mesurer précisément le temps d'exécution en millisecondes d'un programme sur une machine donnée",
+        "choice_c": "À compter le nombre exact de lignes de code d'un programme",
+        "choice_d": "À indiquer la version du langage de programmation utilisée",
+        "correct_choice": "A",
+        "explanation": "Deux algorithmes en O(n) peuvent avoir des temps d'exécution réels très différents selon le matériel, mais leur temps croît tous les deux linéairement avec la taille de l'entrée — c'est cette tendance de croissance (et non la valeur absolue) que Big-O capture, ce qui permet de comparer des algorithmes indépendamment de l'implémentation."
+      },
+      {
+        "question_text": "Qu'est-ce que la complexité spatiale (space complexity) d'un algorithme ?",
+        "choice_a": "Le nombre de variables déclarées explicitement dans le code source",
+        "choice_b": "La quantité de mémoire supplémentaire (en plus de l'entrée elle-même) qu'un algorithme utilise en fonction de la taille de son entrée — un algorithme peut être rapide en temps mais coûteux en mémoire, ou inversement",
+        "choice_c": "L'espace disque nécessaire pour stocker le code source du programme",
+        "choice_d": "Le nombre de fichiers que le programme doit ouvrir pour s'exécuter",
+        "correct_choice": "B",
+        "explanation": "Il existe souvent un compromis (trade-off) entre temps et espace : par exemple, mémoriser des résultats intermédiaires (comme en programmation dynamique) réduit le temps de calcul au prix d'une consommation mémoire plus élevée."
+      },
+      {
+        "question_text": "Comment fonctionne une pile (Stack), et quel principe la caractérise ?",
+        "choice_a": "FIFO (First In, First Out) : le premier élément ajouté est le premier retiré",
+        "choice_b": "Les éléments sont accessibles dans un ordre aléatoire, sans règle précise",
+        "choice_c": "LIFO (Last In, First Out) : le dernier élément ajouté (push) est le premier retiré (pop) — c'est la structure sous-jacente à la pile d'appels de fonctions (chaque appel empile un cadre, chaque retour le dépile) ou à une fonctionnalité 'annuler' (undo)",
+        "choice_d": "Chaque élément est indexé par une clé unique, comme dans une table de hachage",
+        "correct_choice": "C",
+        "explanation": "L'accès se fait exclusivement par le sommet de la pile (push/pop en O(1)), sans pouvoir accéder directement à un élément au milieu — c'est justement cette contrainte qui rend la structure simple et rapide à utiliser pour des scénarios comme la gestion des appels de fonctions imbriqués."
+      },
+      {
+        "question_text": "Comment fonctionne une file (Queue), et en quoi diffère-t-elle d'une pile ?",
+        "choice_a": "Comme une pile : LIFO, le dernier élément ajouté est le premier retiré",
+        "choice_b": "Les éléments sont triés automatiquement par ordre alphabétique à chaque ajout",
+        "choice_c": "Elle ne peut contenir qu'un seul élément à la fois",
+        "choice_d": "FIFO (First In, First Out) : le premier élément ajouté (enqueue) est le premier retiré (dequeue), contrairement à la pile (LIFO) — utile pour traiter des tâches dans leur ordre d'arrivée (ex: file d'attente de tâches, parcours BFS d'un graphe)",
+        "correct_choice": "D",
+        "explanation": "Cette structure modélise naturellement une file d'attente réelle : les éléments sont ajoutés d'un côté (arrière) et retirés de l'autre (avant), ce qui garantit un traitement dans l'ordre chronologique d'arrivée."
+      },
+      {
+        "question_text": "Pourquoi une table de hachage (Hash Table) permet-elle un accès en temps constant O(1) en moyenne ?",
+        "choice_a": "Parce qu'une fonction de hachage convertit chaque clé en un indice dans un tableau interne, permettant d'accéder directement à l'emplacement correspondant sans avoir à parcourir la structure — les collisions (deux clés produisant le même indice) sont gérées via des techniques comme le chaînage ou l'adressage ouvert, qui peuvent dégrader la performance dans le pire des cas",
+        "choice_b": "Parce qu'elle trie systématiquement toutes ses clés dès leur insertion",
+        "choice_c": "Parce qu'elle ne peut contenir qu'un nombre limité et fixe d'éléments",
+        "choice_d": "Parce qu'elle stocke une copie de chaque élément à plusieurs emplacements simultanément",
+        "correct_choice": "A",
+        "explanation": "En pratique, une bonne fonction de hachage répartit les clés uniformément pour minimiser les collisions ; c'est cette structure qui est derrière les dictionnaires/maps de la plupart des langages de programmation modernes."
+      },
+      {
+        "question_text": "Quelle est la propriété qui définit un arbre binaire de recherche (Binary Search Tree) ?",
+        "choice_a": "Chaque nœud doit avoir exactement deux enfants, sans exception",
+        "choice_b": "Pour chaque nœud, toutes les valeurs de son sous-arbre gauche sont inférieures à sa propre valeur, et toutes celles de son sous-arbre droit sont supérieures — cette propriété permet une recherche en O(log n) si l'arbre est équilibré (en éliminant la moitié des candidats à chaque niveau), mais peut dégénérer en O(n) si l'arbre est déséquilibré (ex: insertion de données déjà triées)",
+        "choice_c": "Les valeurs sont stockées dans un ordre aléatoire, sans relation entre elles",
+        "choice_d": "Chaque nœud ne peut contenir que des nombres pairs",
+        "correct_choice": "B",
+        "explanation": "C'est cette propriété d'ordre qui permet, à chaque comparaison lors d'une recherche, d'éliminer entièrement l'un des deux sous-arbres — d'où l'intérêt des arbres auto-équilibrés (AVL, arbres rouge-noir) qui garantissent que la profondeur reste en O(log n) même dans le pire des cas."
+      },
+      {
+        "question_text": "À quoi sert un tas (Heap), comme structure de file de priorité ?",
+        "choice_a": "À stocker des éléments triés par ordre alphabétique uniquement",
+        "choice_b": "À garantir un accès en O(1) à n'importe quel élément de la structure, comme un tableau",
+        "choice_c": "À maintenir un accès rapide (O(1) pour la lecture, O(log n) pour l'extraction/insertion) à l'élément minimum (min-heap) ou maximum (max-heap) parmi un ensemble, en respectant la propriété de tas (chaque nœud parent est plus petit/grand que ses enfants) — utile pour implémenter des files de priorité",
+        "choice_d": "À stocker exclusivement des données allouées dynamiquement en mémoire",
+        "correct_choice": "C",
+        "explanation": "Contrairement à un arbre binaire de recherche, un tas ne garantit un ordre que verticalement (parent vs enfants), pas horizontalement entre les sous-arbres — ce qui suffit pour retrouver rapidement l'extrême (min ou max), et c'est exactement ce dont a besoin un algorithme comme Dijkstra ou un tri par tas (heapsort)."
+      },
+      {
+        "question_text": "Comment représente-t-on généralement un graphe en mémoire ?",
+        "choice_a": "Uniquement via un tableau trié des sommets, sans information sur les arêtes",
+        "choice_b": "Un graphe ne peut être représenté qu'en dessinant un schéma, pas en structure de données",
+        "choice_c": "Via une pile contenant tous les chemins possibles entre les sommets",
+        "choice_d": "Principalement via une liste d'adjacence (chaque sommet est associé à la liste de ses voisins, efficace en mémoire pour un graphe peu dense) ou une matrice d'adjacence (tableau 2D indiquant si une arête existe entre chaque paire de sommets, plus rapide pour tester une connexion précise mais plus coûteuse en mémoire)",
+        "correct_choice": "D",
+        "explanation": "Le choix entre les deux représentations dépend de la densité du graphe et des opérations les plus fréquentes : la liste d'adjacence est généralement préférée pour les graphes peu denses (peu d'arêtes par rapport au nombre de sommets), la matrice pour les graphes denses ou quand on doit tester très souvent l'existence d'une arête précise."
+      },
+      {
+        "question_text": "Comment fonctionne un parcours en largeur (Breadth-First Search, BFS) d'un graphe ?",
+        "choice_a": "Il explore le graphe niveau par niveau à partir d'un sommet de départ, en visitant d'abord tous les voisins directs avant de passer aux voisins des voisins, généralement implémenté à l'aide d'une file (queue) — il trouve le plus court chemin en nombre d'arêtes dans un graphe non pondéré",
+        "choice_b": "Il explore une branche entière jusqu'au bout avant de revenir en arrière, à l'aide d'une pile",
+        "choice_c": "Il trie tous les sommets du graphe par ordre alphabétique avant de les visiter",
+        "choice_d": "Il ne peut être utilisé que sur des arbres, jamais sur des graphes généraux",
+        "correct_choice": "A",
+        "explanation": "La file garantit que les sommets sont traités dans l'ordre où ils ont été découverts, ce qui produit naturellement une exploration par niveaux successifs — c'est pour cette raison que BFS est l'algorithme de référence pour trouver le plus court chemin (en nombre d'arêtes) dans un graphe non pondéré."
+      },
+      {
+        "question_text": "Comment fonctionne un parcours en profondeur (Depth-First Search, DFS) d'un graphe ?",
+        "choice_a": "Il explore tous les sommets simultanément en parallèle sur plusieurs threads",
+        "choice_b": "Il explore une branche du graphe aussi loin que possible avant de revenir en arrière (backtrack) pour explorer les branches non visitées, généralement implémenté avec une pile (explicite ou via la récursivité)",
+        "choice_c": "Il visite systématiquement les sommets par ordre croissant de leur valeur",
+        "choice_d": "Il nécessite obligatoirement de connaître à l'avance le nombre total de sommets",
+        "correct_choice": "B",
+        "explanation": "Contrairement au BFS qui progresse niveau par niveau, le DFS 's'enfonce' dans le graphe jusqu'à ne plus pouvoir avancer (sommet sans voisin non visité), puis revient en arrière (backtracking) pour explorer les chemins alternatifs — utile par exemple pour détecter des cycles ou trouver un chemin quelconque (pas forcément le plus court)."
+      },
+      {
+        "question_text": "Qu'ont en commun les tris par sélection, par insertion et à bulles (bubble sort) ?",
+        "choice_a": "Ils ont tous une complexité de O(n log n), identique à celle du quicksort",
+        "choice_b": "Ils ne fonctionnent que sur des tableaux déjà partiellement triés",
+        "choice_c": "Ce sont des algorithmes de tri simples à comprendre et implémenter, mais avec une complexité en O(n²) dans le pire des cas (voire en moyenne), ce qui les rend inefficaces sur de grands volumes de données comparé à des algorithmes comme quicksort ou merge sort (O(n log n))",
+        "choice_d": "Ils nécessitent tous une structure de données auxiliaire de type tas (heap)",
+        "correct_choice": "C",
+        "explanation": "Ces algorithmes restent pédagogiquement utiles pour comprendre les bases du tri, et peuvent même être plus rapides que les algorithmes O(n log n) sur de très petits tableaux (faible overhead), mais leur complexité quadratique les rend impraticables au-delà de quelques milliers d'éléments."
+      },
+      {
+        "question_text": "Quel est le principe du tri rapide (Quicksort) ?",
+        "choice_a": "Il fusionne progressivement des paires d'éléments triés jusqu'à obtenir le tableau complet",
+        "choice_b": "Il compare chaque paire d'éléments adjacents et les échange si besoin, en répétant jusqu'à ce qu'aucun échange ne soit nécessaire",
+        "choice_c": "Il insère chaque nouvel élément à sa position correcte dans la portion déjà triée du tableau",
+        "choice_d": "Diviser pour régner : il choisit un élément pivot, partitionne le tableau de sorte que les éléments plus petits que le pivot soient à sa gauche et les plus grands à sa droite, puis applique récursivement le même procédé sur les deux sous-tableaux — complexité moyenne O(n log n), mais O(n²) dans le pire cas (ex: pivot systématiquement mal choisi sur des données déjà triées)",
+        "correct_choice": "D",
+        "explanation": "Le choix du pivot est déterminant pour les performances : un mauvais choix systématique (ex: toujours le premier élément sur un tableau déjà trié) dégrade la complexité vers O(n²), d'où l'intérêt de stratégies comme le choix aléatoire du pivot ou la médiane de trois valeurs."
+      },
+      {
+        "question_text": "Quel est le principe du tri fusion (Merge Sort) ?",
+        "choice_a": "Diviser pour régner : il divise récursivement le tableau en deux moitiés jusqu'à obtenir des sous-tableaux d'un seul élément (donc déjà triés), puis fusionne progressivement ces sous-tableaux triés deux à deux pour reconstruire un tableau trié — complexité garantie de O(n log n) dans tous les cas, et c'est un tri stable",
+        "choice_b": "Il choisit un pivot et partitionne le tableau autour de celui-ci, comme le quicksort",
+        "choice_c": "Il ne fonctionne que sur des tableaux de taille paire",
+        "choice_d": "Il modifie le tableau directement en place, sans jamais utiliser de mémoire supplémentaire",
+        "correct_choice": "A",
+        "explanation": "Contrairement au quicksort dont le pire cas est en O(n²), le merge sort garantit toujours O(n log n), au prix d'une mémoire supplémentaire O(n) nécessaire pour stocker les sous-tableaux pendant la fusion — c'est aussi un tri stable, ce qui signifie que deux éléments égaux conservent leur ordre relatif d'origine."
+      },
+      {
+        "question_text": "Comment fonctionne la recherche dichotomique (Binary Search), et sous quelle condition peut-elle être utilisée ?",
+        "choice_a": "Elle parcourt le tableau élément par élément jusqu'à trouver la valeur recherchée, sans prérequis",
+        "choice_b": "Elle ne fonctionne que sur un tableau déjà trié : elle compare la valeur recherchée à l'élément central, puis élimine la moitié du tableau qui ne peut pas contenir la valeur, et répète le procédé sur la moitié restante — ce qui donne une complexité de O(log n), bien plus rapide qu'un parcours linéaire O(n)",
+        "choice_c": "Elle nécessite de connaître à l'avance l'indice exact de la valeur recherchée",
+        "choice_d": "Elle ne peut être appliquée qu'à des tableaux de nombres pairs",
+        "correct_choice": "B",
+        "explanation": "Chaque comparaison élimine la moitié des candidats restants, ce qui explique la croissance logarithmique : un tableau d'un million d'éléments ne nécessite qu'environ 20 comparaisons au pire, contre potentiellement un million pour un parcours linéaire — mais elle est inutilisable si le tableau n'est pas trié au préalable."
+      },
+      {
+        "question_text": "Qu'est-ce qui est indispensable pour qu'une fonction récursive (qui s'appelle elle-même) fonctionne correctement ?",
+        "choice_a": "Elle doit obligatoirement s'appeler elle-même au moins deux fois à chaque exécution",
+        "choice_b": "Elle ne doit jamais recevoir de paramètres",
+        "choice_c": "Un cas de base (condition d'arrêt) qui ne fait plus d'appel récursif, permettant de terminer la récursion ; sans lui, la fonction s'appellerait indéfiniment jusqu'à provoquer un débordement de la pile d'appels (stack overflow)",
+        "choice_d": "Elle doit être déclarée dans un fichier séparé du reste du programme",
+        "correct_choice": "C",
+        "explanation": "Chaque appel récursif empile un nouveau cadre sur la pile d'appels (call stack) ; sans cas de base qui arrête la chaîne d'appels, cette pile grossit indéfiniment jusqu'à épuiser la mémoire qui lui est allouée, provoquant un crash (stack overflow)."
+      },
+      {
+        "question_text": "Quel est le principe de la programmation dynamique (Dynamic Programming) ?",
+        "choice_a": "Exécuter un programme sur plusieurs machines différentes simultanément pour accélérer le calcul",
+        "choice_b": "Faire toujours le choix localement optimal à chaque étape, sans jamais revenir en arrière",
+        "choice_c": "Générer dynamiquement le code source du programme à l'exécution",
+        "choice_d": "Résoudre un problème en le décomposant en sous-problèmes plus petits qui se chevauchent (les mêmes sous-problèmes reviennent plusieurs fois), en mémorisant (memoization) le résultat de chaque sous-problème déjà résolu pour éviter de le recalculer inutilement, ce qui peut transformer une complexité exponentielle en complexité polynomiale",
+        "correct_choice": "D",
+        "explanation": "L'exemple classique est le calcul de la suite de Fibonacci : une implémentation récursive naïve recalcule les mêmes valeurs un nombre exponentiel de fois, alors qu'en mémorisant chaque résultat déjà calculé (ou en le calculant de façon itérative de bas en haut), on ramène la complexité à O(n)."
+      },
+      {
+        "question_text": "Quel est le principe d'un algorithme glouton (Greedy Algorithm) ?",
+        "choice_a": "Il fait, à chaque étape, le choix qui semble le meilleur localement à cet instant précis, sans jamais revenir en arrière ni considérer l'ensemble des possibilités — rapide à exécuter, mais ne garantit pas toujours d'obtenir la solution optimale globale selon le problème",
+        "choice_b": "Il explore systématiquement toutes les combinaisons possibles avant de choisir la meilleure",
+        "choice_c": "Il divise le problème en sous-problèmes indépendants résolus en parallèle",
+        "choice_d": "Il mémorise tous les résultats intermédiaires pour éviter de les recalculer, comme la programmation dynamique",
+        "correct_choice": "A",
+        "explanation": "Pour certains problèmes (ex: rendu de monnaie avec un système de pièces bien choisi, arbre couvrant minimum avec l'algorithme de Kruskal/Prim), le choix glouton mène bien à l'optimum global ; mais pour d'autres (ex: certains cas du problème du sac à dos), un choix localement optimal peut mener à une solution finale sous-optimale."
+      },
+      {
+        "question_text": "Quel est le principe général de la stratégie 'diviser pour régner' (Divide and Conquer) ?",
+        "choice_a": "Répartir le calcul sur plusieurs machines physiquement distinctes",
+        "choice_b": "Diviser un problème en plusieurs sous-problèmes plus petits et généralement indépendants, résoudre récursivement chacun d'eux, puis combiner leurs résultats pour obtenir la solution du problème initial — c'est le principe derrière des algorithmes comme le quicksort, le merge sort ou la recherche dichotomique",
+        "choice_c": "Ignorer une partie des données d'entrée pour accélérer artificiellement le calcul",
+        "choice_d": "Toujours privilégier une solution itérative plutôt qu'une solution récursive",
+        "correct_choice": "B",
+        "explanation": "Contrairement à la programmation dynamique où les sous-problèmes se chevauchent souvent (d'où l'intérêt de mémoriser leurs résultats), le diviser pour régner traite typiquement des sous-problèmes indépendants qui n'ont pas besoin d'être mémorisés entre eux."
+      },
+      {
+        "question_text": "En ordonnant du plus rapide (pour une grande entrée) au plus lent, comment se classent O(1), O(log n), O(n), O(n log n) et O(n²) ?",
+        "choice_a": "O(n²) < O(n log n) < O(n) < O(log n) < O(1)",
+        "choice_b": "Toutes ces complexités deviennent équivalentes pour une entrée suffisamment grande",
+        "choice_c": "O(1) < O(log n) < O(n) < O(n log n) < O(n²) — pour une entrée suffisamment grande, un algorithme en O(n²) finit toujours par être plus lent qu'un algorithme en O(n log n), même si ce dernier a un facteur constant plus élevé",
+        "choice_d": "Le classement dépend uniquement du langage de programmation utilisé",
+        "correct_choice": "C",
+        "explanation": "Cette hiérarchie illustre pourquoi la complexité algorithmique compte plus que les optimisations de bas niveau à grande échelle : un algorithme en O(n²) peut sembler rapide sur 100 éléments, mais devient largement plus lent qu'un O(n log n) dès que l'entrée atteint plusieurs dizaines de milliers d'éléments, peu importe l'efficacité de l'implémentation."
+      },
+      {
+        "question_text": "Qu'est-ce que le backtracking (retour sur trace) en algorithmique ?",
+        "choice_a": "Une technique qui consiste à toujours mémoriser tous les résultats intermédiaires calculés",
+        "choice_b": "Un algorithme de tri basé sur la comparaison d'éléments adjacents",
+        "choice_c": "Une méthode qui garantit de trouver la solution optimale en un temps constant",
+        "choice_d": "Une technique d'exploration qui construit une solution progressivement candidat par candidat, et abandonne immédiatement (revient en arrière) dès qu'elle détecte qu'un choix partiel ne peut plus mener à une solution valide, évitant ainsi d'explorer inutilement toutes les branches restantes de cette piste",
+        "correct_choice": "D",
+        "explanation": "C'est l'approche typique pour résoudre des problèmes de satisfaction de contraintes comme le Sudoku ou le problème des N-reines : plutôt que de générer toutes les combinaisons possibles puis de les filtrer, le backtracking élague les branches invalides dès qu'elles sont détectées, ce qui réduit considérablement l'espace de recherche exploré en pratique."
+      }
+    ]
+  },
+  {
     "name": "IA",
     "color": "amber",
     "questions": []
@@ -944,6 +1565,51 @@
         "choice_d": "encoder-only (ex: BERT) encode le texte en représentations riches pour la compréhension ; decoder-only (ex: GPT) génère du texte token par token de façon autorégressive ; encoder-decoder (ex: T5) combine les deux, l'encodeur traite l'entrée et le décodeur génère la sortie",
         "correct_choice": "D",
         "explanation": "Ces trois familles reposent sur le même mécanisme d'attention, mais leur usage diffère : encoder-only excelle en compréhension/classification (pas de génération), decoder-only est optimisé pour la génération de texte, et encoder-decoder est adapté aux tâches de transformation séquence-à-séquence comme la traduction ou le résumé."
+      },
+      {
+        "question_text": "Qu'est-ce que le forward pass (propagation avant) dans un réseau de neurones ?",
+        "choice_a": "Le passage des données en entrée à travers les couches du réseau, chacune appliquant une transformation (poids + biais + fonction d'activation), jusqu'à produire une prédiction en sortie",
+        "choice_b": "La mise à jour des poids du réseau après calcul de l'erreur",
+        "choice_c": "Le calcul de la fonction de perte à partir de la prédiction et de la valeur réelle",
+        "choice_d": "La désactivation aléatoire d'un sous-ensemble de neurones pendant l'entraînement",
+        "correct_choice": "A",
+        "explanation": "C'est l'étape 'aller' du cycle d'entraînement : les données traversent le réseau une fois, couche après couche, pour produire une sortie qu'on compare ensuite à la valeur attendue via la fonction de perte."
+      },
+      {
+        "question_text": "À quoi sert une fonction de perte (loss function) ?",
+        "choice_a": "Mesurer la vitesse d'exécution du modèle lors de l'inférence",
+        "choice_b": "Quantifier l'écart entre la prédiction du modèle et la valeur réelle attendue ; c'est cette valeur que l'entraînement cherche à minimiser (ex: MSE en régression, cross-entropy en classification)",
+        "choice_c": "Compter le nombre de paramètres entraînables du modèle",
+        "choice_d": "Normaliser les données d'entrée avant de les passer au modèle",
+        "correct_choice": "B",
+        "explanation": "Le choix de la fonction de perte dépend de la tâche : l'erreur quadratique moyenne (MSE) pour la régression, l'entropie croisée (cross-entropy) pour la classification ; c'est sa valeur que la descente de gradient cherche à minimiser en ajustant les poids."
+      },
+      {
+        "question_text": "Comment fonctionne la rétropropagation (backpropagation) ?",
+        "choice_a": "Elle relance le forward pass plusieurs fois jusqu'à ce que la sortie ne change plus",
+        "choice_b": "Elle sélectionne aléatoirement les poids du réseau à mettre à jour à chaque itération",
+        "choice_c": "Elle calcule le gradient de la fonction de perte par rapport à chaque poids du réseau, couche par couche en partant de la sortie vers l'entrée (règle de dérivation en chaîne), pour savoir dans quelle direction ajuster chaque poids",
+        "choice_d": "Elle compresse le réseau en supprimant les poids jugés inutiles",
+        "correct_choice": "C",
+        "explanation": "La rétropropagation applique la règle de dérivation en chaîne pour propager l'erreur de la sortie vers l'entrée, calculant à chaque couche la contribution de chaque poids à l'erreur finale — c'est ce gradient qui est ensuite utilisé par la descente de gradient pour ajuster les poids."
+      },
+      {
+        "question_text": "Que contrôle le learning rate (taux d'apprentissage) lors de la descente de gradient ?",
+        "choice_a": "Le nombre de couches du réseau de neurones",
+        "choice_b": "La proportion de neurones désactivés à chaque itération d'entraînement",
+        "choice_c": "Le nombre total d'epochs d'entraînement",
+        "choice_d": "La taille du pas effectué à chaque mise à jour des poids, dans la direction opposée au gradient ; trop élevé, l'entraînement peut diverger/osciller, trop faible, il converge trop lentement (voire reste bloqué)",
+        "correct_choice": "D",
+        "explanation": "C'est l'un des hyperparamètres les plus sensibles à régler : trop grand, les mises à jour 'sautent' par-dessus le minimum de la fonction de perte ; trop petit, l'entraînement prend un temps excessif — d'où l'usage fréquent de schedulers qui le réduisent progressivement."
+      },
+      {
+        "question_text": "Quelle est la différence entre le batch gradient descent, le stochastic gradient descent (SGD) et le mini-batch gradient descent ?",
+        "choice_a": "Ils diffèrent par le nombre d'exemples utilisés pour calculer le gradient à chaque mise à jour : tout le dataset (batch, précis mais lent), un seul exemple (SGD, rapide mais bruité), ou un petit sous-ensemble (mini-batch, le compromis le plus utilisé en pratique)",
+        "choice_b": "Le batch gradient descent ne s'utilise qu'en classification, le SGD uniquement en régression",
+        "choice_c": "Ce sont trois noms différents pour désigner exactement le même algorithme",
+        "choice_d": "Le SGD n'est utilisable qu'avec des réseaux convolutifs (CNN)",
+        "correct_choice": "A",
+        "explanation": "En pratique, le mini-batch domine car il offre un bon compromis entre la stabilité du gradient (calculé sur plusieurs exemples) et la vitesse/le bruit utile pour échapper aux minima locaux (comme le SGD), tout en exploitant le calcul parallèle des GPU."
       }
     ],
     "parent": "IA"
@@ -1104,6 +1770,78 @@
         "choice_d": "La date à laquelle un modèle a été mis en production",
         "correct_choice": "C",
         "explanation": "Une epoch correspond à un cycle complet d'entraînement sur tout le jeu de données, généralement découpé en plusieurs batches ; on entraîne un modèle sur plusieurs epochs pour qu'il voie les données plusieurs fois. À ne pas confondre avec l'epoch Unix (1er janvier 1970), un terme informatique homonyme sans rapport."
+      },
+      {
+        "question_text": "Qu'est-ce que la régression linéaire ?",
+        "choice_a": "Un modèle qui prédit une valeur continue en trouvant la relation linéaire (droite ou hyperplan) qui minimise l'erreur entre les prédictions et les valeurs réelles",
+        "choice_b": "Un algorithme qui classe les données en catégories discrètes via une fonction sigmoïde",
+        "choice_c": "Un algorithme de clustering qui regroupe les données sans étiquettes",
+        "choice_d": "Un réseau de neurones profond à plusieurs couches cachées",
+        "correct_choice": "A",
+        "explanation": "On l'entraîne généralement en minimisant l'erreur quadratique moyenne (moindres carrés) entre les prédictions et les valeurs réelles ; c'est l'algorithme de ML le plus simple et souvent le point de départ pour comprendre les autres."
+      },
+      {
+        "question_text": "Malgré son nom, à quoi sert la régression logistique ?",
+        "choice_a": "Prédire une valeur continue, comme la régression linéaire, mais avec une meilleure précision",
+        "choice_b": "À faire de la classification (souvent binaire) : elle applique une fonction sigmoïde à une combinaison linéaire des features pour obtenir une probabilité",
+        "choice_c": "Réduire la dimensionnalité des données en projetant sur les axes de variance maximale",
+        "choice_d": "Regrouper des données non labellisées en clusters",
+        "correct_choice": "B",
+        "explanation": "Malgré le mot 'régression', c'est un algorithme de classification : la sigmoïde transforme la sortie linéaire en une valeur entre 0 et 1 interprétable comme une probabilité, qu'on seuille ensuite (ex: à 0.5) pour obtenir une classe."
+      },
+      {
+        "question_text": "Comment fonctionne un arbre de décision (Decision Tree) ?",
+        "choice_a": "Il combine les prédictions de plusieurs modèles par vote majoritaire",
+        "choice_b": "Il mesure la distance aux k exemples d'entraînement les plus proches",
+        "choice_c": "Il découpe successivement les données selon des règles/tests sur les features, formant une arborescence, jusqu'à des feuilles représentant une prédiction",
+        "choice_d": "Il projette les données sur les axes de variance maximale",
+        "correct_choice": "C",
+        "explanation": "Chaque nœud interne teste une condition sur une feature (ex: 'âge > 30 ?'), chaque branche mène à un sous-arbre, et chaque feuille donne la prédiction finale — facile à interpréter, mais sujet à l'overfitting s'il devient trop profond."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une Random Forest ?",
+        "choice_a": "Un seul arbre de décision, mais entraîné plus longtemps",
+        "choice_b": "Un algorithme de clustering hiérarchique basé sur la distance entre points",
+        "choice_c": "Une technique de réduction de dimension utilisée avant l'entraînement",
+        "choice_d": "Un ensemble de nombreux arbres de décision entraînés sur des sous-échantillons aléatoires des données et des features, dont les prédictions sont agrégées pour réduire la variance/l'overfitting d'un arbre seul",
+        "correct_choice": "D",
+        "explanation": "En moyennant les prédictions de nombreux arbres décorrélés (grâce au tirage aléatoire des données et des features à chaque arbre), la forêt réduit la variance par rapport à un arbre unique, qui a tendance à surapprendre."
+      },
+      {
+        "question_text": "Comment fonctionne l'algorithme des k plus proches voisins (k-NN) ?",
+        "choice_a": "Pour prédire, il regarde les k exemples d'entraînement les plus proches du point à prédire (selon une distance) et vote majoritaire (classification) ou moyenne (régression) — sans modèle explicite entraîné au préalable",
+        "choice_b": "Il entraîne un réseau de neurones possédant exactement k couches cachées",
+        "choice_c": "Il découpe récursivement l'espace des features en régions, comme un arbre de décision",
+        "choice_d": "Il regroupe automatiquement les données en k clusters sans labels",
+        "correct_choice": "A",
+        "explanation": "k-NN ne construit aucun modèle pendant l'entraînement (d'où le nom 'lazy learning') : tout le calcul se fait au moment de la prédiction, en comparant le nouveau point à l'ensemble des données d'entraînement stockées."
+      },
+      {
+        "question_text": "Qu'est-ce que l'algorithme k-means ?",
+        "choice_a": "Un algorithme supervisé qui classe les données en k catégories prédéfinies",
+        "choice_b": "Un algorithme de clustering non supervisé qui partitionne les données en k groupes en assignant chaque point au centroïde le plus proche, puis en recalculant les centroïdes, itérativement jusqu'à convergence",
+        "choice_c": "Un algorithme qui détermine automatiquement le nombre optimal de clusters sans qu'on ait à le préciser",
+        "choice_d": "Une technique de compression d'image sans perte",
+        "correct_choice": "B",
+        "explanation": "Le nombre de clusters k doit être choisi à l'avance (souvent via la méthode du coude), et l'algorithme converge vers un optimum local qui dépend de l'initialisation des centroïdes — d'où l'usage fréquent de plusieurs initialisations aléatoires."
+      },
+      {
+        "question_text": "Quel est le principe des SVM (Support Vector Machines) ?",
+        "choice_a": "Entraîner plusieurs modèles faibles successifs, chacun corrigeant les erreurs du précédent",
+        "choice_b": "Regrouper les données selon leur densité locale, sans notion de frontière linéaire",
+        "choice_c": "Trouver l'hyperplan séparateur qui maximise la marge entre les classes, en s'appuyant sur les points les plus proches de la frontière (vecteurs de support) ; le 'kernel trick' permet aussi de séparer des données non linéairement séparables",
+        "choice_d": "Calculer une moyenne pondérée des k plus proches voisins d'un point",
+        "correct_choice": "C",
+        "explanation": "La marge maximale rend la frontière de décision plus robuste aux nouvelles données ; le kernel trick (ex: noyau RBF) permet de projeter implicitement les données dans un espace de plus grande dimension où elles deviennent linéairement séparables, sans calculer cette projection explicitement."
+      },
+      {
+        "question_text": "Quel est le principe du Gradient Boosting (ex. XGBoost) ?",
+        "choice_a": "Entraîner plusieurs modèles en parallèle sur des sous-échantillons indépendants, puis moyenner leurs prédictions",
+        "choice_b": "Un algorithme de clustering hiérarchique ascendant",
+        "choice_c": "Une technique de normalisation des features avant l'entraînement",
+        "choice_d": "Construire les modèles (souvent des arbres) de façon séquentielle, chacun corrigeant les erreurs (résidus) du précédent via une descente de gradient sur la fonction de perte, puis combiner leurs prédictions",
+        "correct_choice": "D",
+        "explanation": "Contrairement au bagging (comme Random Forest) qui entraîne des modèles indépendants en parallèle, le boosting les entraîne en série, chaque nouveau modèle se concentrant sur les erreurs du précédent — ce qui donne souvent de meilleures performances mais est plus sensible à l'overfitting et plus long à entraîner."
       }
     ],
     "parent": "IA"
@@ -1810,8 +2548,797 @@
         "choice_d": "Une technique de visualisation des poids d'un réseau de neurones sous forme de graphe d'états",
         "correct_choice": "B",
         "explanation": "Contrairement à l'attention des Transformers, dont le coût croît de façon quadratique avec la longueur de la séquence, les SSM (dérivés de la théorie du contrôle) propagent un état caché de façon linéaire — Mamba est l'implémentation la plus connue, et des modèles commerciaux comme les LFM de Liquid AI s'appuient sur des idées proches."
+      },
+      {
+        "question_text": "Qu'est-ce que la tokenization dans le traitement du texte par un LLM ?",
+        "choice_a": "La traduction automatique du texte en une autre langue avant de le donner au modèle",
+        "choice_b": "Le découpage du texte en unités (tokens) — souvent des sous-mots plutôt que des mots entiers (ex: BPE) — que le modèle manipule numériquement ; le coût/la limite de contexte d'un LLM se mesure en tokens, pas en caractères ni en mots",
+        "choice_c": "Le chiffrement du texte avant son envoi à l'API du modèle",
+        "choice_d": "La suppression des mots vides (stopwords) avant l'entraînement",
+        "correct_choice": "B",
+        "explanation": "Un mot rare ou inconnu peut être découpé en plusieurs sous-tokens (ex: 'tokenization' → 'token' + 'ization'), ce qui permet au modèle de gérer un vocabulaire fixe tout en représentant théoriquement n'importe quel mot."
+      },
+      {
+        "question_text": "Que désigne la 'context window' (fenêtre de contexte) d'un LLM ?",
+        "choice_a": "La période pendant laquelle le modèle a été entraîné sur ses données",
+        "choice_b": "Le nombre de couches d'attention utilisées par le modèle",
+        "choice_c": "Le nombre maximum de tokens (prompt + historique + réponse) que le modèle peut prendre en compte simultanément lors d'une génération ; au-delà, les tokens les plus anciens sont tronqués/ignorés",
+        "choice_d": "Le délai de réponse maximal toléré par l'API avant timeout",
+        "correct_choice": "C",
+        "explanation": "Une fenêtre de contexte plus grande permet de traiter des documents plus longs ou une conversation avec plus d'historique, mais augmente aussi le coût de calcul de l'attention (qui croît avec la longueur de la séquence, d'où l'intérêt du KV cache et d'architectures comme les SSM)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une hallucination chez un LLM ?",
+        "choice_a": "Un bug qui fait planter le modèle lors de l'inférence",
+        "choice_b": "Un comportement qui n'apparaît que lorsque la temperature est réglée à 0",
+        "choice_c": "Une erreur de tokenization qui corrompt le prompt envoyé",
+        "choice_d": "Une réponse générée avec assurance mais factuellement fausse ou inventée, car le modèle génère le texte le plus statistiquement probable plutôt que de vérifier des faits — un risque atténué (mais pas éliminé) par des techniques comme le RAG",
+        "correct_choice": "D",
+        "explanation": "Un LLM ne 'sait' pas qu'il ne sait pas : il génère toujours la suite de tokens la plus probable selon ce qu'il a appris, même en l'absence d'information fiable — d'où l'intérêt du RAG pour ancrer les réponses sur des sources vérifiables plutôt que sur la seule mémoire du modèle."
+      },
+      {
+        "question_text": "Qu'est-ce que le prompt engineering ?",
+        "choice_a": "La pratique de concevoir/formuler soigneusement les instructions (prompts) données à un LLM — structure, exemples (few-shot), contraintes de format — pour obtenir de meilleures réponses sans modifier les poids du modèle",
+        "choice_b": "Une technique de fine-tuning qui modifie directement les poids du modèle",
+        "choice_c": "Le développement d'un nouveau modèle de langage from scratch",
+        "choice_d": "La compression du prompt pour réduire son nombre de tokens",
+        "correct_choice": "A",
+        "explanation": "Des techniques comme le few-shot prompting (donner des exemples dans le prompt) ou le chain-of-thought (demander au modèle de raisonner étape par étape) peuvent améliorer significativement la qualité des réponses sans aucun entraînement supplémentaire."
+      },
+      {
+        "question_text": "Qu'est-ce que le function calling (ou tool use) chez un LLM ?",
+        "choice_a": "La capacité du modèle à exécuter directement du code sur le serveur qui l'héberge",
+        "choice_b": "La capacité du modèle à décrire, en sortie structurée, un appel à une fonction/API externe (avec ses arguments) que l'application appelante exécute réellement, permettant au LLM d'agir au-delà de la simple génération de texte",
+        "choice_c": "Une fonctionnalité qui limite le nombre d'appels à l'API par utilisateur",
+        "choice_d": "Le nom donné aux hyperparamètres réglables (temperature, top-k...) via l'API",
+        "correct_choice": "B",
+        "explanation": "Le modèle ne fait qu'indiquer 'quelle fonction appeler avec quels arguments' sous forme structurée (ex: JSON) — c'est l'application qui exécute réellement l'appel et renvoie le résultat au modèle pour qu'il poursuive sa réponse ; c'est la brique de base des agents LLM."
       }
     ],
     "parent": "IA"
+  },
+  {
+    "name": "Mathématiques pour l'IA",
+    "color": "emerald",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce qu'un vecteur en algèbre linéaire, dans le contexte du machine learning ?",
+        "choice_a": "Une liste ordonnée de nombres représentant un point ou une direction dans un espace à n dimensions — c'est par exemple ainsi qu'un embedding représente un mot ou une image sous forme numérique",
+        "choice_b": "Une structure de données qui ne peut contenir que des nombres entiers",
+        "choice_c": "Un algorithme de tri utilisé pour ordonner des données numériques",
+        "choice_d": "Une fonction qui convertit du texte en code binaire",
+        "correct_choice": "A",
+        "explanation": "En ML, presque toutes les données (images, mots, sons) finissent représentées sous forme de vecteurs de nombres, ce qui permet d'appliquer dessus les opérations mathématiques (distance, similarité, transformation linéaire) sur lesquelles reposent les modèles."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une matrice, et à quoi sert-elle typiquement dans un réseau de neurones ?",
+        "choice_a": "Une structure qui ne peut stocker que des probabilités entre 0 et 1",
+        "choice_b": "Un tableau de nombres à deux dimensions (lignes/colonnes) ; dans un réseau de neurones, les poids d'une couche sont typiquement stockés sous forme de matrice, et la transformation qu'elle applique à un vecteur d'entrée (via une multiplication matricielle) est ce qui produit la sortie de la couche",
+        "choice_c": "Un synonyme exact de vecteur, sans différence pratique",
+        "choice_d": "Un type de fonction de perte utilisé uniquement en classification",
+        "correct_choice": "B",
+        "explanation": "Représenter les poids d'une couche sous forme de matrice permet de calculer en une seule opération (multiplication matricielle) la transformation appliquée à tout un batch de données, ce qui est justement ce que les GPU sont optimisés pour exécuter très rapidement en parallèle."
+      },
+      {
+        "question_text": "Que mesure le produit scalaire (dot product) entre deux vecteurs ?",
+        "choice_a": "La distance en ligne droite entre les deux vecteurs",
+        "choice_b": "Le nombre total de dimensions des deux vecteurs additionnées",
+        "choice_c": "Une combinaison de leur alignement directionnel et de leurs magnitudes (somme des produits terme à terme) ; il est notamment à la base du calcul de similarité cosinus entre deux embeddings (plus deux vecteurs pointent dans une direction similaire, plus leur produit scalaire normalisé est élevé) et du calcul effectué par chaque neurone d'une couche dense",
+        "choice_d": "Le nombre de valeurs identiques présentes dans les deux vecteurs",
+        "correct_choice": "C",
+        "explanation": "C'est une des opérations les plus fondamentales du deep learning : chaque neurone d'une couche calcule essentiellement un produit scalaire entre ses poids et son entrée (avant d'ajouter un biais et d'appliquer une fonction d'activation)."
+      },
+      {
+        "question_text": "Qu'est-ce que la norme (ex: norme L2/euclidienne) d'un vecteur ?",
+        "choice_a": "Le nombre d'éléments non nuls que contient le vecteur",
+        "choice_b": "La moyenne arithmétique de toutes les valeurs du vecteur",
+        "choice_c": "Un synonyme de produit scalaire entre le vecteur et lui-même",
+        "choice_d": "Une mesure de la magnitude/longueur du vecteur (sa distance par rapport à l'origine) ; la norme L2 (racine carrée de la somme des carrés des composantes) est la plus courante, et sert notamment de base à la régularisation L2, qui pénalise les vecteurs de poids de grande norme",
+        "correct_choice": "D",
+        "explanation": "Réduire la norme des poids d'un modèle (comme le fait la régularisation L2) tend à produire des modèles aux prédictions plus stables, moins sensibles à de petites variations de l'entrée — d'où son rôle dans la lutte contre l'overfitting."
+      },
+      {
+        "question_text": "Pourquoi la multiplication matricielle n'est-elle en général pas commutative (A×B ≠ B×A) ?",
+        "choice_a": "Parce que multiplier deux matrices revient à composer deux transformations linéaires appliquées dans un certain ordre ; changer l'ordre change généralement la transformation résultante, et les dimensions elles-mêmes peuvent rendre l'opération inversée tout simplement impossible à calculer",
+        "choice_b": "Ce n'est vrai qu'en théorie, en pratique A×B = B×A est toujours vérifié numériquement",
+        "choice_c": "Parce que les ordinateurs ne peuvent physiquement pas stocker le résultat de B×A",
+        "choice_d": "Parce que la multiplication matricielle n'existe que pour des matrices carrées de même taille",
+        "correct_choice": "A",
+        "explanation": "C'est une différence essentielle avec la multiplication de nombres classiques : l'ordre dans lequel on empile les couches d'un réseau de neurones (chacune appliquant sa propre transformation matricielle) a donc une réelle importance sur le résultat final."
+      },
+      {
+        "question_text": "Qu'est-ce que la dérivée d'une fonction, intuitivement ?",
+        "choice_a": "La valeur maximale que peut prendre la fonction",
+        "choice_b": "Le taux de variation instantané de la fonction en un point donné — géométriquement, la pente de la tangente à la courbe en ce point ; elle indique dans quelle direction et à quelle vitesse la fonction augmente ou diminue localement",
+        "choice_c": "La surface délimitée par la courbe de la fonction et l'axe des abscisses",
+        "choice_d": "La valeur de la fonction lorsque son entrée vaut zéro",
+        "correct_choice": "B",
+        "explanation": "C'est ce concept qui permet, en apprentissage automatique, de savoir dans quelle direction ajuster un paramètre pour faire diminuer une fonction de perte : si la dérivée est positive, la fonction croît, donc on ajuste le paramètre dans l'autre sens."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une dérivée partielle, par rapport à une dérivée classique ?",
+        "choice_a": "Une dérivée calculée uniquement sur une partie du domaine de définition de la fonction",
+        "choice_b": "Une approximation imprécise de la dérivée réelle, utilisée quand le calcul exact est trop coûteux",
+        "choice_c": "La dérivée d'une fonction à plusieurs variables par rapport à une seule de ces variables, en considérant toutes les autres comme temporairement constantes — c'est cette opération qui permet de savoir comment la fonction de perte varie si l'on modifie un seul poids du réseau à la fois, toutes choses égales par ailleurs",
+        "choice_d": "Une dérivée qui ne peut être calculée que pour des fonctions linéaires",
+        "correct_choice": "C",
+        "explanation": "Un réseau de neurones a souvent des millions de paramètres : la backpropagation calcule la dérivée partielle de la perte par rapport à chacun d'eux individuellement, ce qui indique précisément la contribution de chaque poids à l'erreur totale."
+      },
+      {
+        "question_text": "Qu'est-ce que le gradient d'une fonction à plusieurs variables ?",
+        "choice_a": "La valeur minimale que la fonction peut atteindre",
+        "choice_b": "Un synonyme du taux d'apprentissage (learning rate)",
+        "choice_c": "Le nombre total de variables dont dépend la fonction",
+        "choice_d": "Le vecteur regroupant toutes les dérivées partielles de la fonction (une par variable), qui pointe dans la direction où la fonction augmente le plus rapidement en ce point ; en descente de gradient, on avance dans la direction opposée pour minimiser la fonction (ex: la perte d'un réseau de neurones)",
+        "correct_choice": "D",
+        "explanation": "C'est ce vecteur, recalculé à chaque itération d'entraînement via la backpropagation, qui indique précisément comment ajuster simultanément tous les poids du réseau pour réduire au mieux l'erreur du modèle."
+      },
+      {
+        "question_text": "Quel est le rôle de la règle de dérivation en chaîne (chain rule) dans l'entraînement d'un réseau de neurones ?",
+        "choice_a": "Elle permet de calculer la dérivée d'une fonction composée (une fonction appliquée au résultat d'une autre) en multipliant les dérivées de chaque étape intermédiaire — c'est exactement la situation d'un réseau de neurones (une composition de couches successives), et c'est ce principe mathématique qui rend la backpropagation possible",
+        "choice_b": "Elle sert uniquement à accélérer le calcul, sans nécessité mathématique",
+        "choice_c": "Elle ne s'applique qu'aux réseaux de neurones ayant une seule couche",
+        "choice_d": "Elle remplace le besoin de calculer un gradient dans les réseaux modernes",
+        "correct_choice": "A",
+        "explanation": "Sans la règle de la chaîne, il serait impossible de propager efficacement l'erreur de la couche de sortie jusqu'aux premières couches d'un réseau profond : c'est elle qui permet de décomposer ce calcul, couche par couche, en partant de la sortie vers l'entrée."
+      },
+      {
+        "question_text": "Pourquoi le caractère convexe (ou non) d'une fonction de perte est-il important en optimisation ?",
+        "choice_a": "Une fonction convexe ne peut jamais être minimisée par descente de gradient",
+        "choice_b": "Pour une fonction convexe, tout minimum local est garanti d'être aussi le minimum global, ce qui garantit qu'un algorithme comme la descente de gradient convergera vers la meilleure solution possible ; les réseaux de neurones profonds ont en général des fonctions de perte non convexes, avec potentiellement de nombreux minima locaux, ce qui rend l'optimisation plus incertaine (mais reste efficace en pratique)",
+        "choice_c": "Les fonctions convexes ne peuvent être utilisées qu'avec des données catégorielles",
+        "choice_d": "La convexité n'a aucun lien avec l'optimisation, c'est un concept purement géométrique",
+        "correct_choice": "B",
+        "explanation": "La régression linéaire ou logistique ont des fonctions de perte convexes (un seul minimum), ce qui garantit la convergence vers l'optimum ; les réseaux profonds n'ont pas cette garantie théorique, mais l'expérience montre que la descente de gradient trouve en pratique de très bonnes solutions malgré la non-convexité."
+      },
+      {
+        "question_text": "Comment se définit formellement une probabilité ?",
+        "choice_a": "Un nombre entier représentant le nombre de fois qu'un événement peut se produire",
+        "choice_b": "Une valeur qui peut être négative si l'événement est jugé improbable",
+        "choice_c": "Une mesure numérique comprise entre 0 (événement impossible) et 1 (événement certain) qui quantifie la vraisemblance qu'un événement se produise ; la somme des probabilités de tous les événements possibles d'une expérience vaut toujours 1",
+        "choice_d": "Un pourcentage qui ne peut être calculé qu'après que l'événement se soit déjà produit",
+        "correct_choice": "C",
+        "explanation": "Cette échelle normalisée entre 0 et 1 est ce qui permet de comparer directement la vraisemblance de différents événements, et c'est précisément ce que produit une fonction softmax en sortie d'un modèle de classification."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une distribution de probabilité ?",
+        "choice_a": "Un algorithme qui trie des données par ordre de probabilité décroissante",
+        "choice_b": "Un synonyme exact de moyenne, utilisé uniquement en statistiques avancées",
+        "choice_c": "Une méthode de répartition égale des données entre plusieurs serveurs",
+        "choice_d": "Une fonction qui décrit la vraisemblance des différentes valeurs (ou plages de valeurs) que peut prendre une variable aléatoire — ex: une distribution uniforme donne la même probabilité à chaque issue, une distribution normale concentre la probabilité autour d'une valeur moyenne",
+        "correct_choice": "D",
+        "explanation": "En ML, on utilise des distributions à de nombreuses reprises : pour initialiser aléatoirement les poids d'un réseau (souvent via une distribution normale), pour modéliser le bruit dans les données, ou pour représenter la sortie d'un classifieur (distribution de probabilité sur les classes possibles)."
+      },
+      {
+        "question_text": "Qu'est-ce que la loi normale (ou gaussienne), et pourquoi est-elle si présente en ML ?",
+        "choice_a": "Une distribution de probabilité en forme de cloche symétrique, entièrement définie par sa moyenne (le centre) et son écart-type (l'étalement) ; elle apparaît très fréquemment en pratique (grâce au théorème central limite) et sert par exemple couramment à initialiser aléatoirement les poids d'un réseau de neurones avant l'entraînement",
+        "choice_b": "Une distribution qui ne peut prendre que deux valeurs possibles, 0 ou 1",
+        "choice_c": "Une méthode de normalisation qui force toutes les valeurs d'un dataset à être strictement égales",
+        "choice_d": "Un synonyme technique de la fonction de perte utilisée en régression",
+        "correct_choice": "A",
+        "explanation": "De nombreux phénomènes naturels et bruits statistiques suivent approximativement une loi normale, ce qui en fait un choix par défaut naturel dans de nombreuses situations, notamment pour l'initialisation aléatoire des poids d'un réseau (afin d'éviter de partir d'une configuration trop extrême)."
+      },
+      {
+        "question_text": "Qu'est-ce que l'espérance mathématique (ou espérance) d'une variable aléatoire ?",
+        "choice_a": "La valeur maximale que la variable peut théoriquement atteindre",
+        "choice_b": "La valeur moyenne attendue de la variable, calculée en pondérant chaque valeur possible par sa probabilité d'occurrence — c'est en quelque sorte la 'moyenne à long terme' si l'on répétait l'expérience un grand nombre de fois",
+        "choice_c": "Le nombre total de valeurs différentes que la variable peut prendre",
+        "choice_d": "Un synonyme exact de médiane",
+        "correct_choice": "B",
+        "explanation": "Par exemple, l'espérance du résultat d'un dé à six faces équilibré est 3,5 (la moyenne de 1 à 6 pondérée uniformément) : une valeur qui n'est même pas une issue possible du dé, mais qui représente la moyenne attendue sur de nombreux lancers."
+      },
+      {
+        "question_text": "Que mesurent la variance et l'écart-type d'un ensemble de données ?",
+        "choice_a": "La valeur la plus fréquente (le mode) de l'ensemble de données",
+        "choice_b": "La différence entre la plus grande et la plus petite valeur de l'ensemble",
+        "choice_c": "La dispersion des valeurs autour de leur moyenne : une variance élevée signifie que les valeurs sont très étalées, une variance faible qu'elles sont concentrées près de la moyenne ; l'écart-type est simplement la racine carrée de la variance, ce qui le ramène dans la même unité que les données d'origine",
+        "choice_d": "Le nombre de valeurs manquantes dans le jeu de données",
+        "correct_choice": "C",
+        "explanation": "Ce concept apparaît directement dans le compromis biais-variance en ML : un modèle à forte variance est très sensible aux fluctuations des données d'entraînement (risque d'overfitting), un modèle à fort biais est trop rigide (risque d'underfitting)."
+      },
+      {
+        "question_text": "Que permet de calculer le théorème de Bayes ?",
+        "choice_a": "La moyenne pondérée de plusieurs distributions de probabilité indépendantes",
+        "choice_b": "La dérivée d'une fonction de probabilité par rapport au temps",
+        "choice_c": "Le nombre optimal de clusters à utiliser dans un algorithme comme k-means",
+        "choice_d": "La probabilité d'un événement A sachant qu'un événement B s'est produit (probabilité a posteriori), à partir de la probabilité de B sachant A, et des probabilités a priori de A et B : P(A|B) = P(B|A)·P(A) / P(B) — c'est le fondement des classifieurs bayésiens naïfs (Naive Bayes) et plus largement du raisonnement probabiliste en IA",
+        "correct_choice": "D",
+        "explanation": "Ce théorème permet de 'retourner' une probabilité conditionnelle : par exemple, à partir de la probabilité qu'un email contienne certains mots sachant qu'il est un spam, on peut en déduire la probabilité qu'un email soit un spam sachant qu'il contient ces mots."
+      },
+      {
+        "question_text": "Qu'est-ce que l'entropie, en théorie de l'information ?",
+        "choice_a": "Une mesure de l'incertitude (ou du désordre) d'une distribution de probabilité : elle est maximale quand toutes les issues sont également probables (imprévisibilité maximale), et minimale (nulle) quand une seule issue est certaine ; c'est ce concept qui fonde la fonction de perte cross-entropy, très utilisée en classification",
+        "choice_b": "La quantité totale de mémoire occupée par un modèle de machine learning",
+        "choice_c": "Le nombre de couches présentes dans un réseau de neurones",
+        "choice_d": "Une mesure de la vitesse de convergence d'un algorithme d'entraînement",
+        "correct_choice": "A",
+        "explanation": "La cross-entropy (utilisée comme fonction de perte en classification) mesure l'écart entre la distribution de probabilité prédite par le modèle et la distribution réelle (souvent une valeur certaine, ex: 100% chat) : plus cet écart est faible, plus le modèle est 'sûr et juste' dans ses prédictions."
+      },
+      {
+        "question_text": "Que fait la fonction softmax, typiquement utilisée en sortie d'un modèle de classification ?",
+        "choice_a": "Elle sélectionne uniquement la classe la plus probable et ignore toutes les autres",
+        "choice_b": "Elle transforme un vecteur de scores bruts (logits, pouvant être n'importe quel nombre réel) en une distribution de probabilité : chaque valeur devient positive et l'ensemble des valeurs somme à 1, ce qui les rend interprétables comme des probabilités sur chaque classe possible",
+        "choice_c": "Elle trie les classes par ordre alphabétique avant l'affichage du résultat",
+        "choice_d": "Elle réduit systématiquement le nombre de classes possibles à seulement deux",
+        "correct_choice": "B",
+        "explanation": "Softmax amplifie les écarts relatifs entre les scores (grâce à la fonction exponentielle qu'elle utilise) : une classe avec un score légèrement plus élevé que les autres se voit attribuer une probabilité disproportionnellement plus grande, ce qui rend les prédictions du modèle plus tranchées."
+      },
+      {
+        "question_text": "Pourquoi les embeddings vivent-ils généralement dans des espaces à plusieurs centaines, voire milliers de dimensions ?",
+        "choice_a": "Pour ralentir volontairement les calculs et éviter le surapprentissage",
+        "choice_b": "Parce que le matériel actuel ne peut traiter que des vecteurs de grande taille",
+        "choice_c": "Pour pouvoir capturer un grand nombre de nuances sémantiques différentes simultanément (chaque dimension pouvant coder une caractéristique abstraite apprise) ; dans cet espace, la proximité entre deux vecteurs (souvent mesurée par la similarité cosinus, basée sur le produit scalaire normalisé) reflète leur proximité sémantique",
+        "choice_d": "Pour que chaque dimension corresponde exactement à une lettre de l'alphabet",
+        "correct_choice": "C",
+        "explanation": "Plus l'espace a de dimensions, plus il peut théoriquement représenter finement des nuances de sens différentes, au prix d'un coût de calcul et de stockage plus élevé — c'est un compromis clé dans la conception des modèles d'embeddings."
+      },
+      {
+        "question_text": "Quelle est la différence entre un minimum local et un minimum global d'une fonction de perte ?",
+        "choice_a": "Un minimum local ne peut être atteint que par la méthode de Newton, jamais par la descente de gradient",
+        "choice_b": "Ce sont deux termes strictement équivalents, employés selon le contexte",
+        "choice_c": "Un minimum global n'existe que pour les fonctions convexes, un minimum local uniquement pour les fonctions non convexes",
+        "choice_d": "Un minimum local est un point où la fonction est plus basse que dans son voisinage immédiat, sans être nécessairement la valeur la plus basse possible sur l'ensemble du domaine (le minimum global) ; pour une fonction de perte non convexe (typique des réseaux profonds), la descente de gradient peut rester bloquée dans un minimum local sans jamais atteindre le minimum global",
+        "correct_choice": "D",
+        "explanation": "En pratique, pour les réseaux de neurones profonds, on découvre souvent que la plupart des minima locaux rencontrés ont des valeurs de perte proches les unes des autres et donnent des modèles tout à fait utilisables, ce qui rend ce problème théorique moins critique en pratique qu'on pourrait le craindre."
+      }
+    ]
+  },
+  {
+    "name": "Python",
+    "color": "pink",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce que le GIL (Global Interpreter Lock) en Python (CPython) ?",
+        "choice_a": "Un verrou global qui empêche plus d'un thread à la fois d'exécuter du bytecode Python dans un même processus, ce qui explique pourquoi le multithreading n'accélère pas les tâches gourmandes en CPU (contrairement aux tâches d'entrées/sorties, où les threads restent utiles)",
+        "choice_b": "Un mécanisme qui empêche toute exécution de code Python tant qu'une erreur de syntaxe existe",
+        "choice_c": "Une bibliothèque externe qu'il faut installer manuellement pour utiliser les threads en Python",
+        "choice_d": "Un outil qui compile automatiquement le code Python en code machine natif",
+        "correct_choice": "A",
+        "explanation": "Le GIL simplifie la gestion mémoire interne de CPython (l'implémentation de référence de Python), mais il signifie que pour paralléliser réellement du calcul intensif, il faut utiliser plusieurs processus (module multiprocessing) plutôt que plusieurs threads."
+      },
+      {
+        "question_text": "Quel est l'intérêt d'une list comprehension (ex: `[x**2 for x in range(10)]`) par rapport à une boucle for classique ?",
+        "choice_a": "Elle ne peut être utilisée qu'avec des nombres, jamais avec des chaînes de caractères",
+        "choice_b": "Elle exécute le code dans un thread séparé automatiquement",
+        "choice_c": "Elle offre une syntaxe plus concise et généralement plus rapide pour construire une nouvelle liste à partir d'une séquence existante, en une seule expression lisible",
+        "choice_d": "Elle empêche toute modification ultérieure de la liste créée",
+        "correct_choice": "C",
+        "explanation": "En plus d'être plus compacte, une list comprehension est souvent plus rapide qu'une boucle for équivalente avec `append()`, car l'interpréteur peut l'optimiser en interne — mais elle peut devenir peu lisible si on l'utilise pour une logique trop complexe."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un generator en Python (une fonction utilisant `yield`) ?",
+        "choice_a": "Une fonction qui génère automatiquement sa propre documentation",
+        "choice_b": "Une fonction spéciale qui produit ses valeurs une par une, à la demande (paresseusement), sans jamais stocker toute la séquence en mémoire d'un coup — utile pour traiter de grandes quantités de données ou des séquences potentiellement infinies",
+        "choice_c": "Un synonyme exact d'une list comprehension, sans aucune différence",
+        "choice_d": "Une fonction qui ne peut être appelée qu'une seule fois dans tout le programme",
+        "correct_choice": "B",
+        "explanation": "Chaque appel à `next()` sur un generator reprend son exécution juste après le dernier `yield`, ce qui permet de parcourir une séquence énorme (voire infinie) sans jamais la matérialiser entièrement en mémoire, contrairement à une liste classique."
+      },
+      {
+        "question_text": "À quoi servent `*args` et `**kwargs` dans la définition d'une fonction Python ?",
+        "choice_a": "Ils forcent la fonction à n'accepter aucun argument",
+        "choice_b": "Ils ralentissent volontairement l'exécution de la fonction pour faciliter le débogage",
+        "choice_c": "Ils ne peuvent être utilisés que dans les méthodes de classe, jamais dans une fonction simple",
+        "choice_d": "Ils permettent à la fonction d'accepter un nombre variable d'arguments positionnels (`*args`, collectés dans un tuple) et d'arguments nommés (`**kwargs`, collectés dans un dictionnaire), sans avoir à les déclarer individuellement à l'avance",
+        "correct_choice": "D",
+        "explanation": "C'est ce mécanisme qui permet, par exemple, d'écrire des fonctions génériques capables de relayer n'importe quels arguments vers une autre fonction (un pattern courant dans les décorateurs), sans connaître à l'avance leur nombre ou leurs noms."
+      },
+      {
+        "question_text": "Comment fonctionne un decorator (`@decorateur`) en Python ?",
+        "choice_a": "C'est une fonction qui prend une autre fonction en argument et retourne une nouvelle fonction enveloppant la première, lui ajoutant ainsi un comportement supplémentaire (ex: logging, chronométrage, vérification d'authentification) sans modifier son code source",
+        "choice_b": "C'est une syntaxe purement décorative qui n'a aucun effet réel sur l'exécution du programme",
+        "choice_c": "C'est un mécanisme réservé exclusivement aux méthodes de classe, jamais aux fonctions simples",
+        "choice_d": "C'est un commentaire spécial qui documente automatiquement une fonction",
+        "correct_choice": "A",
+        "explanation": "La syntaxe `@decorateur` au-dessus d'une fonction est un simple sucre syntaxique pour `fonction = decorateur(fonction)` : c'est ce qui permet, par exemple, à `@functools.lru_cache` d'ajouter de la mémoïsation à une fonction sans en toucher le corps."
+      },
+      {
+        "question_text": "Qu'est-ce que le duck typing en Python ?",
+        "choice_a": "Un style de code qui interdit strictement l'utilisation de classes",
+        "choice_b": "Une philosophie selon laquelle le type d'un objet importe moins que les méthodes/comportements qu'il expose (\"si ça marche comme un canard...\") : Python vérifie généralement qu'un objet peut faire ce qu'on lui demande plutôt que de vérifier explicitement son type déclaré",
+        "choice_c": "Un mécanisme qui convertit automatiquement tous les types numériques en chaînes de caractères",
+        "choice_d": "Une bibliothèque externe utilisée pour le typage strict, comme mypy",
+        "correct_choice": "B",
+        "explanation": "Par exemple, une fonction qui appelle `.write()` sur son argument fonctionnera avec n'importe quel objet possédant une méthode `write()` (un fichier, un buffer en mémoire, un socket...), sans se soucier de leur type exact — c'est ce typage implicite qui caractérise Python."
+      },
+      {
+        "question_text": "Pourquoi `def f(x=[]):` est-il considéré comme un piège classique en Python ?",
+        "choice_a": "Parce que cette syntaxe provoque systématiquement une erreur de compilation",
+        "choice_b": "Parce que les listes ne peuvent jamais être utilisées comme argument de fonction en Python",
+        "choice_c": "Parce que la valeur par défaut mutable (la liste vide) n'est créée qu'une seule fois, au moment de la définition de la fonction, et non à chaque appel — elle est donc partagée et potentiellement modifiée entre tous les appels successifs qui utilisent la valeur par défaut, ce qui produit un comportement souvent inattendu",
+        "choice_d": "Parce que cela rend la fonction environ dix fois plus lente à l'exécution",
+        "correct_choice": "C",
+        "explanation": "La solution habituelle consiste à utiliser `None` comme valeur par défaut, puis à créer une nouvelle liste à l'intérieur du corps de la fonction si l'argument vaut `None` — évitant ainsi tout partage d'état non voulu entre les appels."
+      },
+      {
+        "question_text": "Quel est l'intérêt d'un context manager (l'instruction `with`) en Python ?",
+        "choice_a": "Il garantit qu'une ressource (fichier, connexion réseau, verrou...) est correctement ouverte puis proprement libérée à la sortie du bloc, même en cas d'exception levée à l'intérieur — via les méthodes spéciales `__enter__` et `__exit__`",
+        "choice_b": "Il permet d'exécuter du code Python dans un environnement isolé du reste du système",
+        "choice_c": "Il ralentit intentionnellement l'exécution pour faciliter le débogage pas à pas",
+        "choice_d": "Il ne peut être utilisé qu'avec des fichiers, jamais avec d'autres types de ressources",
+        "correct_choice": "A",
+        "explanation": "`with open('fichier.txt') as f:` garantit que le fichier sera fermé automatiquement à la fin du bloc, même si une exception survient pendant sa lecture — évitant d'avoir à écrire manuellement un bloc try/finally à chaque fois."
+      },
+      {
+        "question_text": "Quelle est la principale différence entre une liste et un tuple en Python ?",
+        "choice_a": "Un tuple ne peut contenir que des nombres, une liste peut contenir n'importe quel type",
+        "choice_b": "Une liste est mutable (on peut modifier, ajouter ou retirer des éléments après sa création), alors qu'un tuple est immuable (son contenu ne peut plus être modifié une fois créé) — un tuple est aussi généralement plus rapide à créer et peut servir de clé de dictionnaire, contrairement à une liste",
+        "choice_c": "Il n'existe aucune différence pratique, ce sont deux syntaxes équivalentes",
+        "choice_d": "Une liste ne peut contenir qu'un seul élément, un tuple peut en contenir plusieurs",
+        "correct_choice": "B",
+        "explanation": "L'immuabilité d'un tuple en fait un choix naturel pour représenter des données qui ne doivent pas changer (ex: des coordonnées fixes), et permet de l'utiliser comme clé de dictionnaire ou élément d'un set — ce qu'une liste, étant mutable, ne peut pas faire."
+      },
+      {
+        "question_text": "Quelle est la différence entre les opérateurs `==` et `is` en Python ?",
+        "choice_a": "`==` compare l'égalité des valeurs de deux objets, alors que `is` compare leur identité (vérifie s'ils occupent exactement le même emplacement en mémoire) ; deux objets peuvent avoir des valeurs égales (`==` vrai) sans être le même objet en mémoire (`is` faux)",
+        "choice_b": "Les deux opérateurs sont strictement interchangeables en toutes circonstances",
+        "choice_c": "`is` ne peut être utilisé qu'avec des nombres, `==` uniquement avec des chaînes de caractères",
+        "choice_d": "`==` compare l'identité mémoire, `is` compare la valeur",
+        "correct_choice": "A",
+        "explanation": "C'est une source classique de bugs subtils : par exemple, deux listes contenant les mêmes éléments seront égales avec `==` mais ne seront pas le même objet (`is` renverra False), sauf si l'une des deux variables référence littéralement l'autre."
+      },
+      {
+        "question_text": "Comment fonctionne le slicing en Python (ex: `ma_liste[1:5:2]`) ?",
+        "choice_a": "Il supprime définitivement les éléments concernés de la liste d'origine",
+        "choice_b": "Il ne fonctionne qu'avec des chaînes de caractères, jamais avec des listes",
+        "choice_c": "Il extrait une portion d'une séquence (liste, chaîne, tuple...) en spécifiant un indice de début, de fin (exclu) et un pas optionnel, retournant une nouvelle séquence sans modifier l'originale",
+        "choice_d": "Il ne peut retourner qu'un seul élément à la fois, jamais une sous-séquence",
+        "correct_choice": "C",
+        "explanation": "Le slicing gère aussi les indices négatifs (compter depuis la fin) et un pas négatif (ex: `ma_liste[::-1]` pour inverser une séquence), ce qui en fait un outil particulièrement polyvalent pour manipuler des séquences sans boucle explicite."
+      },
+      {
+        "question_text": "Que se passe-t-il quand on passe une liste en argument à une fonction Python, et qu'on la modifie à l'intérieur de cette fonction ?",
+        "choice_a": "La fonction reçoit systématiquement une copie complète de la liste, donc la liste d'origine n'est jamais affectée",
+        "choice_b": "Cela provoque toujours une erreur, il faut explicitement copier la liste avant de la modifier",
+        "choice_c": "La fonction reçoit une référence vers le même objet liste (les objets mutables ne sont pas copiés lors du passage en argument) ; toute modification en place (ex: `.append()`) affecte donc bien la liste d'origine, visible aussi en dehors de la fonction",
+        "choice_d": "Seuls les cinq premiers éléments de la liste sont transmis à la fonction",
+        "correct_choice": "C",
+        "explanation": "C'est différent pour un type immuable (comme un int ou une string) : réaffecter la variable locale à l'intérieur de la fonction ne modifie que cette référence locale, sans jamais affecter la variable d'origine à l'extérieur de la fonction."
+      },
+      {
+        "question_text": "Quelle est la différence entre une méthode d'instance, une `@classmethod` et une `@staticmethod` en Python ?",
+        "choice_a": "Elles sont strictement interchangeables, seul le nom du décorateur change",
+        "choice_b": "Seule une méthode d'instance peut être appelée sans avoir créé d'objet au préalable",
+        "choice_c": "Une `@staticmethod` a automatiquement accès aux attributs de l'instance, contrairement à une méthode d'instance",
+        "choice_d": "Une méthode d'instance reçoit automatiquement `self` (l'instance courante) en premier paramètre ; une `@classmethod` reçoit `cls` (la classe elle-même, utile par exemple pour créer des constructeurs alternatifs) ; une `@staticmethod` ne reçoit ni l'un ni l'autre et se comporte comme une fonction normale simplement regroupée dans la classe pour des raisons d'organisation",
+        "correct_choice": "D",
+        "explanation": "Un cas d'usage typique de `@classmethod` est de fournir un constructeur alternatif (ex: `MaClasse.from_json(data)`), qui a besoin d'accéder à la classe elle-même pour créer une nouvelle instance, mais pas à une instance existante en particulier."
+      },
+      {
+        "question_text": "Comment gère-t-on les exceptions avec `try` / `except` / `else` / `finally` en Python ?",
+        "choice_a": "Le bloc `finally` ne s'exécute que si aucune exception n'a été levée",
+        "choice_b": "`try` contient le code potentiellement risqué, `except` capture et gère une exception si elle survient, `else` s'exécute uniquement si aucune exception n'a été levée dans le bloc `try`, et `finally` s'exécute toujours, qu'une exception ait été levée ou non (souvent utilisé pour libérer des ressources)",
+        "choice_c": "Un seul bloc `except` peut être utilisé par fonction dans tout le programme",
+        "choice_d": "Le bloc `else` remplace entièrement le bloc `except`, ils ne peuvent jamais coexister",
+        "correct_choice": "B",
+        "explanation": "Séparer le code qui peut réussir sans erreur (`else`) du code de nettoyage garanti (`finally`) permet d'écrire une gestion d'erreurs plus précise : par exemple, fermer un fichier dans `finally` qu'une erreur de lecture soit survenue ou non."
+      },
+      {
+        "question_text": "Quelle est la différence entre un module et un package en Python ?",
+        "choice_a": "Un module est un unique fichier `.py` contenant du code Python réutilisable (fonctions, classes, variables), alors qu'un package est un répertoire regroupant plusieurs modules (généralement identifié par la présence d'un fichier `__init__.py`), permettant d'organiser du code en une hiérarchie",
+        "choice_b": "Un package ne peut contenir qu'un seul module, jamais plusieurs",
+        "choice_c": "Un module ne peut être utilisé qu'une seule fois dans tout le programme",
+        "choice_d": "Il n'existe aucune différence, ce sont deux termes strictement équivalents",
+        "correct_choice": "A",
+        "explanation": "Cette organisation hiérarchique (packages contenant des sous-packages et des modules) permet de structurer de grands projets Python de façon lisible, un peu comme des dossiers et des fichiers sur un système de fichiers classique."
+      },
+      {
+        "question_text": "À quoi servent les type hints (annotations de type, ex: `def f(x: int) -> str:`) en Python ?",
+        "choice_a": "Ils empêchent totalement le programme de s'exécuter si un type incorrect est passé en argument",
+        "choice_b": "Ils convertissent automatiquement les valeurs vers le type indiqué avant l'exécution de la fonction",
+        "choice_c": "Ils améliorent la lisibilité du code et permettent à des outils externes (ex: mypy, l'autocomplétion des IDE) de détecter des incohérences de type, mais Python reste un langage à typage dynamique : ces annotations ne sont pas vérifiées ni appliquées par l'interpréteur lui-même à l'exécution",
+        "choice_d": "Ils ne peuvent être utilisés que sur les paramètres de fonction, jamais sur leur valeur de retour",
+        "correct_choice": "C",
+        "explanation": "C'est une différence importante avec des langages comme Rust ou TypeScript où le typage est vérifié par le compilateur : en Python, les type hints sont purement indicatifs pour les humains et les outils, l'interpréteur les ignore silencieusement à l'exécution."
+      },
+      {
+        "question_text": "Pourquoi utilise-t-on le module `multiprocessing` plutôt que `threading` pour paralléliser une tâche gourmande en calcul (CPU-bound) en Python ?",
+        "choice_a": "Parce que `threading` n'existe tout simplement pas en Python",
+        "choice_b": "Parce que `multiprocessing` est toujours plus rapide que `threading`, quel que soit le type de tâche",
+        "choice_c": "Parce que `threading` ne fonctionne que sur les systèmes Windows",
+        "choice_d": "Parce que le GIL empêche plusieurs threads d'un même processus d'exécuter du bytecode Python simultanément ; `multiprocessing` contourne cette limite en lançant plusieurs processus séparés, chacun avec son propre interpréteur Python et sa propre mémoire, permettant une vraie parallélisation sur plusieurs cœurs CPU",
+        "correct_choice": "D",
+        "explanation": "En contrepartie, les processus créés par `multiprocessing` ne partagent pas automatiquement leur mémoire (contrairement aux threads) : il faut utiliser des mécanismes explicites (files, mémoire partagée) pour échanger des données entre eux, ce qui ajoute un coût de communication."
+      },
+      {
+        "question_text": "Que fait le décorateur `@functools.lru_cache` en Python ?",
+        "choice_a": "Il supprime automatiquement les erreurs levées par la fonction décorée",
+        "choice_b": "Il limite le nombre de fois qu'une fonction peut être appelée dans tout le programme",
+        "choice_c": "Il ralentit volontairement l'exécution de la fonction pour économiser de la mémoire",
+        "choice_d": "Il met en cache (mémoïse) les résultats déjà calculés d'une fonction pour un jeu d'arguments donné, évitant de refaire le même calcul si la fonction est rappelée avec les mêmes arguments — particulièrement utile pour accélérer des fonctions récursives comme le calcul de la suite de Fibonacci",
+        "correct_choice": "D",
+        "explanation": "C'est une implémentation prête à l'emploi du principe de mémoïsation évoqué en programmation dynamique : le cache a une taille maximale configurable (`maxsize`), au-delà de laquelle les résultats les moins récemment utilisés sont évincés."
+      },
+      {
+        "question_text": "Que fait l'opérateur de déballage (`*`) lors d'un appel de fonction, par exemple `f(*ma_liste)` ?",
+        "choice_a": "Il multiplie chaque élément de la liste par le nombre de paramètres de la fonction",
+        "choice_b": "Il déballe (unpack) les éléments de la liste pour les passer individuellement comme arguments positionnels séparés à la fonction, plutôt que de passer la liste elle-même comme un seul argument",
+        "choice_c": "Il crée une copie profonde de la liste avant de l'envoyer à la fonction",
+        "choice_d": "Il ne fonctionne qu'avec des dictionnaires, jamais avec des listes",
+        "correct_choice": "B",
+        "explanation": "Le double astérisque (`**`) fait de même mais pour un dictionnaire, en le déballant sous forme d'arguments nommés (`f(**mon_dict)` équivaut à passer chaque paire clé/valeur comme `cle=valeur`) — ces deux opérateurs sont aussi utilisables lors de la définition d'une fonction, sous la forme `*args`/`**kwargs`."
+      },
+      {
+        "question_text": "Quelle est la syntaxe et l'intérêt d'une compréhension de dictionnaire (dict comprehension), par exemple `{x: x**2 for x in range(5)}` ?",
+        "choice_a": "Cette syntaxe n'existe pas en Python, seules les list comprehensions sont disponibles",
+        "choice_b": "Elle ne peut être utilisée que pour créer des dictionnaires vides",
+        "choice_c": "Elle trie automatiquement le dictionnaire résultant par ordre alphabétique des clés",
+        "choice_d": "Elle permet de construire un dictionnaire de façon concise en une seule expression, en spécifiant l'expression de la clé et de la valeur pour chaque élément d'une séquence source, de la même manière qu'une list comprehension construit une liste",
+        "correct_choice": "D",
+        "explanation": "Ce même principe de compréhension existe aussi pour les sets (`{x for x in ...}`), offrant une syntaxe cohérente et concise pour construire ces trois types de collections directement à partir d'une séquence source, sans boucle explicite."
+      }
+    ]
+  },
+  {
+    "name": "Sécurité informatique",
+    "color": "slate",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce qu'une injection SQL, et comment s'en prémunir principalement ?",
+        "choice_a": "Une attaque qui consiste à insérer du code SQL malveillant dans une entrée utilisateur non validée/échappée, pour manipuler la requête exécutée par l'application (ex: contourner une authentification, extraire des données) ; la contre-mesure principale est l'utilisation de requêtes préparées (prepared statements) qui séparent strictement le code SQL des données fournies par l'utilisateur",
+        "choice_b": "Une technique légitime utilisée par les administrateurs pour optimiser les performances d'une base de données",
+        "choice_c": "Un type de virus qui se propage exclusivement via les emails",
+        "choice_d": "Une méthode de sauvegarde automatique d'une base de données SQL",
+        "correct_choice": "A",
+        "explanation": "L'exemple classique est un champ de connexion mal protégé où saisir quelque chose comme `' OR '1'='1` peut transformer la condition de la requête SQL sous-jacente et contourner la vérification du mot de passe — les requêtes préparées empêchent structurellement ce genre de manipulation, contrairement à la simple concaténation de chaînes."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une attaque XSS (Cross-Site Scripting) ?",
+        "choice_a": "Une attaque qui vise à intercepter le trafic réseau entre deux serveurs",
+        "choice_b": "Une technique de test de charge qui simule de nombreux utilisateurs simultanés",
+        "choice_c": "L'injection d'un script malveillant (généralement JavaScript) dans une page web, qui s'exécute ensuite dans le navigateur d'autres utilisateurs consultant cette page — souvent rendue possible quand une application affiche du contenu fourni par un utilisateur (commentaire, message) sans l'échapper correctement",
+        "choice_d": "Une méthode de chiffrement obsolète, remplacée aujourd'hui par TLS",
+        "correct_choice": "C",
+        "explanation": "Un script injecté avec succès peut voler les cookies de session d'autres visiteurs, rediriger vers un site malveillant, ou modifier le contenu affiché — la contre-mesure principale consiste à toujours échapper (encoder) tout contenu utilisateur avant de l'insérer dans le HTML rendu."
+      },
+      {
+        "question_text": "Comment fonctionne une attaque CSRF (Cross-Site Request Forgery) ?",
+        "choice_a": "Elle exploite une faille dans le processeur pour lire de la mémoire censée être protégée",
+        "choice_b": "Elle consiste à deviner le mot de passe d'un utilisateur par essais successifs",
+        "choice_c": "Elle intercepte et déchiffre les communications HTTPS entre le client et le serveur",
+        "choice_d": "Elle piège un utilisateur déjà authentifié sur un site pour lui faire exécuter, à son insu, une action non voulue sur ce site (ex: changer son email, effectuer un virement), généralement via un lien ou un formulaire caché hébergé sur un autre site que la victime visite pendant qu'elle est connectée",
+        "correct_choice": "D",
+        "explanation": "Le navigateur envoie automatiquement les cookies de session existants avec chaque requête vers le site concerné, même si cette requête a été déclenchée depuis une page totalement différente — d'où l'intérêt des tokens CSRF (une valeur secrète unique par session/formulaire) que le site légitime vérifie avant d'exécuter l'action."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un buffer overflow (dépassement de tampon) ?",
+        "choice_a": "Une erreur qui survient uniquement lorsqu'un fichier est trop volumineux pour être ouvert",
+        "choice_b": "Le fait d'écrire des données au-delà des limites d'un buffer (zone mémoire) alloué, ce qui écrase la mémoire adjacente — potentiellement des données critiques comme une adresse de retour de fonction, permettant dans le pire cas à un attaquant de détourner l'exécution du programme ; un risque particulièrement présent dans des langages comme C, sans vérification automatique des limites de tableau",
+        "choice_c": "Une technique légitime utilisée pour accélérer la lecture de fichiers volumineux",
+        "choice_d": "Une erreur qui ne peut survenir que dans des langages avec ramasse-miettes",
+        "correct_choice": "B",
+        "explanation": "C'est exactement le type de bug bas niveau contre lequel des langages comme Rust se protègent structurellement (via son système d'ownership et ses vérifications de limites à l'exécution), alors que le C laisse cette responsabilité entièrement au développeur."
+      },
+      {
+        "question_text": "Quelle est la différence entre le chiffrement symétrique et le chiffrement asymétrique ?",
+        "choice_a": "Le chiffrement symétrique utilise la même clé pour chiffrer et déchiffrer (rapide, mais pose le problème de transmettre cette clé secrète de façon sécurisée) ; le chiffrement asymétrique utilise une paire de clés distinctes (une clé publique pour chiffrer, une clé privée pour déchiffrer), plus lent mais résolvant le problème d'échange de clé — en pratique, TLS combine souvent les deux : l'asymétrique pour échanger une clé de session, puis le symétrique pour le reste de la communication",
+        "choice_b": "Le chiffrement asymétrique ne fonctionne que sur des nombres, jamais sur du texte",
+        "choice_c": "Ce sont deux noms différents pour désigner exactement le même algorithme",
+        "choice_d": "Le chiffrement symétrique n'est plus utilisé aujourd'hui, remplacé entièrement par l'asymétrique",
+        "correct_choice": "A",
+        "explanation": "Ce compromis (asymétrique pour l'échange initial, symétrique pour le débit) tire parti des points forts de chaque approche : la clé publique peut être partagée librement sans risque, tandis que le chiffrement symétrique reste bien plus rapide pour chiffrer de grands volumes de données une fois la clé de session établie."
+      },
+      {
+        "question_text": "Pourquoi hache-t-on les mots de passe plutôt que de les chiffrer avant de les stocker en base de données ?",
+        "choice_a": "Parce que le hachage est plus lent que le chiffrement, ce qui protège mieux contre les attaques",
+        "choice_b": "Il n'y a en réalité aucune différence entre hacher et chiffrer un mot de passe",
+        "choice_c": "Parce que le hachage est une fonction à sens unique (non réversible) : même en cas de fuite de la base de données, il est impossible de retrouver directement le mot de passe original à partir de son empreinte (hash), contrairement au chiffrement qui est réversible avec la bonne clé et donc plus risqué à stocker à long terme",
+        "choice_d": "Parce que le chiffrement ne peut techniquement pas être appliqué à des chaînes de caractères courtes",
+        "correct_choice": "C",
+        "explanation": "En pratique, on utilise des fonctions de hachage spécifiquement conçues pour les mots de passe (comme bcrypt ou Argon2), volontairement lentes et intégrant un salt, plutôt que des fonctions de hachage génériques rapides (comme SHA-256 seul), plus vulnérables aux attaques par force brute massive."
+      },
+      {
+        "question_text": "À quoi sert un salt (sel cryptographique) lors du hachage d'un mot de passe ?",
+        "choice_a": "À accélérer le calcul du hachage pour améliorer les performances du serveur",
+        "choice_b": "À remplacer complètement le besoin de hacher le mot de passe",
+        "choice_c": "À compresser le mot de passe avant de le transmettre sur le réseau",
+        "choice_d": "À ajouter une valeur aléatoire unique (différente pour chaque utilisateur) au mot de passe avant de le hacher, ce qui empêche un attaquant d'utiliser une table précalculée de hachages courants (rainbow table) pour retrouver rapidement des mots de passe, et garantit que deux utilisateurs avec le même mot de passe auront des hachages stockés différents",
+        "correct_choice": "D",
+        "explanation": "Sans salt, un attaquant qui obtient une base de hachages peut comparer chaque hachage à une immense table précalculée de mots de passe courants ; avec un salt unique par utilisateur, il faudrait recalculer une table entière pour chaque utilisateur individuellement, rendant l'attaque bien plus coûteuse."
+      },
+      {
+        "question_text": "Qu'est-ce que le principe du moindre privilège (principle of least privilege) en sécurité informatique ?",
+        "choice_a": "Donner à chaque nouvel utilisateur tous les droits par défaut, à charge pour lui de les restreindre",
+        "choice_b": "Accorder à chaque utilisateur, processus ou service uniquement les droits/permissions strictement nécessaires à l'accomplissement de sa tâche, rien de plus — ce qui limite les dégâts potentiels si ce compte ou processus venait à être compromis",
+        "choice_c": "Limiter à une seule personne l'accès administrateur à tout un système, sans exception",
+        "choice_d": "Réduire au minimum le nombre de mots de passe qu'un utilisateur doit mémoriser",
+        "correct_choice": "B",
+        "explanation": "Ce principe est central à la 'défense en profondeur' : si un service web compromis ne dispose que des droits nécessaires pour lire certaines tables (et non pour en supprimer d'autres, par exemple), l'impact d'une faille dans ce service reste contenu plutôt que de compromettre l'intégralité du système."
+      },
+      {
+        "question_text": "Quelle est la différence entre l'authentification et l'autorisation ?",
+        "choice_a": "L'authentification vérifie l'identité d'un utilisateur ('qui es-tu ?', ex: via un mot de passe), alors que l'autorisation détermine ce que cet utilisateur authentifié a le droit de faire ('as-tu le droit d'accéder à cette ressource ?') — on peut être authentifié sans être autorisé à effectuer une action donnée",
+        "choice_b": "Ce sont deux termes strictement synonymes utilisés indifféremment",
+        "choice_c": "L'autorisation précède toujours l'authentification dans un système sécurisé",
+        "choice_d": "L'authentification ne concerne que les administrateurs, l'autorisation que les utilisateurs standards",
+        "correct_choice": "A",
+        "explanation": "Un exemple concret : se connecter avec succès à une application avec son mot de passe prouve l'authentification, mais tenter ensuite d'accéder à une page réservée aux administrateurs alors qu'on est un utilisateur standard échoue à cause de l'autorisation, malgré une authentification par ailleurs valide."
+      },
+      {
+        "question_text": "En quoi consiste une attaque par force brute, et quelle contre-mesure courante permet de la limiter ?",
+        "choice_a": "Elle consiste à intercepter physiquement le câble réseau entre deux machines",
+        "choice_b": "Elle exploite exclusivement une faille du protocole TLS pour déchiffrer une connexion",
+        "choice_c": "Elle consiste à tester systématiquement un très grand nombre de combinaisons possibles (ex: mots de passe) jusqu'à trouver la bonne ; des contre-mesures courantes incluent le rate limiting (limiter le nombre de tentatives par unité de temps) et le verrouillage temporaire du compte après plusieurs échecs",
+        "choice_d": "Elle ne fonctionne que sur des mots de passe stockés en clair, jamais sur des mots de passe hachés",
+        "correct_choice": "C",
+        "explanation": "Plus un mot de passe est long et varié, plus l'espace des combinaisons possibles à tester devient astronomique, rendant une attaque par force brute pure impraticable en un temps raisonnable — c'est pourquoi la longueur du mot de passe compte souvent plus que sa complexité apparente."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une attaque de type man-in-the-middle (homme du milieu) ?",
+        "choice_a": "Une attaque qui ne peut viser que les réseaux Wi-Fi publics, jamais les connexions filaires",
+        "choice_b": "Une technique légitime utilisée par les fournisseurs d'accès pour surveiller le trafic",
+        "choice_c": "Un type de malware qui chiffre les fichiers d'une victime contre rançon",
+        "choice_d": "Un attaquant s'interpose secrètement entre deux parties communicantes (ex: un client et un serveur), interceptant, voire modifiant, les échanges sans que ni l'une ni l'autre ne s'en rende compte — HTTPS/TLS rend cette attaque beaucoup plus difficile en authentifiant le serveur via son certificat et en chiffrant les échanges",
+        "correct_choice": "D",
+        "explanation": "Sans chiffrement ni vérification d'identité, un attaquant sur le même réseau local (ex: un Wi-Fi public non sécurisé) pourrait facilement lire ou altérer le trafic ; le certificat vérifié lors du handshake TLS garantit au client qu'il communique bien avec le serveur légitime, et non un intermédiaire malveillant."
+      },
+      {
+        "question_text": "Qu'est-ce que le principe de défense en profondeur (defense in depth) ?",
+        "choice_a": "Concentrer toute la sécurité d'un système sur un seul mécanisme, le plus robuste possible",
+        "choice_b": "Empiler plusieurs couches de sécurité indépendantes (ex: pare-feu, authentification, chiffrement, moindre privilège, surveillance) de sorte que si une couche est contournée, les suivantes offrent encore une protection — plutôt que de dépendre d'une seule barrière dont la défaillance compromettrait tout le système",
+        "choice_c": "Chiffrer les données à un niveau de profondeur toujours plus élevé, couche après couche, indéfiniment",
+        "choice_d": "Confier la sécurité d'un système à une seule personne experte plutôt qu'à une équipe",
+        "correct_choice": "B",
+        "explanation": "C'est l'analogue en sécurité informatique d'un château fort avec plusieurs lignes de défense (douves, murailles, gardes) : même si un attaquant franchit une couche, il doit encore surmonter les suivantes, ce qui réduit fortement les chances qu'une seule faille compromette tout le système."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une vulnérabilité zero-day ?",
+        "choice_a": "Une faille de sécurité inconnue des développeurs ou de l'éditeur du logiciel concerné (et donc non corrigée), qui peut être exploitée par des attaquants avant même qu'un correctif n'existe — d'où son nom, l'éditeur ayant eu 'zéro jour' pour la corriger avant qu'elle soit exploitée ou révélée",
+        "choice_b": "Une faille qui n'affecte que les logiciels ayant zéro utilisateur actif",
+        "choice_c": "Une vulnérabilité corrigée automatiquement dès sa découverte, sans intervention humaine",
+        "choice_d": "Un type d'attaque qui ne peut viser que des systèmes vieux de plus de zéro jour, donc tous les systèmes",
+        "correct_choice": "A",
+        "explanation": "Ces failles sont particulièrement dangereuses et recherchées car aucune protection connue (patch, signature antivirus) n'existe encore contre elles au moment de leur découverte, ce qui explique leur forte valeur sur le marché noir comme dans les programmes légitimes de 'bug bounty'."
+      },
+      {
+        "question_text": "Qu'est-ce que le phishing (hameçonnage) ?",
+        "choice_a": "Une technique de piratage qui exploite uniquement des failles logicielles, sans intervention humaine",
+        "choice_b": "Un algorithme utilisé pour cracker des mots de passe hachés",
+        "choice_c": "Une technique d'ingénierie sociale qui consiste à tromper une victime (souvent via un email ou un site web imitant une source légitime) pour l'inciter à révéler des informations sensibles (mots de passe, coordonnées bancaires) ou à installer un logiciel malveillant",
+        "choice_d": "Un protocole réseau utilisé pour sécuriser les échanges de données",
+        "correct_choice": "C",
+        "explanation": "Contrairement à de nombreuses attaques purement techniques, le phishing exploite avant tout la confiance et l'inattention humaines — d'où l'importance de la sensibilisation des utilisateurs en complément des protections techniques (filtres anti-spam, authentification multi-facteurs qui limite les dégâts même si le mot de passe est volé)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une attaque DDoS (Distributed Denial of Service) ?",
+        "choice_a": "Une tentative de deviner un mot de passe en testant toutes les combinaisons possibles",
+        "choice_b": "Une technique visant à intercepter et modifier discrètement le trafic réseau",
+        "choice_c": "Une méthode légitime de test de charge utilisée volontairement par les équipes DevOps",
+        "choice_d": "Une attaque qui submerge un service ou un serveur d'un volume massif de requêtes provenant simultanément de nombreuses sources distribuées (souvent un réseau d'appareils compromis, un botnet), dans le but de le rendre indisponible pour les utilisateurs légitimes en épuisant ses ressources (bande passante, CPU, connexions)",
+        "correct_choice": "D",
+        "explanation": "Le caractère 'distribué' de l'attaque (de nombreuses sources différentes plutôt qu'une seule) rend le blocage plus difficile qu'une simple attaque par déni de service classique : bloquer une seule adresse IP source ne suffit pas, puisque le trafic malveillant provient de milliers d'appareils différents simultanément."
+      },
+      {
+        "question_text": "Qu'est-ce que le sandboxing (mise en bac à sable) d'un programme ?",
+        "choice_a": "Une technique qui accélère l'exécution d'un programme en lui donnant un accès prioritaire au CPU",
+        "choice_b": "L'isolation de l'exécution d'un programme (souvent non fiable ou potentiellement malveillant) dans un environnement restreint et contrôlé, limitant strictement son accès aux ressources du système (fichiers, réseau, autres processus) — de sorte que même si le code s'avère malveillant ou buggé, son impact reste contenu à cet environnement isolé",
+        "choice_c": "Un mécanisme qui chiffre automatiquement toutes les données manipulées par le programme",
+        "choice_d": "Une méthode de sauvegarde régulière et automatique de l'état d'un programme",
+        "correct_choice": "B",
+        "explanation": "C'est le principe utilisé par les navigateurs web pour exécuter du JavaScript potentiellement non fiable venant de sites tiers, ou par des conteneurs comme Docker pour isoler une application de son système hôte, réduisant la surface d'attaque en cas de compromission du code exécuté à l'intérieur."
+      },
+      {
+        "question_text": "Qu'est-ce que l'authentification multi-facteurs (2FA/MFA) ?",
+        "choice_a": "Une méthode d'authentification qui combine au moins deux preuves d'identité indépendantes parmi différentes catégories (ce que l'on sait, comme un mot de passe ; ce que l'on possède, comme un téléphone recevant un code ; ce que l'on est, comme une empreinte digitale) — même si un attaquant vole le mot de passe, il lui manque encore le second facteur pour accéder au compte",
+        "choice_b": "L'obligation de saisir deux fois le même mot de passe lors de la connexion, pour éviter les fautes de frappe",
+        "choice_c": "Un mécanisme réservé exclusivement aux comptes administrateurs, jamais aux utilisateurs standards",
+        "choice_d": "Une technique qui remplace entièrement le besoin d'un mot de passe par un simple code à 4 chiffres",
+        "correct_choice": "A",
+        "explanation": "En combinant des facteurs de nature fondamentalement différente, le MFA réduit considérablement le risque qu'une seule fuite (ex: un mot de passe divulgué dans une brèche de données ailleurs) suffise à compromettre un compte, même si les deux facteurs individuellement ne sont pas parfaitement sécurisés."
+      },
+      {
+        "question_text": "À quoi sert le mécanisme CORS (Cross-Origin Resource Sharing) dans un navigateur ?",
+        "choice_a": "À chiffrer automatiquement toutes les requêtes envoyées depuis une page web",
+        "choice_b": "À bloquer définitivement toute communication entre deux sites différents, sans aucune exception possible",
+        "choice_c": "Il définit les règles selon lesquelles une page web chargée depuis une origine (domaine) peut faire des requêtes vers une autre origine ; par défaut, le navigateur bloque ces requêtes cross-origin (same-origin policy) pour limiter les risques d'abus, et CORS permet à un serveur d'autoriser explicitement certaines origines à accéder à ses ressources via des en-têtes HTTP dédiés",
+        "choice_d": "Un protocole qui remplace HTTPS pour les échanges entre serveurs uniquement",
+        "correct_choice": "C",
+        "explanation": "Sans cette politique de sécurité par défaut du navigateur (same-origin policy, assouplie explicitement via CORS), un script malveillant chargé sur un site quelconque pourrait librement effectuer des requêtes vers d'autres sites au nom de l'utilisateur (ex: sa banque) en utilisant ses cookies de session déjà présents dans le navigateur."
+      },
+      {
+        "question_text": "Qu'est-ce que l'OWASP Top 10, et à quoi sert-il ?",
+        "choice_a": "Un langage de programmation spécialement conçu pour écrire du code sécurisé",
+        "choice_b": "Une certification obligatoire que chaque développeur doit obtenir avant de coder",
+        "choice_c": "Un antivirus gratuit maintenu par une fondation à but non lucratif",
+        "choice_d": "Un rapport de référence, régulièrement mis à jour par la fondation OWASP (Open Worldwide Application Security Project), qui recense les 10 catégories de vulnérabilités les plus critiques et fréquentes dans les applications web (ex: injection, authentification défaillante, mauvaise configuration de sécurité) — largement utilisé comme référentiel de bonnes pratiques par les équipes de développement et de sécurité",
+        "correct_choice": "D",
+        "explanation": "Ce classement évolue avec le temps à mesure que de nouveaux types de vulnérabilités émergent ou que d'anciennes deviennent moins fréquentes grâce à de meilleures pratiques ; il sert souvent de checklist minimale pour orienter les audits de sécurité et les priorités de correction dans un projet."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un certificat SSL/TLS ?",
+        "choice_a": "Un protocole de compression des données HTTP",
+        "choice_b": "Un certificat électronique qui authentifie l'identité d'un site web et permet de chiffrer la connexion (nom de domaine, clé publique, émetteur, signature numérique)",
+        "choice_c": "Une clé privée partagée publiquement",
+        "choice_d": "Un fichier de configuration du serveur web uniquement",
+        "correct_choice": "B",
+        "explanation": "Délivré par une autorité de certification, il permet au navigateur de vérifier qu'il parle bien au bon serveur (authentification) tout en chiffrant les échanges (confidentialité)."
+      }
+    ]
+  },
+  {
+    "name": "Bases de données",
+    "color": "rose",
+    "questions": [
+      {
+        "question_text": "À quoi sert un index dans une base de données ?",
+        "choice_a": "À accélérer les recherches (SELECT) sur une colonne en évitant de parcourir toutes les lignes de la table (souvent implémenté via une structure arborescente comme un B-tree) — au prix d'un espace disque supplémentaire et d'un coût additionnel sur les écritures (INSERT/UPDATE/DELETE), qui doivent aussi mettre à jour l'index",
+        "choice_b": "À chiffrer automatiquement le contenu d'une colonne",
+        "choice_c": "À supprimer les doublons d'une table automatiquement",
+        "choice_d": "À sauvegarder une copie de la base de données à intervalle régulier",
+        "correct_choice": "A",
+        "explanation": "Sans index, rechercher une ligne précise nécessite un balayage complet de la table (full table scan), dont le coût croît linéairement avec le nombre de lignes ; un index bien choisi peut ramener cette recherche à une complexité logarithmique, au prix d'un compromis avec la vitesse d'écriture."
+      },
+      {
+        "question_text": "Quelle est la différence entre une clé primaire et une clé étrangère dans une base relationnelle ?",
+        "choice_a": "Une clé étrangère ne peut exister que dans la même table que la clé primaire qu'elle référence",
+        "choice_b": "Ce sont deux termes synonymes désignant le même concept",
+        "choice_c": "La clé primaire identifie de façon unique chaque ligne d'une table (elle ne peut pas être dupliquée ni nulle) ; la clé étrangère est une colonne (dans une autre table, ou parfois la même) qui référence la clé primaire d'une autre ligne, matérialisant ainsi une relation entre deux tables",
+        "choice_d": "Une table ne peut avoir qu'une seule clé étrangère au maximum, mais plusieurs clés primaires",
+        "correct_choice": "C",
+        "explanation": "C'est cette relation par clé étrangère qui permet les jointures entre tables : par exemple, une table 'commandes' peut référencer, via une clé étrangère, la clé primaire d'une table 'clients', pour savoir quel client a passé quelle commande sans dupliquer ses informations dans chaque commande."
+      },
+      {
+        "question_text": "Quelle est la différence entre un INNER JOIN et un LEFT JOIN en SQL ?",
+        "choice_a": "Un LEFT JOIN ne peut être utilisé qu'avec des bases NoSQL",
+        "choice_b": "Un INNER JOIN combine trois tables ou plus, un LEFT JOIN seulement deux",
+        "choice_c": "Ce sont deux syntaxes strictement équivalentes, sans différence de résultat",
+        "choice_d": "Un INNER JOIN ne retourne que les lignes qui ont une correspondance dans les deux tables jointes, alors qu'un LEFT JOIN retourne toutes les lignes de la table de gauche, avec les colonnes de la table de droite remplies de NULL quand aucune correspondance n'existe",
+        "correct_choice": "D",
+        "explanation": "Le choix entre les deux dépend du besoin : si on veut par exemple lister tous les clients, y compris ceux qui n'ont encore passé aucune commande, un LEFT JOIN est nécessaire ; un INNER JOIN les exclurait silencieusement puisqu'ils n'ont aucune ligne correspondante dans la table des commandes."
+      },
+      {
+        "question_text": "Qu'est-ce que la normalisation d'une base de données relationnelle ?",
+        "choice_a": "Un processus d'organisation des données (via des règles appelées formes normales) visant à réduire la redondance et les incohérences, généralement en répartissant les données en plusieurs tables liées entre elles par des clés étrangères plutôt que de tout dupliquer dans une seule grande table",
+        "choice_b": "Une technique qui consiste à convertir toutes les données en minuscules pour uniformiser leur format",
+        "choice_c": "Un mécanisme qui trie automatiquement les lignes d'une table par ordre alphabétique",
+        "choice_d": "Une méthode qui chiffre systématiquement toutes les colonnes sensibles d'une table",
+        "correct_choice": "A",
+        "explanation": "Sans normalisation, si l'adresse d'un client était dupliquée dans chacune de ses commandes, la modifier nécessiterait de mettre à jour de nombreuses lignes à la fois (risque d'incohérence) ; en normalisant, l'adresse n'existe qu'une fois dans la table clients, référencée par clé étrangère depuis les commandes."
+      },
+      {
+        "question_text": "Qu'est-ce que la dénormalisation, et pourquoi l'utilise-t-on parfois volontairement ?",
+        "choice_a": "Une erreur de conception qu'on cherche toujours à éviter à tout prix",
+        "choice_b": "Un synonyme technique de la normalisation, sans différence pratique",
+        "choice_c": "L'inverse volontaire de la normalisation : dupliquer intentionnellement certaines données entre plusieurs tables (ou au sein d'une même table) pour accélérer les lectures en évitant des jointures coûteuses, au prix d'une redondance et d'un risque accru d'incohérence lors des mises à jour — une pratique courante dans les systèmes à très forte charge de lecture",
+        "choice_d": "Une technique réservée exclusivement aux bases de données relationnelles, jamais utilisée en NoSQL",
+        "correct_choice": "C",
+        "explanation": "C'est un compromis classique entre performance de lecture et complexité de maintenance : les bases de données NoSQL orientées document embrassent souvent nativement la dénormalisation, en stockant des données liées ensemble plutôt que dans des tables séparées à joindre."
+      },
+      {
+        "question_text": "Qu'est-ce que le problème N+1 (N+1 query problem) ?",
+        "choice_a": "Une erreur qui survient quand une base de données dépasse N tables au total",
+        "choice_b": "Un problème de performance où une application exécute une première requête pour récupérer N lignes, puis exécute N requêtes supplémentaires séparées (une par ligne) pour récupérer des données liées, au lieu d'une seule requête groupée (ex: via une jointure) — ce qui multiplie inutilement les allers-retours vers la base de données",
+        "choice_c": "Une contrainte qui limite le nombre maximum de connexions simultanées à une base de données",
+        "choice_d": "Un algorithme de tri utilisé pour optimiser l'ordre d'exécution des requêtes",
+        "correct_choice": "B",
+        "explanation": "Ce problème apparaît fréquemment avec les ORM utilisés sans précaution : afficher une liste de 100 articles avec le nom de leur auteur peut, par accident, déclencher 1 requête pour les articles puis 100 requêtes séparées (une par auteur), alors qu'une seule jointure aurait suffi."
+      },
+      {
+        "question_text": "Qu'est-ce que le sharding (partitionnement horizontal) d'une base de données ?",
+        "choice_a": "Une technique qui chiffre chaque ligne d'une table avec une clé différente",
+        "choice_b": "Un synonyme de réplication, désignant le même mécanisme",
+        "choice_c": "Un mécanisme qui compresse automatiquement les données les moins utilisées",
+        "choice_d": "Le fait de répartir les données d'une même table sur plusieurs serveurs distincts (shards), chacun ne contenant qu'un sous-ensemble des lignes (ex: réparties selon une clé, comme l'ID utilisateur), ce qui permet de faire grandir la capacité totale de stockage et de traitement au-delà de ce qu'un seul serveur pourrait supporter",
+        "correct_choice": "D",
+        "explanation": "Contrairement à la réplication (qui duplique l'intégralité des données sur plusieurs serveurs pour la disponibilité et la répartition de charge en lecture), le sharding répartit des sous-ensembles différents des données, ce qui permet de scaler horizontalement en volume, mais complexifie les requêtes qui doivent croiser des données situées sur des shards différents."
+      },
+      {
+        "question_text": "Qu'est-ce que la réplication d'une base de données ?",
+        "choice_a": "La duplication des mêmes données sur plusieurs serveurs (souvent un serveur primaire qui gère les écritures, et des répliques qui reçoivent une copie synchronisée des données et peuvent absorber les lectures), ce qui améliore la disponibilité (tolérance de panne) et permet de répartir la charge de lecture entre plusieurs serveurs",
+        "choice_b": "Un mécanisme qui répartit des sous-ensembles différents des données sur plusieurs serveurs, comme le sharding",
+        "choice_c": "Une technique de compression des données avant leur stockage sur disque",
+        "choice_d": "Un processus qui supprime automatiquement les données dupliquées d'une table",
+        "correct_choice": "A",
+        "explanation": "Si le serveur primaire tombe en panne, une réplique peut potentiellement prendre le relais (basculement/failover), ce qui limite l'indisponibilité du service — mais il faut composer avec un léger délai de synchronisation (réplication asynchrone) qui peut temporairement rendre les données d'une réplique légèrement en retard par rapport au primaire."
+      },
+      {
+        "question_text": "Quels sont les principaux types de bases de données NoSQL, et leurs cas d'usage typiques ?",
+        "choice_a": "Il n'existe qu'un seul type de base NoSQL, adapté à tous les cas d'usage",
+        "choice_b": "NoSQL ne désigne qu'un seul produit commercial précis, comme MongoDB",
+        "choice_c": "On distingue notamment les bases orientées document (ex: MongoDB, stockant des objets JSON flexibles), clé-valeur (ex: Redis, très rapides pour un accès simple par clé), colonnes (ex: Cassandra, optimisées pour de très gros volumes en écriture) et graphe (ex: Neo4j, optimisées pour parcourir des relations complexes entre entités) — chacune optimisée pour un modèle de données et un cas d'usage différent",
+        "choice_d": "Toutes les bases NoSQL utilisent obligatoirement le langage SQL en interne",
+        "correct_choice": "C",
+        "explanation": "Ce choix dépend fortement du problème à résoudre : une base clé-valeur comme Redis excelle pour du cache très rapide, une base graphe est idéale pour modéliser un réseau social (relations entre utilisateurs), et une base orientée colonnes convient bien à des séries temporelles ou des logs à très grande échelle."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un ORM (Object-Relational Mapping), et quel compromis implique-t-il généralement ?",
+        "choice_a": "Un langage qui remplace entièrement SQL, incompatible avec les bases relationnelles classiques",
+        "choice_b": "Un outil qui ne sert qu'à visualiser graphiquement le schéma d'une base de données",
+        "choice_c": "Une norme de sécurité obligatoire pour toute connexion à une base de données",
+        "choice_d": "Une couche d'abstraction qui fait correspondre les objets manipulés dans le code (classes, instances) aux tables et lignes d'une base relationnelle, permettant d'écrire des requêtes sous forme de code plutôt que de SQL brut ; le compromis habituel est un gain de productivité et de portabilité au prix d'un contrôle plus limité sur les requêtes SQL réellement générées (parfois moins optimisées qu'une requête écrite à la main)",
+        "correct_choice": "D",
+        "explanation": "Un ORM mal utilisé peut justement être la cause du problème N+1 évoqué précédemment : en manipulant des objets sans se soucier des requêtes générées en coulisses, on peut accidentellement déclencher de nombreuses requêtes inutiles."
+      },
+      {
+        "question_text": "À quoi servent les contraintes d'intégrité (NOT NULL, UNIQUE, clé étrangère...) dans le schéma d'une base de données ?",
+        "choice_a": "À faire respecter des règles de cohérence directement au niveau de la base de données elle-même (et non uniquement dans le code de l'application) : par exemple, empêcher qu'une colonne reste vide (NOT NULL), qu'une valeur soit dupliquée (UNIQUE), ou qu'une clé étrangère pointe vers une ligne inexistante — garantissant l'intégrité des données même si l'application qui écrit dedans contient un bug",
+        "choice_b": "À accélérer systématiquement toutes les requêtes de lecture sur la table",
+        "choice_c": "À chiffrer automatiquement les colonnes concernées par la contrainte",
+        "choice_d": "À définir l'ordre dans lequel les colonnes s'affichent dans les résultats d'une requête",
+        "correct_choice": "A",
+        "explanation": "C'est une ligne de défense supplémentaire, complémentaire à la validation côté application : même si un bug dans le code applicatif tentait d'insérer une donnée invalide, la base de données rejetterait l'opération grâce à ces contraintes définies au niveau du schéma."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une vue (VIEW) en base de données relationnelle ?",
+        "choice_a": "Une copie physique permanente d'une table, synchronisée manuellement",
+        "choice_b": "Une requête SQL enregistrée qui se comporte comme une table virtuelle : à chaque fois qu'on interroge la vue, la requête sous-jacente est exécutée pour produire le résultat à jour, sans dupliquer physiquement les données — utile pour simplifier des requêtes complexes/fréquentes ou restreindre l'accès à certaines colonnes",
+        "choice_c": "Un outil graphique externe permettant de visualiser une base de données",
+        "choice_d": "Un mécanisme réservé exclusivement aux bases de données NoSQL",
+        "correct_choice": "B",
+        "explanation": "Une vue peut par exemple exposer uniquement certaines colonnes non sensibles d'une table à un groupe d'utilisateurs donné, ou pré-assembler le résultat d'une jointure complexe fréquemment utilisée, sans que chaque requête ait à la réécrire entièrement."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une procédure stockée (stored procedure) ?",
+        "choice_a": "Un type d'index spécialisé pour les recherches textuelles",
+        "choice_b": "Une sauvegarde automatique et périodique de l'intégralité de la base de données",
+        "choice_c": "Un ensemble d'instructions SQL/procédurales écrites et stockées directement dans la base de données, pouvant être appelées et exécutées comme une fonction — utile pour regrouper une logique métier complexe côté base de données et réduire les allers-retours réseau entre l'application et la base",
+        "choice_d": "Une contrainte qui empêche la suppression accidentelle d'une table",
+        "correct_choice": "C",
+        "explanation": "L'usage des procédures stockées reste débattu : elles peuvent améliorer les performances (moins d'allers-retours réseau) mais déplacent de la logique métier vers la base de données, ce qui peut rendre le code plus difficile à versionner, tester et faire évoluer que du code applicatif classique."
+      },
+      {
+        "question_text": "Que dit le théorème CAP (CAP theorem) à propos des systèmes de bases de données distribuées ?",
+        "choice_a": "Qu'un système distribué doit toujours privilégier la cohérence, quel que soit le contexte",
+        "choice_b": "Qu'il est toujours possible de garantir simultanément les trois propriétés sans aucun compromis",
+        "choice_c": "Qu'il concerne exclusivement la sécurité des bases de données, sans lien avec la disponibilité",
+        "choice_d": "Qu'un système de base de données distribué ne peut garantir simultanément que deux des trois propriétés suivantes : Cohérence (toutes les répliques renvoient toujours la même donnée à jour), Disponibilité (le système répond toujours aux requêtes) et Tolérance au partitionnement (le système continue de fonctionner malgré une coupure réseau entre certains de ses nœuds) ; en présence d'un partitionnement réseau, il faut choisir entre cohérence et disponibilité",
+        "correct_choice": "D",
+        "explanation": "Ce compromis explique les choix de conception différents entre bases de données : certaines (comme la plupart des SGBD relationnels classiques en mode distribué) privilégient la cohérence au prix d'une disponibilité réduite en cas de coupure réseau, alors que d'autres bases NoSQL privilégient la disponibilité, acceptant temporairement des données légèrement incohérentes entre répliques."
+      },
+      {
+        "question_text": "Quelle est la différence entre une base de données orientée lignes (row-oriented) et orientée colonnes (column-oriented) ?",
+        "choice_a": "Une base orientée lignes stocke physiquement toutes les colonnes d'une même ligne ensemble sur le disque (efficace pour lire/écrire une ligne entière à la fois, typique des bases transactionnelles OLTP) ; une base orientée colonnes stocke plutôt toutes les valeurs d'une même colonne ensemble (efficace pour des requêtes analytiques qui agrègent une seule colonne sur des millions de lignes, typique des entrepôts de données OLAP)",
+        "choice_b": "Une base orientée colonnes ne peut stocker que des nombres, jamais de texte",
+        "choice_c": "Il n'existe aucune différence de performance entre les deux approches, seule la syntaxe change",
+        "choice_d": "Une base orientée lignes ne peut contenir qu'une seule colonne par table",
+        "correct_choice": "A",
+        "explanation": "Par exemple, calculer la somme des ventes de toutes les commandes d'une année est bien plus rapide sur une base orientée colonnes (elle ne lit que la colonne 'montant', en ignorant toutes les autres) que sur une base orientée lignes classique, qui devrait parcourir chaque ligne entière même si une seule colonne nous intéresse."
+      },
+      {
+        "question_text": "À quoi sert le connection pooling (pool de connexions) dans une application qui utilise une base de données ?",
+        "choice_a": "À chiffrer automatiquement toutes les connexions à la base de données",
+        "choice_b": "À répartir les données de la base sur plusieurs serveurs physiques différents",
+        "choice_c": "À maintenir ouvert et réutiliser un ensemble limité de connexions déjà établies vers la base de données, plutôt que d'ouvrir puis fermer une nouvelle connexion à chaque requête — car établir une connexion a un coût non négligeable (authentification, négociation réseau), que le pool permet d'amortir en la réutilisant",
+        "choice_d": "À limiter le nombre total de tables qu'une base de données peut contenir",
+        "correct_choice": "C",
+        "explanation": "Sans pool de connexions, une application à fort trafic pourrait passer une part importante de son temps à simplement ouvrir et fermer des connexions à répétition, plutôt qu'à exécuter les requêtes elles-mêmes — le pool élimine cette latence répétée en gardant un nombre raisonnable de connexions prêtes à l'emploi."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une migration de schéma de base de données, dans un contexte de développement logiciel ?",
+        "choice_a": "Le transfert physique d'un serveur de base de données vers un nouveau centre de données",
+        "choice_b": "La conversion automatique d'une base SQL en base NoSQL, ou inversement",
+        "choice_c": "Une sauvegarde complète de la base de données effectuée avant chaque déploiement",
+        "choice_d": "Une modification versionnée et contrôlée de la structure d'une base de données (ajout d'une colonne, création d'une table, changement de type...) au fil du temps, généralement décrite dans des scripts appliqués dans un ordre précis, ce qui permet de faire évoluer le schéma de façon reproductible et traçable sur différents environnements (développement, production)",
+        "correct_choice": "D",
+        "explanation": "C'est exactement ce que fait la fonction `runMigrations()` de ce projet : à chaque démarrage, elle vérifie si une colonne attendue existe déjà, et l'ajoute sinon — un pattern de migration simple et idempotent, sans framework dédié, mais qui répond au même besoin que des outils plus formels de gestion de migrations."
+      },
+      {
+        "question_text": "Que désigne le niveau d'isolation (isolation level) d'une transaction en base de données ?",
+        "choice_a": "Le temps maximal pendant lequel une transaction peut rester ouverte avant d'expirer automatiquement",
+        "choice_b": "Le degré auquel les opérations d'une transaction en cours sont protégées des effets d'autres transactions concurrentes s'exécutant simultanément (ex: peut-elle lire des données modifiées mais pas encore validées par une autre transaction ?) — plusieurs niveaux existent (comme Read Committed ou Serializable), offrant un compromis entre cohérence stricte des données et performance/concurrence",
+        "choice_c": "Le nombre maximal de tables qu'une transaction peut modifier simultanément",
+        "choice_d": "Une mesure de la distance physique entre le client et le serveur de base de données",
+        "correct_choice": "B",
+        "explanation": "Un niveau d'isolation plus strict (comme Serializable, qui garantit un comportement équivalent à une exécution strictement séquentielle des transactions) offre une cohérence maximale mais réduit la concurrence possible entre transactions simultanées, ce qui peut dégrader les performances sous forte charge — c'est la propriété 'Isolation' du sigle ACID, dont le niveau exact est configurable."
+      },
+      {
+        "question_text": "Quelle est la différence entre SQL et NoSQL (ex. MongoDB) ?",
+        "choice_a": "SQL ne peut pas être utilisé pour des relations entre tables",
+        "choice_b": "SQL désigne les bases de données relationnelles ; NoSQL désigne des bases non relationnelles adaptées aux données peu structurées",
+        "choice_c": "SQL et NoSQL sont deux noms pour le même type de base de données",
+        "choice_d": "NoSQL est un langage de requête utilisé uniquement avec MySQL",
+        "correct_choice": "B",
+        "explanation": "Les bases SQL imposent un schéma fixe et des relations entre tables (jointures) ; les bases NoSQL (document, clé-valeur, graphe...) offrent plus de flexibilité pour des données hétérogènes ou à très grande échelle."
+      },
+      {
+        "question_text": "Que signifie une transaction ACID ?",
+        "choice_a": "Atomicité, Compression, Isolation, Distribution",
+        "choice_b": "Atomicité, Cohérence, Isolation, Durabilité — les 4 propriétés garantissant la fiabilité des transactions, généralement supportées par SQL",
+        "choice_c": "Async, Cache, Index, Durabilité",
+        "choice_d": "Authentification, Chiffrement, Intégrité, Disponibilité",
+        "correct_choice": "B",
+        "explanation": "Ces 4 propriétés garantissent qu'une transaction s'exécute entièrement ou pas du tout (atomicité), respecte les contraintes (cohérence), n'interfère pas avec les autres transactions (isolation) et persiste même en cas de panne (durabilité)."
+      }
+    ]
   }
 ]
