@@ -27,6 +27,7 @@ export interface Question {
   choice_d: string;
   correct_choice: Choice;
   explanation: string | null;
+  diagram_svg: string | null;
   created_at: string;
   updated_at: string;
 }

@@ -35,5 +35,5 @@
 - [ ] Category reordering / question reordering within a category
 - [ ] Bulk question import via the admin UI (currently only via `seed.json` at first boot)
 - [ ] Optional per-question difficulty tag
-- [ ] Optional anonymous aggregate stats (% correct per question) — explicitly deferred, app is stateless by design for now
+- [ ] Optional anonymous aggregate stats (% correct per question)  explicitly deferred, app is stateless by design for now
 - [ ] Dark mode

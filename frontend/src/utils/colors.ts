@@ -6,7 +6,7 @@ export interface CategoryColorClasses {
 }
 
 // Fixed token palette (not freeform hex) so every class name below is a literal
-// string Tailwind's build-time scanner can find — a DB-stored arbitrary hex
+// string Tailwind's build-time scanner can find  a DB-stored arbitrary hex
 // couldn't be turned into a class at runtime without an unsafe safelist.
 export const CATEGORY_COLOR_TOKENS = [
   'blue', 'violet', 'amber', 'rose', 'emerald', 'cyan',

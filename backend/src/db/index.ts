@@ -40,6 +40,11 @@ function runMigrations() {
   if (!hasParentId) {
     db.exec('ALTER TABLE categories ADD COLUMN parent_id INTEGER REFERENCES categories(id) ON DELETE SET NULL');
   }
+
+  const hasDiagramSvg = questionColumns.some((c) => c.name === 'diagram_svg');
+  if (!hasDiagramSvg) {
+    db.exec('ALTER TABLE questions ADD COLUMN diagram_svg TEXT');
+  }
 }
 
 const DIACRITICS_RE = new RegExp('[\\u0300-\\u036f]', 'g');
@@ -64,8 +69,8 @@ function seedIfEmpty() {
 
   const insertCategory = db.prepare('INSERT INTO categories (name, slug, color, parent_id) VALUES (?, ?, ?, ?)');
   const insertQuestion = db.prepare(`INSERT INTO questions
-    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
+    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation, diagram_svg)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
 
   const seedAll = db.transaction((categories: SeedCategory[]) => {
     // Two passes so a category can reference a parent by name regardless of
@@ -80,7 +85,7 @@ function seedIfEmpty() {
       const categoryId = result.lastInsertRowid as number;
       idByName.set(cat.name, categoryId);
       for (const q of cat.questions ?? []) {
-        insertQuestion.run(categoryId, q.question_text, q.choice_a, q.choice_b, q.choice_c, q.choice_d, q.correct_choice, q.explanation ?? null);
+        insertQuestion.run(categoryId, q.question_text, q.choice_a, q.choice_b, q.choice_c, q.choice_d, q.correct_choice, q.explanation ?? null, q.diagram_svg ?? null);
       }
     }
   });
@@ -176,16 +181,17 @@ export interface CreateQuestionInput {
   choice_d: string;
   correct_choice: 'A' | 'B' | 'C' | 'D';
   explanation?: string | null;
+  diagram_svg?: string | null;
 }
 
 export function createQuestion(input: CreateQuestionInput): Question {
   const stmt = db.prepare(`INSERT INTO questions
-    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
+    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation, diagram_svg)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
   const result = stmt.run(
     input.category_id, input.question_text,
     input.choice_a, input.choice_b, input.choice_c, input.choice_d,
-    input.correct_choice, input.explanation ?? null
+    input.correct_choice, input.explanation ?? null, input.diagram_svg ?? null
   );
   return getQuestionById(result.lastInsertRowid as number)!;
 }
@@ -203,6 +209,7 @@ export function updateQuestion(id: number, updates: Partial<CreateQuestionInput>
     choice_d: (v) => ['choice_d = ?', v],
     correct_choice: (v) => ['correct_choice = ?', v],
     explanation: (v) => ['explanation = ?', v],
+    diagram_svg: (v) => ['diagram_svg = ?', v],
   };
 
   for (const [key, value] of Object.entries(updates)) {

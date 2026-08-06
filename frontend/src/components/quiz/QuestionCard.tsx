@@ -58,6 +58,12 @@ export function QuestionCard({ question, chosen, revealed, onAnswer }: Props) {
           <p className={`text-sm font-semibold mb-1 ${isAnswerCorrect ? 'text-emerald-700' : 'text-red-700'}`}>
             {isAnswerCorrect ? 'Bonne réponse !' : 'Pas tout à fait...'}
           </p>
+          {question.diagram_svg && (
+            <div
+              className="my-3 p-3 rounded-lg border border-neutral-200 bg-white [&_svg]:w-full [&_svg]:h-auto [&_svg]:max-w-full"
+              dangerouslySetInnerHTML={{ __html: question.diagram_svg }}
+            />
+          )}
           {question.explanation && (
             <p className="text-sm text-neutral-600">{question.explanation}</p>
           )}

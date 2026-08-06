@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
 });
 
 // Public: full question data (including correct_choice) to power a quiz session.
-// Not a security boundary here — anyone can already browse everything; this just
+// Not a security boundary here  anyone can already browse everything; this just
 // avoids leaking answers in the plain browse view above.
 router.get('/quiz', (req, res) => {
   const { category_id, ids } = req.query;
@@ -75,6 +75,7 @@ router.post('/', authMiddleware, (req, res) => {
     choice_d: req.body.choice_d,
     correct_choice: req.body.correct_choice,
     explanation: req.body.explanation || null,
+    diagram_svg: req.body.diagram_svg || null,
   });
   res.json({ success: true, data: question });
 });

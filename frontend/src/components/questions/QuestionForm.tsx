@@ -26,6 +26,7 @@ export function QuestionForm({ categoryId, initial, onSubmit, onCancel }: Props)
   });
   const [correctChoice, setCorrectChoice] = useState<Choice>(initial?.correct_choice ?? 'A');
   const [explanation, setExplanation] = useState(initial?.explanation ?? '');
+  const [diagramSvg, setDiagramSvg] = useState(initial?.diagram_svg ?? '');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -46,6 +47,7 @@ export function QuestionForm({ categoryId, initial, onSubmit, onCancel }: Props)
         choice_d: choices.choice_d.trim(),
         correct_choice: correctChoice,
         explanation: explanation.trim() || null,
+        diagram_svg: diagramSvg.trim() || null,
       });
     } catch (err: any) {
       setError(err.message || 'Échec de l\'enregistrement');
@@ -103,6 +105,19 @@ export function QuestionForm({ categoryId, initial, onSubmit, onCancel }: Props)
           rows={2}
           placeholder="Affichée après la réponse : explication, exemple, précision..."
           className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:border-neutral-500"
+        />
+      </div>
+
+      <div>
+        <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+          Diagramme SVG (optionnel)
+        </label>
+        <textarea
+          value={diagramSvg}
+          onChange={(e) => setDiagramSvg(e.target.value)}
+          rows={3}
+          placeholder="Balisage <svg>...</svg> brut, affiché après la réponse au-dessus de l'explication"
+          className="mt-1 w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm font-mono focus:outline-none focus:border-neutral-500"
         />
       </div>
 

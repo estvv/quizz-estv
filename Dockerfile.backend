@@ -6,7 +6,7 @@ WORKDIR /app
 RUN apk add --no-cache python3 make g++
 
 # Force compiling better-sqlite3 from source instead of letting prebuild-install
-# reach out to the network for a prebuilt binary — that fetch can hang/fail in
+# reach out to the network for a prebuilt binary  that fetch can hang/fail in
 # a sandboxed Docker build, and we already have the toolchain to build it here.
 ENV npm_config_build_from_source=true
 

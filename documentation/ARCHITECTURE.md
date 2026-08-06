@@ -33,7 +33,7 @@
 │  │              Middleware Stack                             │   │
 │  │  1. CORS                                                  │   │
 │  │  2. Rate Limiting (5 login/min, 10000 general req/min)   │   │
-│  │  3. JWT Auth (mutating routes only — GET is public)      │   │
+│  │  3. JWT Auth (mutating routes only  GET is public)      │   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                              │                                    │
 │                              ▼                                    │
@@ -85,7 +85,7 @@
 
 ## Authentication Flow
 
-Single shared "admin" password, no user accounts — identical pattern across the whole `*-estv` app suite.
+Single shared "admin" password, no user accounts  identical pattern across the whole `*-estv` app suite.
 
 ```
 1. Admin enters password on /login
@@ -111,15 +111,15 @@ Single shared "admin" password, no user accounts — identical pattern across th
    └── Valid → request proceeds
 ```
 
-Public GET routes (categories, questions, quiz) never require a token — anyone can browse and take quizzes without logging in. Only the site owner needs to authenticate, and only to manage content.
+Public GET routes (categories, questions, quiz) never require a token  anyone can browse and take quizzes without logging in. Only the site owner needs to authenticate, and only to manage content.
 
 ## Design decision: quiz answers are not a secured secret
 
-The `/api/questions/quiz` endpoint returns full question data, including `correct_choice`, to anyone. There is no anti-cheat requirement here — the app is explicitly "anyone can access all this" — and quiz sessions are entirely stateless (no server-side attempt tracking), so there is nothing for a "check answer" endpoint to protect against. The frontend simply doesn't render `correct_choice` until after the user picks an answer. The separate brief endpoint (`GET /api/questions?category_id=`) exists purely for the browse view on the category page, so scrolling the question list before starting a quiz doesn't spoil answers you haven't reached yet.
+The `/api/questions/quiz` endpoint returns full question data, including `correct_choice`, to anyone. There is no anti-cheat requirement here  the app is explicitly "anyone can access all this"  and quiz sessions are entirely stateless (no server-side attempt tracking), so there is nothing for a "check answer" endpoint to protect against. The frontend simply doesn't render `correct_choice` until after the user picks an answer. The separate brief endpoint (`GET /api/questions?category_id=`) exists purely for the browse view on the category page, so scrolling the question list before starting a quiz doesn't spoil answers you haven't reached yet.
 
 ## Content seeding
 
-`backend/src/db/seed.json` is bulk-imported into SQLite on first boot only if the `categories` table is empty (`seedIfEmpty()` in `db/index.ts`). This lets a large batch of categories/questions be hand-authored in JSON up front. Once seeded (or once the admin creates anything), the database is the live, admin-editable source of truth — the seed file is never re-applied.
+`backend/src/db/seed.json` is bulk-imported into SQLite on first boot only if the `categories` table is empty (`seedIfEmpty()` in `db/index.ts`). This lets a large batch of categories/questions be hand-authored in JSON up front. Once seeded (or once the admin creates anything), the database is the live, admin-editable source of truth  the seed file is never re-applied.
 
 ## Technology Stack
 
@@ -131,7 +131,7 @@ The `/api/questions/quiz` endpoint returns full question data, including `correc
 ### Frontend
 - React 19 + TypeScript, Vite, react-router-dom v6
 - Tailwind CSS v4, Plus Jakarta Sans font
-- No global state library — local component state + fetch wrappers
+- No global state library  local component state + fetch wrappers
 
 ### Infrastructure
 - Docker + Docker Compose, Nginx (frontend container), Caddy (shared reverse proxy, separate project)

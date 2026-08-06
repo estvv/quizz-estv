@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
 });
 
 // A category can be a parent (hold children) or a child (hold a parent_id), never
-// both, so the tree never exceeds two levels — see documentation/ARCHITECTURE.md.
+// both, so the tree never exceeds two levels  see documentation/ARCHITECTURE.md.
 function validateParentId(parentId: number, selfId: number | null): string | null {
   if (selfId !== null && parentId === selfId) {
     return 'A category cannot be its own parent';

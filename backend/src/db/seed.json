@@ -19,7 +19,7 @@
         "choice_c": "++i retourne la nouvelle valeur ; i++ retourne l'ancienne",
         "choice_d": "Il n'y a aucune différence en pratique",
         "correct_choice": "C",
-        "explanation": "i++ doit conserver l'ancienne valeur avant d'incrémenter, donc le compilateur crée une copie temporaire — un coût que ++i n'a pas puisqu'il retourne directement la nouvelle valeur."
+        "explanation": "i++ doit conserver l'ancienne valeur avant d'incrémenter, donc le compilateur crée une copie temporaire  un coût que ++i n'a pas puisqu'il retourne directement la nouvelle valeur."
       },
       {
         "question_text": "Quelle est la différence entre une boucle for et une boucle while ?",
@@ -454,7 +454,7 @@
         "choice_c": "Pour réduire la latence d'accès aux données fréquentes, du L1 (petit/rapide) au L3 (grand/lent)",
         "choice_d": "Ils ne servent que pendant le démarrage (boot) de la machine",
         "correct_choice": "C",
-        "explanation": "Accéder à la RAM prend des dizaines voire centaines de cycles CPU, alors qu'un accès au cache L1 en prend seulement quelques-uns — la hiérarchie de cache exploite le principe de localité (temporelle et spatiale) des accès mémoire pour garder les données les plus utiles au plus près du cœur."
+        "explanation": "Accéder à la RAM prend des dizaines voire centaines de cycles CPU, alors qu'un accès au cache L1 en prend seulement quelques-uns  la hiérarchie de cache exploite le principe de localité (temporelle et spatiale) des accès mémoire pour garder les données les plus utiles au plus près du cœur."
       },
       {
         "question_text": "Qu'est-ce que l'endianness (boutisme) d'un système ?",
@@ -700,7 +700,7 @@
         "choice_c": "À transformer l'interface d'une classe en une autre interface attendue par le client",
         "choice_d": "À découpler la construction d'un objet complexe de sa représentation",
         "correct_choice": "A",
-        "explanation": "Le Singleton restreint l'instanciation d'une classe à un seul objet (souvent via un constructeur privé et une méthode statique d'accès), utile pour un état partagé unique comme une configuration ou un gestionnaire de connexion — mais il est aussi critiqué car il introduit un état global et complique les tests."
+        "explanation": "Le Singleton restreint l'instanciation d'une classe à un seul objet (souvent via un constructeur privé et une méthode statique d'accès), utile pour un état partagé unique comme une configuration ou un gestionnaire de connexion  mais il est aussi critiqué car il introduit un état global et complique les tests."
       },
       {
         "question_text": "Quel est le principe du design pattern Factory Method ?",
@@ -709,7 +709,7 @@
         "choice_c": "Il permet d'ajouter dynamiquement des responsabilités à un objet sans modifier sa classe",
         "choice_d": "Il fournit une interface unifiée à un ensemble d'interfaces d'un sous-système",
         "correct_choice": "B",
-        "explanation": "Factory Method délègue l'instanciation à une méthode surchargeable dans les sous-classes, ce qui permet de créer des objets sans coupler le code appelant aux classes concrètes — utile quand le type exact à instancier dépend du contexte."
+        "explanation": "Factory Method délègue l'instanciation à une méthode surchargeable dans les sous-classes, ce qui permet de créer des objets sans coupler le code appelant aux classes concrètes  utile quand le type exact à instancier dépend du contexte."
       },
       {
         "question_text": "En quoi le pattern Abstract Factory diffère-t-il du Factory Method ?",
@@ -745,7 +745,7 @@
         "choice_c": "Il centralise toute la logique métier d'une application dans une seule classe",
         "choice_d": "Il transforme une interface complexe en une interface simplifiée",
         "correct_choice": "B",
-        "explanation": "Chaque décorateur implémente la même interface que l'objet qu'il enveloppe et lui ajoute un comportement avant/après avoir délégué l'appel à l'objet enveloppé — on peut ainsi empiler plusieurs décorateurs (ex: un flux de données compressé ET chiffré) sans exploser la hiérarchie de classes par héritage."
+        "explanation": "Chaque décorateur implémente la même interface que l'objet qu'il enveloppe et lui ajoute un comportement avant/après avoir délégué l'appel à l'objet enveloppé  on peut ainsi empiler plusieurs décorateurs (ex: un flux de données compressé ET chiffré) sans exploser la hiérarchie de classes par héritage."
       },
       {
         "question_text": "Quel est le rôle du design pattern Facade ?",
@@ -808,7 +808,7 @@
         "choice_c": "Il transforme une interface incompatible en une interface utilisable par le client",
         "choice_d": "Il notifie automatiquement des observateurs d'un changement d'état",
         "correct_choice": "A",
-        "explanation": "La classe de base fixe l'ordre des étapes de l'algorithme (souvent via une méthode non-virtuelle qui appelle des méthodes virtuelles), et les sous-classes ne redéfinissent que les étapes qui varient — c'est l'inverse du Strategy, ici c'est l'héritage qui structure la variation, pas la composition."
+        "explanation": "La classe de base fixe l'ordre des étapes de l'algorithme (souvent via une méthode non-virtuelle qui appelle des méthodes virtuelles), et les sous-classes ne redéfinissent que les étapes qui varient  c'est l'inverse du Strategy, ici c'est l'héritage qui structure la variation, pas la composition."
       },
       {
         "question_text": "À quoi sert le design pattern Iterator ?",
@@ -850,7 +850,7 @@
         "choice_c": "Indiquer au compilateur combien de temps une référence reste valide, pour éviter les dangling references",
         "choice_d": "À planifier l'ordre d'exécution des threads dans un programme concurrent",
         "correct_choice": "C",
-        "explanation": "Les lifetimes n'ont aucun effet à l'exécution : ce sont des annotations purement analysées par le compilateur pour vérifier statiquement qu'une référence ne pointe jamais vers une donnée déjà libérée — souvent inférées automatiquement, elles ne doivent être écrites explicitement que dans les cas ambigus."
+        "explanation": "Les lifetimes n'ont aucun effet à l'exécution : ce sont des annotations purement analysées par le compilateur pour vérifier statiquement qu'une référence ne pointe jamais vers une donnée déjà libérée  souvent inférées automatiquement, elles ne doivent être écrites explicitement que dans les cas ambigus."
       },
       {
         "question_text": "Pourquoi Rust utilise-t-il Option<T> plutôt qu'une valeur null ?",
@@ -868,7 +868,7 @@
         "choice_c": "Toute erreur en Rust provoque un arrêt immédiat et irrécupérable du programme (panic)",
         "choice_d": "Les erreurs sont gérées via des codes de retour entiers, comme en C",
         "correct_choice": "A",
-        "explanation": "L'opérateur ? propage automatiquement une erreur vers l'appelant si le Result est un Err, ce qui rend la gestion d'erreurs explicite (visible dans la signature des fonctions) mais concise à l'usage — panic! reste réservé aux erreurs non récupérables (bugs)."
+        "explanation": "L'opérateur ? propage automatiquement une erreur vers l'appelant si le Result est un Err, ce qui rend la gestion d'erreurs explicite (visible dans la signature des fonctions) mais concise à l'usage  panic! reste réservé aux erreurs non récupérables (bugs)."
       },
       {
         "question_text": "Quelle garantie apporte le mot-clé match en Rust par rapport à un switch classique ?",
@@ -940,7 +940,7 @@
         "choice_c": "Rust effectue automatiquement une copie profonde (deep copy) de la donnée, comme en C++ par défaut",
         "choice_d": "Cela provoque une erreur de compilation immédiate, cette syntaxe n'est pas autorisée pour les String",
         "correct_choice": "A",
-        "explanation": "Pour les types alloués sur le tas comme String, l'affectation déplace l'ownership plutôt que de copier les données (contrairement aux types simples comme i32, qui implémentent le trait Copy et sont dupliqués automatiquement) — c'est ce mécanisme de 'move' qui garantit qu'il n'existe jamais deux propriétaires de la même donnée."
+        "explanation": "Pour les types alloués sur le tas comme String, l'affectation déplace l'ownership plutôt que de copier les données (contrairement aux types simples comme i32, qui implémentent le trait Copy et sont dupliqués automatiquement)  c'est ce mécanisme de 'move' qui garantit qu'il n'existe jamais deux propriétaires de la même donnée."
       },
       {
         "question_text": "Qu'est-ce que le shadowing (masquage) de variable en Rust ?",
@@ -967,7 +967,7 @@
         "choice_c": "Send et Sync ne concernent que les types définis dans la bibliothèque standard, jamais les types créés par l'utilisateur",
         "choice_d": "Send indique qu'un type peut changer de thread en sécurité ; Sync qu'il peut être partagé entre threads via référence",
         "correct_choice": "D",
-        "explanation": "Ce sont des 'marker traits' (sans méthode) implémentés automatiquement par le compilateur quand c'est sûr (ex: Rc<T> n'est ni Send ni Sync car son compteur n'est pas atomique, contrairement à Arc<T>) — c'est ce mécanisme, entièrement vérifié à la compilation, qui permet à Rust de garantir l'absence de data races sans avoir besoin d'un runtime de détection à l'exécution."
+        "explanation": "Ce sont des 'marker traits' (sans méthode) implémentés automatiquement par le compilateur quand c'est sûr (ex: Rc<T> n'est ni Send ni Sync car son compteur n'est pas atomique, contrairement à Arc<T>)  c'est ce mécanisme, entièrement vérifié à la compilation, qui permet à Rust de garantir l'absence de data races sans avoir besoin d'un runtime de détection à l'exécution."
       },
       {
         "question_text": "Comment l'ownership est-il géré quand on crée un nouveau thread avec std::thread::spawn en Rust ?",
@@ -976,7 +976,7 @@
         "choice_c": "Un nouveau thread ne peut jamais accéder à aucune donnée créée par le thread parent, même en la déplaçant explicitement",
         "choice_d": "Rust ne permet pas de créer plusieurs threads dans la bibliothèque standard sans une dépendance externe comme Tokio",
         "correct_choice": "A",
-        "explanation": "Le mot-clé `move` force la closure passée à thread::spawn à prendre l'ownership des variables qu'elle utilise plutôt que de les emprunter, ce qui évite tout risque que le thread principal libère une donnée pendant que le nouveau thread l'utilise encore — combiné aux traits Send/Sync, cela élimine les data races dès la compilation."
+        "explanation": "Le mot-clé `move` force la closure passée à thread::spawn à prendre l'ownership des variables qu'elle utilise plutôt que de les emprunter, ce qui évite tout risque que le thread principal libère une donnée pendant que le nouveau thread l'utilise encore  combiné aux traits Send/Sync, cela élimine les data races dès la compilation."
       },
       {
         "question_text": "Quelle est la différence fondamentale entre un thread système et une tâche async/await en Rust ?",
@@ -1153,7 +1153,7 @@
         "choice_c": "Aucune vérification n'a lieu, TLS se contente de compresser les données échangées",
         "choice_d": "Client et serveur négocient un algorithme, le serveur présente son certificat, puis génèrent une clé de session partagée",
         "correct_choice": "D",
-        "explanation": "Le certificat prouve que le serveur est bien celui qu'il prétend être (authentification), et l'échange de clés permet d'établir un secret partagé sans jamais le transmettre en clair sur le réseau — une fois cette négociation terminée, toutes les données HTTP échangées sont chiffrées."
+        "explanation": "Le certificat prouve que le serveur est bien celui qu'il prétend être (authentification), et l'échange de clés permet d'établir un secret partagé sans jamais le transmettre en clair sur le réseau  une fois cette négociation terminée, toutes les données HTTP échangées sont chiffrées."
       },
       {
         "question_text": "À quoi sert le NAT (Network Address Translation) ?",
@@ -1171,7 +1171,7 @@
         "choice_c": "Traduire un nom de domaine en adresse IP correspondante",
         "choice_d": "Détecter et bloquer les intrusions sur un réseau local",
         "correct_choice": "B",
-        "explanation": "Sans DHCP, chaque appareil devrait se voir attribuer manuellement une adresse IP unique et cohérente avec le reste du réseau — DHCP automatise ce processus en louant temporairement une adresse disponible à chaque appareil qui en fait la demande au démarrage."
+        "explanation": "Sans DHCP, chaque appareil devrait se voir attribuer manuellement une adresse IP unique et cohérente avec le reste du réseau  DHCP automatise ce processus en louant temporairement une adresse disponible à chaque appareil qui en fait la demande au démarrage."
       },
       {
         "question_text": "Quelle est la différence entre un routeur et un switch (commutateur) ?",
@@ -1240,7 +1240,7 @@
         "choice_c": "À compter le nombre exact de lignes de code d'un programme",
         "choice_d": "À indiquer la version du langage de programmation utilisée",
         "correct_choice": "A",
-        "explanation": "Deux algorithmes en O(n) peuvent avoir des temps d'exécution réels très différents selon le matériel, mais leur temps croît tous les deux linéairement avec la taille de l'entrée — c'est cette tendance de croissance (et non la valeur absolue) que Big-O capture, ce qui permet de comparer des algorithmes indépendamment de l'implémentation."
+        "explanation": "Deux algorithmes en O(n) peuvent avoir des temps d'exécution réels très différents selon le matériel, mais leur temps croît tous les deux linéairement avec la taille de l'entrée  c'est cette tendance de croissance (et non la valeur absolue) que Big-O capture, ce qui permet de comparer des algorithmes indépendamment de l'implémentation."
       },
       {
         "question_text": "Qu'est-ce que la complexité spatiale (space complexity) d'un algorithme ?",
@@ -1258,7 +1258,7 @@
         "choice_c": "LIFO : le dernier élément ajouté est le premier retiré, comme la pile d'appels de fonctions",
         "choice_d": "Chaque élément est indexé par une clé unique, comme dans une table de hachage",
         "correct_choice": "C",
-        "explanation": "L'accès se fait exclusivement par le sommet de la pile (push/pop en O(1)), sans pouvoir accéder directement à un élément au milieu — c'est justement cette contrainte qui rend la structure simple et rapide à utiliser pour des scénarios comme la gestion des appels de fonctions imbriqués."
+        "explanation": "L'accès se fait exclusivement par le sommet de la pile (push/pop en O(1)), sans pouvoir accéder directement à un élément au milieu  c'est justement cette contrainte qui rend la structure simple et rapide à utiliser pour des scénarios comme la gestion des appels de fonctions imbriqués."
       },
       {
         "question_text": "Comment fonctionne une file (Queue), et en quoi diffère-t-elle d'une pile ?",
@@ -1285,7 +1285,7 @@
         "choice_c": "Les valeurs sont stockées dans un ordre aléatoire, sans relation entre elles",
         "choice_d": "Chaque nœud ne peut contenir que des nombres pairs",
         "correct_choice": "B",
-        "explanation": "C'est cette propriété d'ordre qui permet, à chaque comparaison lors d'une recherche, d'éliminer entièrement l'un des deux sous-arbres — d'où l'intérêt des arbres auto-équilibrés (AVL, arbres rouge-noir) qui garantissent que la profondeur reste en O(log n) même dans le pire des cas."
+        "explanation": "C'est cette propriété d'ordre qui permet, à chaque comparaison lors d'une recherche, d'éliminer entièrement l'un des deux sous-arbres  d'où l'intérêt des arbres auto-équilibrés (AVL, arbres rouge-noir) qui garantissent que la profondeur reste en O(log n) même dans le pire des cas."
       },
       {
         "question_text": "À quoi sert un tas (Heap), comme structure de file de priorité ?",
@@ -1294,7 +1294,7 @@
         "choice_c": "Un accès rapide à l'élément min/max d'un ensemble, en respectant la propriété de tas",
         "choice_d": "À stocker exclusivement des données allouées dynamiquement en mémoire",
         "correct_choice": "C",
-        "explanation": "Contrairement à un arbre binaire de recherche, un tas ne garantit un ordre que verticalement (parent vs enfants), pas horizontalement entre les sous-arbres — ce qui suffit pour retrouver rapidement l'extrême (min ou max), et c'est exactement ce dont a besoin un algorithme comme Dijkstra ou un tri par tas (heapsort)."
+        "explanation": "Contrairement à un arbre binaire de recherche, un tas ne garantit un ordre que verticalement (parent vs enfants), pas horizontalement entre les sous-arbres  ce qui suffit pour retrouver rapidement l'extrême (min ou max), et c'est exactement ce dont a besoin un algorithme comme Dijkstra ou un tri par tas (heapsort)."
       },
       {
         "question_text": "Comment représente-t-on généralement un graphe en mémoire ?",
@@ -1312,7 +1312,7 @@
         "choice_c": "Il trie tous les sommets du graphe par ordre alphabétique avant de les visiter",
         "choice_d": "Il ne peut être utilisé que sur des arbres, jamais sur des graphes généraux",
         "correct_choice": "A",
-        "explanation": "La file garantit que les sommets sont traités dans l'ordre où ils ont été découverts, ce qui produit naturellement une exploration par niveaux successifs — c'est pour cette raison que BFS est l'algorithme de référence pour trouver le plus court chemin (en nombre d'arêtes) dans un graphe non pondéré."
+        "explanation": "La file garantit que les sommets sont traités dans l'ordre où ils ont été découverts, ce qui produit naturellement une exploration par niveaux successifs  c'est pour cette raison que BFS est l'algorithme de référence pour trouver le plus court chemin (en nombre d'arêtes) dans un graphe non pondéré."
       },
       {
         "question_text": "Comment fonctionne un parcours en profondeur (Depth-First Search, DFS) d'un graphe ?",
@@ -1321,7 +1321,7 @@
         "choice_c": "Il visite systématiquement les sommets par ordre croissant de leur valeur",
         "choice_d": "Il nécessite obligatoirement de connaître à l'avance le nombre total de sommets",
         "correct_choice": "B",
-        "explanation": "Contrairement au BFS qui progresse niveau par niveau, le DFS 's'enfonce' dans le graphe jusqu'à ne plus pouvoir avancer (sommet sans voisin non visité), puis revient en arrière (backtracking) pour explorer les chemins alternatifs — utile par exemple pour détecter des cycles ou trouver un chemin quelconque (pas forcément le plus court)."
+        "explanation": "Contrairement au BFS qui progresse niveau par niveau, le DFS 's'enfonce' dans le graphe jusqu'à ne plus pouvoir avancer (sommet sans voisin non visité), puis revient en arrière (backtracking) pour explorer les chemins alternatifs  utile par exemple pour détecter des cycles ou trouver un chemin quelconque (pas forcément le plus court)."
       },
       {
         "question_text": "Qu'ont en commun les tris par sélection, par insertion et à bulles (bubble sort) ?",
@@ -1348,7 +1348,7 @@
         "choice_c": "Il ne fonctionne que sur des tableaux de taille paire",
         "choice_d": "Il modifie le tableau directement en place, sans jamais utiliser de mémoire supplémentaire",
         "correct_choice": "A",
-        "explanation": "Contrairement au quicksort dont le pire cas est en O(n²), le merge sort garantit toujours O(n log n), au prix d'une mémoire supplémentaire O(n) nécessaire pour stocker les sous-tableaux pendant la fusion — c'est aussi un tri stable, ce qui signifie que deux éléments égaux conservent leur ordre relatif d'origine."
+        "explanation": "Contrairement au quicksort dont le pire cas est en O(n²), le merge sort garantit toujours O(n log n), au prix d'une mémoire supplémentaire O(n) nécessaire pour stocker les sous-tableaux pendant la fusion  c'est aussi un tri stable, ce qui signifie que deux éléments égaux conservent leur ordre relatif d'origine."
       },
       {
         "question_text": "Comment fonctionne la recherche dichotomique (Binary Search), et sous quelle condition peut-elle être utilisée ?",
@@ -1357,7 +1357,7 @@
         "choice_c": "Elle nécessite de connaître à l'avance l'indice exact de la valeur recherchée",
         "choice_d": "Elle ne peut être appliquée qu'à des tableaux de nombres pairs",
         "correct_choice": "B",
-        "explanation": "Chaque comparaison élimine la moitié des candidats restants, ce qui explique la croissance logarithmique : un tableau d'un million d'éléments ne nécessite qu'environ 20 comparaisons au pire, contre potentiellement un million pour un parcours linéaire — mais elle est inutilisable si le tableau n'est pas trié au préalable."
+        "explanation": "Chaque comparaison élimine la moitié des candidats restants, ce qui explique la croissance logarithmique : un tableau d'un million d'éléments ne nécessite qu'environ 20 comparaisons au pire, contre potentiellement un million pour un parcours linéaire  mais elle est inutilisable si le tableau n'est pas trié au préalable."
       },
       {
         "question_text": "Qu'est-ce qui est indispensable pour qu'une fonction récursive (qui s'appelle elle-même) fonctionne correctement ?",
@@ -1446,7 +1446,7 @@
         "question_text": "Qu'est-ce que l'IA générative ?",
         "choice_a": "Une IA qui ne fait que classer des données existantes",
         "choice_b": "Une IA basée uniquement sur des règles logiques",
-        "choice_c": "Une IA qui crée du nouveau contenu (texte, images, musique) — ex. DALL·E, MidJourney, GPT-4",
+        "choice_c": "Une IA qui crée du nouveau contenu (texte, images, musique)  ex. DALL·E, MidJourney, GPT-4",
         "choice_d": "Un synonyme d'IA forte",
         "correct_choice": "C",
         "explanation": "Contrairement aux modèles discriminatifs (qui classent), les modèles génératifs apprennent la distribution des données pour en produire de nouveaux exemples plausibles."
@@ -1539,7 +1539,7 @@
         "choice_c": "Un système capable de simuler n'importe quelle machine de Turing, donc d'exécuter tout algorithme calculable",
         "choice_d": "Un terme désignant uniquement les langages de programmation créés après l'an 2000",
         "correct_choice": "C",
-        "explanation": "La plupart des langages de programmation généralistes (Python, C, Rust...) sont Turing-complets ; ce concept, issu des travaux fondateurs d'Alan Turing sur la calculabilité, est distinct de la question de savoir si un système fait preuve d'intelligence — Turing-complet concerne le calcul, pas la cognition."
+        "explanation": "La plupart des langages de programmation généralistes (Python, C, Rust...) sont Turing-complets ; ce concept, issu des travaux fondateurs d'Alan Turing sur la calculabilité, est distinct de la question de savoir si un système fait preuve d'intelligence  Turing-complet concerne le calcul, pas la cognition."
       },
       {
         "question_text": "Qu'est-ce qu'une fonction objectif (objective function) en IA/ML, notion qui généralise celle de fonction de perte ?",
@@ -1636,7 +1636,8 @@
         "choice_c": "Un RNN doté d'une mémoire à long terme, utile pour la prédiction de séries temporelles",
         "choice_d": "Un type de CNN optimisé pour les images haute résolution",
         "correct_choice": "C",
-        "explanation": "Les LSTM ajoutent des portes (gates) qui contrôlent explicitement ce qui est mémorisé ou oublié, réglant le problème du gradient qui s'évanouit dans les RNN classiques."
+        "explanation": "Les LSTM ajoutent des portes (gates) qui contrôlent explicitement ce qui est mémorisé ou oublié, réglant le problème du gradient qui s'évanouit dans les RNN classiques.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 820 460\" role=\"img\" aria-label=\"Schéma simplifié d'une cellule LSTM : l'état de cellule passe horizontalement en haut, modifié par une porte d'oubli puis une addition ; en dessous, les portes oubli, entrée, candidat et sortie sont calculées à partir de l'état caché précédent et de l'entrée, et se combinent pour produire le nouvel état caché.\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"lstm-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/>\n    </marker>\n  </defs>\n  <text x=\"20\" y=\"30\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.55\">état de cellule (mémoire long terme)</text>\n  <line x1=\"20\" y1=\"70\" x2=\"120\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.6\" marker-end=\"url(#lstm-arrow)\"/>\n  <text x=\"20\" y=\"60\" font-size=\"13\" fill=\"currentColor\">C<tspan font-size=\"9\" dy=\"3\">t-1</tspan></text>\n  <circle cx=\"150\" cy=\"70\" r=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>\n  <text x=\"150\" y=\"76\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\">&#215;</text>\n  <line x1=\"170\" y1=\"70\" x2=\"330\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.6\" marker-end=\"url(#lstm-arrow)\"/>\n  <circle cx=\"360\" cy=\"70\" r=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>\n  <text x=\"360\" y=\"76\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\">+</text>\n  <line x1=\"380\" y1=\"70\" x2=\"600\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.6\" marker-end=\"url(#lstm-arrow)\"/>\n  <text x=\"630\" y=\"76\" font-size=\"13\" fill=\"currentColor\">C<tspan font-size=\"9\" dy=\"3\">t</tspan></text>\n  <text x=\"600\" y=\"30\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.55\" text-anchor=\"end\">état de cellule mis à jour</text>\n  <line x1=\"620\" y1=\"70\" x2=\"620\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\" marker-end=\"url(#lstm-arrow)\"/>\n  <rect x=\"590\" y=\"150\" width=\"60\" height=\"34\" rx=\"6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/>\n  <text x=\"620\" y=\"171\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\">tanh</text>\n  <line x1=\"620\" y1=\"184\" x2=\"620\" y2=\"240\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\" marker-end=\"url(#lstm-arrow)\"/>\n  <circle cx=\"620\" cy=\"270\" r=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>\n  <text x=\"620\" y=\"276\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\">&#215;</text>\n  <line x1=\"640\" y1=\"270\" x2=\"740\" y2=\"270\" stroke=\"#dc2626\" stroke-width=\"1.8\" marker-end=\"url(#lstm-arrow)\"/>\n  <text x=\"745\" y=\"275\" font-size=\"13\" fill=\"#7f1d1d\" font-weight=\"600\">h<tspan font-size=\"9\" dy=\"3\">t</tspan></text>\n  <g fill=\"#eff6ff\" stroke=\"#3b82f6\">\n    <rect x=\"115\" y=\"330\" width=\"70\" height=\"40\" rx=\"6\" stroke-width=\"1.6\"/>\n    <rect x=\"255\" y=\"330\" width=\"70\" height=\"40\" rx=\"6\" stroke-width=\"1.6\"/>\n    <rect x=\"395\" y=\"330\" width=\"70\" height=\"40\" rx=\"6\" stroke-width=\"1.6\"/>\n    <rect x=\"535\" y=\"330\" width=\"70\" height=\"40\" rx=\"6\" stroke-width=\"1.6\"/>\n  </g>\n  <text x=\"150\" y=\"355\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1e3a8a\">&#963;</text>\n  <text x=\"150\" y=\"384\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">f<tspan font-size=\"8\" dy=\"2\">t</tspan><tspan dy=\"-2\"> (oubli)</tspan></text>\n  <text x=\"290\" y=\"355\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1e3a8a\">&#963;</text>\n  <text x=\"290\" y=\"384\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">i<tspan font-size=\"8\" dy=\"2\">t</tspan><tspan dy=\"-2\"> (entrée)</tspan></text>\n  <text x=\"430\" y=\"355\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1e3a8a\">tanh</text>\n  <text x=\"430\" y=\"384\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">candidat</text>\n  <text x=\"570\" y=\"355\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1e3a8a\">&#963;</text>\n  <text x=\"570\" y=\"384\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">o<tspan font-size=\"8\" dy=\"2\">t</tspan><tspan dy=\"-2\"> (sortie)</tspan></text>\n  <line x1=\"150\" y1=\"330\" x2=\"150\" y2=\"90\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\" marker-end=\"url(#lstm-arrow)\"/>\n  <line x1=\"290\" y1=\"330\" x2=\"290\" y2=\"240\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\"/>\n  <line x1=\"430\" y1=\"330\" x2=\"430\" y2=\"240\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\"/>\n  <circle cx=\"360\" cy=\"220\" r=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>\n  <text x=\"360\" y=\"226\" text-anchor=\"middle\" font-size=\"15\" fill=\"currentColor\">&#215;</text>\n  <line x1=\"290\" y1=\"330\" x2=\"345\" y2=\"234\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\"/>\n  <line x1=\"430\" y1=\"330\" x2=\"375\" y2=\"234\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\"/>\n  <line x1=\"360\" y1=\"202\" x2=\"360\" y2=\"90\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\" marker-end=\"url(#lstm-arrow)\"/>\n  <line x1=\"570\" y1=\"330\" x2=\"600\" y2=\"286\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.7\" marker-end=\"url(#lstm-arrow)\"/>\n  <line x1=\"60\" y1=\"420\" x2=\"700\" y2=\"420\" stroke=\"currentColor\" stroke-width=\"1.2\" opacity=\"0.3\"/>\n  <text x=\"60\" y=\"410\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.55\">h<tspan font-size=\"9\" dy=\"2\">t-1</tspan><tspan dy=\"-2\"> (état caché précédent) et x</tspan><tspan font-size=\"9\" dy=\"2\">t</tspan><tspan dy=\"-2\"> (entrée actuelle) — combinés en entrée des 4 portes</tspan></text>\n  <line x1=\"150\" y1=\"410\" x2=\"150\" y2=\"372\" stroke=\"currentColor\" stroke-width=\"1.2\" opacity=\"0.4\"/>\n  <line x1=\"290\" y1=\"410\" x2=\"290\" y2=\"372\" stroke=\"currentColor\" stroke-width=\"1.2\" opacity=\"0.4\"/>\n  <line x1=\"430\" y1=\"410\" x2=\"430\" y2=\"372\" stroke=\"currentColor\" stroke-width=\"1.2\" opacity=\"0.4\"/>\n  <line x1=\"570\" y1=\"410\" x2=\"570\" y2=\"372\" stroke=\"currentColor\" stroke-width=\"1.2\" opacity=\"0.4\"/>\n</svg><figcaption style=\"margin-top:12px;font-size:13px;color:#475569;line-height:1.5\"><b>Vue simplifiée</b> (les 4 portes reçoivent en réalité toutes l'état caché précédent + l'entrée actuelle). <b>&#963;</b> = porte (0 à 1, \"combien laisser passer\"), <b>tanh</b> = valeur candidate (-1 à 1), <b>&#215;</b>/<b>+</b> = opérations élément par élément.</figcaption></figure>"
       },
       {
         "question_text": "Qu'est-ce qu'un GRU (Gated Recurrent Unit) ?",
@@ -1654,7 +1655,7 @@
         "choice_c": "Sur les mécanismes d'attention, qui pondèrent l'importance de chaque partie des données",
         "choice_d": "Sur des règles logiques explicites",
         "correct_choice": "C",
-        "explanation": "L'attention permet à chaque élément d'une séquence de « regarder » directement tous les autres éléments, sans passer par une chaîne récurrente — ce qui se parallélise bien mieux qu'un RNN."
+        "explanation": "L'attention permet à chaque élément d'une séquence de « regarder » directement tous les autres éléments, sans passer par une chaîne récurrente  ce qui se parallélise bien mieux qu'un RNN."
       },
       {
         "question_text": "Comment fonctionne un GAN (Generative Adversarial Network) ?",
@@ -1672,7 +1673,7 @@
         "choice_c": "À compresser puis décompresser des données, utile pour la réduction de dimension ou le débruitage",
         "choice_d": "À traduire automatiquement du texte",
         "correct_choice": "C",
-        "explanation": "L'autoencoder apprend une représentation compressée (goulot d'étranglement) des données, puis la reconstruit — la qualité de la reconstruction force le modèle à ne garder que l'information essentielle."
+        "explanation": "L'autoencoder apprend une représentation compressée (goulot d'étranglement) des données, puis la reconstruit  la qualité de la reconstruction force le modèle à ne garder que l'information essentielle."
       },
       {
         "question_text": "Comment fonctionnent les modèles de diffusion (Diffusion Models, ex. Stable Diffusion) ?",
@@ -1699,7 +1700,8 @@
         "choice_c": "Le calcul de la fonction de perte à partir de la prédiction et de la valeur réelle",
         "choice_d": "La désactivation aléatoire d'un sous-ensemble de neurones pendant l'entraînement",
         "correct_choice": "A",
-        "explanation": "C'est l'étape 'aller' du cycle d'entraînement : les données traversent le réseau une fois, couche après couche, pour produire une sortie qu'on compare ensuite à la valeur attendue via la fonction de perte."
+        "explanation": "C'est l'étape 'aller' du cycle d'entraînement : les données traversent le réseau une fois, couche après couche, pour produire une sortie qu'on compare ensuite à la valeur attendue via la fonction de perte.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 720 400\" role=\"img\" aria-label=\"Schéma d'un forward pass : les entrées x1 x2 x3 sont connectées à quatre neurones cachés h1 à h4, eux-mêmes connectés à deux sorties y1 et y2, avec le sens du flux indiqué de gauche à droite.\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"fp-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">\n      <path d=\"M0,0 L10,5 L0,10 z\" fill=\"#059669\"/>\n    </marker>\n  </defs>\n  <line x1=\"90\" y1=\"30\" x2=\"610\" y2=\"30\" stroke=\"#059669\" stroke-width=\"2\" marker-end=\"url(#fp-arrow)\"/>\n  <text x=\"350\" y=\"20\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\" fill=\"#059669\">sens du forward pass</text>\n  <g stroke=\"currentColor\" stroke-width=\"1\" opacity=\"0.35\">\n    <line x1=\"130\" y1=\"110\" x2=\"360\" y2=\"65\"/>\n    <line x1=\"130\" y1=\"110\" x2=\"360\" y2=\"155\"/>\n    <line x1=\"130\" y1=\"110\" x2=\"360\" y2=\"245\"/>\n    <line x1=\"130\" y1=\"110\" x2=\"360\" y2=\"335\"/>\n    <line x1=\"130\" y1=\"200\" x2=\"360\" y2=\"65\"/>\n    <line x1=\"130\" y1=\"200\" x2=\"360\" y2=\"155\"/>\n    <line x1=\"130\" y1=\"200\" x2=\"360\" y2=\"245\"/>\n    <line x1=\"130\" y1=\"200\" x2=\"360\" y2=\"335\"/>\n    <line x1=\"130\" y1=\"290\" x2=\"360\" y2=\"65\"/>\n    <line x1=\"130\" y1=\"290\" x2=\"360\" y2=\"155\"/>\n    <line x1=\"130\" y1=\"290\" x2=\"360\" y2=\"245\"/>\n    <line x1=\"130\" y1=\"290\" x2=\"360\" y2=\"335\"/>\n    <line x1=\"390\" y1=\"65\" x2=\"610\" y2=\"150\"/>\n    <line x1=\"390\" y1=\"155\" x2=\"610\" y2=\"150\"/>\n    <line x1=\"390\" y1=\"245\" x2=\"610\" y2=\"150\"/>\n    <line x1=\"390\" y1=\"335\" x2=\"610\" y2=\"150\"/>\n    <line x1=\"390\" y1=\"65\" x2=\"610\" y2=\"250\"/>\n    <line x1=\"390\" y1=\"155\" x2=\"610\" y2=\"250\"/>\n    <line x1=\"390\" y1=\"245\" x2=\"610\" y2=\"250\"/>\n    <line x1=\"390\" y1=\"335\" x2=\"610\" y2=\"250\"/>\n  </g>\n  <g>\n    <circle cx=\"130\" cy=\"110\" r=\"18\" fill=\"#eff6ff\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/>\n    <text x=\"130\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1e3a8a\">x&#8321;</text>\n    <circle cx=\"130\" cy=\"200\" r=\"18\" fill=\"#eff6ff\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/>\n    <text x=\"130\" y=\"205\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1e3a8a\">x&#8322;</text>\n    <circle cx=\"130\" cy=\"290\" r=\"18\" fill=\"#eff6ff\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/>\n    <text x=\"130\" y=\"295\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1e3a8a\">x&#8323;</text>\n  </g>\n  <g>\n    <circle cx=\"390\" cy=\"65\" r=\"18\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\"/>\n    <text x=\"390\" y=\"70\" text-anchor=\"middle\" font-size=\"12\" fill=\"#065f46\">h&#8321;</text>\n    <circle cx=\"390\" cy=\"155\" r=\"18\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\"/>\n    <text x=\"390\" y=\"160\" text-anchor=\"middle\" font-size=\"12\" fill=\"#065f46\">h&#8322;</text>\n    <circle cx=\"390\" cy=\"245\" r=\"18\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\"/>\n    <text x=\"390\" y=\"250\" text-anchor=\"middle\" font-size=\"12\" fill=\"#065f46\">h&#8323;</text>\n    <circle cx=\"390\" cy=\"335\" r=\"18\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.5\"/>\n    <text x=\"390\" y=\"340\" text-anchor=\"middle\" font-size=\"12\" fill=\"#065f46\">h&#8324;</text>\n  </g>\n  <g>\n    <circle cx=\"610\" cy=\"150\" r=\"18\" fill=\"#fef2f2\" stroke=\"#dc2626\" stroke-width=\"1.5\"/>\n    <text x=\"610\" y=\"155\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7f1d1d\">y&#770;&#8321;</text>\n    <circle cx=\"610\" cy=\"250\" r=\"18\" fill=\"#fef2f2\" stroke=\"#dc2626\" stroke-width=\"1.5\"/>\n    <text x=\"610\" y=\"255\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7f1d1d\">y&#770;&#8322;</text>\n  </g>\n  <text x=\"130\" y=\"375\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\" fill=\"#1e3a8a\">entr&#233;e</text>\n  <text x=\"390\" y=\"375\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\" fill=\"#065f46\">couche cach&#233;e</text>\n  <text x=\"390\" y=\"392\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">h = act(W&#183;x + b)</text>\n  <text x=\"610\" y=\"375\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"600\" fill=\"#7f1d1d\">sortie</text>\n</svg><figcaption style=\"margin-top:12px;font-size:13px;color:#475569;line-height:1.5\"><b>Ce que montre le sch&#233;ma&#160;:</b> chaque fl&#232;che est une connexion pond&#233;r&#233;e. Une couche est enti&#232;rement connect&#233;e &#224; la suivante&#160;; chaque neurone applique une transformation (poids + biais + activation) &#224; toutes les valeurs qu'il re&#231;oit, jusqu'&#224; produire la pr&#233;diction finale &#224; droite.</figcaption></figure>"
       },
       {
         "question_text": "À quoi sert une fonction de perte (loss function) ?",
@@ -1717,7 +1719,7 @@
         "choice_c": "Calculer le gradient de la perte par rapport à chaque poids, couche par couche depuis la sortie",
         "choice_d": "Elle compresse le réseau en supprimant les poids jugés inutiles",
         "correct_choice": "C",
-        "explanation": "La rétropropagation applique la règle de dérivation en chaîne pour propager l'erreur de la sortie vers l'entrée, calculant à chaque couche la contribution de chaque poids à l'erreur finale — c'est ce gradient qui est ensuite utilisé par la descente de gradient pour ajuster les poids."
+        "explanation": "La rétropropagation applique la règle de dérivation en chaîne pour propager l'erreur de la sortie vers l'entrée, calculant à chaque couche la contribution de chaque poids à l'erreur finale  c'est ce gradient qui est ensuite utilisé par la descente de gradient pour ajuster les poids."
       },
       {
         "question_text": "Que contrôle le learning rate (taux d'apprentissage) lors de la descente de gradient ?",
@@ -1726,7 +1728,7 @@
         "choice_c": "Le nombre total d'epochs d'entraînement",
         "choice_d": "La taille du pas à chaque mise à jour des poids, dans la direction opposée au gradient",
         "correct_choice": "D",
-        "explanation": "C'est l'un des hyperparamètres les plus sensibles à régler : trop grand, les mises à jour 'sautent' par-dessus le minimum de la fonction de perte ; trop petit, l'entraînement prend un temps excessif — d'où l'usage fréquent de schedulers qui le réduisent progressivement."
+        "explanation": "C'est l'un des hyperparamètres les plus sensibles à régler : trop grand, les mises à jour 'sautent' par-dessus le minimum de la fonction de perte ; trop petit, l'entraînement prend un temps excessif  d'où l'usage fréquent de schedulers qui le réduisent progressivement."
       },
       {
         "question_text": "Quelle est la différence entre le batch gradient descent, le stochastic gradient descent (SGD) et le mini-batch gradient descent ?",
@@ -1744,7 +1746,7 @@
         "choice_c": "Il ne peut traiter que des séquences de texte, comme un RNN",
         "choice_d": "Il génère des graphiques (visualisations) à partir des résultats d'un autre modèle déjà entraîné",
         "correct_choice": "B",
-        "explanation": "Contrairement à un CNN (qui exploite la structure en grille régulière d'une image) ou un RNN/Transformer (qui exploitent l'ordre séquentiel d'un texte), un GNN est conçu pour des données dont la structure est intrinsèquement irrégulière et relationnelle (réseaux sociaux, molécules, cartes routières, graphes de connaissances) — chaque nœud met à jour sa représentation en fonction des messages reçus de ses voisins, un mécanisme souvent appelé 'message passing'."
+        "explanation": "Contrairement à un CNN (qui exploite la structure en grille régulière d'une image) ou un RNN/Transformer (qui exploitent l'ordre séquentiel d'un texte), un GNN est conçu pour des données dont la structure est intrinsèquement irrégulière et relationnelle (réseaux sociaux, molécules, cartes routières, graphes de connaissances)  chaque nœud met à jour sa représentation en fonction des messages reçus de ses voisins, un mécanisme souvent appelé 'message passing'."
       },
       {
         "question_text": "Pourquoi les Transformers ont-ils besoin d'un encodage positionnel (positional encoding) ?",
@@ -1753,7 +1755,7 @@
         "choice_c": "L'attention traite tous les tokens en parallèle sans notion d'ordre ; l'encodage positionnel injecte donc l'information de position",
         "choice_d": "Pour empêcher le modèle de traiter des séquences de longueur variable",
         "correct_choice": "C",
-        "explanation": "Contrairement à un RNN qui traite les tokens un par un dans l'ordre (l'ordre est donc implicite dans son fonctionnement même), l'attention d'un Transformer regarde tous les tokens simultanément — sans cet ajout explicite de position, la phrase serait traitée comme un simple 'sac de mots' sans aucune notion d'ordre."
+        "explanation": "Contrairement à un RNN qui traite les tokens un par un dans l'ordre (l'ordre est donc implicite dans son fonctionnement même), l'attention d'un Transformer regarde tous les tokens simultanément  sans cet ajout explicite de position, la phrase serait traitée comme un simple 'sac de mots' sans aucune notion d'ordre."
       }
     ],
     "parent": "IA"
@@ -1841,7 +1843,7 @@
         "choice_c": "Le compromis entre la vitesse d'entraînement et la précision",
         "choice_d": "Le compromis entre la taille du dataset et le nombre de labels",
         "correct_choice": "A",
-        "explanation": "Un modèle simple a un biais élevé (underfitting) ; un modèle très complexe a une variance élevée (overfitting) — le bon modèle trouve l'équilibre entre les deux."
+        "explanation": "Un modèle simple a un biais élevé (underfitting) ; un modèle très complexe a une variance élevée (overfitting)  le bon modèle trouve l'équilibre entre les deux."
       },
       {
         "question_text": "À quoi sert la validation croisée (Cross-Validation, ex. k-fold) ?",
@@ -1940,7 +1942,7 @@
         "choice_c": "Il découpe successivement les données selon des règles/tests sur les features, formant une arborescence, jusqu'à des feuilles représentant une prédiction",
         "choice_d": "Il projette les données sur les axes de variance maximale",
         "correct_choice": "C",
-        "explanation": "Chaque nœud interne teste une condition sur une feature (ex: 'âge > 30 ?'), chaque branche mène à un sous-arbre, et chaque feuille donne la prédiction finale — facile à interpréter, mais sujet à l'overfitting s'il devient trop profond."
+        "explanation": "Chaque nœud interne teste une condition sur une feature (ex: 'âge > 30 ?'), chaque branche mène à un sous-arbre, et chaque feuille donne la prédiction finale  facile à interpréter, mais sujet à l'overfitting s'il devient trop profond."
       },
       {
         "question_text": "Qu'est-ce qu'une Random Forest ?",
@@ -1967,7 +1969,7 @@
         "choice_c": "Un algorithme qui détermine automatiquement le nombre optimal de clusters sans qu'on ait à le préciser",
         "choice_d": "Une technique de compression d'image sans perte",
         "correct_choice": "B",
-        "explanation": "Le nombre de clusters k doit être choisi à l'avance (souvent via la méthode du coude), et l'algorithme converge vers un optimum local qui dépend de l'initialisation des centroïdes — d'où l'usage fréquent de plusieurs initialisations aléatoires."
+        "explanation": "Le nombre de clusters k doit être choisi à l'avance (souvent via la méthode du coude), et l'algorithme converge vers un optimum local qui dépend de l'initialisation des centroïdes  d'où l'usage fréquent de plusieurs initialisations aléatoires."
       },
       {
         "question_text": "Quel est le principe des SVM (Support Vector Machines) ?",
@@ -1985,7 +1987,7 @@
         "choice_c": "Une technique de normalisation des features avant l'entraînement",
         "choice_d": "Construire des modèles séquentiellement, chacun corrigeant les erreurs du précédent",
         "correct_choice": "D",
-        "explanation": "Contrairement au bagging (comme Random Forest) qui entraîne des modèles indépendants en parallèle, le boosting les entraîne en série, chaque nouveau modèle se concentrant sur les erreurs du précédent — ce qui donne souvent de meilleures performances mais est plus sensible à l'overfitting et plus long à entraîner."
+        "explanation": "Contrairement au bagging (comme Random Forest) qui entraîne des modèles indépendants en parallèle, le boosting les entraîne en série, chaque nouveau modèle se concentrant sur les erreurs du précédent  ce qui donne souvent de meilleures performances mais est plus sensible à l'overfitting et plus long à entraîner."
       },
       {
         "question_text": "Qu'est-ce que la distillation de connaissances (Knowledge Distillation) ?",
@@ -2073,7 +2075,7 @@
         "choice_c": "La décision de utiliser ou non un simulateur plutôt qu'un environnement réel",
         "choice_d": "Le compromis entre la taille du modèle et sa vitesse d'inférence",
         "correct_choice": "B",
-        "explanation": "Un agent qui n'exploite jamais que ce qu'il connaît déjà risque de rester bloqué sur une stratégie sous-optimale sans jamais découvrir de meilleures options ; un agent qui explore uniquement sans jamais exploiter n'accumule jamais efficacement de récompense — trouver le bon équilibre entre les deux est central à la conception d'un agent RL efficace."
+        "explanation": "Un agent qui n'exploite jamais que ce qu'il connaît déjà risque de rester bloqué sur une stratégie sous-optimale sans jamais découvrir de meilleures options ; un agent qui explore uniquement sans jamais exploiter n'accumule jamais efficacement de récompense  trouver le bon équilibre entre les deux est central à la conception d'un agent RL efficace."
       },
       {
         "question_text": "Qu'est-ce que le reward shaping (façonnage de la récompense) en RL ?",
@@ -2091,7 +2093,7 @@
         "choice_c": "Un synonyme exact de la fonction de récompense de l'environnement",
         "choice_d": "La fonction qui définit le comportement de l'agent : de l'état courant vers l'action à effectuer",
         "correct_choice": "D",
-        "explanation": "Une politique stochastique retourne une distribution de probabilité sur les actions (utile pour maintenir de l'exploration), alors qu'une politique déterministe retourne toujours exactement la même action pour un état donné — le Policy Gradient, par exemple, optimise directement les paramètres de cette politique."
+        "explanation": "Une politique stochastique retourne une distribution de probabilité sur les actions (utile pour maintenir de l'exploration), alors qu'une politique déterministe retourne toujours exactement la même action pour un état donné  le Policy Gradient, par exemple, optimise directement les paramètres de cette politique."
       },
       {
         "question_text": "Quelle est la différence entre la fonction de valeur V(s) et la fonction Q(s,a) en RL ?",
@@ -2136,7 +2138,7 @@
         "choice_c": "Ce sont deux synonymes stricts pour la même famille d'algorithmes",
         "choice_d": "Le RL model-free nécessite toujours davantage de puissance de calcul que le RL model-based",
         "correct_choice": "A",
-        "explanation": "Le RL model-based peut potentiellement être plus efficace en nombre d'interactions nécessaires (il peut 'imaginer' les conséquences d'actions via son modèle plutôt que de toutes les essayer réellement), mais dépend fortement de la qualité de ce modèle appris — les algorithmes comme Q-Learning, Policy Gradient, PPO et DQN sont tous model-free."
+        "explanation": "Le RL model-based peut potentiellement être plus efficace en nombre d'interactions nécessaires (il peut 'imaginer' les conséquences d'actions via son modèle plutôt que de toutes les essayer réellement), mais dépend fortement de la qualité de ce modèle appris  les algorithmes comme Q-Learning, Policy Gradient, PPO et DQN sont tous model-free."
       },
       {
         "question_text": "Qu'est-ce qu'un bandit manchot (multi-armed bandit), et en quoi est-ce une version simplifiée du RL ?",
@@ -2172,7 +2174,7 @@
         "choice_c": "La difficulté de répartir équitablement le mérite entre plusieurs développeurs d'un même projet de RL",
         "choice_d": "Un problème qui ne survient que lorsque plusieurs agents RL sont entraînés simultanément",
         "correct_choice": "A",
-        "explanation": "Plus l'écart temporel entre une action et la récompense qu'elle a réellement influencée est grand, plus ce problème devient difficile — c'est en partie ce que le facteur d'actualisation et des techniques comme le reward shaping cherchent à atténuer, en aidant l'agent à mieux relier ses actions à leurs conséquences lointaines."
+        "explanation": "Plus l'écart temporel entre une action et la récompense qu'elle a réellement influencée est grand, plus ce problème devient difficile  c'est en partie ce que le facteur d'actualisation et des techniques comme le reward shaping cherchent à atténuer, en aidant l'agent à mieux relier ses actions à leurs conséquences lointaines."
       },
       {
         "question_text": "Que fait concrètement PPO (Proximal Policy Optimization) pour stabiliser l'entraînement d'une politique, par rapport à un Policy Gradient classique ?",
@@ -2447,7 +2449,7 @@
         "choice_c": "Les LLM nécessitent un entraînement spécifique et dédié pour chaque application, contrairement aux modèles NLP classiques",
         "choice_d": "Les modèles NLP sont en général plus grands et nécessitent plus de données que les LLM",
         "correct_choice": "B",
-        "explanation": "Avant les LLM, une tâche NLP donnée (ex: analyse de sentiment) nécessitait souvent un modèle dédié entraîné spécifiquement pour cette tâche ; un LLM, grâce à sa taille et son entraînement généraliste, peut souvent accomplir cette même tâche (et bien d'autres) simplement via un prompt, sans entraînement supplémentaire dédié — bien qu'un modèle spécialisé reste parfois plus performant sur une tâche précise."
+        "explanation": "Avant les LLM, une tâche NLP donnée (ex: analyse de sentiment) nécessitait souvent un modèle dédié entraîné spécifiquement pour cette tâche ; un LLM, grâce à sa taille et son entraînement généraliste, peut souvent accomplir cette même tâche (et bien d'autres) simplement via un prompt, sans entraînement supplémentaire dédié  bien qu'un modèle spécialisé reste parfois plus performant sur une tâche précise."
       }
     ],
     "parent": "IA"
@@ -2560,7 +2562,7 @@
         "choice_c": "La proportion de vrais positifs parmi tous les cas réellement positifs",
         "choice_d": "La proportion de vrais positifs parmi toutes les prédictions annoncées comme positives (TP / (TP+FP))",
         "correct_choice": "D",
-        "explanation": "Une precision élevée signifie que quand le modèle dit « positif », il a très souvent raison — important quand les faux positifs coûtent cher."
+        "explanation": "Une precision élevée signifie que quand le modèle dit « positif », il a très souvent raison  important quand les faux positifs coûtent cher."
       },
       {
         "question_text": "Que mesure le Recall (Sensitivity) en classification ?",
@@ -2569,7 +2571,7 @@
         "choice_c": "La proportion de faux positifs parmi les prédictions positives",
         "choice_d": "Le pourcentage total de bonnes prédictions",
         "correct_choice": "B",
-        "explanation": "Un recall élevé signifie que le modèle rate peu de vrais cas positifs — important quand rater un cas positif coûte cher (ex. diagnostic médical)."
+        "explanation": "Un recall élevé signifie que le modèle rate peu de vrais cas positifs  important quand rater un cas positif coûte cher (ex. diagnostic médical)."
       },
       {
         "question_text": "Qu'est-ce que le F1-Score ?",
@@ -2790,7 +2792,7 @@
         "choice_c": "Un format d'image utilisé pour l'entraînement des modèles de vision",
         "choice_d": "Une méthode de fine-tuning qui réentraîne uniquement la dernière couche d'un réseau",
         "correct_choice": "B",
-        "explanation": "Le RAG interroge une base documentaire (souvent une base vectorielle) au moment de la requête, puis injecte les passages pertinents trouvés dans le prompt du LLM — ce qui permet de répondre avec des informations à jour ou spécifiques sans réentraîner le modèle."
+        "explanation": "Le RAG interroge une base documentaire (souvent une base vectorielle) au moment de la requête, puis injecte les passages pertinents trouvés dans le prompt du LLM  ce qui permet de répondre avec des informations à jour ou spécifiques sans réentraîner le modèle."
       },
       {
         "question_text": "À quoi sert le paramètre 'temperature' lors de la génération de texte par un LLM ?",
@@ -2808,7 +2810,7 @@
         "choice_c": "Il garde les k couches du modèle les plus utiles et ignore les autres",
         "choice_d": "Il restreint le tirage aléatoire du prochain token aux k tokens les plus probables, en ignorant le reste de la distribution",
         "correct_choice": "D",
-        "explanation": "En ne conservant que les k candidats les plus probables avant de tirer aléatoirement, le top-k sampling évite que le modèle choisisse un token totalement improbable/absurde, tout en gardant une part de diversité — contrairement au top-p (nucleus sampling) qui fixe un seuil de probabilité cumulée plutôt qu'un nombre fixe de candidats."
+        "explanation": "En ne conservant que les k candidats les plus probables avant de tirer aléatoirement, le top-k sampling évite que le modèle choisisse un token totalement improbable/absurde, tout en gardant une part de diversité  contrairement au top-p (nucleus sampling) qui fixe un seuil de probabilité cumulée plutôt qu'un nombre fixe de candidats."
       },
       {
         "question_text": "À quoi sert le KV Cache (cache clé-valeur) dans l'inférence d'un Transformer ?",
@@ -2822,7 +2824,7 @@
       {
         "question_text": "Que représente le 'confidence score' (score de confiance) d'un modèle de classification ?",
         "choice_a": "La proportion du dataset d'entraînement sur laquelle le modèle a été validé",
-        "choice_b": "La probabilité, calculée par le modèle (souvent via softmax), qu'il attribue à sa prédiction — mais ce n'est pas une garantie statistique sans calibration",
+        "choice_b": "La probabilité, calculée par le modèle (souvent via softmax), qu'il attribue à sa prédiction  mais ce n'est pas une garantie statistique sans calibration",
         "choice_c": "Le nombre de fois où le modèle a donné la même réponse lors de plusieurs entraînements",
         "choice_d": "Un score fixé manuellement par les développeurs pour chaque classe",
         "correct_choice": "B",
@@ -2862,7 +2864,7 @@
         "choice_c": "Un algorithme de recherche d'hyperparamètres basé sur des états stochastiques",
         "choice_d": "Une technique de visualisation des poids d'un réseau de neurones sous forme de graphe d'états",
         "correct_choice": "B",
-        "explanation": "Contrairement à l'attention des Transformers, dont le coût croît de façon quadratique avec la longueur de la séquence, les SSM (dérivés de la théorie du contrôle) propagent un état caché de façon linéaire — Mamba est l'implémentation la plus connue, et des modèles commerciaux comme les LFM de Liquid AI s'appuient sur des idées proches."
+        "explanation": "Contrairement à l'attention des Transformers, dont le coût croît de façon quadratique avec la longueur de la séquence, les SSM (dérivés de la théorie du contrôle) propagent un état caché de façon linéaire  Mamba est l'implémentation la plus connue, et des modèles commerciaux comme les LFM de Liquid AI s'appuient sur des idées proches."
       },
       {
         "question_text": "Qu'est-ce que la tokenization dans le traitement du texte par un LLM ?",
@@ -2889,7 +2891,7 @@
         "choice_c": "Une erreur de tokenization qui corrompt le prompt envoyé",
         "choice_d": "Une réponse générée avec assurance mais factuellement fausse ou inventée",
         "correct_choice": "D",
-        "explanation": "Un LLM ne 'sait' pas qu'il ne sait pas : il génère toujours la suite de tokens la plus probable selon ce qu'il a appris, même en l'absence d'information fiable — d'où l'intérêt du RAG pour ancrer les réponses sur des sources vérifiables plutôt que sur la seule mémoire du modèle."
+        "explanation": "Un LLM ne 'sait' pas qu'il ne sait pas : il génère toujours la suite de tokens la plus probable selon ce qu'il a appris, même en l'absence d'information fiable  d'où l'intérêt du RAG pour ancrer les réponses sur des sources vérifiables plutôt que sur la seule mémoire du modèle."
       },
       {
         "question_text": "Qu'est-ce que le prompt engineering ?",
@@ -2907,7 +2909,7 @@
         "choice_c": "Une fonctionnalité qui limite le nombre d'appels à l'API par utilisateur",
         "choice_d": "Le nom donné aux hyperparamètres réglables (temperature, top-k...) via l'API",
         "correct_choice": "B",
-        "explanation": "Le modèle ne fait qu'indiquer 'quelle fonction appeler avec quels arguments' sous forme structurée (ex: JSON) — c'est l'application qui exécute réellement l'appel et renvoie le résultat au modèle pour qu'il poursuive sa réponse ; c'est la brique de base des agents LLM."
+        "explanation": "Le modèle ne fait qu'indiquer 'quelle fonction appeler avec quels arguments' sous forme structurée (ex: JSON)  c'est l'application qui exécute réellement l'appel et renvoie le résultat au modèle pour qu'il poursuive sa réponse ; c'est la brique de base des agents LLM."
       },
       {
         "question_text": "Qu'est-ce qu'un LMM (Large Multimodal Model), et en quoi diffère-t-il d'un LLM classique ?",
@@ -2916,7 +2918,7 @@
         "choice_c": "Un LMM est simplement un synonyme plus récent de LLM, sans aucune différence de fond",
         "choice_d": "Un LMM est un modèle plus petit et moins performant qu'un LLM, utilisé uniquement sur mobile",
         "correct_choice": "B",
-        "explanation": "Un LMM peut par exemple recevoir une image et une question en texte, et générer une réponse en tenant compte des deux à la fois (ex: décrire une image, répondre à une question sur son contenu) — les modèles comme GPT-4V ou LLaVA sont des exemples de LMM."
+        "explanation": "Un LMM peut par exemple recevoir une image et une question en texte, et générer une réponse en tenant compte des deux à la fois (ex: décrire une image, répondre à une question sur son contenu)  les modèles comme GPT-4V ou LLaVA sont des exemples de LMM."
       },
       {
         "question_text": "Qu'est-ce que le fine-tuning supervisé (Supervised Fine-Tuning, SFT) d'un LLM ?",
@@ -2934,7 +2936,7 @@
         "choice_c": "Calcul de l'attention et application du softmax, répétées pour chaque couche du modèle",
         "choice_d": "Le prefill traite tout le prompt en une passe parallélisable ; le decode génère les tokens un par un, séquentiellement",
         "correct_choice": "D",
-        "explanation": "Le prefill est rapide car tous les tokens du prompt peuvent être traités en parallèle sur le GPU, alors que le decode est intrinsèquement séquentiel (chaque token dépend du précédent) et donc plus lent par token généré — c'est cette asymétrie qui explique pourquoi la latence perçue d'un LLM dépend fortement de la longueur de la réponse générée, bien plus que de la longueur du prompt."
+        "explanation": "Le prefill est rapide car tous les tokens du prompt peuvent être traités en parallèle sur le GPU, alors que le decode est intrinsèquement séquentiel (chaque token dépend du précédent) et donc plus lent par token généré  c'est cette asymétrie qui explique pourquoi la latence perçue d'un LLM dépend fortement de la longueur de la réponse générée, bien plus que de la longueur du prompt."
       },
       {
         "question_text": "Qu'est-ce qu'un foundation model (modèle de fondation) ?",
@@ -2979,7 +2981,7 @@
         "choice_c": "Une méthode qui enchaîne plusieurs prompts totalement indépendants sans aucun lien entre eux",
         "choice_d": "Un mécanisme qui limite le modèle à ne répondre que par une seule chaîne de caractères, sans mise en forme",
         "correct_choice": "B",
-        "explanation": "Le simple fait de forcer le modèle à 'montrer son travail' avant de conclure lui donne davantage de tokens (donc de calcul) pour élaborer sa réponse, ce qui réduit les erreurs sur des problèmes complexes — une intuition qui a directement inspiré l'entraînement des reasoning models modernes."
+        "explanation": "Le simple fait de forcer le modèle à 'montrer son travail' avant de conclure lui donne davantage de tokens (donc de calcul) pour élaborer sa réponse, ce qui réduit les erreurs sur des problèmes complexes  une intuition qui a directement inspiré l'entraînement des reasoning models modernes."
       },
       {
         "question_text": "Qu'est-ce que le MCP (Model Context Protocol) ?",
@@ -2997,7 +2999,7 @@
         "choice_c": "Un LLM qui ne peut traiter qu'une seule requête à la fois, sans jamais utiliser d'outil externe",
         "choice_d": "Un logiciel antivirus spécialisé dans la détection de menaces générées par l'IA",
         "correct_choice": "A",
-        "explanation": "Contrairement à un simple échange question-réponse, un agent LLM peut décomposer une tâche complexe en sous-étapes, utiliser des outils externes (recherche web, exécution de code, appels d'API via function calling) et itérer sur ses résultats intermédiaires avant de livrer une réponse finale — c'est cette capacité d'action autonome multi-étapes qui distingue l'agentic AI d'un simple assistant conversationnel."
+        "explanation": "Contrairement à un simple échange question-réponse, un agent LLM peut décomposer une tâche complexe en sous-étapes, utiliser des outils externes (recherche web, exécution de code, appels d'API via function calling) et itérer sur ses résultats intermédiaires avant de livrer une réponse finale  c'est cette capacité d'action autonome multi-étapes qui distingue l'agentic AI d'un simple assistant conversationnel."
       }
     ],
     "parent": "IA"
@@ -3040,7 +3042,7 @@
         "choice_c": "Un synonyme de produit scalaire entre le vecteur et lui-même",
         "choice_d": "Une mesure de la magnitude d'un vecteur, sa distance à l'origine (ex: la norme L2)",
         "correct_choice": "D",
-        "explanation": "Réduire la norme des poids d'un modèle (comme le fait la régularisation L2) tend à produire des modèles aux prédictions plus stables, moins sensibles à de petites variations de l'entrée — d'où son rôle dans la lutte contre l'overfitting."
+        "explanation": "Réduire la norme des poids d'un modèle (comme le fait la régularisation L2) tend à produire des modèles aux prédictions plus stables, moins sensibles à de petites variations de l'entrée  d'où son rôle dans la lutte contre l'overfitting."
       },
       {
         "question_text": "Pourquoi la multiplication matricielle n'est-elle en général pas commutative (A×B ≠ B×A) ?",
@@ -3175,7 +3177,7 @@
         "choice_c": "Pour capturer un grand nombre de nuances sémantiques ; la proximité des vecteurs reflète leur similarité",
         "choice_d": "Pour que chaque dimension corresponde exactement à une lettre de l'alphabet",
         "correct_choice": "C",
-        "explanation": "Plus l'espace a de dimensions, plus il peut théoriquement représenter finement des nuances de sens différentes, au prix d'un coût de calcul et de stockage plus élevé — c'est un compromis clé dans la conception des modèles d'embeddings."
+        "explanation": "Plus l'espace a de dimensions, plus il peut théoriquement représenter finement des nuances de sens différentes, au prix d'un coût de calcul et de stockage plus élevé  c'est un compromis clé dans la conception des modèles d'embeddings."
       },
       {
         "question_text": "Quelle est la différence entre un minimum local et un minimum global d'une fonction de perte ?",
@@ -3208,7 +3210,7 @@
         "choice_c": "Elle offre une syntaxe plus concise et généralement plus rapide pour construire une nouvelle liste à partir d'une séquence existante, en une seule expression lisible",
         "choice_d": "Elle empêche toute modification ultérieure de la liste créée",
         "correct_choice": "C",
-        "explanation": "En plus d'être plus compacte, une list comprehension est souvent plus rapide qu'une boucle for équivalente avec `append()`, car l'interpréteur peut l'optimiser en interne — mais elle peut devenir peu lisible si on l'utilise pour une logique trop complexe."
+        "explanation": "En plus d'être plus compacte, une list comprehension est souvent plus rapide qu'une boucle for équivalente avec `append()`, car l'interpréteur peut l'optimiser en interne  mais elle peut devenir peu lisible si on l'utilise pour une logique trop complexe."
       },
       {
         "question_text": "Qu'est-ce qu'un generator en Python (une fonction utilisant `yield`) ?",
@@ -3244,7 +3246,7 @@
         "choice_c": "Un mécanisme qui convertit automatiquement tous les types numériques en chaînes de caractères",
         "choice_d": "Une bibliothèque externe utilisée pour le typage strict, comme mypy",
         "correct_choice": "B",
-        "explanation": "Par exemple, une fonction qui appelle `.write()` sur son argument fonctionnera avec n'importe quel objet possédant une méthode `write()` (un fichier, un buffer en mémoire, un socket...), sans se soucier de leur type exact — c'est ce typage implicite qui caractérise Python."
+        "explanation": "Par exemple, une fonction qui appelle `.write()` sur son argument fonctionnera avec n'importe quel objet possédant une méthode `write()` (un fichier, un buffer en mémoire, un socket...), sans se soucier de leur type exact  c'est ce typage implicite qui caractérise Python."
       },
       {
         "question_text": "Pourquoi `def f(x=[]):` est-il considéré comme un piège classique en Python ?",
@@ -3253,7 +3255,7 @@
         "choice_c": "La valeur par défaut mutable n'est créée qu'une fois, à la définition, et reste partagée entre tous les appels",
         "choice_d": "Parce que cela rend la fonction environ dix fois plus lente à l'exécution",
         "correct_choice": "C",
-        "explanation": "La solution habituelle consiste à utiliser `None` comme valeur par défaut, puis à créer une nouvelle liste à l'intérieur du corps de la fonction si l'argument vaut `None` — évitant ainsi tout partage d'état non voulu entre les appels."
+        "explanation": "La solution habituelle consiste à utiliser `None` comme valeur par défaut, puis à créer une nouvelle liste à l'intérieur du corps de la fonction si l'argument vaut `None`  évitant ainsi tout partage d'état non voulu entre les appels."
       },
       {
         "question_text": "Quel est l'intérêt d'un context manager (l'instruction `with`) en Python ?",
@@ -3262,7 +3264,7 @@
         "choice_c": "Il ralentit intentionnellement l'exécution pour faciliter le débogage pas à pas",
         "choice_d": "Il ne peut être utilisé qu'avec des fichiers, jamais avec d'autres types de ressources",
         "correct_choice": "A",
-        "explanation": "`with open('fichier.txt') as f:` garantit que le fichier sera fermé automatiquement à la fin du bloc, même si une exception survient pendant sa lecture — évitant d'avoir à écrire manuellement un bloc try/finally à chaque fois."
+        "explanation": "`with open('fichier.txt') as f:` garantit que le fichier sera fermé automatiquement à la fin du bloc, même si une exception survient pendant sa lecture  évitant d'avoir à écrire manuellement un bloc try/finally à chaque fois."
       },
       {
         "question_text": "Quelle est la principale différence entre une liste et un tuple en Python ?",
@@ -3271,7 +3273,7 @@
         "choice_c": "Il n'existe aucune différence pratique, ce sont deux syntaxes équivalentes",
         "choice_d": "Une liste ne peut contenir qu'un seul élément, un tuple peut en contenir plusieurs",
         "correct_choice": "B",
-        "explanation": "L'immuabilité d'un tuple en fait un choix naturel pour représenter des données qui ne doivent pas changer (ex: des coordonnées fixes), et permet de l'utiliser comme clé de dictionnaire ou élément d'un set — ce qu'une liste, étant mutable, ne peut pas faire."
+        "explanation": "L'immuabilité d'un tuple en fait un choix naturel pour représenter des données qui ne doivent pas changer (ex: des coordonnées fixes), et permet de l'utiliser comme clé de dictionnaire ou élément d'un set  ce qu'une liste, étant mutable, ne peut pas faire."
       },
       {
         "question_text": "Quelle est la différence entre les opérateurs `==` et `is` en Python ?",
@@ -3361,7 +3363,7 @@
         "choice_c": "Il crée une copie profonde de la liste avant de l'envoyer à la fonction",
         "choice_d": "Il ne fonctionne qu'avec des dictionnaires, jamais avec des listes",
         "correct_choice": "B",
-        "explanation": "Le double astérisque (`**`) fait de même mais pour un dictionnaire, en le déballant sous forme d'arguments nommés (`f(**mon_dict)` équivaut à passer chaque paire clé/valeur comme `cle=valeur`) — ces deux opérateurs sont aussi utilisables lors de la définition d'une fonction, sous la forme `*args`/`**kwargs`."
+        "explanation": "Le double astérisque (`**`) fait de même mais pour un dictionnaire, en le déballant sous forme d'arguments nommés (`f(**mon_dict)` équivaut à passer chaque paire clé/valeur comme `cle=valeur`)  ces deux opérateurs sont aussi utilisables lors de la définition d'une fonction, sous la forme `*args`/`**kwargs`."
       },
       {
         "question_text": "Quelle est la syntaxe et l'intérêt d'une compréhension de dictionnaire (dict comprehension), par exemple `{x: x**2 for x in range(5)}` ?",
@@ -3385,7 +3387,7 @@
         "choice_c": "Un type de virus qui se propage exclusivement via les emails",
         "choice_d": "Une méthode de sauvegarde automatique d'une base de données SQL",
         "correct_choice": "A",
-        "explanation": "L'exemple classique est un champ de connexion mal protégé où saisir quelque chose comme `' OR '1'='1` peut transformer la condition de la requête SQL sous-jacente et contourner la vérification du mot de passe — les requêtes préparées empêchent structurellement ce genre de manipulation, contrairement à la simple concaténation de chaînes."
+        "explanation": "L'exemple classique est un champ de connexion mal protégé où saisir quelque chose comme `' OR '1'='1` peut transformer la condition de la requête SQL sous-jacente et contourner la vérification du mot de passe  les requêtes préparées empêchent structurellement ce genre de manipulation, contrairement à la simple concaténation de chaînes."
       },
       {
         "question_text": "Qu'est-ce qu'une attaque XSS (Cross-Site Scripting) ?",
@@ -3394,7 +3396,7 @@
         "choice_c": "Injecter un script malveillant dans une page web, exécuté ensuite dans le navigateur d'autres utilisateurs",
         "choice_d": "Une méthode de chiffrement obsolète, remplacée aujourd'hui par TLS",
         "correct_choice": "C",
-        "explanation": "Un script injecté avec succès peut voler les cookies de session d'autres visiteurs, rediriger vers un site malveillant, ou modifier le contenu affiché — la contre-mesure principale consiste à toujours échapper (encoder) tout contenu utilisateur avant de l'insérer dans le HTML rendu."
+        "explanation": "Un script injecté avec succès peut voler les cookies de session d'autres visiteurs, rediriger vers un site malveillant, ou modifier le contenu affiché  la contre-mesure principale consiste à toujours échapper (encoder) tout contenu utilisateur avant de l'insérer dans le HTML rendu."
       },
       {
         "question_text": "Comment fonctionne une attaque CSRF (Cross-Site Request Forgery) ?",
@@ -3403,7 +3405,7 @@
         "choice_c": "Elle intercepte et déchiffre les communications HTTPS entre le client et le serveur",
         "choice_d": "Piéger un utilisateur authentifié pour lui faire exécuter une action non voulue, via un lien ou formulaire caché",
         "correct_choice": "D",
-        "explanation": "Le navigateur envoie automatiquement les cookies de session existants avec chaque requête vers le site concerné, même si cette requête a été déclenchée depuis une page totalement différente — d'où l'intérêt des tokens CSRF (une valeur secrète unique par session/formulaire) que le site légitime vérifie avant d'exécuter l'action."
+        "explanation": "Le navigateur envoie automatiquement les cookies de session existants avec chaque requête vers le site concerné, même si cette requête a été déclenchée depuis une page totalement différente  d'où l'intérêt des tokens CSRF (une valeur secrète unique par session/formulaire) que le site légitime vérifie avant d'exécuter l'action."
       },
       {
         "question_text": "Qu'est-ce qu'un buffer overflow (dépassement de tampon) ?",
@@ -3466,7 +3468,7 @@
         "choice_c": "Tester systématiquement de nombreuses combinaisons possibles jusqu'à trouver la bonne",
         "choice_d": "Elle ne fonctionne que sur des mots de passe stockés en clair, jamais sur des mots de passe hachés",
         "correct_choice": "C",
-        "explanation": "Plus un mot de passe est long et varié, plus l'espace des combinaisons possibles à tester devient astronomique, rendant une attaque par force brute pure impraticable en un temps raisonnable — c'est pourquoi la longueur du mot de passe compte souvent plus que sa complexité apparente."
+        "explanation": "Plus un mot de passe est long et varié, plus l'espace des combinaisons possibles à tester devient astronomique, rendant une attaque par force brute pure impraticable en un temps raisonnable  c'est pourquoi la longueur du mot de passe compte souvent plus que sa complexité apparente."
       },
       {
         "question_text": "Qu'est-ce qu'une attaque de type man-in-the-middle (homme du milieu) ?",
@@ -3502,7 +3504,7 @@
         "choice_c": "Tromper une victime (email, faux site) pour lui voler des informations sensibles",
         "choice_d": "Un protocole réseau utilisé pour sécuriser les échanges de données",
         "correct_choice": "C",
-        "explanation": "Contrairement à de nombreuses attaques purement techniques, le phishing exploite avant tout la confiance et l'inattention humaines — d'où l'importance de la sensibilisation des utilisateurs en complément des protections techniques (filtres anti-spam, authentification multi-facteurs qui limite les dégâts même si le mot de passe est volé)."
+        "explanation": "Contrairement à de nombreuses attaques purement techniques, le phishing exploite avant tout la confiance et l'inattention humaines  d'où l'importance de la sensibilisation des utilisateurs en complément des protections techniques (filtres anti-spam, authentification multi-facteurs qui limite les dégâts même si le mot de passe est volé)."
       },
       {
         "question_text": "Qu'est-ce qu'une attaque DDoS (Distributed Denial of Service) ?",
@@ -3634,7 +3636,7 @@
         "choice_c": "Une technique de compression des données avant leur stockage sur disque",
         "choice_d": "Un processus qui supprime automatiquement les données dupliquées d'une table",
         "correct_choice": "A",
-        "explanation": "Si le serveur primaire tombe en panne, une réplique peut potentiellement prendre le relais (basculement/failover), ce qui limite l'indisponibilité du service — mais il faut composer avec un léger délai de synchronisation (réplication asynchrone) qui peut temporairement rendre les données d'une réplique légèrement en retard par rapport au primaire."
+        "explanation": "Si le serveur primaire tombe en panne, une réplique peut potentiellement prendre le relais (basculement/failover), ce qui limite l'indisponibilité du service  mais il faut composer avec un léger délai de synchronisation (réplication asynchrone) qui peut temporairement rendre les données d'une réplique légèrement en retard par rapport au primaire."
       },
       {
         "question_text": "Quels sont les principaux types de bases de données NoSQL, et leurs cas d'usage typiques ?",
@@ -3706,7 +3708,7 @@
         "choice_c": "Réutiliser un ensemble limité de connexions déjà établies plutôt que d'en ouvrir à chaque requête",
         "choice_d": "À limiter le nombre total de tables qu'une base de données peut contenir",
         "correct_choice": "C",
-        "explanation": "Sans pool de connexions, une application à fort trafic pourrait passer une part importante de son temps à simplement ouvrir et fermer des connexions à répétition, plutôt qu'à exécuter les requêtes elles-mêmes — le pool élimine cette latence répétée en gardant un nombre raisonnable de connexions prêtes à l'emploi."
+        "explanation": "Sans pool de connexions, une application à fort trafic pourrait passer une part importante de son temps à simplement ouvrir et fermer des connexions à répétition, plutôt qu'à exécuter les requêtes elles-mêmes  le pool élimine cette latence répétée en gardant un nombre raisonnable de connexions prêtes à l'emploi."
       },
       {
         "question_text": "Qu'est-ce qu'une migration de schéma de base de données, dans un contexte de développement logiciel ?",
@@ -3715,7 +3717,7 @@
         "choice_c": "Une sauvegarde complète de la base de données effectuée avant chaque déploiement",
         "choice_d": "Une modification versionnée et contrôlée de la structure d'une base de données au fil du temps",
         "correct_choice": "D",
-        "explanation": "C'est exactement ce que fait la fonction `runMigrations()` de ce projet : à chaque démarrage, elle vérifie si une colonne attendue existe déjà, et l'ajoute sinon — un pattern de migration simple et idempotent, sans framework dédié, mais qui répond au même besoin que des outils plus formels de gestion de migrations."
+        "explanation": "C'est exactement ce que fait la fonction `runMigrations()` de ce projet : à chaque démarrage, elle vérifie si une colonne attendue existe déjà, et l'ajoute sinon  un pattern de migration simple et idempotent, sans framework dédié, mais qui répond au même besoin que des outils plus formels de gestion de migrations."
       },
       {
         "question_text": "Que désigne le niveau d'isolation (isolation level) d'une transaction en base de données ?",
@@ -3724,7 +3726,7 @@
         "choice_c": "Le nombre maximal de tables qu'une transaction peut modifier simultanément",
         "choice_d": "Une mesure de la distance physique entre le client et le serveur de base de données",
         "correct_choice": "B",
-        "explanation": "Un niveau d'isolation plus strict (comme Serializable, qui garantit un comportement équivalent à une exécution strictement séquentielle des transactions) offre une cohérence maximale mais réduit la concurrence possible entre transactions simultanées, ce qui peut dégrader les performances sous forte charge — c'est la propriété 'Isolation' du sigle ACID, dont le niveau exact est configurable."
+        "explanation": "Un niveau d'isolation plus strict (comme Serializable, qui garantit un comportement équivalent à une exécution strictement séquentielle des transactions) offre une cohérence maximale mais réduit la concurrence possible entre transactions simultanées, ce qui peut dégrader les performances sous forte charge  c'est la propriété 'Isolation' du sigle ACID, dont le niveau exact est configurable."
       },
       {
         "question_text": "Quelle est la différence entre SQL et NoSQL (ex. MongoDB) ?",
@@ -3738,7 +3740,7 @@
       {
         "question_text": "Que signifie une transaction ACID ?",
         "choice_a": "Atomicité, Compression, Isolation, Distribution",
-        "choice_b": "Atomicité, Cohérence, Isolation, Durabilité — les 4 propriétés garantissant la fiabilité des transactions",
+        "choice_b": "Atomicité, Cohérence, Isolation, Durabilité  les 4 propriétés garantissant la fiabilité des transactions",
         "choice_c": "Async, Cache, Index, Durabilité",
         "choice_d": "Authentification, Chiffrement, Intégrité, Disponibilité",
         "correct_choice": "B",
@@ -3775,7 +3777,7 @@
         "choice_c": "Un test qui vérifie l'application entière du point de vue de l'utilisateur, à travers toute la pile technique",
         "choice_d": "Un test qui ne peut jamais être automatisé, uniquement exécuté manuellement",
         "correct_choice": "C",
-        "explanation": "Un test e2e typique simule par exemple un utilisateur qui ouvre l'application, se connecte, remplit un formulaire et vérifie le résultat affiché — sa lenteur et sa fragilité (sensible aux moindres changements d'interface) expliquent pourquoi on en écrit généralement beaucoup moins que de tests unitaires."
+        "explanation": "Un test e2e typique simule par exemple un utilisateur qui ouvre l'application, se connecte, remplit un formulaire et vérifie le résultat affiché  sa lenteur et sa fragilité (sensible aux moindres changements d'interface) expliquent pourquoi on en écrit généralement beaucoup moins que de tests unitaires."
       },
       {
         "question_text": "Que signifie l'approche TDD (Test-Driven Development) ?",
@@ -3901,7 +3903,7 @@
         "choice_c": "Détecter rapidement toute régression avant qu'elle ne soit fusionnée ou déployée en production",
         "choice_d": "Parce que la loi impose l'exécution automatique de tests avant tout déploiement",
         "correct_choice": "C",
-        "explanation": "Plus un bug est détecté tôt dans le cycle de développement (idéalement avant même la fusion du code), moins il est coûteux à corriger — l'automatisation dans la CI garantit que cette vérification a bien lieu systématiquement, sans dépendre de la discipline individuelle de chaque développeur à lancer les tests manuellement."
+        "explanation": "Plus un bug est détecté tôt dans le cycle de développement (idéalement avant même la fusion du code), moins il est coûteux à corriger  l'automatisation dans la CI garantit que cette vérification a bien lieu systématiquement, sans dépendre de la discipline individuelle de chaque développeur à lancer les tests manuellement."
       },
       {
         "question_text": "Quelle est la différence entre écrire les tests avant le code (test-first) et après le code (test-after) ?",
@@ -3983,7 +3985,7 @@
       },
       {
         "question_text": "Quelle est la différence entre la scalabilité horizontale et la scalabilité verticale ?",
-        "choice_a": "La scalabilité horizontale consiste à ajouter davantage de machines/instances pour répartir la charge (ex: passer de 2 à 10 serveurs), alors que la scalabilité verticale consiste à augmenter la puissance d'une seule machine existante (plus de CPU, plus de RAM) — la scalabilité horizontale est généralement préférée à grande échelle, mais nécessite une architecture conçue pour fonctionner sur plusieurs instances (ex: services stateless)",
+        "choice_a": "La scalabilité horizontale consiste à ajouter davantage de machines/instances pour répartir la charge (ex: passer de 2 à 10 serveurs), alors que la scalabilité verticale consiste à augmenter la puissance d'une seule machine existante (plus de CPU, plus de RAM)  la scalabilité horizontale est généralement préférée à grande échelle, mais nécessite une architecture conçue pour fonctionner sur plusieurs instances (ex: services stateless)",
         "choice_b": "La scalabilité verticale n'existe que pour les bases de données, jamais pour les serveurs applicatifs",
         "choice_c": "Les deux termes désignent exactement la même stratégie de mise à l'échelle",
         "choice_d": "La scalabilité horizontale ne peut être appliquée qu'à des bases de données relationnelles",
@@ -3993,7 +3995,7 @@
       {
         "question_text": "Qu'est-ce que l'idempotence d'une API, et pourquoi est-elle importante ?",
         "choice_a": "Une API idempotente répond toujours plus vite qu'une API classique",
-        "choice_b": "Une propriété qui garantit qu'envoyer plusieurs fois la même requête produit exactement le même effet qu'un seul envoi — importante notamment quand un client, faute de recevoir une réponse (ex: timeout réseau), doit renvoyer sa requête sans risquer de dupliquer une action déjà effectuée (comme créer deux fois la même commande)",
+        "choice_b": "Une propriété qui garantit qu'envoyer plusieurs fois la même requête produit exactement le même effet qu'un seul envoi  importante notamment quand un client, faute de recevoir une réponse (ex: timeout réseau), doit renvoyer sa requête sans risquer de dupliquer une action déjà effectuée (comme créer deux fois la même commande)",
         "choice_c": "Une API idempotente ne peut traiter qu'une seule requête à la fois, jamais plusieurs simultanément",
         "choice_d": "Une API idempotente ne peut jamais retourner d'erreur",
         "correct_choice": "C",
@@ -4006,7 +4008,7 @@
         "choice_c": "Un point d'entrée unique pour les clients externes, qui reçoit toutes les requêtes entrantes et les route vers le microservice interne approprié, tout en pouvant centraliser des préoccupations transverses comme l'authentification, le rate limiting ou la journalisation",
         "choice_d": "Un service qui stocke une copie de secours de toutes les bases de données de l'architecture",
         "correct_choice": "D",
-        "explanation": "Sans API Gateway, chaque client devrait connaître individuellement l'adresse de chaque microservice et dupliquer sa propre logique d'authentification ou de limitation de débit — le gateway centralise ces responsabilités communes en un seul point, simplifiant l'intégration côté client."
+        "explanation": "Sans API Gateway, chaque client devrait connaître individuellement l'adresse de chaque microservice et dupliquer sa propre logique d'authentification ou de limitation de débit  le gateway centralise ces responsabilités communes en un seul point, simplifiant l'intégration côté client."
       },
       {
         "question_text": "Qu'est-ce qu'une architecture pilotée par les événements (event-driven architecture) ?",
@@ -4024,7 +4026,7 @@
         "choice_c": "Un mécanisme qui empêche définitivement deux services de communiquer entre eux",
         "choice_d": "Un outil qui mesure uniquement la latence réseau entre deux services",
         "correct_choice": "B",
-        "explanation": "Après un certain temps, le circuit breaker teste périodiquement si le service défaillant a récupéré (état 'demi-ouvert') avant de reprendre un trafic normal complet — ce pattern protège le système appelant de perdre du temps (et des ressources) à attendre des réponses d'un service qui ne répondra probablement pas."
+        "explanation": "Après un certain temps, le circuit breaker teste périodiquement si le service défaillant a récupéré (état 'demi-ouvert') avant de reprendre un trafic normal complet  ce pattern protège le système appelant de perdre du temps (et des ressources) à attendre des réponses d'un service qui ne répondra probablement pas."
       },
       {
         "question_text": "À quoi sert le rate limiting (limitation de débit) dans une API ?",
@@ -4033,7 +4035,7 @@
         "choice_c": "À chiffrer automatiquement chaque requête entrante",
         "choice_d": "À convertir automatiquement une requête HTTP en requête HTTPS",
         "correct_choice": "C",
-        "explanation": "Quand la limite est dépassée, l'API renvoie généralement un code d'erreur HTTP 429 (Too Many Requests), souvent accompagné d'une indication du délai à attendre avant de pouvoir réessayer — un mécanisme déjà présent dans ce projet quizz-estv lui-même, pour limiter les tentatives de connexion admin."
+        "explanation": "Quand la limite est dépassée, l'API renvoie généralement un code d'erreur HTTP 429 (Too Many Requests), souvent accompagné d'une indication du délai à attendre avant de pouvoir réessayer  un mécanisme déjà présent dans ce projet quizz-estv lui-même, pour limiter les tentatives de connexion admin."
       },
       {
         "question_text": "Pourquoi la propriété de 'statelessness' (absence d'état) est-elle recherchée pour un service destiné à être mis à l'échelle horizontalement ?",
@@ -4060,7 +4062,7 @@
         "choice_c": "Un mécanisme qui détecte automatiquement les failles de sécurité d'un service",
         "choice_d": "Un processus manuel où chaque développeur doit renseigner lui-même l'adresse IP de chaque service dans un fichier de configuration",
         "correct_choice": "A",
-        "explanation": "Sans service discovery, chaque service devrait connaître à l'avance l'adresse IP exacte et fixe de tous les autres services qu'il appelle — une contrainte peu compatible avec des environnements modernes où les instances sont créées et détruites dynamiquement en fonction de la charge."
+        "explanation": "Sans service discovery, chaque service devrait connaître à l'avance l'adresse IP exacte et fixe de tous les autres services qu'il appelle  une contrainte peu compatible avec des environnements modernes où les instances sont créées et détruites dynamiquement en fonction de la charge."
       },
       {
         "question_text": "Qu'est-ce qu'un déploiement blue-green (blue-green deployment) ?",
@@ -4087,12 +4089,12 @@
         "choice_c": "Le nom donné au premier serveur déployé dans une architecture distribuée",
         "choice_d": "Une erreur qui ne peut survenir que dans les systèmes utilisant une seule base de données",
         "correct_choice": "A",
-        "explanation": "Un exemple classique de SPOF est un unique serveur de base de données sans réplique : si ce serveur tombe, toute l'application devient indisponible, quelle que soit la robustesse du reste de l'infrastructure — d'où l'intérêt de la réplication et de mécanismes de basculement automatique (failover)."
+        "explanation": "Un exemple classique de SPOF est un unique serveur de base de données sans réplique : si ce serveur tombe, toute l'application devient indisponible, quelle que soit la robustesse du reste de l'infrastructure  d'où l'intérêt de la réplication et de mécanismes de basculement automatique (failover)."
       },
       {
         "question_text": "Quels sont les trois piliers classiques de l'observabilité d'un système en production ?",
         "choice_a": "Le frontend, le backend et la base de données",
-        "choice_b": "Les logs (journaux d'événements détaillés), les métriques (mesures numériques agrégées dans le temps, ex: temps de réponse moyen) et les traces (suivi du parcours complet d'une requête à travers plusieurs services) — ensemble, ils permettent de comprendre en détail le comportement réel d'un système et de diagnostiquer les problèmes en production",
+        "choice_b": "Les logs (journaux d'événements détaillés), les métriques (mesures numériques agrégées dans le temps, ex: temps de réponse moyen) et les traces (suivi du parcours complet d'une requête à travers plusieurs services)  ensemble, ils permettent de comprendre en détail le comportement réel d'un système et de diagnostiquer les problèmes en production",
         "choice_c": "Le CPU, la RAM et le stockage disque",
         "choice_d": "Le développement, les tests et le déploiement",
         "correct_choice": "C",
@@ -4102,10 +4104,10 @@
         "question_text": "Qu'est-ce que le backpressure (contre-pression) dans un système distribué ?",
         "choice_a": "Une technique de chiffrement appliquée spécifiquement aux flux de données en temps réel",
         "choice_b": "Un type de panne matérielle qui affecte exclusivement les disques durs",
-        "choice_c": "Un mécanisme par lequel un système submergé de requêtes ralentit délibérément, met en attente, ou refuse activement de nouvelles requêtes plutôt que de continuer à en accepter indéfiniment jusqu'à s'effondrer complètement sous la charge — signalant ainsi en amont (aux producteurs de requêtes) de ralentir leur propre débit",
+        "choice_c": "Un mécanisme par lequel un système submergé de requêtes ralentit délibérément, met en attente, ou refuse activement de nouvelles requêtes plutôt que de continuer à en accepter indéfiniment jusqu'à s'effondrer complètement sous la charge  signalant ainsi en amont (aux producteurs de requêtes) de ralentir leur propre débit",
         "choice_d": "Un mécanisme de sécurité physique qui protège les serveurs contre les surtensions électriques",
         "correct_choice": "D",
-        "explanation": "Sans backpressure, un système submergé continue d'accepter des requêtes qu'il ne peut pas traiter à temps, accumulant une file d'attente toujours plus longue jusqu'à épuiser sa mémoire ou devenir totalement inutilisable — le backpressure préfère dégrader le service de façon contrôlée (refuser certaines requêtes) plutôt que de s'effondrer entièrement."
+        "explanation": "Sans backpressure, un système submergé continue d'accepter des requêtes qu'il ne peut pas traiter à temps, accumulant une file d'attente toujours plus longue jusqu'à épuiser sa mémoire ou devenir totalement inutilisable  le backpressure préfère dégrader le service de façon contrôlée (refuser certaines requêtes) plutôt que de s'effondrer entièrement."
       },
       {
         "question_text": "Quelle est la différence entre le couplage (coupling) et la cohésion (cohesion) en conception logicielle ?",
@@ -4114,7 +4116,7 @@
         "choice_c": "Un couplage fort et une cohésion faible sont toujours l'objectif recherché dans une bonne architecture",
         "choice_d": "Le couplage mesure l'interdépendance entre modules (on vise faible) ; la cohésion, la concentration d'un module sur une responsabilité (on vise forte)",
         "correct_choice": "D",
-        "explanation": "L'objectif classique en conception logicielle est de viser un couplage faible entre modules (les modifier indépendamment sans effet de bord ailleurs) combiné à une forte cohésion à l'intérieur de chaque module (chaque module fait bien une seule chose clairement définie) — c'est exactement ce que visent des principes comme la séparation des responsabilités."
+        "explanation": "L'objectif classique en conception logicielle est de viser un couplage faible entre modules (les modifier indépendamment sans effet de bord ailleurs) combiné à une forte cohésion à l'intérieur de chaque module (chaque module fait bien une seule chose clairement définie)  c'est exactement ce que visent des principes comme la séparation des responsabilités."
       }
     ]
   },
@@ -4255,7 +4257,7 @@
         "choice_c": "Un mécanisme qui supprime définitivement un type d'une union, de façon permanente dans tout le fichier",
         "choice_d": "Une fonctionnalité qui ne s'applique qu'aux tableaux, jamais aux types primitifs",
         "correct_choice": "A",
-        "explanation": "Sans ce mécanisme, TypeScript refuserait d'appeler une méthode spécifique à `string` (comme `.toUpperCase()`) sur une variable de type `string | number`, car cette méthode n'existe pas sur `number` — le type narrowing permet au compilateur de savoir, à l'intérieur du bloc conditionnel, quel type précis est réellement garanti."
+        "explanation": "Sans ce mécanisme, TypeScript refuserait d'appeler une méthode spécifique à `string` (comme `.toUpperCase()`) sur une variable de type `string | number`, car cette méthode n'existe pas sur `number`  le type narrowing permet au compilateur de savoir, à l'intérieur du bloc conditionnel, quel type précis est réellement garanti."
       },
       {
         "question_text": "Que fait la déstructuration (destructuring) en JavaScript, par exemple `const { nom, age } = utilisateur;` ?",
@@ -4273,7 +4275,7 @@
         "choice_c": "Il déploie (étale) les éléments de chaque tableau individuellement dans un nouveau tableau, permettant par exemple de combiner facilement deux tableaux en un seul, ou de créer une copie superficielle (shallow copy) d'un tableau existant sans le modifier",
         "choice_d": "Il supprime les éléments dupliqués entre les deux tableaux avant de les combiner",
         "correct_choice": "D",
-        "explanation": "Ce même opérateur, utilisé sous forme 'rest' dans la déclaration d'une fonction (ex: `function f(...args)`), collecte à l'inverse un nombre variable d'arguments dans un seul tableau — le symbole `...` a donc un rôle différent (mais lié) selon le contexte où il est utilisé."
+        "explanation": "Ce même opérateur, utilisé sous forme 'rest' dans la déclaration d'une fonction (ex: `function f(...args)`), collecte à l'inverse un nombre variable d'arguments dans un seul tableau  le symbole `...` a donc un rôle différent (mais lié) selon le contexte où il est utilisé."
       },
       {
         "question_text": "Pourquoi une Promise résolue s'exécute-t-elle avant un `setTimeout(fn, 0)`, même si les deux sont ajoutés au même moment ?",
@@ -4282,7 +4284,7 @@
         "choice_c": "Parce que les Promises s'exécutent dans un thread séparé, contrairement à setTimeout",
         "choice_d": "Ce comportement est en réalité aléatoire et dépend uniquement du moteur JavaScript utilisé",
         "correct_choice": "B",
-        "explanation": "Cette priorité stricte donnée aux microtasks explique pourquoi, dans du code mêlant Promises et setTimeout, les callbacks des Promises s'exécutent systématiquement avant ceux des timers, même à délai nul — un détail important pour raisonner correctement sur l'ordre d'exécution du code asynchrone JavaScript."
+        "explanation": "Cette priorité stricte donnée aux microtasks explique pourquoi, dans du code mêlant Promises et setTimeout, les callbacks des Promises s'exécutent systématiquement avant ceux des timers, même à délai nul  un détail important pour raisonner correctement sur l'ordre d'exécution du code asynchrone JavaScript."
       },
       {
         "question_text": "`const utilisateur = { nom: 'Alice' };` rend-il l'objet `utilisateur` totalement immuable en JavaScript ?",
@@ -4291,7 +4293,7 @@
         "choice_c": "Non, const n'a en réalité aucun effet réel sur le comportement du code JavaScript",
         "choice_d": "Non, const empêche seulement la réassignation de la variable ; les propriétés internes restent modifiables",
         "correct_choice": "D",
-        "explanation": "Cette confusion fréquente vient du fait que `const` ne fige que le lien entre le nom de variable et la référence qu'il pointe, pas le contenu de ce que cette référence désigne — pour une immutabilité réelle et profonde d'un objet, il faut des outils dédiés comme `Object.freeze()` (superficiel) ou des bibliothèques spécialisées (immutabilité profonde)."
+        "explanation": "Cette confusion fréquente vient du fait que `const` ne fige que le lien entre le nom de variable et la référence qu'il pointe, pas le contenu de ce que cette référence désigne  pour une immutabilité réelle et profonde d'un objet, il faut des outils dédiés comme `Object.freeze()` (superficiel) ou des bibliothèques spécialisées (immutabilité profonde)."
       },
       {
         "question_text": "Qu'est-ce que le typage structurel (structural typing) de TypeScript, par opposition au typage nominal ?",
@@ -4300,7 +4302,7 @@
         "choice_c": "TypeScript considère deux types compatibles s'ils ont la même forme, peu importe leur nom déclaré",
         "choice_d": "TypeScript interdit à deux objets de types différents d'être jamais compatibles entre eux",
         "correct_choice": "C",
-        "explanation": "Concrètement, cela signifie qu'un objet littéral `{ x: 1, y: 2 }` peut être accepté partout où un type `Point { x: number; y: number }` est attendu, même sans jamais avoir explicitement déclaré cet objet comme étant de type `Point` — c'est exactement le même esprit que le duck typing de Python, mais vérifié statiquement à la compilation plutôt qu'à l'exécution."
+        "explanation": "Concrètement, cela signifie qu'un objet littéral `{ x: 1, y: 2 }` peut être accepté partout où un type `Point { x: number; y: number }` est attendu, même sans jamais avoir explicitement déclaré cet objet comme étant de type `Point`  c'est exactement le même esprit que le duck typing de Python, mais vérifié statiquement à la compilation plutôt qu'à l'exécution."
       }
     ]
   },
@@ -4315,7 +4317,7 @@
         "choice_c": "`git rebase` ne peut être utilisé que sur la branche `main`, jamais sur une branche secondaire",
         "choice_d": "`git merge` supprime définitivement la branche fusionnée, `git rebase` la conserve",
         "correct_choice": "A",
-        "explanation": "Le rebase produit un historique plus propre et linéaire, mais réécrit les hash des commits — une règle d'or est de ne jamais rebaser une branche déjà partagée/poussée sur laquelle d'autres personnes travaillent, sous peine de complications lors de la synchronisation."
+        "explanation": "Le rebase produit un historique plus propre et linéaire, mais réécrit les hash des commits  une règle d'or est de ne jamais rebaser une branche déjà partagée/poussée sur laquelle d'autres personnes travaillent, sous peine de complications lors de la synchronisation."
       },
       {
         "question_text": "À quoi sert la commande `git cherry-pick` ?",
@@ -4459,7 +4461,7 @@
         "choice_c": "Forker un dépôt le supprime définitivement du compte de son propriétaire d'origine",
         "choice_d": "Cloner un dépôt nécessite obligatoirement d'avoir préalablement forké ce même dépôt",
         "correct_choice": "A",
-        "explanation": "On clone généralement son propre fork localement pour y travailler (via `git clone`), puis on pousse les changements vers ce fork distant avant de proposer une pull request vers le dépôt original — le fork et le clone interviennent donc à deux niveaux différents (distant vs local) et sont souvent utilisés ensemble."
+        "explanation": "On clone généralement son propre fork localement pour y travailler (via `git clone`), puis on pousse les changements vers ce fork distant avant de proposer une pull request vers le dépôt original  le fork et le clone interviennent donc à deux niveaux différents (distant vs local) et sont souvent utilisés ensemble."
       },
       {
         "question_text": "Qu'est-ce qu'un submodule git ?",
@@ -4537,7 +4539,7 @@
         "choice_c": "Elle se contente de recompter le nombre de tokens produits par le lexer",
         "choice_d": "Elle mesure le temps que prendra le programme à s'exécuter une fois compilé",
         "correct_choice": "A",
-        "explanation": "Un programme peut être parfaitement correct du point de vue de la syntaxe (bien formé grammaticalement) tout en étant sémantiquement invalide, par exemple en utilisant une variable qui n'a jamais été déclarée — c'est justement ce type d'erreur que l'analyse sémantique est chargée de détecter."
+        "explanation": "Un programme peut être parfaitement correct du point de vue de la syntaxe (bien formé grammaticalement) tout en étant sémantiquement invalide, par exemple en utilisant une variable qui n'a jamais été déclarée  c'est justement ce type d'erreur que l'analyse sémantique est chargée de détecter."
       },
       {
         "question_text": "Quelle est la différence fondamentale entre compilation et interprétation d'un langage de programmation ?",
@@ -4582,7 +4584,7 @@
         "choice_c": "Réduire délibérément la taille du code source original, quitte à en changer le sens",
         "choice_d": "Ajouter automatiquement des commentaires explicatifs à chaque ligne du programme",
         "correct_choice": "B",
-        "explanation": "Ces optimisations opèrent généralement sur la représentation intermédiaire du programme et incluent des techniques comme l'élimination de code mort (jamais exécuté), la propagation de constantes, ou l'inlining de petites fonctions — toujours sous la contrainte stricte de ne jamais changer le résultat observable du programme."
+        "explanation": "Ces optimisations opèrent généralement sur la représentation intermédiaire du programme et incluent des techniques comme l'élimination de code mort (jamais exécuté), la propagation de constantes, ou l'inlining de petites fonctions  toujours sous la contrainte stricte de ne jamais changer le résultat observable du programme."
       },
       {
         "question_text": "À quoi sert un linker (éditeur de liens) après la compilation ?",
@@ -4618,7 +4620,7 @@
         "choice_c": "Un guide de style recommandant une convention de nommage des variables",
         "choice_d": "Un document purement administratif décrivant la licence d'utilisation du langage",
         "correct_choice": "B",
-        "explanation": "Ces règles s'expriment souvent sous une notation formelle comme BNF (Backus-Naur Form), qui décrit récursivement comment des constructions plus complexes (comme une expression) se composent de constructions plus simples (comme des nombres, des opérateurs) — c'est cette grammaire que le parser utilise pour savoir si une séquence de tokens est syntaxiquement acceptable."
+        "explanation": "Ces règles s'expriment souvent sous une notation formelle comme BNF (Backus-Naur Form), qui décrit récursivement comment des constructions plus complexes (comme une expression) se composent de constructions plus simples (comme des nombres, des opérateurs)  c'est cette grammaire que le parser utilise pour savoir si une séquence de tokens est syntaxiquement acceptable."
       },
       {
         "question_text": "Quelle est la différence entre un token et un lexème lors de l'analyse lexicale ?",
@@ -4723,7 +4725,7 @@
         "choice_c": "Un bind mount ne peut être utilisé qu'en lecture seule, jamais en écriture",
         "choice_d": "Un volume Docker disparaît systématiquement dès l'arrêt du conteneur qui l'utilise",
         "correct_choice": "A",
-        "explanation": "Sans volume ni bind mount, toutes les données écrites dans la couche inscriptible d'un conteneur disparaissent définitivement dès sa suppression — ces deux mécanismes permettent de faire persister des données (ex: le contenu d'une base de données) au-delà du cycle de vie d'un conteneur particulier."
+        "explanation": "Sans volume ni bind mount, toutes les données écrites dans la couche inscriptible d'un conteneur disparaissent définitivement dès sa suppression  ces deux mécanismes permettent de faire persister des données (ex: le contenu d'une base de données) au-delà du cycle de vie d'un conteneur particulier."
       },
       {
         "question_text": "Comment les conteneurs communiquent-ils entre eux par défaut, via le réseau bridge de Docker ?",
@@ -4777,7 +4779,7 @@
         "choice_c": "Une adresse stable pour accéder à un ensemble de pods, même si leurs IP changent constamment",
         "choice_d": "Un mécanisme qui supprime automatiquement tous les pods inutilisés d'un namespace",
         "correct_choice": "C",
-        "explanation": "Sans cette couche d'abstraction, un client devrait constamment connaître et mettre à jour l'adresse IP exacte de chaque pod individuel, ce qui serait intenable étant donné leur cycle de vie éphémère — le Service redirige le trafic vers un pod sain disponible, quel que soit celui qui répond réellement à un instant donné."
+        "explanation": "Sans cette couche d'abstraction, un client devrait constamment connaître et mettre à jour l'adresse IP exacte de chaque pod individuel, ce qui serait intenable étant donné leur cycle de vie éphémère  le Service redirige le trafic vers un pod sain disponible, quel que soit celui qui répond réellement à un instant donné."
       },
       {
         "question_text": "Qu'est-ce qu'un namespace dans Kubernetes ?",
@@ -5095,7 +5097,7 @@
         "choice_c": "Une intelligence artificielle qui négocie automatiquement les termes d'un contrat entre deux humains",
         "choice_d": "Un accord commercial qui ne peut être conclu qu'entre deux entreprises, jamais entre particuliers",
         "correct_choice": "A",
-        "explanation": "Une fois déployé sur la blockchain, le code d'un smart contract devient généralement immuable et son exécution transparente et vérifiable par n'importe qui — c'est cette caractéristique qui a rendu possible tout l'écosystème de la finance décentralisée (DeFi), construit sur des smart contracts automatisant des opérations financières sans intermédiaire."
+        "explanation": "Une fois déployé sur la blockchain, le code d'un smart contract devient généralement immuable et son exécution transparente et vérifiable par n'importe qui  c'est cette caractéristique qui a rendu possible tout l'écosystème de la finance décentralisée (DeFi), construit sur des smart contracts automatisant des opérations financières sans intermédiaire."
       },
       {
         "question_text": "Comment fonctionne, en principe, un portefeuille (wallet) de cryptomonnaie, via la cryptographie asymétrique ?",
@@ -5158,7 +5160,7 @@
         "choice_c": "Un synonyme exact et strict d'un simple portefeuille de cryptomonnaie personnel",
         "choice_d": "Des services financiers reconstruits sur une blockchain via des smart contracts, sans intermédiaire centralisé",
         "correct_choice": "D",
-        "explanation": "L'idée centrale de la DeFi est de reproduire (et parfois de réinventer) les fonctions d'un système financier classique, mais de façon automatisée, transparente et sans intermédiaire de confiance centralisé — au prix, en contrepartie, de nouveaux risques spécifiques (bugs dans les smart contracts, absence de régulation ou de recours classique en cas de problème)."
+        "explanation": "L'idée centrale de la DeFi est de reproduire (et parfois de réinventer) les fonctions d'un système financier classique, mais de façon automatisée, transparente et sans intermédiaire de confiance centralisé  au prix, en contrepartie, de nouveaux risques spécifiques (bugs dans les smart contracts, absence de régulation ou de recours classique en cas de problème)."
       },
       {
         "question_text": "Qu'est-ce qu'une DAO (Decentralized Autonomous Organization, organisation autonome décentralisée) ?",
@@ -5194,7 +5196,7 @@
         "choice_c": "Un terme qui ne désigne que le tout premier ordinateur ayant rejoint historiquement le réseau",
         "choice_d": "Un ordinateur du réseau qui maintient une copie du registre et peut valider des transactions",
         "correct_choice": "D",
-        "explanation": "Plus un réseau blockchain compte de nœuds indépendants répartis largement, plus il devient robuste et résistant à la censure ou à une prise de contrôle par un acteur unique — c'est un facteur clé (avec la répartition de la puissance de calcul ou de la mise en jeu) du degré réel de décentralisation d'un réseau donné."
+        "explanation": "Plus un réseau blockchain compte de nœuds indépendants répartis largement, plus il devient robuste et résistant à la censure ou à une prise de contrôle par un acteur unique  c'est un facteur clé (avec la répartition de la puissance de calcul ou de la mise en jeu) du degré réel de décentralisation d'un réseau donné."
       },
       {
         "question_text": "Qu'est-ce que l'attaque dite des '51%' sur une blockchain basée sur la Preuve de Travail ?",

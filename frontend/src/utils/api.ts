@@ -76,6 +76,7 @@ export interface QuestionInput {
   choice_d: string;
   correct_choice: 'A' | 'B' | 'C' | 'D';
   explanation?: string | null;
+  diagram_svg?: string | null;
 }
 
 export const questionsApi = {

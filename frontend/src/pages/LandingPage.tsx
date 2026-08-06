@@ -19,7 +19,6 @@ export function LandingPage() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 mb-2">Quizz</h1>
-        <p className="text-neutral-600">Choisis une catégorie pour tester tes connaissances.</p>
       </div>
 
       {loading && <p className="text-neutral-500">Chargement...</p>}

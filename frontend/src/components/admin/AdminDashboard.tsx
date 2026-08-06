@@ -199,7 +199,7 @@ export function AdminDashboard() {
         <div className="md:col-span-2">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold text-neutral-500 uppercase tracking-wider">
-              Questions {selectedCategory ? `— ${selectedCategory.name}` : ''}
+              Questions {selectedCategory ? ` ${selectedCategory.name}` : ''}
             </h2>
             {selectedCategory && (
               <button
