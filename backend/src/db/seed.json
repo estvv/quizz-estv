@@ -1477,6 +1477,132 @@
         "choice_d": "Un algorithme de tri de données",
         "correct_choice": "C",
         "explanation": "Le deep learning est un sous-ensemble du machine learning, qui est lui-même un sous-ensemble de l'IA : DL ⊂ ML ⊂ IA."
+      },
+      {
+        "question_text": "Qu'est-ce que le test de Turing, proposé par Alan Turing ?",
+        "choice_a": "Un test dans lequel un humain évaluateur converse à l'aveugle avec un humain et une machine, sans savoir lequel est lequel ; si l'évaluateur ne parvient pas à distinguer de façon fiable la machine de l'humain à partir de leurs seules réponses textuelles, la machine est considérée comme ayant réussi le test — une façon opérationnelle et comportementale d'évaluer 'l'intelligence' d'une machine, sans définir précisément ce qu'est la pensée elle-même",
+        "choice_b": "Un test qui mesure uniquement la vitesse de calcul brute d'un processeur",
+        "choice_c": "Un protocole de sécurité qui vérifie qu'un utilisateur est bien un humain avant de le laisser accéder à un site",
+        "choice_d": "Un algorithme utilisé pour évaluer la précision d'un modèle de classification d'images",
+        "correct_choice": "A",
+        "explanation": "Le test de Turing reste un critère comportemental et non une définition rigoureuse de l'intelligence : de nombreux critiques soulignent qu'un système pourrait le réussir en imitant habilement la conversation humaine sans posséder de compréhension ou de raisonnement réel sous-jacent."
+      },
+      {
+        "question_text": "Qu'est-ce que la singularité technologique, concept parfois évoqué en lien avec l'IA ?",
+        "choice_a": "Un terme technique désignant le moment précis où un modèle atteint 100% de précision sur un benchmark",
+        "choice_b": "Un point hypothétique futur où une IA deviendrait capable de s'améliorer elle-même de façon récursive et de plus en plus rapide, dépassant potentiellement l'intelligence humaine de manière si rapide et profonde que ses conséquences deviendraient difficiles, voire impossibles, à prévoir pour l'humanité",
+        "choice_c": "Un synonyme exact et strict de l'IA générative, sans lien avec une quelconque notion de dépassement",
+        "choice_d": "Une erreur mathématique qui survient lorsqu'on divise par zéro dans un calcul de gradient",
+        "correct_choice": "B",
+        "explanation": "Ce concept reste hautement spéculatif et débattu : il n'existe aucun consensus scientifique sur sa plausibilité, son calendrier éventuel, ni même sur la possibilité réelle qu'une IA s'améliore elle-même de façon aussi rapide et incontrôlée que le scénario le décrit."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un agent intelligent, au sens général de l'intelligence artificielle ?",
+        "choice_a": "Un terme réservé exclusivement aux robots physiques dotés d'un corps mécanique",
+        "choice_b": "Un synonyme technique et strict d'un réseau de neurones profond, sans autre nuance",
+        "choice_c": "Une entité qui perçoit son environnement à travers des capteurs (ou des entrées de données) et agit sur cet environnement à travers des actionneurs (ou des sorties), dans le but d'atteindre un ou plusieurs objectifs définis — une définition suffisamment large pour englober aussi bien un thermostat simple qu'un agent RL sophistiqué ou un assistant conversationnel basé sur un LLM",
+        "choice_d": "Une entité qui ne peut agir que si elle possède une conscience au sens philosophique du terme",
+        "correct_choice": "C",
+        "explanation": "Cette définition très générale ('perçoit et agit pour atteindre un objectif') est volontairement large en IA : elle permet de raisonner sur un vaste spectre de systèmes, des plus simples et réactifs aux plus complexes, sous un même cadre conceptuel commun."
+      },
+      {
+        "question_text": "Qu'est-ce que l'alignement de l'IA (AI alignment) ?",
+        "choice_a": "Une technique purement matérielle qui aligne physiquement les GPU dans un centre de données",
+        "choice_b": "Un synonyme exact de l'optimisation des hyperparamètres d'un modèle",
+        "choice_c": "Un processus qui garantit uniquement que le code source d'un modèle compile sans erreur",
+        "choice_d": "Le champ de recherche et l'ensemble de techniques visant à garantir que les objectifs et les comportements réels d'un système d'IA correspondent bien aux intentions et aux valeurs humaines voulues — un système peut techniquement bien optimiser l'objectif qu'on lui a donné tout en produisant des effets non désirés si cet objectif était mal spécifié ou incomplet",
+        "correct_choice": "D",
+        "explanation": "Le RLHF (déjà couvert dans la catégorie LLMs) est un exemple concret de technique d'alignement : elle cherche à faire en sorte qu'un LLM génère des réponses jugées utiles et sûres par des évaluateurs humains, plutôt que de simplement optimiser un objectif statistique brut sans lien avec les préférences humaines réelles."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un système expert, exemple classique d'IA symbolique ?",
+        "choice_a": "Un système d'IA qui encode explicitement les connaissances et le raisonnement d'experts humains d'un domaine précis sous forme de règles logiques (souvent du type 'si... alors...'), puis applique ces règles pour répondre à des questions ou prendre des décisions dans ce domaine, sans passer par un apprentissage statistique à partir de données",
+        "choice_b": "Un système qui apprend automatiquement ses propres règles à partir de millions d'exemples de données",
+        "choice_c": "Un synonyme exact et strict d'un réseau de neurones profond entraîné par descente de gradient",
+        "choice_d": "Un algorithme qui ne peut fonctionner qu'en étant connecté en permanence à Internet",
+        "correct_choice": "A",
+        "explanation": "Les systèmes experts ont dominé l'IA symbolique dans les années 1980, avant que les approches d'apprentissage automatique (statistiques, puis profondes) ne deviennent dominantes : leur principale limite était le coût et la difficulté d'encoder manuellement des connaissances exhaustives et cohérentes pour des domaines complexes."
+      },
+      {
+        "question_text": "Quelle est la relation hiérarchique entre Intelligence Artificielle, Machine Learning et Deep Learning ?",
+        "choice_a": "Ce sont trois termes strictement synonymes, utilisés de façon interchangeable sans nuance",
+        "choice_b": "L'IA est le domaine le plus large, englobant toute technique visant à simuler un comportement intelligent (y compris des approches symboliques sans apprentissage) ; le Machine Learning est un sous-ensemble de l'IA regroupant les techniques qui apprennent automatiquement à partir de données plutôt que d'être programmées explicitement ; le Deep Learning est lui-même un sous-ensemble du Machine Learning, spécifiquement basé sur des réseaux de neurones à plusieurs couches",
+        "choice_c": "Le Deep Learning englobe le Machine Learning, qui englobe lui-même l'Intelligence Artificielle",
+        "choice_d": "Le Machine Learning et le Deep Learning sont deux domaines totalement indépendants et sans lien avec l'IA",
+        "correct_choice": "B",
+        "explanation": "Cette hiérarchie en poupées russes (IA ⊃ ML ⊃ DL) permet de clarifier des confusions fréquentes : tout système de Deep Learning est un système de Machine Learning, mais tout système d'IA n'est pas nécessairement du Machine Learning (ex: un système expert symbolique reste de l'IA, mais pas du ML)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un système Turing-complet, et quel est le lien avec l'IA ?",
+        "choice_a": "Un synonyme exact d'un modèle d'IA ayant atteint des performances surhumaines",
+        "choice_b": "Un type de processeur spécialement conçu pour l'entraînement de réseaux de neurones",
+        "choice_c": "Un système de calcul capable de simuler n'importe quelle machine de Turing, c'est-à-dire théoriquement capable d'exécuter n'importe quel algorithme calculable, étant donné suffisamment de temps et de mémoire — un concept fondamental de la théorie du calcul, prérequis conceptuel pour comprendre les limites théoriques de ce que n'importe quel système informatique (y compris une IA) peut ou ne peut pas calculer",
+        "choice_d": "Un terme désignant uniquement les langages de programmation créés après l'an 2000",
+        "correct_choice": "C",
+        "explanation": "La plupart des langages de programmation généralistes (Python, C, Rust...) sont Turing-complets ; ce concept, issu des travaux fondateurs d'Alan Turing sur la calculabilité, est distinct de la question de savoir si un système fait preuve d'intelligence — Turing-complet concerne le calcul, pas la cognition."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une fonction objectif (objective function) en IA/ML, notion qui généralise celle de fonction de perte ?",
+        "choice_a": "Une fonction qui ne peut être utilisée que dans les algorithmes de tri classiques",
+        "choice_b": "Un synonyme exact et strict du taux d'apprentissage (learning rate)",
+        "choice_c": "Une fonction réservée exclusivement à l'évaluation finale d'un modèle, jamais utilisée pendant l'entraînement",
+        "choice_d": "La fonction générale que le système cherche à maximiser (ou à minimiser, selon la convention) pendant son fonctionnement ou son entraînement, définissant précisément ce que signifie 'bien faire' pour ce système — la fonction de perte utilisée en Deep Learning et la fonction de récompense utilisée en RL en sont deux exemples concrets, adaptés à des contextes différents",
+        "correct_choice": "D",
+        "explanation": "Bien définir la fonction objectif d'un système d'IA est une étape cruciale et parfois sous-estimée : un système optimisera fidèlement et efficacement ce qu'on lui demande de maximiser, même si cet objectif diverge subtilement de ce qu'on voulait réellement obtenir (un problème directement lié à l'alignement de l'IA)."
+      },
+      {
+        "question_text": "Qu'est-ce que le biais inductif (inductive bias) d'un modèle d'apprentissage automatique ?",
+        "choice_a": "L'ensemble des hypothèses intégrées, explicitement ou implicitement, dans l'architecture ou l'algorithme d'un modèle, qui le guident à privilégier certaines généralisations plutôt que d'autres face à des données qu'il n'a jamais vues — sans un tel biais, il serait impossible pour un modèle de généraliser du tout à partir d'un nombre fini d'exemples d'entraînement",
+        "choice_b": "Un défaut de conception qu'il faut toujours chercher à éliminer complètement d'un modèle",
+        "choice_c": "Un synonyme exact et strict du biais statistique mesuré dans le compromis biais-variance",
+        "choice_d": "Une technique qui consiste à favoriser délibérément certaines catégories de données sur d'autres, de façon injuste",
+        "correct_choice": "A",
+        "explanation": "Un exemple concret : l'architecture d'un CNN intègre le biais inductif que des motifs visuels locaux (comme un bord ou une texture) sont pertinents indépendamment de leur position exacte dans l'image (grâce au partage de poids des filtres convolutifs), ce qui le rend naturellement mieux adapté aux images qu'un réseau totalement dense sans cette hypothèse structurelle."
+      },
+      {
+        "question_text": "Comment le rasoir d'Ockham (Occam's razor) s'applique-t-il en apprentissage automatique ?",
+        "choice_a": "Un principe qui impose de toujours choisir le modèle le plus complexe disponible, quelle que soit la tâche",
+        "choice_b": "Le principe selon lequel, entre deux modèles expliquant les données d'entraînement de façon comparable, le modèle le plus simple (avec le moins d'hypothèses ou de paramètres inutiles) est généralement préférable, car il a statistiquement plus de chances de bien généraliser à de nouvelles données plutôt que d'avoir simplement mémorisé le bruit spécifique des données d'entraînement",
+        "choice_c": "Une règle stricte qui interdit catégoriquement l'utilisation de réseaux de neurones profonds",
+        "choice_d": "Un algorithme spécifique de sélection automatique des hyperparamètres d'un modèle",
+        "correct_choice": "B",
+        "explanation": "Ce principe philosophique bien plus ancien que l'IA moderne (attribué au moine franciscain Guillaume d'Ockham) motive directement des techniques concrètes de ML comme la régularisation, qui pénalise explicitement la complexité excessive d'un modèle pour favoriser des solutions plus simples et plus généralisables."
+      },
+      {
+        "question_text": "Que dit, en substance, le 'No Free Lunch theorem' appliqué à l'apprentissage automatique ?",
+        "choice_a": "Qu'un modèle d'IA gratuit est toujours moins performant qu'un modèle payant équivalent",
+        "choice_b": "Que tout entraînement de modèle nécessite obligatoirement des données payantes de haute qualité",
+        "choice_c": "Qu'aucun algorithme d'apprentissage n'est universellement meilleur que tous les autres pour l'ensemble de tous les problèmes possibles : un algorithme performant sur une certaine famille de problèmes sera nécessairement moins performant sur d'autres, en moyenne sur l'ensemble de tous les problèmes envisageables — ce qui justifie pourquoi il n'existe pas un unique 'meilleur' algorithme de ML à utiliser systématiquement, quel que soit le contexte",
+        "choice_d": "Qu'un modèle ne peut jamais être évalué sans un budget de calcul (compute) illimité",
+        "correct_choice": "C",
+        "explanation": "Ce théorème justifie théoriquement pourquoi le choix de l'algorithme (régression, arbre de décision, réseau de neurones...) doit dépendre du problème spécifique à résoudre et des hypothèses raisonnables sur la structure de ses données, plutôt que de chercher un algorithme universellement optimal qui n'existe pas."
+      },
+      {
+        "question_text": "Qu'est-ce que l'espace des états (state space) en intelligence artificielle, notamment en IA symbolique classique ?",
+        "choice_a": "Un synonyme exact et strict de la mémoire vive (RAM) utilisée par le programme d'IA",
+        "choice_b": "Un terme qui ne s'applique qu'aux réseaux de neurones profonds, jamais à l'IA symbolique",
+        "choice_c": "Le nombre total de paramètres entraînables contenus dans un modèle donné",
+        "choice_d": "L'ensemble de toutes les configurations (états) possibles qu'un problème peut prendre, ainsi que les actions ou transitions permettant de passer d'un état à un autre ; résoudre un problème d'IA symbolique classique (ex: un jeu de taquin, un puzzle) revient souvent à chercher un chemin dans cet espace des états, depuis un état initial jusqu'à un état objectif",
+        "correct_choice": "D",
+        "explanation": "Des algorithmes de recherche classiques (comme la recherche en largeur/profondeur déjà vus en algorithmique, ou des variantes plus sophistiquées comme A*) explorent cet espace des états pour trouver une solution, un paradigme fondateur de l'IA symbolique bien antérieur à l'essor du Machine Learning statistique."
+      },
+      {
+        "question_text": "Quelle est la différence entre une approche 'data-centric' et une approche 'model-centric' en IA ?",
+        "choice_a": "Une approche data-centric privilégie l'amélioration systématique de la qualité, de la cohérence et de la pertinence des données d'entraînement (en gardant l'architecture du modèle relativement fixe), alors qu'une approche model-centric privilégie plutôt l'amélioration de l'architecture ou des hyperparamètres du modèle lui-même (en gardant le jeu de données relativement fixe) pour améliorer les performances globales",
+        "choice_b": "Ce sont deux termes strictement synonymes désignant exactement la même démarche",
+        "choice_c": "L'approche data-centric interdit catégoriquement toute modification ultérieure du modèle",
+        "choice_d": "L'approche model-centric ne peut être appliquée qu'à des modèles de moins de 1000 paramètres",
+        "correct_choice": "A",
+        "explanation": "Ces dernières années ont vu un intérêt croissant pour les approches data-centric : de nombreuses équipes constatent qu'améliorer la qualité et la cohérence d'un jeu de données existant (ex: corriger des labels erronés) peut souvent apporter un gain de performance plus important et moins coûteux que de continuer à complexifier l'architecture d'un modèle déjà performant."
+      },
+      {
+        "question_text": "Quelle est la différence entre le traitement du signal (ou un algorithme classique déterministe) et l'intelligence artificielle par apprentissage ?",
+        "choice_a": "Ce sont deux approches strictement identiques, seul le nom marketing utilisé diffère",
+        "choice_b": "Un algorithme classique/de traitement du signal applique des règles et des transformations explicitement programmées par un humain, de façon déterministe et fixe (le même code produit toujours la même règle de décision) ; un système d'IA par apprentissage ajuste automatiquement son propre comportement (ses paramètres internes) à partir de données d'exemples, sans que la logique de décision précise ne soit explicitement écrite ligne par ligne par un développeur",
+        "choice_c": "Un algorithme classique nécessite toujours plus de puissance de calcul qu'un système d'IA par apprentissage",
+        "choice_d": "L'intelligence artificielle par apprentissage ne peut jamais être appliquée à des données numériques classiques",
+        "correct_choice": "B",
+        "explanation": "Cette distinction explique pourquoi un même problème (ex: détecter un contour dans une image) peut être résolu soit par un algorithme classique explicite (ex: un filtre de détection de bords programmé à la main), soit par un modèle d'apprentissage (ex: un CNN) qui découvre lui-même, à partir d'exemples, quelles caractéristiques sont pertinentes pour la tâche."
       }
     ],
     "parent": "IA"
@@ -1610,6 +1736,24 @@
         "choice_d": "Le SGD n'est utilisable qu'avec des réseaux convolutifs (CNN)",
         "correct_choice": "A",
         "explanation": "En pratique, le mini-batch domine car il offre un bon compromis entre la stabilité du gradient (calculé sur plusieurs exemples) et la vitesse/le bruit utile pour échapper aux minima locaux (comme le SGD), tout en exploitant le calcul parallèle des GPU."
+      },
+      {
+        "question_text": "Comment fonctionne un Graph Neural Network (GNN) ?",
+        "choice_a": "Il traite exclusivement des images en les découpant en une grille de pixels, comme un CNN",
+        "choice_b": "Il opère directement sur des données structurées sous forme de graphe (nœuds reliés par des arêtes, ex: un réseau social, une molécule), en propageant et en agrégeant itérativement l'information entre chaque nœud et ses voisins directs, pour apprendre des représentations qui tiennent compte à la fois des caractéristiques d'un nœud et de sa position dans la structure globale du graphe",
+        "choice_c": "Il ne peut traiter que des séquences de texte, comme un RNN",
+        "choice_d": "Il génère des graphiques (visualisations) à partir des résultats d'un autre modèle déjà entraîné",
+        "correct_choice": "B",
+        "explanation": "Contrairement à un CNN (qui exploite la structure en grille régulière d'une image) ou un RNN/Transformer (qui exploitent l'ordre séquentiel d'un texte), un GNN est conçu pour des données dont la structure est intrinsèquement irrégulière et relationnelle (réseaux sociaux, molécules, cartes routières, graphes de connaissances) — chaque nœud met à jour sa représentation en fonction des messages reçus de ses voisins, un mécanisme souvent appelé 'message passing'."
+      },
+      {
+        "question_text": "Pourquoi les Transformers ont-ils besoin d'un encodage positionnel (positional encoding) ?",
+        "choice_a": "Pour réduire le nombre total de paramètres entraînables du modèle",
+        "choice_b": "Pour compresser les embeddings avant de les passer aux couches d'attention",
+        "choice_c": "Parce que le mécanisme d'attention lui-même traite tous les tokens d'une séquence en parallèle, sans aucune notion inhérente de leur ordre — l'encodage positionnel injecte donc explicitement une information de position (souvent via des fonctions sinus/cosinus de fréquences différentes) additionnée aux embeddings des tokens, pour que le modèle puisse distinguer 'le chat mange la souris' de 'la souris mange le chat'",
+        "choice_d": "Pour empêcher le modèle de traiter des séquences de longueur variable",
+        "correct_choice": "C",
+        "explanation": "Contrairement à un RNN qui traite les tokens un par un dans l'ordre (l'ordre est donc implicite dans son fonctionnement même), l'attention d'un Transformer regarde tous les tokens simultanément — sans cet ajout explicite de position, la phrase serait traitée comme un simple 'sac de mots' sans aucune notion d'ordre."
       }
     ],
     "parent": "IA"
@@ -1842,6 +1986,15 @@
         "choice_d": "Construire les modèles (souvent des arbres) de façon séquentielle, chacun corrigeant les erreurs (résidus) du précédent via une descente de gradient sur la fonction de perte, puis combiner leurs prédictions",
         "correct_choice": "D",
         "explanation": "Contrairement au bagging (comme Random Forest) qui entraîne des modèles indépendants en parallèle, le boosting les entraîne en série, chaque nouveau modèle se concentrant sur les erreurs du précédent — ce qui donne souvent de meilleures performances mais est plus sensible à l'overfitting et plus long à entraîner."
+      },
+      {
+        "question_text": "Qu'est-ce que la distillation de connaissances (Knowledge Distillation) ?",
+        "choice_a": "Une technique qui supprime aléatoirement des poids d'un modèle pour réduire sa taille, sans autre forme d'entraînement",
+        "choice_b": "Une méthode qui réduit la précision numérique des poids d'un modèle (ex: de 32 à 8 bits)",
+        "choice_c": "Un algorithme qui filtre les données d'entraînement pour ne garder que les exemples de haute qualité",
+        "choice_d": "Une technique de compression de modèle qui entraîne un modèle plus petit ('étudiant') à reproduire le comportement d'un modèle plus grand déjà entraîné ('professeur'), souvent en apprenant à imiter non seulement les prédictions finales du professeur mais aussi la distribution de probabilité complète qu'il produit, ce qui transmet davantage d'information que de simples labels bruts",
+        "correct_choice": "D",
+        "explanation": "C'est une technique complémentaire à la quantization et au pruning (qui compressent un modèle existant) : la distillation crée un tout nouveau modèle, généralement avec une architecture plus petite dès le départ, mais entraîné pour approcher les performances du modèle professeur bien plus volumineux."
       }
     ],
     "parent": "IA"
@@ -1903,6 +2056,150 @@
         "choice_d": "Une technique de génération de texte",
         "correct_choice": "B",
         "explanation": "L'« Actor » choisit les actions (politique) pendant que le « Critic » évalue si ces actions étaient bonnes (valeur), ce qui stabilise et accélère l'apprentissage par rapport au policy gradient seul."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Processus de Décision Markovien (Markov Decision Process, MDP), le cadre formel du RL ?",
+        "choice_a": "Un cadre mathématique qui modélise la prise de décision séquentielle via un ensemble d'états, d'actions possibles dans chaque état, de probabilités de transition entre états, et de récompenses associées — avec la propriété markovienne clé : la probabilité de transition vers le prochain état ne dépend que de l'état et de l'action actuels, jamais de l'historique complet passé",
+        "choice_b": "Un algorithme spécifique utilisé uniquement pour jouer aux échecs",
+        "choice_c": "Un synonyme exact du Q-Learning, sans différence de fond",
+        "choice_d": "Une méthode qui ne peut modéliser que des environnements totalement déterministes, sans aucun aléa",
+        "correct_choice": "A",
+        "explanation": "Presque tous les algorithmes de RL (Q-Learning, Policy Gradient, PPO...) sont conçus pour résoudre un problème formulé comme un MDP : trouver la politique qui maximise la somme des récompenses attendues sur la durée d'interaction avec cet environnement."
+      },
+      {
+        "question_text": "Qu'est-ce que le dilemme exploration vs exploitation en apprentissage par renforcement ?",
+        "choice_a": "Le choix entre entraîner un modèle sur GPU ou sur CPU",
+        "choice_b": "Le compromis fondamental entre exploiter les actions déjà connues pour donner de bonnes récompenses (maximiser le gain immédiat avec l'information disponible) et explorer de nouvelles actions moins connues (au risque d'un gain immédiat moindre, mais qui pourraient s'avérer encore meilleures à long terme)",
+        "choice_c": "La décision de utiliser ou non un simulateur plutôt qu'un environnement réel",
+        "choice_d": "Le compromis entre la taille du modèle et sa vitesse d'inférence",
+        "correct_choice": "B",
+        "explanation": "Un agent qui n'exploite jamais que ce qu'il connaît déjà risque de rester bloqué sur une stratégie sous-optimale sans jamais découvrir de meilleures options ; un agent qui explore uniquement sans jamais exploiter n'accumule jamais efficacement de récompense — trouver le bon équilibre entre les deux est central à la conception d'un agent RL efficace."
+      },
+      {
+        "question_text": "Qu'est-ce que le reward shaping (façonnage de la récompense) en RL ?",
+        "choice_a": "Une technique qui redimensionne automatiquement les images utilisées comme entrée de l'agent",
+        "choice_b": "Un algorithme qui choisit automatiquement le meilleur hyperparamètre d'apprentissage",
+        "choice_c": "La pratique de concevoir soigneusement la fonction de récompense donnée à l'agent, parfois en ajoutant des récompenses intermédiaires guidant vers l'objectif final, pour accélérer et faciliter l'apprentissage — une récompense mal conçue peut conduire l'agent à apprendre un comportement qui maximise techniquement la récompense sans accomplir la tâche réellement voulue",
+        "choice_d": "Une méthode qui supprime toute récompense négative de l'environnement d'entraînement",
+        "correct_choice": "C",
+        "explanation": "Un exemple classique de reward shaping mal conçu : récompenser un agent de bateau de course uniquement pour le nombre de bonus collectés (plutôt que pour terminer la course) peut le conduire à tourner en boucle pour collecter des bonus indéfiniment, sans jamais franchir la ligne d'arrivée."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une politique (policy) en apprentissage par renforcement ?",
+        "choice_a": "Un ensemble de règles qui limite le nombre maximal d'épisodes d'entraînement autorisés",
+        "choice_b": "Le nom donné à la fonction de perte utilisée pour entraîner l'agent",
+        "choice_c": "Un synonyme exact de la fonction de récompense de l'environnement",
+        "choice_d": "La fonction (déterministe ou stochastique) qui définit le comportement de l'agent : elle prend en entrée l'état courant de l'environnement et retourne l'action à effectuer (ou une distribution de probabilité sur les actions possibles) — c'est précisément cette politique que l'agent cherche à améliorer au cours de l'entraînement pour maximiser la récompense cumulée",
+        "correct_choice": "D",
+        "explanation": "Une politique stochastique retourne une distribution de probabilité sur les actions (utile pour maintenir de l'exploration), alors qu'une politique déterministe retourne toujours exactement la même action pour un état donné — le Policy Gradient, par exemple, optimise directement les paramètres de cette politique."
+      },
+      {
+        "question_text": "Quelle est la différence entre la fonction de valeur V(s) et la fonction Q(s,a) en RL ?",
+        "choice_a": "V(s) estime la récompense totale attendue en partant de l'état s (en suivant ensuite la politique courante), alors que Q(s,a) estime la récompense totale attendue en partant de l'état s, en effectuant d'abord l'action a, puis en suivant la politique courante ensuite — Q(s,a) permet donc de comparer directement la valeur de différentes actions possibles dans un même état, ce que V(s) seul ne permet pas",
+        "choice_b": "Ce sont deux notations strictement équivalentes désignant exactement le même concept",
+        "choice_c": "V(s) ne peut être calculée que pour des environnements déterministes, Q(s,a) uniquement pour des environnements stochastiques",
+        "choice_d": "Q(s,a) mesure uniquement la récompense immédiate d'une action, sans tenir compte du futur",
+        "correct_choice": "A",
+        "explanation": "C'est justement parce que Q(s,a) intègre l'action que des algorithmes comme le Q-Learning peuvent en dériver directement une politique : il suffit de choisir, dans chaque état, l'action a qui maximise Q(s,a), sans avoir besoin d'un modèle explicite de l'environnement."
+      },
+      {
+        "question_text": "À quoi sert le facteur d'actualisation (discount factor, souvent noté gamma) en RL ?",
+        "choice_a": "Il détermine le nombre de couches du réseau de neurones utilisé pour approximer la politique",
+        "choice_b": "Il pondère l'importance relative des récompenses futures par rapport aux récompenses immédiates dans le calcul de la récompense cumulée totale (proche de 0 : l'agent privilégie fortement le gain immédiat ; proche de 1 : l'agent accorde presque autant d'importance aux récompenses lointaines qu'aux récompenses immédiates)",
+        "choice_c": "Il fixe le nombre maximal d'actions différentes que l'agent peut choisir",
+        "choice_d": "Il contrôle uniquement la vitesse d'exécution de la simulation de l'environnement",
+        "correct_choice": "B",
+        "explanation": "Un gamma trop faible peut rendre l'agent excessivement myope (ignorant des stratégies payantes seulement à long terme), alors qu'un gamma trop proche de 1 peut rendre l'apprentissage plus instable ou plus lent à converger, notamment dans des tâches à horizon très long ou infini."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un épisode (episode) en apprentissage par renforcement ?",
+        "choice_a": "Un synonyme exact et strict d'une seule action individuelle prise par l'agent",
+        "choice_b": "Le nom donné à chaque couche du réseau de neurones utilisé par l'agent",
+        "choice_c": "Une séquence complète d'interactions entre l'agent et l'environnement, depuis un état initial jusqu'à un état terminal (ex: la partie est gagnée, perdue, ou un nombre maximal d'étapes est atteint), après quoi l'environnement est généralement réinitialisé pour un nouvel épisode",
+        "choice_d": "Une mesure du temps de calcul total nécessaire pour entraîner l'agent",
+        "correct_choice": "C",
+        "explanation": "De nombreuses tâches de RL (ex: jouer à un jeu vidéo, une partie d'échecs) sont naturellement découpées en épisodes distincts, chacun offrant une nouvelle opportunité pour l'agent d'appliquer (et d'affiner) sa politique depuis le début, indépendamment des épisodes précédents."
+      },
+      {
+        "question_text": "Quelle est la différence entre l'apprentissage on-policy et off-policy en RL ?",
+        "choice_a": "Ce sont deux termes strictement synonymes désignant le même type d'algorithme",
+        "choice_b": "L'apprentissage on-policy ne peut être utilisé qu'avec des réseaux de neurones profonds",
+        "choice_c": "L'apprentissage off-policy ne peut jamais réutiliser des données collectées précédemment",
+        "choice_d": "Un algorithme on-policy apprend et améliore uniquement la politique qu'il utilise activement pour interagir avec l'environnement (ex: Policy Gradient classique) ; un algorithme off-policy peut apprendre une politique différente de celle réellement utilisée pour collecter les données d'expérience (ex: Q-Learning, qui peut apprendre à partir de données collectées par n'importe quelle politique, y compris une politique aléatoire ou passée)",
+        "correct_choice": "D",
+        "explanation": "L'avantage pratique majeur de l'off-policy est de pouvoir réutiliser des données d'expérience passées (stockées dans un replay buffer, comme dans DQN) plutôt que de devoir en collecter de nouvelles à chaque mise à jour de la politique, ce qui améliore souvent l'efficacité d'échantillonnage de l'algorithme."
+      },
+      {
+        "question_text": "Quelle est la différence entre le RL model-based et model-free ?",
+        "choice_a": "En RL model-based, l'agent apprend (ou dispose déjà) d'un modèle explicite de la dynamique de l'environnement (comment les états évoluent en fonction des actions), qu'il peut utiliser pour planifier à l'avance ; en RL model-free, l'agent apprend directement une politique ou une fonction de valeur à partir de l'expérience, sans jamais modéliser explicitement le fonctionnement interne de l'environnement",
+        "choice_b": "Le RL model-based ne peut être utilisé qu'avec des environnements totalement déterministes",
+        "choice_c": "Ce sont deux synonymes stricts pour la même famille d'algorithmes",
+        "choice_d": "Le RL model-free nécessite toujours davantage de puissance de calcul que le RL model-based",
+        "correct_choice": "A",
+        "explanation": "Le RL model-based peut potentiellement être plus efficace en nombre d'interactions nécessaires (il peut 'imaginer' les conséquences d'actions via son modèle plutôt que de toutes les essayer réellement), mais dépend fortement de la qualité de ce modèle appris — les algorithmes comme Q-Learning, Policy Gradient, PPO et DQN sont tous model-free."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un bandit manchot (multi-armed bandit), et en quoi est-ce une version simplifiée du RL ?",
+        "choice_a": "Un algorithme de RL qui ne peut être utilisé qu'avec des réseaux de neurones convolutifs",
+        "choice_b": "Un problème où un agent doit choisir répétitivement parmi plusieurs actions possibles (les 'bras' du bandit) pour maximiser sa récompense cumulée, sans aucune notion d'état ni de transition entre états (contrairement à un MDP complet) — le dilemme exploration/exploitation y apparaît déjà dans sa forme la plus pure et isolée",
+        "choice_c": "Un synonyme exact et strict d'un Processus de Décision Markovien complet",
+        "choice_d": "Une technique qui ne s'applique qu'à des environnements avec un seul état terminal possible",
+        "correct_choice": "B",
+        "explanation": "Le nom vient des machines à sous de casino ('bandits manchots à un bras') : choisir quelle machine jouer pour maximiser ses gains sur le long terme, sans savoir à l'avance laquelle est la plus généreuse, est un cas d'école classique pour étudier les stratégies d'exploration comme epsilon-greedy."
+      },
+      {
+        "question_text": "Comment fonctionne la stratégie epsilon-greedy pour gérer l'exploration en RL ?",
+        "choice_a": "L'agent explore uniquement pendant les epsilon premières secondes de l'entraînement, puis n'exploite plus jamais",
+        "choice_b": "L'agent choisit systématiquement l'action la moins bonne connue, pour forcer la découverte de nouvelles stratégies",
+        "choice_c": "Avec une petite probabilité epsilon, l'agent choisit une action complètement aléatoire (exploration) ; sinon (avec la probabilité restante 1-epsilon, généralement bien plus élevée), il choisit l'action qu'il juge actuellement la meilleure selon ce qu'il a appris (exploitation) — epsilon est souvent progressivement réduit au fil de l'entraînement, l'agent explorant davantage au début puis exploitant de plus en plus ce qu'il a appris",
+        "choice_d": "epsilon désigne le nombre total d'épisodes d'entraînement nécessaires pour converger",
+        "correct_choice": "C",
+        "explanation": "C'est l'une des stratégies d'exploration les plus simples à implémenter en RL, souvent utilisée comme point de départ avant d'envisager des stratégies plus sophistiquées si elle s'avère insuffisante pour la tâche considérée."
+      },
+      {
+        "question_text": "Comment se définissent l'agent et l'environnement dans le cadre du RL, et comment interagissent-ils ?",
+        "choice_a": "L'agent et l'environnement sont deux termes strictement synonymes, sans distinction réelle",
+        "choice_b": "L'environnement choisit les actions, l'agent se contente d'observer passivement les résultats",
+        "choice_c": "L'agent ne peut interagir avec l'environnement qu'une seule fois par épisode, jamais plus",
+        "choice_d": "L'agent est l'entité qui prend des décisions (choisit des actions), et l'environnement est tout ce avec quoi il interagit et qui répond à ses actions ; leur interaction forme une boucle continue : l'agent observe l'état actuel de l'environnement, choisit une action selon sa politique, l'environnement transitionne vers un nouvel état et renvoie une récompense, et ce cycle se répète",
+        "correct_choice": "D",
+        "explanation": "Cette boucle fondamentale (observation → action → nouvelle observation et récompense) est le squelette commun à tous les problèmes de RL, quelle que soit la complexité de l'environnement considéré (un jeu vidéo, un robot physique, un marché financier simulé...)."
+      },
+      {
+        "question_text": "Qu'est-ce que le 'credit assignment problem' (problème d'attribution du mérite) en RL ?",
+        "choice_a": "La difficulté d'identifier précisément quelles actions passées, parmi une longue séquence, sont réellement responsables d'une récompense reçue bien plus tard (ex: dans un jeu où la récompense n'arrive qu'à la toute fin de la partie), ce qui complique l'apprentissage d'une politique efficace lorsque le lien de cause à effet entre une action et son résultat final est temporellement éloigné",
+        "choice_b": "Un problème purement comptable lié à la facturation du temps de calcul GPU utilisé",
+        "choice_c": "La difficulté de répartir équitablement le mérite entre plusieurs développeurs d'un même projet de RL",
+        "choice_d": "Un problème qui ne survient que lorsque plusieurs agents RL sont entraînés simultanément",
+        "correct_choice": "A",
+        "explanation": "Plus l'écart temporel entre une action et la récompense qu'elle a réellement influencée est grand, plus ce problème devient difficile — c'est en partie ce que le facteur d'actualisation et des techniques comme le reward shaping cherchent à atténuer, en aidant l'agent à mieux relier ses actions à leurs conséquences lointaines."
+      },
+      {
+        "question_text": "Que fait concrètement PPO (Proximal Policy Optimization) pour stabiliser l'entraînement d'une politique, par rapport à un Policy Gradient classique ?",
+        "choice_a": "PPO n'entraîne jamais directement de politique, il n'entraîne que des fonctions de valeur",
+        "choice_b": "PPO limite explicitement l'ampleur du changement appliqué à la politique à chaque mise à jour, en pénalisant les mises à jour qui l'éloigneraient trop brutalement de la politique précédente — évitant ainsi les changements de comportement trop violents qui pourraient dégrader durablement les performances de l'agent, un problème fréquent avec les méthodes de Policy Gradient plus simples",
+        "choice_c": "PPO remplace entièrement le concept de récompense par un système de pénalités uniquement",
+        "choice_d": "PPO ne peut être utilisé que sur des environnements ayant un nombre fini et petit d'actions possibles",
+        "correct_choice": "B",
+        "explanation": "Cette contrainte de 'proximité' (d'où le nom Proximal) rend PPO plus stable et plus simple à régler que d'autres méthodes plus anciennes tout en restant efficace, ce qui explique sa popularité actuelle comme choix par défaut pour de nombreuses applications de RL, y compris l'alignement de LLM via RLHF."
+      },
+      {
+        "question_text": "Quelle est la différence fondamentale entre les méthodes basées sur la valeur (value-based, ex: Q-Learning/DQN) et les méthodes basées sur la politique (policy-based, ex: Policy Gradient) en RL ?",
+        "choice_a": "Ce sont deux termes strictement identiques pour la même famille d'algorithmes",
+        "choice_b": "Les méthodes value-based ne peuvent être utilisées qu'avec des actions continues, jamais discrètes",
+        "choice_c": "Les méthodes value-based apprennent une fonction de valeur (ex: Q(s,a)) puis en dérivent indirectement une politique (choisir l'action de plus grande valeur estimée) ; les méthodes policy-based optimisent directement et explicitement les paramètres de la politique elle-même, sans nécessairement passer par une fonction de valeur intermédiaire — les méthodes actor-critic combinent les deux approches",
+        "choice_d": "Les méthodes policy-based ne peuvent jamais être combinées avec une fonction de valeur",
+        "correct_choice": "C",
+        "explanation": "Les méthodes policy-based (et actor-critic) gèrent plus naturellement des espaces d'actions continus (ex: l'angle exact d'un moteur robotique) là où les méthodes purement value-based comme le Q-Learning classique sont plus naturellement adaptées à des actions discrètes en nombre limité (ex: haut/bas/gauche/droite)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un world model (modèle du monde) en apprentissage automatique ?",
+        "choice_a": "Un modèle entraîné exclusivement sur des données couvrant tous les pays du monde simultanément",
+        "choice_b": "Un synonyme exact d'un LLM multimodal capable de traiter des images du monde entier",
+        "choice_c": "Un modèle qui ne peut être utilisé que pour générer des cartes géographiques",
+        "choice_d": "Un modèle qui apprend à simuler/prédire la dynamique d'un environnement (comment il évolue en réaction à une action donnée), permettant à un agent de 's'imaginer' les conséquences probables de ses actions et de planifier sans avoir à les tester réellement — un ingrédient central du RL model-based, et aussi à la base de récents modèles de génération vidéo capables de simuler des scènes physiquement plausibles",
+        "correct_choice": "D",
+        "explanation": "Un world model performant permet à un agent RL de s'entraîner en grande partie 'dans sa tête' (en simulant des trajectoires via le modèle appris) plutôt que d'avoir à interagir réellement avec l'environnement à chaque fois, ce qui peut réduire considérablement le nombre d'interactions réelles nécessaires pour apprendre une bonne politique."
       }
     ],
     "parent": "IA"
@@ -2036,6 +2333,15 @@
         "choice_d": "Des données obtenues uniquement par scraping",
         "correct_choice": "B",
         "explanation": "Générer des images de synthèse permet d'obtenir rapidement de grands volumes de données parfaitement labellisées, utile quand les données réelles sont rares ou coûteuses à annoter."
+      },
+      {
+        "question_text": "Qu'est-ce que la recherche d'images composée (Composed Image Retrieval) ?",
+        "choice_a": "Une technique qui assemble automatiquement plusieurs images différentes en une seule image composite",
+        "choice_b": "Une méthode de compression d'images qui combine plusieurs algorithmes de compression successifs",
+        "choice_c": "Une tâche de recherche d'images qui combine une image de référence ET une modification textuelle (ex: 'la même robe mais en rouge') pour retrouver des images correspondant à cette combinaison, plutôt qu'une simple recherche par image seule ou par texte seul",
+        "choice_d": "Une méthode qui génère une nouvelle image à partir d'une description textuelle uniquement, sans image de référence",
+        "correct_choice": "C",
+        "explanation": "Cette tâche est plus complexe qu'une recherche classique car le modèle doit comprendre à la fois le contenu visuel de l'image de référence et interpréter correctement la modification demandée en langage naturel, pour ensuite retrouver les images qui correspondent à ce nouvel état recherché."
       }
     ],
     "parent": "IA"
@@ -2133,6 +2439,15 @@
         "choice_d": "Un accès à de nombreux modèles pré-entraînés (BERT, GPT...) faciles à réutiliser ou fine-tuner",
         "correct_choice": "D",
         "explanation": "Elle standardise l'accès à des milliers de modèles pré-entraînés partagés par la communauté, ce qui simplifie énormément le transfer learning en NLP."
+      },
+      {
+        "question_text": "Quelle est la différence entre le NLP (Natural Language Processing) en général et les LLM en particulier ?",
+        "choice_a": "Le NLP ne concerne que la génération de texte, alors que les LLM ne concernent que sa classification",
+        "choice_b": "Le NLP est le domaine large regroupant toutes les techniques de traitement automatique du langage (classification, traduction, extraction d'information, génération...), tandis que les LLM sont une sous-catégorie particulière de modèles NLP, caractérisée par leur grande taille et leurs capacités générales qui leur permettent souvent d'accomplir de nombreuses tâches NLP différentes sans entraînement spécifique à chacune",
+        "choice_c": "Les LLM nécessitent un entraînement spécifique et dédié pour chaque application, contrairement aux modèles NLP classiques",
+        "choice_d": "Les modèles NLP sont en général plus grands et nécessitent plus de données que les LLM",
+        "correct_choice": "B",
+        "explanation": "Avant les LLM, une tâche NLP donnée (ex: analyse de sentiment) nécessitait souvent un modèle dédié entraîné spécifiquement pour cette tâche ; un LLM, grâce à sa taille et son entraînement généraliste, peut souvent accomplir cette même tâche (et bien d'autres) simplement via un prompt, sans entraînement supplémentaire dédié — bien qu'un modèle spécialisé reste parfois plus performant sur une tâche précise."
       }
     ],
     "parent": "IA"
@@ -2593,6 +2908,96 @@
         "choice_d": "Le nom donné aux hyperparamètres réglables (temperature, top-k...) via l'API",
         "correct_choice": "B",
         "explanation": "Le modèle ne fait qu'indiquer 'quelle fonction appeler avec quels arguments' sous forme structurée (ex: JSON) — c'est l'application qui exécute réellement l'appel et renvoie le résultat au modèle pour qu'il poursuive sa réponse ; c'est la brique de base des agents LLM."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un LMM (Large Multimodal Model), et en quoi diffère-t-il d'un LLM classique ?",
+        "choice_a": "Un LMM est un LLM entraîné exclusivement sur du code source, sans jamais traiter de texte naturel",
+        "choice_b": "Un LMM est un modèle de grande taille capable de traiter et de raisonner conjointement sur plusieurs modalités (texte, images, parfois audio/vidéo) au sein d'un même modèle, alors qu'un LLM classique ne traite que du texte",
+        "choice_c": "Un LMM est simplement un synonyme plus récent de LLM, sans aucune différence de fond",
+        "choice_d": "Un LMM est un modèle plus petit et moins performant qu'un LLM, utilisé uniquement sur mobile",
+        "correct_choice": "B",
+        "explanation": "Un LMM peut par exemple recevoir une image et une question en texte, et générer une réponse en tenant compte des deux à la fois (ex: décrire une image, répondre à une question sur son contenu) — les modèles comme GPT-4V ou LLaVA sont des exemples de LMM."
+      },
+      {
+        "question_text": "Qu'est-ce que le fine-tuning supervisé (Supervised Fine-Tuning, SFT) d'un LLM ?",
+        "choice_a": "Une étape d'entraînement qui ajuste les poids d'un modèle déjà pré-entraîné sur un jeu de données de paires exemple entrée/sortie annotées par des humains (ex: des exemples de bonnes réponses à des instructions), pour spécialiser le modèle à mieux suivre des instructions ou adopter un comportement souhaité — typiquement l'étape qui précède le RLHF dans l'alignement d'un LLM comme ChatGPT",
+        "choice_b": "Une méthode qui entraîne un modèle uniquement sur des données générées automatiquement, sans aucune intervention humaine",
+        "choice_c": "Une technique qui réduit la taille d'un modèle en supprimant des couches entières du réseau",
+        "choice_d": "Un synonyme exact du pré-entraînement (pretraining) initial d'un modèle depuis zéro",
+        "correct_choice": "A",
+        "explanation": "Le SFT diffère du pré-entraînement (qui apprend sur d'énormes volumes de texte brut, sans supervision explicite d'un comportement précis) : il vient après, sur un jeu de données bien plus petit mais de haute qualité, spécifiquement conçu pour apprendre au modèle à répondre utilement à des instructions."
+      },
+      {
+        "question_text": "Quelles sont les deux phases distinctes de l'inférence d'un LLM lors de la génération de texte ?",
+        "choice_a": "Tokenization et Embedding, exécutées successivement avant toute génération",
+        "choice_b": "Compilation et Quantization du modèle, effectuées avant chaque requête",
+        "choice_c": "Calcul de l'attention et application du softmax, répétées pour chaque couche du modèle",
+        "choice_d": "Le prefill (traitement de l'intégralité du prompt d'entrée en une seule passe, hautement parallélisable) suivi du decode (génération des tokens de sortie un par un, séquentiellement, chaque nouveau token dépendant des précédents) — c'est notamment durant le decode que le KV cache est exploité pour éviter de recalculer l'attention sur tout le contexte à chaque nouveau token",
+        "correct_choice": "D",
+        "explanation": "Le prefill est rapide car tous les tokens du prompt peuvent être traités en parallèle sur le GPU, alors que le decode est intrinsèquement séquentiel (chaque token dépend du précédent) et donc plus lent par token généré — c'est cette asymétrie qui explique pourquoi la latence perçue d'un LLM dépend fortement de la longueur de la réponse générée, bien plus que de la longueur du prompt."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un foundation model (modèle de fondation) ?",
+        "choice_a": "Un modèle entraîné exclusivement sur des données provenant des fondations caritatives",
+        "choice_b": "Un synonyme strict et exact de LLM, sans aucune nuance entre les deux termes",
+        "choice_c": "Un modèle qui ne peut être utilisé que pour une seule tâche précise, sans jamais être réutilisé ailleurs",
+        "choice_d": "Un grand modèle pré-entraîné sur d'immenses volumes de données, conçu pour servir de base générale adaptable ensuite (via fine-tuning, prompting...) à de nombreuses tâches en aval différentes, plutôt que d'être entraîné spécifiquement pour une seule tâche dès le départ — un LLM est un exemple de foundation model spécialisé dans le texte, mais le terme englobe aussi des modèles de vision, audio, ou multimodaux",
+        "correct_choice": "D",
+        "explanation": "Le terme a été popularisé pour désigner ce changement de paradigme : au lieu d'entraîner un modèle spécifique par tâche à partir de zéro, on entraîne un seul modèle massif et généraliste une fois, puis on l'adapte (souvent avec beaucoup moins de données et de calcul) à de multiples applications spécifiques en aval."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un system prompt, par opposition au prompt classique envoyé par l'utilisateur ?",
+        "choice_a": "Un message d'erreur affiché automatiquement par le système d'exploitation lors d'un plantage du modèle",
+        "choice_b": "Une instruction initiale, généralement définie par le développeur de l'application (et non visible ou modifiable par l'utilisateur final), qui fixe en amont le comportement général, la personnalité ou les contraintes du modèle avant même que la conversation avec l'utilisateur ne commence",
+        "choice_c": "Un synonyme exact du prompt utilisateur, seul le nom technique diffère",
+        "choice_d": "Un prompt qui ne peut contenir que des instructions système d'exploitation, comme des commandes Linux",
+        "correct_choice": "B",
+        "explanation": "C'est via le system prompt qu'une application peut par exemple donner à un LLM une personnalité cohérente ('Tu es un assistant culinaire spécialisé en pâtisserie'), des règles à respecter, ou du contexte permanent, sans que l'utilisateur final n'ait à le répéter à chaque message."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une base vectorielle (vector database), et pourquoi est-elle centrale dans une architecture RAG ?",
+        "choice_a": "Une base de données classique qui ne peut stocker que des nombres entiers, jamais de texte",
+        "choice_b": "Un type de base de données qui chiffre automatiquement chaque enregistrement avant de le stocker",
+        "choice_c": "Une base de données spécialisée dans le stockage d'embeddings (vecteurs numériques) et optimisée pour effectuer très rapidement des recherches par similarité (trouver les vecteurs les plus proches d'un vecteur de requête, souvent via une distance cosinus), plutôt que les recherches exactes par égalité qu'une base relationnelle classique effectue efficacement",
+        "choice_d": "Une base de données qui ne peut être hébergée que sur une seule machine physique, sans réplication possible",
+        "correct_choice": "C",
+        "explanation": "Dans une architecture RAG, les documents sont convertis en embeddings et stockés dans une base vectorielle ; au moment d'une requête, celle-ci est elle-même convertie en embedding, puis la base vectorielle retrouve rapidement les documents dont l'embedding est le plus proche (donc sémantiquement le plus similaire), même sans correspondance exacte de mots-clés."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un reasoning model (modèle de raisonnement, ex: la famille o1/o3) par rapport à un LLM standard ?",
+        "choice_a": "Un modèle qui ne peut traiter que des problèmes mathématiques, jamais de texte général",
+        "choice_b": "Un modèle plus petit et plus rapide qu'un LLM classique, mais moins précis",
+        "choice_c": "Un synonyme exact d'un modèle multimodal, sans lien avec le raisonnement",
+        "choice_d": "Un modèle entraîné (souvent via du renforcement) à générer une chaîne de raisonnement interne étendue avant de produire sa réponse finale, plutôt que de répondre directement du premier coup — ce raisonnement supplémentaire (parfois masqué à l'utilisateur) améliore généralement les performances sur des tâches complexes nécessitant plusieurs étapes logiques, au prix d'une latence et d'un coût de calcul plus élevés par réponse",
+        "correct_choice": "D",
+        "explanation": "Cette approche prolonge l'idée du chain-of-thought prompting (demander au modèle d'expliciter son raisonnement étape par étape), mais l'intègre directement dans l'entraînement du modèle plutôt que de dépendre uniquement de la formulation du prompt par l'utilisateur."
+      },
+      {
+        "question_text": "Qu'est-ce que le chain-of-thought prompting (incitation par chaîne de raisonnement) ?",
+        "choice_a": "Une technique qui enchaîne automatiquement plusieurs modèles différents pour traiter une seule requête",
+        "choice_b": "Une technique de prompt engineering qui consiste à demander explicitement au modèle de détailler son raisonnement étape par étape avant de donner sa réponse finale (ex: en ajoutant 'réfléchis étape par étape' au prompt), ce qui améliore souvent significativement les performances sur des tâches nécessitant plusieurs étapes logiques ou du calcul, par rapport à une demande de réponse directe et immédiate",
+        "choice_c": "Une méthode qui enchaîne plusieurs prompts totalement indépendants sans aucun lien entre eux",
+        "choice_d": "Un mécanisme qui limite le modèle à ne répondre que par une seule chaîne de caractères, sans mise en forme",
+        "correct_choice": "B",
+        "explanation": "Le simple fait de forcer le modèle à 'montrer son travail' avant de conclure lui donne davantage de tokens (donc de calcul) pour élaborer sa réponse, ce qui réduit les erreurs sur des problèmes complexes — une intuition qui a directement inspiré l'entraînement des reasoning models modernes."
+      },
+      {
+        "question_text": "Qu'est-ce que le MCP (Model Context Protocol) ?",
+        "choice_a": "Un algorithme de compression des poids d'un modèle avant son déploiement",
+        "choice_b": "Un synonyme technique du context window d'un LLM, sans lien avec un protocole",
+        "choice_c": "Un protocole ouvert et standardisé qui définit une façon uniforme pour un LLM (ou l'application qui l'utilise) de se connecter à des sources de données et des outils externes (fichiers, bases de données, API...), évitant de devoir développer une intégration sur-mesure différente pour chaque combinaison modèle/outil",
+        "choice_d": "Un protocole réseau qui remplace HTTP pour toutes les communications liées à l'IA",
+        "correct_choice": "C",
+        "explanation": "Avant ce type de standard, chaque application devait développer sa propre intégration spécifique pour connecter un LLM à chaque outil ou source de données externe ; un protocole commun permet à n'importe quel client compatible de se connecter à n'importe quel serveur d'outils compatible, un peu comme USB standardise la connexion de périphériques physiques variés."
+      },
+      {
+        "question_text": "Que désigne le terme 'agentic AI' (ou 'AI agent'), dans son sens moderne appliqué aux LLM ?",
+        "choice_a": "Un système construit autour d'un LLM qui ne se contente pas de répondre à un seul prompt, mais qui peut planifier et exécuter de façon autonome une séquence de plusieurs étapes (raisonner, appeler des outils/API via function calling, observer les résultats, ajuster son plan) pour accomplir un objectif complexe donné, avec un minimum d'intervention humaine à chaque étape",
+        "choice_b": "Un synonyme exact d'un agent au sens classique du Reinforcement Learning, sans aucune nuance",
+        "choice_c": "Un LLM qui ne peut traiter qu'une seule requête à la fois, sans jamais utiliser d'outil externe",
+        "choice_d": "Un logiciel antivirus spécialisé dans la détection de menaces générées par l'IA",
+        "correct_choice": "A",
+        "explanation": "Contrairement à un simple échange question-réponse, un agent LLM peut décomposer une tâche complexe en sous-étapes, utiliser des outils externes (recherche web, exécution de code, appels d'API via function calling) et itérer sur ses résultats intermédiaires avant de livrer une réponse finale — c'est cette capacité d'action autonome multi-étapes qui distingue l'agentic AI d'un simple assistant conversationnel."
       }
     ],
     "parent": "IA"
@@ -4268,6 +4673,564 @@
         "choice_d": "Une erreur de compilation est explicitement signalée et empêche la production d'un exécutable ; un undefined behavior, lui, est une opération que la norme du langage n'impose volontairement aucun comportement particulier (ex: déréférencer un pointeur invalide) — le compilateur peut l'accepter silencieusement à la compilation et générer un exécutable qui se comportera de façon totalement imprévisible (planter, donner un résultat incohérent, ou même sembler fonctionner correctement) à l'exécution",
         "correct_choice": "D",
         "explanation": "C'est justement ce genre de piège (silencieux à la compilation, imprévisible à l'exécution) que des langages comme Rust cherchent à éliminer structurellement, en rendant impossible à la compilation la plupart des opérations qui provoqueraient un undefined behavior en C, plutôt que de laisser le développeur découvrir le problème (parfois) seulement à l'exécution."
+      }
+    ]
+  },
+  {
+    "name": "Docker & Kubernetes",
+    "color": "indigo",
+    "questions": [
+      {
+        "question_text": "Quelle est la différence entre une image Docker et un conteneur ?",
+        "choice_a": "Une image est un modèle en lecture seule (un ensemble figé de fichiers, dépendances et instructions) servant de blueprint ; un conteneur est une instance en cours d'exécution de cette image, avec sa propre couche inscriptible et son propre espace de processus isolé — on peut créer plusieurs conteneurs indépendants à partir d'une seule et même image",
+        "choice_b": "Ce sont deux termes strictement synonymes désignant exactement la même chose",
+        "choice_c": "Une image ne peut être créée qu'après qu'un conteneur ait déjà été démarré",
+        "choice_d": "Un conteneur contient plusieurs images différentes exécutées simultanément",
+        "correct_choice": "A",
+        "explanation": "C'est cette distinction qui permet de démarrer rapidement de nombreux conteneurs identiques (ex: pour scaler horizontalement) à partir d'une seule image construite une fois, chaque conteneur restant isolé des autres malgré une origine commune."
+      },
+      {
+        "question_text": "Que sont les 'layers' (couches) d'une image Docker, et pourquoi sont-elles importantes pour les performances de build ?",
+        "choice_a": "Les layers désignent les différents utilisateurs ayant accès à une même image",
+        "choice_b": "Chaque instruction d'un Dockerfile (ex: chaque RUN, COPY) génère une couche distincte, empilées les unes sur les autres pour former l'image finale ; Docker met en cache ces couches et ne reconstruit que celles affectées par un changement, ce qui accélère considérablement les builds successifs si les instructions les moins susceptibles de changer sont placées en premier dans le Dockerfile",
+        "choice_c": "Chaque layer correspond à un conteneur différent partageant la même image",
+        "choice_d": "Les layers ne servent qu'à chiffrer le contenu de l'image, sans impact sur les performances",
+        "correct_choice": "B",
+        "explanation": "C'est pour cette raison qu'une bonne pratique consiste à copier et installer les dépendances (qui changent rarement) avant de copier le code source de l'application (qui change à chaque modification) : cela permet de réutiliser le cache des couches de dépendances même après un simple changement de code."
+      },
+      {
+        "question_text": "Quel est le rôle d'un Dockerfile ?",
+        "choice_a": "Un fichier qui stocke uniquement les logs générés par un conteneur en cours d'exécution",
+        "choice_b": "Un fichier de configuration réseau utilisé exclusivement par Kubernetes",
+        "choice_c": "Un fichier texte qui décrit, instruction par instruction (FROM, RUN, COPY, CMD...), comment construire une image Docker de façon automatisée et reproductible, plutôt que de configurer manuellement chaque conteneur à la main",
+        "choice_d": "Un fichier qui liste les utilisateurs autorisés à se connecter à un conteneur",
+        "correct_choice": "C",
+        "explanation": "L'instruction FROM définit l'image de base à partir de laquelle construire, RUN exécute des commandes pendant la construction (ex: installer des dépendances), COPY ajoute des fichiers du répertoire local dans l'image, et CMD définit la commande exécutée par défaut au démarrage d'un conteneur basé sur cette image."
+      },
+      {
+        "question_text": "Quelle est la différence entre les instructions CMD et ENTRYPOINT dans un Dockerfile ?",
+        "choice_a": "Ce sont deux instructions strictement interchangeables, sans aucune différence de comportement",
+        "choice_b": "CMD ne peut être utilisé que dans les images Linux, ENTRYPOINT que dans les images Windows",
+        "choice_c": "ENTRYPOINT ne peut être défini qu'une seule fois dans tout l'écosystème Docker d'une entreprise",
+        "choice_d": "ENTRYPOINT définit la commande exécutable principale et difficilement modifiable au démarrage du conteneur, alors que CMD fournit des arguments par défaut à cette commande (ou une commande complète si ENTRYPOINT n'est pas défini), facilement remplaçables en passant des arguments différents à `docker run`",
+        "correct_choice": "D",
+        "explanation": "Une pratique courante consiste à définir ENTRYPOINT avec l'exécutable principal du conteneur (ex: `python`) et CMD avec des arguments par défaut (ex: `app.py`), ce qui permet à l'utilisateur du conteneur de facilement remplacer seulement les arguments (`docker run mon-image autre_script.py`) sans devoir redéfinir toute la commande."
+      },
+      {
+        "question_text": "Quelle est la différence entre un bind mount et un volume Docker ?",
+        "choice_a": "Un bind mount lie directement un chemin précis du système de fichiers de la machine hôte à un chemin dans le conteneur (utile en développement pour refléter des modifications de code en temps réel) ; un volume est un espace de stockage entièrement géré par Docker lui-même (indépendant de la structure de fichiers de l'hôte), généralement préféré en production pour la persistance des données",
+        "choice_b": "Ce sont deux termes identiques, 'volume' étant simplement l'ancien nom de 'bind mount'",
+        "choice_c": "Un bind mount ne peut être utilisé qu'en lecture seule, jamais en écriture",
+        "choice_d": "Un volume Docker disparaît systématiquement dès l'arrêt du conteneur qui l'utilise",
+        "correct_choice": "A",
+        "explanation": "Sans volume ni bind mount, toutes les données écrites dans la couche inscriptible d'un conteneur disparaissent définitivement dès sa suppression — ces deux mécanismes permettent de faire persister des données (ex: le contenu d'une base de données) au-delà du cycle de vie d'un conteneur particulier."
+      },
+      {
+        "question_text": "Comment les conteneurs communiquent-ils entre eux par défaut, via le réseau bridge de Docker ?",
+        "choice_a": "Les conteneurs ne peuvent jamais communiquer entre eux, quelle que soit la configuration",
+        "choice_b": "Docker crée par défaut un réseau virtuel privé (bridge) partagé par les conteneurs d'une même machine hôte, sur lequel chaque conteneur reçoit une adresse IP interne et peut communiquer avec les autres conteneurs de ce même réseau, généralement en se référant les uns aux autres par leur nom plutôt que par une adresse IP fixe (surtout avec Docker Compose)",
+        "choice_c": "Chaque conteneur doit obligatoirement obtenir une adresse IP publique pour communiquer avec un autre",
+        "choice_d": "La communication entre conteneurs nécessite systématiquement un serveur DNS externe payant",
+        "correct_choice": "B",
+        "explanation": "C'est ce réseau bridge qui permet par exemple à un conteneur backend de contacter un conteneur de base de données simplement par son nom de service (ex: `db:5432`), sans avoir à connaître ou gérer manuellement son adresse IP interne, qui peut changer à chaque redémarrage."
+      },
+      {
+        "question_text": "Quelle est la différence fondamentale entre un conteneur et une machine virtuelle (VM) ?",
+        "choice_a": "Ce sont deux termes strictement identiques, 'conteneur' étant juste un nom marketing plus récent pour 'VM'",
+        "choice_b": "Une VM ne peut exécuter qu'un seul processus à la fois, contrairement à un conteneur",
+        "choice_c": "Un conteneur partage le noyau (kernel) du système d'exploitation hôte et isole seulement les processus au niveau applicatif (plus léger, démarre en quelques secondes, moins de surcharge) ; une VM virtualise du matériel complet et exécute son propre système d'exploitation invité entier, indépendant de l'hôte (plus lourd, isolation plus forte, démarre plus lentement)",
+        "choice_d": "Un conteneur nécessite toujours plus de ressources matérielles qu'une VM équivalente",
+        "correct_choice": "C",
+        "explanation": "Cette différence explique pourquoi on peut faire tourner des dizaines de conteneurs sur une machine qui peinerait à faire tourner autant de VMs simultanément : les conteneurs évitent la duplication d'un système d'exploitation complet par instance, au prix d'une isolation légèrement moins stricte qu'une VM (partage du même noyau hôte)."
+      },
+      {
+        "question_text": "Quel est l'intérêt de Docker Compose ?",
+        "choice_a": "Il remplace entièrement Docker lui-même, en étant un moteur de conteneurisation totalement indépendant",
+        "choice_b": "Il ne peut gérer qu'un seul conteneur à la fois, comme la commande `docker run` classique",
+        "choice_c": "Il sert uniquement à compresser les images Docker pour réduire leur taille",
+        "choice_d": "Il permet de définir et d'orchestrer plusieurs conteneurs liés entre eux (ex: une application backend, sa base de données, un cache) dans un seul fichier de configuration déclaratif (YAML), et de les démarrer/arrêter tous ensemble avec une seule commande, ce qui simplifie grandement le développement local d'applications composées de plusieurs services",
+        "correct_choice": "D",
+        "explanation": "C'est exactement le pattern utilisé dans ce projet quizz-estv lui-même : `docker-compose.yml` définit les services backend et frontend ensemble, avec leurs configurations réseau et volumes respectifs, démarrables d'un seul coup via `docker compose up`."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Pod dans Kubernetes ?",
+        "choice_a": "La plus petite unité déployable dans Kubernetes, regroupant un ou plusieurs conteneurs étroitement liés qui partagent le même espace réseau (même adresse IP) et éventuellement des volumes de stockage — dans la grande majorité des cas, un pod ne contient qu'un seul conteneur applicatif principal",
+        "choice_b": "Un synonyme exact de conteneur Docker, sans aucune différence entre les deux termes",
+        "choice_c": "Un ensemble de plusieurs clusters Kubernetes complets fonctionnant ensemble",
+        "choice_d": "Le nom donné à chaque nœud (machine physique ou virtuelle) d'un cluster Kubernetes",
+        "correct_choice": "A",
+        "explanation": "Le fait que Kubernetes ne gère jamais directement des conteneurs individuels, mais toujours des pods, permet de regrouper facilement des conteneurs qui doivent absolument cohabiter et partager des ressources (ex: un conteneur principal et un conteneur 'sidecar' qui collecte ses logs)."
+      },
+      {
+        "question_text": "Quel est le rôle d'un Deployment dans Kubernetes ?",
+        "choice_a": "Une commande qui déploie manuellement, une seule fois, un unique conteneur sans supervision continue",
+        "choice_b": "Un objet Kubernetes qui décrit l'état désiré d'une application (ex: quelle image utiliser, combien de réplicas de pods identiques faire tourner) et gère automatiquement les mises à jour progressives (rolling updates) et le remplacement des pods défaillants pour maintenir en permanence ce nombre de réplicas voulu",
+        "choice_c": "Un fichier qui stocke uniquement les identifiants de connexion à un cluster Kubernetes",
+        "choice_d": "Le nom donné à l'ensemble physique des machines qui composent un cluster Kubernetes",
+        "correct_choice": "B",
+        "explanation": "Contrairement à la création manuelle d'un pod isolé, un Deployment surveille en permanence l'état réel du cluster et corrige automatiquement tout écart avec l'état désiré déclaré (ex: recréer un pod qui a planté), incarnant l'approche déclarative caractéristique de Kubernetes."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Service dans Kubernetes, et pourquoi est-il nécessaire ?",
+        "choice_a": "Un simple synonyme technique de 'Deployment', sans différence de fonctionnement",
+        "choice_b": "Un outil de facturation qui calcule le coût d'utilisation d'un cluster Kubernetes",
+        "choice_c": "Une abstraction réseau qui fournit une adresse stable (souvent un nom DNS interne) pour accéder à un ensemble de pods effectuant le même travail, alors même que les pods individuels sont créés et détruits en permanence (à chaque mise à jour, panne, mise à l'échelle) et changent donc constamment d'adresse IP",
+        "choice_d": "Un mécanisme qui supprime automatiquement tous les pods inutilisés d'un namespace",
+        "correct_choice": "C",
+        "explanation": "Sans cette couche d'abstraction, un client devrait constamment connaître et mettre à jour l'adresse IP exacte de chaque pod individuel, ce qui serait intenable étant donné leur cycle de vie éphémère — le Service redirige le trafic vers un pod sain disponible, quel que soit celui qui répond réellement à un instant donné."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un namespace dans Kubernetes ?",
+        "choice_a": "Le nom d'une machine physique individuelle appartenant au cluster Kubernetes",
+        "choice_b": "Un synonyme exact et strict de 'Pod', désignant la même unité de déploiement",
+        "choice_c": "Un mécanisme qui chiffre automatiquement toutes les communications réseau internes du cluster",
+        "choice_d": "Un mécanisme d'isolation logique qui permet de regrouper et de séparer des ressources (pods, services, deployments...) au sein d'un même cluster physique, souvent utilisé pour séparer différents environnements (ex: développement, staging, production) ou différentes équipes partageant un même cluster",
+        "correct_choice": "D",
+        "explanation": "Les namespaces ne fournissent pas une isolation physique totale (les ressources d'un même cluster partagent toujours les mêmes nœuds sous-jacents), mais permettent d'organiser logiquement les ressources et d'appliquer des quotas ou des règles d'accès différenciées par namespace."
+      },
+      {
+        "question_text": "Quelle est la différence entre un ConfigMap et un Secret dans Kubernetes ?",
+        "choice_a": "Un ConfigMap stocke des données de configuration non sensibles (ex: une URL d'API, un nom d'environnement) sous forme de paires clé-valeur, accessibles aux pods ; un Secret est conceptuellement similaire mais destiné aux données sensibles (mots de passe, clés d'API, certificats), stockées avec des précautions supplémentaires (ex: encodées, avec un accès plus restreint)",
+        "choice_b": "Ce sont deux objets strictement identiques, 'Secret' étant juste un renommage plus récent de 'ConfigMap'",
+        "choice_c": "Un ConfigMap ne peut contenir que des nombres, un Secret que des chaînes de caractères",
+        "choice_d": "Un Secret ne peut être utilisé que par un seul pod dans toute la durée de vie du cluster",
+        "correct_choice": "A",
+        "explanation": "Séparer les deux permet d'appliquer des politiques de sécurité différentes (ex: chiffrement au repos, accès restreint) spécifiquement aux données sensibles, tout en gardant la configuration ordinaire (non sensible) simple à consulter et à versionner sans précaution particulière."
+      },
+      {
+        "question_text": "À quoi sert un Ingress dans Kubernetes ?",
+        "choice_a": "Un mécanisme qui bloque systématiquement tout le trafic entrant dans le cluster, par défaut",
+        "choice_b": "Un objet qui définit des règles de routage HTTP/HTTPS pour le trafic externe entrant dans le cluster, dirigeant chaque requête vers le Service interne approprié selon des critères comme le nom de domaine ou le chemin de l'URL demandée — un point d'entrée unique et configurable, plutôt que d'exposer directement chaque Service individuellement vers l'extérieur",
+        "choice_c": "Un outil qui ne sert qu'à surveiller la consommation de mémoire des pods",
+        "choice_d": "Le nom donné à chaque conteneur individuel s'exécutant à l'intérieur d'un pod",
+        "correct_choice": "B",
+        "explanation": "Cela permet par exemple de faire cohabiter plusieurs applications différentes sur un même cluster, chacune accessible via son propre sous-domaine ou chemin d'URL, en centralisant cette logique de routage (et souvent la terminaison TLS) en un seul point d'entrée plutôt que de le dupliquer pour chaque service."
+      },
+      {
+        "question_text": "Quel est le rôle d'un ReplicaSet dans Kubernetes ?",
+        "choice_a": "Un objet qui stocke une sauvegarde complète et périodique de toutes les données du cluster",
+        "choice_b": "Un mécanisme qui remplace intégralement le besoin d'un Service dans le cluster",
+        "choice_c": "Garantir qu'un nombre spécifié et constant de réplicas d'un pod donné est en cours d'exécution à tout moment, en créant automatiquement de nouveaux pods si certains tombent en panne ou sont supprimés — en pratique, on interagit rarement directement avec un ReplicaSet, puisqu'un Deployment en gère généralement un automatiquement en arrière-plan",
+        "choice_d": "Le nom donné à l'ensemble des namespaces définis dans un cluster Kubernetes",
+        "correct_choice": "C",
+        "explanation": "C'est cette surveillance continue et cette recréation automatique des pods manquants qui constitue l'un des piliers de la résilience de Kubernetes : le cluster travaille en permanence à faire correspondre l'état réel observé à l'état désiré déclaré par la configuration."
+      },
+      {
+        "question_text": "Quelle est la différence entre une liveness probe et une readiness probe dans Kubernetes ?",
+        "choice_a": "Ce sont deux termes strictement synonymes, désignant exactement le même mécanisme de vérification",
+        "choice_b": "Une readiness probe ne peut être configurée qu'une seule fois, au tout premier démarrage du pod",
+        "choice_c": "Une liveness probe ne concerne que la consommation de mémoire, jamais la disponibilité applicative",
+        "choice_d": "Une liveness probe vérifie périodiquement qu'un conteneur est toujours 'vivant' et fonctionnel (sinon Kubernetes le redémarre automatiquement) ; une readiness probe vérifie qu'un conteneur est prêt à recevoir du trafic à cet instant précis (sinon Kubernetes le retire temporairement de la liste des pods servis par le Service correspondant, sans pour autant le redémarrer)",
+        "correct_choice": "D",
+        "explanation": "Cette distinction est utile par exemple lorsqu'un conteneur reste techniquement en vie mais doit temporairement cesser de recevoir du trafic (ex: pendant qu'il recharge un cache volumineux au démarrage) : la readiness probe permet de le retirer momentanément de la rotation sans déclencher un redémarrage inutile via la liveness probe."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Horizontal Pod Autoscaler (HPA) dans Kubernetes ?",
+        "choice_a": "Un mécanisme qui ajuste automatiquement le nombre de réplicas d'un Deployment à la hausse ou à la baisse, en fonction de métriques observées en temps réel (le plus souvent l'utilisation CPU ou mémoire moyenne des pods), permettant au cluster de s'adapter dynamiquement aux variations de charge sans intervention manuelle",
+        "choice_b": "Un outil qui augmente uniquement la puissance (CPU/RAM) d'un pod existant, sans jamais en créer de nouveaux",
+        "choice_c": "Un mécanisme qui supprime définitivement les pods les moins récemment utilisés",
+        "choice_d": "Un synonyme technique exact d'un ReplicaSet, sans différence de comportement",
+        "correct_choice": "A",
+        "explanation": "C'est un exemple concret de scalabilité horizontale automatisée : plutôt que d'avoir à surveiller manuellement la charge et à ajuster le nombre de réplicas à la main, le HPA le fait en continu selon des seuils configurés à l'avance (ex: maintenir l'utilisation CPU moyenne autour de 50%)."
+      },
+      {
+        "question_text": "Comment fonctionne une mise à jour progressive (rolling update) dans Kubernetes ?",
+        "choice_a": "Kubernetes arrête d'abord absolument tous les anciens pods avant de créer les nouveaux",
+        "choice_b": "Kubernetes remplace progressivement les anciens pods par de nouveaux pods utilisant la nouvelle version (généralement quelques-uns à la fois), en s'assurant qu'un nombre suffisant de pods reste disponible et fonctionnel à chaque étape, ce qui permet de déployer une nouvelle version d'une application sans interruption de service perceptible pour les utilisateurs",
+        "choice_c": "Kubernetes ne peut mettre à jour qu'un pod à la fois dans tout le cluster, sans exception",
+        "choice_d": "Une mise à jour progressive nécessite systématiquement un temps d'arrêt planifié du service",
+        "correct_choice": "B",
+        "explanation": "Cette stratégie est activée par défaut pour un Deployment Kubernetes : elle représente une alternative automatisée et intégrée aux stratégies de déploiement blue-green ou canary vues dans le cadre plus général de l'architecture logicielle, directement gérée par l'orchestrateur lui-même."
+      },
+      {
+        "question_text": "Qu'est-ce que kubectl ?",
+        "choice_a": "Un langage de programmation spécialement conçu pour écrire des applications Kubernetes",
+        "choice_b": "Un service cloud payant qui héberge automatiquement n'importe quel cluster Kubernetes",
+        "choice_c": "L'outil en ligne de commande officiel permettant d'interagir avec un cluster Kubernetes : créer, consulter, modifier ou supprimer des ressources (pods, deployments, services...), consulter les logs, ou exécuter des commandes à l'intérieur d'un conteneur en cours d'exécution",
+        "choice_d": "Le nom donné au fichier de configuration principal décrivant un Deployment",
+        "correct_choice": "C",
+        "explanation": "C'est l'interface principale utilisée au quotidien par les équipes travaillant avec Kubernetes, que ce soit pour appliquer des fichiers de configuration YAML (`kubectl apply -f`), inspecter l'état du cluster (`kubectl get pods`), ou déboguer un problème (`kubectl logs`, `kubectl exec`)."
+      },
+      {
+        "question_text": "À quoi sert un registre d'images (image registry, ex: Docker Hub) ?",
+        "choice_a": "Un outil qui ne sert qu'à afficher graphiquement l'état des conteneurs en cours d'exécution",
+        "choice_b": "Un service qui exécute directement les conteneurs à la place de la machine locale",
+        "choice_c": "Un mécanisme réservé exclusivement aux images Docker officielles maintenues par Docker Inc.",
+        "choice_d": "Un dépôt centralisé où les images Docker construites sont stockées, versionnées (via des tags) et partagées, permettant de les récupérer (pull) et de les exécuter sur n'importe quelle autre machine disposant de Docker, sans avoir à reconstruire l'image localement à chaque fois",
+        "correct_choice": "D",
+        "explanation": "C'est ce mécanisme qui permet à un pipeline de déploiement de fonctionner de façon fiable : l'image est construite une fois, poussée (push) vers un registre, puis tirée (pull) et exécutée de façon identique sur le serveur de production, garantissant que l'environnement testé correspond exactement à celui réellement déployé."
+      }
+    ]
+  },
+  {
+    "name": "Cloud Computing (AWS/GCP/Azure)",
+    "color": "orange",
+    "questions": [
+      {
+        "question_text": "Quelle est la différence entre IaaS, PaaS et SaaS dans le cloud computing ?",
+        "choice_a": "IaaS (Infrastructure as a Service) fournit des ressources brutes (serveurs virtuels, stockage, réseau) que le client configure lui-même ; PaaS (Platform as a Service) fournit une plateforme managée (l'infrastructure et l'exécution sont gérées) sur laquelle déployer directement son code ; SaaS (Software as a Service) fournit une application complète prête à l'emploi, sans aucune gestion technique côté client — ces trois niveaux offrent un abstraction croissante, du plus bas niveau (IaaS) au plus haut niveau (SaaS)",
+        "choice_b": "Ce sont trois noms différents pour désigner exactement le même modèle de service cloud",
+        "choice_c": "SaaS est toujours moins cher que IaaS, quel que soit le fournisseur cloud",
+        "choice_d": "IaaS ne peut être utilisé que par des particuliers, jamais par des entreprises",
+        "correct_choice": "A",
+        "explanation": "Un exemple concret : louer une machine virtuelle nue est de l'IaaS (on installe et gère tout soi-même), déployer une application sur une plateforme qui gère automatiquement le scaling et le système d'exploitation est du PaaS, et utiliser Gmail sans jamais se soucier de l'infrastructure sous-jacente est du SaaS."
+      },
+      {
+        "question_text": "Qu'est-ce que le stockage objet (object storage, ex: Amazon S3), et en quoi diffère-t-il d'un système de fichiers classique ?",
+        "choice_a": "Un synonyme exact d'un disque dur physique installé directement sur un serveur",
+        "choice_b": "Un service de stockage conçu pour stocker un nombre quasiment illimité de fichiers ('objets') identifiés par une clé unique plutôt que par une arborescence de dossiers traditionnelle, hautement disponible et durable, mais généralement sans possibilité de modifier une petite partie d'un fichier existant (on remplace l'objet entier)",
+        "choice_c": "Un système qui ne peut stocker que des données structurées, jamais des fichiers binaires comme des images",
+        "choice_d": "Une base de données relationnelle spécialisée dans le stockage de très grandes tables",
+        "correct_choice": "B",
+        "explanation": "Cette architecture simplifiée (pas de vraie hiérarchie de dossiers, objets immuables une fois écrits) est justement ce qui permet au stockage objet de s'étendre à une échelle massive et de garantir une très haute durabilité des données, au prix d'une flexibilité moindre qu'un système de fichiers classique pour des modifications fines et fréquentes."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une fonction serverless (ex: AWS Lambda) ?",
+        "choice_a": "Un serveur physique dédié exclusivement à un seul client, sans aucune virtualisation",
+        "choice_b": "Une technique qui supprime définitivement le besoin de tout langage de programmation",
+        "choice_c": "Un modèle d'exécution où le développeur déploie uniquement du code (une fonction), sans jamais avoir à provisionner, configurer ou maintenir de serveur : le fournisseur cloud exécute automatiquement le code en réponse à un événement déclencheur, et le facture uniquement pour le temps d'exécution réellement consommé",
+        "choice_d": "Un type de base de données optimisée pour les applications sans interface graphique",
+        "correct_choice": "C",
+        "explanation": "Malgré son nom, 'serverless' ne signifie pas qu'il n'y a pas de serveur (il y en a bien un, quelque part), mais que sa gestion est entièrement invisible et déléguée au fournisseur cloud : le développeur n'a jamais à s'en soucier, ni à le dimensionner à l'avance."
+      },
+      {
+        "question_text": "À quoi sert IAM (Identity and Access Management) dans un environnement cloud ?",
+        "choice_a": "À mesurer automatiquement la latence réseau entre deux régions cloud différentes",
+        "choice_b": "À gérer exclusivement la facturation et les coûts associés à un compte cloud",
+        "choice_c": "À sauvegarder automatiquement toutes les données stockées dans le cloud",
+        "choice_d": "À gérer finement quelles identités (utilisateurs, applications, services) sont autorisées à effectuer quelles actions sur quelles ressources cloud précises, en s'appuyant généralement sur le principe du moindre privilège pour limiter les permissions accordées au strict nécessaire",
+        "correct_choice": "D",
+        "explanation": "Une mauvaise configuration IAM (ex: des permissions bien trop larges accordées par défaut) est une cause fréquente d'incidents de sécurité dans le cloud : un service compromis avec des droits IAM excessifs peut avoir un impact bien plus large que nécessaire sur l'ensemble de l'infrastructure."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un VPC (Virtual Private Cloud) ?",
+        "choice_a": "Un réseau privé virtuel, isolé logiquement du reste du cloud public, au sein duquel un client peut définir sa propre plage d'adresses IP, ses sous-réseaux, ses règles de routage et de pare-feu — offrant un contrôle réseau comparable à celui d'un centre de données privé traditionnel, mais hébergé sur l'infrastructure partagée d'un fournisseur cloud",
+        "choice_b": "Un type de machine virtuelle réservé exclusivement aux bases de données",
+        "choice_c": "Un service qui fusionne automatiquement les réseaux de tous les clients d'un même fournisseur cloud",
+        "choice_d": "Un synonyme exact et strict d'un simple sous-réseau (subnet), sans distinction particulière",
+        "correct_choice": "A",
+        "explanation": "C'est cette isolation logique qui permet à une entreprise de déployer ses ressources cloud comme si elles étaient sur son propre réseau privé, tout en bénéficiant de l'infrastructure physique partagée et massivement scalable d'un fournisseur cloud comme AWS, GCP ou Azure."
+      },
+      {
+        "question_text": "Comment fonctionne l'auto-scaling (mise à l'échelle automatique) dans le cloud ?",
+        "choice_a": "Une technique qui n'augmente jamais le nombre d'instances, uniquement la puissance d'une seule instance",
+        "choice_b": "Le nombre d'instances (serveurs virtuels) allouées à une application est ajusté automatiquement, à la hausse comme à la baisse, en fonction de métriques observées en temps réel (ex: charge CPU, nombre de requêtes), sans intervention manuelle — permettant d'absorber les pics de trafic tout en réduisant les coûts pendant les périodes de faible demande",
+        "choice_c": "Un mécanisme réservé exclusivement aux bases de données, jamais aux serveurs applicatifs",
+        "choice_d": "Une fonctionnalité qui nécessite systématiquement une intervention manuelle pour chaque ajustement",
+        "correct_choice": "B",
+        "explanation": "C'est un des grands avantages économiques et opérationnels du cloud par rapport à une infrastructure physique traditionnelle : plutôt que de devoir dimensionner ses serveurs pour le pic de charge maximal (souvent atteint rarement), on paie et on provisionne dynamiquement selon la demande réelle du moment."
+      },
+      {
+        "question_text": "Quelle est la différence entre une région et une zone de disponibilité (Availability Zone) chez un fournisseur cloud ?",
+        "choice_a": "Ce sont deux termes strictement synonymes, utilisés indifféremment selon le fournisseur cloud",
+        "choice_b": "Une zone de disponibilité regroupe plusieurs régions différentes entre elles",
+        "choice_c": "Une région est une zone géographique large (ex: 'Europe de l'Ouest') regroupant plusieurs zones de disponibilité, chacune correspondant physiquement à un ou plusieurs centres de données distincts, suffisamment proches pour une faible latence entre elles mais suffisamment séparés (alimentation électrique, réseau indépendants) pour qu'une panne affectant l'une n'affecte généralement pas les autres",
+        "choice_d": "Une région ne peut contenir qu'une seule zone de disponibilité au maximum",
+        "correct_choice": "C",
+        "explanation": "Répartir ses ressources sur plusieurs zones de disponibilité d'une même région est une pratique courante pour la haute disponibilité : si un centre de données d'une zone tombe en panne, les ressources déployées dans les autres zones de la même région continuent de fonctionner normalement."
+      },
+      {
+        "question_text": "Quel est l'intérêt d'un load balancer managé fourni par un fournisseur cloud (ex: un Elastic Load Balancer) ?",
+        "choice_a": "Un service qui ne peut répartir le trafic qu'entre exactement deux instances, jamais plus",
+        "choice_b": "Un outil réservé exclusivement à la répartition de charge entre différents fournisseurs cloud",
+        "choice_c": "Un mécanisme qui chiffre automatiquement l'intégralité du code source de l'application",
+        "choice_d": "Il répartit automatiquement le trafic entrant entre plusieurs instances d'une application, tout en étant lui-même entièrement géré par le fournisseur cloud (haute disponibilité, mise à l'échelle automatique, patchs de sécurité déjà appliqués), évitant à l'équipe de devoir déployer, maintenir et faire évoluer elle-même un logiciel de répartition de charge",
+        "correct_choice": "D",
+        "explanation": "Le principal avantage par rapport à un load balancer auto-hébergé (ex: Nginx configuré manuellement) est de ne pas avoir à se soucier de la disponibilité et de la scalabilité du load balancer lui-même : ces aspects deviennent la responsabilité du fournisseur cloud dans le cadre du modèle de responsabilité partagée."
+      },
+      {
+        "question_text": "Quelle est la différence entre le stockage objet, le stockage bloc et le stockage fichier dans le cloud ?",
+        "choice_a": "Le stockage objet (ex: S3) gère des fichiers identifiés par une clé, accessibles via une API, adapté aux données non structurées à grande échelle ; le stockage bloc (ex: EBS) fournit un disque virtuel brut attaché à une instance, comme un disque dur classique, adapté aux systèmes de fichiers et bases de données nécessitant des performances d'accès faible latence ; le stockage fichier (ex: EFS) fournit un système de fichiers partagé accessible simultanément par plusieurs instances via un protocole réseau classique",
+        "choice_b": "Ce sont trois noms différents pour désigner exactement le même service de stockage cloud",
+        "choice_c": "Le stockage bloc ne peut être utilisé que pour stocker des images et vidéos",
+        "choice_d": "Le stockage fichier ne peut être accédé que par une seule instance à la fois, jamais partagé",
+        "correct_choice": "A",
+        "explanation": "Le choix entre ces trois types dépend fortement du cas d'usage : une base de données a généralement besoin d'un stockage bloc à faible latence attaché directement à son instance, alors qu'un site web hébergeant des images statiques utilisera plus naturellement du stockage objet, plus économique et scalable à très grande échelle."
+      },
+      {
+        "question_text": "Qu'est-ce que l'Infrastructure as Code (IaC, ex: avec Terraform) ?",
+        "choice_a": "Une technique qui consiste à écrire manuellement chaque ligne de code de l'application elle-même",
+        "choice_b": "Une pratique qui consiste à définir et provisionner l'infrastructure cloud (serveurs, réseaux, bases de données...) via des fichiers de configuration déclaratifs versionnés dans du code, plutôt qu'en configurant manuellement chaque ressource via une interface graphique — permettant de recréer une infrastructure identique de façon reproductible, traçable et automatisable",
+        "choice_c": "Un langage de programmation qui remplace entièrement le besoin d'un cloud provider",
+        "choice_d": "Un outil qui ne sert qu'à visualiser graphiquement l'infrastructure existante, sans pouvoir la modifier",
+        "correct_choice": "B",
+        "explanation": "Cette approche apporte au provisionnement d'infrastructure les mêmes bénéfices que le contrôle de version apporte au code source : historique des changements, revue avant application, possibilité de recréer un environnement identique (ex: de test) à partir des mêmes fichiers de configuration."
+      },
+      {
+        "question_text": "Comment fonctionne un CDN cloud managé (ex: Amazon CloudFront) ?",
+        "choice_a": "Un service qui ralentit intentionnellement le chargement du contenu pour économiser de la bande passante",
+        "choice_b": "Un mécanisme réservé exclusivement au contenu vidéo, incompatible avec les images ou scripts",
+        "choice_c": "Il met en cache et sert le contenu (souvent statique) depuis un réseau mondial de points de présence gérés par le fournisseur cloud, rapprochant géographiquement le contenu des utilisateurs finaux pour réduire la latence, sans que le client ait à déployer ou gérer lui-même cette infrastructure de distribution répartie",
+        "choice_d": "Un outil qui chiffre le contenu statique mais ne modifie jamais sa localisation de diffusion",
+        "correct_choice": "C",
+        "explanation": "C'est le même principe général qu'un CDN classique, mais entièrement intégré et géré par le fournisseur cloud, souvent directement branché sur d'autres services du même écosystème (ex: un bucket de stockage objet comme origine du contenu à distribuer)."
+      },
+      {
+        "question_text": "Que signifie le modèle de tarification 'pay-as-you-go' (paiement à l'usage) du cloud computing ?",
+        "choice_a": "Un modèle où le client doit obligatoirement payer un forfait fixe annuel, quelle que soit sa consommation",
+        "choice_b": "Un modèle réservé exclusivement aux grandes entreprises, inaccessible aux petits projets",
+        "choice_c": "Un modèle qui facture uniquement en fonction du nombre d'employés de l'entreprise cliente",
+        "choice_d": "Le client paie uniquement pour les ressources qu'il consomme réellement (ex: le temps d'exécution d'une instance, le volume de données stockées), sans engagement de capacité fixe à l'avance ni investissement matériel initial, contrairement à l'achat traditionnel de serveurs physiques dimensionnés pour une capacité maximale anticipée",
+        "correct_choice": "D",
+        "explanation": "Ce modèle transforme une dépense en capital (CapEx, achat de matériel à l'avance) en dépense opérationnelle (OpEx, payée au fil de l'usage réel), ce qui réduit le risque financier de sur-provisionner (payer pour une capacité jamais utilisée) ou de sous-provisionner (manquer de capacité lors d'un pic imprévu)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une base de données managée (managed database, ex: Amazon RDS) ?",
+        "choice_a": "Un service cloud qui prend en charge l'infrastructure et les tâches opérationnelles d'une base de données à la place de l'équipe technique (installation, sauvegardes automatiques, application des correctifs de sécurité, réplication, mise à l'échelle), laissant l'équipe se concentrer sur l'utilisation de la base plutôt que sur son administration",
+        "choice_b": "Une base de données qui ne peut être utilisée qu'en lecture seule, jamais en écriture",
+        "choice_c": "Un type de base de données qui n'existe qu'en environnement local, jamais dans le cloud",
+        "choice_d": "Un service qui remplace entièrement le besoin d'écrire des requêtes SQL",
+        "correct_choice": "A",
+        "explanation": "Le compromis habituel est un gain de temps opérationnel important (moins de tâches de maintenance manuelles) au prix d'un contrôle plus limité sur certains aspects bas niveau de la configuration du serveur de base de données, généralement acceptable pour la grande majorité des usages courants."
+      },
+      {
+        "question_text": "Qu'est-ce que le 'vendor lock-in' (dépendance à un fournisseur), et comment une stratégie multi-cloud tente-t-elle d'y répondre ?",
+        "choice_a": "Le vendor lock-in décrit uniquement le temps d'attente avant qu'un serveur cloud ne démarre",
+        "choice_b": "Le vendor lock-in désigne la dépendance forte d'une entreprise envers les services spécifiques d'un unique fournisseur cloud, rendant coûteuse et complexe une éventuelle migration vers un autre fournisseur ; une stratégie multi-cloud consiste à répartir volontairement son infrastructure entre plusieurs fournisseurs différents, afin de réduire cette dépendance, au prix d'une complexité opérationnelle accrue (gérer plusieurs environnements différents)",
+        "choice_c": "Une stratégie multi-cloud consiste à n'utiliser qu'un seul fournisseur, mais dans plusieurs régions",
+        "choice_d": "Le vendor lock-in n'existe que pour les services gratuits, jamais pour les services payants",
+        "correct_choice": "B",
+        "explanation": "Le vendor lock-in s'accentue généralement à mesure qu'une application utilise des services propriétaires avancés et spécifiques à un fournisseur (au-delà du simple calcul/stockage de base), rendant une éventuelle migration vers un concurrent d'autant plus coûteuse à réécrire et tester."
+      },
+      {
+        "question_text": "Qu'est-ce que l'élasticité (elasticity) dans le contexte du cloud computing ?",
+        "choice_a": "La capacité d'un serveur physique à résister mécaniquement aux vibrations",
+        "choice_b": "Un synonyme exact et strict de la durabilité des données stockées dans le cloud",
+        "choice_c": "La capacité d'un système cloud à ajuster automatiquement et rapidement les ressources allouées (à la hausse comme à la baisse) en fonction de la demande réelle observée à un instant donné, contrairement à une infrastructure statique dimensionnée une fois pour toutes selon une estimation de charge maximale",
+        "choice_d": "Une mesure de la flexibilité contractuelle des conditions d'abonnement à un service cloud",
+        "correct_choice": "C",
+        "explanation": "C'est cette élasticité, combinée au modèle de facturation à l'usage, qui distingue fondamentalement le cloud d'une infrastructure physique traditionnelle : les ressources suivent dynamiquement la charge réelle plutôt que d'être fixées à l'avance sur la base d'une estimation qui peut s'avérer trop haute (gaspillage) ou trop basse (indisponibilité lors d'un pic)."
+      },
+      {
+        "question_text": "Qu'est-ce que le 'cold start' (démarrage à froid) en informatique serverless ?",
+        "choice_a": "Un mécanisme qui refroidit physiquement les serveurs du fournisseur cloud pour éviter la surchauffe",
+        "choice_b": "Une erreur qui survient uniquement lorsqu'un serveur cloud est physiquement situé dans une région froide",
+        "choice_c": "Un délai qui ne survient qu'une seule fois dans toute la durée de vie d'un compte cloud",
+        "choice_d": "Un délai supplémentaire de latence qui survient lors du tout premier appel (ou après une période d'inactivité prolongée) d'une fonction serverless, le temps que le fournisseur cloud initialise une nouvelle instance d'exécution pour cette fonction, avant de pouvoir réellement traiter la requête",
+        "correct_choice": "D",
+        "explanation": "Ce délai supplémentaire (qui peut aller de quelques centaines de millisecondes à plusieurs secondes selon le runtime utilisé) est l'une des principales limites pratiques du serverless pour des applications très sensibles à la latence, et diverses techniques (ex: garder des instances 'chaudes' via des appels périodiques) existent pour l'atténuer."
+      },
+      {
+        "question_text": "À quoi sert un security group (groupe de sécurité) dans un environnement cloud ?",
+        "choice_a": "Un ensemble de règles de pare-feu appliquées directement à une ou plusieurs ressources cloud spécifiques (ex: une instance), définissant précisément quel trafic réseau entrant et sortant est autorisé (ex: n'autoriser le port 443 en entrée que depuis certaines adresses IP)",
+        "choice_b": "Un groupe d'utilisateurs humains ayant physiquement accès au centre de données",
+        "choice_c": "Un service qui chiffre automatiquement toutes les données stockées, sans configuration réseau",
+        "choice_d": "Un mécanisme qui supprime automatiquement toutes les ressources cloud inutilisées d'un compte",
+        "correct_choice": "A",
+        "explanation": "Bien configurer les security groups selon le principe du moindre privilège (n'ouvrir que les ports et sources strictement nécessaires) est une pratique de sécurité fondamentale dans le cloud : une règle trop permissive (ex: ouvrir un port sensible à toutes les adresses IP d'Internet) est une cause fréquente d'incidents de sécurité."
+      },
+      {
+        "question_text": "Que signifie l'expression souvent citée des '11 nines' (99,999999999% de durabilité) pour un service de stockage objet comme S3, et en quoi diffère-t-elle de la disponibilité ?",
+        "choice_a": "Les deux termes sont strictement synonymes et interchangeables dans ce contexte",
+        "choice_b": "La durabilité désigne la probabilité extrêmement élevée que les données stockées ne soient jamais perdues ou corrompues sur le long terme (le fournisseur les réplique sur plusieurs emplacements physiques indépendants) ; la disponibilité, une mesure différente, désigne plutôt la probabilité de pouvoir accéder à ces données à un instant donné (un service peut être temporairement inaccessible sans pour autant avoir perdu la moindre donnée)",
+        "choice_c": "Cela signifie que le service ne peut jamais tomber en panne, sous aucune circonstance",
+        "choice_d": "Cela signifie que le service ne peut être utilisé que pendant 11 heures par jour maximum",
+        "correct_choice": "B",
+        "explanation": "Un service peut ainsi afficher une durabilité extrêmement élevée (les données ne disparaissent presque jamais, grâce à la réplication multiple) tout en ayant un taux de disponibilité légèrement inférieur (une maintenance ou un incident ponctuel peut temporairement empêcher d'y accéder, sans pour autant menacer l'intégrité des données elles-mêmes)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un service Kubernetes managé (ex: Amazon EKS, Google GKE, Azure AKS) ?",
+        "choice_a": "Un service qui remplace entièrement Kubernetes par une technologie propriétaire incompatible",
+        "choice_b": "Un outil qui ne peut gérer qu'un seul pod à la fois, contrairement à Kubernetes classique",
+        "choice_c": "Un service cloud qui gère à la place du client le 'control plane' de Kubernetes (les composants internes qui orchestrent le cluster : API server, etcd, scheduler...), lui évitant d'avoir à l'installer, le sécuriser et le maintenir lui-même, tout en laissant le client gérer ses propres charges de travail (workloads) déployées sur ce cluster",
+        "choice_d": "Un service qui ne fonctionne qu'avec des conteneurs Docker, jamais avec d'autres runtimes",
+        "correct_choice": "C",
+        "explanation": "Faire fonctionner soi-même le control plane d'un cluster Kubernetes (haute disponibilité, mises à jour de version, sécurité) représente une charge opérationnelle non négligeable ; un service Kubernetes managé délègue cette responsabilité au fournisseur cloud, ce qui explique sa popularité par rapport à l'installation d'un cluster Kubernetes entièrement autogéré."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une instance spot (spot instance, ou preemptible instance selon le fournisseur) dans le cloud ?",
+        "choice_a": "Une instance garantie de ne jamais être interrompue, en échange d'un tarif plus élevé",
+        "choice_b": "Un type d'instance réservé exclusivement à l'hébergement de sites web publics",
+        "choice_c": "Une instance qui ne peut être utilisée que pendant exactement une heure avant suppression automatique",
+        "choice_d": "Une instance de calcul vendue à un tarif significativement réduit par rapport au prix standard, mais que le fournisseur cloud peut reprendre et interrompre à tout moment (avec un court préavis) s'il a besoin de cette capacité pour d'autres clients — adaptée aux charges de travail tolérantes aux interruptions (ex: traitement par lots, calcul scientifique) plutôt qu'à des services devant rester disponibles en continu",
+        "correct_choice": "D",
+        "explanation": "Ce modèle permet au fournisseur cloud de monétiser sa capacité de calcul momentanément inutilisée à prix réduit, tout en gardant la priorité pour ses clients standards ; côté client, l'économie réalisée (souvent 60 à 90% moins chère) peut être substantielle pour des charges de travail conçues pour supporter une interruption et une reprise ultérieure."
+      }
+    ]
+  },
+  {
+    "name": "Blockchain & Web3",
+    "color": "cyan",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce qu'une blockchain ?",
+        "choice_a": "Un registre de données distribué, répliqué sur de nombreux ordinateurs indépendants (nœuds), organisé en une chaîne de blocs liés cryptographiquement les uns aux autres, conçu pour rendre extrêmement difficile la modification a posteriori d'une information déjà enregistrée, sans nécessiter d'autorité centrale unique pour en garantir la validité",
+        "choice_b": "Une base de données classique hébergée sur un seul serveur centralisé, comme n'importe quelle autre",
+        "choice_c": "Un langage de programmation spécialement conçu pour écrire des sites web",
+        "choice_d": "Un protocole de compression de fichiers similaire à un format ZIP",
+        "correct_choice": "A",
+        "explanation": "Ce qui distingue fondamentalement une blockchain d'une base de données classique n'est pas tant la structure des données elle-même, mais l'absence d'autorité centrale de confiance : la validité de l'historique repose sur un consensus distribué entre de nombreux participants indépendants plutôt que sur la confiance accordée à un opérateur unique."
+      },
+      {
+        "question_text": "Comment le chaînage par hachage (hash chain) garantit-il l'intégrité de l'historique complet d'une blockchain ?",
+        "choice_a": "Chaque bloc est chiffré avec une clé différente, changée aléatoirement à chaque nouveau bloc ajouté",
+        "choice_b": "Chaque bloc contient, parmi ses données, le hash cryptographique du bloc précédent ; modifier ne serait-ce qu'un seul octet d'un bloc ancien changerait son hash, ce qui invaliderait automatiquement la référence stockée dans le bloc suivant, et ainsi de suite en cascade jusqu'au dernier bloc de la chaîne — rendant toute modification rétroactive immédiatement détectable par l'ensemble du réseau",
+        "choice_c": "Les blocs sont simplement numérotés dans l'ordre, sans aucun lien cryptographique réel entre eux",
+        "choice_d": "Un seul hash global protège l'ensemble de la blockchain, recalculé entièrement à chaque nouveau bloc",
+        "correct_choice": "B",
+        "explanation": "C'est ce mécanisme en cascade qui rend la falsification rétroactive de l'historique pratiquement infaisable sans que cela ne soit immédiatement détecté par n'importe quel nœud du réseau vérifiant la cohérence de la chaîne de hashs, contrairement à une simple base de données où une ligne pourrait être modifiée sans laisser de trace visible."
+      },
+      {
+        "question_text": "Qu'est-ce que la Preuve de Travail (Proof of Work), mécanisme de consensus utilisé notamment par Bitcoin ?",
+        "choice_a": "Un système où chaque participant doit prouver son identité réelle avant de pouvoir valider un bloc",
+        "choice_b": "Une méthode qui sélectionne aléatoirement, sans aucun calcul, quel participant valide le prochain bloc",
+        "choice_c": "Un mécanisme de consensus où les participants (mineurs) doivent résoudre un problème de calcul intentionnellement coûteux (nécessitant une grande puissance de calcul) pour avoir le droit de valider le prochain bloc et recevoir une récompense, ce coût de calcul rendant économiquement dissuasive toute tentative de falsifier l'historique (qui nécessiterait de refaire tout ce travail de calcul plus vite que le reste du réseau honnête)",
+        "choice_d": "Un mécanisme réservé exclusivement aux transactions de moins d'un centime de cryptomonnaie",
+        "correct_choice": "C",
+        "explanation": "Ce mécanisme est fortement critiqué pour sa consommation énergétique très élevée (la puissance de calcul mondiale dédiée au minage de Bitcoin consomme autant d'électricité que certains pays entiers), ce qui a motivé le développement d'alternatives comme la Preuve d'Enjeu, bien moins gourmande en énergie."
+      },
+      {
+        "question_text": "Qu'est-ce que la Preuve d'Enjeu (Proof of Stake), alternative à la Preuve de Travail ?",
+        "choice_a": "Un mécanisme qui n'existe que sur des blockchains privées, jamais sur des blockchains publiques",
+        "choice_b": "Une méthode identique à la Preuve de Travail, seul le nom marketing diffère",
+        "choice_c": "Un système qui élimine complètement le besoin de tout mécanisme de consensus",
+        "choice_d": "Un mécanisme de consensus où le droit de valider le prochain bloc dépend de la quantité de cryptomonnaie que le participant met en jeu (stake) comme garantie, plutôt que de sa puissance de calcul brute — un participant malveillant risque de perdre tout ou partie de sa mise s'il tente de valider des transactions frauduleuses, ce qui remplace le coût énergétique du calcul par un coût économique direct",
+        "correct_choice": "D",
+        "explanation": "Ethereum, historiquement basé sur la Preuve de Travail comme Bitcoin, a migré vers la Preuve d'Enjeu (via une mise à jour majeure surnommée 'The Merge'), réduisant sa consommation énergétique de plus de 99%, tout en gardant un mécanisme économique dissuasif contre les comportements malveillants."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un smart contract (contrat intelligent) ?",
+        "choice_a": "Un programme informatique stocké et exécuté directement sur une blockchain, dont le code s'exécute automatiquement et de façon prévisible dès que ses conditions prédéfinies sont remplies, sans nécessiter d'intermédiaire humain ou d'autorité centrale pour faire respecter ses termes",
+        "choice_b": "Un contrat juridique papier classique, simplement numérisé et stocké sous forme de PDF sur un serveur",
+        "choice_c": "Une intelligence artificielle qui négocie automatiquement les termes d'un contrat entre deux humains",
+        "choice_d": "Un accord commercial qui ne peut être conclu qu'entre deux entreprises, jamais entre particuliers",
+        "correct_choice": "A",
+        "explanation": "Une fois déployé sur la blockchain, le code d'un smart contract devient généralement immuable et son exécution transparente et vérifiable par n'importe qui — c'est cette caractéristique qui a rendu possible tout l'écosystème de la finance décentralisée (DeFi), construit sur des smart contracts automatisant des opérations financières sans intermédiaire."
+      },
+      {
+        "question_text": "Comment fonctionne, en principe, un portefeuille (wallet) de cryptomonnaie, via la cryptographie asymétrique ?",
+        "choice_a": "Un portefeuille stocke physiquement les pièces de cryptomonnaie elles-mêmes, comme un porte-monnaie classique",
+        "choice_b": "Un portefeuille génère une paire de clés cryptographiques : une clé privée (secrète, qui doit être gardée strictement confidentielle) permettant de signer et d'autoriser des transactions, et une clé publique (dérivée de la clé privée) qui sert d'adresse publique pouvant être partagée librement pour recevoir des fonds — la possession de la clé privée est ce qui prouve et permet réellement le contrôle des fonds associés",
+        "choice_c": "Un portefeuille nécessite obligatoirement un compte bancaire traditionnel relié en permanence",
+        "choice_d": "Un portefeuille utilise un simple mot de passe classique, sans aucune notion de cryptographie",
+        "correct_choice": "B",
+        "explanation": "Contrairement à une idée reçue, un wallet ne 'contient' pas physiquement de la cryptomonnaie : les fonds existent uniquement sous forme d'enregistrements sur la blockchain elle-même, et le wallet stocke seulement les clés cryptographiques permettant de prouver leur propriété et d'autoriser leur transfert."
+      },
+      {
+        "question_text": "Qu'est-ce que le problème de la double dépense (double-spending) que la blockchain a été conçue pour résoudre ?",
+        "choice_a": "Un problème qui ne concerne que les erreurs de calcul lors de la conversion entre deux devises différentes",
+        "choice_b": "Une technique légitime permettant de dupliquer volontairement des fonds pour un usage comptable",
+        "choice_c": "Le risque, propre aux actifs numériques (facilement copiables), qu'un même utilisateur dépense deux fois la même unité de monnaie numérique en l'envoyant simultanément à deux destinataires différents avant que l'une des deux transactions ne soit détectée comme frauduleuse — un problème que la monnaie physique ne pose pas naturellement, un billet ne pouvant matériellement se trouver qu'à un seul endroit à la fois",
+        "choice_d": "Un bug qui n'affecte que les blockchains privées, jamais les blockchains publiques",
+        "correct_choice": "C",
+        "explanation": "Le mécanisme de consensus distribué d'une blockchain (Preuve de Travail, Preuve d'Enjeu...) résout ce problème en garantissant qu'une seule des deux transactions concurrentes sera acceptée et confirmée par le réseau, l'autre étant automatiquement rejetée comme invalide."
+      },
+      {
+        "question_text": "Qu'est-ce que la décentralisation, caractéristique centrale revendiquée par la plupart des projets blockchain/Web3 ?",
+        "choice_a": "La répartition géographique des employés d'une même entreprise sur plusieurs pays différents",
+        "choice_b": "Une architecture technique qui n'utilise volontairement qu'un seul serveur physique, pour plus de simplicité",
+        "choice_c": "Un synonyme exact et strict du chiffrement des données stockées sur la blockchain",
+        "choice_d": "L'absence d'une autorité centrale unique qui contrôlerait ou pourrait unilatéralement modifier le système : le contrôle, la validation et le maintien du réseau sont répartis entre de nombreux participants indépendants, aucun d'entre eux n'ayant, en théorie, le pouvoir d'agir seul sur l'ensemble du système sans l'accord (implicite ou explicite) du reste du réseau",
+        "correct_choice": "D",
+        "explanation": "En pratique, le degré réel de décentralisation varie fortement d'un projet à l'autre : certaines blockchains sont dominées par un petit nombre d'acteurs concentrant une part importante de la puissance de calcul ou de la mise en jeu, ce qui nuance la promesse théorique de décentralisation totale."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un fork (bifurcation) d'une blockchain, et quelle est la différence entre un hard fork et un soft fork ?",
+        "choice_a": "Un fork survient quand le protocole d'une blockchain change, divisant potentiellement l'historique en deux chaînes distinctes ; un hard fork introduit un changement incompatible avec les anciennes règles (les nœuds n'ayant pas mis à jour leur logiciel ne peuvent plus suivre la nouvelle chaîne, ce qui peut créer deux blockchains définitivement séparées), alors qu'un soft fork reste rétrocompatible avec les anciennes règles (les nœuds non mis à jour continuent de fonctionner normalement, avec des règles simplement plus restrictives)",
+        "choice_b": "Un fork désigne uniquement une erreur technique accidentelle et non intentionnelle du réseau",
+        "choice_c": "Un hard fork et un soft fork sont deux termes strictement synonymes, sans différence réelle",
+        "choice_d": "Un fork ne peut survenir que lorsqu'un utilisateur perd accidentellement sa clé privée",
+        "correct_choice": "A",
+        "explanation": "Un exemple historique connu de hard fork est la séparation entre Bitcoin et Bitcoin Cash, ou entre Ethereum et Ethereum Classic : des désaccords sur l'évolution du protocole ou sur la réponse à un incident ont conduit une partie de la communauté à continuer sur une chaîne, et l'autre partie sur une chaîne différente et désormais incompatible."
+      },
+      {
+        "question_text": "Qu'est-ce que le 'gas' sur une blockchain comme Ethereum ?",
+        "choice_a": "Un synonyme technique exact de la cryptomonnaie elle-même, sans nuance particulière",
+        "choice_b": "L'unité qui mesure la quantité de ressources de calcul nécessaires pour exécuter une opération ou une transaction sur la blockchain (ex: un simple transfert coûte moins de gas qu'un smart contract complexe) ; l'utilisateur paie des frais proportionnels à ce gas consommé, ce qui rémunère les validateurs du réseau et empêche également qu'un programme malveillant ou bogué (ex: une boucle infinie) ne consomme des ressources réseau indéfiniment sans jamais payer pour cela",
+        "choice_c": "Un mécanisme de chauffage physique utilisé pour refroidir les centres de données miniers",
+        "choice_d": "Une unité qui mesure uniquement la taille en octets d'une transaction, sans lien avec le calcul",
+        "correct_choice": "B",
+        "explanation": "Ce mécanisme de tarification par unité de calcul consommée est directement inspiré du fait que les smart contracts sont Turing-complets : sans un coût associé à chaque opération, rien n'empêcherait techniquement un programme de tourner indéfiniment (ex: une boucle infinie), monopolisant les ressources du réseau sans jamais s'arrêter."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un NFT (Non-Fungible Token) ?",
+        "choice_a": "Un synonyme exact d'une cryptomonnaie classique comme le Bitcoin, sans aucune différence",
+        "choice_b": "Un type de portefeuille spécialement conçu pour stocker uniquement des NFT",
+        "choice_c": "Un jeton numérique unique et non interchangeable enregistré sur une blockchain, représentant la propriété (ou un droit spécifique) sur un actif numérique ou parfois physique précis — contrairement à une cryptomonnaie classique comme le Bitcoin, où chaque unité est strictement identique et interchangeable avec une autre (fongible), chaque NFT possède un identifiant distinct qui le rend unique",
+        "choice_d": "Un protocole de sécurité qui empêche le vol de clés privées",
+        "correct_choice": "C",
+        "explanation": "Le terme 'fongible' (issu de la finance classique) désigne un actif dont chaque unité est interchangeable avec une autre de même valeur (comme un billet de banque) ; un NFT est justement conçu pour représenter l'inverse : quelque chose d'unique et non substituable, comme une œuvre d'art numérique précise ou un objet de collection numérique."
+      },
+      {
+        "question_text": "Qu'est-ce que la DeFi (finance décentralisée) ?",
+        "choice_a": "Un type de cryptomonnaie spécifique, distincte du Bitcoin ou de l'Ethereum",
+        "choice_b": "Un service gouvernemental qui régule officiellement l'ensemble des marchés de cryptomonnaies",
+        "choice_c": "Un synonyme exact et strict d'un simple portefeuille de cryptomonnaie personnel",
+        "choice_d": "Un écosystème de services financiers (prêts, emprunts, échanges d'actifs, épargne rémunérée...) reconstruits directement sur une blockchain via des smart contracts, sans passer par des intermédiaires financiers traditionnels centralisés comme une banque ou un courtier",
+        "correct_choice": "D",
+        "explanation": "L'idée centrale de la DeFi est de reproduire (et parfois de réinventer) les fonctions d'un système financier classique, mais de façon automatisée, transparente et sans intermédiaire de confiance centralisé — au prix, en contrepartie, de nouveaux risques spécifiques (bugs dans les smart contracts, absence de régulation ou de recours classique en cas de problème)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une DAO (Decentralized Autonomous Organization, organisation autonome décentralisée) ?",
+        "choice_a": "Une organisation dont les règles de gouvernance et de fonctionnement (comment les décisions sont prises, comment les fonds communs sont dépensés) sont directement codées dans des smart contracts sur une blockchain, plutôt que gérées par une hiérarchie de direction humaine traditionnelle — les décisions sont généralement prises par un vote des détenteurs de jetons de gouvernance de l'organisation",
+        "choice_b": "Une entreprise classique qui utilise simplement une blockchain pour sa comptabilité interne",
+        "choice_c": "Un synonyme exact d'un smart contract individuel isolé, sans notion de gouvernance collective",
+        "choice_d": "Une organisation qui ne peut légalement exister que dans un seul pays précis",
+        "correct_choice": "A",
+        "explanation": "Bien que le concept promette une gouvernance transparente et sans intermédiaire centralisé, les DAO font aussi face à des défis concrets (participation souvent faible aux votes, concentration du pouvoir de vote entre les mains de gros détenteurs de jetons, ou encore le statut juridique encore flou de ce type de structure dans de nombreux pays)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un arbre de Merkle (Merkle tree), structure de données utilisée dans les blockchains ?",
+        "choice_a": "Une structure qui trie automatiquement toutes les transactions par ordre chronologique strict",
+        "choice_b": "Une structure arborescente où chaque nœud non-feuille contient le hash combiné de ses nœuds enfants, et où les feuilles contiennent le hash des données individuelles (ex: des transactions) — cette structure permet de vérifier efficacement l'intégrité d'un très grand ensemble de données via un seul hash racine, et de prouver qu'un élément précis appartient bien à l'ensemble sans avoir à transmettre ni vérifier toutes les autres données",
+        "choice_c": "Un algorithme de chiffrement symétrique utilisé pour protéger les clés privées des utilisateurs",
+        "choice_d": "Un synonyme exact et strict d'un arbre binaire de recherche classique, sans propriété cryptographique",
+        "correct_choice": "B",
+        "explanation": "Grâce à cette structure, un bloc de blockchain n'a besoin de stocker qu'un seul hash racine (résumant potentiellement des milliers de transactions) pour garantir cryptographiquement l'intégrité de l'ensemble, et il est possible de prouver l'inclusion d'une transaction précise en ne fournissant qu'un petit nombre de hashs intermédiaires plutôt que la totalité des données."
+      },
+      {
+        "question_text": "Pourquoi dit-on qu'une blockchain est 'immuable' une fois qu'un bloc est suffisamment confirmé par le réseau ?",
+        "choice_a": "Parce qu'un règlement légal international interdit formellement toute modification d'une blockchain",
+        "choice_b": "Parce que chaque bloc est physiquement gravé sur un support de stockage impossible à réécrire",
+        "choice_c": "Parce que modifier un bloc déjà ancien nécessiterait de recalculer son hash ainsi que celui de tous les blocs suivants (à cause du chaînage par hachage), et de convaincre (ou de dépasser en puissance de calcul/mise en jeu) la majorité honnête du réseau qui continue, elle, de suivre et d'étendre la chaîne originale non modifiée — un exploit devenant économiquement et techniquement de plus en plus infaisable à mesure que de nouveaux blocs s'ajoutent par-dessus",
+        "choice_d": "Parce qu'aucune blockchain n'autorise techniquement plus d'un seul bloc à exister au total",
+        "correct_choice": "C",
+        "explanation": "Cette immuabilité n'est donc pas une garantie mathématique absolue mais une garantie probabiliste et économique : elle repose sur le fait qu'un attaquant devrait mobiliser plus de ressources (calcul ou capital en jeu) que l'ensemble du reste du réseau honnête combiné, ce qui devient rapidement prohibitif pour des blockchains suffisamment établies et décentralisées."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un nœud (node) dans un réseau blockchain ?",
+        "choice_a": "Un synonyme exact et strict d'un smart contract déployé sur la blockchain",
+        "choice_b": "Une unité de mesure de la valeur d'une cryptomonnaie sur les marchés",
+        "choice_c": "Un terme qui ne désigne que le tout premier ordinateur ayant rejoint historiquement le réseau",
+        "choice_d": "Un ordinateur participant au réseau, qui maintient généralement une copie (complète ou partielle) du registre de la blockchain et peut, selon son rôle, valider de nouvelles transactions, propager les blocs à travers le réseau, ou participer directement au mécanisme de consensus (ex: en tant que mineur ou validateur)",
+        "correct_choice": "D",
+        "explanation": "Plus un réseau blockchain compte de nœuds indépendants répartis largement, plus il devient robuste et résistant à la censure ou à une prise de contrôle par un acteur unique — c'est un facteur clé (avec la répartition de la puissance de calcul ou de la mise en jeu) du degré réel de décentralisation d'un réseau donné."
+      },
+      {
+        "question_text": "Qu'est-ce que l'attaque dite des '51%' sur une blockchain basée sur la Preuve de Travail ?",
+        "choice_a": "Un scénario où un acteur unique (ou un groupe coordonné) parvient à contrôler plus de la moitié de la puissance de calcul totale dédiée à la validation du réseau, lui permettant potentiellement de manipuler le consensus à son avantage (ex: réaliser une double dépense, ou empêcher certaines transactions légitimes d'être confirmées) — un risque théoriquement possible mais devenant économiquement de plus en plus coûteux et improbable à mesure qu'un réseau grandit et se décentralise davantage",
+        "choice_b": "Une attaque qui ne peut viser que 51 utilisateurs précis à la fois, jamais plus ni moins",
+        "choice_c": "Un bug logiciel qui affecte exactement 51% des transactions d'un bloc donné",
+        "choice_d": "Une technique légale utilisée par les régulateurs pour auditer une blockchain publique",
+        "correct_choice": "A",
+        "explanation": "C'est précisément ce risque théorique que la taille et la décentralisation d'un réseau comme Bitcoin rendent extrêmement coûteux à réaliser en pratique : accumuler plus de 50% de la puissance de calcul mondiale dédiée au réseau nécessiterait un investissement matériel et énergétique colossal, largement dissuasif."
+      },
+      {
+        "question_text": "Quelle est la différence entre une cryptomonnaie et la blockchain ?",
+        "choice_a": "Ce sont deux termes strictement synonymes, utilisés indifféremment l'un pour l'autre",
+        "choice_b": "La blockchain est la technologie sous-jacente (un registre distribué et sécurisé par cryptographie), alors qu'une cryptomonnaie n'est qu'une des applications possibles construites sur cette technologie — la blockchain peut aussi servir à d'autres usages ne nécessitant pas de monnaie (smart contracts, certification de documents, traçabilité de chaîne logistique, NFT...), tout comme une base de données classique peut servir à de nombreuses applications différentes au-delà d'un seul cas d'usage",
+        "choice_c": "La blockchain ne peut exister que si une cryptomonnaie officielle lui est associée en permanence",
+        "choice_d": "Une cryptomonnaie est une technologie plus générale qui englobe la blockchain comme sous-cas particulier",
+        "correct_choice": "B",
+        "explanation": "Confondre les deux termes est une erreur fréquente : Bitcoin a popularisé le concept de blockchain en l'appliquant à une monnaie numérique, mais de nombreux projets blockchain ultérieurs (registres de propriété, certification, vote électronique expérimental...) n'ont aucun lien direct avec une cryptomonnaie utilisée comme monnaie d'échange."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un bridge (pont) inter-blockchain, et à quel besoin répond-il ?",
+        "choice_a": "Un composant physique qui relie électriquement deux centres de données miniers différents",
+        "choice_b": "Un synonyme exact et strict d'un simple portefeuille de cryptomonnaie",
+        "choice_c": "Un mécanisme (protocole ou infrastructure) qui permet de transférer des actifs ou des informations d'une blockchain vers une autre, alors que les blockchains sont par nature des registres indépendants et cloisonnés qui ne communiquent pas nativement entre eux — un bridge répond au besoin d'interopérabilité entre des écosystèmes blockchain distincts (ex: transférer un actif d'Ethereum vers une autre blockchain)",
+        "choice_d": "Un mécanisme qui ne sert qu'à convertir une cryptomonnaie en monnaie traditionnelle (euros, dollars)",
+        "correct_choice": "C",
+        "explanation": "Les bridges sont considérés comme un des maillons les plus critiques et les plus fréquemment ciblés par des attaques dans l'écosystème blockchain : leur complexité technique et le volume d'actifs souvent verrouillés dans leurs smart contracts en font une cible privilégiée pour les acteurs malveillants."
+      },
+      {
+        "question_text": "Quelle est la différence entre un coin (native de sa propre blockchain, ex: Bitcoin, Ether) et un token ?",
+        "choice_a": "Ce sont deux termes strictement synonymes, employés indifféremment l'un pour l'autre",
+        "choice_b": "Un token ne peut jamais représenter de la valeur financière, contrairement à un coin",
+        "choice_c": "Un coin ne peut exister que sous forme de NFT, jamais sous forme fongible",
+        "choice_d": "Un coin est natif à sa propre blockchain indépendante (il n'existe pas ailleurs, ex: Bitcoin sur la blockchain Bitcoin), alors qu'un token est créé et fonctionne au-dessus d'une blockchain existante via un smart contract (ex: de nombreux tokens sont créés sur la blockchain Ethereum, en s'appuyant sur son infrastructure plutôt qu'en ayant leur propre réseau dédié)",
+        "correct_choice": "D",
+        "explanation": "Créer un token sur une blockchain existante (via un smart contract standardisé) est généralement bien plus rapide et moins coûteux que de développer et sécuriser une toute nouvelle blockchain indépendante pour un nouveau coin, ce qui explique pourquoi l'immense majorité des projets récents choisissent de lancer des tokens plutôt que leur propre blockchain."
       }
     ]
   }
