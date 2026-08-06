@@ -1,6 +1,6 @@
 [
   {
-    "name": "Bits & Bas niveau (C)",
+    "name": "Bas niveau (C)",
     "color": "blue",
     "questions": [
       {
@@ -1421,7 +1421,7 @@
     "questions": []
   },
   {
-    "name": "IA - Fondamentaux",
+    "name": "Fondamentaux",
     "color": "rose",
     "questions": [
       {
@@ -1482,7 +1482,7 @@
     "parent": "IA"
   },
   {
-    "name": "Deep Learning - Architectures",
+    "name": "Deep Learning",
     "color": "emerald",
     "questions": [
       {
@@ -1615,7 +1615,7 @@
     "parent": "IA"
   },
   {
-    "name": "Machine Learning - Concepts",
+    "name": "Machine Learning",
     "color": "orange",
     "questions": [
       {
@@ -2138,7 +2138,7 @@
     "parent": "IA"
   },
   {
-    "name": "MLOps & Déploiement",
+    "name": "MLOps",
     "color": "red",
     "questions": [
       {
@@ -2456,7 +2456,7 @@
     "parent": "IA"
   },
   {
-    "name": "LLM & Génération de texte",
+    "name": "LLMs",
     "color": "indigo",
     "questions": [
       {
@@ -2598,7 +2598,7 @@
     "parent": "IA"
   },
   {
-    "name": "Mathématiques pour l'IA",
+    "name": "IA Mathématiques",
     "color": "emerald",
     "questions": [
       {
@@ -2970,7 +2970,7 @@
     ]
   },
   {
-    "name": "Sécurité informatique",
+    "name": "Sécurité",
     "color": "slate",
     "questions": [
       {
@@ -3338,6 +3338,936 @@
         "choice_d": "Authentification, Chiffrement, Intégrité, Disponibilité",
         "correct_choice": "B",
         "explanation": "Ces 4 propriétés garantissent qu'une transaction s'exécute entièrement ou pas du tout (atomicité), respecte les contraintes (cohérence), n'interfère pas avec les autres transactions (isolation) et persiste même en cas de panne (durabilité)."
+      }
+    ]
+  },
+  {
+    "name": "Tests logiciels",
+    "color": "red",
+    "questions": [
+      {
+        "question_text": "Qu'est-ce qu'un test unitaire (unit test) ?",
+        "choice_a": "Un test qui vérifie une unité de code isolée (une fonction, une méthode, une classe) indépendamment du reste du système, généralement rapide à exécuter et en remplaçant ses dépendances par des mocks/stubs si besoin",
+        "choice_b": "Un test qui vérifie l'application entière du point de vue d'un utilisateur final",
+        "choice_c": "Un test qui ne peut être exécuté qu'une seule fois dans toute la vie du projet",
+        "choice_d": "Un test qui mesure uniquement les performances d'une fonction",
+        "correct_choice": "A",
+        "explanation": "En isolant l'unité testée de ses dépendances (base de données, réseau, autres modules), un test unitaire reste rapide et fiable, ce qui permet de l'exécuter très fréquemment (à chaque sauvegarde, à chaque commit) sans ralentir le développement."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un test d'intégration ?",
+        "choice_a": "Un test qui vérifie que plusieurs composants ou modules fonctionnent correctement ensemble une fois assemblés (ex: le code applicatif qui interagit réellement avec une base de données), contrairement au test unitaire qui isole chaque composant",
+        "choice_b": "Un test qui vérifie qu'une seule fonction retourne la bonne valeur pour une entrée donnée",
+        "choice_c": "Un test réservé exclusivement à la vérification de l'interface utilisateur",
+        "choice_d": "Un test qui ne peut être écrit qu'après la mise en production de l'application",
+        "correct_choice": "A",
+        "explanation": "Les tests d'intégration détectent des problèmes que les tests unitaires isolés ne peuvent pas voir, comme une incompatibilité entre deux modules ou une requête SQL mal formée, au prix d'une exécution généralement plus lente (dépendances réelles, souvent une vraie base de données)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un test end-to-end (e2e) ?",
+        "choice_a": "Un test qui vérifie une seule ligne de code à la fois",
+        "choice_b": "Un test exécuté uniquement pendant la phase de conception, avant l'écriture du code",
+        "choice_c": "Un test qui vérifie le fonctionnement de l'application entière du point de vue de l'utilisateur final, en simulant un parcours réel à travers toute la pile technique (interface, backend, base de données) — souvent le plus lent et le plus fragile des trois grands types de tests, mais aussi celui qui se rapproche le plus de l'usage réel",
+        "choice_d": "Un test qui ne peut jamais être automatisé, uniquement exécuté manuellement",
+        "correct_choice": "C",
+        "explanation": "Un test e2e typique simule par exemple un utilisateur qui ouvre l'application, se connecte, remplit un formulaire et vérifie le résultat affiché — sa lenteur et sa fragilité (sensible aux moindres changements d'interface) expliquent pourquoi on en écrit généralement beaucoup moins que de tests unitaires."
+      },
+      {
+        "question_text": "Que signifie l'approche TDD (Test-Driven Development) ?",
+        "choice_a": "Écrire tous les tests uniquement après que le code soit entièrement terminé et déployé en production",
+        "choice_b": "Ne jamais écrire de tests, en se fiant uniquement à la relecture manuelle du code",
+        "choice_c": "Déléguer entièrement l'écriture des tests à une équipe distincte de celle qui écrit le code",
+        "choice_d": "Écrire d'abord un test qui échoue (car la fonctionnalité n'existe pas encore, 'red'), puis écrire le minimum de code nécessaire pour le faire réussir ('green'), puis améliorer/nettoyer ce code sans changer son comportement ('refactor') — un cycle répété pour chaque nouvelle fonctionnalité",
+        "correct_choice": "D",
+        "explanation": "Ce cycle 'red-green-refactor' force à clarifier précisément le comportement attendu avant d'écrire le code, et garantit que chaque fonctionnalité dispose d'un test dès sa création plutôt que d'être ajoutée après coup (ou jamais)."
+      },
+      {
+        "question_text": "Quelle est la différence entre un mock et un stub, dans le contexte des tests ?",
+        "choice_a": "Il n'existe aucune différence, ce sont deux noms pour le même concept",
+        "choice_b": "Un stub remplace une dépendance réelle par une version simplifiée qui retourne des réponses prédéfinies (sans vérifier comment elle a été appelée), alors qu'un mock va plus loin en vérifiant activement que certaines interactions ont bien eu lieu (ex: qu'une méthode a été appelée exactement une fois avec tels arguments)",
+        "choice_c": "Un mock ne peut être utilisé qu'avec des bases de données, un stub qu'avec des API",
+        "choice_d": "Un stub est toujours plus lent à exécuter qu'un mock",
+        "correct_choice": "B",
+        "explanation": "Les deux appartiennent à la famille plus large des 'test doubles' (avec aussi les dummies, spies et fakes), qui permettent d'isoler le code testé de ses dépendances réelles (réseau, base de données, service tiers) pour rendre le test rapide, déterministe et indépendant de facteurs externes."
+      },
+      {
+        "question_text": "Qu'est-ce que le code coverage (couverture de code), et quelle est sa principale limite ?",
+        "choice_a": "Le nombre total de tests écrits dans un projet, quel que soit leur contenu",
+        "choice_b": "Le temps total nécessaire pour exécuter l'ensemble de la suite de tests",
+        "choice_c": "Le nombre de bugs corrigés grâce aux tests automatisés",
+        "choice_d": "Le pourcentage du code source réellement exécuté au moins une fois par la suite de tests ; sa limite principale est qu'un code peut être 'couvert' (exécuté) par un test sans que ce test ne vérifie réellement le bon comportement (aucune assertion pertinente), donnant une fausse impression de sécurité",
+        "correct_choice": "D",
+        "explanation": "Viser 100% de couverture n'est donc pas une garantie absolue de qualité : un test peut exécuter une ligne de code sans jamais vérifier que le résultat produit est correct, d'où l'importance de compléter cette métrique par d'autres approches comme le mutation testing."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un test flaky (instable) ?",
+        "choice_a": "Un test qui produit un résultat incohérent (parfois il réussit, parfois il échoue) sans qu'aucun changement n'ait été apporté au code testé — souvent causé par une dépendance au timing, à l'ordre d'exécution, à des données partagées entre tests, ou à des appels réseau non maîtrisés",
+        "choice_b": "Un test qui échoue systématiquement à chaque exécution, sans exception",
+        "choice_c": "Un test qui ne peut être exécuté que sur un système d'exploitation spécifique",
+        "choice_d": "Un synonyme technique de test unitaire",
+        "correct_choice": "A",
+        "explanation": "Les tests flaky sont particulièrement problématiques car ils érodent la confiance dans la suite de tests : si des échecs 'aléatoires' apparaissent régulièrement sans lien avec de vrais bugs, les développeurs prennent l'habitude de les ignorer, au risque de laisser passer un vrai échec important."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une assertion dans un test automatisé ?",
+        "choice_a": "Un commentaire qui documente l'objectif général du test",
+        "choice_b": "Une instruction qui vérifie qu'une condition attendue est vraie à un instant précis du test ; si elle est fausse, le test échoue immédiatement et signale l'écart entre le résultat attendu et le résultat obtenu",
+        "choice_c": "Une fonction qui exécute automatiquement tous les tests d'un projet",
+        "choice_d": "Un mécanisme qui empêche un test de s'exécuter s'il dépend d'un autre test",
+        "correct_choice": "B",
+        "explanation": "Des bibliothèques d'assertions (ex: `assertEqual`, `expect().toBe()`) fournissent des messages d'erreur clairs en cas d'échec, précisant exactement quelle valeur était attendue et quelle valeur a réellement été obtenue, ce qui facilite le diagnostic."
+      },
+      {
+        "question_text": "À quoi servent les fixtures et les blocs setup/teardown dans une suite de tests ?",
+        "choice_a": "À supprimer définitivement les tests qui échouent trop souvent",
+        "choice_b": "À mesurer automatiquement le temps d'exécution de chaque test individuellement",
+        "choice_c": "À préparer un état initial connu et cohérent avant l'exécution d'un test (setup), puis à nettoyer les ressources utilisées une fois le test terminé (teardown) — garantissant que chaque test démarre dans des conditions identiques et reproductibles, indépendamment des tests précédents",
+        "choice_d": "À générer automatiquement la documentation du code testé",
+        "correct_choice": "C",
+        "explanation": "Sans ce nettoyage systématique, un test pourrait laisser des données résiduelles (ex: une ligne insérée en base) qui fausseraient le résultat d'un test suivant, créant des dépendances cachées et fragiles entre tests censés être indépendants."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un test de régression ?",
+        "choice_a": "Un test qui vérifie uniquement les nouvelles fonctionnalités jamais testées auparavant",
+        "choice_b": "Un test qui ralentit intentionnellement l'exécution pour mesurer les performances",
+        "choice_c": "Un test qui ne peut être écrit qu'avant l'existence du bug qu'il vérifie",
+        "choice_d": "Un test écrit spécifiquement pour vérifier qu'un bug déjà corrigé par le passé ne réapparaît pas lors de modifications futures du code",
+        "correct_choice": "D",
+        "explanation": "La pratique courante consiste à écrire un test de régression dès qu'un bug est corrigé, en reproduisant exactement les conditions qui le déclenchaient : ce test échouerait immédiatement si une modification future du code réintroduisait accidentellement le même bug."
+      },
+      {
+        "question_text": "Qu'est-ce que la pyramide des tests (test pyramid) ?",
+        "choice_a": "Un modèle qui recommande d'écrire uniquement des tests end-to-end, en quantité illimitée",
+        "choice_b": "Un modèle qui déconseille catégoriquement l'usage de tests unitaires",
+        "choice_c": "Une méthode de classement des bugs par ordre de gravité",
+        "choice_d": "Un modèle qui recommande d'avoir beaucoup de tests unitaires rapides et peu coûteux à la base, moins de tests d'intégration au niveau intermédiaire, et très peu de tests end-to-end (lents, fragiles, coûteux à maintenir) au sommet",
+        "correct_choice": "D",
+        "explanation": "Cette répartition reflète un compromis coût/valeur : les tests unitaires sont rapides et précis pour localiser un bug, alors que les tests e2e, bien que plus proches de l'expérience utilisateur réelle, sont plus lents à exécuter et plus fragiles face aux changements d'interface."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un test de charge (load testing) ?",
+        "choice_a": "Un test qui vérifie qu'une seule requête retourne la bonne réponse",
+        "choice_b": "Un test qui simule un volume de trafic ou d'utilisateurs simultanés élevé sur un système, afin de vérifier son comportement, ses performances et ses limites sous forte charge (temps de réponse, taux d'erreur, consommation de ressources)",
+        "choice_c": "Un test qui ne peut être exécuté que sur l'environnement de développement local",
+        "choice_d": "Un synonyme exact de test unitaire",
+        "correct_choice": "B",
+        "explanation": "Ce type de test permet d'identifier à l'avance à partir de quel niveau de trafic un système commence à se dégrader (temps de réponse qui explose, erreurs qui apparaissent), avant que ce problème ne survienne en production face à de vrais utilisateurs."
+      },
+      {
+        "question_text": "Qu'est-ce que le property-based testing (test basé sur les propriétés) ?",
+        "choice_a": "Une approche qui consiste à tester manuellement chaque cas particulier un par un",
+        "choice_b": "Un test qui vérifie uniquement les propriétés visuelles (couleurs, tailles) d'une interface graphique",
+        "choice_c": "Une approche où, au lieu de tester des exemples précis, on définit une propriété générale que le code doit toujours respecter (ex: 'trier une liste puis la trier à nouveau donne le même résultat'), et un outil génère automatiquement de nombreuses entrées aléatoires (y compris des cas limites) pour tenter de violer cette propriété",
+        "choice_d": "Un test qui ne peut être appliqué qu'à des fonctions mathématiques",
+        "correct_choice": "C",
+        "explanation": "Cette approche est particulièrement efficace pour découvrir des cas limites auxquels le développeur n'aurait pas pensé manuellement, en explorant automatiquement un espace de valeurs bien plus large qu'un jeu de tests écrit à la main."
+      },
+      {
+        "question_text": "Qu'est-ce que le mutation testing ?",
+        "choice_a": "Une technique qui modifie intentionnellement et légèrement le code source (créant des 'mutants', ex: changer un `<` en `<=`) pour vérifier que la suite de tests existante détecte bien ces modifications (échoue) ; si un mutant survit sans faire échouer aucun test, cela révèle une faiblesse dans la suite de tests malgré une éventuelle bonne couverture de code",
+        "choice_b": "Une méthode qui fait automatiquement évoluer le code vers une meilleure version au fil du temps",
+        "choice_c": "Un test réservé exclusivement aux applications de biologie ou de génétique",
+        "choice_d": "Un test qui ne peut être exécuté qu'une seule fois par projet",
+        "correct_choice": "A",
+        "explanation": "Contrairement au simple code coverage (qui mesure seulement si une ligne a été exécutée), le mutation testing mesure si les tests vérifient réellement le bon comportement : un mutant qui survit signifie qu'aucun test n'a détecté que le comportement du code avait changé."
+      },
+      {
+        "question_text": "Que désignent les termes stub, spy, mock, fake et dummy, regroupés sous l'appellation générale de 'test double' ?",
+        "choice_a": "Cinq synonymes strictement identiques, sans aucune nuance entre eux",
+        "choice_b": "Différentes catégories d'objets de substitution utilisés pour remplacer une dépendance réelle pendant un test, chacune avec un rôle légèrement différent (ex: un dummy ne fait rien de particulier et sert juste à satisfaire une signature, un fake fournit une implémentation simplifiée mais fonctionnelle, un spy enregistre les appels reçus pour les vérifier ensuite)",
+        "choice_c": "Des outils utilisés uniquement pour mesurer les performances d'une application",
+        "choice_d": "Des types de bugs spécifiques rencontrés uniquement dans les tests end-to-end",
+        "correct_choice": "B",
+        "explanation": "Cette terminologie (popularisée notamment par Martin Fowler) aide à communiquer précisément l'intention derrière chaque substitut utilisé dans un test, même si dans la pratique de nombreuses bibliothèques de test regroupent ces concepts sous un terme générique unique comme 'mock'."
+      },
+      {
+        "question_text": "Qu'est-ce que le snapshot testing ?",
+        "choice_a": "Un test qui vérifie uniquement le temps d'exécution d'une fonction",
+        "choice_b": "Un test qui sauvegarde une copie complète et permanente de toute la base de données avant chaque exécution",
+        "choice_c": "Une technique qui compare la sortie actuelle d'un composant ou d'une fonction (ex: le rendu HTML d'un composant d'interface) à une version de référence ('snapshot') sauvegardée lors d'une exécution précédente et validée manuellement ; le test échoue si la sortie actuelle diffère de cette référence, signalant un changement (voulu ou non) à examiner",
+        "choice_d": "Un test réservé exclusivement aux applications mobiles natives",
+        "correct_choice": "C",
+        "explanation": "Cette approche est particulièrement populaire pour tester des composants d'interface graphique dont la sortie est complexe à décrire manuellement via des assertions classiques : plutôt que de vérifier chaque détail un par un, on compare l'ensemble du résultat à une version approuvée précédemment."
+      },
+      {
+        "question_text": "Pourquoi exécute-t-on automatiquement la suite de tests dans un pipeline d'intégration continue (CI) à chaque commit ou pull request ?",
+        "choice_a": "Pour ralentir volontairement le processus de développement et forcer une réflexion plus longue",
+        "choice_b": "Parce que les tests ne peuvent techniquement s'exécuter que sur un serveur distant, jamais localement",
+        "choice_c": "Pour détecter automatiquement et rapidement toute régression introduite par un changement, avant qu'il ne soit fusionné dans la branche principale ou déployé en production, plutôt que de découvrir le problème plus tard (voire directement en production)",
+        "choice_d": "Parce que la loi impose l'exécution automatique de tests avant tout déploiement",
+        "correct_choice": "C",
+        "explanation": "Plus un bug est détecté tôt dans le cycle de développement (idéalement avant même la fusion du code), moins il est coûteux à corriger — l'automatisation dans la CI garantit que cette vérification a bien lieu systématiquement, sans dépendre de la discipline individuelle de chaque développeur à lancer les tests manuellement."
+      },
+      {
+        "question_text": "Quelle est la différence entre écrire les tests avant le code (test-first) et après le code (test-after) ?",
+        "choice_a": "Le test-first (comme dans le TDD) force à clarifier le comportement attendu avant l'implémentation et garantit qu'aucune fonctionnalité n'est laissée sans test ; le test-after risque davantage d'aboutir à des tests qui valident simplement ce que le code fait déjà (y compris ses bugs), plutôt que ce qu'il devrait réellement faire",
+        "choice_b": "Il n'existe aucune différence pratique entre les deux approches",
+        "choice_c": "Le test-after est toujours strictement interdit dans les projets professionnels",
+        "choice_d": "Le test-first ne peut être appliqué qu'aux tests end-to-end, jamais aux tests unitaires",
+        "correct_choice": "A",
+        "explanation": "En pratique, de nombreuses équipes adoptent une approche pragmatique entre les deux extrêmes, mais le risque du test-after reste réel : il est plus facile d'écrire inconsciemment un test qui confirme le comportement actuel du code (même incorrect) qu'un test qui challenge réellement l'implémentation."
+      },
+      {
+        "question_text": "Quelle est la différence entre le test en boîte noire (black-box testing) et en boîte blanche (white-box testing) ?",
+        "choice_a": "Le test en boîte noire se fait uniquement la nuit, le test en boîte blanche uniquement le jour",
+        "choice_b": "Le test en boîte noire vérifie le comportement d'un système à partir de ses entrées/sorties, sans connaître ni utiliser les détails de son implémentation interne ; le test en boîte blanche est conçu en connaissant explicitement le code interne (ex: pour cibler des branches ou chemins spécifiques du code)",
+        "choice_c": "Seul le test en boîte blanche peut être automatisé, le test en boîte noire est toujours manuel",
+        "choice_d": "Le test en boîte noire ne peut vérifier que des interfaces graphiques",
+        "correct_choice": "B",
+        "explanation": "Un test unitaire écrit par le développeur du code testé est souvent un test en boîte blanche (il connaît la structure interne et peut cibler précisément des cas limites du code), alors qu'un test e2e écrit du point de vue de l'utilisateur est typiquement un test en boîte noire."
+      },
+      {
+        "question_text": "Pourquoi est-il important que chaque test d'une suite soit isolé et indépendant des autres tests ?",
+        "choice_a": "Parce que cela accélère toujours l'exécution globale de la suite de tests, sans aucune exception",
+        "choice_b": "Ce n'est en réalité pas important, les tests peuvent dépendre les uns des autres sans problème",
+        "choice_c": "Parce que les frameworks de test n'autorisent techniquement qu'un seul test à la fois par fichier",
+        "choice_d": "Pour que chaque test puisse être exécuté indépendamment, dans n'importe quel ordre (voire en parallèle), sans que son résultat dépende de l'état laissé par un test précédent — un test qui dépend d'un autre peut donner des résultats trompeurs (faux positifs ou faux négatifs) si l'ordre d'exécution change",
+        "correct_choice": "D",
+        "explanation": "Des tests non isolés sont une cause fréquente de tests flaky : un test qui modifie un état global (ex: une donnée en base) sans le nettoyer correctement peut faire échouer un autre test totalement indépendant en apparence, simplement parce qu'il s'exécute après lui."
+      }
+    ]
+  },
+  {
+    "name": "Architecture logicielle",
+    "color": "blue",
+    "questions": [
+      {
+        "question_text": "Quelle est la différence fondamentale entre une architecture monolithique et une architecture en microservices ?",
+        "choice_a": "Un monolithe déploie toute l'application comme un seul bloc unifié (simple à développer et déployer au début, mais qui peut devenir difficile à faire évoluer à mesure qu'il grossit) ; les microservices découpent l'application en plusieurs services indépendants, déployés et mis à l'échelle séparément, au prix d'une complexité opérationnelle accrue (communication réseau entre services, cohérence des données)",
+        "choice_b": "Un monolithe ne peut être utilisé que pour des sites web statiques",
+        "choice_c": "Les microservices interdisent l'utilisation de plus d'un langage de programmation dans un même projet",
+        "choice_d": "Il n'existe aucune différence pratique, ce sont deux noms pour la même architecture",
+        "correct_choice": "A",
+        "explanation": "Il n'y a pas de 'bon' choix universel : de nombreuses équipes démarrent avec un monolithe (plus simple à faire évoluer rapidement au début) et migrent progressivement vers des microservices seulement quand la complexité et l'échelle du projet le justifient réellement."
+      },
+      {
+        "question_text": "À quoi sert un load balancer (répartiteur de charge) ?",
+        "choice_a": "À compresser les données échangées entre le client et le serveur",
+        "choice_b": "À répartir les requêtes entrantes entre plusieurs instances d'un même service, afin d'éviter qu'une seule machine soit surchargée et d'améliorer la disponibilité globale (si une instance tombe, le trafic est redirigé vers les autres)",
+        "choice_c": "À stocker une copie de secours de la base de données",
+        "choice_d": "À chiffrer automatiquement les communications HTTPS",
+        "correct_choice": "B",
+        "explanation": "Un load balancer peut répartir le trafic selon différentes stratégies (round-robin, connexions les moins nombreuses, basé sur la charge réelle) et surveille généralement la santé de chaque instance (health checks) pour cesser de lui envoyer du trafic si elle devient défaillante."
+      },
+      {
+        "question_text": "Comment fonctionne le pattern de cache 'cache-aside' (lazy loading) ?",
+        "choice_a": "L'application vérifie d'abord si la donnée est présente dans le cache ; si oui, elle l'utilise directement (cache hit) ; sinon (cache miss), elle va la chercher dans la base de données, puis la stocke dans le cache avant de la retourner, afin que les prochaines lectures de cette même donnée soient plus rapides",
+        "choice_b": "Le cache est entièrement vidé et reconstruit automatiquement toutes les heures",
+        "choice_c": "Les données sont écrites simultanément dans le cache et dans la base de données à chaque écriture",
+        "choice_d": "Chaque donnée n'est mise en cache qu'une seule fois dans toute la durée de vie de l'application",
+        "correct_choice": "C",
+        "explanation": "L'inconvénient principal de ce pattern est qu'une donnée mise à jour directement en base sans passer par l'application peut laisser le cache temporairement obsolète (stale) jusqu'à sa prochaine expiration ou invalidation explicite."
+      },
+      {
+        "question_text": "En quoi le cache 'write-through' diffère-t-il du cache-aside ?",
+        "choice_a": "Le write-through supprime systématiquement le cache à chaque nouvelle lecture",
+        "choice_b": "Le write-through ne fonctionne qu'avec des bases de données NoSQL",
+        "choice_c": "Avec le write-through, chaque écriture met à jour simultanément le cache et la base de données, garantissant que le cache reste toujours synchronisé avec la source de vérité, au prix d'une écriture légèrement plus lente (deux écritures au lieu d'une) ; avec le cache-aside, seule la base est mise à jour lors d'une écriture, et le cache n'est rempli que lors d'une lecture ultérieure",
+        "choice_d": "Le write-through ne peut être utilisé que pour des données en lecture seule",
+        "correct_choice": "D",
+        "explanation": "Le choix entre les deux dépend du ratio lecture/écriture attendu et de la tolérance à des données temporairement obsolètes : le write-through favorise la fraîcheur des données en cache, le cache-aside favorise la simplicité et évite de mettre en cache des données jamais relues."
+      },
+      {
+        "question_text": "À quoi sert une file de messages (message queue) dans une architecture distribuée ?",
+        "choice_a": "À découpler un producteur (qui envoie un message dans la file) d'un ou plusieurs consommateurs (qui le traitent), permettant un traitement asynchrone : le producteur n'a pas besoin d'attendre que le message soit traité pour continuer, et la charge peut être absorbée/lissée même en cas de pic de trafic",
+        "choice_b": "À chiffrer automatiquement tous les messages échangés entre deux services",
+        "choice_c": "À remplacer entièrement le besoin d'une base de données dans une application",
+        "choice_d": "À limiter le nombre maximal de services qu'une architecture peut contenir",
+        "correct_choice": "A",
+        "explanation": "Un exemple typique : l'envoi d'un email de confirmation après une commande peut être placé dans une file plutôt que traité immédiatement et de façon bloquante, ce qui rend la commande plus rapide à confirmer côté utilisateur et rend le système plus résilient si le service d'envoi d'emails est temporairement indisponible."
+      },
+      {
+        "question_text": "Quelle est la différence entre la scalabilité horizontale et la scalabilité verticale ?",
+        "choice_a": "La scalabilité horizontale consiste à ajouter davantage de machines/instances pour répartir la charge (ex: passer de 2 à 10 serveurs), alors que la scalabilité verticale consiste à augmenter la puissance d'une seule machine existante (plus de CPU, plus de RAM) — la scalabilité horizontale est généralement préférée à grande échelle, mais nécessite une architecture conçue pour fonctionner sur plusieurs instances (ex: services stateless)",
+        "choice_b": "La scalabilité verticale n'existe que pour les bases de données, jamais pour les serveurs applicatifs",
+        "choice_c": "Les deux termes désignent exactement la même stratégie de mise à l'échelle",
+        "choice_d": "La scalabilité horizontale ne peut être appliquée qu'à des bases de données relationnelles",
+        "correct_choice": "B",
+        "explanation": "La scalabilité verticale a une limite physique (il existe un maximum de CPU/RAM qu'une seule machine peut avoir) et représente un point de défaillance unique, alors que la scalabilité horizontale permet théoriquement de continuer à ajouter des machines indéfiniment, au prix d'une complexité de conception plus élevée."
+      },
+      {
+        "question_text": "Qu'est-ce que l'idempotence d'une API, et pourquoi est-elle importante ?",
+        "choice_a": "Une API idempotente répond toujours plus vite qu'une API classique",
+        "choice_b": "Une propriété qui garantit qu'envoyer plusieurs fois la même requête produit exactement le même effet qu'un seul envoi — importante notamment quand un client, faute de recevoir une réponse (ex: timeout réseau), doit renvoyer sa requête sans risquer de dupliquer une action déjà effectuée (comme créer deux fois la même commande)",
+        "choice_c": "Une API idempotente ne peut traiter qu'une seule requête à la fois, jamais plusieurs simultanément",
+        "choice_d": "Une API idempotente ne peut jamais retourner d'erreur",
+        "correct_choice": "C",
+        "explanation": "C'est pour cette raison qu'un client HTTP peut généralement réessayer automatiquement en toute sécurité une requête GET, PUT ou DELETE en cas d'échec réseau (idempotentes par convention), mais doit être plus prudent avec une requête POST non idempotente, qui pourrait créer une ressource en double si elle est répétée sans précaution."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un API Gateway dans une architecture en microservices ?",
+        "choice_a": "Un outil qui ne sert qu'à générer automatiquement la documentation des API",
+        "choice_b": "Un mécanisme de chiffrement appliqué uniquement aux communications internes entre microservices",
+        "choice_c": "Un point d'entrée unique pour les clients externes, qui reçoit toutes les requêtes entrantes et les route vers le microservice interne approprié, tout en pouvant centraliser des préoccupations transverses comme l'authentification, le rate limiting ou la journalisation",
+        "choice_d": "Un service qui stocke une copie de secours de toutes les bases de données de l'architecture",
+        "correct_choice": "D",
+        "explanation": "Sans API Gateway, chaque client devrait connaître individuellement l'adresse de chaque microservice et dupliquer sa propre logique d'authentification ou de limitation de débit — le gateway centralise ces responsabilités communes en un seul point, simplifiant l'intégration côté client."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une architecture pilotée par les événements (event-driven architecture) ?",
+        "choice_a": "Une architecture où les composants communiquent en publiant et en réagissant à des événements (ex: 'commande créée', 'utilisateur inscrit') plutôt qu'en s'appelant directement les uns les autres, ce qui découple fortement les producteurs des consommateurs d'événements, qui peuvent ne pas se connaître du tout",
+        "choice_b": "Une architecture qui ne peut fonctionner qu'avec un seul serveur physique",
+        "choice_c": "Une architecture où chaque composant doit obligatoirement appeler directement tous les autres composants",
+        "choice_d": "Un synonyme technique d'une architecture monolithique classique",
+        "correct_choice": "A",
+        "explanation": "Ce découplage fort permet d'ajouter facilement de nouveaux consommateurs réagissant à un événement existant (ex: ajouter un service d'analytics qui écoute les événements 'commande créée') sans jamais modifier le service producteur de l'événement d'origine."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un circuit breaker (disjoncteur) dans une architecture distribuée ?",
+        "choice_a": "Un pattern qui détecte qu'un service appelé échoue de façon répétée, et 'ouvre le circuit' en cessant temporairement de l'appeler (en retournant immédiatement une erreur ou une réponse de repli), évitant ainsi de continuer à solliciter un service déjà défaillant et de propager la panne en cascade vers le reste du système",
+        "choice_b": "Un composant physique qui coupe l'alimentation électrique d'un serveur en cas de surchauffe",
+        "choice_c": "Un mécanisme qui empêche définitivement deux services de communiquer entre eux",
+        "choice_d": "Un outil qui mesure uniquement la latence réseau entre deux services",
+        "correct_choice": "B",
+        "explanation": "Après un certain temps, le circuit breaker teste périodiquement si le service défaillant a récupéré (état 'demi-ouvert') avant de reprendre un trafic normal complet — ce pattern protège le système appelant de perdre du temps (et des ressources) à attendre des réponses d'un service qui ne répondra probablement pas."
+      },
+      {
+        "question_text": "À quoi sert le rate limiting (limitation de débit) dans une API ?",
+        "choice_a": "À garantir qu'une requête est toujours traitée avant une autre, quel que soit son ordre d'arrivée",
+        "choice_b": "À limiter le nombre de requêtes qu'un client (utilisateur, adresse IP, clé d'API) peut effectuer sur une période de temps donnée, protégeant le service contre une surcharge (accidentelle ou malveillante, comme une attaque par force brute ou un DDoS) et garantissant un usage équitable des ressources entre tous les clients",
+        "choice_c": "À chiffrer automatiquement chaque requête entrante",
+        "choice_d": "À convertir automatiquement une requête HTTP en requête HTTPS",
+        "correct_choice": "C",
+        "explanation": "Quand la limite est dépassée, l'API renvoie généralement un code d'erreur HTTP 429 (Too Many Requests), souvent accompagné d'une indication du délai à attendre avant de pouvoir réessayer — un mécanisme déjà présent dans ce projet quizz-estv lui-même, pour limiter les tentatives de connexion admin."
+      },
+      {
+        "question_text": "Pourquoi la propriété de 'statelessness' (absence d'état) est-elle recherchée pour un service destiné à être mis à l'échelle horizontalement ?",
+        "choice_a": "Parce que la loi impose que tout service web moderne soit sans état",
+        "choice_b": "Parce qu'un service stateless consomme systématiquement moins de mémoire qu'un service avec état",
+        "choice_c": "Parce qu'un service stateless ne stocke aucune information propre à un client entre deux requêtes (chaque requête contient tout le nécessaire pour être traitée indépendamment) : n'importe quelle instance du service peut alors traiter n'importe quelle requête, ce qui permet d'ajouter ou de retirer des instances librement sans se soucier de savoir laquelle 'connaît' déjà un client donné",
+        "choice_d": "Parce qu'un service avec état ne peut techniquement jamais être déployé en production",
+        "correct_choice": "B",
+        "explanation": "À l'inverse, un service qui stocke un état en mémoire locale (ex: la session d'un utilisateur directement dans le processus du serveur) complique la mise à l'échelle horizontale : il faudrait garantir que les requêtes suivantes de ce même utilisateur soient toujours redirigées vers la même instance, ou externaliser cet état (ex: dans une base partagée ou un cache comme Redis)."
+      },
+      {
+        "question_text": "Quelle est la différence entre la cohérence forte (strong consistency) et la cohérence à terme (eventual consistency) dans un système distribué ?",
+        "choice_a": "Il n'existe aucune différence, ce sont deux termes équivalents pour le même concept",
+        "choice_b": "La cohérence à terme signifie qu'un système ne peut jamais garantir la cohérence de ses données, sous aucune condition",
+        "choice_c": "Avec la cohérence forte, toute lecture après une écriture retourne immédiatement et systématiquement la donnée à jour sur toutes les répliques ; avec la cohérence à terme, les répliques peuvent temporairement retourner une donnée légèrement obsolète après une écriture, mais convergeront éventuellement (au bout d'un certain délai) vers la même valeur",
+        "choice_d": "La cohérence forte n'existe que dans les bases de données NoSQL, jamais dans les bases relationnelles",
+        "correct_choice": "D",
+        "explanation": "Ce compromis est directement lié au théorème CAP : privilégier la cohérence forte dans un système distribué a souvent un coût en termes de disponibilité ou de latence, ce qui explique pourquoi de nombreux systèmes à grande échelle acceptent volontairement une cohérence à terme en échange d'une meilleure disponibilité et de performances plus prévisibles."
+      },
+      {
+        "question_text": "Qu'est-ce que le service discovery dans une architecture de microservices ?",
+        "choice_a": "Le mécanisme qui permet aux services d'un système distribué de se localiser dynamiquement entre eux (connaître l'adresse réseau actuelle d'un autre service à appeler), plutôt que de coder en dur des adresses IP fixes — particulièrement utile quand les instances de services sont créées, déplacées ou détruites dynamiquement (ex: dans un environnement conteneurisé comme Kubernetes)",
+        "choice_b": "Un outil de recherche en texte intégral utilisé uniquement pour indexer du contenu utilisateur",
+        "choice_c": "Un mécanisme qui détecte automatiquement les failles de sécurité d'un service",
+        "choice_d": "Un processus manuel où chaque développeur doit renseigner lui-même l'adresse IP de chaque service dans un fichier de configuration",
+        "correct_choice": "A",
+        "explanation": "Sans service discovery, chaque service devrait connaître à l'avance l'adresse IP exacte et fixe de tous les autres services qu'il appelle — une contrainte peu compatible avec des environnements modernes où les instances sont créées et détruites dynamiquement en fonction de la charge."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un déploiement blue-green (blue-green deployment) ?",
+        "choice_a": "Une technique qui consiste à maintenir deux environnements de production identiques (le 'bleu', actuellement en service, et le 'vert', où la nouvelle version est déployée et testée) ; une fois la nouvelle version validée sur le vert, le trafic est basculé instantanément de l'un à l'autre, permettant un déploiement sans interruption de service et un retour arrière immédiat en cas de problème (il suffit de rebasculer vers le bleu)",
+        "choice_b": "Un déploiement qui alterne aléatoirement entre deux versions différentes pour chaque requête reçue",
+        "choice_c": "Un déploiement réservé exclusivement aux applications mobiles",
+        "choice_d": "Une méthode qui consiste à supprimer l'ancienne version avant même que la nouvelle ne soit prête",
+        "correct_choice": "B",
+        "explanation": "L'avantage principal du blue-green par rapport à un déploiement classique est la quasi-absence de temps d'indisponibilité et la possibilité de revenir en arrière quasi instantanément en cas de problème détecté après bascule, sans avoir à redéployer l'ancienne version depuis zéro."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un canary release (déploiement canari) ?",
+        "choice_a": "Un déploiement réservé exclusivement aux applications de surveillance environnementale",
+        "choice_b": "Une stratégie de déploiement progressif où une nouvelle version est d'abord exposée à un petit sous-ensemble d'utilisateurs (ou de trafic) réels, tout en surveillant étroitement son comportement (erreurs, performances) ; si tout se passe bien, le trafic vers la nouvelle version est progressivement augmenté jusqu'à un déploiement complet, sinon on revient en arrière rapidement en n'ayant affecté qu'une petite portion des utilisateurs",
+        "choice_c": "Un déploiement qui échoue systématiquement volontairement pour tester la résilience du système",
+        "choice_d": "Un synonyme exact de blue-green deployment, sans différence pratique",
+        "correct_choice": "C",
+        "explanation": "Le nom vient de la pratique historique des canaris utilisés dans les mines pour détecter un danger avant qu'il n'affecte les mineurs : de la même façon, ce petit sous-ensemble d'utilisateurs sert de détecteur précoce de problèmes avant une exposition à l'ensemble du trafic."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un Single Point of Failure (SPOF, point de défaillance unique) ?",
+        "choice_a": "Un composant d'un système dont la panne, à elle seule, rend l'ensemble du système indisponible — l'objectif de la conception d'architectures résilientes est généralement d'identifier et d'éliminer ces points uniques (ex: via la redondance, la réplication) pour qu'aucune panne isolée ne puisse à elle seule interrompre tout le service",
+        "choice_b": "Un composant qui ne peut tomber en panne qu'une seule fois dans toute la vie du système",
+        "choice_c": "Le nom donné au premier serveur déployé dans une architecture distribuée",
+        "choice_d": "Une erreur qui ne peut survenir que dans les systèmes utilisant une seule base de données",
+        "correct_choice": "A",
+        "explanation": "Un exemple classique de SPOF est un unique serveur de base de données sans réplique : si ce serveur tombe, toute l'application devient indisponible, quelle que soit la robustesse du reste de l'infrastructure — d'où l'intérêt de la réplication et de mécanismes de basculement automatique (failover)."
+      },
+      {
+        "question_text": "Quels sont les trois piliers classiques de l'observabilité d'un système en production ?",
+        "choice_a": "Le frontend, le backend et la base de données",
+        "choice_b": "Les logs (journaux d'événements détaillés), les métriques (mesures numériques agrégées dans le temps, ex: temps de réponse moyen) et les traces (suivi du parcours complet d'une requête à travers plusieurs services) — ensemble, ils permettent de comprendre en détail le comportement réel d'un système et de diagnostiquer les problèmes en production",
+        "choice_c": "Le CPU, la RAM et le stockage disque",
+        "choice_d": "Le développement, les tests et le déploiement",
+        "correct_choice": "C",
+        "explanation": "Ces trois types de données sont complémentaires : les métriques permettent de détecter rapidement qu'un problème existe (ex: temps de réponse anormalement élevé), les traces permettent de localiser dans quel service précis le problème se situe, et les logs fournissent le détail contextuel nécessaire pour comprendre exactement ce qui s'est passé."
+      },
+      {
+        "question_text": "Qu'est-ce que le backpressure (contre-pression) dans un système distribué ?",
+        "choice_a": "Une technique de chiffrement appliquée spécifiquement aux flux de données en temps réel",
+        "choice_b": "Un type de panne matérielle qui affecte exclusivement les disques durs",
+        "choice_c": "Un mécanisme par lequel un système submergé de requêtes ralentit délibérément, met en attente, ou refuse activement de nouvelles requêtes plutôt que de continuer à en accepter indéfiniment jusqu'à s'effondrer complètement sous la charge — signalant ainsi en amont (aux producteurs de requêtes) de ralentir leur propre débit",
+        "choice_d": "Un mécanisme de sécurité physique qui protège les serveurs contre les surtensions électriques",
+        "correct_choice": "D",
+        "explanation": "Sans backpressure, un système submergé continue d'accepter des requêtes qu'il ne peut pas traiter à temps, accumulant une file d'attente toujours plus longue jusqu'à épuiser sa mémoire ou devenir totalement inutilisable — le backpressure préfère dégrader le service de façon contrôlée (refuser certaines requêtes) plutôt que de s'effondrer entièrement."
+      },
+      {
+        "question_text": "Quelle est la différence entre le couplage (coupling) et la cohésion (cohesion) en conception logicielle ?",
+        "choice_a": "Ce sont deux synonymes désignant exactement le même concept de conception logicielle",
+        "choice_b": "Le couplage ne concerne que les bases de données, la cohésion ne concerne que les interfaces utilisateur",
+        "choice_c": "Un couplage fort et une cohésion faible sont toujours l'objectif recherché dans une bonne architecture",
+        "choice_d": "Le couplage désigne le degré d'interdépendance entre différents modules/composants (on cherche généralement un couplage faible, pour que modifier un module affecte le moins possible les autres) ; la cohésion désigne le degré auquel les éléments à l'intérieur d'un même module sont liés et concentrés sur une seule responsabilité claire (on cherche généralement une forte cohésion)",
+        "correct_choice": "D",
+        "explanation": "L'objectif classique en conception logicielle est de viser un couplage faible entre modules (les modifier indépendamment sans effet de bord ailleurs) combiné à une forte cohésion à l'intérieur de chaque module (chaque module fait bien une seule chose clairement définie) — c'est exactement ce que visent des principes comme la séparation des responsabilités."
+      }
+    ]
+  },
+  {
+    "name": "JavaScript & TypeScript",
+    "color": "amber",
+    "questions": [
+      {
+        "question_text": "Comment JavaScript gère-t-il l'exécution asynchrone alors qu'il n'a qu'un seul thread principal ?",
+        "choice_a": "Via l'event loop : le thread principal exécute le code synchrone (call stack), et quand celui-ci est vide, il traite les tâches en attente dans des files (callback queue pour les tâches classiques comme setTimeout, microtask queue prioritaire pour les Promises) — les opérations longues (réseau, timers) sont déléguées à des API du navigateur/Node.js, qui replacent leur callback dans une file une fois terminées, sans jamais bloquer le thread principal",
+        "choice_b": "JavaScript crée automatiquement un nouveau thread système pour chaque fonction asynchrone",
+        "choice_c": "Le code asynchrone en JavaScript s'exécute toujours avant le code synchrone",
+        "choice_d": "JavaScript ne peut pas exécuter de code asynchrone sans une bibliothèque externe",
+        "correct_choice": "A",
+        "explanation": "C'est ce mécanisme qui permet à une page web de rester réactive (répondre aux clics) pendant qu'une requête réseau est en cours : le thread principal n'est jamais bloqué en attendant la réponse, il reprend simplement l'exécution du callback correspondant une fois la réponse arrivée."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une closure (fermeture) en JavaScript ?",
+        "choice_a": "Une syntaxe qui empêche définitivement une fonction d'être appelée plus d'une fois",
+        "choice_b": "Un mot-clé qui ferme (termine) immédiatement l'exécution du programme",
+        "choice_c": "Une fonction qui conserve un accès aux variables de la portée (scope) dans laquelle elle a été définie, même après que cette portée englobante ait normalement terminé son exécution — ce qui permet par exemple de créer des fonctions avec un état privé persistant entre plusieurs appels",
+        "choice_d": "Un type de boucle qui ne peut s'exécuter qu'une seule fois",
+        "correct_choice": "C",
+        "explanation": "Un exemple classique est une fonction 'compteur' qui retourne une fonction interne incrémentant et retournant une variable définie dans la fonction externe : même après que la fonction externe ait fini de s'exécuter, la fonction interne retournée continue d'avoir accès et de modifier cette variable, grâce à la closure."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une Promise en JavaScript ?",
+        "choice_a": "Une fonction qui s'exécute obligatoirement de façon synchrone et bloquante",
+        "choice_b": "Un type de boucle spécialisée pour parcourir des tableaux de façon asynchrone",
+        "choice_c": "Un objet représentant le résultat éventuel (futur) d'une opération asynchrone : elle peut être 'pending' (en attente), 'fulfilled' (résolue avec succès, avec une valeur) ou 'rejected' (échouée, avec une erreur), et permet d'enchaîner des callbacks (via .then()/.catch()) à exécuter une fois ce résultat disponible",
+        "choice_d": "Un mot-clé réservé qui ne peut être utilisé qu'à l'intérieur d'une classe",
+        "correct_choice": "C",
+        "explanation": "Les Promises ont été introduites en partie pour résoudre le 'callback hell' (l'imbrication profonde et illisible de callbacks successifs) en permettant de chaîner des opérations asynchrones de façon plus linéaire et lisible, avec une gestion d'erreur centralisée via .catch()."
+      },
+      {
+        "question_text": "Que fait la syntaxe async/await en JavaScript ?",
+        "choice_a": "Elle transforme automatiquement n'importe quelle fonction synchrone en fonction s'exécutant dans un thread séparé",
+        "choice_b": "Elle empêche complètement l'exécution de tout code asynchrone dans le programme",
+        "choice_c": "Elle remplace entièrement le mécanisme des Promises par un système totalement différent",
+        "choice_d": "Elle offre une syntaxe plus lisible, ressemblant à du code synchrone classique, pour travailler avec des Promises : 'await' met en pause l'exécution de la fonction async (sans bloquer le thread principal) jusqu'à ce que la Promise soit résolue ou rejetée, évitant d'enchaîner explicitement des .then()",
+        "correct_choice": "D",
+        "explanation": "Sous le capot, async/await reste du pur sucre syntaxique au-dessus des Promises : une fonction déclarée 'async' retourne toujours implicitement une Promise, et 'await' n'est qu'une façon plus lisible d'attendre sa résolution sans bloquer le thread principal pendant l'attente."
+      },
+      {
+        "question_text": "Qu'est-ce que le hoisting en JavaScript ?",
+        "choice_a": "Le comportement par lequel les déclarations de variables (avec var) et de fonctions sont conceptuellement 'remontées' en haut de leur portée (scope) avant l'exécution du code, ce qui permet par exemple d'appeler une fonction déclarée avec 'function' avant sa déclaration textuelle dans le fichier — mais attention, seule la déclaration est hoistée, pas l'assignation d'une valeur",
+        "choice_b": "Une technique d'optimisation qui accélère automatiquement l'exécution des boucles",
+        "choice_c": "Un mécanisme qui supprime automatiquement les variables inutilisées avant l'exécution",
+        "choice_d": "Une fonctionnalité qui ne concerne que les navigateurs, absente de Node.js",
+        "correct_choice": "A",
+        "explanation": "C'est justement à cause du hoisting qu'une variable déclarée avec 'var' peut être lue avant sa ligne de déclaration sans provoquer d'erreur (elle vaudra simplement 'undefined' jusqu'à son assignation), un comportement source de confusion qui a motivé l'introduction de 'let' et 'const', plus stricts sur ce point (zone temporelle morte)."
+      },
+      {
+        "question_text": "Comment fonctionne l'héritage en JavaScript, via la chaîne de prototypes (prototype chain) ?",
+        "choice_a": "JavaScript n'a jamais eu de mécanisme d'héritage avant l'introduction du mot-clé 'class' en ES6",
+        "choice_b": "Chaque objet JavaScript possède une référence interne vers un autre objet, son prototype ; quand on accède à une propriété absente d'un objet, JavaScript la recherche automatiquement dans son prototype, puis dans le prototype de ce prototype, et ainsi de suite, jusqu'à trouver la propriété ou atteindre la fin de la chaîne — la syntaxe 'class' introduite plus tard n'est qu'un sucre syntaxique au-dessus de ce même mécanisme de prototypes",
+        "choice_c": "L'héritage en JavaScript ne fonctionne qu'entre objets créés dans le même fichier source",
+        "choice_d": "Chaque objet doit obligatoirement copier explicitement toutes les propriétés de son parent lors de sa création",
+        "correct_choice": "B",
+        "explanation": "Contrairement à l'héritage de classes classique (où les classes définissent une hiérarchie fixe à la compilation, comme en C++), l'héritage par prototype est dynamique : on peut modifier le prototype d'un objet, voire celui d'un objet déjà créé, à l'exécution, ce qui offre une flexibilité différente."
+      },
+      {
+        "question_text": "Comment la valeur de 'this' est-elle déterminée dans une fonction JavaScript classique (non fléchée) ?",
+        "choice_a": "'this' vaut toujours l'objet global, quelle que soit la façon dont la fonction est appelée",
+        "choice_b": "'this' est fixé de façon permanente au moment où la fonction est définie, indépendamment de son appel",
+        "choice_c": "Elle dépend de la façon dont la fonction est appelée (et non de l'endroit où elle est définie) : appelée comme méthode d'un objet, 'this' vaut cet objet ; appelée seule, 'this' vaut undefined (en mode strict) ou l'objet global ; le contexte peut aussi être fixé explicitement via call/apply/bind — contrairement aux fonctions fléchées, qui héritent le 'this' de leur portée englobante au moment de leur définition",
+        "choice_d": "'this' ne peut être utilisé qu'à l'intérieur d'une boucle for",
+        "correct_choice": "C",
+        "explanation": "C'est justement cette différence de comportement qui explique pourquoi les fonctions fléchées sont souvent préférées pour les callbacks à l'intérieur d'une méthode de classe : elles conservent automatiquement le 'this' de la méthode englobante, évitant le piège classique où une fonction classique perdrait ce contexte une fois appelée ailleurs."
+      },
+      {
+        "question_text": "Quelle est la différence entre les opérateurs == et === en JavaScript ?",
+        "choice_a": "Ce sont deux opérateurs strictement identiques, === n'étant qu'un alias historique de ==",
+        "choice_b": "L'opérateur === ne peut être utilisé qu'avec des nombres, jamais avec des chaînes",
+        "choice_c": "L'opérateur == compare uniquement les types, === compare uniquement les valeurs",
+        "choice_d": "L'opérateur == compare deux valeurs après une éventuelle conversion de type implicite (coercition, ex: '5' == 5 vaut true), alors que l'opérateur === compare à la fois la valeur et le type sans aucune conversion (ex: '5' === 5 vaut false) — l'usage de === est généralement recommandé pour éviter les surprises liées à la coercition implicite parfois contre-intuitive de JavaScript",
+        "correct_choice": "D",
+        "explanation": "La coercition de == peut produire des résultats surprenants (ex: '' == 0 vaut true, [] == false vaut true), ce qui explique pourquoi la quasi-totalité des guides de style JavaScript recommandent d'utiliser systématiquement === pour rendre les comparaisons prévisibles et explicites."
+      },
+      {
+        "question_text": "Quelle est la différence entre var, let et const en JavaScript ?",
+        "choice_a": "var a une portée de fonction (function-scoped) et est hoisted avec une valeur initiale 'undefined' ; let et const ont une portée de bloc (block-scoped, ex: limitée à un if ou un for) et restent dans une 'zone temporelle morte' avant leur déclaration ; const empêche en plus toute réassignation de la variable après son initialisation (mais pas la mutation d'un objet ou tableau qu'elle référence)",
+        "choice_b": "Les trois mots-clés sont strictement interchangeables, sans aucune différence de comportement",
+        "choice_c": "var ne peut être utilisé qu'à l'intérieur d'une fonction fléchée",
+        "choice_d": "const empêche toute modification, y compris des propriétés internes d'un objet qu'elle référence",
+        "correct_choice": "A",
+        "explanation": "C'est justement parce que var, avec sa portée de fonction et son hoisting permissif, a été source de nombreux bugs subtils que let et const (introduits avec ES6) sont aujourd'hui largement préférés dans le code JavaScript moderne."
+      },
+      {
+        "question_text": "Qu'est-ce que le 'callback hell', et comment les Promises (puis async/await) l'ont-ils résolu ?",
+        "choice_a": "Le callback hell ne peut survenir qu'avec des fonctions synchrones, jamais avec du code asynchrone",
+        "choice_b": "Le 'callback hell' désigne l'imbrication profonde et difficile à lire de callbacks successifs (chaque opération asynchrone dépendant de la précédente s'imbriquant dans son callback) ; les Promises permettent de chaîner ces opérations de façon plus plate et linéaire (via .then()), et async/await va encore plus loin en permettant d'écrire ce code asynchrone avec une syntaxe qui ressemble à du code synchrone classique",
+        "choice_c": "Les Promises ont entièrement supprimé le besoin d'utiliser des callbacks, sous quelque forme que ce soit",
+        "choice_d": "Le callback hell est un problème exclusif à TypeScript, absent en JavaScript pur",
+        "correct_choice": "B",
+        "explanation": "Un exemple typique de callback hell est une séquence de plusieurs appels réseau dépendants les uns des autres, chacun imbriqué dans le callback de succès du précédent, créant une structure en 'pyramide' de plus en plus indentée et difficile à suivre visuellement."
+      },
+      {
+        "question_text": "Qu'est-ce que la délégation d'événements (event delegation) en JavaScript ?",
+        "choice_a": "Une technique qui consiste à attacher un seul gestionnaire d'événement sur un élément parent plutôt que sur chacun de ses enfants individuellement, en tirant parti du fait que la plupart des événements DOM remontent (bubbling) du parent vers l'enfant qui l'a déclenché — utile notamment pour gérer efficacement des éléments ajoutés dynamiquement après coup, sans devoir leur attacher un nouveau gestionnaire à chaque fois",
+        "choice_b": "Une technique qui empêche définitivement la propagation de tout événement dans le DOM",
+        "choice_c": "Un mécanisme qui délègue automatiquement la gestion des événements à un serveur distant",
+        "choice_d": "Une fonctionnalité réservée exclusivement aux formulaires HTML",
+        "correct_choice": "A",
+        "explanation": "Sans délégation, ajouter dynamiquement 100 nouveaux éléments à une liste nécessiterait d'attacher individuellement un gestionnaire d'événement à chacun ; avec la délégation, un seul gestionnaire sur l'élément parent suffit à capturer les clics sur n'importe quel enfant, présent ou futur."
+      },
+      {
+        "question_text": "Qu'est-ce que le currying en programmation fonctionnelle JavaScript ?",
+        "choice_a": "Une technique de cuisine appliquée par analogie au nommage de certaines bibliothèques JavaScript",
+        "choice_b": "Une transformation qui convertit une fonction acceptant plusieurs arguments en une séquence de fonctions n'acceptant chacune qu'un seul argument (ex: `add(a, b)` devient `add(a)(b)`), permettant notamment de créer facilement des versions partiellement appliquées et réutilisables d'une fonction",
+        "choice_c": "Un mécanisme qui exécute automatiquement une fonction plusieurs fois en parallèle",
+        "choice_d": "Une syntaxe qui empêche une fonction d'accepter plus d'un argument au total",
+        "correct_choice": "B",
+        "explanation": "Le currying permet par exemple de créer une fonction générique `multiplier(facteur)` puis de dériver facilement des fonctions spécialisées comme `double = multiplier(2)`, réutilisables ensuite comme des fonctions à un seul argument, ce qui favorise la composition de fonctions simples entre elles."
+      },
+      {
+        "question_text": "En TypeScript, quelle est l'une des différences pratiques les plus courantes entre 'type' et 'interface' ?",
+        "choice_a": "Une interface peut être étendue par plusieurs déclarations successives portant le même nom (declaration merging, leurs membres fusionnent automatiquement), ce qu'un alias de type ne permet pas ; à l'inverse, un alias de type peut représenter des constructions qu'une interface ne peut pas exprimer directement, comme une union de types (ex: `type Statut = 'actif' | 'inactif'`)",
+        "choice_b": "Une interface ne peut jamais être utilisée pour typer un objet, contrairement à 'type'",
+        "choice_c": "'type' ne peut définir que des types numériques, 'interface' que des types objets",
+        "choice_d": "'type' et 'interface' sont des synonymes stricts sans aucune différence, à utiliser indifféremment",
+        "correct_choice": "C",
+        "explanation": "En pratique, de nombreuses équipes utilisent 'interface' pour définir la forme d'objets/classes (notamment quand l'extensibilité est utile) et 'type' pour des unions, intersections ou alias plus complexes que la syntaxe des interfaces ne permet pas d'exprimer directement."
+      },
+      {
+        "question_text": "À quoi servent les generics en TypeScript (ex: `function identity<T>(arg: T): T`) ?",
+        "choice_a": "À convertir automatiquement une fonction TypeScript en fonction JavaScript classique",
+        "choice_b": "À empêcher totalement une fonction d'accepter plus d'un argument",
+        "choice_c": "À définir un type qui ne peut représenter que des nombres génériques",
+        "choice_d": "À écrire du code réutilisable et type-safe qui fonctionne avec plusieurs types différents sans perdre l'information de type précis à chaque utilisation : contrairement à l'utilisation du type `any` (qui perd toute vérification de type), un generic garde la relation entre le type d'entrée et le type de sortie, permettant à TypeScript de continuer à vérifier la cohérence des types utilisés",
+        "correct_choice": "D",
+        "explanation": "Par exemple, une fonction generic `identity<T>(arg: T): T` appelée avec un `number` retournera un type `number` (et non `any`), permettant à TypeScript de continuer à vérifier statiquement que le résultat est bien utilisé comme un nombre ailleurs dans le code."
+      },
+      {
+        "question_text": "Qu'est-ce que le 'type narrowing' (affinement de type) en TypeScript ?",
+        "choice_a": "Le processus par lequel TypeScript réduit progressivement un type union plus large (ex: `string | number`) à un type plus précis à l'intérieur d'un bloc de code, en se basant sur des vérifications effectuées à l'exécution (ex: `typeof x === 'string'`), permettant d'accéder en toute sécurité aux méthodes spécifiques de ce type affiné sans erreur de compilation",
+        "choice_b": "Une technique qui réduit automatiquement la taille du fichier JavaScript généré à la compilation",
+        "choice_c": "Un mécanisme qui supprime définitivement un type d'une union, de façon permanente dans tout le fichier",
+        "choice_d": "Une fonctionnalité qui ne s'applique qu'aux tableaux, jamais aux types primitifs",
+        "correct_choice": "A",
+        "explanation": "Sans ce mécanisme, TypeScript refuserait d'appeler une méthode spécifique à `string` (comme `.toUpperCase()`) sur une variable de type `string | number`, car cette méthode n'existe pas sur `number` — le type narrowing permet au compilateur de savoir, à l'intérieur du bloc conditionnel, quel type précis est réellement garanti."
+      },
+      {
+        "question_text": "Que fait la déstructuration (destructuring) en JavaScript, par exemple `const { nom, age } = utilisateur;` ?",
+        "choice_a": "Elle chiffre automatiquement les valeurs extraites de l'objet",
+        "choice_b": "Elle supprime définitivement les propriétés extraites de l'objet d'origine",
+        "choice_c": "Elle extrait directement certaines propriétés d'un objet (ou éléments d'un tableau) dans des variables distinctes portant le même nom (ou un nom renommé), en une seule expression concise, plutôt que d'accéder à chaque propriété individuellement via la notation pointée",
+        "choice_d": "Elle ne fonctionne qu'avec des tableaux, jamais avec des objets",
+        "correct_choice": "B",
+        "explanation": "Cette syntaxe est particulièrement utile pour extraire directement les props d'un composant React (`function Carte({ titre, image }) { ... }`) ou pour ne récupérer que certains champs pertinents d'un objet plus large reçu d'une API, sans variables intermédiaires superflues."
+      },
+      {
+        "question_text": "Que fait l'opérateur de décomposition (spread, `...`) sur un tableau, par exemple `[...tableau1, ...tableau2]` ?",
+        "choice_a": "Il calcule automatiquement la somme de tous les éléments numériques des deux tableaux",
+        "choice_b": "Il trie automatiquement les éléments combinés par ordre croissant",
+        "choice_c": "Il déploie (étale) les éléments de chaque tableau individuellement dans un nouveau tableau, permettant par exemple de combiner facilement deux tableaux en un seul, ou de créer une copie superficielle (shallow copy) d'un tableau existant sans le modifier",
+        "choice_d": "Il supprime les éléments dupliqués entre les deux tableaux avant de les combiner",
+        "correct_choice": "D",
+        "explanation": "Ce même opérateur, utilisé sous forme 'rest' dans la déclaration d'une fonction (ex: `function f(...args)`), collecte à l'inverse un nombre variable d'arguments dans un seul tableau — le symbole `...` a donc un rôle différent (mais lié) selon le contexte où il est utilisé."
+      },
+      {
+        "question_text": "Pourquoi une Promise résolue s'exécute-t-elle avant un `setTimeout(fn, 0)`, même si les deux sont ajoutés au même moment ?",
+        "choice_a": "Parce que le callback d'une Promise résolue est placé dans la microtask queue, qui est systématiquement vidée intégralement par l'event loop avant de traiter la prochaine tâche de la macrotask queue (où setTimeout place son callback), même avec un délai de 0 milliseconde",
+        "choice_b": "Parce que setTimeout ne peut techniquement jamais avoir un délai de 0 milliseconde",
+        "choice_c": "Parce que les Promises s'exécutent dans un thread séparé, contrairement à setTimeout",
+        "choice_d": "Ce comportement est en réalité aléatoire et dépend uniquement du moteur JavaScript utilisé",
+        "correct_choice": "B",
+        "explanation": "Cette priorité stricte donnée aux microtasks explique pourquoi, dans du code mêlant Promises et setTimeout, les callbacks des Promises s'exécutent systématiquement avant ceux des timers, même à délai nul — un détail important pour raisonner correctement sur l'ordre d'exécution du code asynchrone JavaScript."
+      },
+      {
+        "question_text": "`const utilisateur = { nom: 'Alice' };` rend-il l'objet `utilisateur` totalement immuable en JavaScript ?",
+        "choice_a": "Oui, const rend systématiquement tout objet totalement immuable, y compris ses propriétés internes",
+        "choice_b": "Oui, mais uniquement pour les objets contenant exclusivement des chaînes de caractères",
+        "choice_c": "Non, const n'a en réalité aucun effet réel sur le comportement du code JavaScript",
+        "choice_d": "Non, const empêche uniquement de réassigner la variable `utilisateur` à un tout autre objet ; les propriétés internes de l'objet référencé (ex: `utilisateur.nom = 'Bob'`) restent librement modifiables, à moins d'utiliser explicitement un mécanisme comme `Object.freeze()` pour figer réellement l'objet",
+        "correct_choice": "D",
+        "explanation": "Cette confusion fréquente vient du fait que `const` ne fige que le lien entre le nom de variable et la référence qu'il pointe, pas le contenu de ce que cette référence désigne — pour une immutabilité réelle et profonde d'un objet, il faut des outils dédiés comme `Object.freeze()` (superficiel) ou des bibliothèques spécialisées (immutabilité profonde)."
+      },
+      {
+        "question_text": "Qu'est-ce que le typage structurel (structural typing) de TypeScript, par opposition au typage nominal ?",
+        "choice_a": "TypeScript ignore complètement les types au moment de l'exécution, comme JavaScript pur",
+        "choice_b": "Le typage structurel signifie que seul le nom de la classe compte, jamais ses propriétés",
+        "choice_c": "TypeScript considère deux types comme compatibles s'ils ont la même 'forme' (les mêmes propriétés avec les mêmes types), peu importe leur nom déclaré ou leur relation d'héritage explicite — contrairement à un typage nominal (comme en Java) où deux types ne sont compatibles que s'ils partagent explicitement le même nom de type ou une relation d'héritage déclarée",
+        "choice_d": "TypeScript interdit à deux objets de types différents d'être jamais compatibles entre eux",
+        "correct_choice": "C",
+        "explanation": "Concrètement, cela signifie qu'un objet littéral `{ x: 1, y: 2 }` peut être accepté partout où un type `Point { x: number; y: number }` est attendu, même sans jamais avoir explicitement déclaré cet objet comme étant de type `Point` — c'est exactement le même esprit que le duck typing de Python, mais vérifié statiquement à la compilation plutôt qu'à l'exécution."
+      }
+    ]
+  },
+  {
+    "name": "Git",
+    "color": "cyan",
+    "questions": [
+      {
+        "question_text": "Quelle est la différence entre `git merge` et `git rebase` ?",
+        "choice_a": "`git merge` combine deux branches en créant un nouveau commit de fusion qui a deux parents, préservant l'historique exact tel qu'il s'est déroulé ; `git rebase` réécrit l'historique en rejouant les commits d'une branche un par un au-dessus d'une autre, produisant un historique linéaire sans commit de fusion, mais changeant les identifiants (hash) des commits rejoués",
+        "choice_b": "Ce sont deux commandes strictement identiques, `rebase` étant juste un alias plus court de `merge`",
+        "choice_c": "`git rebase` ne peut être utilisé que sur la branche `main`, jamais sur une branche secondaire",
+        "choice_d": "`git merge` supprime définitivement la branche fusionnée, `git rebase` la conserve",
+        "correct_choice": "A",
+        "explanation": "Le rebase produit un historique plus propre et linéaire, mais réécrit les hash des commits — une règle d'or est de ne jamais rebaser une branche déjà partagée/poussée sur laquelle d'autres personnes travaillent, sous peine de complications lors de la synchronisation."
+      },
+      {
+        "question_text": "À quoi sert la commande `git cherry-pick` ?",
+        "choice_a": "À supprimer définitivement un commit précis de tout l'historique du dépôt",
+        "choice_b": "À appliquer un commit spécifique (identifié par son hash), pris sur une autre branche, directement sur la branche courante, sans avoir à fusionner l'intégralité de cette autre branche",
+        "choice_c": "À sélectionner automatiquement le meilleur commit à déployer en production",
+        "choice_d": "À fusionner deux branches en ne conservant que les fichiers les plus récents",
+        "correct_choice": "B",
+        "explanation": "C'est utile par exemple pour appliquer un correctif de bug urgent (hotfix) présent sur une branche de développement vers une branche de production, sans avoir à y intégrer toutes les autres fonctionnalités en cours sur cette branche de développement."
+      },
+      {
+        "question_text": "Comment fonctionne `git bisect`, et à quoi sert-il ?",
+        "choice_a": "Il divise automatiquement un fichier en deux parties égales pour faciliter sa relecture",
+        "choice_b": "Il fusionne deux branches en ne gardant qu'un commit sur deux",
+        "choice_c": "Il automatise une recherche dichotomique dans l'historique des commits pour identifier précisément quel commit a introduit un bug : on indique un commit connu comme bon et un commit connu comme mauvais, et git propose successivement des commits intermédiaires à tester jusqu'à isoler le commit fautif exact",
+        "choice_d": "Il compte le nombre total de commits effectués par chaque contributeur du projet",
+        "correct_choice": "C",
+        "explanation": "Grâce à la recherche dichotomique, `git bisect` retrouve le commit fautif en un nombre de tests logarithmique par rapport au nombre total de commits (ex: environ 10 tests suffisent pour parcourir 1000 commits), bien plus rapide qu'une vérification manuelle un par un."
+      },
+      {
+        "question_text": "À quoi sert la commande `git stash` ?",
+        "choice_a": "À supprimer définitivement toutes les modifications non committées, sans possibilité de retour en arrière",
+        "choice_b": "À créer automatiquement une nouvelle branche pour chaque modification en cours",
+        "choice_c": "À envoyer immédiatement les modifications locales vers le dépôt distant",
+        "choice_d": "À mettre de côté temporairement les modifications non committées du répertoire de travail (sans les commiter), pour revenir à un état propre (ex: pouvoir changer de branche sans perdre son travail en cours), puis à les réappliquer plus tard quand on le souhaite",
+        "correct_choice": "D",
+        "explanation": "C'est particulièrement utile quand on doit changer rapidement de contexte (ex: corriger un bug urgent) sans avoir terminé ni voulu commiter le travail en cours sur la branche actuelle : `git stash` range temporairement ces changements, et `git stash pop` les restaure ensuite."
+      },
+      {
+        "question_text": "Que permet le `reflog` (`git reflog`) de récupérer ?",
+        "choice_a": "Un historique de tous les déplacements successifs de HEAD (changements de branche, commits, resets, rebases...) sur la machine locale, ce qui permet de retrouver et de récupérer des commits qui semblent 'perdus' (ex: après un reset --hard trop agressif ou un rebase qui a mal tourné), tant qu'ils n'ont pas été définitivement supprimés par le ramasse-miettes de git",
+        "choice_b": "La liste de tous les fichiers jamais supprimés du dépôt, depuis sa création",
+        "choice_c": "Un historique des seuls commits qui ont été poussés vers le dépôt distant",
+        "choice_d": "Un journal des erreurs de compilation survenues dans le projet",
+        "correct_choice": "A",
+        "explanation": "Le reflog est une sorte de filet de sécurité local à chaque dépôt : même après une manipulation git risquée qui semble avoir fait disparaître des commits, ils restent généralement récupérables via le reflog pendant un certain temps, avant d'être définitivement nettoyés."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un 'detached HEAD' (HEAD détaché) en git ?",
+        "choice_a": "Un état d'erreur qui empêche définitivement toute nouvelle action sur le dépôt",
+        "choice_b": "Un état où git pointe directement sur un commit précis plutôt que sur le sommet d'une branche nommée (ex: après avoir fait un `git checkout` sur un hash de commit spécifique) — dans cet état, créer de nouveaux commits ne fait avancer aucune branche, et ces commits pourraient être perdus (sauf récupération via reflog) si on change de branche sans les rattacher explicitement à une nouvelle branche",
+        "choice_c": "Le nom donné à une branche qui n'a jamais été poussée vers le dépôt distant",
+        "choice_d": "Un état qui survient uniquement lors de la toute première utilisation de git sur une machine",
+        "correct_choice": "B",
+        "explanation": "C'est un état volontairement transitoire, souvent utilisé pour inspecter un ancien commit sans vouloir modifier une branche existante ; si l'on souhaite y effectuer des commits durables, il faut explicitement créer une nouvelle branche à partir de ce point avec `git checkout -b`."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un fast-forward merge (fusion en avance rapide) ?",
+        "choice_a": "Une fusion qui s'exécute plus rapidement grâce à une option de configuration spéciale",
+        "choice_b": "Une fusion qui ignore intentionnellement certains commits pour accélérer le processus",
+        "choice_c": "Un cas particulier de fusion où la branche cible n'a reçu aucun nouveau commit depuis la création de la branche à fusionner : git peut alors simplement avancer le pointeur de la branche cible jusqu'au dernier commit de l'autre branche, sans avoir besoin de créer un commit de fusion dédié",
+        "choice_d": "Un type de fusion réservé exclusivement aux dépôts hébergés sur GitHub",
+        "correct_choice": "C",
+        "explanation": "Si au contraire la branche cible a évolué en parallèle (nouveaux commits de son côté), un fast-forward n'est plus possible et git doit créer un véritable commit de fusion (ou proposer un rebase) pour combiner les deux historiques divergents."
+      },
+      {
+        "question_text": "Pourquoi 'squash' (compresser) plusieurs commits en un seul est-il souvent recommandé avant de fusionner une pull request ?",
+        "choice_a": "Pour regrouper une série de commits de développement souvent peu signifiants pris individuellement (ex: 'wip', 'fix typo', 'oups') en un seul commit propre et cohérent dans l'historique de la branche principale, plus facile à comprendre et à éventuellement annuler (revert) en bloc plus tard",
+        "choice_b": "Parce que squash est la seule méthode qui permet techniquement de pousser des commits vers un dépôt distant",
+        "choice_c": "Pour supprimer définitivement l'auteur original des commits concernés",
+        "choice_d": "Parce que git limite techniquement le nombre total de commits qu'une branche peut contenir",
+        "correct_choice": "D",
+        "explanation": "Un historique de branche principale composé de commits 'squashés', chacun correspondant à une fonctionnalité ou un correctif complet et cohérent, est généralement bien plus lisible qu'un historique brut contenant chaque micro-étape intermédiaire du développement."
+      },
+      {
+        "question_text": "À quoi sert le fichier `.gitignore` dans un dépôt git ?",
+        "choice_a": "À lister des motifs de fichiers ou de dossiers que git ne doit jamais suivre ni proposer d'ajouter au suivi de version (ex: fichiers de build, dépendances installées comme node_modules, fichiers de configuration locale contenant des secrets)",
+        "choice_b": "À définir la liste des utilisateurs autorisés à contribuer au dépôt",
+        "choice_c": "À chiffrer automatiquement le contenu des fichiers suivis par git",
+        "choice_d": "À forcer git à suivre absolument tous les fichiers du répertoire, sans aucune exception",
+        "correct_choice": "A",
+        "explanation": "Sans `.gitignore`, des fichiers volumineux générés automatiquement (comme un dossier de build) ou sensibles (comme un fichier `.env` contenant des mots de passe) risqueraient d'être accidentellement committés et partagés, ce qui est justement le genre d'erreur que ce fichier permet d'éviter."
+      },
+      {
+        "question_text": "À quoi sert un tag git (`git tag`) ?",
+        "choice_a": "À renommer temporairement une branche pour la durée d'une session de travail",
+        "choice_b": "À marquer de façon permanente et nommée un commit précis dans l'historique (typiquement pour repérer une version publiée, ex: v1.0.0), contrairement à une branche dont le pointeur avance automatiquement à chaque nouveau commit",
+        "choice_c": "À signaler à git qu'un fichier doit être ignoré lors du prochain commit",
+        "choice_d": "À fusionner automatiquement toutes les branches actives du dépôt en une seule",
+        "correct_choice": "B",
+        "explanation": "Contrairement à une branche qui avance dynamiquement, un tag reste fixé sur le commit qu'il désigne au moment de sa création, ce qui en fait un marqueur fiable et stable pour identifier précisément quelle version exacte du code correspond à une release donnée."
+      },
+      {
+        "question_text": "Pourquoi un `git push --force` est-il considéré comme une opération dangereuse ?",
+        "choice_a": "Parce qu'il est techniquement deux fois plus lent qu'un push classique",
+        "choice_b": "Parce qu'il ne peut être utilisé que par l'administrateur principal du dépôt",
+        "choice_c": "Parce qu'il réécrit l'historique de la branche distante en l'écrasant purement et simplement par l'historique local, ce qui peut définitivement supprimer des commits que d'autres personnes avaient déjà poussés sur cette branche (typiquement après un rebase local qui a divergé de l'historique distant), sans possibilité de récupération simple pour les autres contributeurs",
+        "choice_d": "Parce qu'il supprime automatiquement et immédiatement le dépôt distant tout entier",
+        "correct_choice": "C",
+        "explanation": "C'est pour cette raison que de nombreuses équipes protègent leur branche principale contre les force push, et qu'une alternative plus sûre existe (`--force-with-lease`), qui refuse le push si quelqu'un d'autre a poussé entre-temps sans que l'on en soit informé."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un conflit de fusion (merge conflict) en git ?",
+        "choice_a": "Une situation où git ne peut pas fusionner automatiquement deux changements car ils modifient la même portion d'un fichier de façon incompatible ; git marque alors les zones en conflit dans le fichier concerné, et attend une résolution manuelle de la part du développeur avant de pouvoir finaliser le commit de fusion",
+        "choice_b": "Une erreur qui empêche définitivement de terminer la fusion de deux branches, sans aucune solution possible",
+        "choice_c": "Un message d'avertissement sans conséquence réelle, que l'on peut toujours ignorer sans risque",
+        "choice_d": "Une situation qui survient uniquement lorsque deux fichiers portent exactement le même nom dans deux branches différentes",
+        "correct_choice": "D",
+        "explanation": "La plupart des changements entre deux branches se fusionnent automatiquement sans problème (des modifications sur des lignes différentes d'un même fichier, par exemple) ; le conflit ne survient que lorsque les deux branches ont modifié exactement la même zone d'un fichier de façon différente, laissant à git aucune façon automatique et sûre de choisir laquelle des deux versions garder."
+      },
+      {
+        "question_text": "À quoi sert la commande `git blame` ?",
+        "choice_a": "À afficher, ligne par ligne dans un fichier, quel commit (et quel auteur) est responsable de la dernière modification de chaque ligne — utile pour comprendre le contexte ou la raison historique d'un bout de code précis, par exemple en retrouvant le message de commit ou la pull request associée",
+        "choice_b": "À supprimer définitivement l'historique d'un fichier spécifique",
+        "choice_c": "À désigner automatiquement un responsable en cas d'échec des tests automatisés",
+        "choice_d": "À comparer les performances d'exécution de deux versions différentes d'un fichier",
+        "correct_choice": "A",
+        "explanation": "Malgré son nom qui suggère une connotation négative ('blâmer'), cette commande est avant tout un outil d'investigation utile : elle permet par exemple de retrouver rapidement le commit exact (et son message explicatif) qui a introduit une ligne suspecte, pour comprendre pourquoi elle a été écrite ainsi."
+      },
+      {
+        "question_text": "Qu'est-ce que la staging area (zone de préparation, ou 'index') en git ?",
+        "choice_a": "Un dossier temporaire où git stocke une sauvegarde du dépôt avant chaque commit",
+        "choice_b": "Une zone intermédiaire entre le répertoire de travail (où l'on modifie les fichiers) et l'historique des commits, où l'on place explicitement (via `git add`) les modifications que l'on souhaite inclure dans le prochain commit — ce qui permet de committer seulement une partie précise des modifications en cours, plutôt que systématiquement tout ce qui a été modifié",
+        "choice_c": "Un synonyme technique du dépôt distant hébergé sur un service comme GitHub",
+        "choice_d": "Une zone réservée exclusivement à la résolution des conflits de fusion",
+        "correct_choice": "B",
+        "explanation": "Grâce à cette étape intermédiaire, on peut par exemple modifier plusieurs fichiers pour deux fonctionnalités différentes, mais ne préparer et committer (`git add` puis `git commit`) que les fichiers liés à l'une des deux, laissant les autres modifications non committées pour un commit séparé ultérieur."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une branche de suivi distant (remote-tracking branch, ex: `origin/main`) ?",
+        "choice_a": "Une branche qui ne peut exister que sur le serveur distant, jamais visible localement",
+        "choice_b": "Un synonyme exact de branche locale, sans aucune distinction particulière",
+        "choice_c": "Une référence locale qui représente l'état de la branche `main` tel qu'il était sur le dépôt distant (`origin`) lors du dernier `git fetch` ou `git pull` — elle ne se met pas à jour automatiquement en temps réel, mais seulement lorsqu'on synchronise explicitement avec le dépôt distant, ce qui permet de comparer localement l'état de sa branche avec celui du serveur distant sans avoir à s'y reconnecter à chaque fois",
+        "choice_d": "Une branche automatiquement supprimée après chaque `git push`",
+        "correct_choice": "C",
+        "explanation": "C'est cette référence locale (`origin/main`) qui permet à des commandes comme `git status` d'indiquer si la branche locale est en avance, en retard, ou a divergé par rapport au dépôt distant, sans avoir besoin d'interroger le serveur à chaque commande."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un rebase interactif (`git rebase -i`) ?",
+        "choice_a": "Un rebase qui ne peut s'exécuter qu'en présence physique de plusieurs développeurs simultanément",
+        "choice_b": "Un rebase qui demande une confirmation orale avant chaque commit rejoué",
+        "choice_c": "Un synonyme exact d'un merge classique, sans aucune différence de comportement",
+        "choice_d": "Une variante du rebase qui ouvre un éditeur listant les commits concernés, permettant de choisir précisément pour chacun s'il doit être conservé tel quel, modifié (edit), fusionné avec le précédent (squash/fixup), réordonné, ou complètement supprimé, avant que git ne les rejoue effectivement sur la nouvelle base",
+        "correct_choice": "D",
+        "explanation": "C'est l'outil de référence pour nettoyer l'historique d'une branche avant de la partager : regrouper des commits de correctifs mineurs avec le commit principal qu'ils corrigent, réordonner des commits logiquement liés, ou reformuler un message de commit mal rédigé."
+      },
+      {
+        "question_text": "Quelle est la différence entre 'forker' (fork) un dépôt et le 'cloner' (clone) ?",
+        "choice_a": "Forker un dépôt crée une copie indépendante de ce dépôt sur son propre compte distant (ex: sur GitHub), permettant d'y apporter des modifications sans affecter le dépôt original, souvent en vue de proposer ensuite ces changements via une pull request ; cloner un dépôt en télécharge simplement une copie locale sur sa propre machine, que ce dépôt soit le sien, un fork, ou celui de quelqu'un d'autre",
+        "choice_b": "Ce sont deux termes strictement synonymes désignant exactement la même opération",
+        "choice_c": "Forker un dépôt le supprime définitivement du compte de son propriétaire d'origine",
+        "choice_d": "Cloner un dépôt nécessite obligatoirement d'avoir préalablement forké ce même dépôt",
+        "correct_choice": "A",
+        "explanation": "On clone généralement son propre fork localement pour y travailler (via `git clone`), puis on pousse les changements vers ce fork distant avant de proposer une pull request vers le dépôt original — le fork et le clone interviennent donc à deux niveaux différents (distant vs local) et sont souvent utilisés ensemble."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un submodule git ?",
+        "choice_a": "Une branche secondaire créée automatiquement pour chaque nouvelle fonctionnalité",
+        "choice_b": "Un mécanisme qui permet d'inclure un autre dépôt git entier comme sous-dossier d'un projet principal, tout en gardant les deux dépôts (et leurs historiques respectifs) séparés et indépendants — le dépôt principal ne stocke qu'une référence vers un commit précis du submodule, plutôt que son historique complet",
+        "choice_c": "Un fichier de configuration qui définit les permissions d'accès au dépôt",
+        "choice_d": "Un synonyme technique de 'commit', utilisé dans certaines interfaces graphiques",
+        "correct_choice": "B",
+        "explanation": "C'est une solution parfois utilisée pour partager du code commun entre plusieurs projets sans le dupliquer, mais elle est souvent critiquée pour sa complexité d'usage (il faut explicitement mettre à jour et synchroniser le submodule), ce qui pousse de nombreuses équipes à lui préférer d'autres approches comme des paquets publiés séparément."
+      },
+      {
+        "question_text": "Que représentent les 'trois arbres' (three trees) du modèle mental de git : working directory, staging area et repository (HEAD) ?",
+        "choice_a": "Trois niveaux successifs par lesquels transitent les modifications : le répertoire de travail (les fichiers tels qu'ils existent réellement sur le disque, modifiables librement), la staging area (les modifications explicitement sélectionnées via `git add` pour le prochain commit), et le repository/HEAD (l'historique des commits déjà validés et enregistrés de façon permanente)",
+        "choice_b": "Trois branches par défaut créées automatiquement à l'initialisation de tout nouveau dépôt git",
+        "choice_c": "Trois structures de données strictement identiques, dupliquées uniquement pour la redondance en cas de panne",
+        "choice_d": "Trois serveurs distants différents utilisés pour héberger un même projet en parallèle",
+        "correct_choice": "C",
+        "explanation": "Comprendre cette séparation en trois niveaux clarifie ce que font réellement des commandes comme `git add` (déplace des changements du répertoire de travail vers la staging area) ou `git commit` (déplace le contenu de la staging area vers l'historique permanent du repository)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une pull request (ou merge request) ?",
+        "choice_a": "Une commande git native qui n'existe que dans le terminal, sans lien avec une plateforme externe",
+        "choice_b": "Une demande automatique de suppression d'une branche obsolète",
+        "choice_c": "Un mécanisme qui fusionne automatiquement toutes les branches actives d'un dépôt, sans aucune revue",
+        "choice_d": "Une demande formelle, généralement effectuée via une plateforme comme GitHub ou GitLab, de fusionner les changements d'une branche (souvent une branche de fonctionnalité) dans une autre (souvent la branche principale), qui sert de cadre pour la revue de code, la discussion des changements proposés et l'exécution automatique de vérifications (CI) avant que la fusion ne soit effectivement validée",
+        "correct_choice": "D",
+        "explanation": "Bien que le mécanisme de fusion sous-jacent reste basé sur les commandes git standards, la pull request elle-même est une fonctionnalité fournie par la plateforme d'hébergement (et non une commande git native) : elle ajoute une couche collaborative de revue, de discussion et de validation autour de ce processus de fusion."
+      }
+    ]
+  },
+  {
+    "name": "Compilateurs",
+    "color": "violet",
+    "questions": [
+      {
+        "question_text": "Quelles sont, dans l'ordre, les grandes étapes classiques d'un compilateur ?",
+        "choice_a": "Analyse lexicale (découpage en tokens) → analyse syntaxique (construction d'un arbre selon la grammaire du langage) → analyse sémantique (vérification de sens, ex: types) → génération de code intermédiaire → optimisation → génération de code machine final",
+        "choice_b": "Génération de code machine → optimisation → analyse lexicale → analyse syntaxique",
+        "choice_c": "Un compilateur exécute directement le code source sans aucune étape intermédiaire",
+        "choice_d": "Analyse sémantique → analyse lexicale → analyse syntaxique → exécution directe",
+        "correct_choice": "A",
+        "explanation": "Chaque étape s'appuie sur le résultat de la précédente et ne peut généralement pas être sautée : on ne peut pas vérifier la syntaxe avant d'avoir identifié les tokens, ni vérifier les types avant d'avoir construit une structure représentant le programme (l'arbre syntaxique)."
+      },
+      {
+        "question_text": "Que fait l'analyse lexicale (lexing), première étape d'un compilateur ?",
+        "choice_a": "Elle traduit directement le code source en code machine exécutable",
+        "choice_b": "Elle découpe le flux brut de caractères du code source en une séquence de tokens (unités significatives comme les mots-clés, identifiants, nombres, opérateurs), en ignorant généralement les espaces et commentaires, sans encore se préoccuper de savoir si leur agencement respecte la grammaire du langage",
+        "choice_c": "Elle vérifie que chaque variable utilisée dans le programme a bien été déclarée au préalable",
+        "choice_d": "Elle optimise automatiquement les boucles du programme pour les rendre plus rapides",
+        "correct_choice": "B",
+        "explanation": "Le composant qui réalise cette étape s'appelle un lexer (ou scanner) ; il transforme par exemple le texte brut `x = 1 + 2;` en une séquence de tokens comme IDENTIFIANT('x'), OPERATEUR('='), NOMBRE('1'), OPERATEUR('+'), NOMBRE('2'), PONCTUATION(';')."
+      },
+      {
+        "question_text": "Que fait l'analyse syntaxique (parsing) ?",
+        "choice_a": "Elle vérifie l'orthographe correcte de chaque identifiant utilisé dans le programme",
+        "choice_b": "Elle exécute directement chaque instruction du programme au fur et à mesure de son analyse",
+        "choice_c": "Elle vérifie que la séquence de tokens produite par le lexer respecte bien la grammaire formelle du langage, et construit une représentation structurée (généralement un arbre syntaxique) reflétant l'organisation logique du programme — une séquence de tokens syntaxiquement invalide (ex: parenthèses non équilibrées) est rejetée à cette étape",
+        "choice_d": "Elle traduit le programme dans un autre langage de programmation au choix du développeur",
+        "correct_choice": "C",
+        "explanation": "C'est à cette étape qu'une erreur comme une parenthèse manquante ou un point-virgule oublié est généralement détectée et signalée au développeur, bien avant que le compilateur n'essaie de comprendre le sens du programme."
+      },
+      {
+        "question_text": "Qu'est-ce que l'AST (Abstract Syntax Tree, arbre syntaxique abstrait) ?",
+        "choice_a": "Le nom donné au fichier binaire final produit par le compilateur",
+        "choice_b": "Une liste plate et non structurée de tous les tokens identifiés par le lexer",
+        "choice_c": "Un format de fichier utilisé uniquement pour stocker les commentaires du code source",
+        "choice_d": "Une représentation arborescente de la structure logique d'un programme, produite lors de l'analyse syntaxique, qui capture l'organisation hiérarchique du code (ex: une expression `a + b * c` reflète dans l'arbre la priorité de la multiplication) tout en s'abstrayant des détails syntaxiques superflus comme les espaces ou les parenthèses redondantes",
+        "correct_choice": "D",
+        "explanation": "C'est cette structure arborescente (et non le texte source brut) que les étapes suivantes du compilateur (analyse sémantique, génération de code) manipulent réellement, ce qui explique pourquoi de nombreux outils (formateurs de code, linters) travaillent aussi directement sur un AST plutôt que sur le texte."
+      },
+      {
+        "question_text": "Que vérifie l'analyse sémantique d'un compilateur, une fois l'arbre syntaxique construit ?",
+        "choice_a": "Des règles de 'sens' que la seule syntaxe ne peut pas capturer, comme la cohérence des types (ex: additionner un texte et un nombre sans conversion explicite), le fait qu'une variable utilisée ait bien été déclarée auparavant, ou qu'elle soit accessible dans la portée courante",
+        "choice_b": "Elle vérifie uniquement que le nombre total de lignes du fichier ne dépasse pas une limite",
+        "choice_c": "Elle se contente de recompter le nombre de tokens produits par le lexer",
+        "choice_d": "Elle mesure le temps que prendra le programme à s'exécuter une fois compilé",
+        "correct_choice": "A",
+        "explanation": "Un programme peut être parfaitement correct du point de vue de la syntaxe (bien formé grammaticalement) tout en étant sémantiquement invalide, par exemple en utilisant une variable qui n'a jamais été déclarée — c'est justement ce type d'erreur que l'analyse sémantique est chargée de détecter."
+      },
+      {
+        "question_text": "Quelle est la différence fondamentale entre compilation et interprétation d'un langage de programmation ?",
+        "choice_a": "Ce sont deux termes strictement synonymes désignant le même processus",
+        "choice_b": "La compilation traduit l'intégralité du programme source en code machine (ou un autre format cible) avant toute exécution, produisant un exécutable indépendant ; l'interprétation lit et exécute le code source (ou une représentation intermédiaire comme un bytecode) instruction par instruction au moment de l'exécution, sans produire au préalable un exécutable natif complet et autonome",
+        "choice_c": "Seule la compilation permet d'exécuter un programme, l'interprétation en est incapable",
+        "choice_d": "L'interprétation ne peut être appliquée qu'à des langages qui n'ont jamais de syntaxe formelle",
+        "correct_choice": "B",
+        "explanation": "En pratique, la frontière entre les deux est souvent floue : de nombreux langages modernes (comme Python ou JavaScript) combinent les deux approches, par exemple en compilant d'abord vers un bytecode intermédiaire, puis en l'interprétant (ou en le compilant à la volée via un JIT) à l'exécution."
+      },
+      {
+        "question_text": "Qu'est-ce que la compilation JIT (Just-In-Time) ?",
+        "choice_a": "Une technique qui compile systématiquement tout le programme avant même son écriture",
+        "choice_b": "Un synonyme technique et strict de l'interprétation pure, sans aucune différence",
+        "choice_c": "Une technique où le code (souvent un bytecode intermédiaire) est compilé en code machine natif directement pendant l'exécution du programme, plutôt qu'entièrement à l'avance (compilation statique/AOT) ou exécuté ligne par ligne sans jamais être compilé (interprétation pure) — combinant la portabilité d'un bytecode avec des performances proches d'un code nativement compilé",
+        "choice_d": "Une technique réservée exclusivement aux langages fonctionnels comme Haskell",
+        "correct_choice": "C",
+        "explanation": "Un moteur JIT peut aussi exploiter des informations disponibles uniquement à l'exécution (comme les types réellement rencontrés en pratique) pour appliquer des optimisations plus agressives et spécifiques que ce qu'un compilateur statique, limité aux seules informations connues à l'avance, pourrait faire."
+      },
+      {
+        "question_text": "Qu'est-ce que le bytecode, utilisé par des langages comme Python ou Java ?",
+        "choice_a": "Un synonyme exact et strict de code machine natif, propre à chaque architecture de processeur",
+        "choice_b": "Un format utilisé uniquement pour stocker les commentaires et la documentation d'un programme",
+        "choice_c": "Le nom donné au fichier source original avant toute forme de compilation",
+        "choice_d": "Une représentation intermédiaire du programme, plus bas niveau que le code source mais indépendante d'une architecture matérielle physique précise (contrairement au code machine natif), généralement exécutée par une machine virtuelle qui l'interprète ou la compile à la volée (JIT)",
+        "correct_choice": "D",
+        "explanation": "Cette indépendance vis-à-vis du matériel est justement ce qui permet à un même fichier bytecode (ex: un fichier .class Java) de s'exécuter sur n'importe quelle machine disposant de la machine virtuelle appropriée (ex: la JVM), sans avoir à être recompilé spécifiquement pour chaque architecture cible."
+      },
+      {
+        "question_text": "Pourquoi un compilateur utilise-t-il souvent une représentation intermédiaire (IR, Intermediate Representation) entre l'AST et le code machine final ?",
+        "choice_a": "Parce qu'elle permet de découpler les optimisations et analyses du compilateur (qui s'appliquent sur cette représentation commune) de l'architecture matérielle finale précise, facilitant le support de plusieurs langages sources et de plusieurs architectures cibles à partir d'une même base d'optimisations",
+        "choice_b": "Parce que la loi impose cette étape supplémentaire pour tout compilateur commercial",
+        "choice_c": "Parce que le code source ne peut techniquement jamais être directement transformé en code machine, quelle que soit la méthode utilisée",
+        "choice_d": "Parce qu'une représentation intermédiaire ralentit délibérément la compilation pour faciliter le débogage manuel",
+        "correct_choice": "A",
+        "explanation": "C'est cette approche que suivent des infrastructures de compilation comme LLVM : plusieurs langages différents peuvent être traduits vers une même représentation intermédiaire, qui bénéficie alors des mêmes optimisations, avant d'être traduite vers le code machine de n'importe quelle architecture cible supportée."
+      },
+      {
+        "question_text": "Quel est l'objectif général des optimisations effectuées par un compilateur ?",
+        "choice_a": "Rendre le code source plus facile à lire pour un humain qui le consulterait ensuite",
+        "choice_b": "Transformer le code généré pour le rendre plus rapide à l'exécution et/ou plus compact en taille, tout en garantissant que son comportement observable reste strictement identique à celui du programme d'origine",
+        "choice_c": "Réduire délibérément la taille du code source original, quitte à en changer le sens",
+        "choice_d": "Ajouter automatiquement des commentaires explicatifs à chaque ligne du programme",
+        "correct_choice": "B",
+        "explanation": "Ces optimisations opèrent généralement sur la représentation intermédiaire du programme et incluent des techniques comme l'élimination de code mort (jamais exécuté), la propagation de constantes, ou l'inlining de petites fonctions — toujours sous la contrainte stricte de ne jamais changer le résultat observable du programme."
+      },
+      {
+        "question_text": "À quoi sert un linker (éditeur de liens) après la compilation ?",
+        "choice_a": "Il vérifie l'orthographe des commentaires laissés dans le code source",
+        "choice_b": "Il traduit directement le code source en langage assembleur, sans passer par d'autres étapes",
+        "choice_c": "Il combine plusieurs fichiers objets compilés séparément (issus de différents fichiers source) ainsi que des bibliothèques externes en un seul exécutable final, en résolvant les références entre eux (ex: un appel à une fonction définie dans un autre fichier ou une bibliothèque)",
+        "choice_d": "Il supprime automatiquement toutes les variables inutilisées du code source original",
+        "correct_choice": "C",
+        "explanation": "C'est notamment ce qui permet de compiler séparément plusieurs fichiers source d'un même projet (chacun produisant un fichier objet indépendant), puis de les assembler ensemble en un seul programme final, sans avoir à tout recompiler d'un bloc à chaque modification d'un seul fichier."
+      },
+      {
+        "question_text": "À quoi sert la table des symboles (symbol table) utilisée en interne par un compilateur ?",
+        "choice_a": "Un tableau qui liste tous les symboles mathématiques (+, -, *, /) supportés par le langage",
+        "choice_b": "Un fichier de documentation généré automatiquement à la fin de la compilation",
+        "choice_c": "Une liste des erreurs de compilation rencontrées, affichée à l'utilisateur",
+        "choice_d": "Une structure qui associe à chaque identifiant du programme (variable, fonction, type...) des informations utiles au compilateur, comme son type, sa portée (scope), ou son emplacement mémoire prévu — utilisée notamment lors de l'analyse sémantique pour vérifier la cohérence des types et la validité des références à des identifiants",
+        "correct_choice": "D",
+        "explanation": "C'est grâce à cette table que le compilateur peut, par exemple, détecter qu'une variable est utilisée avant d'avoir été déclarée, ou que deux appels de fonction n'utilisent pas des types d'arguments cohérents avec la déclaration originale de cette fonction."
+      },
+      {
+        "question_text": "Quelle est la différence entre une erreur de compilation et une erreur d'exécution (runtime error) ?",
+        "choice_a": "Une erreur de compilation est détectée avant même que le programme ne s'exécute (ex: une erreur de syntaxe ou de type), empêchant la production d'un exécutable ; une erreur d'exécution ne se manifeste que pendant que le programme tourne (ex: une division par zéro, un accès à un tableau hors limites), sur un programme qui avait pourtant compilé sans problème",
+        "choice_b": "Ce sont deux termes strictement synonymes, utilisés indifféremment selon les langages",
+        "choice_c": "Une erreur de compilation ne peut survenir que dans des langages interprétés",
+        "choice_d": "Une erreur d'exécution empêche systématiquement le code de compiler dans un premier temps",
+        "correct_choice": "A",
+        "explanation": "Un des grands intérêts d'un typage statique fort (comme en Rust) est de déplacer un maximum de bugs potentiels de la catégorie 'erreur d'exécution' (découverte tardivement, parfois en production) vers la catégorie 'erreur de compilation' (détectée immédiatement, avant même de lancer le programme)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une grammaire formelle (context-free grammar), utilisée pour définir la syntaxe d'un langage de programmation ?",
+        "choice_a": "Une liste de tous les mots-clés réservés d'un langage, sans aucune règle de combinaison entre eux",
+        "choice_b": "Un ensemble de règles précises qui définissent quelles séquences de tokens constituent des constructions syntaxiquement valides dans le langage (ex: la structure exacte autorisée pour une boucle 'for' ou une déclaration de fonction), sur lesquelles s'appuie le parser pour vérifier et structurer le code source",
+        "choice_c": "Un guide de style recommandant une convention de nommage des variables",
+        "choice_d": "Un document purement administratif décrivant la licence d'utilisation du langage",
+        "correct_choice": "B",
+        "explanation": "Ces règles s'expriment souvent sous une notation formelle comme BNF (Backus-Naur Form), qui décrit récursivement comment des constructions plus complexes (comme une expression) se composent de constructions plus simples (comme des nombres, des opérateurs) — c'est cette grammaire que le parser utilise pour savoir si une séquence de tokens est syntaxiquement acceptable."
+      },
+      {
+        "question_text": "Quelle est la différence entre un token et un lexème lors de l'analyse lexicale ?",
+        "choice_a": "Ce sont deux synonymes stricts, désignant exactement le même concept sans nuance",
+        "choice_b": "Un token ne peut représenter que des nombres, un lexème que du texte",
+        "choice_c": "Le lexème est la séquence exacte de caractères présente dans le code source (ex: le texte 'monVariable' ou '42'), alors que le token est la catégorie générale à laquelle ce lexème appartient (ex: IDENTIFIANT ou NOMBRE), souvent accompagnée du lexème lui-même comme information complémentaire",
+        "choice_d": "Le token est produit après la compilation complète, le lexème avant l'analyse lexicale",
+        "correct_choice": "C",
+        "explanation": "Par exemple, les lexèmes 'x' et 'total' produiront tous deux un token de catégorie IDENTIFIANT, mais avec une valeur de lexème différente attachée à chacun, ce qui permet au parser de raisonner sur les catégories générales tout en conservant l'information textuelle précise nécessaire aux étapes suivantes."
+      },
+      {
+        "question_text": "Qu'est-ce que la compilation croisée (cross-compilation) ?",
+        "choice_a": "Compiler simultanément deux programmes totalement indépendants en une seule commande",
+        "choice_b": "Traduire un programme écrit dans un langage vers un autre langage de programmation",
+        "choice_c": "Compiler un même programme deux fois de suite pour vérifier la cohérence du résultat",
+        "choice_d": "Compiler un programme sur une machine ayant une certaine architecture processeur, pour produire un exécutable destiné à s'exécuter sur une architecture différente de celle utilisée pour la compilation (ex: compiler sur un PC x86 pour produire un exécutable destiné à un microcontrôleur ARM)",
+        "correct_choice": "D",
+        "explanation": "C'est une pratique courante dans le développement embarqué : la machine cible (ex: un petit microcontrôleur) n'a souvent ni la puissance de calcul ni l'espace de stockage nécessaires pour y faire tourner un compilateur complet, d'où la nécessité de compiler ailleurs, sur une machine de développement plus puissante, en ciblant explicitement l'architecture de la machine finale."
+      },
+      {
+        "question_text": "Que fait un préprocesseur, par exemple en langage C, avant la compilation proprement dite ?",
+        "choice_a": "Il traite le code source en exécutant des directives spéciales avant l'analyse lexicale/syntaxique proprement dite : expansion des macros (`#define`), inclusion littérale du contenu d'autres fichiers (`#include`), ou compilation conditionnelle de blocs de code selon certaines conditions (`#ifdef`)",
+        "choice_b": "Il exécute directement le programme une première fois à titre de test",
+        "choice_c": "Il optimise le code machine final généré après la compilation complète",
+        "choice_d": "Il vérifie uniquement l'orthographe des chaînes de caractères du programme",
+        "correct_choice": "A",
+        "explanation": "C'est cette étape qui explique pourquoi, dans un projet C, écrire `#include <stdio.h>` insère littéralement (textuellement) le contenu de ce fichier d'en-tête au tout début du fichier source, avant même que le compilateur proprement dit ne commence son analyse lexicale sur le résultat de cette substitution."
+      },
+      {
+        "question_text": "Quelle est la dernière étape d'un compilateur, qui produit le fichier exécutable final (ou un fichier objet) ?",
+        "choice_a": "L'analyse lexicale, qui doit systématiquement être répétée une dernière fois à la fin",
+        "choice_b": "La génération de code machine, qui traduit la représentation intermédiaire optimisée du programme en instructions concrètes du jeu d'instructions du processeur cible (ex: x86 ou ARM), en attribuant notamment les registres physiques disponibles aux différentes valeurs manipulées par le programme",
+        "choice_c": "L'écriture des commentaires de documentation dans le fichier source original",
+        "choice_d": "Le préprocesseur, qui n'intervient qu'à la toute fin du processus de compilation",
+        "correct_choice": "B",
+        "explanation": "Cette étape est spécifique à l'architecture cible choisie (d'où l'existence de la compilation croisée) : c'est elle qui décide concrètement, par exemple, quel registre physique du processeur stockera temporairement telle variable, ou quelle instruction machine précise correspondra à telle opération du programme."
+      },
+      {
+        "question_text": "Qu'est-ce que l'optimisation d'inlining (inlining) effectuée par certains compilateurs ?",
+        "choice_a": "Ajouter automatiquement des lignes de code en ligne (inline) pour documenter chaque fonction",
+        "choice_b": "Fusionner systématiquement toutes les fonctions d'un programme en une seule fonction unique",
+        "choice_c": "Remplacer, à certains endroits du programme, un appel à une fonction par le corps même de cette fonction directement copié à l'endroit de l'appel, évitant ainsi le léger coût lié à un appel de fonction classique (sauvegarde du contexte, saut, retour) au prix d'une taille de code potentiellement plus élevée",
+        "choice_d": "Une technique qui ne s'applique qu'aux boucles, jamais aux appels de fonction",
+        "correct_choice": "C",
+        "explanation": "L'inlining est particulièrement efficace sur de petites fonctions appelées très fréquemment (ex: une fonction d'accès simple comme un getter) : le gain de performance lié à l'élimination du coût d'appel peut alors dépasser le coût de l'augmentation modeste de la taille du code généré à chaque site d'appel concerné."
+      },
+      {
+        "question_text": "Quelle est la différence entre une erreur bloquante détectée à la compilation et un 'undefined behavior' (comportement indéfini, ex: en C/C++) ?",
+        "choice_a": "Ce sont deux termes strictement synonymes, un undefined behavior étant simplement une erreur de compilation moins bien documentée",
+        "choice_b": "Un undefined behavior est toujours détecté et bloqué systématiquement par le compilateur, comme une erreur de syntaxe",
+        "choice_c": "Une erreur de compilation ne peut survenir que dans des langages sans typage statique",
+        "choice_d": "Une erreur de compilation est explicitement signalée et empêche la production d'un exécutable ; un undefined behavior, lui, est une opération que la norme du langage n'impose volontairement aucun comportement particulier (ex: déréférencer un pointeur invalide) — le compilateur peut l'accepter silencieusement à la compilation et générer un exécutable qui se comportera de façon totalement imprévisible (planter, donner un résultat incohérent, ou même sembler fonctionner correctement) à l'exécution",
+        "correct_choice": "D",
+        "explanation": "C'est justement ce genre de piège (silencieux à la compilation, imprévisible à l'exécution) que des langages comme Rust cherchent à éliminer structurellement, en rendant impossible à la compilation la plupart des opérations qui provoqueraient un undefined behavior en C, plutôt que de laisser le développeur découvrir le problème (parfois) seulement à l'exécution."
       }
     ]
   }
