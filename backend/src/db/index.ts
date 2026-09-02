@@ -14,6 +14,20 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
+// Fail loudly and early if the data directory is not writable  otherwise the
+// first write (seeding a fresh DB, or an ALTER during a migration) throws deep
+// inside better-sqlite3 and the only symptom is a 502 from the proxy. This is
+// almost always a volume-ownership problem on the host.
+try {
+  fs.accessSync(dataDir, fs.constants.W_OK);
+} catch {
+  console.error(
+    `FATAL: data directory ${dataDir} is not writable by this process (uid ${process.getuid?.() ?? '?'}). ` +
+    `Fix the ownership/permissions of the mounted volume.`
+  );
+  process.exit(1);
+}
+
 export const db = new Database(dbPath);
 db.pragma('foreign_keys = ON');
 

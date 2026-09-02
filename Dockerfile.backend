@@ -28,10 +28,12 @@ COPY --from=builder /app/src/db/seed.json ./dist/db/seed.json
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 
-# Run as the unprivileged built-in `node` user, and give it ownership of the
-# data directory (the SQLite file lives on a mounted volume here).
-RUN mkdir -p /app/data && chown -R node:node /app/data
-USER node
+RUN mkdir -p /app/data
+
+# Runs as root so it can write the SQLite file into the bind-mounted ./data
+# directory (owned by root on the host). The container is still tightly boxed by
+# docker-compose: read-only root filesystem, all Linux capabilities dropped,
+# no-new-privileges, and only /app/data + /tmp writable.
 
 EXPOSE 8080
 
