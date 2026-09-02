@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Category } from '../types';
 import { categoriesApi } from '../utils/api';
+import { buildCategoryTree } from '../utils/categoryTree';
 import { CategoryCard } from '../components/categories/CategoryCard';
 
 export function LandingPage() {
@@ -15,6 +16,8 @@ export function LandingPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const roots = useMemo(() => buildCategoryTree(categories), [categories]);
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-8">
@@ -24,24 +27,18 @@ export function LandingPage() {
       {loading && <p className="text-neutral-500">Chargement...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
-      {!loading && !error && categories.length === 0 && (
+      {!loading && !error && roots.length === 0 && (
         <p className="text-neutral-500">Aucune catégorie pour le moment.</p>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {categories
-          .filter((category) => category.parent_id === null)
-          .map((category) => {
-            const children = categories.filter((c) => c.parent_id === category.id);
-            if (children.length === 0) {
-              return <CategoryCard key={category.id} category={category} />;
-            }
-            const groupCategory = {
-              ...category,
-              question_count: children.reduce((sum, c) => sum + c.question_count, 0),
-            };
-            return <CategoryCard key={category.id} category={groupCategory} subcategoryCount={children.length} />;
-          })}
+        {roots.map((root) => (
+          <CategoryCard
+            key={root.id}
+            category={{ ...root, question_count: root.totalQuestionCount }}
+            subcategoryCount={root.children.length > 0 ? root.children.length : undefined}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,3 +1,3 @@
 # quizz-estv
 
-Browse tech quiz categories and take randomized or self-picked question quizzes, with an admin panel to manage categories and questions.
+Public, read-only study site: browse a category tree (School / Others), read Markdown lessons, review flashcards, and take randomized or hand-picked quizzes. All content ships in `backend/src/db/seed.json`; there is no admin panel.

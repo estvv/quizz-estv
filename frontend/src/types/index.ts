@@ -9,6 +9,9 @@ export interface Category {
   created_at: string;
   updated_at: string;
   question_count: number;
+  flashcard_count: number;
+  /** The body is fetched separately  a lesson is too long to ride in the list. */
+  has_lesson: boolean;
 }
 
 export interface QuestionBrief {
@@ -30,4 +33,21 @@ export interface Question {
   diagram_svg: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface Flashcard {
+  id: number;
+  category_id: number;
+  front: string;
+  back: string;
+  position: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/** A flashcard as shown in a session, whichever source it came from. */
+export interface StudyCard {
+  key: string;
+  front: string;
+  back: string;
 }

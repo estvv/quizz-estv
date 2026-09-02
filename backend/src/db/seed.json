@@ -1,7 +1,18 @@
 [
   {
+    "name": "School",
+    "color": "blue",
+    "questions": []
+  },
+  {
+    "name": "Others",
+    "color": "slate",
+    "questions": []
+  },
+  {
     "name": "Bas niveau (C)",
     "color": "blue",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Comment transformer un nombre positif non nul en son opposé (négatif) à l'aide d'opérations bitwise ?",
@@ -10,7 +21,8 @@
         "choice_c": "Décaler tous les bits vers la gauche de 1",
         "choice_d": "Inverser uniquement le bit de poids fort (MSB)",
         "correct_choice": "A",
-        "explanation": "C'est la définition du complément à deux : ~n inverse tous les bits, puis +1 corrige le décalage pour obtenir -n. C'est ainsi que les nombres signés sont représentés en mémoire."
+        "explanation": "C'est la définition du complément à deux : ~n inverse tous les bits, puis +1 corrige le décalage pour obtenir -n. C'est ainsi que les nombres signés sont représentés en mémoire.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 620 160\" role=\"img\" aria-label=\"Transformation d'un nombre positif en son opposé : inverser chaque bit puis ajouter 1\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"c2-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"10\" y=\"20\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">n = 5</text>\n<g font-family=\"monospace\" font-size=\"14\">\n<text x=\"10\" y=\"45\">00000101</text>\n</g>\n<line x1=\"150\" y1=\"35\" x2=\"200\" y2=\"35\" stroke=\"currentColor\" stroke-width=\"1.5\" marker-end=\"url(#c2-arrow)\"/>\n<text x=\"175\" y=\"20\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" font-weight=\"600\">~ (inverser)</text>\n<text x=\"210\" y=\"20\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">~n</text>\n<text x=\"210\" y=\"45\" font-family=\"monospace\" font-size=\"14\">11111010</text>\n<line x1=\"350\" y1=\"35\" x2=\"400\" y2=\"35\" stroke=\"currentColor\" stroke-width=\"1.5\" marker-end=\"url(#c2-arrow)\"/>\n<text x=\"375\" y=\"20\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" font-weight=\"600\">+ 1</text>\n<text x=\"410\" y=\"20\" font-size=\"11\" fill=\"#dc2626\">-n</text>\n<text x=\"410\" y=\"45\" font-family=\"monospace\" font-size=\"14\" font-weight=\"600\" fill=\"#dc2626\">11111011</text>\n<text x=\"410\" y=\"65\" font-size=\"11\" fill=\"#dc2626\">= -5</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Les deux étapes du complément à deux&#160;: inverser tous les bits (~n), puis ajouter 1 pour obtenir l'opposé.</figcaption></figure>"
       },
       {
         "question_text": "Quelle est la différence entre ++i et i++ ?",
@@ -37,7 +49,8 @@
         "choice_c": "switch ne peut tester que des booléens",
         "choice_d": "if est toujours plus rapide que switch",
         "correct_choice": "A",
-        "explanation": "Un switch avec des cas denses peut être compilé en table de saut (accès direct en O(1)), alors qu'un if-else enchaîne des comparaisons séquentielles (O(n))."
+        "explanation": "Un switch avec des cas denses peut être compilé en table de saut (accès direct en O(1)), alors qu'un if-else enchaîne des comparaisons séquentielles (O(n)).",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 640 220\" role=\"img\" aria-label=\"Comparaison entre if/else, qui teste chaque condition séquentiellement, et switch, qui peut sauter directement au bon cas via une table de saut\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"sw-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"20\" y=\"20\" font-size=\"13\" font-weight=\"600\" fill=\"currentColor\">if / else if (séquentiel)</text>\n<rect x=\"20\" y=\"35\" width=\"130\" height=\"30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/>\n<text x=\"85\" y=\"54\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">cas == 1 ?</text>\n<line x1=\"85\" y1=\"65\" x2=\"85\" y2=\"85\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#sw-arrow)\"/>\n<rect x=\"20\" y=\"85\" width=\"130\" height=\"30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/>\n<text x=\"85\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">cas == 2 ?</text>\n<line x1=\"85\" y1=\"115\" x2=\"85\" y2=\"135\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#sw-arrow)\"/>\n<rect x=\"20\" y=\"135\" width=\"130\" height=\"30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" opacity=\"0.5\"/>\n<text x=\"85\" y=\"154\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.5\">cas == 3 ? ...</text>\n<text x=\"20\" y=\"195\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">jusqu'à N comparaisons : O(n)</text>\n\n<text x=\"360\" y=\"20\" font-size=\"13\" font-weight=\"600\" fill=\"#059669\">switch (table de saut)</text>\n<rect x=\"360\" y=\"45\" width=\"90\" height=\"90\" fill=\"none\" stroke=\"#059669\" stroke-width=\"1.4\"/>\n<text x=\"405\" y=\"95\" text-anchor=\"middle\" font-size=\"11\" fill=\"#059669\">table[cas]</text>\n<line x1=\"450\" y1=\"55\" x2=\"520\" y2=\"55\" stroke=\"#059669\" stroke-width=\"1.2\" marker-end=\"url(#sw-arrow)\"/>\n<text x=\"525\" y=\"59\" font-size=\"10\" fill=\"currentColor\">cas 1</text>\n<line x1=\"450\" y1=\"90\" x2=\"520\" y2=\"90\" stroke=\"#059669\" stroke-width=\"1.2\" marker-end=\"url(#sw-arrow)\"/>\n<text x=\"525\" y=\"94\" font-size=\"10\" fill=\"currentColor\">cas 2</text>\n<line x1=\"450\" y1=\"125\" x2=\"520\" y2=\"125\" stroke=\"#059669\" stroke-width=\"1.2\" marker-end=\"url(#sw-arrow)\"/>\n<text x=\"525\" y=\"129\" font-size=\"10\" fill=\"currentColor\">cas 3</text>\n<text x=\"360\" y=\"160\" font-size=\"11\" fill=\"#059669\">accès direct au bon cas : O(1)</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Avec un switch dense, le compilateur peut générer une table de saut&#160;: accès direct au bon cas, plutôt que de tester chaque condition l'une après l'autre comme un if/else.</figcaption></figure>"
       },
       {
         "question_text": "Pour écrire 10 caractères, quelle est la meilleure méthode : un seul write() de 10 caractères, ou dix write() d'un caractère ?",
@@ -46,7 +59,8 @@
         "choice_c": "Un seul write() de 10 caractères : moins d'appels système",
         "choice_d": "Dix write() d'un caractère, car plus lisible",
         "correct_choice": "C",
-        "explanation": "Chaque appel système (syscall) a un coût fixe non négligeable (changement de contexte noyau/utilisateur) : regrouper les écritures réduit ce nombre d'allers-retours."
+        "explanation": "Chaque appel système (syscall) a un coût fixe non négligeable (changement de contexte noyau/utilisateur) : regrouper les écritures réduit ce nombre d'allers-retours.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 640 200\" role=\"img\" aria-label=\"Un seul appel write() de 10 caractères ne coûte qu'un aller-retour vers le noyau, contre dix allers-retours pour dix appels write() d'un caractère\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"sc-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"20\" y=\"20\" font-size=\"12\" font-weight=\"600\" fill=\"#059669\">write(10 caractères) — 1 appel</text>\n<rect x=\"20\" y=\"35\" width=\"120\" height=\"35\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.4\"/>\n<text x=\"80\" y=\"57\" text-anchor=\"middle\" font-size=\"11\" fill=\"#065f46\">espace utilisateur</text>\n<line x1=\"140\" y1=\"52\" x2=\"260\" y2=\"52\" stroke=\"#059669\" stroke-width=\"1.6\" marker-end=\"url(#sc-arrow)\"/>\n<text x=\"200\" y=\"45\" text-anchor=\"middle\" font-size=\"10\" fill=\"#059669\">1 syscall</text>\n<rect x=\"260\" y=\"35\" width=\"120\" height=\"35\" fill=\"#f0fdf4\" stroke=\"#059669\" stroke-width=\"1.4\"/>\n<text x=\"320\" y=\"57\" text-anchor=\"middle\" font-size=\"11\" fill=\"#065f46\">noyau (kernel)</text>\n\n<text x=\"20\" y=\"110\" font-size=\"12\" font-weight=\"600\" fill=\"currentColor\">write(1 caractère) &#215; 10 — 10 appels</text>\n<rect x=\"20\" y=\"125\" width=\"120\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/>\n<text x=\"80\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">espace utilisateur</text>\n<line x1=\"140\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#sc-arrow)\"/>\n<line x1=\"140\" y1=\"137\" x2=\"260\" y2=\"137\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#sc-arrow)\"/>\n<line x1=\"140\" y1=\"144\" x2=\"260\" y2=\"144\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#sc-arrow)\"/>\n<line x1=\"140\" y1=\"151\" x2=\"260\" y2=\"151\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#sc-arrow)\"/>\n<text x=\"200\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\">10 syscalls</text>\n<rect x=\"260\" y=\"125\" width=\"120\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"/>\n<text x=\"320\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">noyau (kernel)</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Chaque appel système coûte un changement de contexte utilisateur/noyau. Regrouper les écritures réduit ce nombre d'allers-retours.</figcaption></figure>"
       },
       {
         "question_text": "Pourquoi 0.1 + 0.2 != 0.3 ?",
@@ -73,7 +87,8 @@
         "choice_c": "Il décale tous les bits vers la droite",
         "choice_d": "Le complément à 1 : il inverse chaque bit",
         "correct_choice": "D",
-        "explanation": "~ est l'opérateur unaire de complément à un (bitwise NOT) : ~1 (0b...0001) donne 0b...1110, soit -2 en complément à deux."
+        "explanation": "~ est l'opérateur unaire de complément à un (bitwise NOT) : ~1 (0b...0001) donne 0b...1110, soit -2 en complément à deux.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 460 130\" role=\"img\" aria-label=\"L'opérateur ~ inverse chaque bit individuellement : chaque 0 devient 1 et chaque 1 devient 0\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"tl-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"10\" y=\"20\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">n</text>\n<text x=\"10\" y=\"45\" font-family=\"monospace\" font-size=\"16\">00000001</text>\n<line x1=\"170\" y1=\"35\" x2=\"230\" y2=\"35\" stroke=\"currentColor\" stroke-width=\"1.5\" marker-end=\"url(#tl-arrow)\"/>\n<text x=\"200\" y=\"20\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"currentColor\">~</text>\n<text x=\"240\" y=\"20\" font-size=\"11\" fill=\"#dc2626\">~n</text>\n<text x=\"240\" y=\"45\" font-family=\"monospace\" font-size=\"16\" fill=\"#dc2626\" font-weight=\"600\">11111110</text>\n<text x=\"10\" y=\"85\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.7\">chaque bit est inversé indépendamment&#160;: 0&#8594;1 et 1&#8594;0</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">L'opérateur ~ (NON binaire) inverse chaque bit un par un, indépendamment des autres.</figcaption></figure>"
       },
       {
         "question_text": "Pourquoi ~0 == -1 ?",
@@ -82,7 +97,8 @@
         "choice_c": "~0 dépend du compilateur utilisé",
         "choice_d": "~0 inverse tous les bits de 0, donnant -1",
         "correct_choice": "D",
-        "explanation": "0 s'écrit avec uniquement des 0 en binaire ; les inverser donne uniquement des 1, qui est précisément la représentation en complément à deux de -1."
+        "explanation": "0 s'écrit avec uniquement des 0 en binaire ; les inverser donne uniquement des 1, qui est précisément la représentation en complément à deux de -1.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 460 130\" role=\"img\" aria-label=\"Inverser tous les bits de 0 donne une suite de 1, qui représente -1 en complément à deux\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"tz-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"10\" y=\"20\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">0</text>\n<text x=\"10\" y=\"45\" font-family=\"monospace\" font-size=\"16\">00000000</text>\n<line x1=\"170\" y1=\"35\" x2=\"230\" y2=\"35\" stroke=\"currentColor\" stroke-width=\"1.5\" marker-end=\"url(#tz-arrow)\"/>\n<text x=\"200\" y=\"20\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"currentColor\">~</text>\n<text x=\"240\" y=\"20\" font-size=\"11\" fill=\"#dc2626\">~0</text>\n<text x=\"240\" y=\"45\" font-family=\"monospace\" font-size=\"16\" fill=\"#dc2626\" font-weight=\"600\">11111111</text>\n<text x=\"240\" y=\"65\" font-size=\"12\" fill=\"#dc2626\">= -1 (complément à deux)</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Un octet entièrement à 1 est la représentation de -1 en complément à deux&#160;: d'où ~0 == -1.</figcaption></figure>"
       },
       {
         "question_text": "Quelle fonction f(n), avec n le nombre de bits (strictement positif), donne le maximum représentable sur n bits ?",
@@ -100,7 +116,8 @@
         "choice_c": "MSB = Main System Bit, LSB = Last System Bit",
         "choice_d": "MSB = bit de poids faible, LSB = bit de poids fort",
         "correct_choice": "B",
-        "explanation": "Dans un nombre binaire, le MSB est le bit le plus à gauche (le plus « lourd », il pèse 2^(n-1)) et le LSB est le bit le plus à droite (il pèse 2^0 = 1)."
+        "explanation": "Dans un nombre binaire, le MSB est le bit le plus à gauche (le plus « lourd », il pèse 2^(n-1)) et le LSB est le bit le plus à droite (il pèse 2^0 = 1).",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 460 130\" role=\"img\" aria-label=\"Dans un octet, le bit le plus à gauche est le MSB (poids fort) et le bit le plus à droite est le LSB (poids faible)\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"ml-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<g font-family=\"monospace\" font-size=\"16\">\n<rect x=\"20\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"1.6\"/><text x=\"40\" y=\"59\" text-anchor=\"middle\">1</text>\n<rect x=\"60\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"80\" y=\"59\" text-anchor=\"middle\">0</text>\n<rect x=\"100\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"120\" y=\"59\" text-anchor=\"middle\">1</text>\n<rect x=\"140\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"160\" y=\"59\" text-anchor=\"middle\">0</text>\n<rect x=\"180\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"200\" y=\"59\" text-anchor=\"middle\">1</text>\n<rect x=\"220\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"240\" y=\"59\" text-anchor=\"middle\">1</text>\n<rect x=\"260\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"280\" y=\"59\" text-anchor=\"middle\">0</text>\n<rect x=\"300\" y=\"35\" width=\"40\" height=\"35\" fill=\"none\" stroke=\"#059669\" stroke-width=\"1.6\"/><text x=\"320\" y=\"59\" text-anchor=\"middle\">1</text>\n</g>\n<line x1=\"40\" y1=\"35\" x2=\"40\" y2=\"15\" stroke=\"#2563eb\" stroke-width=\"1.2\" marker-end=\"url(#ml-arrow)\"/>\n<text x=\"40\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"600\">MSB (poids fort)</text>\n<line x1=\"320\" y1=\"70\" x2=\"320\" y2=\"95\" stroke=\"#059669\" stroke-width=\"1.2\" marker-end=\"url(#ml-arrow)\"/>\n<text x=\"320\" y=\"110\" text-anchor=\"middle\" font-size=\"11\" fill=\"#059669\" font-weight=\"600\">LSB (poids faible)</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Le MSB est le bit ayant la plus grande valeur positionnelle (le plus à gauche), le LSB celui ayant la plus petite (le plus à droite).</figcaption></figure>"
       },
       {
         "question_text": "Qu'est-ce qu'un nombre dont le MSB vaut 1 ?",
@@ -127,7 +144,8 @@
         "choice_c": "array[0] est plus rapide que 0[array]",
         "choice_d": "0[array] est une erreur de syntaxe en C",
         "correct_choice": "B",
-        "explanation": "Le compilateur traduit array[i] en *(array + i) avant toute évaluation ; l'addition de pointeurs étant commutative, *(array+0) et *(0+array) désignent la même adresse mémoire."
+        "explanation": "Le compilateur traduit array[i] en *(array + i) avant toute évaluation ; l'addition de pointeurs étant commutative, *(array+0) et *(0+array) désignent la même adresse mémoire.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 460 150\" role=\"img\" aria-label=\"array[0] et 0[array] sont tous deux traduits en *(array + 0), la même case mémoire\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"ar-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<g font-family=\"monospace\" font-size=\"13\">\n<rect x=\"20\" y=\"20\" width=\"60\" height=\"35\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.6\"/><text x=\"50\" y=\"42\" text-anchor=\"middle\">10</text>\n<rect x=\"80\" y=\"20\" width=\"60\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"110\" y=\"42\" text-anchor=\"middle\">20</text>\n<rect x=\"140\" y=\"20\" width=\"60\" height=\"35\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"170\" y=\"42\" text-anchor=\"middle\">30</text>\n</g>\n<text x=\"50\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" opacity=\"0.6\">adresse: array</text>\n<text x=\"50\" y=\"90\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2563eb\" font-family=\"monospace\">array[0]</text>\n<text x=\"50\" y=\"108\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2563eb\" font-family=\"monospace\">0[array]</text>\n<text x=\"250\" y=\"90\" font-size=\"12\" fill=\"currentColor\">toutes deux &#8594; *(array + 0)</text>\n<line x1=\"50\" y1=\"55\" x2=\"50\" y2=\"78\" stroke=\"#2563eb\" stroke-width=\"1.4\" marker-end=\"url(#ar-arrow)\"/>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">array[i] est du sucre syntaxique pour *(array + i)&#160;: l'addition étant commutative, array[0] et 0[array] pointent vers la même case mémoire.</figcaption></figure>"
       },
       {
         "question_text": "Quelle est la différence entre array<:0:> et array[0] en C ?",
@@ -163,7 +181,8 @@
         "choice_c": "Les deux incrémentent x de la même façon",
         "choice_d": "x = x++ laisse x inchangé, x = ++x l'incrémente",
         "correct_choice": "D",
-        "explanation": "x = x++ affecte à x la valeur de x AVANT l'incrémentation (donc x semble inchangé), tandis que x = ++x affecte la valeur APRÈS incrémentation. (Note : x = x++ est en réalité un comportement indéfini en C, ce comportement n'est pas garanti par la norme.)"
+        "explanation": "x = x++ affecte à x la valeur de x AVANT l'incrémentation (donc x semble inchangé), tandis que x = ++x affecte la valeur APRÈS incrémentation. (Note : x = x++ est en réalité un comportement indéfini en C, ce comportement n'est pas garanti par la norme.)",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 560 170\" role=\"img\" aria-label=\"Comparaison des étapes d'exécution entre x = x++ et x = ++x : l'ordre entre incrémentation et affectation change le résultat\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"seq-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"10\" y=\"20\" font-size=\"12\" font-weight=\"600\" fill=\"currentColor\">x = x++;  (x vaut 5 au départ)</text>\n<text x=\"10\" y=\"45\" font-size=\"11\" fill=\"currentColor\">1. lire x (5)</text>\n<line x1=\"90\" y1=\"41\" x2=\"140\" y2=\"41\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#seq-arrow)\"/>\n<text x=\"145\" y=\"45\" font-size=\"11\" fill=\"currentColor\">2. x devient 6</text>\n<line x1=\"245\" y1=\"41\" x2=\"295\" y2=\"41\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#seq-arrow)\"/>\n<text x=\"300\" y=\"45\" font-size=\"11\" fill=\"#dc2626\">3. x = ancienne valeur (5)</text>\n<text x=\"10\" y=\"68\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\">résultat&#160;: x == 5</text>\n\n<text x=\"10\" y=\"105\" font-size=\"12\" font-weight=\"600\" fill=\"currentColor\">x = ++x;  (x vaut 5 au départ)</text>\n<text x=\"10\" y=\"130\" font-size=\"11\" fill=\"currentColor\">1. x devient 6</text>\n<line x1=\"90\" y1=\"126\" x2=\"140\" y2=\"126\" stroke=\"currentColor\" stroke-width=\"1.2\" marker-end=\"url(#seq-arrow)\"/>\n<text x=\"145\" y=\"130\" font-size=\"11\" fill=\"#059669\">2. x = nouvelle valeur (6)</text>\n<text x=\"10\" y=\"153\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">résultat&#160;: x == 6</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Le pré/post-incrément ne change pas seulement la valeur retournée mais aussi l'ordre entre incrémentation et affectation.</figcaption></figure>"
       },
       {
         "question_text": "Quelle est la différence entre sizeof() et len() ?",
@@ -188,6 +207,7 @@
   {
     "name": "Culture informatique",
     "color": "violet",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "En quelle année, dans quel langage, et par qui a été créé Tetris ?",
@@ -259,7 +279,8 @@
         "choice_c": "Le code machine est plus lisible que l'assembleur",
         "choice_d": "Ce sont deux noms pour la même chose",
         "correct_choice": "A",
-        "explanation": "L'assembleur remplace les suites de 0 et 1 par des mnémoniques lisibles (MOV, ADD...) qui correspondent 1 pour 1 aux instructions machine ; un programme assembleur les traduit ensuite en binaire."
+        "explanation": "L'assembleur remplace les suites de 0 et 1 par des mnémoniques lisibles (MOV, ADD...) qui correspondent 1 pour 1 aux instructions machine ; un programme assembleur les traduit ensuite en binaire.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 500 130\" role=\"img\" aria-label=\"L'assembleur est une notation lisible en mnémoniques qui correspond directement à un code binaire exécuté par le processeur\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"asm-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<text x=\"10\" y=\"20\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">assembleur (lisible)</text>\n<rect x=\"10\" y=\"30\" width=\"160\" height=\"35\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.6\"/>\n<text x=\"90\" y=\"52\" text-anchor=\"middle\" font-family=\"monospace\" font-size=\"13\" fill=\"#1e3a8a\">MOV AX, 5</text>\n<line x1=\"90\" y1=\"65\" x2=\"90\" y2=\"95\" stroke=\"#2563eb\" stroke-width=\"1.4\" marker-end=\"url(#asm-arrow)\"/>\n<text x=\"100\" y=\"82\" font-size=\"10\" fill=\"#2563eb\">assemblage (1 pour 1)</text>\n<rect x=\"10\" y=\"95\" width=\"220\" height=\"30\" fill=\"#f8fafc\" stroke=\"currentColor\" stroke-width=\"1.2\"/>\n<text x=\"120\" y=\"115\" text-anchor=\"middle\" font-family=\"monospace\" font-size=\"12\">10111000 00000101</text>\n<text x=\"260\" y=\"20\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">code machine</text>\n<text x=\"260\" y=\"115\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.7\">exécuté directement par le processeur</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Chaque instruction assembleur correspond à une seule instruction binaire&#160;: c'est une traduction directe, contrairement à un langage compilé de haut niveau.</figcaption></figure>"
       },
       {
         "question_text": "Pourquoi GCC crée-t-il par défaut un binaire nommé \"a.out\" ?",
@@ -358,13 +379,15 @@
         "choice_c": "Un mécanisme de garbage collection automatique",
         "choice_d": "Réserver à l'avance de la mémoire pour un programme",
         "correct_choice": "B",
-        "explanation": "C'est une technique d'optimisation très utilisée en programmation dynamique : si une fonction est appelée plusieurs fois avec les mêmes arguments, on renvoie le résultat déjà calculé au lieu de le recalculer."
+        "explanation": "C'est une technique d'optimisation très utilisée en programmation dynamique : si une fonction est appelée plusieurs fois avec les mêmes arguments, on renvoie le résultat déjà calculé au lieu de le recalculer.",
+        "diagram_svg": "<figure><svg viewBox=\"0 0 480 210\" role=\"img\" aria-label=\"Sans mémoïsation, fib(2) est recalculé deux fois dans l'arbre d'appels ; avec mémoïsation, le second appel lit directement le résultat mis en cache\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"mm-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"currentColor\"/></marker></defs>\n<rect x=\"190\" y=\"10\" width=\"70\" height=\"30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><text x=\"225\" y=\"30\" text-anchor=\"middle\" font-size=\"12\" font-family=\"monospace\">fib(4)</text>\n<line x1=\"210\" y1=\"40\" x2=\"120\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/>\n<line x1=\"240\" y1=\"40\" x2=\"330\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/>\n<rect x=\"85\" y=\"70\" width=\"70\" height=\"30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><text x=\"120\" y=\"90\" text-anchor=\"middle\" font-size=\"12\" font-family=\"monospace\">fib(3)</text>\n<rect x=\"295\" y=\"70\" width=\"70\" height=\"30\" fill=\"#fef2f2\" stroke=\"#dc2626\" stroke-width=\"1.6\"/><text x=\"330\" y=\"90\" text-anchor=\"middle\" font-size=\"12\" font-family=\"monospace\" fill=\"#991b1b\">fib(2)</text>\n<line x1=\"105\" y1=\"100\" x2=\"60\" y2=\"130\" stroke=\"currentColor\" stroke-width=\"1.2\"/>\n<line x1=\"135\" y1=\"100\" x2=\"180\" y2=\"130\" stroke=\"currentColor\" stroke-width=\"1.2\"/>\n<rect x=\"25\" y=\"130\" width=\"70\" height=\"30\" fill=\"#fef2f2\" stroke=\"#dc2626\" stroke-width=\"1.6\"/><text x=\"60\" y=\"150\" text-anchor=\"middle\" font-size=\"12\" font-family=\"monospace\" fill=\"#991b1b\">fib(2)</text>\n<rect x=\"145\" y=\"130\" width=\"70\" height=\"30\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><text x=\"180\" y=\"150\" text-anchor=\"middle\" font-size=\"12\" font-family=\"monospace\">fib(1)</text>\n<line x1=\"95\" y1=\"145\" x2=\"290\" y2=\"85\" stroke=\"#dc2626\" stroke-width=\"1.3\" stroke-dasharray=\"4 3\" marker-end=\"url(#mm-arrow)\"/>\n<text x=\"185\" y=\"115\" font-size=\"10\" fill=\"#dc2626\" font-weight=\"600\">même sous-problème, recalculé</text>\n<rect x=\"10\" y=\"180\" width=\"150\" height=\"26\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"1.3\"/>\n<text x=\"85\" y=\"197\" text-anchor=\"middle\" font-size=\"11\" fill=\"#065f46\">mémo&#160;: cache[2] = 1 &#8594; lecture directe</text>\n</svg><figcaption style=\"margin-top:10px;font-size:13px;color:#475569;line-height:1.5\">Sans mémoïsation, le même sous-problème (ici fib(2)) est recalculé plusieurs fois dans l'arbre d'appels&#160;; avec mémoïsation, le résultat est mis en cache et simplement relu.</figcaption></figure>"
       }
     ]
   },
   {
     "name": "Systèmes & Hardware",
     "color": "amber",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce que le kernel (noyau) ?",
@@ -470,6 +493,7 @@
   {
     "name": "Web & Cloud",
     "color": "cyan",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce qu'un proxy (direct) ?",
@@ -629,6 +653,7 @@
   {
     "name": "Programmation Orientée Objet (C++)",
     "color": "indigo",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Que fait le mot-clé \"explicit\" en C++ ?",
@@ -824,6 +849,7 @@
   {
     "name": "Rust",
     "color": "orange",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Quelle est la règle fondamentale de l'ownership (possession) en Rust ?",
@@ -1046,6 +1072,7 @@
   {
     "name": "Réseau",
     "color": "blue",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "À quoi sert le modèle OSI (7 couches) ?",
@@ -1232,6 +1259,7 @@
   {
     "name": "Algorithmie",
     "color": "teal",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "À quoi sert la notation Big-O (ex: O(n), O(log n), O(n²)) en algorithmique ?",
@@ -1418,6 +1446,7 @@
   {
     "name": "IA",
     "color": "amber",
+    "parent": "Others",
     "questions": []
   },
   {
@@ -3007,6 +3036,7 @@
   {
     "name": "IA Mathématiques",
     "color": "emerald",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce qu'un vecteur en algèbre linéaire, dans le contexte du machine learning ?",
@@ -3193,6 +3223,7 @@
   {
     "name": "Python",
     "color": "pink",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce que le GIL (Global Interpreter Lock) en Python (CPython) ?",
@@ -3379,6 +3410,7 @@
   {
     "name": "Sécurité",
     "color": "slate",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce qu'une injection SQL, et comment s'en prémunir principalement ?",
@@ -3565,6 +3597,7 @@
   {
     "name": "Bases de données",
     "color": "rose",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "À quoi sert un index dans une base de données ?",
@@ -3751,6 +3784,7 @@
   {
     "name": "Tests logiciels",
     "color": "red",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce qu'un test unitaire (unit test) ?",
@@ -3937,6 +3971,7 @@
   {
     "name": "Architecture logicielle",
     "color": "blue",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Quelle est la différence fondamentale entre une architecture monolithique et une architecture en microservices ?",
@@ -4123,6 +4158,7 @@
   {
     "name": "JavaScript & TypeScript",
     "color": "amber",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Comment JavaScript gère-t-il l'exécution asynchrone alors qu'il n'a qu'un seul thread principal ?",
@@ -4309,6 +4345,7 @@
   {
     "name": "Git",
     "color": "cyan",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Quelle est la différence entre `git merge` et `git rebase` ?",
@@ -4495,6 +4532,7 @@
   {
     "name": "Compilateurs",
     "color": "violet",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Quelles sont, dans l'ordre, les grandes étapes classiques d'un compilateur ?",
@@ -4681,6 +4719,7 @@
   {
     "name": "Docker & Kubernetes",
     "color": "indigo",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Quelle est la différence entre une image Docker et un conteneur ?",
@@ -4867,6 +4906,7 @@
   {
     "name": "Cloud Computing (AWS/GCP/Azure)",
     "color": "orange",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Quelle est la différence entre IaaS, PaaS et SaaS dans le cloud computing ?",
@@ -5053,6 +5093,7 @@
   {
     "name": "Blockchain & Web3",
     "color": "cyan",
+    "parent": "Others",
     "questions": [
       {
         "question_text": "Qu'est-ce qu'une blockchain ?",
@@ -5233,6 +5274,1332 @@
         "choice_d": "Un coin est natif à sa propre blockchain ; un token fonctionne au-dessus d'une blockchain existante via un smart contract",
         "correct_choice": "D",
         "explanation": "Créer un token sur une blockchain existante (via un smart contract standardisé) est généralement bien plus rapide et moins coûteux que de développer et sécuriser une toute nouvelle blockchain indépendante pour un nouveau coin, ce qui explique pourquoi l'immense majorité des projets récents choisissent de lancer des tokens plutôt que leur propre blockchain."
+      }
+    ]
+  },
+  {
+    "name": "Operating System",
+    "key": "school-os",
+    "color": "blue",
+    "parent": "School",
+    "questions": []
+  },
+  {
+    "name": "Week 1",
+    "key": "school-os-w1",
+    "color": "cyan",
+    "parent": "school-os",
+    "lesson": "# Operating System  Week 1\n\nIntroduction aux systemes d'exploitation : role de l'OS, organisation\nmaterielle et interruptions, stockage, operations du systeme, grandes\nfonctions, protection et securite, architectures et environnements.\n\n---\n\n## 1. Qu'est-ce qu'un systeme d'exploitation ?\n\nUn OS est un **programme intermediaire entre l'utilisateur et le materiel**. Ses\ntrois objectifs : executer les programmes utilisateur, rendre la machine\ncommode a utiliser, et exploiter le materiel efficacement.\n\nUn systeme informatique se decompose en **quatre composants** : le materiel\n(CPU, memoire, peripheriques), le systeme d'exploitation, les programmes\nd'application, et les utilisateurs.\n\nIl n'existe **aucune definition universelle**. Deux approximations utiles :\n\n- *tout ce que le fournisseur livre quand on commande un OS* ;\n- le **noyau (kernel)** est *le seul programme qui tourne en permanence*.\n\nTout le reste est soit un **programme systeme** (livre avec l'OS mais hors\nnoyau), soit un **programme d'application**. Les OS modernes ajoutent du\n**middleware** : bases de donnees, multimedia, graphismes offerts aux\ndeveloppeurs.\n\nSelon le point de vue : l'utilisateur veut commodite et performance sans se\nsoucier des ressources ; sur une machine partagee, l'OS est un **allocateur de\nressources et un programme de controle**. Les appareils mobiles, pauvres en\nressources, sont optimises pour l'**utilisabilite et l'autonomie**.\n\n## 2. Organisation materielle et interruptions\n\nCPU et controleurs de peripheriques partagent un **bus commun** vers la memoire,\net s'executent **concurremment** en se disputant les cycles memoire. Chaque\ncontroleur gere un type de peripherique, possede un **tampon local**, et est\npilote par un **device driver** qui offre une interface uniforme au noyau.\n\nUn controleur signale la fin de son operation en **levant une interruption** :\n\n- l'interruption transfere le controle a une routine de service via le\n  **vecteur d'interruption**, qui contient les adresses de toutes les routines ;\n- l'architecture doit **sauvegarder l'adresse de l'instruction interrompue**,\n  ainsi que les registres et le compteur ordinal ;\n- un **trap / exception** est une interruption *logicielle*, causee par une\n  erreur (division par zero) ou une requete utilisateur (appel systeme).\n\n**Un OS est pilote par les interruptions (interrupt driven).**\n\n### Entrees/sorties\n\nDeux modes apres le lancement d'une E/S :\n\n- **synchrone** : le controle ne revient qu'a la fin. L'instruction `wait` met\n  le CPU en attente ; au plus **une seule requete d'E/S en cours** a la fois.\n- **asynchrone** : le controle revient immediatement. Un **appel systeme**\n  permet d'attendre la fin, et la **device-status table** garde pour chaque\n  peripherique son type, son adresse et son etat.\n\nLe **DMA** (Direct Memory Access) sert aux peripheriques rapides : le controleur\ntransfere des blocs entiers directement en memoire **sans intervention du CPU**,\navec **une seule interruption par bloc** au lieu d'une par octet.\n\n## 3. Stockage\n\nLa **memoire principale** est le seul grand support que le CPU adresse\ndirectement : acces aleatoire, generalement **volatile**, en DRAM. Le **stockage\nsecondaire** la prolonge : grande capacite, non volatile.\n\n- **HDD** : plateaux rigides magnetiques, surface divisee en **pistes**\n  elles-memes decoupees en **secteurs** ; le *disk controller* gere le dialogue\n  logique avec la machine.\n- **NVM** : plus rapide que le disque, non volatile.\n\n### Unites\n\nLe **bit** vaut 0 ou 1 ; un **octet (byte)** fait 8 bits ; un **mot (word)** est\nl'unite native de l'architecture. 1 KB = **1 024** octets, 1 MB = 1 024^2,\n1 GB = 1 024^3, 1 TB = 1 024^4, 1 PB = 1 024^5. **Exception : les mesures reseau\ns'expriment en bits**, le reseau transportant les donnees bit par bit.\n\nLa **hierarchie de stockage** classe les supports par **vitesse, cout et\nvolatilite**. Le **cache** copie l'information vers un support plus rapide : on\nle consulte en premier, et la memoire principale peut se voir comme un cache du\nstockage secondaire. Un cache est plus petit que ce qu'il met en cache, d'ou\ndeux problemes de conception : **sa taille et sa politique de remplacement**. En\nmultiprocesseur, le materiel doit garantir la **coherence de cache**.\n\n## 4. Operations du systeme\n\nAu demarrage, le **bootstrap program** initialise la machine et charge le noyau,\nqui lance ensuite les **daemons** (services hors noyau).\n\n- **Multiprogrammation (batch)** : plusieurs jobs en memoire pour que le CPU ait\n  toujours quelque chose a executer ; quand un job attend une E/S, l'OS bascule.\n  Un job est choisi via le **job scheduling**.\n- **Multitache (time-sharing)** : extension logique du batch, le CPU commute si\n  souvent que l'utilisateur interagit avec chaque job. Temps de reponse vise :\n  **moins d'une seconde**. Le **swapping** deplace les processus entre memoire et\n  disque, et la **memoire virtuelle** permet d'executer un processus qui n'est\n  pas entierement en memoire.\n\n### Protection materielle\n\nLe **mode dual** (user / kernel) protege l'OS. Un **bit de mode** fourni par le\nmateriel distingue les deux ; un **appel systeme** fait passer en mode noyau et\nle retour repasse en mode utilisateur. Les instructions dites **privilegiees**\nne s'executent qu'en mode noyau.\n\nUn **timer** empeche les boucles infinies : un compteur est decremente par\nl'horloge physique, et son passage a zero leve une interruption. Le regler est\nune instruction privilegiee.\n\n## 5. Les grandes fonctions de l'OS\n\n- **Processus** : un processus est un *programme en execution*. Le programme est\n  une entite **passive**, le processus une entite **active**. Un processus\n  mono-thread a **un** compteur ordinal, un multi-thread en a **un par thread**.\n  L'OS cree/supprime, suspend/reprend, et fournit synchronisation, communication\n  et gestion des interblocages.\n- **Memoire** : decider ce qui est en memoire et quand, allouer et liberer.\n- **Fichiers** : offrir une vue logique uniforme, le **fichier** abstrayant les\n  proprietes physiques du support ; repertoires, controle d'acces, sauvegarde.\n- **Stockage de masse** : montage, gestion de l'espace libre, allocation,\n  **ordonnancement disque**, partitionnement, protection.\n- **Sous-systeme d'E/S** : il masque les particularites du materiel via le\n  **buffering** (stocker temporairement pendant le transfert), le **caching**\n  (garder une copie en support rapide) et le **spooling** (recouvrir la sortie\n  d'un job avec l'entree d'autres jobs).\n\n## 6. Protection, securite, virtualisation\n\n**Protection** = mecanisme de controle d'acces des processus/utilisateurs aux\nressources. **Securite** = defense contre les attaques internes et externes.\nLe systeme distingue les utilisateurs par **user ID**, regroupes par **group\nID** ; l'**escalade de privileges** permet d'obtenir un ID effectif plus large.\n\nLa **virtualisation** fait tourner des applications dans d'autres OS.\nL'**emulation** s'impose quand le CPU source differe du CPU cible (PowerPC vers\nx86) et reste **la methode la plus lente**. Le **VMM** fournit les services de\nvirtualisation ; s'il tourne nativement, il est lui-meme l'hote (VMware ESX,\nCitrix XenServer).\n\n## 7. Architectures et environnements\n\nLes **multiprocesseurs** apportent trois avantages : **debit accru, economie\nd'echelle, fiabilite accrue** (degradation progressive / tolerance aux pannes).\nDeux formes : **asymetrique** (chaque processeur a une tache dediee) et\n**symetrique** (chaque processeur fait tout). Le **NUMA** donne un temps d'acces\nmemoire variable selon le banc.\n\nLes **clusters** relient plusieurs systemes, partageant en general le stockage\nvia un **SAN**, pour de la haute disponibilite : **asymetrique** (une machine en\n*hot-standby*) ou **symetrique** (plusieurs noeuds actifs se surveillant). Les\nclusters **HPC** exigent des applications parallelisees, et un **DLM** evite les\noperations conflictuelles.\n\nEnvironnements : **traditionnel** (thin clients, portails), **mobile** (GPS,\ngyroscope, 802.11 ou cellulaire), **client-serveur** (*compute-server* pour un\nservice, *file-server* pour des fichiers), **pair-a-pair** (aucune distinction\nclient/serveur, Napster, Gnutella, Skype), **cloud**, et **temps reel embarque**\n(contraintes temporelles fixes, correction conditionnee au respect du delai).\n\nLe **cloud** est une extension logique de la virtualisation : **public**,\n**prive**, **hybride**, et par couche **SaaS** (applications), **PaaS** (pile\nlogicielle prete), **IaaS** (serveurs ou stockage).\n\n## 8. Logiciel libre et structures du noyau\n\nUn OS **open source** est distribue sous forme de **code source**. Le mouvement\npart de la **Free Software Foundation** et de sa licence **copyleft GPL** ;\nexemples : GNU/Linux, BSD UNIX (coeur de macOS).\n\nStructures de donnees du noyau : listes chainees **simple, double, circulaire** ;\n**arbre binaire de recherche** (recherche en O(n), **O(lg n)** s'il est\nequilibre) ; **table de hachage** ; **bitmap** (chaine de n bits representant\nl'etat de n elements). Sous Linux : `<linux/list.h>`, `<linux/kfifo.h>`,\n`<linux/rbtree.h>`.\n",
+    "questions": [
+      {
+        "question_text": "Comment definit-on un systeme d'exploitation ?",
+        "choice_a": "Un programme qui sert d'intermediaire entre l'utilisateur et le materiel de l'ordinateur",
+        "choice_b": "Une couche graphique qui affiche les fenetres et les menus",
+        "choice_c": "Un compilateur qui traduit le code source en code machine",
+        "choice_d": "Un ensemble de pilotes fournis par les fabricants de peripheriques",
+        "correct_choice": "A",
+        "explanation": "Un OS est un programme intermediaire entre un utilisateur de l'ordinateur et le materiel. Ses objectifs : executer les programmes utilisateur, rendre le systeme commode a utiliser et exploiter le materiel efficacement."
+      },
+      {
+        "question_text": "Quels sont les quatre composants d'un systeme informatique selon le chapitre 1 ?",
+        "choice_a": "Le CPU, la memoire, le disque et le reseau",
+        "choice_b": "Le noyau, le shell, les bibliotheques et les pilotes",
+        "choice_c": "Le materiel, le firmware, le middleware et les applications",
+        "choice_d": "Le materiel, le systeme d'exploitation, les programmes d'application et les utilisateurs",
+        "correct_choice": "D",
+        "explanation": "Le materiel fournit les ressources de calcul (CPU, memoire, E/S) ; l'OS controle et coordonne leur usage ; les programmes d'application definissent comment les ressources resolvent les problemes ; les utilisateurs sont des personnes, des machines ou d'autres ordinateurs."
+      },
+      {
+        "question_text": "Que peut-on dire de la definition d'un systeme d'exploitation ?",
+        "choice_a": "Un OS se definit uniquement par la presence d'une interface graphique",
+        "choice_b": "Un OS est defini comme tout logiciel qui gere la memoire virtuelle",
+        "choice_c": "Il n'existe aucune definition universellement acceptee",
+        "choice_d": "La definition est fixee par la norme POSIX depuis 1988",
+        "correct_choice": "C",
+        "explanation": "Il n'existe pas de definition universelle. Deux approximations sont proposees : tout ce que le fournisseur livre quand on commande un OS, et le noyau vu comme le seul programme qui tourne en permanence."
+      },
+      {
+        "question_text": "Selon la definition retenue, qu'est-ce que le noyau (kernel) ?",
+        "choice_a": "Le seul programme qui tourne en permanence sur l'ordinateur",
+        "choice_b": "Le premier programme charge par le BIOS, puis decharge de la memoire",
+        "choice_c": "L'ensemble des utilitaires livres avec la distribution",
+        "choice_d": "La partie de l'OS qui gere exclusivement l'affichage",
+        "correct_choice": "A",
+        "explanation": "Le noyau est defini comme the one program running at all times on the computer. Tout le reste est soit un programme systeme (livre avec l'OS mais hors noyau), soit un programme d'application."
+      },
+      {
+        "question_text": "Quelle est la difference entre un programme systeme et un programme d'application ?",
+        "choice_a": "Le programme systeme est ecrit en assembleur, le programme d'application dans un langage de haut niveau",
+        "choice_b": "Le programme systeme est livre avec l'OS mais ne fait pas partie du noyau ; le programme d'application n'est pas associe a l'OS",
+        "choice_c": "Le programme systeme s'execute en mode utilisateur, le programme d'application en mode noyau",
+        "choice_d": "Il n'y a aucune difference, les deux termes sont synonymes",
+        "correct_choice": "B",
+        "explanation": "Un programme systeme est livre avec le systeme d'exploitation sans faire partie du noyau. Un programme d'application regroupe tous les programmes qui ne sont pas associes au systeme d'exploitation."
+      },
+      {
+        "question_text": "Qu'appelle-t-on middleware dans un OS moderne ?",
+        "choice_a": "Un ensemble de frameworks logiciels offrant aux developpeurs des services additionnels comme les bases de donnees, le multimedia ou les graphismes",
+        "choice_b": "Le programme d'amorcage qui charge le noyau",
+        "choice_c": "La couche materielle situee entre le CPU et la memoire",
+        "choice_d": "Le mecanisme de traduction des adresses virtuelles en adresses physiques",
+        "correct_choice": "A",
+        "explanation": "Les OS actuels, generalistes comme mobiles, incluent du middleware : des frameworks fournissant aux developpeurs d'applications des services supplementaires (bases de donnees, multimedia, graphismes)."
+      },
+      {
+        "question_text": "Du point de vue systeme, comment l'OS est-il decrit sur une machine partagee comme un mainframe ?",
+        "choice_a": "Comme un emulateur de terminal",
+        "choice_b": "Comme un simple chargeur de programmes",
+        "choice_c": "Comme une bibliotheque de fonctions mathematiques",
+        "choice_d": "Comme un allocateur de ressources et un programme de controle",
+        "correct_choice": "D",
+        "explanation": "Les utilisateurs veulent de la commodite et de bonnes performances sans se soucier de l'utilisation des ressources. Mais une machine partagee doit satisfaire tous les utilisateurs : l'OS y est un allocateur de ressources et un programme de controle."
+      },
+      {
+        "question_text": "Pour quoi les systemes d'exploitation mobiles sont-ils particulierement optimises ?",
+        "choice_a": "La compatibilite avec les mainframes",
+        "choice_b": "L'utilisabilite et l'autonomie de la batterie, les ressources etant limitees",
+        "choice_c": "Le calcul scientifique massivement parallele",
+        "choice_d": "Le partage de temps entre des centaines d'utilisateurs simultanes",
+        "correct_choice": "B",
+        "explanation": "Les appareils mobiles sont pauvres en ressources et optimises pour l'utilisabilite et la duree de vie de la batterie, avec des interfaces specifiques : ecrans tactiles, reconnaissance vocale."
+      },
+      {
+        "question_text": "Quels sont les trois grands sous-systemes de gestion d'un systeme d'exploitation ?",
+        "choice_a": "La compilation, l'edition de liens et le chargement",
+        "choice_b": "L'affichage, le son et la gestion des peripheriques d'entree",
+        "choice_c": "La gestion des processus, la gestion de la memoire et les systemes de fichiers",
+        "choice_d": "Le reseau, la cryptographie et les bases de donnees",
+        "correct_choice": "C",
+        "explanation": "Les trois grands sous-systemes sont : la gestion des processus (processus, threads, ordonnancement CPU, synchronisation, interblocage), la gestion de la memoire (segmentation, pagination, swapping) et les systemes de fichiers, avec le support des systemes distribues."
+      },
+      {
+        "question_text": "Comment les CPU et les controleurs de peripheriques accedent-ils a la memoire partagee ?",
+        "choice_a": "Uniquement a travers le cache de niveau 3",
+        "choice_b": "Par un bus commun, en s'executant concurremment et en se disputant les cycles memoire",
+        "choice_c": "Par l'intermediaire obligatoire du systeme de fichiers",
+        "choice_d": "Par des canaux dedies, sans jamais entrer en concurrence",
+        "correct_choice": "B",
+        "explanation": "Un ou plusieurs CPU et les controleurs de peripheriques sont relies par un bus commun donnant acces a la memoire partagee. CPU et peripheriques s'executent concurremment et se disputent les cycles memoire."
+      },
+      {
+        "question_text": "De quoi chaque controleur de peripherique dispose-t-il localement ?",
+        "choice_a": "D'une copie complete du systeme de fichiers",
+        "choice_b": "D'un tampon local (local buffer)",
+        "choice_c": "D'un compteur ordinal independant",
+        "choice_d": "D'un cache L1 dedie",
+        "correct_choice": "B",
+        "explanation": "Chaque controleur gere un type de peripherique et possede un tampon local. Le CPU deplace les donnees entre la memoire principale et ces tampons ; l'E/S se fait du peripherique vers le tampon local du controleur."
+      },
+      {
+        "question_text": "Quel role joue le device driver ?",
+        "choice_a": "Gerer la table des pages de la memoire virtuelle",
+        "choice_b": "Fournir une interface uniforme entre le controleur de peripherique et le noyau",
+        "choice_c": "Ordonnancer les processus sur le CPU",
+        "choice_d": "Traduire le code source en instructions machine",
+        "correct_choice": "B",
+        "explanation": "Chaque type de controleur possede un pilote (device driver) charge de le gerer. Le pilote offre au noyau une interface uniforme, quelles que soient les particularites du materiel sous-jacent."
+      },
+      {
+        "question_text": "Comment un controleur de peripherique signale-t-il au CPU qu'il a termine son operation ?",
+        "choice_a": "En modifiant directement le compteur ordinal du CPU",
+        "choice_b": "En ecrivant un fichier de statut sur le disque",
+        "choice_c": "En levant une interruption",
+        "choice_d": "En attendant que le CPU l'interroge par scrutation obligatoire",
+        "correct_choice": "C",
+        "explanation": "Le controleur informe le CPU de la fin de son operation en provoquant une interruption. C'est ce mecanisme qui permet le recouvrement entre calcul et entrees/sorties."
+      },
+      {
+        "question_text": "Que contient le vecteur d'interruption ?",
+        "choice_a": "Le code source des gestionnaires d'interruption",
+        "choice_b": "Les valeurs sauvegardees des registres du CPU",
+        "choice_c": "La liste des processus en attente d'E/S",
+        "choice_d": "Les adresses de toutes les routines de service d'interruption",
+        "correct_choice": "D",
+        "explanation": "L'interruption transfere le controle a la routine de service, generalement via le vecteur d'interruption, qui contient les adresses de toutes les routines de service."
+      },
+      {
+        "question_text": "Que l'architecture d'interruption doit-elle imperativement sauvegarder ?",
+        "choice_a": "Le mot de passe de l'utilisateur courant",
+        "choice_b": "L'adresse de l'instruction interrompue",
+        "choice_c": "Le contenu complet du disque dur",
+        "choice_d": "La table des fichiers ouverts du systeme",
+        "correct_choice": "B",
+        "explanation": "L'architecture d'interruption doit sauvegarder l'adresse de l'instruction interrompue afin de pouvoir reprendre l'execution au bon endroit. L'OS preserve aussi l'etat du CPU en stockant les registres et le compteur ordinal."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un trap (ou exception) ?",
+        "choice_a": "Une instruction privilegiee reservee au bootstrap",
+        "choice_b": "Un mecanisme de protection de la memoire physique",
+        "choice_c": "Une interruption materielle levee par le controleur de disque",
+        "choice_d": "Une interruption generee par logiciel, causee soit par une erreur soit par une requete de l'utilisateur",
+        "correct_choice": "D",
+        "explanation": "Un trap ou exception est une interruption d'origine logicielle. Elle vient soit d'une erreur (division par zero, par exemple), soit d'une requete utilisateur, typiquement un appel systeme."
+      },
+      {
+        "question_text": "Comment qualifie-t-on le fonctionnement general d'un systeme d'exploitation ?",
+        "choice_a": "Il s'execute une seule fois au demarrage puis reste inactif",
+        "choice_b": "Il fonctionne uniquement par scrutation active des peripheriques",
+        "choice_c": "Il est pilote par un ordonnanceur purement periodique",
+        "choice_d": "Il est pilote par les interruptions (interrupt driven)",
+        "correct_choice": "D",
+        "explanation": "Un systeme d'exploitation est interrupt driven : le noyau reagit aux interruptions materielles levees par les peripheriques et aux interruptions logicielles (exceptions, traps, appels systeme)."
+      },
+      {
+        "question_text": "Lors du traitement d'une interruption, que preserve le systeme d'exploitation ?",
+        "choice_a": "Le contenu integral de la memoire principale",
+        "choice_b": "L'etat du CPU, en stockant les registres et le compteur ordinal",
+        "choice_c": "La table de partitionnement du disque",
+        "choice_d": "Uniquement le bit de mode",
+        "correct_choice": "B",
+        "explanation": "L'OS preserve l'etat du CPU en stockant les registres et le compteur ordinal, puis determine le type d'interruption survenue ; des segments de code distincts definissent l'action a mener pour chaque type."
+      },
+      {
+        "question_text": "Quelles sont les deux methodes de gestion des entrees/sorties presentees ?",
+        "choice_a": "Utiliser le cache disque, ou ne pas l'utiliser",
+        "choice_b": "Passer par le noyau, ou acceder directement au materiel depuis l'application",
+        "choice_c": "Rendre le controle au programme utilisateur seulement a la fin de l'E/S, ou le rendre immediatement sans attendre",
+        "choice_d": "Ecrire sur disque, ou ecrire sur bande",
+        "correct_choice": "C",
+        "explanation": "Deux methodes existent. Dans la premiere (synchrone), apres le demarrage de l'E/S le controle ne revient au programme utilisateur qu'a l'achevement. Dans la seconde (asynchrone), le controle revient sans attendre la fin de l'E/S."
+      },
+      {
+        "question_text": "Dans le mode d'E/S synchrone, combien de requetes d'E/S peuvent etre en cours simultanement ?",
+        "choice_a": "Exactement deux, une en lecture et une en ecriture",
+        "choice_b": "Autant que de peripheriques installes",
+        "choice_c": "Un nombre illimite, gere par la device-status table",
+        "choice_d": "Au plus une seule, sans traitement d'E/S simultane",
+        "correct_choice": "D",
+        "explanation": "En mode synchrone, l'instruction wait laisse le CPU inactif jusqu'a l'interruption suivante. Au plus une requete d'E/S est en cours a la fois : aucun traitement d'E/S simultane."
+      },
+      {
+        "question_text": "A quoi sert la device-status table ?",
+        "choice_a": "Elle stocke les adresses des routines de service d'interruption",
+        "choice_b": "Elle conserve la liste des blocs libres du disque",
+        "choice_c": "Elle enregistre les droits d'acces des utilisateurs aux fichiers",
+        "choice_d": "Elle contient une entree par peripherique indiquant son type, son adresse et son etat",
+        "correct_choice": "D",
+        "explanation": "En E/S asynchrone, la device-status table contient une entree par peripherique indiquant type, adresse et etat. L'OS l'indexe pour connaitre le statut d'un peripherique et modifier l'entree pour y inclure l'interruption."
+      },
+      {
+        "question_text": "Dans le mode d'E/S asynchrone, comment un programme utilisateur peut-il attendre la fin d'une entree/sortie ?",
+        "choice_a": "Par un appel systeme demandant a l'OS de le mettre en attente",
+        "choice_b": "En interrogeant directement le registre du controleur",
+        "choice_c": "En desactivant les interruptions materielles",
+        "choice_d": "En passant en mode noyau de sa propre initiative",
+        "correct_choice": "A",
+        "explanation": "Le controle revenant immediatement au programme, celui-ci utilise un appel systeme (system call) pour demander a l'OS de lui permettre d'attendre l'achevement de l'entree/sortie."
+      },
+      {
+        "question_text": "A quoi sert l'acces direct a la memoire (DMA) ?",
+        "choice_a": "A partager la memoire entre plusieurs utilisateurs d'un time-sharing",
+        "choice_b": "Aux peripheriques rapides : le controleur transfere des blocs directement en memoire sans intervention du CPU",
+        "choice_c": "A augmenter la frequence d'horloge du processeur",
+        "choice_d": "A traduire les adresses virtuelles en adresses physiques",
+        "correct_choice": "B",
+        "explanation": "Le DMA sert aux peripheriques d'E/S rapides, capables de transmettre a une vitesse proche de celle de la memoire. Le controleur transfere des blocs de donnees de son tampon directement vers la memoire principale, sans intervention du CPU."
+      },
+      {
+        "question_text": "Quel est le gain principal du DMA en matiere d'interruptions ?",
+        "choice_a": "Les interruptions sont totalement supprimees",
+        "choice_b": "Une seule interruption est generee par bloc, au lieu d'une par octet",
+        "choice_c": "Deux interruptions sont generees par octet pour plus de fiabilite",
+        "choice_d": "Les interruptions deviennent prioritaires sur toutes les autres",
+        "correct_choice": "B",
+        "explanation": "Sans DMA, chaque octet transfere provoquerait une interruption. Avec le DMA, une seule interruption est levee par bloc, ce qui reduit massivement la charge du CPU."
+      },
+      {
+        "question_text": "Quelle est la particularite de la memoire principale par rapport aux autres supports de stockage ?",
+        "choice_a": "C'est le support le plus lent de la hierarchie",
+        "choice_b": "C'est le seul grand support de stockage auquel le CPU peut acceder directement",
+        "choice_c": "C'est le seul support non volatile de la machine",
+        "choice_d": "C'est le support le moins cher au gigaoctet",
+        "correct_choice": "B",
+        "explanation": "La memoire principale est le seul support de stockage de grande taille que le CPU peut adresser directement. Elle est a acces aleatoire, typiquement volatile, et realisee en DRAM."
+      },
+      {
+        "question_text": "Comment la surface d'un disque dur est-elle organisee logiquement ?",
+        "choice_a": "En cylindres uniques couvrant tout le plateau",
+        "choice_b": "En pistes, elles-memes subdivisees en secteurs",
+        "choice_c": "En pages, elles-memes regroupees en segments",
+        "choice_d": "En blocs de taille variable indexes par un arbre",
+        "correct_choice": "B",
+        "explanation": "Un HDD est constitue de plateaux rigides en metal ou en verre recouverts d'un materiau magnetique. La surface est logiquement divisee en pistes (tracks), elles-memes subdivisees en secteurs (sectors)."
+      },
+      {
+        "question_text": "Quel composant determine l'interaction logique entre le disque et l'ordinateur ?",
+        "choice_a": "Le bootstrap program",
+        "choice_b": "Le vecteur d'interruption",
+        "choice_c": "Le compteur ordinal",
+        "choice_d": "Le disk controller",
+        "correct_choice": "D",
+        "explanation": "C'est le controleur de disque (disk controller) qui determine l'interaction logique entre le peripherique et l'ordinateur."
+      },
+      {
+        "question_text": "Quelles sont les caracteristiques des memoires NVM par rapport aux disques durs ?",
+        "choice_a": "Elles sont plus rapides que les disques durs et non volatiles",
+        "choice_b": "Elles ne peuvent stocker que des donnees temporaires",
+        "choice_c": "Elles sont volatiles mais tres rapides",
+        "choice_d": "Elles sont plus lentes mais beaucoup moins cheres",
+        "correct_choice": "A",
+        "explanation": "Les peripheriques a memoire non volatile (NVM) sont plus rapides que les disques durs et non volatiles. Leur popularite croit a mesure que capacite et performance augmentent et que les prix baissent."
+      },
+      {
+        "question_text": "Combien de bits contient un octet (byte) ?",
+        "choice_a": "Cela depend de l'architecture",
+        "choice_b": "8 bits",
+        "choice_c": "4 bits",
+        "choice_d": "16 bits",
+        "correct_choice": "B",
+        "explanation": "Un octet fait 8 bits et constitue, sur la plupart des machines, la plus petite unite de stockage commode : la plupart des ordinateurs n'ont pas d'instruction pour deplacer un bit, mais en ont une pour deplacer un octet."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un mot (word) en informatique ?",
+        "choice_a": "L'unite de donnees native d'une architecture, composee d'un ou plusieurs octets",
+        "choice_b": "Une chaine de caracteres terminee par un zero",
+        "choice_c": "Un groupe de 16 bits, quelle que soit l'architecture",
+        "choice_d": "Le plus petit element adressable en memoire",
+        "correct_choice": "A",
+        "explanation": "Le mot est l'unite de donnees native de l'architecture, faite d'un ou plusieurs octets. Une machine a registres et adressage 64 bits a typiquement des mots de 64 bits (8 octets), et execute beaucoup d'operations a la taille du mot plutot qu'octet par octet."
+      },
+      {
+        "question_text": "Combien d'octets contient un kilooctet (KB) selon la convention du cours ?",
+        "choice_a": "8 000 octets",
+        "choice_b": "1 000 octets",
+        "choice_c": "1 024 octets",
+        "choice_d": "1 048 576 octets",
+        "correct_choice": "C",
+        "explanation": "Un KB vaut 1 024 octets, un MB 1 024^2, un GB 1 024^3, un TB 1 024^4 et un PB 1 024^5. Les constructeurs arrondissent souvent ces valeurs a un million ou un milliard d'octets."
+      },
+      {
+        "question_text": "Quelle exception le cours signale-t-il concernant les unites de mesure ?",
+        "choice_a": "Les mesures reseau sont donnees en bits, car les reseaux transportent les donnees bit par bit",
+        "choice_b": "Les capacites de disque sont exprimees en secteurs et non en octets",
+        "choice_c": "Les mesures de memoire vive sont donnees en mots et non en octets",
+        "choice_d": "Les debits de cache sont exprimes en cycles et non en octets",
+        "correct_choice": "A",
+        "explanation": "Le stockage et le debit se mesurent generalement en octets, mais les mesures reseau font exception : elles sont exprimees en bits, parce que les reseaux deplacent les donnees un bit a la fois."
+      },
+      {
+        "question_text": "Selon quels criteres la hierarchie de stockage est-elle organisee ?",
+        "choice_a": "La marque, le format physique et la garantie",
+        "choice_b": "La consommation electrique uniquement",
+        "choice_c": "La vitesse, le cout et la volatilite",
+        "choice_d": "Le nombre de partitions supportees",
+        "correct_choice": "C",
+        "explanation": "Les systemes de stockage sont organises en hierarchie selon la vitesse, le cout et la volatilite. Le cache y consiste a recopier l'information vers un support plus rapide."
+      },
+      {
+        "question_text": "Comment le cours decrit-il le role de la memoire principale vis-a-vis du stockage secondaire ?",
+        "choice_a": "Elle en est une copie miroir integrale et permanente",
+        "choice_b": "Elle en est totalement independante",
+        "choice_c": "Elle peut etre vue comme un cache du stockage secondaire",
+        "choice_d": "Elle sert uniquement a stocker le code du noyau",
+        "correct_choice": "C",
+        "explanation": "Le caching consiste a copier l'information vers un support plus rapide. Dans cette optique, la memoire principale peut se voir comme un cache du stockage secondaire."
+      },
+      {
+        "question_text": "Quel principe regit la consultation d'un cache ?",
+        "choice_a": "Le support rapide est verifie en premier ; en cas d'absence, la donnee y est copiee puis utilisee",
+        "choice_b": "Les deux supports sont consultes systematiquement en parallele",
+        "choice_c": "Le cache n'est consulte qu'en cas d'echec du support lent",
+        "choice_d": "Le support lent est toujours consulte en premier pour garantir la fraicheur",
+        "correct_choice": "A",
+        "explanation": "Le cache, plus rapide, est verifie en premier. Si l'information s'y trouve, elle est utilisee directement ; sinon, la donnee est copiee dans le cache et utilisee depuis celui-ci."
+      },
+      {
+        "question_text": "Quels sont les deux grands problemes de conception d'un cache ?",
+        "choice_a": "Son nombre de pistes et de secteurs",
+        "choice_b": "Sa taille et sa politique de remplacement",
+        "choice_c": "Son format de fichier et son systeme de permissions",
+        "choice_d": "Sa tension d'alimentation et sa frequence",
+        "correct_choice": "B",
+        "explanation": "Un cache est plus petit que le stockage qu'il met en cache, ce qui fait de sa gestion un probleme de conception important : le choix de sa taille et celui de sa politique de remplacement."
+      },
+      {
+        "question_text": "Que doit garantir le materiel dans un environnement multiprocesseur en matiere de cache ?",
+        "choice_a": "Que le cache soit systematiquement desactive",
+        "choice_b": "La coherence de cache, pour que tous les CPU voient la valeur la plus recente",
+        "choice_c": "Que les caches soient vides a chaque changement de contexte",
+        "choice_d": "Que chaque CPU dispose d'un cache totalement isole des autres",
+        "correct_choice": "B",
+        "explanation": "En environnement multiprocesseur, le materiel doit assurer la coherence de cache (cache coherency) afin que tous les CPU disposent de la valeur la plus recente dans leur cache. En environnement distribue, la situation est encore plus complexe."
+      },
+      {
+        "question_text": "Quel est le role du bootstrap program ?",
+        "choice_a": "Initialiser le systeme et charger le noyau",
+        "choice_b": "Compiler le noyau au demarrage",
+        "choice_c": "Gerer les permissions du systeme de fichiers",
+        "choice_d": "Ordonnancer les processus utilisateur",
+        "correct_choice": "A",
+        "explanation": "Le bootstrap program est un code simple qui initialise le systeme et charge le noyau. Le noyau demarre ensuite les daemons systeme, services fournis hors du noyau."
+      },
+      {
+        "question_text": "Que sont les system daemons ?",
+        "choice_a": "Les routines de traitement des interruptions materielles",
+        "choice_b": "Les processus utilisateur interactifs",
+        "choice_c": "Des services fournis en dehors du noyau, demarres apres le chargement de celui-ci",
+        "choice_d": "Les instructions privilegiees du bit de mode",
+        "correct_choice": "C",
+        "explanation": "Une fois le noyau charge, il demarre les system daemons : des services rendus en dehors du noyau lui-meme."
+      },
+      {
+        "question_text": "Quels exemples d'interruptions logicielles le cours donne-t-il ?",
+        "choice_a": "La fin d'un transfert DMA et l'arrivee d'un paquet reseau",
+        "choice_b": "Une erreur logicielle comme la division par zero, et la demande d'un service de l'OS par appel systeme",
+        "choice_c": "L'insertion d'une cle USB et le clic de souris",
+        "choice_d": "Le declenchement du timer et la panne d'alimentation",
+        "correct_choice": "B",
+        "explanation": "Le noyau est pilote par des interruptions materielles (levees par un peripherique) et logicielles. Les interruptions logicielles (exception ou trap) viennent d'une erreur (division par zero), d'une demande de service de l'OS (appel systeme), ou d'autres problemes comme une boucle infinie."
+      },
+      {
+        "question_text": "Quel probleme la multiprogrammation resout-elle ?",
+        "choice_a": "Les interruptions se perdent quand elles sont trop nombreuses",
+        "choice_b": "Les programmes ne tiennent pas dans la memoire virtuelle",
+        "choice_c": "Un seul utilisateur ne peut pas garder en permanence le CPU et les peripheriques occupes",
+        "choice_d": "Les fichiers ne peuvent pas etre partages entre utilisateurs",
+        "correct_choice": "C",
+        "explanation": "Un seul utilisateur ne peut pas maintenir CPU et peripheriques occupes en permanence. La multiprogrammation organise les jobs pour que le CPU ait toujours quelque chose a executer : quand un job doit attendre (une E/S par exemple), l'OS bascule sur un autre."
+      },
+      {
+        "question_text": "Comment un job est-il selectionne pour s'executer en multiprogrammation ?",
+        "choice_a": "Par l'ordonnancement de jobs (job scheduling), parmi le sous-ensemble garde en memoire",
+        "choice_b": "Par ordre alphabetique de leur nom de fichier",
+        "choice_c": "Par tirage aleatoire uniforme a chaque cycle d'horloge",
+        "choice_d": "Par l'utilisateur, qui doit le designer explicitement",
+        "correct_choice": "A",
+        "explanation": "Un sous-ensemble de l'ensemble des jobs du systeme est garde en memoire, et un job est selectionne puis execute via le job scheduling."
+      },
+      {
+        "question_text": "Quel temps de reponse le multitache (time-sharing) vise-t-il ?",
+        "choice_a": "Moins d'une minute",
+        "choice_b": "Moins d'une milliseconde",
+        "choice_c": "Moins de dix secondes",
+        "choice_d": "Moins d'une seconde",
+        "correct_choice": "D",
+        "explanation": "Le multitache est une extension logique du batch : le CPU commute si frequemment entre les jobs que les utilisateurs peuvent interagir avec chacun pendant son execution. Le temps de reponse vise est inferieur a une seconde."
+      },
+      {
+        "question_text": "A quoi sert le swapping dans un systeme a temps partage ?",
+        "choice_a": "A alterner entre mode utilisateur et mode noyau",
+        "choice_b": "A echanger les valeurs de deux registres du CPU",
+        "choice_c": "A permuter les priorites des processus a chaque quantum",
+        "choice_d": "A deplacer les processus entre la memoire et le disque quand ils n'y tiennent pas tous",
+        "correct_choice": "D",
+        "explanation": "Si les processus ne tiennent pas tous en memoire, le swapping les deplace vers l'exterieur et les ramene pour les executer."
+      },
+      {
+        "question_text": "Que permet la memoire virtuelle ?",
+        "choice_a": "Executer des processus qui ne sont pas entierement charges en memoire",
+        "choice_b": "Garantir qu'aucun processus ne sera jamais interrompu",
+        "choice_c": "Supprimer le besoin de stockage secondaire",
+        "choice_d": "Doubler la frequence d'horloge du processeur",
+        "correct_choice": "A",
+        "explanation": "La memoire virtuelle permet l'execution de processus qui ne sont pas completement en memoire, ce qui affranchit la taille des programmes de la taille de la memoire physique."
+      },
+      {
+        "question_text": "A quoi sert le fonctionnement en mode dual (dual-mode operation) ?",
+        "choice_a": "A basculer entre deux systemes de fichiers",
+        "choice_b": "A executer deux processus exactement en parallele",
+        "choice_c": "A permettre a l'OS de se proteger lui-meme ainsi que les autres composants du systeme",
+        "choice_d": "A doubler la taille de la memoire adressable",
+        "correct_choice": "C",
+        "explanation": "Le mode dual (mode utilisateur et mode noyau) permet a l'OS de se proteger lui-meme et de proteger les autres composants du systeme."
+      },
+      {
+        "question_text": "Qu'est-ce qui permet de distinguer l'execution de code utilisateur de celle du code noyau ?",
+        "choice_a": "Un bit de mode fourni par le materiel",
+        "choice_b": "Le numero du processus courant",
+        "choice_c": "Une variable globale maintenue par le compilateur",
+        "choice_d": "L'adresse physique de l'instruction en cours",
+        "correct_choice": "A",
+        "explanation": "Un bit de mode fourni par le materiel indique si le systeme execute du code utilisateur (bit a user) ou du code noyau (bit a kernel)."
+      },
+      {
+        "question_text": "Comment garantir qu'un utilisateur ne puisse pas positionner lui-meme le bit de mode a kernel ?",
+        "choice_a": "Le bit de mode est en lecture seule pour tout le systeme, y compris le noyau",
+        "choice_b": "Le compilateur interdit d'ecrire une telle instruction",
+        "choice_c": "Seul l'appel systeme fait passer en mode noyau, et le retour de l'appel le remet en mode utilisateur",
+        "choice_d": "Le bit de mode est stocke sur le disque, hors de portee des programmes",
+        "correct_choice": "C",
+        "explanation": "C'est l'appel systeme qui change le mode en kernel, et le retour de l'appel le repasse en user. Certaines instructions sont en outre designees comme privilegiees et ne sont executables qu'en mode noyau."
+      },
+      {
+        "question_text": "Que sont les instructions privilegiees ?",
+        "choice_a": "Des instructions optimisees par le compilateur",
+        "choice_b": "Des instructions dont l'execution ne peut jamais etre interrompue",
+        "choice_c": "Des instructions executables uniquement en mode noyau",
+        "choice_d": "Des instructions reservees a l'utilisateur root en mode utilisateur",
+        "correct_choice": "C",
+        "explanation": "Certaines instructions sont designees comme privilegiees : elles ne sont executables qu'en mode noyau. C'est ce qui empeche un programme utilisateur d'effectuer directement des operations sensibles."
+      },
+      {
+        "question_text": "A quoi sert le timer dans un systeme d'exploitation ?",
+        "choice_a": "A mesurer la duree des acces disque pour l'ordonnancement",
+        "choice_b": "A dater les fichiers lors de leur creation",
+        "choice_c": "A empecher les boucles infinies et les processus qui accaparent les ressources",
+        "choice_d": "A synchroniser l'horloge du systeme avec un serveur de temps",
+        "correct_choice": "C",
+        "explanation": "Le timer previent les boucles infinies ou les processus qui monopolisent les ressources. Il est arme avant l'ordonnancement d'un processus, afin de reprendre le controle ou de terminer un programme qui depasse son temps alloue."
+      },
+      {
+        "question_text": "Comment fonctionne concretement le timer ?",
+        "choice_a": "Le disque signale periodiquement l'ecoulement du temps",
+        "choice_b": "Un compteur, decremente par l'horloge physique, leve une interruption en atteignant zero ; le regler est une instruction privilegiee",
+        "choice_c": "Le CPU compte les instructions executees et s'arrete a un seuil fixe",
+        "choice_d": "Un thread du noyau interroge l'horloge en boucle active",
+        "correct_choice": "B",
+        "explanation": "Le timer est arme pour interrompre l'ordinateur apres un certain delai. Un compteur est decremente par l'horloge physique ; l'OS le positionne via une instruction privilegiee, et quand il atteint zero une interruption est generee."
+      },
+      {
+        "question_text": "Quelle est la difference entre un programme et un processus ?",
+        "choice_a": "Le programme est une entite passive, le processus une entite active : un programme en cours d'execution",
+        "choice_b": "Le programme est ecrit en C, le processus en assembleur",
+        "choice_c": "Il n'y a pas de difference, ce sont deux mots pour la meme chose",
+        "choice_d": "Le programme reside en memoire, le processus sur le disque",
+        "correct_choice": "A",
+        "explanation": "Un processus est un programme en execution : c'est une unite de travail dans le systeme. Le programme est une entite passive, le processus une entite active."
+      },
+      {
+        "question_text": "De quoi un processus a-t-il besoin pour accomplir sa tache ?",
+        "choice_a": "Exclusivement d'espace disque",
+        "choice_b": "De ressources comme le CPU, la memoire, les E/S et les fichiers, ainsi que de donnees d'initialisation",
+        "choice_c": "D'un acces direct au bit de mode",
+        "choice_d": "Uniquement d'un compteur ordinal",
+        "correct_choice": "B",
+        "explanation": "Un processus a besoin de ressources pour accomplir sa tache : CPU, memoire, E/S, fichiers, ainsi que des donnees d'initialisation. Sa terminaison exige la recuperation de toutes les ressources reutilisables."
+      },
+      {
+        "question_text": "Combien de compteurs ordinaux possede un processus multi-thread ?",
+        "choice_a": "Deux, un pour le code et un pour les donnees",
+        "choice_b": "Un seul, partage par tous les threads",
+        "choice_c": "Un par thread",
+        "choice_d": "Aucun, les threads utilisent celui du noyau",
+        "correct_choice": "C",
+        "explanation": "Un processus mono-thread possede un seul compteur ordinal designant la prochaine instruction a executer. Un processus multi-thread possede un compteur ordinal par thread."
+      },
+      {
+        "question_text": "Parmi ces activites, laquelle NE fait PAS partie de la gestion des processus par l'OS ?",
+        "choice_a": "Fournir des mecanismes de gestion des interblocages",
+        "choice_b": "Definir le schema logique de la base de donnees",
+        "choice_c": "Creer et supprimer les processus utilisateur et systeme",
+        "choice_d": "Fournir des mecanismes de synchronisation entre processus",
+        "correct_choice": "B",
+        "explanation": "La gestion des processus couvre : creation et suppression des processus utilisateur et systeme, suspension et reprise, mecanismes de synchronisation, de communication, et de gestion des interblocages. Definir un schema de base de donnees releve du DBA, pas de l'OS."
+      },
+      {
+        "question_text": "Que determine la gestion de la memoire ?",
+        "choice_a": "Le nombre de plateaux d'un disque dur",
+        "choice_b": "Ce qui se trouve en memoire et a quel moment, afin d'optimiser l'usage du CPU et le temps de reponse",
+        "choice_c": "La frequence de rafraichissement de la DRAM",
+        "choice_d": "Le format des fichiers executables",
+        "correct_choice": "B",
+        "explanation": "Pour executer un programme, tout ou partie des instructions et des donnees doit etre en memoire. La gestion de la memoire determine ce qui s'y trouve et quand, afin d'optimiser l'utilisation du CPU et la reactivite pour les utilisateurs."
+      },
+      {
+        "question_text": "Quelle abstraction le systeme de fichiers offre-t-il ?",
+        "choice_a": "Le fichier, unite logique de stockage qui abstrait les proprietes physiques du support",
+        "choice_b": "La page, unite de transfert entre memoire et disque",
+        "choice_c": "Le secteur, plus petite unite adressable du disque",
+        "choice_d": "Le processus, unite de travail du systeme",
+        "correct_choice": "A",
+        "explanation": "L'OS fournit une vue logique uniforme du stockage de l'information : il abstrait les proprietes physiques du support en une unite logique de stockage, le fichier. Chaque support est controle par un peripherique aux proprietes variables (vitesse, capacite, debit, mode d'acces sequentiel ou aleatoire)."
+      },
+      {
+        "question_text": "Parmi ces activites, laquelle releve de la gestion du stockage de masse ?",
+        "choice_a": "La traduction des adresses virtuelles",
+        "choice_b": "L'ordonnancement disque (disk scheduling)",
+        "choice_c": "L'ordonnancement du CPU",
+        "choice_d": "La gestion du vecteur d'interruption",
+        "correct_choice": "B",
+        "explanation": "La gestion du stockage de masse couvre le montage et demontage, la gestion de l'espace libre, l'allocation du stockage, l'ordonnancement disque, le partitionnement et la protection. La vitesse globale de la machine depend du sous-systeme disque et de ses algorithmes."
+      },
+      {
+        "question_text": "Comment le cours definit-il le buffering dans le sous-systeme d'E/S ?",
+        "choice_a": "Traduire les requetes entre le noyau et le controleur",
+        "choice_b": "Stocker temporairement des donnees pendant leur transfert",
+        "choice_c": "Conserver une copie des donnees dans un support plus rapide pour la performance",
+        "choice_d": "Recouvrir la sortie d'un job avec l'entree d'autres jobs",
+        "correct_choice": "B",
+        "explanation": "Le buffering consiste a stocker temporairement les donnees pendant qu'elles sont transferees. A distinguer du caching (garder une partie des donnees dans un stockage plus rapide pour la performance) et du spooling."
+      },
+      {
+        "question_text": "Qu'est-ce que le spooling ?",
+        "choice_a": "Le recouvrement de la sortie d'un job avec l'entree d'autres jobs",
+        "choice_b": "L'ecriture simultanee sur deux disques pour la redondance",
+        "choice_c": "Le stockage temporaire de donnees pendant un transfert",
+        "choice_d": "La copie de donnees vers un support plus rapide",
+        "correct_choice": "A",
+        "explanation": "Le spooling designe le recouvrement (overlapping) de la sortie d'un job avec l'entree d'autres jobs. C'est l'une des trois responsabilites de gestion memoire du sous-systeme d'E/S, avec le buffering et le caching."
+      },
+      {
+        "question_text": "Quel est l'un des buts du sous-systeme d'E/S ?",
+        "choice_a": "Augmenter la capacite du disque dur",
+        "choice_b": "Masquer a l'utilisateur les particularites des peripheriques materiels",
+        "choice_c": "Remplacer le systeme de fichiers",
+        "choice_d": "Executer les instructions privilegiees a la place du noyau",
+        "correct_choice": "B",
+        "explanation": "L'un des objectifs de l'OS est de cacher a l'utilisateur les particularites des peripheriques materiels. Le sous-systeme d'E/S s'en charge, avec une interface generale de pilotes et des pilotes specifiques a chaque materiel."
+      },
+      {
+        "question_text": "Quelle est la difference entre protection et securite ?",
+        "choice_a": "La protection s'applique aux fichiers, la securite aux processus",
+        "choice_b": "La protection est un mecanisme de controle d'acces aux ressources ; la securite est la defense contre les attaques internes et externes",
+        "choice_c": "La protection concerne le materiel, la securite le logiciel",
+        "choice_d": "Les deux termes designent exactement la meme chose",
+        "correct_choice": "B",
+        "explanation": "La protection designe tout mecanisme controlant l'acces des processus ou des utilisateurs aux ressources definies par l'OS. La securite est la defense du systeme contre les attaques internes et externes : deni de service, vers, virus, usurpation d'identite, vol de service."
+      },
+      {
+        "question_text": "A quoi sert le group ID (identifiant de groupe) ?",
+        "choice_a": "A identifier de maniere unique un peripherique materiel",
+        "choice_b": "A numeroter les processus dans la table des processus",
+        "choice_c": "A designer le numero du bloc disque d'un fichier",
+        "choice_d": "A definir un ensemble d'utilisateurs et gerer leurs controles collectivement",
+        "correct_choice": "D",
+        "explanation": "Le group ID permet de definir un ensemble d'utilisateurs et de gerer les controles a ce niveau. Il est associe, comme le user ID, a chaque processus et a chaque fichier."
+      },
+      {
+        "question_text": "Qu'est-ce que l'escalade de privileges (privilege escalation) ?",
+        "choice_a": "L'agrandissement de l'espace memoire alloue a un processus",
+        "choice_b": "L'augmentation de la priorite d'ordonnancement d'un processus",
+        "choice_c": "Le fait pour un utilisateur de passer a un identifiant effectif disposant de plus de droits",
+        "choice_d": "Le passage automatique du mode noyau au mode utilisateur",
+        "correct_choice": "C",
+        "explanation": "L'escalade de privileges permet a un utilisateur de basculer vers un identifiant effectif (effective ID) disposant de davantage de droits que le sien."
+      },
+      {
+        "question_text": "Que permet la virtualisation ?",
+        "choice_a": "Augmenter physiquement la quantite de memoire installee",
+        "choice_b": "Executer du code sans aucun systeme d'exploitation",
+        "choice_c": "Convertir automatiquement un programme C en Java",
+        "choice_d": "Faire tourner des applications d'un systeme d'exploitation a l'interieur d'un autre",
+        "correct_choice": "D",
+        "explanation": "La virtualisation permet aux systemes d'exploitation d'executer des applications au sein d'autres OS. C'est une industrie vaste et en croissance."
+      },
+      {
+        "question_text": "Dans quel cas recourt-on a l'emulation, et quel est son inconvenient ?",
+        "choice_a": "Quand le type de CPU source differe du type cible ; c'est generalement la methode la plus lente",
+        "choice_b": "Quand le disque est plein ; elle est instable",
+        "choice_c": "Quand le reseau est indisponible ; elle est peu sure",
+        "choice_d": "Quand les deux CPU sont identiques ; elle consomme trop de memoire",
+        "correct_choice": "A",
+        "explanation": "L'emulation s'utilise lorsque le type de CPU source differe du type cible (par exemple PowerPC vers Intel x86). C'est generalement la methode la plus lente. Quand un langage n'est pas compile en code natif, on parle d'interpretation."
+      },
+      {
+        "question_text": "Que se passe-t-il quand un VMM s'execute nativement sur le materiel ?",
+        "choice_a": "Il ne peut plus executer qu'un seul systeme invite",
+        "choice_b": "Il perd la capacite de gerer la memoire",
+        "choice_c": "Il est lui-meme l'hote : il n'y a alors pas de systeme d'exploitation hote generaliste",
+        "choice_d": "Il devient un simple programme utilisateur",
+        "correct_choice": "C",
+        "explanation": "Un VMM peut s'executer nativement, auquel cas il est aussi l'hote et il n'y a pas de systeme hote generaliste. VMware ESX et Citrix XenServer en sont des exemples."
+      },
+      {
+        "question_text": "Quels sont les trois avantages des systemes multiprocesseurs ?",
+        "choice_a": "Debit accru, economie d'echelle et fiabilite accrue",
+        "choice_b": "Cout unitaire nul, maintenance gratuite et compatibilite totale",
+        "choice_c": "Simplicite de programmation, portabilite et securite",
+        "choice_d": "Consommation reduite, silence et compacite",
+        "correct_choice": "A",
+        "explanation": "Les systemes multiprocesseurs, aussi appeles systemes paralleles ou fortement couples, offrent trois avantages : un debit accru, une economie d'echelle, et une fiabilite accrue par degradation progressive (graceful degradation) ou tolerance aux pannes."
+      },
+      {
+        "question_text": "Quelle est la difference entre multitraitement asymetrique et symetrique ?",
+        "choice_a": "En asymetrique les processeurs sont de marques differentes ; en symetrique ils sont identiques",
+        "choice_b": "En asymetrique la memoire est partagee, en symetrique elle est distribuee",
+        "choice_c": "En asymetrique chaque processeur recoit une tache specifique ; en symetrique chaque processeur execute toutes les taches",
+        "choice_d": "En asymetrique il y a deux processeurs, en symetrique quatre ou plus",
+        "correct_choice": "C",
+        "explanation": "Dans le multitraitement asymetrique, chaque processeur se voit assigner une tache specifique. Dans le multitraitement symetrique (SMP), chaque processeur effectue toutes les taches."
+      },
+      {
+        "question_text": "Comment les systemes en cluster partagent-ils generalement le stockage ?",
+        "choice_a": "Via une cle USB partagee physiquement",
+        "choice_b": "Ils ne partagent jamais de stockage",
+        "choice_c": "En repliquant integralement les donnees sur chaque noeud a chaque ecriture",
+        "choice_d": "Via un reseau de stockage (SAN)",
+        "correct_choice": "D",
+        "explanation": "Les clusters ressemblent aux multiprocesseurs, mais font travailler ensemble plusieurs systemes distincts. Ils partagent generalement le stockage via un storage-area network (SAN) et fournissent un service haute disponibilite qui survit aux pannes."
+      },
+      {
+        "question_text": "Quelle est la difference entre clustering asymetrique et symetrique ?",
+        "choice_a": "En asymetrique il n'y a pas de SAN, en symetrique il y en a un",
+        "choice_b": "En asymetrique une machine reste en attente (hot-standby) ; en symetrique plusieurs noeuds executent des applications en se surveillant mutuellement",
+        "choice_c": "En asymetrique les noeuds sont distants, en symetrique ils sont dans la meme salle",
+        "choice_d": "En asymetrique le cluster est dedie au HPC, en symetrique au stockage",
+        "correct_choice": "B",
+        "explanation": "Le clustering asymetrique garde une machine en mode hot-standby. Le clustering symetrique fait tourner des applications sur plusieurs noeuds qui se surveillent les uns les autres."
+      },
+      {
+        "question_text": "Qu'exigent les clusters destines au calcul haute performance (HPC) ?",
+        "choice_a": "Que le stockage soit strictement local a chaque noeud",
+        "choice_b": "Que les applications soient ecrites pour exploiter la parallelisation",
+        "choice_c": "Que tous les noeuds partagent un unique CPU",
+        "choice_d": "Que le systeme d'exploitation soit proprietaire",
+        "correct_choice": "B",
+        "explanation": "Certains clusters servent au calcul haute performance (HPC). Les applications doivent alors etre ecrites pour tirer parti de la parallelisation. Certains clusters emploient aussi un distributed lock manager (DLM) pour eviter les operations conflictuelles."
+      },
+      {
+        "question_text": "Dans le modele client-serveur, quelle est la difference entre un compute-server et un file-server ?",
+        "choice_a": "Il n'existe aucune difference fonctionnelle entre les deux",
+        "choice_b": "Le compute-server gere les fichiers ; le file-server effectue les calculs",
+        "choice_c": "Le compute-server offre une interface pour demander des services ; le file-server permet de stocker et recuperer des fichiers",
+        "choice_d": "Le compute-server est materiel ; le file-server est logiciel",
+        "correct_choice": "C",
+        "explanation": "Un systeme compute-server fournit au client une interface pour demander des services, par exemple une base de donnees. Un systeme file-server offre aux clients une interface pour stocker et recuperer des fichiers."
+      },
+      {
+        "question_text": "Qu'est-ce qui caracterise un systeme pair-a-pair (P2P) ?",
+        "choice_a": "Il ne distingue pas clients et serveurs : tous les noeuds sont des pairs pouvant jouer les deux roles",
+        "choice_b": "Il exige que tous les noeuds aient le meme systeme d'exploitation",
+        "choice_c": "Il n'utilise jamais le protocole TCP/IP",
+        "choice_d": "Il impose un serveur central unique pour tous les transferts",
+        "correct_choice": "A",
+        "explanation": "Le P2P est un autre modele de systeme distribue qui ne distingue pas clients et serveurs. Tous les noeuds sont consideres comme des pairs et peuvent agir en client, en serveur, ou les deux. Exemples : Napster, Gnutella, la voix sur IP comme Skype."
+      },
+      {
+        "question_text": "Comment un noeud rejoint-il un reseau pair-a-pair ?",
+        "choice_a": "En obtenant une adresse IP fixe aupres de l'administrateur reseau",
+        "choice_b": "En se connectant physiquement au SAN du cluster",
+        "choice_c": "En installant obligatoirement un systeme d'exploitation temps reel",
+        "choice_d": "En enregistrant son service aupres d'un service d'annuaire central, ou en diffusant une requete via un protocole de decouverte",
+        "correct_choice": "D",
+        "explanation": "Un noeud doit rejoindre le reseau P2P soit en enregistrant son service aupres d'un service de recherche central sur le reseau, soit en diffusant une demande de service et en repondant aux demandes via un protocole de decouverte."
+      },
+      {
+        "question_text": "De quoi le cloud computing est-il presente comme l'extension logique ?",
+        "choice_a": "Du multitraitement symetrique",
+        "choice_b": "De la virtualisation, qu'il utilise comme base de son fonctionnement",
+        "choice_c": "Du systeme de fichiers distribue",
+        "choice_d": "Du calcul temps reel embarque",
+        "correct_choice": "B",
+        "explanation": "Le cloud computing fournit calcul, stockage et meme applications comme un service a travers un reseau. C'est une extension logique de la virtualisation, puisqu'il l'utilise comme fondement de son fonctionnement."
+      },
+      {
+        "question_text": "Quelle est la difference entre PaaS et IaaS ?",
+        "choice_a": "Le PaaS fournit une pile logicielle prete a l'emploi, l'IaaS fournit des serveurs ou du stockage",
+        "choice_b": "Le PaaS fournit du materiel, l'IaaS des applications finies",
+        "choice_c": "Le PaaS est prive, l'IaaS est necessairement public",
+        "choice_d": "Le PaaS concerne le stockage, l'IaaS le calcul uniquement",
+        "correct_choice": "A",
+        "explanation": "Le SaaS met a disposition une ou plusieurs applications via Internet (un traitement de texte). Le PaaS fournit une pile logicielle prete pour l'usage applicatif (un serveur de base de donnees). L'IaaS fournit des serveurs ou du stockage via Internet (du stockage pour les sauvegardes)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un cloud hybride ?",
+        "choice_a": "Un cloud qui melange virtualisation et emulation",
+        "choice_b": "Un cloud reserve aux systemes temps reel",
+        "choice_c": "Un cloud comportant a la fois des composants publics et prives",
+        "choice_d": "Un cloud reparti sur deux continents",
+        "correct_choice": "C",
+        "explanation": "Le cloud public est accessible via Internet a quiconque accepte de payer ; le cloud prive est exploite par une entreprise pour son propre usage ; le cloud hybride comprend a la fois des composants publics et prives."
+      },
+      {
+        "question_text": "Qu'est-ce qui caracterise un systeme d'exploitation temps reel ?",
+        "choice_a": "Il possede des contraintes de temps fixes et bien definies ; le fonctionnement n'est correct que si elles sont respectees",
+        "choice_b": "Il affiche l'heure courante en permanence",
+        "choice_c": "Il ne comporte jamais d'interruptions",
+        "choice_d": "Il execute toujours les processus dans leur ordre d'arrivee",
+        "correct_choice": "A",
+        "explanation": "Un OS temps reel a des contraintes temporelles fixes et bien definies. Le traitement doit s'effectuer dans ces contraintes, et le fonctionnement n'est correct que si elles sont respectees. Les systemes temps reel embarques sont la forme d'ordinateur la plus repandue."
+      },
+      {
+        "question_text": "Qu'est-ce qui definit un systeme d'exploitation open source ?",
+        "choice_a": "Il est necessairement gratuit et sans aucune licence",
+        "choice_b": "Il est mis a disposition sous forme de code source, et non seulement en binaire ferme et proprietaire",
+        "choice_c": "Il est developpe uniquement par des universites",
+        "choice_d": "Il ne peut pas etre utilise commercialement",
+        "correct_choice": "B",
+        "explanation": "Les OS open source sont diffuses sous forme de code source plutot qu'en binaire ferme et proprietaire uniquement. Le mouvement s'oppose a la protection anti-copie et au DRM."
+      },
+      {
+        "question_text": "Quelle organisation est a l'origine du mouvement du logiciel libre, et avec quelle licence ?",
+        "choice_a": "La Free Software Foundation, avec la licence copyleft GNU Public License (GPL)",
+        "choice_b": "L'IEEE, avec la norme POSIX",
+        "choice_c": "La Linux Foundation, avec la licence Apache",
+        "choice_d": "L'Open Source Initiative, avec la licence MIT",
+        "correct_choice": "A",
+        "explanation": "Le mouvement a ete lance par la Free Software Foundation (FSF), qui porte la licence copyleft GNU Public License (GPL). Le cours precise que logiciel libre et open source sont deux idees distinctes, defendues par des groupes differents."
+      },
+      {
+        "question_text": "Quel systeme est cite comme constituant le coeur de Mac OS X ?",
+        "choice_a": "Solaris",
+        "choice_b": "MINIX",
+        "choice_c": "GNU/Linux",
+        "choice_d": "BSD UNIX",
+        "correct_choice": "D",
+        "explanation": "Parmi les exemples de systemes libres et open source, le cours cite GNU/Linux et BSD UNIX, ce dernier constituant le coeur de Mac OS X."
+      },
+      {
+        "question_text": "Quelle est la complexite de recherche dans un arbre binaire de recherche equilibre ?",
+        "choice_a": "O(n)",
+        "choice_b": "O(lg n)",
+        "choice_c": "O(n log n)",
+        "choice_d": "O(1)",
+        "correct_choice": "B",
+        "explanation": "Dans un arbre binaire de recherche, la performance de recherche est en O(n) dans le cas general. Un arbre binaire de recherche equilibre ramene cette performance a O(lg n)."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un bitmap parmi les structures de donnees du noyau ?",
+        "choice_a": "Une liste chainee dont le dernier element pointe vers le premier",
+        "choice_b": "Une chaine de n chiffres binaires representant l'etat de n elements",
+        "choice_c": "Une image matricielle stockee en memoire video",
+        "choice_d": "Une table associant des cles a des valeurs par hachage",
+        "correct_choice": "B",
+        "explanation": "Un bitmap est une chaine de n chiffres binaires representant le statut de n elements. C'est une structure compacte utilisee par le noyau, par exemple pour la gestion de l'espace libre."
+      },
+      {
+        "question_text": "Quels fichiers d'en-tete Linux le cours cite-t-il pour les structures de donnees du noyau ?",
+        "choice_a": "<stdio.h>, <stdlib.h> et <string.h>",
+        "choice_b": "<sys/socket.h>, <netinet/in.h> et <arpa/inet.h>",
+        "choice_c": "<linux/list.h>, <linux/kfifo.h> et <linux/rbtree.h>",
+        "choice_d": "<pthread.h>, <semaphore.h> et <signal.h>",
+        "correct_choice": "C",
+        "explanation": "Les structures de donnees Linux sont definies dans les fichiers d'inclusion <linux/list.h>, <linux/kfifo.h> et <linux/rbtree.h>. Beaucoup sont similaires aux structures de programmation standard."
+      },
+      {
+        "question_text": "Quels types de listes chainees le cours mentionne-t-il parmi les structures du noyau ?",
+        "choice_a": "Ascendante, descendante et bidirectionnelle equilibree",
+        "choice_b": "Statique, dynamique et hybride",
+        "choice_c": "Triee, non triee et indexee",
+        "choice_d": "Simplement chainee, doublement chainee et circulaire",
+        "correct_choice": "D",
+        "explanation": "Le cours cite trois formes de listes chainees utilisees dans le noyau : la liste simplement chainee (singly linked list), la liste doublement chainee (doubly linked list) et la liste circulaire (circular linked list)."
+      }
+    ]
+  },
+  {
+    "name": "Computer Programming",
+    "key": "school-cp",
+    "color": "emerald",
+    "parent": "School",
+    "questions": []
+  },
+  {
+    "name": "Week 1",
+    "key": "school-cp-w1",
+    "color": "teal",
+    "parent": "school-cp",
+    "lesson": "# Computer Programming  Week 1\n\nIntroduction : resolution de problemes par ordinateur, evolution des langages,\nniveaux de representation d'un programme, caracteristiques du C, structure d'un\nprogramme C, processus de compilation et d'execution.\n\n---\n\n## 1. Des langages machine aux langages de haut niveau\n\nLe processeur n'execute que du **code machine** : des suites de 0 et de 1.\nL'**assembleur** met des mnemoniques sur ces instructions, mais reste lie a une\narchitecture donnee. Un **langage de haut niveau (HLL)** permet enfin d'ecrire\ndes programmes **independants d'un type particulier d'ordinateur** : c'est la\n**portabilite**.\n\n```\n  int square(int num) { return num * num; }     <-  HLL\n                  |\n                  v\n  push rbp / mov rbp, rsp / imul eax, ...       <-  Assembly\n                  |\n                  v\n  0111000001101000101010010010010100...          <-  Machine code\n```\n\nLa portabilite est renforcee par le respect d'une **norme convenue**, comme\n**C99**. Un **compilateur** (par exemple **gcc** ou **icc**) traduit le\nprogramme de haut niveau en code machine executable.\n\n## 2. Pourquoi le C ?\n\nEssentiellement parce qu'il **produit du code presque aussi rapide que\nl'assembleur, tout en restant un langage de haut niveau**.\n\nDomaines d'emploi cites : systemes d'exploitation, compilateurs, assembleurs,\nediteurs de texte, spouleurs d'impression, pilotes reseau, interpreteurs de\nlangage, utilitaires.\n\n## 3. Executer un programme\n\nLa chaine complete, du code source au resultat :\n\n```\nProgrammeur -> [Text Editor] -> Source (.c)\n                                   |\n                                   v\n                             [Compiler] -> Object\n                                   |\n              Library ----------> [Linker] -> Executable\n                                   |\n                                   v\n                              [Runner] -> Results\n```\n\nQuatre etapes a retenir : on **edite** le source, le **compilateur** produit un\nfichier **objet**, l'**editeur de liens (linker)** combine cet objet avec les\n**bibliotheques** pour produire l'**executable**, puis le **runner** l'execute\net donne les resultats.\n\n## 4. Un programme C minimal\n\n```c\n#include <stdio.h>\nmain()\n{\n    printf(\"hello, world\\n\");\n}\n```\n\nSortie du programme :\n\n```\nhello, world\n```\n\nPoints de structure :\n\n- `#include <stdio.h>` est une **directive du preprocesseur** : elle insere\n  l'en-tete de la bibliotheque d'entrees/sorties standard, necessaire pour\n  utiliser `printf`.\n- `main()` est le **point d'entree** : l'execution commence la.\n- Les **accolades** `{ }` delimitent le corps ; chaque **instruction** se termine\n  par un **point-virgule**.\n- `\\n` est une **sequence d'echappement** representant le retour a la ligne.\n",
+    "questions": [
+      {
+        "question_text": "Qu'appelle-t-on portabilite d'un programme ?",
+        "choice_a": "La capacite de deplacer physiquement un ordinateur sans l'eteindre",
+        "choice_b": "La possibilite d'executer un programme sans systeme d'exploitation",
+        "choice_c": "La faculte d'un programme a s'executer sans memoire vive",
+        "choice_d": "La capacite d'ecrire des programmes independants d'un type particulier d'ordinateur",
+        "correct_choice": "D",
+        "explanation": "Les langages de haut niveau permettent au programmeur d'ecrire des programmes independants de types particuliers d'ordinateurs. C'est ce que l'on appelle la portabilite."
+      },
+      {
+        "question_text": "Comment la portabilite d'un programme peut-elle etre renforcee ?",
+        "choice_a": "En ecrivant directement en langage machine",
+        "choice_b": "En respectant une norme convenue lors de l'ecriture du programme, comme C99",
+        "choice_c": "En n'utilisant aucune bibliotheque externe",
+        "choice_d": "En compilant le programme sur le plus grand nombre de machines possible",
+        "correct_choice": "B",
+        "explanation": "La portabilite peut etre facilitee par l'usage d'un standard convenu au moment d'ecrire le programme, tel que C99. La norme fixe un comportement commun que tous les compilateurs conformes doivent respecter."
+      },
+      {
+        "question_text": "Quel est le role d'un compilateur comme gcc ou icc ?",
+        "choice_a": "Relier le programme aux bibliotheques du systeme uniquement",
+        "choice_b": "Executer le programme ligne a ligne sans le traduire",
+        "choice_c": "Detecter les erreurs a l'execution du programme",
+        "choice_d": "Convertir un programme ecrit en langage de haut niveau en code machine executable",
+        "correct_choice": "D",
+        "explanation": "Un compilateur tel que gcc ou icc sert a convertir le programme ecrit en langage de haut niveau en code machine executable par l'ordinateur."
+      },
+      {
+        "question_text": "Dans quel ordre s'enchainent les niveaux de representation d'un programme ?",
+        "choice_a": "Code assembleur, puis langage de haut niveau, puis code machine",
+        "choice_b": "Langage de haut niveau, puis code machine, puis code assembleur",
+        "choice_c": "Code machine, puis code assembleur, puis langage de haut niveau",
+        "choice_d": "Langage de haut niveau, puis code assembleur, puis code machine",
+        "correct_choice": "D",
+        "explanation": "La chaine de traduction descend du langage de haut niveau (HLL) vers le code assembleur, puis vers le code machine, seule forme directement executable par le processeur."
+      },
+      {
+        "question_text": "Sous quelle forme le processeur execute-t-il reellement un programme ?",
+        "choice_a": "En code assembleur, avec des mnemoniques",
+        "choice_b": "En code machine, des suites de 0 et de 1",
+        "choice_c": "En texte source, interprete a la volee",
+        "choice_d": "En langage de haut niveau, ligne par ligne",
+        "correct_choice": "B",
+        "explanation": "Le processeur n'execute que du code machine : des suites de 0 et de 1. L'assembleur ne fait que poser des mnemoniques sur ces instructions, et le langage de haut niveau doit etre compile avant de pouvoir s'executer."
+      },
+      {
+        "question_text": "Quelle est la raison principale invoquee pour utiliser le C ?",
+        "choice_a": "Il ne necessite aucune compilation",
+        "choice_b": "Il est le seul langage capable d'acceder au reseau",
+        "choice_c": "Il produit du code presque aussi rapide que l'assembleur tout en restant un langage de haut niveau",
+        "choice_d": "Il empeche par construction toute erreur de memoire",
+        "correct_choice": "C",
+        "explanation": "Le C est retenu principalement parce qu'il produit du code s'executant presque aussi vite que du code ecrit en assembleur, tout en etant un langage de programmation de haut niveau."
+      },
+      {
+        "question_text": "Parmi ces domaines, lequel N'EST PAS cite dans le cours comme usage typique du C ?",
+        "choice_a": "Les systemes d'exploitation",
+        "choice_b": "Les pilotes reseau et les spouleurs d'impression",
+        "choice_c": "Les feuilles de calcul collaboratives en ligne",
+        "choice_d": "Les compilateurs et les assembleurs",
+        "correct_choice": "C",
+        "explanation": "Les usages cites sont : systemes d'exploitation, compilateurs de langages, assembleurs, editeurs de texte, spouleurs d'impression, pilotes reseau, interpreteurs de langages et utilitaires."
+      },
+      {
+        "question_text": "Dans la chaine d'execution d'un programme, que produit le compilateur a partir du code source ?",
+        "choice_a": "Les resultats du programme",
+        "choice_b": "Un fichier de bibliotheque partagee",
+        "choice_c": "Un fichier objet",
+        "choice_d": "Directement l'executable final",
+        "correct_choice": "C",
+        "explanation": "La chaine est : le programmeur ecrit le source dans un editeur de texte, le compilateur en produit un fichier objet, le linker combine cet objet avec les bibliotheques pour produire l'executable, et le runner l'execute pour donner les resultats."
+      },
+      {
+        "question_text": "Quel est le role de l'editeur de liens (linker) ?",
+        "choice_a": "Charger le programme en memoire au moment de l'execution",
+        "choice_b": "Combiner le fichier objet avec les bibliotheques pour produire l'executable",
+        "choice_c": "Traduire le code source en code assembleur",
+        "choice_d": "Verifier la syntaxe du programme avant compilation",
+        "correct_choice": "B",
+        "explanation": "Le linker prend en entree le fichier objet issu de la compilation et les bibliotheques, et produit en sortie le fichier executable."
+      },
+      {
+        "question_text": "Dans le schema d'execution d'un programme, quelle entree supplementaire le linker recoit-il en plus du fichier objet ?",
+        "choice_a": "La bibliotheque (library)",
+        "choice_b": "Le fichier source d'origine",
+        "choice_c": "Le fichier de configuration de l'IDE",
+        "choice_d": "Le code assembleur intermediaire",
+        "correct_choice": "A",
+        "explanation": "Le schema montre le linker recevant deux entrees : le fichier objet produit par le compilateur, et la bibliotheque. Il en produit l'executable."
+      },
+      {
+        "question_text": "Quel outil le programmeur utilise-t-il en toute premiere etape de la chaine ?",
+        "choice_a": "Le compilateur, applique directement au clavier",
+        "choice_b": "Le linker, pour preparer les bibliotheques",
+        "choice_c": "Le debogueur, pour poser les points d'arret",
+        "choice_d": "Un editeur de texte, pour produire le fichier source",
+        "correct_choice": "D",
+        "explanation": "La chaine commence par le programmeur qui, a l'aide d'un editeur de texte (text editor), redige le fichier source contenant le code C."
+      },
+      {
+        "question_text": "Dans un programme C, que fait la ligne #include <stdio.h> ?",
+        "choice_a": "Elle demande au preprocesseur d'inserer l'en-tete des entrees/sorties standard",
+        "choice_b": "Elle declare la fonction main du programme",
+        "choice_c": "Elle reserve de la memoire pour les variables globales",
+        "choice_d": "Elle indique au linker quelle bibliotheque produire",
+        "correct_choice": "A",
+        "explanation": "#include <stdio.h> est une directive du preprocesseur. Elle insere le fichier d'en-tete des entrees/sorties standard, indispensable pour utiliser printf dans le programme."
+      },
+      {
+        "question_text": "Dans un programme C, par ou l'execution commence-t-elle ?",
+        "choice_a": "Par la premiere directive #include",
+        "choice_b": "Par la derniere fonction definie dans le fichier",
+        "choice_c": "Par la premiere ligne du fichier, quelle qu'elle soit",
+        "choice_d": "Par la fonction main",
+        "correct_choice": "D",
+        "explanation": "L'execution d'un programme C commence par la fonction main. C'est son point d'entree, quel que soit son emplacement dans le fichier."
+      },
+      {
+        "question_text": "Que produit en sortie le programme : #include <stdio.h> main() { printf(\"hello, world\\n\"); } ?",
+        "choice_a": "hello, world\\n avec la barre oblique inverse et le n affiches",
+        "choice_b": "hello, world suivi d'un retour a la ligne",
+        "choice_c": "Rien, car main ne retourne aucune valeur",
+        "choice_d": "Une erreur de compilation, printf n'etant pas declaree",
+        "correct_choice": "B",
+        "explanation": "Le programme affiche hello, world. La sequence \\n n'est pas affichee telle quelle : c'est une sequence d'echappement qui represente le passage a la ligne suivante."
+      },
+      {
+        "question_text": "Que represente la sequence \\n dans une chaine de caracteres en C ?",
+        "choice_a": "La fin de la chaine de caracteres",
+        "choice_b": "Les deux caracteres barre oblique inverse et n",
+        "choice_c": "Un retour a la ligne (nouvelle ligne)",
+        "choice_d": "Une tabulation horizontale",
+        "correct_choice": "C",
+        "explanation": "\\n est une sequence d'echappement representant le caractere de nouvelle ligne. Elle occupe deux caracteres dans le code source mais un seul dans la chaine produite."
+      },
+      {
+        "question_text": "Quel caractere termine chaque instruction en C ?",
+        "choice_a": "Le point-virgule",
+        "choice_b": "La virgule",
+        "choice_c": "Le point",
+        "choice_d": "Le retour a la ligne",
+        "correct_choice": "A",
+        "explanation": "En C, chaque instruction se termine par un point-virgule. Les accolades delimitent quant a elles les blocs, comme le corps de la fonction main."
+      },
+      {
+        "question_text": "Quel role jouent les accolades { } dans un programme C ?",
+        "choice_a": "Elles delimitent un bloc d'instructions, comme le corps d'une fonction",
+        "choice_b": "Elles marquent le debut et la fin d'une chaine de caracteres",
+        "choice_c": "Elles indiquent un commentaire",
+        "choice_d": "Elles declarent un tableau",
+        "correct_choice": "A",
+        "explanation": "Les accolades delimitent un bloc. Dans le programme minimal, elles encadrent le corps de la fonction main, c'est-a-dire l'ensemble des instructions qu'elle execute."
+      },
+      {
+        "question_text": "Quelle fonction est utilisee dans l'exemple pour afficher du texte a l'ecran ?",
+        "choice_a": "scanf",
+        "choice_b": "cout",
+        "choice_c": "printf",
+        "choice_d": "write",
+        "correct_choice": "C",
+        "explanation": "L'exemple utilise printf, la fonction d'affichage formate de la bibliotheque standard, declaree dans stdio.h. scanf en est le pendant pour la lecture."
+      },
+      {
+        "question_text": "A quelle categorie d'instruction appartient #include en C ?",
+        "choice_a": "Aux appels de fonction",
+        "choice_b": "Aux instructions de controle de flux",
+        "choice_c": "Aux declarations de variables",
+        "choice_d": "Aux directives du preprocesseur",
+        "correct_choice": "D",
+        "explanation": "#include, comme #define et #ifdef, est une directive du preprocesseur : elle est traitee avant la compilation proprement dite. #include <stdio.h> insere le contenu du fichier d'en-tete a cet endroit du source."
+      }
+    ]
+  },
+  {
+    "name": "Database Design",
+    "key": "school-db",
+    "color": "violet",
+    "parent": "School",
+    "questions": []
+  },
+  {
+    "name": "Week 1",
+    "key": "school-db-w1",
+    "color": "indigo",
+    "parent": "school-db",
+    "lesson": "# Database Design  Week 1\n\nFondamentaux : donnee et information, concept de SGBD, avantages d'une base de\ndonnees, vocabulaire de base, architecture ANSI-SPARC a trois niveaux,\nindependance des donnees, types d'utilisateurs et role du DBA.\n\n---\n\n## 1. Donnee, information, SGBD\n\nUne **donnee** est un fait brut, non organise : une observation, un symbole\n(50, 62, \"apple\", une image, un son, une video). **Sans contexte, la donnee est\ninutile.** Lorsqu'elle est traitee, organisee, structuree ou presentee dans un\ncontexte qui la rend utile, elle devient une **information**.\n\n> Notes de 50/100 et 25/100 -> donnees. \"Reussi\" / \"Echoue\" -> information.\n\nLe sigle **DBMS** se decompose :\n\n| Terme | Sens |\n|---|---|\n| **Data** | fait pouvant etre enregistre (nom, age, sexe, poids) |\n| **Database** | ensemble de donnees logiquement liees |\n| **Management** | manipulation, recherche et securite des donnees |\n| **System** | programmes ou outils servant a gerer la base |\n\nUn **SGBD (DBMS)** est donc un **logiciel concu pour definir, manipuler,\nretrouver et gerer les donnees d'une base**. Exemples : MS SQL Server, Oracle,\nMySQL, SQLite, MongoDB.\n\nC'est un **systeme informatise de tenue d'enregistrements**, requis partout ou\ndes donnees doivent etre stockees : commerce en ligne, streaming, reseaux\nsociaux, banque et assurance, transport aerien et ferroviaire, universites,\nbibliotheques, ressources humaines, hopitaux, administrations.\n\n## 2. Les huit avantages d'un SGBD\n\n1. **Reduire la redondance** : les donnees sont stockees de facon centralisee au\n   lieu d'etre dupliquees dans chaque departement.\n2. **Supprimer l'incoherence** : la redondance eliminee, une meme donnee ne peut\n   plus exister dans des etats differents selon l'endroit.\n3. **Isolation des donnees** : les donnees eparpillees dans des fichiers de\n   formats varies sont difficiles a retrouver ; le SGBD y donne acces facilement.\n   L'isolation determine *quand et comment* les modifications d'une operation\n   deviennent visibles aux autres utilisateurs concurrents.\n4. **Atomicite garantie** : une transaction s'execute **a 0 % ou a 100 %**.\n   Un virement de 500 doit debiter A *et* crediter B ; si la transaction echoue\n   a mi-chemin, la somme des comptes deviendrait incoherente.\n5. **Contraintes d'integrite** : les regles metier sont implementables (un\n   numero de mobile fait exactement 10 chiffres, un SPI est compris entre 0 et 10).\n6. **Partage entre plusieurs utilisateurs** simultanement.\n7. **Restriction des acces non autorises**.\n8. **Sauvegarde et restauration** en cas de defaillance.\n\n## 3. Vocabulaire de base\n\n- **Metadonnee** : *donnee sur la donnee*  nom de table, nom de colonne, type,\n  utilisateur autorise, privileges d'acces.\n- **Dictionnaire de donnees** : depot d'informations qui contient les\n  **metadonnees**.\n- **Entrepot de donnees (data warehouse)** : depot d'informations qui stocke les\n  **donnees** elles-memes.\n- **Champ (field)** : un caractere ou groupe de caracteres ayant une\n  signification precise.\n- **Enregistrement (record) / tuple** : une collection de champs logiquement\n  lies.\n\n## 4. Architecture ANSI-SPARC a trois niveaux\n\n```\n   User 1     User 2     User 3\n   View 1     View 2     View 3     <-  niveau EXTERNE (vue)\n        \\       |       /\n          Conceptual Level          <-  niveau CONCEPTUEL (logique)\n                 |\n           Internal Level           <-  niveau INTERNE (physique)\n                 |\n              Database\n```\n\n- **Niveau interne (physique)** : *comment* les donnees sont stockees sur le\n  support  fichiers, pages, blocs, index, ordre des enregistrements. Decrit par\n  le **schema interne**.\n- **Niveau conceptuel (logique)** : *quelles* donnees sont stockees et *quelles\n  relations* existent entre elles. Masque la complexite du stockage. C'est le\n  niveau ou travaille le **DBA**.\n- **Niveau externe (vue)** : la **partie** de la base qui concerne un utilisateur\n  donne. Il peut exister de nombreuses vues ; utilise par les utilisateurs finaux\n  et les programmeurs d'application.\n\nMasquer les details internes non pertinents s'appelle l'**abstraction de\ndonnees**. Le processus de transformation des requetes et des resultats entre\nles trois niveaux s'appelle le **mapping**.\n\n### Independance des donnees\n\nCapacite a modifier un schema a un niveau **sans affecter le schema du niveau\nimmediatement superieur**.\n\n- **Independance physique** : modifier le schema **physique** sans toucher au\n  schema logique ni aux programmes. Motivee par la performance ; concerne les\n  structures de fichiers, la compression, les algorithmes de hachage, les\n  supports de stockage.\n- **Independance logique** : modifier le schema **conceptuel** sans toucher aux\n  programmes d'application. Plus difficile a obtenir, les programmes dependant\n  fortement de la structure logique des donnees qu'ils manipulent.\n\n## 5. Utilisateurs et role du DBA\n\n| Type | Description | Exemple |\n|---|---|---|\n| **Naive / End users** | aucune connaissance du SGBD, passent par un logiciel | guichetier de banque |\n| **Application Programmers** | ecrivent des logiciels (Java, .Net, PHP) | developpeur |\n| **Sophisticated Users** | interagissent sans programme, via des outils de requete SQL | analyste |\n| **Specialized Users (DBA)** | ecrivent des applications specialisees, utilisent les outils d'administration | administrateur |\n\nRoles du **DBA** : definition du schema, definition des structures de stockage\net des methodes d'acces, definition de la securite et des contraintes\nd'integrite, octroi des autorisations d'acces, liaison avec les utilisateurs,\nassistance aux programmeurs, suivi des performances, sauvegarde et restauration.\n",
+    "questions": [
+      {
+        "question_text": "Comment definit-on une donnee (data) ?",
+        "choice_a": "Un programme qui manipule une base de donnees",
+        "choice_b": "Une regle metier appliquee a une table",
+        "choice_c": "Un fait, une observation ou un symbole brut et non organise",
+        "choice_d": "Un ensemble de faits deja interpretes dans un contexte",
+        "correct_choice": "C",
+        "explanation": "Une donnee est un fait, une observation ou un symbole brut et non organise : des nombres (50, 62), du texte (apple), des images, de l'audio, de la video. Sans contexte, cette donnee est inutile."
+      },
+      {
+        "question_text": "Quelle est la difference entre une donnee et une information ?",
+        "choice_a": "L'information est stockee sur disque, la donnee en memoire",
+        "choice_b": "L'information est numerique, la donnee est textuelle",
+        "choice_c": "L'information est une donnee traitee, organisee et presentee dans un contexte qui la rend utile",
+        "choice_d": "Il n'existe aucune difference entre les deux notions",
+        "correct_choice": "C",
+        "explanation": "La donnee est brute et non traitee ; exemple : les notes 50/100 et 25/100. Quand elle est traitee, organisee, structuree ou presentee dans un contexte qui la rend utile, elle devient une information ; exemple : Reussi / Echoue."
+      },
+      {
+        "question_text": "Dans le sigle DBMS, que designe le terme Database ?",
+        "choice_a": "Une collection de donnees logiquement liees",
+        "choice_b": "L'ensemble des utilisateurs autorises",
+        "choice_c": "Le logiciel qui manipule les donnees",
+        "choice_d": "Un fait unique pouvant etre enregistre",
+        "correct_choice": "A",
+        "explanation": "Data designe un fait enregistrable (nom, age, sexe, poids) ; Database une collection de donnees logiquement liees (base des livres d'une bibliotheque) ; Management la manipulation, la recherche et la securite ; System les programmes ou outils de gestion."
+      },
+      {
+        "question_text": "Que designe le terme Management dans le sigle DBMS ?",
+        "choice_a": "Le langage de requetes utilise pour interroger la base",
+        "choice_b": "L'ensemble des donnees logiquement liees",
+        "choice_c": "Le materiel serveur qui heberge la base",
+        "choice_d": "La manipulation, la recherche et la securite des donnees",
+        "correct_choice": "D",
+        "explanation": "Dans DBMS : Data est un fait enregistrable, Database une collection de donnees logiquement liees, Management la manipulation, la recherche et la securite des donnees, et System les programmes ou outils servant a gerer la base."
+      },
+      {
+        "question_text": "Comment le cours definit-il un systeme de gestion de base de donnees (SGBD) ?",
+        "choice_a": "Un langage de requetes normalise",
+        "choice_b": "Un protocole reseau de transfert de donnees",
+        "choice_c": "Un materiel dedie au stockage des donnees d'entreprise",
+        "choice_d": "Un logiciel concu pour definir, manipuler, retrouver et gerer les donnees d'une base",
+        "correct_choice": "D",
+        "explanation": "Un SGBD est un logiciel permettant de creer et de gerer des bases de donnees : il sert a definir, manipuler, retrouver et gerer les donnees. Exemples : MS SQL Server, Oracle, MySQL, SQLite, MongoDB."
+      },
+      {
+        "question_text": "Comment le cours qualifie-t-il globalement un SGBD ?",
+        "choice_a": "Un service de sauvegarde automatique",
+        "choice_b": "Un langage de programmation oriente donnees",
+        "choice_c": "Un systeme d'exploitation specialise",
+        "choice_d": "Un systeme informatise de tenue d'enregistrements (record-keeping system)",
+        "correct_choice": "D",
+        "explanation": "Le SGBD est presente comme un systeme informatise de tenue d'enregistrements, necessaire partout ou des donnees doivent etre stockees : e-commerce, streaming, reseaux sociaux, banque, transport, universites, bibliotheques, RH, hopitaux, administrations."
+      },
+      {
+        "question_text": "Comment un SGBD reduit-il la redondance des donnees ?",
+        "choice_a": "En stockant les donnees de maniere centralisee au lieu de les dupliquer dans chaque service",
+        "choice_b": "En supprimant les enregistrements les plus anciens",
+        "choice_c": "En compressant automatiquement toutes les tables",
+        "choice_d": "En interdisant a plusieurs utilisateurs d'ecrire simultanement",
+        "correct_choice": "A",
+        "explanation": "Sans SGBD, la meme donnee (Prof. Lee, Busan, 8235, DB) se retrouve stockee dans quatre departements differents. Le SGBD supprime cette redondance en stockant les donnees de facon centralisee."
+      },
+      {
+        "question_text": "Pourquoi la suppression de la redondance elimine-t-elle l'incoherence des donnees ?",
+        "choice_a": "Parce qu'une donnee stockee a un seul endroit ne peut plus exister dans des etats differents selon la copie",
+        "choice_b": "Parce que les utilisateurs sont authentifies",
+        "choice_c": "Parce que le SGBD verifie l'orthographe des valeurs saisies",
+        "choice_d": "Parce que les sauvegardes sont automatiques",
+        "correct_choice": "A",
+        "explanation": "Quand la meme donnee est dupliquee en quatre endroits, une mise a jour partielle laisse des valeurs divergentes (un numero de mobile change a un endroit seulement). En eliminant la redondance, on elimine l'incoherence : le SGBD maintient les donnees dans un etat coherent."
+      },
+      {
+        "question_text": "Que garantit l'atomicite d'une transaction ?",
+        "choice_a": "La transaction s'execute toujours en moins d'une seconde",
+        "choice_b": "La transaction est toujours annulable apres validation",
+        "choice_c": "La transaction s'execute soit a 0 %, soit a 100 %, jamais partiellement",
+        "choice_d": "La transaction n'utilise qu'une seule table a la fois",
+        "correct_choice": "C",
+        "explanation": "L'atomicite signifie qu'une transaction s'execute a 0 % ou a 100 %. Dans l'exemple du virement de 500 entre deux comptes, si le debit a lieu sans le credit, la somme des comptes passe de 3000 a 2500 : l'etat devient incoherent."
+      },
+      {
+        "question_text": "Dans l'exemple du virement de 500 entre deux comptes, quelles sont les deux etapes de la transaction ?",
+        "choice_a": "Verifier le solde, puis envoyer une notification",
+        "choice_b": "Bloquer les deux comptes, puis les debloquer",
+        "choice_c": "Debiter 500 du compte A, puis crediter 500 sur le compte B",
+        "choice_d": "Copier le compte A, puis supprimer le compte B",
+        "correct_choice": "C",
+        "explanation": "La transaction comporte deux etapes : etape 1, debiter 500 du compte A ; etape 2, crediter 500 sur le compte B. La somme des deux comptes doit valoir 3000 avant comme apres le transfert."
+      },
+      {
+        "question_text": "Quel exemple de contrainte d'integrite le cours donne-t-il ?",
+        "choice_a": "Un mot de passe doit etre change tous les 90 jours",
+        "choice_b": "Un nom d'employe doit commencer par une majuscule",
+        "choice_c": "Une table ne doit pas depasser un million de lignes",
+        "choice_d": "Un numero de mobile doit contenir exactement 10 chiffres, un SPI doit etre compris entre 0 et 10",
+        "correct_choice": "D",
+        "explanation": "Le SGBD permet d'implementer les regles metier sous forme de contraintes d'integrite : le champ Mobile_No doit contenir exactement 10 chiffres, et le SPI d'un etudiant doit etre compris entre 0 et 10."
+      },
+      {
+        "question_text": "Qu'est-ce que l'isolation des donnees dans le contexte du SGBD ?",
+        "choice_a": "La separation physique des disques entre departements",
+        "choice_b": "Une propriete qui determine quand et comment les modifications d'une operation deviennent visibles aux autres utilisateurs concurrents",
+        "choice_c": "L'interdiction faite a un utilisateur de se connecter a distance",
+        "choice_d": "Le chiffrement de chaque table avec une cle distincte",
+        "correct_choice": "B",
+        "explanation": "Sans SGBD, les donnees sont dispersees dans des fichiers de formats varies, ce qui rend leur recuperation difficile. L'isolation, elle, est la propriete qui determine quand et comment les modifications faites par une operation deviennent visibles aux autres utilisateurs et systemes concurrents : c'est une question de concurrence."
+      },
+      {
+        "question_text": "Combien d'avantages du SGBD le cours recapitule-t-il ?",
+        "choice_a": "Huit",
+        "choice_b": "Dix",
+        "choice_c": "Trois",
+        "choice_d": "Cinq",
+        "correct_choice": "A",
+        "explanation": "Le recapitulatif liste huit avantages : reduire la redondance, supprimer l'incoherence, isolation des donnees, atomicite garantie, contraintes d'integrite, partage entre plusieurs utilisateurs, restriction des acces non autorises, sauvegarde et restauration."
+      },
+      {
+        "question_text": "Quel avantage du SGBD protege contre la perte de donnees en cas de defaillance ?",
+        "choice_a": "Les contraintes d'integrite",
+        "choice_b": "Les services de sauvegarde et de restauration",
+        "choice_c": "La reduction de la redondance",
+        "choice_d": "L'atomicite des transactions",
+        "correct_choice": "B",
+        "explanation": "Le SGBD fournit des facilites pour sauvegarder et restaurer la base en cas de defaillance. Une sauvegarde reguliere, automatique ou manuelle, permet de restaurer la base si elle se corrompt."
+      },
+      {
+        "question_text": "Comment un SGBD gere-t-il l'acces simultane de plusieurs utilisateurs aux memes donnees ?",
+        "choice_a": "Il cree une copie privee des donnees pour chaque utilisateur",
+        "choice_b": "Il met les utilisateurs en file d'attente, un seul a la fois",
+        "choice_c": "Il autorise plus d'un utilisateur a acceder aux memes donnees en meme temps",
+        "choice_d": "Il refuse tout acces concurrent pour eviter les conflits",
+        "correct_choice": "C",
+        "explanation": "Le partage des donnees entre plusieurs utilisateurs est un avantage du SGBD : il permet a plus d'un utilisateur d'acceder aux memes donnees simultanement, la ou des fichiers separes obligeraient a dupliquer ou a bloquer l'acces."
+      },
+      {
+        "question_text": "Qu'est-ce qu'une metadonnee ?",
+        "choice_a": "Une donnee dupliquee a des fins de sauvegarde",
+        "choice_b": "Une donnee sur la donnee : nom de table, nom de colonne, type, privileges d'acces",
+        "choice_c": "Une donnee generee automatiquement par une requete",
+        "choice_d": "Une donnee stockee hors de la base, dans un fichier plat",
+        "correct_choice": "B",
+        "explanation": "Une metadonnee est une donnee a propos de la donnee. Pour une table, ce sont le nom de la table, les noms de colonnes, les types de donnees, l'utilisateur autorise et ses privileges d'acces."
+      },
+      {
+        "question_text": "Quelle est la difference entre un dictionnaire de donnees et un entrepot de donnees ?",
+        "choice_a": "Les deux stockent exactement la meme chose a des endroits differents",
+        "choice_b": "Le dictionnaire est physique, l'entrepot est logique",
+        "choice_c": "Le dictionnaire contient les metadonnees, l'entrepot stocke les donnees elles-memes",
+        "choice_d": "Le dictionnaire stocke les donnees, l'entrepot les metadonnees",
+        "correct_choice": "C",
+        "explanation": "Le dictionnaire de donnees est un depot d'informations contenant les metadonnees (nom de table, noms de colonnes, types, privileges). L'entrepot de donnees est un depot d'informations qui stocke les donnees elles-memes."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un champ (field) ?",
+        "choice_a": "Le nom donne a une table",
+        "choice_b": "L'ensemble des colonnes d'une base",
+        "choice_c": "Une ligne complete d'une table",
+        "choice_d": "Un caractere ou un groupe de caracteres ayant une signification precise",
+        "correct_choice": "D",
+        "explanation": "Un champ est un caractere ou un groupe de caracteres ayant une signification specifique. Dans la table Faculty, les valeurs de Emp_Name, Address, Mobile_No sont autant de champs."
+      },
+      {
+        "question_text": "Qu'est-ce qu'un enregistrement (record ou tuple) ?",
+        "choice_a": "Un ensemble de tables logiquement liees",
+        "choice_b": "Une collection de champs logiquement lies",
+        "choice_c": "Une requete enregistree pour reutilisation",
+        "choice_d": "Une contrainte appliquee a une colonne",
+        "correct_choice": "B",
+        "explanation": "Un enregistrement, aussi appele tuple, est une collection de champs logiquement lies. La collection des champs Emp_Name, Address, Mobile_No et Subject forme un enregistrement de la table Faculty."
+      },
+      {
+        "question_text": "Quels sont les trois niveaux de l'architecture ANSI-SPARC ?",
+        "choice_a": "Application, presentation et session",
+        "choice_b": "Primaire, secondaire et tertiaire",
+        "choice_c": "Client, serveur et base",
+        "choice_d": "Externe (vue), conceptuel (logique) et interne (physique)",
+        "correct_choice": "D",
+        "explanation": "L'architecture ANSI-SPARC comporte trois niveaux : externe ou vue (comment les donnees sont vues par chaque utilisateur), conceptuel ou logique (quelles donnees sont stockees et quelles relations existent), et interne ou physique (comment les donnees sont reellement stockees)."
+      },
+      {
+        "question_text": "A quelle question repond le niveau interne (physique) ?",
+        "choice_a": "Qui est autorise a modifier les donnees",
+        "choice_b": "Comment les donnees sont reellement stockees sur le support de stockage",
+        "choice_c": "Comment chaque utilisateur voit les donnees",
+        "choice_d": "Quelles donnees sont stockees et quelles relations existent entre elles",
+        "correct_choice": "B",
+        "explanation": "Le niveau interne decrit comment une donnee est stockee sur le peripherique de stockage. Il traite du stockage physique : structure des enregistrements sur disque (fichiers, pages, blocs, index) et ordre des enregistrements. Il est decrit par le schema interne."
+      },
+      {
+        "question_text": "A quel niveau de l'architecture ANSI-SPARC le DBA travaille-t-il pour determiner quelles donnees conserver ?",
+        "choice_a": "Au niveau interne (physique)",
+        "choice_b": "Au niveau conceptuel (logique)",
+        "choice_c": "Au niveau externe (vue)",
+        "choice_d": "A aucun de ces niveaux",
+        "correct_choice": "B",
+        "explanation": "Le niveau conceptuel repond a la question des donnees stockees et des relations entre elles, en masquant les complexites de bas niveau du stockage physique. C'est a ce niveau que le DBA travaille pour determiner quelles donnees garder dans la base."
+      },
+      {
+        "question_text": "Qui utilise le niveau externe (vue) de l'architecture ANSI-SPARC ?",
+        "choice_a": "Les utilisateurs finaux et les programmeurs d'application",
+        "choice_b": "Uniquement le moteur de stockage",
+        "choice_c": "Uniquement l'administrateur systeme",
+        "choice_d": "Uniquement le compilateur SQL",
+        "correct_choice": "A",
+        "explanation": "Le niveau externe ne decrit qu'une partie de la base, celle qui concerne un utilisateur donne. Des utilisateurs differents ont besoin de vues differentes, d'ou de multiples vues possibles. Il est utilise par les utilisateurs finaux et les programmeurs d'application."
+      },
+      {
+        "question_text": "Qu'appelle-t-on abstraction de donnees ?",
+        "choice_a": "Le fait de masquer a l'utilisateur les details internes non pertinents",
+        "choice_b": "Le resume statistique des donnees d'une table",
+        "choice_c": "La conversion automatique entre types de donnees",
+        "choice_d": "La suppression des donnees obsoletes",
+        "correct_choice": "A",
+        "explanation": "Les systemes de bases de donnees sont faits de structures de donnees complexes. Pour faciliter l'interaction de l'utilisateur avec la base, les developpeurs lui masquent les details internes non pertinents : ce processus s'appelle l'abstraction de donnees."
+      },
+      {
+        "question_text": "Qu'appelle-t-on mapping dans l'architecture a trois niveaux ?",
+        "choice_a": "La conversion d'un modele ER en modele relationnel",
+        "choice_b": "L'affectation des blocs disque aux enregistrements",
+        "choice_c": "L'association d'une cle primaire a une cle etrangere",
+        "choice_d": "Le processus de transformation des requetes et des resultats entre les trois niveaux",
+        "correct_choice": "D",
+        "explanation": "Le processus de transformation des requetes et des resultats entre les trois niveaux s'appelle le mapping. Il permet a une requete formulee au niveau d'une vue d'etre traduite jusqu'au niveau physique, puis au resultat de remonter."
+      },
+      {
+        "question_text": "Comment definit-on l'independance des donnees ?",
+        "choice_a": "La capacite a modifier la definition d'un schema a un niveau sans affecter la definition du schema au niveau immediatement superieur",
+        "choice_b": "La possibilite de stocker les donnees sur plusieurs serveurs",
+        "choice_c": "Le fait que chaque utilisateur possede sa propre copie des donnees",
+        "choice_d": "L'absence de relations entre les tables d'une base",
+        "correct_choice": "A",
+        "explanation": "L'independance des donnees est la capacite a modifier la definition d'un schema a un niveau sans affecter la definition du schema au niveau immediatement superieur."
+      },
+      {
+        "question_text": "Qu'est-ce que l'independance physique des donnees ?",
+        "choice_a": "La capacite a modifier le schema physique sans changer le schema logique ni les programmes d'application",
+        "choice_b": "La capacite a modifier le schema conceptuel sans changer les programmes",
+        "choice_c": "La separation physique des serveurs de production et de test",
+        "choice_d": "Le fait que les donnees soient stockees sur un support non volatile",
+        "correct_choice": "A",
+        "explanation": "L'independance physique est la capacite a modifier le schema physique sans exiger de changement du schema logique ni des programmes d'application. Les modifications internes sont parfois necessaires pour ameliorer les performances : structures de fichiers, techniques de compression, algorithmes de hachage, supports de stockage."
+      },
+      {
+        "question_text": "Pourquoi l'independance logique des donnees est-elle plus difficile a obtenir que l'independance physique ?",
+        "choice_a": "Parce que les programmes d'application dependent fortement de la structure logique des donnees qu'ils manipulent",
+        "choice_b": "Parce que le materiel de stockage change trop souvent",
+        "choice_c": "Parce que le SGBD interdit toute modification du niveau conceptuel",
+        "choice_d": "Parce que le schema logique ne peut jamais etre modifie",
+        "correct_choice": "A",
+        "explanation": "L'independance logique est la capacite a modifier le schema conceptuel sans changer les programmes d'application. Mais les programmes dependent fortement des structures logiques des donnees qu'ils accedent : tout changement de structure logique impose donc souvent de modifier les programmes."
+      },
+      {
+        "question_text": "Quelles modifications releveraient d'un changement au niveau interne ?",
+        "choice_a": "L'ajout d'une nouvelle table au schema",
+        "choice_b": "La creation d'une vue pour un nouvel utilisateur",
+        "choice_c": "Un changement de structure de fichiers, de technique de compression, d'algorithme de hachage ou de support de stockage",
+        "choice_d": "La modification d'une regle metier",
+        "correct_choice": "C",
+        "explanation": "Les modifications possibles au niveau interne sont les changements de structures de fichiers, de techniques de compression, d'algorithmes de hachage, de supports de stockage, etc. Elles sont occasionnellement necessaires pour ameliorer les performances."
+      },
+      {
+        "question_text": "Comment caracterise-t-on un utilisateur naif (naive user) ?",
+        "choice_a": "Un utilisateur qui developpe des applications en Java ou PHP",
+        "choice_b": "Un utilisateur sans aucune connaissance du systeme de base de donnees, qui interagit via un logiciel ou un outil",
+        "choice_c": "Un utilisateur qui ecrit des requetes SQL complexes",
+        "choice_d": "Un utilisateur qui administre les droits d'acces",
+        "correct_choice": "B",
+        "explanation": "Les utilisateurs naifs, ou utilisateurs finaux, sont des utilisateurs non avertis ayant une connaissance nulle du systeme de base de donnees. Ils interagissent avec la base via un logiciel ou des outils elabores. Exemple donne : un guichetier de banque."
+      },
+      {
+        "question_text": "Qu'est-ce qui caracterise un utilisateur sophistique (sophisticated user) ?",
+        "choice_a": "Il ecrit les programmes d'application de l'entreprise",
+        "choice_b": "Il ne sait pas ce qu'est une base de donnees",
+        "choice_c": "Il est responsable des sauvegardes du systeme",
+        "choice_d": "Il interagit avec le systeme sans passer par un programme d'application, en utilisant des outils de requete comme SQL",
+        "correct_choice": "D",
+        "explanation": "L'utilisateur sophistique interagit avec le systeme de base de donnees sans utiliser de programme d'application. Il emploie des outils de requete tels que SQL. Exemple donne : un analyste."
+      },
+      {
+        "question_text": "Quels sont les quatre types d'utilisateurs de base de donnees identifies ?",
+        "choice_a": "Debutants, intermediaires, avances et experts",
+        "choice_b": "Utilisateurs naifs, programmeurs d'application, utilisateurs sophistiques et utilisateurs specialises (DBA)",
+        "choice_c": "Internes, externes, conceptuels et physiques",
+        "choice_d": "Lecteurs, redacteurs, administrateurs et auditeurs",
+        "correct_choice": "B",
+        "explanation": "Les quatre types sont : les utilisateurs naifs ou finaux (guichetier), les programmeurs d'application (developpeurs Java, .Net, PHP), les utilisateurs sophistiques (analystes utilisant SQL) et les utilisateurs specialises ou DBA."
+      },
+      {
+        "question_text": "Quel outil un programmeur d'application utilise-t-il selon la typologie du cours ?",
+        "choice_a": "Un logiciel a interface graphique concu pour les non-inities",
+        "choice_b": "Uniquement des requetes SQL interactives",
+        "choice_c": "Uniquement des outils d'administration de base de donnees",
+        "choice_d": "Des langages comme Java, .Net ou PHP",
+        "correct_choice": "D",
+        "explanation": "Les programmeurs d'application sont des programmeurs qui ecrivent des logiciels a l'aide d'outils tels que Java, .Net ou PHP. Exemple donne : un developpeur logiciel."
+      },
+      {
+        "question_text": "Parmi ces taches, laquelle releve du role du DBA ?",
+        "choice_a": "Saisir quotidiennement les donnees clients",
+        "choice_b": "Concevoir l'interface graphique de l'application",
+        "choice_c": "Definir le schema logique de la base de donnees",
+        "choice_d": "Ecrire les programmes d'application metier",
+        "correct_choice": "C",
+        "explanation": "Les roles du DBA incluent : definition du schema, definition des structures de stockage et methodes d'acces, definition de la securite et des contraintes d'integrite, octroi des autorisations d'acces, liaison avec les utilisateurs, assistance aux programmeurs, suivi des performances, sauvegarde et restauration."
+      },
+      {
+        "question_text": "Que fait le DBA au titre du suivi des performances ?",
+        "choice_a": "Il modifie si necessaire le schema physique ou logique pour maintenir de bonnes performances",
+        "choice_b": "Il ajoute automatiquement du materiel supplementaire",
+        "choice_c": "Il supprime les donnees les moins consultees",
+        "choice_d": "Il reecrit les programmes d'application des developpeurs",
+        "correct_choice": "A",
+        "explanation": "Le DBA s'assure que de meilleures performances sont maintenues en apportant, si necessaire, une modification au schema physique ou logique."
+      },
+      {
+        "question_text": "Quelle responsabilite du DBA concerne l'acces des utilisateurs aux donnees ?",
+        "choice_a": "Definir la politique de mots de passe de l'entreprise",
+        "choice_b": "Chiffrer l'integralite des communications reseau",
+        "choice_c": "Determiner quel utilisateur a besoin d'acceder a quelle partie de la base et lui accorder l'autorisation",
+        "choice_d": "Creer un compte systeme pour chaque employe de l'entreprise",
+        "correct_choice": "C",
+        "explanation": "L'octroi des autorisations d'acces (granting of authorization for data access) consiste, pour le DBA, a determiner quel utilisateur a besoin d'acceder a quelle partie de la base de donnees."
+      },
+      {
+        "question_text": "Sur quels supports le DBA effectue-t-il les sauvegardes selon le cours ?",
+        "choice_a": "Des supports comme DVD, CD, bande magnetique ou serveurs distants",
+        "choice_b": "Uniquement la memoire vive du serveur",
+        "choice_c": "Uniquement des cles USB chiffrees",
+        "choice_d": "Exclusivement le disque systeme de la base",
+        "correct_choice": "A",
+        "explanation": "Le DBA sauvegarde la base sur des peripheriques de stockage tels que DVD, CD, bande magnetique ou serveurs distants, et restaure le systeme a partir de ces sauvegardes en cas de defaillance, comme une inondation ou une attaque virale."
       }
     ]
   }

@@ -3,7 +3,9 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import type { Category, QuestionBrief } from '../types';
 import { categoriesApi, questionsApi } from '../utils/api';
 import { getCategoryColorClasses } from '../utils/colors';
+import { buildCategoryTree, findNode, getAncestors } from '../utils/categoryTree';
 import { QuestionListRow } from '../components/questions/QuestionListRow';
+import { StudyModes } from '../components/categories/StudyModes';
 import { CategoryCard } from '../components/categories/CategoryCard';
 
 type RandomCount = 'all' | 5 | 10;
@@ -22,7 +24,7 @@ export function CategoryPage() {
   const navigate = useNavigate();
 
   const [category, setCategory] = useState<Category | null>(null);
-  const [children, setChildren] = useState<Category[]>([]);
+  const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [questions, setQuestions] = useState<QuestionBrief[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -36,14 +38,14 @@ export function CategoryPage() {
     if (!id) return;
     const categoryId = parseInt(id);
     setLoading(true);
+    setQuestions([]);
     Promise.all([categoriesApi.get(categoryId), categoriesApi.list()])
       .then(async ([cat, all]) => {
         setCategory(cat);
-        const childCategories = all.filter((c) => c.parent_id === categoryId);
-        setChildren(childCategories);
-        // A parent category is a pure container: skip fetching its own questions,
-        // it never has any directly attached.
-        if (childCategories.length === 0) {
+        setAllCategories(all);
+        // A category with sub-categories is a pure container: skip fetching its
+        // own questions, it never has any directly attached.
+        if (!all.some((c) => c.parent_id === categoryId)) {
           setQuestions(await questionsApi.brief(categoryId));
         }
       })
@@ -52,6 +54,17 @@ export function CategoryPage() {
   }, [id]);
 
   const colors = useMemo(() => getCategoryColorClasses(category?.color ?? 'slate'), [category]);
+
+  const node = useMemo(
+    () => (category ? findNode(buildCategoryTree(allCategories), category.id) : undefined),
+    [allCategories, category]
+  );
+  const children = node?.children ?? [];
+
+  const ancestors = useMemo(
+    () => (category ? getAncestors(allCategories, category.id) : []),
+    [allCategories, category]
+  );
 
   function toggleSelected(qid: number) {
     setSelectedIds((prev) => {
@@ -102,19 +115,42 @@ export function CategoryPage() {
     );
   }
 
+  // The tree has no depth limit, so a plain "back" link isn't enough to get out
+  // of a deep branch  every ancestor is a hop.
+  const breadcrumb = (
+    <nav className="flex flex-wrap items-center gap-1.5 text-sm text-neutral-500 mb-4">
+      <Link to="/" className="hover:text-neutral-800 transition-colors">Accueil</Link>
+      {ancestors.map((ancestor) => (
+        <span key={ancestor.id} className="flex items-center gap-1.5">
+          <span className="text-neutral-300">/</span>
+          <Link to={`/category/${ancestor.id}`} className="hover:text-neutral-800 transition-colors">
+            {ancestor.name}
+          </Link>
+        </span>
+      ))}
+    </nav>
+  );
+
   if (children.length > 0) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <Link to="/" className="text-sm text-neutral-500 hover:text-neutral-800 mb-4 inline-block">← Toutes les catégories</Link>
+        {breadcrumb}
 
         <div className="flex items-center gap-2 mb-8">
           <span className={`w-3 h-3 rounded-full ${colors.dot}`} />
           <h1 className="text-2xl font-bold text-neutral-900">{category.name}</h1>
+          <span className="text-sm text-neutral-400">
+            ({node?.totalQuestionCount ?? 0} question{(node?.totalQuestionCount ?? 0) !== 1 ? 's' : ''})
+          </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {children.map((child) => (
-            <CategoryCard key={child.id} category={child} />
+            <CategoryCard
+              key={child.id}
+              category={{ ...child, question_count: child.totalQuestionCount }}
+              subcategoryCount={child.children.length > 0 ? child.children.length : undefined}
+            />
           ))}
         </div>
       </div>
@@ -123,16 +159,19 @@ export function CategoryPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <Link to="/" className="text-sm text-neutral-500 hover:text-neutral-800 mb-4 inline-block">← Toutes les catégories</Link>
+      {breadcrumb}
 
       <div className="flex items-center gap-2 mb-6">
         <span className={`w-3 h-3 rounded-full ${colors.dot}`} />
         <h1 className="text-2xl font-bold text-neutral-900">{category.name}</h1>
-        <span className="text-sm text-neutral-400">({questions.length} question{questions.length !== 1 ? 's' : ''})</span>
       </div>
 
+      <StudyModes category={category} />
+
       {questions.length === 0 ? (
-        <p className="text-neutral-500">Aucune question dans cette catégorie pour le moment.</p>
+        !category.has_lesson && category.flashcard_count === 0 && (
+          <p className="text-neutral-500">Aucun contenu dans cette catégorie pour le moment.</p>
+        )
       ) : (
         <>
           <div className="flex flex-wrap items-center gap-3 mb-6">

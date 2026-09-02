@@ -2,23 +2,23 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install build dependencies for native modules (better-sqlite3)
+# Build deps for the better-sqlite3 native module.
 RUN apk add --no-cache python3 make g++
 
-# Force compiling better-sqlite3 from source instead of letting prebuild-install
-# reach out to the network for a prebuilt binary  that fetch can hang/fail in
-# a sandboxed Docker build, and we already have the toolchain to build it here.
+# Force compiling better-sqlite3 from source rather than letting prebuild-install
+# reach the network for a prebuilt binary  that fetch can hang/fail in a
+# sandboxed Docker build, and the toolchain is already here.
 ENV npm_config_build_from_source=true
 
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+RUN npm run build && npm prune --omit=dev
 
 FROM node:20-alpine
 
-RUN apk --no-cache add ca-certificates tzdata
+RUN apk --no-cache add tzdata
 
 WORKDIR /app
 
@@ -28,11 +28,15 @@ COPY --from=builder /app/src/db/seed.json ./dist/db/seed.json
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 
-RUN mkdir -p /app/data
+# Run as the unprivileged built-in `node` user, and give it ownership of the
+# data directory (the SQLite file lives on a mounted volume here).
+RUN mkdir -p /app/data && chown -R node:node /app/data
+USER node
 
 EXPOSE 8080
 
 ENV DB_PATH=/app/data/quizz.db
 ENV PORT=8080
+ENV NODE_ENV=production
 
 CMD ["node", "dist/index.js"]

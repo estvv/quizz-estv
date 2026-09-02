@@ -10,8 +10,13 @@ export interface Category {
   updated_at: string;
 }
 
+// What the list endpoint returns. `lesson` is deliberately absent: it is a long
+// Markdown body and this list is fetched on every page  only the flag travels,
+// the body is fetched per category.
 export interface CategoryWithCount extends Category {
   question_count: number;
+  flashcard_count: number;
+  has_lesson: boolean;
 }
 
 export interface QuestionBrief {
@@ -35,6 +40,16 @@ export interface Question {
   updated_at: string;
 }
 
+export interface Flashcard {
+  id: number;
+  category_id: number;
+  front: string;
+  back: string;
+  position: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface SeedQuestion {
   question_text: string;
   choice_a: string;
@@ -46,9 +61,22 @@ export interface SeedQuestion {
   diagram_svg?: string;
 }
 
+export interface SeedFlashcard {
+  front: string;
+  back: string;
+}
+
 export interface SeedCategory {
   name: string;
+  /**
+   * Identifier that `parent` references point at. Defaults to `name`, and is only
+   * needed where a display name repeats across branches  every subject has a
+   * "Week 1", so names alone are not unique keys.
+   */
+  key?: string;
   color: string;
   parent?: string;
+  lesson?: string;
+  flashcards?: SeedFlashcard[];
   questions: SeedQuestion[];
 }

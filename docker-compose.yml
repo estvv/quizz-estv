@@ -13,17 +13,29 @@ services:
     environment:
       - DB_PATH=/app/data/quizz.db
       - PORT=8080
-      - AUTH_PASSWORD=${AUTH_PASSWORD}
-      - JWT_SECRET=${JWT_SECRET}
+      - NODE_ENV=production
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     deploy:
       resources:
         limits:
-          memory: 512M
-          cpus: '1.0'
-        reservations:
           memory: 256M
-          cpus: '0.5'
+          cpus: '0.75'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   frontend:
     build:
@@ -39,14 +51,16 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 96M
           cpus: '0.5'
         reservations:
-          memory: 64M
-          cpus: '0.25'
+          memory: 32M
+          cpus: '0.15'
 
 networks:
   caddy_net:
