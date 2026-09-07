@@ -337,6 +337,24 @@ Esteve = 에스테브 = eseutebeu
 Manon = 마농 = manon
 ```
 
+## Hangeul — premiers mots
+
+> Les mots qui servent d'exemples de lecture dans la feuille Hangeul. Ici on
+> travaille leur **sens** (la lecture, elle, est dans la feuille Hangeul).
+
+```
+Corée = 한국 = hanguk
+école = 학교 = hakgyo
+kimchi = 김치 = gimchi
+salut / bonjour = 안녕 = annyeong
+merci = 감사 = gamsa
+eau = 물 = mul
+riz / repas = 밥 = bap
+pomme = 사과 = sagwa
+café = 커피 = keopi
+ami / amie = 친구 = chingu
+```
+
 ## Cours — mots de lecture (Semaine 1)
 
 > Mots exacts du cours GEE3003 « Basic Korean », semaine 1 (lecture du hangeul,

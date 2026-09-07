@@ -7568,12 +7568,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅏ » ?",
         "choices": [
+          "a",
           "ae",
-          "e",
           "o",
-          "a"
+          "i"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "ㅏ se prononce « a »."
       },
       {
@@ -7590,12 +7590,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅓ » ?",
         "choices": [
-          "e",
+          "a",
+          "o",
           "eo",
-          "i",
-          "o"
+          "u"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅓ se prononce « eo »."
       },
       {
@@ -7612,12 +7612,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅗ » ?",
         "choices": [
-          "o",
           "u",
-          "a",
-          "eu"
+          "o",
+          "eo",
+          "e"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅗ se prononce « o »."
       },
       {
@@ -7634,12 +7634,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅜ » ?",
         "choices": [
-          "ae",
-          "o",
           "u",
-          "i"
+          "ae",
+          "eo",
+          "a"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅜ se prononce « u »."
       },
       {
@@ -7656,12 +7656,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅡ » ?",
         "choices": [
-          "u",
+          "ae",
+          "i",
           "eu",
-          "eo",
-          "a"
+          "e"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅡ se prononce « eu »."
       },
       {
@@ -7678,12 +7678,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅣ » ?",
         "choices": [
-          "eu",
-          "eo",
           "i",
-          "ae"
+          "o",
+          "a",
+          "e"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅣ se prononce « i »."
       },
       {
@@ -7700,12 +7700,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅐ » ?",
         "choices": [
-          "a",
+          "ae",
           "eu",
-          "u",
-          "ae"
+          "e",
+          "o"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "ㅐ se prononce « ae »."
       },
       {
@@ -7722,12 +7722,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅔ » ?",
         "choices": [
+          "a",
           "e",
-          "ae",
-          "eu",
+          "o",
           "eo"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅔ se prononce « e »."
       },
       {
@@ -7744,12 +7744,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅑ » ?",
         "choices": [
+          "yeo",
           "ya",
-          "yae",
-          "ye",
-          "yeo"
+          "yu",
+          "yae"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅑ se prononce « ya »."
       },
       {
@@ -7766,9 +7766,9 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅕ » ?",
         "choices": [
-          "ya",
-          "ye",
           "yae",
+          "ya",
+          "yo",
           "yeo"
         ],
         "correct": 3,
@@ -7788,12 +7788,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅛ » ?",
         "choices": [
-          "ye",
-          "yeo",
           "yu",
-          "yo"
+          "ya",
+          "yo",
+          "yeo"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "ㅛ se prononce « yo »."
       },
       {
@@ -7810,12 +7810,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅠ » ?",
         "choices": [
-          "yu",
-          "yae",
           "ye",
-          "yeo"
+          "yae",
+          "yu",
+          "ya"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅠ se prononce « yu »."
       },
       {
@@ -7832,12 +7832,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅒ » ?",
         "choices": [
-          "yu",
-          "ye",
+          "yeo",
+          "yae",
           "ya",
-          "yae"
+          "yu"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅒ se prononce « yae »."
       },
       {
@@ -7854,9 +7854,9 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅖ » ?",
         "choices": [
+          "ya",
           "yu",
           "yo",
-          "ya",
           "ye"
         ],
         "correct": 3,
@@ -7877,8 +7877,8 @@
         "prompt": "Quel son a « ㅘ » ?",
         "choices": [
           "wi",
-          "ui",
           "oe",
+          "wae",
           "wa"
         ],
         "correct": 3,
@@ -7898,12 +7898,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅙ » ?",
         "choices": [
-          "wae",
           "ui",
-          "oe",
-          "wi"
+          "wae",
+          "wa",
+          "wo"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅙ se prononce « wae »."
       },
       {
@@ -7921,11 +7921,11 @@
         "prompt": "Quel son a « ㅚ » ?",
         "choices": [
           "we",
-          "wo",
-          "oe",
-          "ui"
+          "wi",
+          "wae",
+          "oe"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅚ se prononce « oe »."
       },
       {
@@ -7942,12 +7942,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅝ » ?",
         "choices": [
-          "ui",
+          "wa",
+          "wo",
           "we",
-          "wi",
-          "wo"
+          "oe"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅝ se prononce « wo »."
       },
       {
@@ -7964,10 +7964,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅞ » ?",
         "choices": [
-          "ui",
-          "wo",
+          "wa",
+          "wi",
           "we",
-          "wae"
+          "oe"
         ],
         "correct": 2,
         "explanation": "ㅞ se prononce « we »."
@@ -7986,12 +7986,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅟ » ?",
         "choices": [
-          "wae",
+          "wo",
+          "oe",
           "wi",
-          "wa",
-          "oe"
+          "wa"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅟ se prononce « wi »."
       },
       {
@@ -8008,12 +8008,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅢ » ?",
         "choices": [
+          "wae",
+          "oe",
           "ui",
-          "wi",
-          "wa",
           "we"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅢ se prononce « ui »."
       },
       {
@@ -8032,12 +8032,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄱ » ?",
         "choices": [
-          "h",
           "g",
-          "d",
-          "ng"
+          "s",
+          "ng",
+          "r"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "ㄱ se prononce « g »."
       },
       {
@@ -8054,12 +8054,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄴ » ?",
         "choices": [
-          "m",
-          "r",
           "n",
-          "s"
+          "g",
+          "m",
+          "r"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㄴ se prononce « n »."
       },
       {
@@ -8078,12 +8078,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄷ » ?",
         "choices": [
-          "ng",
-          "m",
+          "r",
           "d",
-          "g"
+          "s",
+          "ng"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㄷ se prononce « d »."
       },
       {
@@ -8103,11 +8103,11 @@
         "prompt": "Quel son a « ㄹ » ?",
         "choices": [
           "h",
-          "r",
-          "g",
-          "s"
+          "b",
+          "m",
+          "r"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㄹ se prononce « r »."
       },
       {
@@ -8124,12 +8124,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅁ » ?",
         "choices": [
+          "g",
           "b",
-          "r",
-          "m",
-          "d"
+          "h",
+          "m"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅁ se prononce « m »."
       },
       {
@@ -8148,10 +8148,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅂ » ?",
         "choices": [
-          "j",
           "r",
+          "d",
           "b",
-          "g"
+          "m"
         ],
         "correct": 2,
         "explanation": "ㅂ se prononce « b »."
@@ -8170,12 +8170,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅅ » ?",
         "choices": [
-          "d",
-          "b",
+          "g",
           "s",
+          "m",
           "j"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㅅ se prononce « s »."
       },
       {
@@ -8195,9 +8195,9 @@
         "prompt": "Quel son a « ㅇ » ?",
         "choices": [
           "ng",
-          "h",
-          "m",
-          "n"
+          "g",
+          "s",
+          "d"
         ],
         "correct": 0,
         "explanation": "ㅇ se prononce « ng »."
@@ -8216,12 +8216,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅈ » ?",
         "choices": [
-          "r",
-          "ng",
-          "j",
-          "h"
+          "b",
+          "h",
+          "n",
+          "j"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅈ se prononce « j »."
       },
       {
@@ -8238,10 +8238,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅎ » ?",
         "choices": [
-          "b",
-          "r",
+          "s",
+          "d",
           "h",
-          "s"
+          "m"
         ],
         "correct": 2,
         "explanation": "ㅎ se prononce « h »."
@@ -8260,12 +8260,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅊ » ?",
         "choices": [
+          "ch",
           "p",
-          "k",
           "t",
-          "ch"
+          "k"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "ㅊ se prononce « ch »."
       },
       {
@@ -8282,12 +8282,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅋ » ?",
         "choices": [
-          "ch",
-          "p",
           "k",
-          "t"
+          "t",
+          "p",
+          "ch"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅋ se prononce « k »."
       },
       {
@@ -8305,11 +8305,11 @@
         "prompt": "Quel son a « ㅌ » ?",
         "choices": [
           "ch",
+          "p",
           "k",
-          "t",
-          "p"
+          "t"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅌ se prononce « t »."
       },
       {
@@ -8326,12 +8326,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅍ » ?",
         "choices": [
+          "ch",
           "t",
           "p",
-          "ch",
           "k"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅍ se prononce « p »."
       },
       {
@@ -8348,12 +8348,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄲ » ?",
         "choices": [
-          "tt",
-          "ss",
+          "pp",
           "kk",
-          "jj"
+          "jj",
+          "ss"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㄲ se prononce « kk »."
       },
       {
@@ -8370,10 +8370,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄸ » ?",
         "choices": [
-          "jj",
+          "kk",
           "pp",
           "tt",
-          "ss"
+          "jj"
         ],
         "correct": 2,
         "explanation": "ㄸ se prononce « tt »."
@@ -8392,12 +8392,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅃ » ?",
         "choices": [
-          "kk",
+          "jj",
+          "ss",
           "tt",
-          "pp",
-          "jj"
+          "pp"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅃ se prononce « pp »."
       },
       {
@@ -8414,12 +8414,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅆ » ?",
         "choices": [
-          "ss",
-          "jj",
           "kk",
-          "pp"
+          "tt",
+          "ss",
+          "jj"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅆ se prononce « ss »."
       },
       {
@@ -8436,12 +8436,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅉ » ?",
         "choices": [
+          "kk",
           "pp",
-          "jj",
           "tt",
-          "kk"
+          "jj"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㅉ se prononce « jj »."
       },
       {
@@ -8458,12 +8458,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 아 » ?",
         "choices": [
-          "a",
           "mul",
-          "gang",
-          "hak"
+          "a",
+          "gim",
+          "sa"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "아 se prononce « a »."
       },
       {
@@ -8480,12 +8480,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 나 » ?",
         "choices": [
-          "gang",
+          "na",
           "hak",
-          "cha",
-          "na"
+          "gim",
+          "mul"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "나 se prononce « na »."
       },
       {
@@ -8502,12 +8502,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 가 » ?",
         "choices": [
-          "mul",
+          "han",
+          "gang",
           "ga",
-          "bap",
           "hak"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "가 se prononce « ga »."
       },
       {
@@ -8524,12 +8524,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 사 » ?",
         "choices": [
-          "ga",
           "han",
-          "a",
-          "sa"
+          "na",
+          "sa",
+          "gang"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "사 se prononce « sa »."
       },
       {
@@ -8546,12 +8546,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 한 » ?",
         "choices": [
+          "mul",
+          "gang",
           "han",
-          "cha",
-          "na",
-          "gim"
+          "cha"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "한 se prononce « han »."
       },
       {
@@ -8568,12 +8568,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 국 » ?",
         "choices": [
-          "guk",
+          "a",
+          "han",
           "mul",
-          "gang",
-          "gim"
+          "guk"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "국 se prononce « guk »."
       },
       {
@@ -8590,12 +8590,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
+          "hak",
+          "na",
           "bap",
-          "gang",
-          "a",
-          "hak"
+          "ga"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "밥 se prononce « bap »."
       },
       {
@@ -8612,12 +8612,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 물 » ?",
         "choices": [
-          "gim",
-          "mul",
+          "cha",
+          "a",
           "hak",
-          "han"
+          "mul"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "물 se prononce « mul »."
       },
       {
@@ -8634,12 +8634,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 강 » ?",
         "choices": [
-          "guk",
-          "ga",
+          "cha",
           "gang",
-          "gim"
+          "sa",
+          "guk"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "강 se prononce « gang »."
       },
       {
@@ -8656,12 +8656,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 학 » ?",
         "choices": [
-          "na",
           "hak",
-          "sa",
-          "a"
+          "ga",
+          "na",
+          "sa"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "학 se prononce « hak »."
       },
       {
@@ -8678,12 +8678,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 김 » ?",
         "choices": [
+          "sa",
+          "hak",
           "gang",
-          "cha",
-          "gim",
-          "han"
+          "gim"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "김 se prononce « gim »."
       },
       {
@@ -8700,12 +8700,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 차 » ?",
         "choices": [
-          "cha",
+          "mul",
+          "bap",
           "gim",
-          "han",
-          "gang"
+          "cha"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "차 se prononce « cha »."
       },
       {
@@ -8722,35 +8722,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 한국 » ?",
         "choices": [
-          "hakkyo",
           "hanguk",
-          "mul",
-          "sagwa"
-        ],
-        "correct": 1,
-        "explanation": "한국 se prononce « hanguk »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 한국 » ?",
-        "choices": [
-          "Corée",
-          "salut",
-          "école",
-          "eau"
+          "bap",
+          "keopi",
+          "mul"
         ],
         "correct": 0,
-        "explanation": "한국 (hanguk) = Corée."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 한국 » ?",
-        "accept": [
-          "Corée"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "한국 (hanguk) = Corée."
+        "explanation": "한국 se prononce « hanguk »."
       },
       {
         "type": "type_answer",
@@ -8766,35 +8744,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 학교 » ?",
         "choices": [
-          "keopi",
-          "annyeong",
           "hakkyo",
+          "bap",
+          "annyeong",
           "sagwa"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "학교 se prononce « hakkyo »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 학교 » ?",
-        "choices": [
-          "salut",
-          "école",
-          "café",
-          "Corée"
-        ],
-        "correct": 1,
-        "explanation": "학교 (hakkyo) = école."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 학교 » ?",
-        "accept": [
-          "école"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "학교 (hakkyo) = école."
       },
       {
         "type": "type_answer",
@@ -8810,35 +8766,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 김치 » ?",
         "choices": [
+          "hakkyo",
           "gimchi",
-          "annyeong",
           "keopi",
-          "hakkyo"
+          "annyeong"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "김치 se prononce « gimchi »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 김치 » ?",
-        "choices": [
-          "merci",
-          "salut",
-          "pomme",
-          "kimchi"
-        ],
-        "correct": 3,
-        "explanation": "김치 (gimchi) = kimchi."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 김치 » ?",
-        "accept": [
-          "kimchi"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "김치 (gimchi) = kimchi."
       },
       {
         "type": "type_answer",
@@ -8854,36 +8788,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 안녕 » ?",
         "choices": [
-          "mul",
-          "gimchi",
+          "hanguk",
+          "sagwa",
           "annyeong",
-          "hanguk"
+          "gimchi"
         ],
         "correct": 2,
         "explanation": "안녕 se prononce « annyeong »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 안녕 » ?",
-        "choices": [
-          "Corée",
-          "école",
-          "pomme",
-          "salut"
-        ],
-        "correct": 3,
-        "explanation": "안녕 (annyeong) = salut, bonjour."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 안녕 » ?",
-        "accept": [
-          "salut",
-          "bonjour"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "안녕 (annyeong) = salut, bonjour."
       },
       {
         "type": "type_answer",
@@ -8899,36 +8810,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 감사 » ?",
         "choices": [
-          "hakkyo",
-          "gamsa",
           "annyeong",
-          "sagwa"
+          "hanguk",
+          "bap",
+          "gamsa"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "감사 se prononce « gamsa »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 감사 » ?",
-        "choices": [
-          "café",
-          "merci",
-          "Corée",
-          "kimchi"
-        ],
-        "correct": 1,
-        "explanation": "감사 (gamsa) = merci, gratitude."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 감사 » ?",
-        "accept": [
-          "merci",
-          "gratitude"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "감사 (gamsa) = merci, gratitude."
       },
       {
         "type": "type_answer",
@@ -8944,35 +8832,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 물 » ?",
         "choices": [
-          "chingu",
+          "gimchi",
           "mul",
-          "keopi",
-          "sagwa"
+          "chingu",
+          "keopi"
         ],
         "correct": 1,
         "explanation": "물 se prononce « mul »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 물 » ?",
-        "choices": [
-          "merci",
-          "café",
-          "école",
-          "eau"
-        ],
-        "correct": 3,
-        "explanation": "물 (mul) = eau."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 물 » ?",
-        "accept": [
-          "eau"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "물 (mul) = eau."
       },
       {
         "type": "type_answer",
@@ -8988,36 +8854,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
-          "hakkyo",
-          "keopi",
-          "gamsa",
-          "bap"
+          "bap",
+          "annyeong",
+          "sagwa",
+          "chingu"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "밥 se prononce « bap »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 밥 » ?",
-        "choices": [
-          "Corée",
-          "eau",
-          "riz",
-          "école"
-        ],
-        "correct": 2,
-        "explanation": "밥 (bap) = riz, repas."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 밥 » ?",
-        "accept": [
-          "riz",
-          "repas"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "밥 (bap) = riz, repas."
       },
       {
         "type": "type_answer",
@@ -9033,35 +8876,13 @@
         "type": "mcq",
         "prompt": "Quel son a « 사과 » ?",
         "choices": [
-          "gimchi",
-          "sagwa",
+          "gamsa",
           "mul",
-          "hanguk"
+          "chingu",
+          "sagwa"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "사과 se prononce « sagwa »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 사과 » ?",
-        "choices": [
-          "pomme",
-          "riz",
-          "école",
-          "café"
-        ],
-        "correct": 0,
-        "explanation": "사과 (sagwa) = pomme."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 사과 » ?",
-        "accept": [
-          "pomme"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "사과 (sagwa) = pomme."
       },
       {
         "type": "type_answer",
@@ -9078,34 +8899,12 @@
         "prompt": "Quel son a « 커피 » ?",
         "choices": [
           "keopi",
-          "annyeong",
-          "gamsa",
-          "hakkyo"
+          "sagwa",
+          "chingu",
+          "annyeong"
         ],
         "correct": 0,
         "explanation": "커피 se prononce « keopi »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 커피 » ?",
-        "choices": [
-          "pomme",
-          "ami",
-          "kimchi",
-          "café"
-        ],
-        "correct": 3,
-        "explanation": "커피 (keopi) = café."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 커피 » ?",
-        "accept": [
-          "café"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "커피 (keopi) = café."
       },
       {
         "type": "type_answer",
@@ -9122,35 +8921,12 @@
         "prompt": "Quel son a « 친구 » ?",
         "choices": [
           "gimchi",
+          "chingu",
           "keopi",
-          "hakkyo",
-          "chingu"
+          "annyeong"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "친구 se prononce « chingu »."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Que veut dire « 친구 » ?",
-        "choices": [
-          "salut",
-          "Corée",
-          "kimchi",
-          "ami"
-        ],
-        "correct": 3,
-        "explanation": "친구 (chingu) = ami, amie."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Que veut dire « 친구 » ?",
-        "accept": [
-          "ami",
-          "amie"
-        ],
-        "normalize": "loose",
-        "placeholder": "en français",
-        "explanation": "친구 (chingu) = ami, amie."
       }
     ]
   },
@@ -10761,6 +10537,90 @@
         "rr": "gaesaekki",
         "fr": [
           "fils de pute"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Hangeul — premiers mots",
+    "key": "kr-voc-hangeul-premiers-mots",
+    "color": "rose",
+    "parent": "kr-vocab",
+    "vocab": [
+      {
+        "ko": "한국",
+        "rr": "hanguk",
+        "fr": [
+          "Corée"
+        ]
+      },
+      {
+        "ko": "학교",
+        "rr": "hakgyo",
+        "fr": [
+          "école"
+        ]
+      },
+      {
+        "ko": "김치",
+        "rr": "gimchi",
+        "fr": [
+          "kimchi"
+        ]
+      },
+      {
+        "ko": "안녕",
+        "rr": "annyeong",
+        "fr": [
+          "salut / bonjour",
+          "salut",
+          "bonjour"
+        ]
+      },
+      {
+        "ko": "감사",
+        "rr": "gamsa",
+        "fr": [
+          "merci"
+        ]
+      },
+      {
+        "ko": "물",
+        "rr": "mul",
+        "fr": [
+          "eau"
+        ]
+      },
+      {
+        "ko": "밥",
+        "rr": "bap",
+        "fr": [
+          "riz / repas",
+          "riz",
+          "repas"
+        ]
+      },
+      {
+        "ko": "사과",
+        "rr": "sagwa",
+        "fr": [
+          "pomme"
+        ]
+      },
+      {
+        "ko": "커피",
+        "rr": "keopi",
+        "fr": [
+          "café"
+        ]
+      },
+      {
+        "ko": "친구",
+        "rr": "chingu",
+        "fr": [
+          "ami / amie",
+          "ami",
+          "amie"
         ]
       }
     ]

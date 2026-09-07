@@ -91,7 +91,9 @@ def parse_vocab_md(text):
 
 
 def build_hangeul_exercises(data):
-    """letters/words -> only 'quel son ?' / 'que veut dire ?' exercises."""
+    """Hangeul = reading only. Every item -> 'quel son ?' (mcq) + 'comment se
+    prononce ?' (saisie). NEVER a meaning question ('que veut dire') -- meaning
+    belongs to the Vocabulary decks."""
     import random
 
     groups = {k: v for k, v in data.items() if not k.startswith("_")}
@@ -128,30 +130,6 @@ def build_hangeul_exercises(data):
                 "correct": choices.index(rr),
                 "explanation": f"{ko} se prononce « {rr} ».",
             })
-
-            # mots : sens FR en plus (4 choix + saisie)
-            fr = it.get("fr")
-            if fr:
-                word_pool = [w for g in ("mots",) for w in groups.get(g, [])]
-                other_fr = [w["fr"][0] for w in word_pool if w["ko"] != ko]
-                fr_distractors = random.sample(other_fr, k=min(3, len(other_fr)))
-                fr_choices = fr_distractors + [fr[0]]
-                random.shuffle(fr_choices)
-                ex.append({
-                    "type": "mcq",
-                    "prompt": f"Que veut dire « {ko} » ?",
-                    "choices": fr_choices,
-                    "correct": fr_choices.index(fr[0]),
-                    "explanation": f"{ko} ({rr}) = {', '.join(fr)}.",
-                })
-                ex.append({
-                    "type": "type_answer",
-                    "prompt": f"Que veut dire « {ko} » ?",
-                    "accept": fr,
-                    "normalize": "loose",
-                    "placeholder": "en français",
-                    "explanation": f"{ko} ({rr}) = {', '.join(fr)}.",
-                })
 
         _ = noun  # kept for readability of intent
     return ex
