@@ -2,7 +2,11 @@ import Database from 'better-sqlite3';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import type { Category, CategoryWithCount, Flashcard, Question, QuestionBrief, SeedCategory } from '../types/index.js';
+import type {
+  Category, CategoryWithCount, Flashcard,
+  Exercise, ExerciseBrief, ExerciseType, ExercisePayload,
+  SeedCategory, SeedExercise, SeedQuestion, SeedVocab,
+} from '../types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -126,6 +130,148 @@ function uniqueSlug(name: string): string {
   return `${base}-${suffix}`;
 }
 
+// --- exercise seeding ---
+
+/** A ready-to-insert exercise, before it gets a category_id and a position. */
+interface PreparedExercise {
+  type: ExerciseType;
+  prompt: string;
+  payload: ExercisePayload;
+  explanation: string | null;
+  diagram_svg: string | null;
+}
+
+const CHOICE_INDEX: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
+
+/** Throws (aborting the boot) if a payload does not match its declared type. */
+function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, where: string): void {
+  const nonEmptyStrings = (v: unknown): v is string[] =>
+    Array.isArray(v) && v.length > 0 && v.every((s) => typeof s === 'string' && s.trim() !== '');
+
+  if (type === 'mcq') {
+    const p = payload as { choices?: unknown; correct?: unknown };
+    if (!nonEmptyStrings(p.choices) || (p.choices as string[]).length < 2) {
+      throw new Error(`seed.json: ${where}  mcq needs at least 2 non-empty choices`);
+    }
+    if (typeof p.correct !== 'number' || !Number.isInteger(p.correct) ||
+        p.correct < 0 || p.correct >= (p.choices as string[]).length) {
+      throw new Error(`seed.json: ${where}  mcq "correct" must index into "choices"`);
+    }
+    return;
+  }
+
+  if (type === 'vocab') {
+    const p = payload as { ko?: unknown; rr?: unknown; fr?: unknown; hint?: unknown };
+    if (typeof p.ko !== 'string' || p.ko.trim() === '') {
+      throw new Error(`seed.json: ${where}  vocab needs "ko"`);
+    }
+    if (typeof p.rr !== 'string' || p.rr.trim() === '') {
+      throw new Error(`seed.json: ${where}  vocab needs "rr"`);
+    }
+    if (!nonEmptyStrings(p.fr)) {
+      throw new Error(`seed.json: ${where}  vocab needs a non-empty "fr" list`);
+    }
+    if (!nonEmptyStrings(p.hint)) {
+      throw new Error(`seed.json: ${where}  vocab needs a non-empty "hint" list`);
+    }
+    return;
+  }
+
+  const p = payload as { accept?: unknown; normalize?: unknown };
+  if (!nonEmptyStrings(p.accept)) {
+    throw new Error(`seed.json: ${where}  type_answer needs a non-empty "accept" list`);
+  }
+  if (p.normalize !== undefined && p.normalize !== 'loose' && p.normalize !== 'romaja') {
+    throw new Error(`seed.json: ${where}  type_answer "normalize" must be "loose" or "romaja"`);
+  }
+}
+
+function questionToExercise(q: SeedQuestion): PreparedExercise {
+  return {
+    type: 'mcq',
+    prompt: q.question_text,
+    payload: {
+      choices: [q.choice_a, q.choice_b, q.choice_c, q.choice_d],
+      correct: CHOICE_INDEX[q.correct_choice] ?? 0,
+    },
+    explanation: q.explanation ?? null,
+    diagram_svg: q.diagram_svg ?? null,
+  };
+}
+
+function seedExerciseToExercise(e: SeedExercise): PreparedExercise {
+  const payload: ExercisePayload = e.type === 'mcq'
+    ? { choices: e.choices, correct: e.correct, ...(e.hint ? { hint: e.hint } : {}) }
+    : {
+        accept: e.accept,
+        ...(e.placeholder ? { placeholder: e.placeholder } : {}),
+        ...(e.hint ? { hint: e.hint } : {}),
+        ...(e.normalize ? { normalize: e.normalize } : {}),
+      };
+  return {
+    type: e.type,
+    prompt: e.prompt,
+    payload,
+    explanation: e.explanation ?? null,
+    diagram_svg: e.diagram_svg ?? null,
+  };
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+/**
+ * One vocab word  two exercises:
+ *  1. `vocab`: given the hangeul, type the French (graded) + the romanisation
+ *     (optional bonus). An "Indice" button reveals the 4 choices below.
+ *  2. `mcq`: "Que veut dire X ?" with 4 French choices.
+ *
+ * Both need 3 French distractors from the rest of the deck; a deck with fewer
+ * than 4 words simply gets fewer options.
+ */
+function expandVocab(vocab: SeedVocab[]): PreparedExercise[] {
+  const out: PreparedExercise[] = [];
+
+  for (const w of vocab) {
+    const triple = `${w.ko} = ${w.rr} = ${w.fr[0]}`;
+    const distractors = shuffle(
+      vocab.filter((o) => o.ko !== w.ko).map((o) => o.fr[0])
+    ).slice(0, 3);
+    const choices = shuffle([w.fr[0], ...distractors]);
+
+    out.push({
+      type: 'vocab',
+      prompt: `Que veut dire « ${w.ko} » ?`,
+      payload: {
+        ko: w.ko,
+        rr: w.rr,
+        ...(w.rr_accept ? { rr_accept: w.rr_accept } : {}),
+        fr: w.fr,
+        hint: choices,
+      },
+      explanation: triple,
+      diagram_svg: null,
+    });
+
+    if (choices.length >= 2) {
+      out.push({
+        type: 'mcq',
+        prompt: `Que veut dire « ${w.ko} » ?`,
+        payload: { choices, correct: choices.indexOf(w.fr[0]) },
+        explanation: triple,
+        diagram_svg: null,
+      });
+    }
+  }
+  return out;
+}
+
 function seedIfEmpty() {
   const { c } = db.prepare('SELECT COUNT(*) as c FROM categories').get() as { c: number };
   if (c > 0) return;
@@ -136,10 +282,12 @@ function seedIfEmpty() {
   const seed: SeedCategory[] = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
 
   const insertCategory = db.prepare('INSERT INTO categories (name, slug, color, parent_id, lesson) VALUES (?, ?, ?, ?, ?)');
-  const insertQuestion = db.prepare(`INSERT INTO questions
-    (category_id, question_text, choice_a, choice_b, choice_c, choice_d, correct_choice, explanation, diagram_svg)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+  const insertExercise = db.prepare(`INSERT INTO exercises
+    (category_id, type, prompt, payload, explanation, diagram_svg, position)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`);
   const insertFlashcard = db.prepare('INSERT INTO flashcards (category_id, front, back, position) VALUES (?, ?, ?, ?)');
+
+  let exerciseCount = 0;
 
   const seedAll = db.transaction((categories: SeedCategory[]) => {
     // Repeated passes: each pass inserts every category whose `parent` (a key,
@@ -161,9 +309,24 @@ function seedIfEmpty() {
         const result = insertCategory.run(cat.name, slug, cat.color ?? 'slate', parentId, cat.lesson ?? null);
         const categoryId = result.lastInsertRowid as number;
         idByKey.set(cat.key ?? cat.name, categoryId);
-        for (const q of cat.questions ?? []) {
-          insertQuestion.run(categoryId, q.question_text, q.choice_a, q.choice_b, q.choice_c, q.choice_d, q.correct_choice, q.explanation ?? null, q.diagram_svg ?? null);
-        }
+
+        // `questions[]` (legacy sugar), then `exercises[]`, then `vocab[]`  all
+        // land in the one `exercises` table, positioned in that order.
+        const prepared: PreparedExercise[] = [
+          ...(cat.questions ?? []).map(questionToExercise),
+          ...(cat.exercises ?? []).map(seedExerciseToExercise),
+          ...expandVocab(cat.vocab ?? []),
+        ];
+
+        prepared.forEach((ex, index) => {
+          validateExercisePayload(ex.type, ex.payload, `category "${cat.name}", exercise "${ex.prompt}"`);
+          insertExercise.run(
+            categoryId, ex.type, ex.prompt, JSON.stringify(ex.payload),
+            ex.explanation, ex.diagram_svg, index,
+          );
+          exerciseCount++;
+        });
+
         (cat.flashcards ?? []).forEach((f, index) => {
           insertFlashcard.run(categoryId, f.front, f.back, index);
         });
@@ -174,7 +337,7 @@ function seedIfEmpty() {
     }
   });
   seedAll(seed);
-  console.log(`Seeded ${seed.length} categories from seed.json`);
+  console.log(`Seeded ${seed.length} categories, ${exerciseCount} exercises from seed.json`);
 }
 
 // --- categories ---
@@ -184,7 +347,7 @@ function seedIfEmpty() {
 // the column list  only the flag  so the long body stays out of every list.
 const CATEGORY_COLUMNS = `
   c.id, c.name, c.slug, c.color, c.parent_id, c.created_at, c.updated_at,
-  (SELECT COUNT(*) FROM questions q WHERE q.category_id = c.id) AS question_count,
+  (SELECT COUNT(*) FROM exercises e WHERE e.category_id = c.id) AS question_count,
   (SELECT COUNT(*) FROM flashcards f WHERE f.category_id = c.id) AS flashcard_count,
   (c.lesson IS NOT NULL AND TRIM(c.lesson) != '') AS has_lesson
 `;
@@ -223,27 +386,37 @@ function createCategory(name: string, color: string): Category {
   return db.prepare('SELECT * FROM categories WHERE id = ?').get(result.lastInsertRowid) as Category;
 }
 
-// --- questions ---
+// --- exercises ---
 
-export function getQuestionsBrief(categoryId: number): QuestionBrief[] {
-  return db.prepare('SELECT id, category_id, question_text FROM questions WHERE category_id = ? ORDER BY id')
-    .all(categoryId) as QuestionBrief[];
+interface ExerciseRow extends Omit<Exercise, 'payload'> { payload: string }
+
+function toExercise(row: ExerciseRow): Exercise {
+  return { ...row, payload: JSON.parse(row.payload) };
 }
 
-export function getQuestionsFullByCategory(categoryId: number): Question[] {
-  return db.prepare('SELECT * FROM questions WHERE category_id = ? ORDER BY id').all(categoryId) as Question[];
+export function getExercisesBrief(categoryId: number): ExerciseBrief[] {
+  return db.prepare(
+    'SELECT id, category_id, type, prompt FROM exercises WHERE category_id = ? ORDER BY position, id'
+  ).all(categoryId) as ExerciseBrief[];
 }
 
-export function getQuestionsFullByIds(ids: number[]): Question[] {
+export function getExercisesFullByCategory(categoryId: number): Exercise[] {
+  const rows = db.prepare('SELECT * FROM exercises WHERE category_id = ? ORDER BY position, id')
+    .all(categoryId) as ExerciseRow[];
+  return rows.map(toExercise);
+}
+
+export function getExercisesFullByIds(ids: number[]): Exercise[] {
   if (ids.length === 0) return [];
   const placeholders = ids.map(() => '?').join(',');
-  const rows = db.prepare(`SELECT * FROM questions WHERE id IN (${placeholders})`).all(...ids) as Question[];
-  const byId = new Map(rows.map(r => [r.id, r]));
-  return ids.map(id => byId.get(id)).filter((q): q is Question => q !== undefined);
+  const rows = db.prepare(`SELECT * FROM exercises WHERE id IN (${placeholders})`).all(...ids) as ExerciseRow[];
+  const byId = new Map(rows.map((r) => [r.id, toExercise(r)]));
+  return ids.map((id) => byId.get(id)).filter((e): e is Exercise => e !== undefined);
 }
 
-export function getQuestionById(id: number): Question | undefined {
-  return db.prepare('SELECT * FROM questions WHERE id = ?').get(id) as Question | undefined;
+export function getExerciseById(id: number): Exercise | undefined {
+  const row = db.prepare('SELECT * FROM exercises WHERE id = ?').get(id) as ExerciseRow | undefined;
+  return row ? toExercise(row) : undefined;
 }
 
 // --- flashcards ---

@@ -1,0 +1,89 @@
+{
+  "_comment": "Items pour la feuille Hangeul. Chaque item -> 'quel son ?' (mcq) + 'comment se prononce ?' (saisie). Les items avec 'fr' ajoutent 'que veut dire ?' (mcq + saisie). group = pool de distracteurs pour le mcq de son.",
+
+  "voyelles simples": [
+    { "ko": "ㅏ", "rr": "a" },
+    { "ko": "ㅓ", "rr": "eo" },
+    { "ko": "ㅗ", "rr": "o" },
+    { "ko": "ㅜ", "rr": "u" },
+    { "ko": "ㅡ", "rr": "eu" },
+    { "ko": "ㅣ", "rr": "i" },
+    { "ko": "ㅐ", "rr": "ae" },
+    { "ko": "ㅔ", "rr": "e" }
+  ],
+
+  "voyelles iotisées": [
+    { "ko": "ㅑ", "rr": "ya" },
+    { "ko": "ㅕ", "rr": "yeo" },
+    { "ko": "ㅛ", "rr": "yo" },
+    { "ko": "ㅠ", "rr": "yu" },
+    { "ko": "ㅒ", "rr": "yae" },
+    { "ko": "ㅖ", "rr": "ye" }
+  ],
+
+  "voyelles composées": [
+    { "ko": "ㅘ", "rr": "wa" },
+    { "ko": "ㅙ", "rr": "wae" },
+    { "ko": "ㅚ", "rr": "oe" },
+    { "ko": "ㅝ", "rr": "wo" },
+    { "ko": "ㅞ", "rr": "we" },
+    { "ko": "ㅟ", "rr": "wi" },
+    { "ko": "ㅢ", "rr": "ui" }
+  ],
+
+  "consonnes simples": [
+    { "ko": "ㄱ", "rr": "g", "rr_accept": ["k", "g/k"] },
+    { "ko": "ㄴ", "rr": "n" },
+    { "ko": "ㄷ", "rr": "d", "rr_accept": ["t", "d/t"] },
+    { "ko": "ㄹ", "rr": "r", "rr_accept": ["l", "r/l"] },
+    { "ko": "ㅁ", "rr": "m" },
+    { "ko": "ㅂ", "rr": "b", "rr_accept": ["p", "b/p"] },
+    { "ko": "ㅅ", "rr": "s" },
+    { "ko": "ㅇ", "rr": "ng", "rr_accept": ["muet", "-"] },
+    { "ko": "ㅈ", "rr": "j" },
+    { "ko": "ㅎ", "rr": "h" }
+  ],
+
+  "consonnes aspirées": [
+    { "ko": "ㅊ", "rr": "ch" },
+    { "ko": "ㅋ", "rr": "k" },
+    { "ko": "ㅌ", "rr": "t" },
+    { "ko": "ㅍ", "rr": "p" }
+  ],
+
+  "consonnes tendues": [
+    { "ko": "ㄲ", "rr": "kk" },
+    { "ko": "ㄸ", "rr": "tt" },
+    { "ko": "ㅃ", "rr": "pp" },
+    { "ko": "ㅆ", "rr": "ss" },
+    { "ko": "ㅉ", "rr": "jj" }
+  ],
+
+  "syllabes": [
+    { "ko": "아", "rr": "a" },
+    { "ko": "나", "rr": "na" },
+    { "ko": "가", "rr": "ga" },
+    { "ko": "사", "rr": "sa" },
+    { "ko": "한", "rr": "han" },
+    { "ko": "국", "rr": "guk" },
+    { "ko": "밥", "rr": "bap" },
+    { "ko": "물", "rr": "mul" },
+    { "ko": "강", "rr": "gang" },
+    { "ko": "학", "rr": "hak" },
+    { "ko": "김", "rr": "gim" },
+    { "ko": "차", "rr": "cha" }
+  ],
+
+  "mots": [
+    { "ko": "한국", "rr": "hanguk", "fr": ["Corée"] },
+    { "ko": "학교", "rr": "hakkyo", "fr": ["école"] },
+    { "ko": "김치", "rr": "gimchi", "fr": ["kimchi"] },
+    { "ko": "안녕", "rr": "annyeong", "fr": ["salut", "bonjour"] },
+    { "ko": "감사", "rr": "gamsa", "fr": ["merci", "gratitude"] },
+    { "ko": "물", "rr": "mul", "fr": ["eau"] },
+    { "ko": "밥", "rr": "bap", "fr": ["riz", "repas"] },
+    { "ko": "사과", "rr": "sagwa", "fr": ["pomme"] },
+    { "ko": "커피", "rr": "keopi", "fr": ["café"] },
+    { "ko": "친구", "rr": "chingu", "fr": ["ami", "amie"] }
+  ]
+}

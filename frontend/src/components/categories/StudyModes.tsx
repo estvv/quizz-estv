@@ -50,7 +50,7 @@ export function StudyModes({ category }: { category: Category }) {
     const source = category.flashcard_count > 0 ? 'cards' : 'quiz';
     const detail = category.flashcard_count > 0
       ? `${category.flashcard_count} carte${category.flashcard_count !== 1 ? 's' : ''}`
-      : `${category.question_count} question${category.question_count !== 1 ? 's' : ''} du quiz`;
+      : `${category.question_count} exercice${category.question_count !== 1 ? 's' : ''}`;
     modes.push({
       to: `/category/${category.id}/flashcards?source=${source}`,
       icon: FlashcardsIcon,

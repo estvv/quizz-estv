@@ -5,7 +5,7 @@ import { rateLimit } from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { initDatabase } from './db/index.js';
 import categoriesRoutes from './routes/categories.js';
-import questionsRoutes from './routes/questions.js';
+import exercisesRoutes from './routes/exercises.js';
 import flashcardsRoutes from './routes/flashcards.js';
 
 dotenv.config();
@@ -51,7 +51,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api', limiter);
 app.use('/api/categories', categoriesRoutes);
-app.use('/api/questions', questionsRoutes);
+app.use('/api/exercises', exercisesRoutes);
 app.use('/api/flashcards', flashcardsRoutes);
 
 app.use('/api', (_req, res) => {

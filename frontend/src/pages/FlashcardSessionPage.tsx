@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import type { Category, Flashcard, Question, StudyCard } from '../types';
-import { categoriesApi, flashcardsApi, questionsApi } from '../utils/api';
+import type { Category, Flashcard, Exercise, StudyCard } from '../types';
+import { categoriesApi, flashcardsApi, exercisesApi } from '../utils/api';
 import { getCategoryColorClasses } from '../utils/colors';
 import { FlashcardDeck } from '../components/flashcards/FlashcardDeck';
 
@@ -15,17 +15,27 @@ function toCard(flashcard: Flashcard): StudyCard {
   return { key: `card-${flashcard.id}`, front: flashcard.front, back: flashcard.back };
 }
 
-// A quiz question read as a card: the prompt on the front, the correct choice
-// spelled out on the back so the answer stands alone without the A/B/C/D list.
-function questionToCard(question: Question): StudyCard {
-  const choices: Record<string, string> = {
-    A: question.choice_a, B: question.choice_b, C: question.choice_c, D: question.choice_d,
-  };
-  const answer = `${question.correct_choice}. ${choices[question.correct_choice]}`;
+// An exercise read as a card: the prompt on the front, the answer spelled out on
+// the back. Only mcq / type_answer carry a self-contained answer string.
+function exerciseToCard(exercise: Exercise): StudyCard {
+  let front = exercise.prompt;
+  let answer: string;
+  switch (exercise.type) {
+    case 'mcq':
+      answer = exercise.payload.choices[exercise.payload.correct];
+      break;
+    case 'type_answer':
+      answer = exercise.payload.accept[0];
+      break;
+    case 'vocab':
+      front = exercise.payload.ko;
+      answer = `${exercise.payload.fr[0]}  ${exercise.payload.rr}`;
+      break;
+  }
   return {
-    key: `question-${question.id}`,
-    front: question.question_text,
-    back: question.explanation ? `${answer}\n\n${question.explanation}` : answer,
+    key: `exercise-${exercise.id}`,
+    front,
+    back: exercise.explanation && exercise.type !== 'vocab' ? `${answer}\n\n${exercise.explanation}` : answer,
   };
 }
 
@@ -38,7 +48,7 @@ export function FlashcardSessionPage() {
 
   const [category, setCategory] = useState<Category | null>(null);
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -49,12 +59,12 @@ export function FlashcardSessionPage() {
     Promise.all([
       categoriesApi.get(categoryId),
       flashcardsApi.list(categoryId),
-      questionsApi.quiz({ category_id: categoryId }),
+      exercisesApi.session({ category_id: categoryId }),
     ])
-      .then(([cat, cards, qs]) => {
+      .then(([cat, cards, ex]) => {
         setCategory(cat);
         setFlashcards(cards);
-        setQuestions(qs);
+        setExercises(ex);
       })
       .catch((err) => setError(err.message || 'Impossible de charger les cartes'))
       .finally(() => setLoading(false));
@@ -62,9 +72,9 @@ export function FlashcardSessionPage() {
 
   const cardsBySource = useMemo(() => ({
     cards: flashcards.map(toCard),
-    quiz: questions.map(questionToCard),
-    all: [...flashcards.map(toCard), ...questions.map(questionToCard)],
-  }), [flashcards, questions]);
+    quiz: exercises.map(exerciseToCard),
+    all: [...flashcards.map(toCard), ...exercises.map(exerciseToCard)],
+  }), [flashcards, exercises]);
 
   const deck = cardsBySource[source];
 

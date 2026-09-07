@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import type { Category, QuestionBrief } from '../types';
-import { categoriesApi, questionsApi } from '../utils/api';
+import type { Category, ExerciseBrief } from '../types';
+import { categoriesApi, exercisesApi } from '../utils/api';
 import { getCategoryColorClasses } from '../utils/colors';
 import { buildCategoryTree, findNode, getAncestors } from '../utils/categoryTree';
-import { QuestionListRow } from '../components/questions/QuestionListRow';
+import { ExerciseListRow } from '../components/exercise/ExerciseListRow';
 import { StudyModes } from '../components/categories/StudyModes';
 import { CategoryCard } from '../components/categories/CategoryCard';
 
@@ -25,7 +25,7 @@ export function CategoryPage() {
 
   const [category, setCategory] = useState<Category | null>(null);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
-  const [questions, setQuestions] = useState<QuestionBrief[]>([]);
+  const [exercises, setExercises] = useState<ExerciseBrief[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -38,15 +38,15 @@ export function CategoryPage() {
     if (!id) return;
     const categoryId = parseInt(id);
     setLoading(true);
-    setQuestions([]);
+    setExercises([]);
     Promise.all([categoriesApi.get(categoryId), categoriesApi.list()])
       .then(async ([cat, all]) => {
         setCategory(cat);
         setAllCategories(all);
         // A category with sub-categories is a pure container: skip fetching its
-        // own questions, it never has any directly attached.
+        // own exercises, it never has any directly attached.
         if (!all.some((c) => c.parent_id === categoryId)) {
-          setQuestions(await questionsApi.brief(categoryId));
+          setExercises(await exercisesApi.brief(categoryId));
         }
       })
       .catch((err) => setError(err.message || 'Catégorie introuvable'))
@@ -79,10 +79,10 @@ export function CategoryPage() {
     if (!category) return;
     setStarting(true);
     try {
-      const full = await questionsApi.quiz({ category_id: category.id });
+      const full = await exercisesApi.session({ category_id: category.id });
       const shuffled = shuffle(full);
       const sliced = randomCount === 'all' ? shuffled : shuffled.slice(0, randomCount);
-      navigate('/quiz', { state: { questions: sliced, categoryName: category.name } });
+      navigate('/quiz', { state: { exercises: sliced, categoryName: category.name } });
     } catch (err: any) {
       setError(err.message || 'Impossible de démarrer le quiz');
       setStarting(false);
@@ -93,9 +93,9 @@ export function CategoryPage() {
     if (!category || selectedIds.size === 0) return;
     setStarting(true);
     try {
-      const ids = questions.filter((q) => selectedIds.has(q.id)).map((q) => q.id);
-      const full = await questionsApi.quiz({ ids });
-      navigate('/quiz', { state: { questions: full, categoryName: category.name } });
+      const ids = exercises.filter((e) => selectedIds.has(e.id)).map((e) => e.id);
+      const full = await exercisesApi.session({ ids });
+      navigate('/quiz', { state: { exercises: full, categoryName: category.name } });
     } catch (err: any) {
       setError(err.message || 'Impossible de démarrer le quiz');
       setStarting(false);
@@ -168,14 +168,14 @@ export function CategoryPage() {
 
       <StudyModes category={category} />
 
-      {questions.length === 0 ? (
+      {exercises.length === 0 ? (
         !category.has_lesson && category.flashcard_count === 0 && (
           <p className="text-neutral-500">Aucun contenu dans cette catégorie pour le moment.</p>
         )
       ) : (
         <>
           <div className="flex flex-wrap items-center gap-3 mb-6">
-            {mode === 'browse' && questions.length > 5 && (
+            {mode === 'browse' && exercises.length > 5 && (
               <div className="flex rounded-lg border border-neutral-200 overflow-hidden text-sm">
                 {(['5', '10', 'all'] as const).map((opt) => {
                   const value: RandomCount = opt === 'all' ? 'all' : (parseInt(opt) as 5 | 10);
@@ -222,13 +222,13 @@ export function CategoryPage() {
           </div>
 
           <div className="rounded-lg border border-neutral-200 bg-white mb-4">
-            {questions.map((q, i) => (
-              <QuestionListRow
-                key={q.id}
-                question={q}
+            {exercises.map((e, i) => (
+              <ExerciseListRow
+                key={e.id}
+                exercise={e}
                 index={i}
                 selectable={mode === 'select'}
-                selected={selectedIds.has(q.id)}
+                selected={selectedIds.has(e.id)}
                 onToggle={toggleSelected}
               />
             ))}

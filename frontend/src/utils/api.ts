@@ -1,4 +1,4 @@
-import type { Category, QuestionBrief, Question, Flashcard } from '../types';
+import type { Category, ExerciseBrief, Exercise, Flashcard } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
@@ -21,18 +21,18 @@ export const categoriesApi = {
   lesson: (id: number): Promise<{ lesson: string | null }> => request(`/categories/${id}/lesson`),
 };
 
-export const questionsApi = {
-  brief: (categoryId: number): Promise<QuestionBrief[]> =>
-    request(`/questions?category_id=${categoryId}`),
+export const exercisesApi = {
+  brief: (categoryId: number): Promise<ExerciseBrief[]> =>
+    request(`/exercises?category_id=${categoryId}`),
 
-  quiz: (params: { category_id: number } | { ids: number[] }): Promise<Question[]> => {
+  session: (params: { category_id: number } | { ids: number[] }): Promise<Exercise[]> => {
     if ('category_id' in params) {
-      return request(`/questions/quiz?category_id=${params.category_id}`);
+      return request(`/exercises/quiz?category_id=${params.category_id}`);
     }
-    return request(`/questions/quiz?ids=${params.ids.join(',')}`);
+    return request(`/exercises/quiz?ids=${params.ids.join(',')}`);
   },
 
-  get: (id: number): Promise<Question> => request(`/questions/${id}`),
+  get: (id: number): Promise<Exercise> => request(`/exercises/${id}`),
 };
 
 export const flashcardsApi = {

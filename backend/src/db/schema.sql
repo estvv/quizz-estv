@@ -35,6 +35,28 @@ CREATE TABLE IF NOT EXISTS questions (
 CREATE INDEX IF NOT EXISTS idx_questions_category ON questions(category_id);
 CREATE INDEX IF NOT EXISTS idx_categories_slug ON categories(slug);
 
+-- Generic exercise, supersedes `questions` as the store. `questions` (above) is
+-- kept only so an old database keeps parsing; seeding never writes to it any
+-- more. `type` discriminates the payload shape; the set of valid types and the
+-- payload shapes are enforced in application code (validateExercisePayload in
+-- db/index.ts), not by a CHECK, so adding a type needs no migration. `payload`
+-- is JSON, validated once at seed time, read-only after.
+CREATE TABLE IF NOT EXISTS exercises (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_id INTEGER NOT NULL,
+    type TEXT NOT NULL,
+    prompt TEXT NOT NULL,
+    payload TEXT NOT NULL,
+    explanation TEXT,
+    diagram_svg TEXT,
+    position INTEGER NOT NULL DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_exercises_category ON exercises(category_id);
+
 CREATE TABLE IF NOT EXISTS flashcards (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     category_id INTEGER NOT NULL,

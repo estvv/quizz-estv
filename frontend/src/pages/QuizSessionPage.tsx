@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
-import type { Choice, Question } from '../types';
+import type { Exercise } from '../types';
+import { gradeExercise, type Response } from '../utils/grade';
 import { ProgressBar } from '../components/quiz/ProgressBar';
-import { QuestionCard } from '../components/quiz/QuestionCard';
-import { ResultsSummary, type AnsweredQuestion } from '../components/quiz/ResultsSummary';
+import { ExerciseCard } from '../components/exercise/ExerciseCard';
+import { ResultsSummary, type AnsweredExercise } from '../components/quiz/ResultsSummary';
 
 interface LocationState {
-  questions: Question[];
+  exercises: Exercise[];
   categoryName: string;
 }
 
@@ -16,39 +17,34 @@ export function QuizSessionPage() {
   const state = location.state as LocationState | null;
 
   const [index, setIndex] = useState(0);
-  const [chosen, setChosen] = useState<Choice | null>(null);
   const [revealed, setRevealed] = useState(false);
-  const [answers, setAnswers] = useState<AnsweredQuestion[]>([]);
+  const [answers, setAnswers] = useState<AnsweredExercise[]>([]);
   const [finished, setFinished] = useState(false);
 
-  if (!state || !state.questions || state.questions.length === 0) {
+  if (!state || !state.exercises || state.exercises.length === 0) {
     return <Navigate to="/" replace />;
   }
 
-  const { questions, categoryName } = state;
-  const currentQuestion = questions[index];
+  const { exercises, categoryName } = state;
+  const current = exercises[index];
 
-  function handleAnswer(choice: Choice) {
-    const question = questions[index];
-    const correct = choice === question.correct_choice;
-    setChosen(choice);
+  function commit(response: Response) {
+    if (revealed) return;
     setRevealed(true);
-    setAnswers((prev) => [...prev, { question, chosen: choice, correct }]);
+    setAnswers((prev) => [...prev, { exercise: current, grade: gradeExercise(current, response) }]);
   }
 
   function handleNext() {
-    if (index + 1 >= questions.length) {
+    if (index + 1 >= exercises.length) {
       setFinished(true);
       return;
     }
     setIndex((i) => i + 1);
-    setChosen(null);
     setRevealed(false);
   }
 
   function handleRestart() {
     setIndex(0);
-    setChosen(null);
     setRevealed(false);
     setAnswers([]);
     setFinished(false);
@@ -66,12 +62,12 @@ export function QuizSessionPage() {
         />
       ) : (
         <>
-          <ProgressBar current={index} total={questions.length} />
-          <QuestionCard
-            question={currentQuestion}
-            chosen={chosen}
+          <ProgressBar current={index} total={exercises.length} />
+          <ExerciseCard
+            key={`${index}-${current.id}`}
+            exercise={current}
             revealed={revealed}
-            onAnswer={handleAnswer}
+            onCommit={commit}
           />
           <div className="mt-6 flex justify-end">
             <button
@@ -79,7 +75,7 @@ export function QuizSessionPage() {
               disabled={!revealed}
               className="px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {index + 1 >= questions.length ? 'Voir les résultats' : 'Suivant →'}
+              {index + 1 >= exercises.length ? 'Voir les résultats' : 'Suivant →'}
             </button>
           </div>
         </>

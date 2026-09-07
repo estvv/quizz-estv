@@ -1,19 +1,19 @@
-import type { Question } from '../../types';
+import type { Exercise } from '../../types';
+import type { Grade } from '../../utils/grade';
 
-export interface AnsweredQuestion {
-  question: Question;
-  chosen: string | null;
-  correct: boolean;
+export interface AnsweredExercise {
+  exercise: Exercise;
+  grade: Grade;
 }
 
 interface Props {
-  answers: AnsweredQuestion[];
+  answers: AnsweredExercise[];
   onRestart: () => void;
   onHome: () => void;
 }
 
 export function ResultsSummary({ answers, onRestart, onHome }: Props) {
-  const score = answers.filter((a) => a.correct).length;
+  const score = answers.filter((a) => a.grade.correct).length;
   const total = answers.length;
 
   return (
@@ -25,19 +25,19 @@ export function ResultsSummary({ answers, onRestart, onHome }: Props) {
 
       <div className="rounded-lg border border-neutral-200 bg-white mb-6 divide-y divide-neutral-100">
         {answers.map((a, i) => (
-          <div key={a.question.id} className="px-4 py-3 flex items-start gap-3">
+          <div key={a.exercise.id} className="px-4 py-3 flex items-start gap-3">
             <span
               className={`w-6 h-6 shrink-0 rounded-full flex items-center justify-center text-xs font-bold ${
-                a.correct ? 'bg-emerald-100 text-emerald-700' : 'bg-red-50 text-red-700'
+                a.grade.correct ? 'bg-emerald-100 text-emerald-700' : 'bg-red-50 text-red-700'
               }`}
             >
-              {a.correct ? '✓' : '✗'}
+              {a.grade.correct ? '✓' : '✗'}
             </span>
             <div>
-              <p className="text-sm text-neutral-800">{i + 1}. {a.question.question_text}</p>
-              {!a.correct && (
+              <p className="text-sm text-neutral-800">{i + 1}. {a.exercise.prompt}</p>
+              {!a.grade.correct && (
                 <p className="text-xs text-neutral-500 mt-0.5">
-                  Bonne réponse : {a.question.correct_choice}
+                  Bonne réponse : {a.grade.answer}
                 </p>
               )}
             </div>
