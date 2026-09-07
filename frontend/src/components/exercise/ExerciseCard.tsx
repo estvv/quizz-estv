@@ -3,6 +3,9 @@ import type { Response } from '../../utils/grade';
 import { McqExercise } from './McqExercise';
 import { TypeAnswerExercise } from './TypeAnswerExercise';
 import { VocabExercise } from './VocabExercise';
+import { OrderStepsExercise } from './OrderStepsExercise';
+import { WriteAlgorithmExercise } from './WriteAlgorithmExercise';
+import { FlowchartBuild } from './FlowchartBuild';
 
 interface Props {
   exercise: Exercise;
@@ -21,5 +24,11 @@ export function ExerciseCard({ exercise, revealed, onCommit }: Props) {
       return <TypeAnswerExercise exercise={exercise} revealed={revealed} onCommit={onCommit} />;
     case 'vocab':
       return <VocabExercise exercise={exercise} revealed={revealed} onCommit={onCommit} />;
+    case 'order_steps':
+      return <OrderStepsExercise exercise={exercise} revealed={revealed} onCommit={onCommit} />;
+    case 'write_algorithm':
+      return <WriteAlgorithmExercise exercise={exercise} revealed={revealed} onCommit={onCommit} />;
+    case 'flowchart_build':
+      return <FlowchartBuild exercise={exercise} revealed={revealed} onCommit={onCommit} />;
   }
 }

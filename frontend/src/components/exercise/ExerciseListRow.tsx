@@ -12,6 +12,9 @@ const TYPE_LABEL: Record<ExerciseType, string> = {
   mcq: 'QCM',
   type_answer: 'Saisie',
   vocab: 'Mot',
+  order_steps: 'Ordre',
+  write_algorithm: 'Algo',
+  flowchart_build: 'Flowchart',
 };
 
 export function ExerciseListRow({ exercise, index, selectable, selected, onToggle }: Props) {

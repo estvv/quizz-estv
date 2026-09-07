@@ -13,7 +13,13 @@ export interface Category {
   has_lesson: boolean;
 }
 
-export type ExerciseType = 'mcq' | 'type_answer' | 'vocab';
+export type ExerciseType =
+  | 'mcq'
+  | 'type_answer'
+  | 'vocab'
+  | 'order_steps'
+  | 'write_algorithm'
+  | 'flowchart_build';
 
 export interface McqPayload {
   choices: string[];
@@ -34,6 +40,40 @@ export interface VocabPayload {
   rr_accept?: string[];
   fr: string[];
   hint: string[];
+}
+
+export interface OrderStepsPayload {
+  items: string[];
+  solution: number[];
+}
+
+export interface WriteAlgorithmPayload {
+  steps: string[][];
+  hint?: string;
+}
+
+export type FlowchartKind = 'start' | 'end' | 'io' | 'process' | 'decision';
+
+export interface FlowchartNode {
+  id: string;
+  kind: FlowchartKind;
+  label: string;
+}
+
+export interface FlowchartEdge {
+  from: string;
+  to: string;
+  branch?: 'yes' | 'no';
+}
+
+export interface FlowchartGraph {
+  nodes: FlowchartNode[];
+  edges: FlowchartEdge[];
+}
+
+export interface FlowchartBuildPayload {
+  target: FlowchartGraph;
+  hint?: string;
 }
 
 export interface McqExercise {
@@ -58,18 +98,42 @@ export interface TypeAnswerExercise {
   position: number;
 }
 
-export interface VocabExercise {
+interface BaseExercise {
   id: number;
   category_id: number;
-  type: 'vocab';
   prompt: string;
-  payload: VocabPayload;
   explanation: string | null;
   diagram_svg: string | null;
   position: number;
 }
 
-export type Exercise = McqExercise | TypeAnswerExercise | VocabExercise;
+export interface VocabExercise extends BaseExercise {
+  type: 'vocab';
+  payload: VocabPayload;
+}
+
+export interface OrderStepsExercise extends BaseExercise {
+  type: 'order_steps';
+  payload: OrderStepsPayload;
+}
+
+export interface WriteAlgorithmExercise extends BaseExercise {
+  type: 'write_algorithm';
+  payload: WriteAlgorithmPayload;
+}
+
+export interface FlowchartBuildExercise extends BaseExercise {
+  type: 'flowchart_build';
+  payload: FlowchartBuildPayload;
+}
+
+export type Exercise =
+  | McqExercise
+  | TypeAnswerExercise
+  | VocabExercise
+  | OrderStepsExercise
+  | WriteAlgorithmExercise
+  | FlowchartBuildExercise;
 
 export interface ExerciseBrief {
   id: number;

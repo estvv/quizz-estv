@@ -15,9 +15,14 @@ function toCard(flashcard: Flashcard): StudyCard {
   return { key: `card-${flashcard.id}`, front: flashcard.front, back: flashcard.back };
 }
 
-// An exercise read as a card: the prompt on the front, the answer spelled out on
-// the back. Only mcq / type_answer carry a self-contained answer string.
-function exerciseToCard(exercise: Exercise): StudyCard {
+// Only exercises with a short self-contained answer make sense as a flashcard.
+type CardExercise = Extract<Exercise, { type: 'mcq' | 'type_answer' | 'vocab' }>;
+
+function isCardExercise(e: Exercise): e is CardExercise {
+  return e.type === 'mcq' || e.type === 'type_answer' || e.type === 'vocab';
+}
+
+function exerciseToCard(exercise: CardExercise): StudyCard {
   let front = exercise.prompt;
   let answer: string;
   switch (exercise.type) {
@@ -70,11 +75,14 @@ export function FlashcardSessionPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  const cardsBySource = useMemo(() => ({
-    cards: flashcards.map(toCard),
-    quiz: exercises.map(exerciseToCard),
-    all: [...flashcards.map(toCard), ...exercises.map(exerciseToCard)],
-  }), [flashcards, exercises]);
+  const cardsBySource = useMemo(() => {
+    const quiz = exercises.filter(isCardExercise).map(exerciseToCard);
+    return {
+      cards: flashcards.map(toCard),
+      quiz,
+      all: [...flashcards.map(toCard), ...quiz],
+    };
+  }, [flashcards, exercises]);
 
   const deck = cardsBySource[source];
 

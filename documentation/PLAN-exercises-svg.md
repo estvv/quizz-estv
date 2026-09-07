@@ -87,20 +87,22 @@ Chaque type = une forme de `payload` validée au seed + un composant de rendu. L
 
 | type | pour quoi | `payload` | rendu |
 |---|---|---|---|
-| `mcq` | QCM 1 bonne réponse (existant, généralisé à N choix) | `{ choices: string[], correct: number, hint?: string }` | boutons, feedback vert/rouge |
-| `type_answer` | saisie libre (romanisation, terme exact) | `{ accept: string[], placeholder?: string, hint?: string, normalize?: "loose"\|"exact" }` | `<input>` + comparaison normalisée |
-| `match_pairs` | associer 2 colonnes (hangeul ↔ sens) | `{ pairs: { a: string, b: string }[] }` | tap gauche puis tap droite, paires verrouillées |
-| `order_tokens` | reconstituer une phrase (tap-the-words) | `{ tokens: string[], solution: number[], distractors?: string[] }` | banque de jetons → zone de réponse, tap pour poser/retirer |
+| `mcq` | QCM 1 bonne réponse (N choix) | `{ choices, correct, hint? }` | boutons, feedback vert/rouge |
+| `type_answer` | saisie libre (romanisation, terme exact) | `{ accept[], placeholder?, hint?, normalize? }` | `<input>` + comparaison normalisée |
+| `vocab` | 1 mot cor. : sens FR (noté) + prononciation (bonus) + bouton Indice | `{ ko, rr, rr_accept?, fr[], hint[] }` | hangeul en gros + 2 champs |
+| `order_steps` | réordonner des étapes mélangées (algo, pipeline) | `{ items[], solution[] }` — auteur écrit `steps` dans l'ordre, seed mélange | liste + boutons ▲▼ |
+| `write_algorithm` | **écrire** un algorithme, corrigé **ligne par ligne** | `{ steps: string[][], hint? }` — `steps[i]` = formes acceptées de la ligne i | `<textarea>` mono ; nb de lignes = nb d'étapes, chaque ligne normalisée (`normalizeCode`) ∈ `steps[i]`, dans l'ordre |
+| `flowchart_build` | **construire** un flowchart sur un canvas (type Scratch) | `{ target: FlowchartGraph, hint? }` | **react-flow** (lazy-load, chunk séparé ~59 kB gzip) : palette de blocs génériques (Départ/E-S/Traitement/Décision/Fin), tu écris le texte, tu relies ; décision = sortie « oui » (bas) + « non » (droite) |
 
-Les **4 types sont dans ce lot** (décision : on les fait maintenant même si le coréen n'utilise
-que `mcq` + `type_answer`, pour que les autres catégories puissent s'en servir).
+- `normalizeCode` (partagé `write_algorithm` + labels de `flowchart_build`) : minuscules, espaces
+  supprimés, synonymes d'opérateurs repliés (`≠`/`<>`→`!=`, `←`/`:=`/`==`→`=`, `mod`→`%`, `and`→`&&`…),
+  `?`/`.` de fin retirés. Strict sur le reste.
+- **`flowchart_build` — correction = topologie uniquement** : bijection entre les nœuds (par
+  `kind` + label normalisé) telle que les arêtes correspondent, labels `oui`/`non` inclus. La
+  position sur le canvas ne compte pas. Un nœud/arête en trop ou manquant ⇒ faux.
+- `match_pairs` / `order_tokens` (reconstituer une phrase) : **non faits** — pas de besoin actuel.
 
-**Fast-follow (v1.1), pas dans ce lot :**
-
-| type | `payload` |
-|---|---|
-| `multi` | `{ choices: string[], correct: number[] }` |
-| `cloze` | `{ text: "나는 ___ 학생 ___", blanks: { accept: string[] }[] }` |
+**Fast-follow, pas dans ce lot :** `multi`, `cloze`, `match_pairs`, `order_tokens`.
 
 ### Normalisation de `type_answer`
 

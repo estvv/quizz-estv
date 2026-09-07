@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import type {
   Category, CategoryWithCount, Flashcard,
-  Exercise, ExerciseBrief, ExerciseType, ExercisePayload,
+  Exercise, ExerciseBrief, ExerciseType, ExercisePayload, FlowchartGraph,
   SeedCategory, SeedExercise, SeedQuestion, SeedVocab,
 } from '../types/index.js';
 
@@ -177,6 +177,62 @@ function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, w
     return;
   }
 
+  if (type === 'order_steps') {
+    const p = payload as { items?: unknown; solution?: unknown };
+    if (!nonEmptyStrings(p.items) || (p.items as string[]).length < 2) {
+      throw new Error(`seed.json: ${where}  order_steps needs at least 2 steps`);
+    }
+    const n = (p.items as string[]).length;
+    const sol = p.solution;
+    if (!Array.isArray(sol) || sol.length !== n ||
+        [...sol].sort((a, b) => a - b).some((v, i) => v !== i)) {
+      throw new Error(`seed.json: ${where}  order_steps "solution" must be a permutation of 0..${n - 1}`);
+    }
+    return;
+  }
+
+  if (type === 'write_algorithm') {
+    const p = payload as { steps?: unknown };
+    if (!Array.isArray(p.steps) || p.steps.length < 1 ||
+        !p.steps.every((line) => nonEmptyStrings(line))) {
+      throw new Error(`seed.json: ${where}  write_algorithm "steps" must be a list of non-empty form lists`);
+    }
+    return;
+  }
+
+  if (type === 'flowchart_build') {
+    const g = (payload as { target?: FlowchartGraph }).target;
+    const kinds = new Set(['start', 'end', 'io', 'process', 'decision']);
+    if (!g || !Array.isArray(g.nodes) || g.nodes.length < 2 || !Array.isArray(g.edges)) {
+      throw new Error(`seed.json: ${where}  flowchart_build needs target.nodes (>=2) and target.edges`);
+    }
+    const ids = new Set(g.nodes.map((node) => node.id));
+    for (const node of g.nodes) {
+      if (!node.id || !kinds.has(node.kind) || typeof node.label !== 'string' || node.label.trim() === '') {
+        throw new Error(`seed.json: ${where}  flowchart node needs id, kind, non-empty label`);
+      }
+    }
+    if (ids.size !== g.nodes.length) {
+      throw new Error(`seed.json: ${where}  flowchart node ids must be unique`);
+    }
+    for (const edge of g.edges) {
+      if (!ids.has(edge.from) || !ids.has(edge.to)) {
+        throw new Error(`seed.json: ${where}  flowchart edge points at an unknown node`);
+      }
+      if (edge.branch !== undefined && edge.branch !== 'yes' && edge.branch !== 'no') {
+        throw new Error(`seed.json: ${where}  flowchart edge "branch" must be "yes" or "no"`);
+      }
+    }
+    for (const node of g.nodes) {
+      if (node.kind !== 'decision') continue;
+      const out = g.edges.filter((edge) => edge.from === node.id).map((edge) => edge.branch).sort();
+      if (out.length !== 2 || out[0] !== 'no' || out[1] !== 'yes') {
+        throw new Error(`seed.json: ${where}  decision node "${node.label}" needs exactly one "yes" and one "no" edge`);
+      }
+    }
+    return;
+  }
+
   const p = payload as { accept?: unknown; normalize?: unknown };
   if (!nonEmptyStrings(p.accept)) {
     throw new Error(`seed.json: ${where}  type_answer needs a non-empty "accept" list`);
@@ -200,14 +256,35 @@ function questionToExercise(q: SeedQuestion): PreparedExercise {
 }
 
 function seedExerciseToExercise(e: SeedExercise): PreparedExercise {
-  const payload: ExercisePayload = e.type === 'mcq'
-    ? { choices: e.choices, correct: e.correct, ...(e.hint ? { hint: e.hint } : {}) }
-    : {
+  let payload: ExercisePayload;
+  switch (e.type) {
+    case 'mcq':
+      payload = { choices: e.choices, correct: e.correct, ...(e.hint ? { hint: e.hint } : {}) };
+      break;
+    case 'type_answer':
+      payload = {
         accept: e.accept,
         ...(e.placeholder ? { placeholder: e.placeholder } : {}),
         ...(e.hint ? { hint: e.hint } : {}),
         ...(e.normalize ? { normalize: e.normalize } : {}),
       };
+      break;
+    case 'order_steps': {
+      // The order in seed.json is the answer. Shuffle for display, keep the
+      // permutation that maps a display slot back to the correct step.
+      const order = shuffle(e.steps.map((_, i) => i));
+      const items = order.map((i) => e.steps[i]);
+      const solution = e.steps.map((_, i) => order.indexOf(i));
+      payload = { items, solution };
+      break;
+    }
+    case 'write_algorithm':
+      payload = { steps: e.steps, ...(e.hint ? { hint: e.hint } : {}) };
+      break;
+    case 'flowchart_build':
+      payload = { target: e.target, ...(e.hint ? { hint: e.hint } : {}) };
+      break;
+  }
   return {
     type: e.type,
     prompt: e.prompt,

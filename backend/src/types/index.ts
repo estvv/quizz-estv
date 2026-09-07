@@ -22,7 +22,13 @@ export interface CategoryWithCount extends Category {
 
 // --- exercises ---
 
-export type ExerciseType = 'mcq' | 'type_answer' | 'vocab';
+export type ExerciseType =
+  | 'mcq'
+  | 'type_answer'
+  | 'vocab'
+  | 'order_steps'
+  | 'write_algorithm'
+  | 'flowchart_build';
 
 /** One choice is correct; `correct` indexes into `choices`. */
 export interface McqPayload {
@@ -56,7 +62,54 @@ export interface VocabPayload {
   hint: string[];
 }
 
-export type ExercisePayload = McqPayload | TypeAnswerPayload | VocabPayload;
+/** Reorder shuffled steps. `items` is the shuffled display order; `solution[i]`
+ *  is the index into `items` of the step that belongs at position i. */
+export interface OrderStepsPayload {
+  items: string[];
+  solution: number[];
+}
+
+/** Free-text algorithm, graded line by line. `steps[i]` is the list of accepted
+ *  forms for line i (first is the model answer). */
+export interface WriteAlgorithmPayload {
+  steps: string[][];
+  hint?: string;
+}
+
+export type FlowchartKind = 'start' | 'end' | 'io' | 'process' | 'decision';
+
+export interface FlowchartNode {
+  id: string;
+  kind: FlowchartKind;
+  label: string;
+}
+
+export interface FlowchartEdge {
+  from: string;
+  to: string;
+  /** Required on the two edges leaving a decision node. */
+  branch?: 'yes' | 'no';
+}
+
+export interface FlowchartGraph {
+  nodes: FlowchartNode[];
+  edges: FlowchartEdge[];
+}
+
+/** Build a flowchart on a canvas; graded on topology (blocks + edges + Yes/No),
+ *  never on position. */
+export interface FlowchartBuildPayload {
+  target: FlowchartGraph;
+  hint?: string;
+}
+
+export type ExercisePayload =
+  | McqPayload
+  | TypeAnswerPayload
+  | VocabPayload
+  | OrderStepsPayload
+  | WriteAlgorithmPayload
+  | FlowchartBuildPayload;
 
 export interface Exercise {
   id: number;
@@ -124,7 +177,40 @@ export interface SeedTypeAnswerExercise {
   diagram_svg?: string;
 }
 
-export type SeedExercise = SeedMcqExercise | SeedTypeAnswerExercise;
+export interface SeedOrderStepsExercise {
+  type: 'order_steps';
+  prompt: string;
+  /** The steps in the correct order. Shuffled at seed time. */
+  steps: string[];
+  explanation?: string;
+  diagram_svg?: string;
+}
+
+export interface SeedWriteAlgorithmExercise {
+  type: 'write_algorithm';
+  prompt: string;
+  /** One entry per line; each entry lists the accepted forms (model first). */
+  steps: string[][];
+  hint?: string;
+  explanation?: string;
+  diagram_svg?: string;
+}
+
+export interface SeedFlowchartBuildExercise {
+  type: 'flowchart_build';
+  prompt: string;
+  target: FlowchartGraph;
+  hint?: string;
+  explanation?: string;
+  diagram_svg?: string;
+}
+
+export type SeedExercise =
+  | SeedMcqExercise
+  | SeedTypeAnswerExercise
+  | SeedOrderStepsExercise
+  | SeedWriteAlgorithmExercise
+  | SeedFlowchartBuildExercise;
 
 /** One vocab word, expanded into four exercises at seed time (see db/index.ts). */
 export interface SeedVocab {
