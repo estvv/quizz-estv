@@ -6979,7 +6979,7 @@
     "key": "school-db-w1",
     "color": "indigo",
     "parent": "school-db",
-    "lesson": "# Database Design  Week 1\n\nFundamentals: data and information, the DBMS concept, the advantages of a\ndatabase, basic terminology, the three-level ANSI-SPARC architecture, data\nindependence, types of users, and the role of the DBA.\n\n---\n\n## 1. Data, information, DBMS\n\n**Data** is raw, unorganized facts: an observation, a symbol (50, 62, \"apple\",\nan image, a sound, a video). **Without context, data is useless.** Once it is\nprocessed, organized, structured or presented in a context that makes it useful,\nit becomes **information**.\n\n> Marks of 50/100 and 25/100 -> data. \"Pass\" / \"Fail\" -> information.\n\nThe acronym **DBMS** breaks down as:\n\n| Term | Meaning |\n|---|---|\n| **Data** | a fact that can be recorded (name, age, gender, weight) |\n| **Database** | a collection of logically related data |\n| **Management** | manipulation, searching and security of the data |\n| **System** | the programs or tools used to manage the database |\n\nA **DBMS** is therefore **software designed to define, manipulate, retrieve and\nmanage the data in a database**. Examples: MS SQL Server, Oracle, MySQL, SQLite,\nMongoDB.\n\nIt is a **computerized record-keeping system**, required wherever data needs to\nbe stored: e-commerce, streaming, social media, banking and insurance, air and\nrail travel, universities, libraries, human resources, hospitals, government\norganizations.\n\n## 2. The eight advantages of a DBMS\n\n1. **Reduce redundancy**: data is stored centrally rather than duplicated in\n   each department.\n2. **Remove inconsistency**: with redundancy gone, the same data can no longer\n   exist in different states depending on the location.\n3. **Data isolation**: data scattered across files of various formats is hard to\n   retrieve; the DBMS gives easy access. Isolation determines *when and how* one\n   operation's changes become visible to other concurrent users.\n4. **Guaranteed atomicity**: a transaction executes **0% or 100%**. A transfer\n   of 500 must debit A *and* credit B; if the transaction fails halfway, the sum\n   of the accounts would be inconsistent.\n5. **Integrity constraints**: business rules can be enforced (a mobile number is\n   exactly 10 digits, an SPI is between 0 and 10).\n6. **Sharing of data** among several users at the same time.\n7. **Restricting unauthorized access** to data.\n8. **Backup and recovery** in case of failure.\n\n## 3. Basic terms\n\n- **Metadata**: *data about data*  table name, column name, data type,\n  authorized user, access privileges.\n- **Data dictionary**: an information repository that contains the **metadata**.\n- **Data warehouse**: an information repository that stores the **data** itself.\n- **Field**: a character or group of characters that has a specific meaning.\n- **Record / tuple**: a collection of logically related fields.\n\n## 4. The three-level ANSI-SPARC architecture\n\n```\n   User 1     User 2     User 3\n   View 1     View 2     View 3     <-  EXTERNAL level (view)\n        \\       |       /\n          Conceptual Level          <-  CONCEPTUAL level (logical)\n                 |\n           Internal Level           <-  INTERNAL level (physical)\n                 |\n              Database\n```\n\n- **Internal level (physical)**: *how* the data is stored on the device \n  files, pages, blocks, indexes, ordering of records. Described by the\n  **internal schema**.\n- **Conceptual level (logical)**: *what* data is stored and *what relationships*\n  exist among it. Hides the low-level complexities of physical storage. This is\n  the level where the **DBA** works.\n- **External level (view)**: the **part** of the database that concerns a given\n  user. There can be many views; used by end users and application programmers.\n\nHiding the irrelevant internal details is called **data abstraction**. The\nprocess of transforming requests and results between the three levels is called\n**mapping**.\n\n### Data independence\n\nThe ability to modify a schema definition at one level **without affecting the\nschema definition at the next higher level**.\n\n- **Physical data independence**: modify the **physical** schema without\n  touching the logical schema or the programs. Driven by performance; concerns\n  file structures, compression, hashing algorithms, storage devices.\n- **Logical data independence**: modify the **conceptual** schema without\n  touching the application programs. Harder to achieve, because programs depend\n  heavily on the logical structure of the data they manipulate.\n\n## 5. Users and the role of the DBA\n\n| Type | Description | Example |\n|---|---|---|\n| **Naive / end users** | no knowledge of the DBMS, go through software | bank teller |\n| **Application programmers** | write software (Java, .Net, PHP) | developer |\n| **Sophisticated users** | interact without a program, via query tools like SQL | analyst |\n| **Specialized users (DBA)** | write specialized applications, use admin tools | administrator |\n\n**DBA** roles: schema definition, definition of storage structures and access\nmethods, definition of security and integrity constraints, granting of\nauthorization for data access, liaison with users, assisting application\nprogrammers, monitoring performance, backup and recovery.\n",
+    "lesson": "# Database Design  Week 1\n\nFundamentals: data and information, the DBMS concept, the advantages of a\ndatabase, basic terminology, the three-level ANSI-SPARC architecture, data\nindependence, types of users, and the role of the DBA.\n\n---\n\n## 1. Data, information, DBMS\n\n**Data** is raw, unorganized facts: an observation, a symbol (50, 62, \"apple\",\nan image, a sound, a video). **Without context, data is useless.** Once it is\nprocessed, organized, structured or presented in a context that makes it useful,\nit becomes **information**.\n\n> Marks of 50/100 and 25/100 -> data. \"Pass\" / \"Fail\" -> information.\n\nThe acronym **DBMS** breaks down as:\n\n| Term | Meaning |\n|---|---|\n| **Data** | a fact that can be recorded (name, age, gender, weight) |\n| **Database** | a collection of logically related data |\n| **Management** | manipulation, searching and security of the data |\n| **System** | the programs or tools used to manage the database |\n\nA **DBMS** is therefore **software designed to define, manipulate, retrieve and\nmanage the data in a database**. Examples: MS SQL Server, Oracle, MySQL, SQLite,\nMongoDB.\n\nIt is a **computerized record-keeping system**, required wherever data needs to\nbe stored: e-commerce, streaming, social media, banking and insurance, air and\nrail travel, universities, libraries, human resources, hospitals, government\norganizations.\n\n## 2. The eight advantages of a DBMS\n\n1. **Reduce redundancy**: data is stored centrally rather than duplicated in\n   each department.\n2. **Remove inconsistency**: with redundancy gone, the same data can no longer\n   exist in different states depending on the location.\n3. **Data isolation**: data scattered across files of various formats is hard to\n   retrieve; the DBMS gives easy access. Isolation determines *when and how* one\n   operation's changes become visible to other concurrent users.\n4. **Guaranteed atomicity**: a transaction executes **0% or 100%**. A transfer\n   of 500 must debit A *and* credit B; if the transaction fails halfway, the sum\n   of the accounts would be inconsistent.\n5. **Integrity constraints**: business rules can be enforced (a mobile number is\n   exactly 10 digits, an SPI is between 0 and 10).\n6. **Sharing of data** among several users at the same time.\n7. **Restricting unauthorized access** to data.\n8. **Backup and recovery** in case of failure.\n\n## 3. Basic terms\n\n- **Metadata**: *data about data*  table name, column name, data type,\n  authorized user, access privileges.\n- **Data dictionary**: an information repository that contains the **metadata**.\n- **Data warehouse**: an information repository that stores the **data** itself.\n- **Field**: a character or group of characters that has a specific meaning.\n- **Record / tuple**: a collection of logically related fields.\n\n## 4. The three-level ANSI-SPARC architecture\n\n```\n   User 1     User 2     User 3\n   View 1     View 2     View 3     <-  EXTERNAL level (view)\n        \\       |       /\n          Conceptual Level          <-  CONCEPTUAL level (logical)\n                 |\n           Internal Level           <-  INTERNAL level (physical)\n                 |\n              Database\n```\n\n- **Internal level (physical)**: *how* the data is stored on the device \n  files, pages, blocks, indexes, ordering of records. Described by the\n  **internal schema**.\n- **Conceptual level (logical)**: *what* data is stored and *what relationships*\n  exist among it. Hides the low-level complexities of physical storage. This is\n  the level where the **DBA** works.\n- **External level (view)**: the **part** of the database that concerns a given\n  user. There can be many views; used by end users and application programmers.\n\nHiding the irrelevant internal details is called **data abstraction**. The\nprocess of transforming requests and results between the three levels is called\n**mapping**.\n\n### Data independence\n\nThe ability to modify a schema definition at one level **without affecting the\nschema definition at the next higher level**.\n\n- **Physical data independence**: modify the **physical** schema without\n  touching the logical schema or the programs. Driven by performance; concerns\n  file structures, compression, hashing algorithms, storage devices.\n- **Logical data independence**: modify the **conceptual** schema without\n  touching the application programs. Harder to achieve, because programs depend\n  heavily on the logical structure of the data they manipulate.\n\n## 5. Users and the role of the DBA\n\n| Type | Description | Example |\n|---|---|---|\n| **Naive / end users** | no knowledge of the DBMS, go through software | bank teller |\n| **Application programmers** | write software (Java, .Net, PHP) | developer |\n| **Sophisticated users** | interact without a program, via query tools like SQL | analyst |\n| **Specialized users (DBA)** | write specialized applications, use admin tools | administrator |\n\n**DBA** roles: schema definition, definition of storage structures and access\nmethods, definition of security and integrity constraints, granting of\nauthorization for data access, liaison with users, assisting application\nprogrammers, monitoring performance, backup and recovery.\n\n\n## 6. Database system architecture\n\nThe DBMS is organised into a **query processor** and a **storage manager**,\nsitting above the database on disk. Users reach it through one interface per user\ntype: application interfaces (naive users), application programs (application\nprogrammers), query tools (sophisticated users), administration tools (the DBA).\n\n### Query processor\n\n- **DDL interpreters** — process the DDL statements (`CREATE`, `ALTER`, `DROP`)\n  and record the definitions in the data dictionary.\n- **DML compiler & organizer** — translate a DML statement into a low-level\n  evaluation plan and pick the cheapest one (query optimisation).\n- **Compiler & linker** — turn the DML embedded in an application program into\n  object code.\n- **Query evaluation engine** — actually executes the low-level instructions\n  produced by the DML compiler.\n\n### Storage manager\n\nThe interface between the low-level data on disk and the queries.\n\n- **Buffer manager** — brings blocks from disk into main memory and decides what\n  to keep cached.\n- **File manager** — manages disk-space allocation and the on-disk data\n  structures.\n- **Authorization & integrity manager** — checks that users have the rights they\n  claim and that updates respect the integrity constraints.\n- **Transaction manager** — keeps the database consistent despite failures and\n  concurrent access (atomicity, isolation).\n\n### Disk storage\n\nThe database on disk holds four kinds of data: the **data** itself, the\n**indices**, the **data dictionary** (metadata), and **statistical data** (used\nby the query optimiser).\n",
     "questions": [
       {
         "question_text": "How is data defined?",
@@ -7314,6 +7314,225 @@
         "correct_choice": "C",
         "explanation": "The DBA backs up the database on storage devices such as DVD, CD, magnetic tape or remote servers, and restores the system from these backups in case of failure, such as a flood or a virus attack."
       }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "prompt": "Into which two main parts is the DBMS organised (above the disk)?",
+        "choices": [
+          "The query processor and the storage manager",
+          "The compiler and the linker",
+          "The internal schema and the external schema",
+          "The data dictionary and the data warehouse"
+        ],
+        "correct": 0,
+        "explanation": "The query processor turns statements into evaluation plans; the storage manager is the interface between those plans and the low-level data on disk."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which query-processor component picks the cheapest evaluation plan for a DML statement?",
+        "choices": [
+          "The DML compiler & organizer (query optimisation)",
+          "The DDL interpreters",
+          "The buffer manager",
+          "The query evaluation engine"
+        ],
+        "correct": 0,
+        "explanation": "The DML compiler translates the statement into low-level instructions and organises/optimises them into the cheapest plan."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does the query evaluation engine do?",
+        "choices": [
+          "It executes the low-level instructions produced by the DML compiler",
+          "It parses CREATE / ALTER / DROP statements",
+          "It caches disk blocks in memory",
+          "It grants access privileges to users"
+        ],
+        "correct": 0,
+        "explanation": "The evaluation engine actually runs the plan the DML compiler produced."
+      },
+      {
+        "type": "mcq",
+        "prompt": "The DDL interpreters process which kind of statement?",
+        "choices": [
+          "CREATE, ALTER, DROP (data definition)",
+          "SELECT, INSERT, UPDATE, DELETE (data manipulation)",
+          "GRANT and REVOKE only",
+          "COMMIT and ROLLBACK"
+        ],
+        "correct": 0,
+        "explanation": "DDL = Data Definition Language; the interpreters record the resulting definitions in the data dictionary."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which storage-manager component brings disk blocks into main memory and decides what to cache?",
+        "choices": [
+          "The buffer manager",
+          "The file manager",
+          "The transaction manager",
+          "The authorization & integrity manager"
+        ],
+        "correct": 0,
+        "explanation": "The buffer manager is responsible for moving blocks between disk and memory and for the cache-replacement decisions."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which storage-manager component checks users' rights and that updates respect the integrity constraints?",
+        "choices": [
+          "The authorization & integrity manager",
+          "The buffer manager",
+          "The file manager",
+          "The DML compiler"
+        ],
+        "correct": 0,
+        "explanation": "The authorization & integrity manager enforces both access control and integrity constraints."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which storage-manager component keeps the database consistent despite failures and concurrent access?",
+        "choices": [
+          "The transaction manager",
+          "The file manager",
+          "The buffer manager",
+          "The DDL interpreter"
+        ],
+        "correct": 0,
+        "explanation": "The transaction manager provides atomicity and isolation, so a crash or concurrent updates never leave the database inconsistent."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What four kinds of data does the database on disk hold, according to the architecture?",
+        "choices": [
+          "Data, indices, data dictionary, statistical data",
+          "Data, backups, logs, checkpoints",
+          "Tables, views, triggers, procedures",
+          "Rows, columns, keys, constraints"
+        ],
+        "correct": 0,
+        "explanation": "The statistical data is what the query optimiser reads to estimate plan costs."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Through which interface does a sophisticated user reach the DBMS?",
+        "choices": [
+          "Query tools",
+          "Application interfaces",
+          "Application programs",
+          "Administration tools"
+        ],
+        "correct": 0,
+        "explanation": "Naive users -> application interfaces; application programmers -> application programs; sophisticated users -> query tools; DBA -> administration tools."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Put the levels of the ANSI-SPARC architecture in order, from the one the end user sees down to physical storage.",
+        "steps": [
+          "External level (user views)",
+          "Conceptual level (logical schema)",
+          "Internal level (physical schema)",
+          "Physical database on disk"
+        ],
+        "explanation": "The end user sees only a view; the conceptual level says what data and relationships exist; the internal level says how it is stored; the database sits on disk."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "A transfer of 500 from account A to account B. Put the two steps of the transaction in order.",
+        "steps": [
+          "Debit 500 from account A",
+          "Credit 500 into account B"
+        ],
+        "explanation": "Atomicity means both steps happen or neither does; a failure between them would leave the accounts inconsistent."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Put the path of a user query through the DBMS architecture in order.",
+        "steps": [
+          "The user issues a request through a query tool or application interface",
+          "The query processor compiles and optimises it into an evaluation plan",
+          "The query evaluation engine executes the plan",
+          "The storage manager fetches the required blocks from disk",
+          "The result is mapped back up to the user's view"
+        ],
+        "explanation": "Request goes down through the query processor and storage manager; the result is mapped back up the three levels to the user."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of an atomic fund transfer: debit A, credit B, then COMMIT if both succeeded, otherwise ROLLBACK.",
+        "hint": "One decision 'Both steps succeeded ?': yes -> COMMIT; no -> ROLLBACK; both reach END.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "d",
+              "kind": "process",
+              "label": "Debit 500 from account A"
+            },
+            {
+              "id": "c",
+              "kind": "process",
+              "label": "Credit 500 into account B"
+            },
+            {
+              "id": "q",
+              "kind": "decision",
+              "label": "Both steps succeeded ?"
+            },
+            {
+              "id": "co",
+              "kind": "process",
+              "label": "COMMIT"
+            },
+            {
+              "id": "ro",
+              "kind": "process",
+              "label": "ROLLBACK"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "d"
+            },
+            {
+              "from": "d",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "q"
+            },
+            {
+              "from": "q",
+              "to": "co",
+              "branch": "yes"
+            },
+            {
+              "from": "q",
+              "to": "ro",
+              "branch": "no"
+            },
+            {
+              "from": "co",
+              "to": "e"
+            },
+            {
+              "from": "ro",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "COMMIT makes the transfer permanent; ROLLBACK undoes the debit so the database returns to its previous consistent state. That is atomicity: 0% or 100%."
+      }
     ]
   },
   {
@@ -7349,12 +7568,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅏ » ?",
         "choices": [
-          "a",
-          "i",
-          "u",
-          "e"
+          "ae",
+          "e",
+          "o",
+          "a"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅏ se prononce « a »."
       },
       {
@@ -7371,10 +7590,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅓ » ?",
         "choices": [
-          "i",
-          "eo",
           "e",
-          "u"
+          "eo",
+          "i",
+          "o"
         ],
         "correct": 1,
         "explanation": "ㅓ se prononce « eo »."
@@ -7393,12 +7612,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅗ » ?",
         "choices": [
-          "ae",
           "o",
           "u",
-          "a"
+          "a",
+          "eu"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "ㅗ se prononce « o »."
       },
       {
@@ -7415,12 +7634,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅜ » ?",
         "choices": [
-          "i",
+          "ae",
+          "o",
           "u",
-          "e",
-          "ae"
+          "i"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅜ se prononce « u »."
       },
       {
@@ -7437,12 +7656,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅡ » ?",
         "choices": [
-          "ae",
-          "a",
+          "u",
           "eu",
-          "eo"
+          "eo",
+          "a"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㅡ se prononce « eu »."
       },
       {
@@ -7459,10 +7678,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅣ » ?",
         "choices": [
-          "u",
-          "a",
+          "eu",
+          "eo",
           "i",
-          "eu"
+          "ae"
         ],
         "correct": 2,
         "explanation": "ㅣ se prononce « i »."
@@ -7481,12 +7700,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅐ » ?",
         "choices": [
-          "eo",
-          "ae",
-          "i",
-          "u"
+          "a",
+          "eu",
+          "u",
+          "ae"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㅐ se prononce « ae »."
       },
       {
@@ -7503,12 +7722,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅔ » ?",
         "choices": [
-          "eu",
-          "eo",
           "e",
-          "o"
+          "ae",
+          "eu",
+          "eo"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅔ se prononce « e »."
       },
       {
@@ -7525,12 +7744,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅑ » ?",
         "choices": [
-          "yae",
-          "yeo",
           "ya",
-          "ye"
+          "yae",
+          "ye",
+          "yeo"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅑ se prononce « ya »."
       },
       {
@@ -7547,12 +7766,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅕ » ?",
         "choices": [
-          "yeo",
-          "yu",
+          "ya",
+          "ye",
           "yae",
-          "yo"
+          "yeo"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅕ se prononce « yeo »."
       },
       {
@@ -7569,12 +7788,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅛ » ?",
         "choices": [
-          "yo",
-          "ya",
+          "ye",
           "yeo",
-          "yae"
+          "yu",
+          "yo"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅛ se prononce « yo »."
       },
       {
@@ -7591,12 +7810,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅠ » ?",
         "choices": [
-          "yo",
-          "ye",
           "yu",
-          "yae"
+          "yae",
+          "ye",
+          "yeo"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅠ se prononce « yu »."
       },
       {
@@ -7613,12 +7832,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅒ » ?",
         "choices": [
-          "yeo",
-          "yae",
+          "yu",
+          "ye",
           "ya",
-          "yo"
+          "yae"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㅒ se prononce « yae »."
       },
       {
@@ -7635,12 +7854,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅖ » ?",
         "choices": [
-          "yae",
-          "ye",
+          "yu",
+          "yo",
           "ya",
-          "yo"
+          "ye"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㅖ se prononce « ye »."
       },
       {
@@ -7657,12 +7876,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅘ » ?",
         "choices": [
-          "wa",
           "wi",
+          "ui",
           "oe",
-          "wo"
+          "wa"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅘ se prononce « wa »."
       },
       {
@@ -7680,9 +7899,9 @@
         "prompt": "Quel son a « ㅙ » ?",
         "choices": [
           "wae",
-          "wi",
+          "ui",
           "oe",
-          "ui"
+          "wi"
         ],
         "correct": 0,
         "explanation": "ㅙ se prononce « wae »."
@@ -7701,12 +7920,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅚ » ?",
         "choices": [
+          "we",
+          "wo",
           "oe",
-          "ui",
-          "wae",
-          "we"
+          "ui"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅚ se prononce « oe »."
       },
       {
@@ -7723,9 +7942,9 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅝ » ?",
         "choices": [
-          "wae",
           "ui",
-          "oe",
+          "we",
+          "wi",
           "wo"
         ],
         "correct": 3,
@@ -7745,10 +7964,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅞ » ?",
         "choices": [
-          "wa",
+          "ui",
           "wo",
           "we",
-          "ui"
+          "wae"
         ],
         "correct": 2,
         "explanation": "ㅞ se prononce « we »."
@@ -7767,12 +7986,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅟ » ?",
         "choices": [
+          "wae",
           "wi",
-          "oe",
-          "wo",
-          "wae"
+          "wa",
+          "oe"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅟ se prononce « wi »."
       },
       {
@@ -7790,9 +8009,9 @@
         "prompt": "Quel son a « ㅢ » ?",
         "choices": [
           "ui",
-          "wo",
-          "oe",
-          "wa"
+          "wi",
+          "wa",
+          "we"
         ],
         "correct": 0,
         "explanation": "ㅢ se prononce « ui »."
@@ -7814,11 +8033,11 @@
         "prompt": "Quel son a « ㄱ » ?",
         "choices": [
           "h",
-          "r",
           "g",
-          "s"
+          "d",
+          "ng"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㄱ se prononce « g »."
       },
       {
@@ -7835,10 +8054,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄴ » ?",
         "choices": [
-          "ng",
-          "s",
+          "m",
+          "r",
           "n",
-          "m"
+          "s"
         ],
         "correct": 2,
         "explanation": "ㄴ se prononce « n »."
@@ -7859,12 +8078,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄷ » ?",
         "choices": [
-          "j",
-          "s",
+          "ng",
           "m",
-          "d"
+          "d",
+          "g"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "ㄷ se prononce « d »."
       },
       {
@@ -7883,10 +8102,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄹ » ?",
         "choices": [
-          "n",
+          "h",
           "r",
           "g",
-          "ng"
+          "s"
         ],
         "correct": 1,
         "explanation": "ㄹ se prononce « r »."
@@ -7905,12 +8124,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅁ » ?",
         "choices": [
-          "h",
-          "n",
+          "b",
           "r",
-          "m"
+          "m",
+          "d"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "ㅁ se prononce « m »."
       },
       {
@@ -7929,12 +8148,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅂ » ?",
         "choices": [
+          "j",
+          "r",
           "b",
-          "n",
-          "d",
-          "ng"
+          "g"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅂ se prononce « b »."
       },
       {
@@ -7951,12 +8170,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅅ » ?",
         "choices": [
-          "h",
-          "ng",
           "d",
-          "s"
+          "b",
+          "s",
+          "j"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "ㅅ se prononce « s »."
       },
       {
@@ -7975,12 +8194,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅇ » ?",
         "choices": [
-          "n",
-          "b",
+          "ng",
+          "h",
           "m",
-          "ng"
+          "n"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "ㅇ se prononce « ng »."
       },
       {
@@ -7997,12 +8216,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅈ » ?",
         "choices": [
-          "n",
+          "r",
+          "ng",
           "j",
-          "d",
-          "b"
+          "h"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅈ se prononce « j »."
       },
       {
@@ -8019,10 +8238,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅎ » ?",
         "choices": [
-          "ng",
-          "g",
+          "b",
+          "r",
           "h",
-          "b"
+          "s"
         ],
         "correct": 2,
         "explanation": "ㅎ se prononce « h »."
@@ -8041,12 +8260,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅊ » ?",
         "choices": [
-          "ch",
-          "k",
           "p",
-          "t"
+          "k",
+          "t",
+          "ch"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅊ se prononce « ch »."
       },
       {
@@ -8063,12 +8282,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅋ » ?",
         "choices": [
-          "k",
+          "ch",
           "p",
-          "t",
-          "ch"
+          "k",
+          "t"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅋ se prononce « k »."
       },
       {
@@ -8085,10 +8304,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅌ » ?",
         "choices": [
-          "p",
           "ch",
+          "k",
           "t",
-          "k"
+          "p"
         ],
         "correct": 2,
         "explanation": "ㅌ se prononce « t »."
@@ -8107,12 +8326,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅍ » ?",
         "choices": [
+          "t",
           "p",
-          "k",
           "ch",
-          "t"
+          "k"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅍ se prononce « p »."
       },
       {
@@ -8132,7 +8351,7 @@
           "tt",
           "ss",
           "kk",
-          "pp"
+          "jj"
         ],
         "correct": 2,
         "explanation": "ㄲ se prononce « kk »."
@@ -8151,12 +8370,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄸ » ?",
         "choices": [
-          "ss",
+          "jj",
+          "pp",
           "tt",
-          "kk",
-          "pp"
+          "ss"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㄸ se prononce « tt »."
       },
       {
@@ -8173,10 +8392,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅃ » ?",
         "choices": [
-          "jj",
           "kk",
+          "tt",
           "pp",
-          "tt"
+          "jj"
         ],
         "correct": 2,
         "explanation": "ㅃ se prononce « pp »."
@@ -8195,12 +8414,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅆ » ?",
         "choices": [
+          "ss",
+          "jj",
           "kk",
-          "pp",
-          "tt",
-          "ss"
+          "pp"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "ㅆ se prononce « ss »."
       },
       {
@@ -8217,12 +8436,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅉ » ?",
         "choices": [
-          "tt",
           "pp",
           "jj",
+          "tt",
           "kk"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㅉ se prononce « jj »."
       },
       {
@@ -8239,12 +8458,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 아 » ?",
         "choices": [
-          "ga",
           "a",
-          "na",
-          "guk"
+          "mul",
+          "gang",
+          "hak"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "아 se prononce « a »."
       },
       {
@@ -8261,12 +8480,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 나 » ?",
         "choices": [
-          "mul",
-          "na",
-          "gim",
-          "sa"
+          "gang",
+          "hak",
+          "cha",
+          "na"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "나 se prononce « na »."
       },
       {
@@ -8283,10 +8502,10 @@
         "type": "mcq",
         "prompt": "Quel son a « 가 » ?",
         "choices": [
-          "a",
-          "ga",
           "mul",
-          "na"
+          "ga",
+          "bap",
+          "hak"
         ],
         "correct": 1,
         "explanation": "가 se prononce « ga »."
@@ -8305,12 +8524,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 사 » ?",
         "choices": [
+          "ga",
+          "han",
           "a",
-          "hak",
-          "sa",
-          "na"
+          "sa"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "사 se prononce « sa »."
       },
       {
@@ -8327,12 +8546,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 한 » ?",
         "choices": [
-          "hak",
           "han",
-          "ga",
-          "guk"
+          "cha",
+          "na",
+          "gim"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "한 se prononce « han »."
       },
       {
@@ -8351,8 +8570,8 @@
         "choices": [
           "guk",
           "mul",
-          "gim",
-          "han"
+          "gang",
+          "gim"
         ],
         "correct": 0,
         "explanation": "국 se prononce « guk »."
@@ -8371,12 +8590,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
+          "bap",
           "gang",
-          "cha",
-          "na",
-          "bap"
+          "a",
+          "hak"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "밥 se prononce « bap »."
       },
       {
@@ -8395,8 +8614,8 @@
         "choices": [
           "gim",
           "mul",
-          "han",
-          "cha"
+          "hak",
+          "han"
         ],
         "correct": 1,
         "explanation": "물 se prononce « mul »."
@@ -8415,12 +8634,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 강 » ?",
         "choices": [
-          "hak",
-          "mul",
-          "sa",
-          "gang"
+          "guk",
+          "ga",
+          "gang",
+          "gim"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "강 se prononce « gang »."
       },
       {
@@ -8437,12 +8656,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 학 » ?",
         "choices": [
-          "hak",
           "na",
+          "hak",
           "sa",
-          "han"
+          "a"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "학 se prononce « hak »."
       },
       {
@@ -8460,11 +8679,11 @@
         "prompt": "Quel son a « 김 » ?",
         "choices": [
           "gang",
+          "cha",
           "gim",
-          "ga",
-          "cha"
+          "han"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "김 se prononce « gim »."
       },
       {
@@ -8481,12 +8700,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 차 » ?",
         "choices": [
-          "bap",
-          "gang",
+          "cha",
+          "gim",
           "han",
-          "cha"
+          "gang"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "차 se prononce « cha »."
       },
       {
@@ -8503,12 +8722,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 한국 » ?",
         "choices": [
+          "hakkyo",
           "hanguk",
-          "keopi",
           "mul",
-          "gamsa"
+          "sagwa"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "한국 se prononce « hanguk »."
       },
       {
@@ -8516,9 +8735,9 @@
         "prompt": "Que veut dire « 한국 » ?",
         "choices": [
           "Corée",
-          "eau",
-          "merci",
-          "pomme"
+          "salut",
+          "école",
+          "eau"
         ],
         "correct": 0,
         "explanation": "한국 (hanguk) = Corée."
@@ -8547,24 +8766,24 @@
         "type": "mcq",
         "prompt": "Quel son a « 학교 » ?",
         "choices": [
+          "keopi",
+          "annyeong",
           "hakkyo",
-          "gimchi",
-          "mul",
-          "hanguk"
+          "sagwa"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "학교 se prononce « hakkyo »."
       },
       {
         "type": "mcq",
         "prompt": "Que veut dire « 학교 » ?",
         "choices": [
-          "école",
-          "Corée",
           "salut",
-          "eau"
+          "école",
+          "café",
+          "Corée"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "학교 (hakkyo) = école."
       },
       {
@@ -8592,8 +8811,8 @@
         "prompt": "Quel son a « 김치 » ?",
         "choices": [
           "gimchi",
-          "sagwa",
-          "hanguk",
+          "annyeong",
+          "keopi",
           "hakkyo"
         ],
         "correct": 0,
@@ -8603,12 +8822,12 @@
         "type": "mcq",
         "prompt": "Que veut dire « 김치 » ?",
         "choices": [
-          "ami",
-          "kimchi",
-          "café",
-          "pomme"
+          "merci",
+          "salut",
+          "pomme",
+          "kimchi"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "김치 (gimchi) = kimchi."
       },
       {
@@ -8635,24 +8854,24 @@
         "type": "mcq",
         "prompt": "Quel son a « 안녕 » ?",
         "choices": [
+          "mul",
+          "gimchi",
           "annyeong",
-          "bap",
-          "gamsa",
-          "mul"
+          "hanguk"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "안녕 se prononce « annyeong »."
       },
       {
         "type": "mcq",
         "prompt": "Que veut dire « 안녕 » ?",
         "choices": [
-          "salut",
+          "Corée",
           "école",
-          "riz",
-          "ami"
+          "pomme",
+          "salut"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "안녕 (annyeong) = salut, bonjour."
       },
       {
@@ -8680,22 +8899,22 @@
         "type": "mcq",
         "prompt": "Quel son a « 감사 » ?",
         "choices": [
-          "keopi",
-          "sagwa",
+          "hakkyo",
           "gamsa",
-          "hanguk"
+          "annyeong",
+          "sagwa"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "감사 se prononce « gamsa »."
       },
       {
         "type": "mcq",
         "prompt": "Que veut dire « 감사 » ?",
         "choices": [
-          "Corée",
+          "café",
           "merci",
-          "pomme",
-          "école"
+          "Corée",
+          "kimchi"
         ],
         "correct": 1,
         "explanation": "감사 (gamsa) = merci, gratitude."
@@ -8725,12 +8944,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 물 » ?",
         "choices": [
+          "chingu",
+          "mul",
           "keopi",
-          "gamsa",
-          "hakkyo",
-          "mul"
+          "sagwa"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "물 se prononce « mul »."
       },
       {
@@ -8738,8 +8957,8 @@
         "prompt": "Que veut dire « 물 » ?",
         "choices": [
           "merci",
-          "salut",
           "café",
+          "école",
           "eau"
         ],
         "correct": 3,
@@ -8769,9 +8988,9 @@
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
-          "mul",
+          "hakkyo",
+          "keopi",
           "gamsa",
-          "annyeong",
           "bap"
         ],
         "correct": 3,
@@ -8781,12 +9000,12 @@
         "type": "mcq",
         "prompt": "Que veut dire « 밥 » ?",
         "choices": [
-          "salut",
+          "Corée",
+          "eau",
           "riz",
-          "kimchi",
-          "merci"
+          "école"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "밥 (bap) = riz, repas."
       },
       {
@@ -8814,12 +9033,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 사과 » ?",
         "choices": [
-          "hanguk",
-          "annyeong",
+          "gimchi",
           "sagwa",
-          "bap"
+          "mul",
+          "hanguk"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "사과 se prononce « sagwa »."
       },
       {
@@ -8827,9 +9046,9 @@
         "prompt": "Que veut dire « 사과 » ?",
         "choices": [
           "pomme",
-          "Corée",
-          "café",
-          "kimchi"
+          "riz",
+          "école",
+          "café"
         ],
         "correct": 0,
         "explanation": "사과 (sagwa) = pomme."
@@ -8859,9 +9078,9 @@
         "prompt": "Quel son a « 커피 » ?",
         "choices": [
           "keopi",
-          "hakkyo",
           "annyeong",
-          "sagwa"
+          "gamsa",
+          "hakkyo"
         ],
         "correct": 0,
         "explanation": "커피 se prononce « keopi »."
@@ -8870,12 +9089,12 @@
         "type": "mcq",
         "prompt": "Que veut dire « 커피 » ?",
         "choices": [
-          "eau",
-          "Corée",
-          "café",
-          "merci"
+          "pomme",
+          "ami",
+          "kimchi",
+          "café"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "커피 (keopi) = café."
       },
       {
@@ -8903,8 +9122,8 @@
         "prompt": "Quel son a « 친구 » ?",
         "choices": [
           "gimchi",
-          "hanguk",
-          "mul",
+          "keopi",
+          "hakkyo",
           "chingu"
         ],
         "correct": 3,
@@ -8914,9 +9133,9 @@
         "type": "mcq",
         "prompt": "Que veut dire « 친구 » ?",
         "choices": [
-          "Corée",
-          "merci",
           "salut",
+          "Corée",
+          "kimchi",
           "ami"
         ],
         "correct": 3,
@@ -10542,6 +10761,270 @@
         "rr": "gaesaekki",
         "fr": [
           "fils de pute"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Cours — mots de lecture (Semaine 1)",
+    "key": "kr-voc-cours-mots-de-lecture-semaine-1",
+    "color": "rose",
+    "parent": "kr-vocab",
+    "vocab": [
+      {
+        "ko": "이",
+        "rr": "i",
+        "fr": [
+          "dent"
+        ]
+      },
+      {
+        "ko": "아이",
+        "rr": "ai",
+        "fr": [
+          "enfant"
+        ]
+      },
+      {
+        "ko": "오이",
+        "rr": "oi",
+        "fr": [
+          "concombre"
+        ]
+      },
+      {
+        "ko": "우유",
+        "rr": "uyu",
+        "fr": [
+          "lait"
+        ]
+      },
+      {
+        "ko": "여우",
+        "rr": "yeou",
+        "fr": [
+          "renard"
+        ]
+      },
+      {
+        "ko": "유아",
+        "rr": "yua",
+        "fr": [
+          "jeune enfant / nourrisson",
+          "jeune enfant",
+          "nourrisson"
+        ]
+      },
+      {
+        "ko": "여유",
+        "rr": "yeoyu",
+        "fr": [
+          "marge / aisance",
+          "marge",
+          "aisance"
+        ]
+      },
+      {
+        "ko": "가구",
+        "rr": "gagu",
+        "fr": [
+          "meuble / mobilier",
+          "meuble",
+          "mobilier"
+        ]
+      },
+      {
+        "ko": "나비",
+        "rr": "nabi",
+        "fr": [
+          "papillon"
+        ]
+      },
+      {
+        "ko": "바나나",
+        "rr": "banana",
+        "fr": [
+          "banane"
+        ]
+      },
+      {
+        "ko": "가수",
+        "rr": "gasu",
+        "fr": [
+          "chanteur / chanteuse",
+          "chanteur",
+          "chanteuse"
+        ]
+      },
+      {
+        "ko": "아기",
+        "rr": "agi",
+        "fr": [
+          "bébé"
+        ]
+      },
+      {
+        "ko": "라디오",
+        "rr": "radio",
+        "fr": [
+          "radio"
+        ]
+      },
+      {
+        "ko": "고기",
+        "rr": "gogi",
+        "fr": [
+          "viande"
+        ]
+      },
+      {
+        "ko": "구두",
+        "rr": "gudu",
+        "fr": [
+          "chaussures (habillées)",
+          "chaussures"
+        ]
+      },
+      {
+        "ko": "누나",
+        "rr": "nuna",
+        "fr": [
+          "grande sœur (d'un homme)",
+          "grande sœur"
+        ]
+      },
+      {
+        "ko": "다리",
+        "rr": "dari",
+        "fr": [
+          "jambe / pont",
+          "jambe",
+          "pont"
+        ]
+      },
+      {
+        "ko": "요리",
+        "rr": "yori",
+        "fr": [
+          "cuisine / plat",
+          "cuisine",
+          "plat"
+        ]
+      },
+      {
+        "ko": "나라",
+        "rr": "nara",
+        "fr": [
+          "pays"
+        ]
+      },
+      {
+        "ko": "머리",
+        "rr": "meori",
+        "fr": [
+          "tête / cheveux",
+          "tête",
+          "cheveux"
+        ]
+      },
+      {
+        "ko": "오후",
+        "rr": "ohu",
+        "fr": [
+          "après-midi"
+        ]
+      },
+      {
+        "ko": "나무",
+        "rr": "namu",
+        "fr": [
+          "arbre"
+        ]
+      },
+      {
+        "ko": "회사",
+        "rr": "hoesa",
+        "fr": [
+          "entreprise"
+        ]
+      },
+      {
+        "ko": "소스",
+        "rr": "soseu",
+        "fr": [
+          "sauce"
+        ]
+      },
+      {
+        "ko": "호수",
+        "rr": "hosu",
+        "fr": [
+          "lac"
+        ]
+      },
+      {
+        "ko": "허리",
+        "rr": "heori",
+        "fr": [
+          "taille (du corps)",
+          "taille"
+        ]
+      },
+      {
+        "ko": "노루",
+        "rr": "noru",
+        "fr": [
+          "chevreuil"
+        ]
+      },
+      {
+        "ko": "하다",
+        "rr": "hada",
+        "fr": [
+          "faire"
+        ]
+      },
+      {
+        "ko": "벼루",
+        "rr": "byeoru",
+        "fr": [
+          "pierre à encre"
+        ]
+      },
+      {
+        "ko": "호두",
+        "rr": "hodu",
+        "fr": [
+          "noix"
+        ]
+      },
+      {
+        "ko": "기러기",
+        "rr": "gireogi",
+        "fr": [
+          "oie sauvage"
+        ]
+      },
+      {
+        "ko": "미리",
+        "rr": "miri",
+        "fr": [
+          "à l'avance"
+        ]
+      },
+      {
+        "ko": "그리기",
+        "rr": "geurigi",
+        "fr": [
+          "dessin (action de dessiner)",
+          "dessin"
+        ]
+      },
+      {
+        "ko": "두부",
+        "rr": "dubu",
+        "fr": [
+          "tofu"
         ]
       }
     ]

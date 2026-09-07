@@ -336,3 +336,45 @@ fils de pute = 개새끼 = gaesaekki
 Esteve = 에스테브 = eseutebeu
 Manon = 마농 = manon
 ```
+
+## Cours — mots de lecture (Semaine 1)
+
+> Mots exacts du cours GEE3003 « Basic Korean », semaine 1 (lecture du hangeul,
+> jamo de base uniquement). Source : week_1.pdf.
+
+```
+dent = 이 = i
+enfant = 아이 = ai
+concombre = 오이 = oi
+lait = 우유 = uyu
+renard = 여우 = yeou
+jeune enfant / nourrisson = 유아 = yua
+marge / aisance = 여유 = yeoyu
+meuble / mobilier = 가구 = gagu
+papillon = 나비 = nabi
+banane = 바나나 = banana
+chanteur / chanteuse = 가수 = gasu
+bébé = 아기 = agi
+radio = 라디오 = radio
+viande = 고기 = gogi
+chaussures (habillées) = 구두 = gudu
+grande sœur (d'un homme) = 누나 = nuna
+jambe / pont = 다리 = dari
+cuisine / plat = 요리 = yori
+pays = 나라 = nara
+tête / cheveux = 머리 = meori
+après-midi = 오후 = ohu
+arbre = 나무 = namu
+entreprise = 회사 = hoesa
+sauce = 소스 = soseu
+lac = 호수 = hosu
+taille (du corps) = 허리 = heori
+chevreuil = 노루 = noru
+faire = 하다 = hada
+pierre à encre = 벼루 = byeoru
+noix = 호두 = hodu
+oie sauvage = 기러기 = gireogi
+à l'avance = 미리 = miri
+dessin (action de dessiner) = 그리기 = geurigi
+tofu = 두부 = dubu
+```
