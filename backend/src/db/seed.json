@@ -6154,22 +6154,13 @@
         "explanation": "The chain is: the programmer writes the source in a text editor, the compiler produces an object file, the linker combines that object with the libraries to produce the executable, and the runner executes it to give the results."
       },
       {
-        "question_text": "What is the role of the linker?",
-        "choice_a": "To translate source code into assembly code",
-        "choice_b": "To load the program into memory at run time",
-        "choice_c": "To check the program's syntax before compilation",
-        "choice_d": "To combine the object file with the libraries to produce the executable",
-        "correct_choice": "D",
-        "explanation": "The linker takes the object file produced by compilation and the libraries as input, and produces the executable file as output."
-      },
-      {
-        "question_text": "In the program-execution diagram, what extra input does the linker receive besides the object file?",
-        "choice_a": "The IDE's configuration file",
-        "choice_b": "The library",
-        "choice_c": "The original source file",
-        "choice_d": "The intermediate assembly code",
+        "question_text": "In the program-execution chain, what does the linker take as input and produce as output?",
+        "choice_a": "It takes the source file and produces an object file",
+        "choice_b": "It takes the object file plus the libraries and produces the executable",
+        "choice_c": "It takes the executable and produces the program's results",
+        "choice_d": "It takes the high-level code and produces assembly code",
         "correct_choice": "B",
-        "explanation": "The diagram shows the linker receiving two inputs: the object file produced by the compiler, and the library. It produces the executable."
+        "explanation": "The linker has two inputs on the diagram: the object file produced by the compiler, and the libraries. It combines them into the single executable file."
       },
       {
         "question_text": "What tool does the programmer use in the very first stage of the chain?",
@@ -6181,13 +6172,13 @@
         "explanation": "The chain begins with the programmer using a text editor to write the source file containing the C code."
       },
       {
-        "question_text": "In a C program, what does the line #include <stdio.h> do?",
-        "choice_a": "It reserves memory for the global variables",
-        "choice_b": "It declares the program's main function",
-        "choice_c": "It tells the linker which library to produce",
-        "choice_d": "It asks the preprocessor to insert the standard input/output header",
-        "correct_choice": "D",
-        "explanation": "#include <stdio.h> is a preprocessor directive. It inserts the standard input/output header file, needed to use printf in the program."
+        "question_text": "The line #include <stdio.h> is handled by which part of the toolchain, and to what effect?",
+        "choice_a": "By the linker, which links the stdio library into the executable",
+        "choice_b": "By the compiler, which treats it as a normal statement",
+        "choice_c": "By the preprocessor, which inserts the standard input/output header before compilation proper",
+        "choice_d": "By the loader, which loads stdio into memory at run time",
+        "correct_choice": "C",
+        "explanation": "#include, like #define and #ifdef, is a preprocessor directive: it is processed before compilation. #include <stdio.h> pastes the contents of the standard I/O header at that point, so printf is declared."
       },
       {
         "question_text": "In a C program, where does execution begin?",
@@ -6199,33 +6190,6 @@
         "explanation": "Execution of a C program begins at the main function. That is its entry point, regardless of where it sits in the file."
       },
       {
-        "question_text": "What does the program #include <stdio.h> main() { printf(\"hello, world\\n\"); } output?",
-        "choice_a": "hello, world\\n with the backslash and the n shown",
-        "choice_b": "hello, world followed by a newline",
-        "choice_c": "Nothing, because main returns no value",
-        "choice_d": "A compilation error, since printf is not declared",
-        "correct_choice": "B",
-        "explanation": "The program prints hello, world. The \\n sequence is not printed literally: it is an escape sequence representing a move to the next line."
-      },
-      {
-        "question_text": "What does the sequence \\n represent in a C string?",
-        "choice_a": "The two characters backslash and n",
-        "choice_b": "A horizontal tab",
-        "choice_c": "The end of the string",
-        "choice_d": "A newline",
-        "correct_choice": "D",
-        "explanation": "\\n is an escape sequence representing the newline character. It takes two characters in the source but one in the resulting string."
-      },
-      {
-        "question_text": "Which character ends every statement in C?",
-        "choice_a": "The comma",
-        "choice_b": "The newline",
-        "choice_c": "The period",
-        "choice_d": "The semicolon",
-        "correct_choice": "D",
-        "explanation": "In C, every statement ends with a semicolon. Braces, on the other hand, delimit blocks such as the body of the main function."
-      },
-      {
         "question_text": "What role do the braces { } play in a C program?",
         "choice_a": "They delimit a block of statements, such as the body of a function",
         "choice_b": "They declare an array",
@@ -6235,22 +6199,40 @@
         "explanation": "Braces delimit a block. In the minimal program they enclose the body of the main function, that is, the set of statements it executes."
       },
       {
-        "question_text": "Which function is used in the example to print text to the screen?",
-        "choice_a": "scanf",
-        "choice_b": "printf",
-        "choice_c": "write",
-        "choice_d": "cout",
-        "correct_choice": "B",
-        "explanation": "The example uses printf, the standard library's formatted-output function, declared in stdio.h. scanf is its counterpart for input."
+        "question_text": "You compile a program that calls a function declared in a header but defined in no source file or library. Which stage of the chain reports the error?",
+        "choice_a": "The preprocessor, when it expands the #include",
+        "choice_b": "The compiler, because the call has no matching definition in that file",
+        "choice_c": "The linker, because it cannot resolve the symbol against any object or library",
+        "choice_d": "The runner, because the function is missing at run time",
+        "correct_choice": "C",
+        "explanation": "The compiler only needs a declaration to accept the call and emit the object file. Resolving the call to an actual definition is the linker's job; a missing definition is the classic 'undefined reference' link error."
       },
       {
-        "question_text": "What category of instruction does #include belong to in C?",
-        "choice_a": "Variable declarations",
-        "choice_b": "Control-flow statements",
-        "choice_c": "Function calls",
-        "choice_d": "Preprocessor directives",
+        "question_text": "An algorithm reads N, then while a counter stays <= N it reads a number and adds it to a sum only when it is even. Which of the three constructs does it use?",
+        "choice_a": "Imperative only",
+        "choice_b": "Imperative and conditional only",
+        "choice_c": "Imperative and iterative only",
+        "choice_d": "All three: imperative, conditional and iterative",
         "correct_choice": "D",
-        "explanation": "#include, like #define and #ifdef, is a preprocessor directive: it is processed before compilation proper. #include <stdio.h> inserts the contents of the header file at that point in the source."
+        "explanation": "Reads and assignments are imperative, the 'while counter <= N' is iterative, and the 'only when it is even' test is conditional."
+      },
+      {
+        "question_text": "Trace this algorithm: I = 0; SUM = 0; REPEAT WHILE I < 3 { INPUT X; SUM = SUM + X; I = I + 1 }; DISPLAY SUM. The inputs are 4, 1, 7. What is displayed?",
+        "choice_a": "3",
+        "choice_b": "12",
+        "choice_c": "4",
+        "choice_d": "7",
+        "correct_choice": "B",
+        "explanation": "The loop runs three times (I = 0, 1, 2), accumulating 4 + 1 + 7 = 12 into SUM."
+      },
+      {
+        "question_text": "A flowchart: START -> INPUT A, B -> <Is A > B ?> with yes -> [MAX = A] and no -> [MAX = B], both joining DISPLAY MAX -> END. With A = 3 and B = 9, which branch runs and what is displayed?",
+        "choice_a": "The 'yes' branch; it displays 3",
+        "choice_b": "The 'no' branch; it displays 9",
+        "choice_c": "The 'yes' branch; it displays 9",
+        "choice_d": "Neither branch; the flowchart has no valid path",
+        "correct_choice": "B",
+        "explanation": "A > B is 3 > 9, which is false, so the 'no' branch sets MAX = B = 9, and both branches merge into DISPLAY MAX."
       }
     ],
     "exercises": [
@@ -6968,6 +6950,254 @@
     ]
   },
   {
+    "name": "Week 2",
+    "key": "school-cp-w2",
+    "color": "cyan",
+    "parent": "school-cp",
+    "lesson": "# Computer Programming — Week 2\n\nChapter 2, *Overview of C*. Most of it revises Week 1 (history, `#include`,\n`printf`, `main`). Three things are genuinely new and worth keeping.\n\n---\n\n## 1. The fixed structure of a C program\n\nA C source file always follows the same top-to-bottom order:\n\n| section | holds | required? |\n|---|---|---|\n| **Documentation** | opening comment: purpose, author | no |\n| **Link** | `#include` directives | in practice yes |\n| **Definition** | `#define` symbolic constants and macros | no |\n| **Global declaration** | variables and function prototypes visible to all functions | no |\n| **`main()` function** | *declaration part* then *executable part* | **yes, exactly one** |\n| **Subprogram** | the user-defined functions | no |\n\n- Every program has **exactly one `main()`** and execution starts there.\n- Inside a function, execution runs from the **opening brace to the matching\n  closing brace**.\n- A function called before it is defined (or defined below `main`) needs a\n  **prototype** in the global declaration section:\n\n```c\n#include <stdio.h>\n\nint mul(int a, int b);      /* prototype */\n\nint main(void)\n{\n    printf(\"%d\\n\", mul(5, 10));\n    return 0;\n}\n\nint mul(int a, int b)       /* definition, after main */\n{\n    return a * b;\n}\n```\n\n## 2. `printf` field width and precision\n\nThe conversion spec is `%[width][.precision]type`:\n\n| spec | value | prints |\n|---|---|---|\n| `%d` | `100` | `100` |\n| `%5d` | `100` | `··100` (padded to width 5) |\n| `%f` | `106.1` | `106.100000` (6 decimals by default) |\n| `%.2f` | `106.1` | `106.10` |\n| `%8.2f` | `106.1` | `··106.10` |\n\n`%5.2f` on `3.14159` gives `·3.14`: rounded to 2 decimals, then padded to a\ntotal width of 5. Width is a *minimum*, never a truncation.\n\n## 3. Compiling and running (the \"UNIX\" commands in the slides)\n\n```\ncc prog.c            # compile + link -> ./a.out   (default name)\ncc -o prog prog.c    # choose the executable name\ncc prog.c -lm        # link the math library (needed for <math.h>: cos, sqrt...)\ncc a.c b.c c.c       # several sources -> a.o b.o c.o -> one a.out\n```\n\n`#define PI 3.1416` is a **preprocessor** substitution: it pastes the text\n`3.1416` wherever `PI` appears, before the compiler runs. No type, no `=`, no\ntrailing `;`.\n\n> The slides use pre-ANSI style (`main()` with no return type, K&R parameter\n> lists). Modern C writes `int main(void)` and `int mul(int a, int b)`.\n\n---\n\n## 4. Reading `scanf`\n\n```c\nint n;\nscanf(\"%d\", &n);     /* the & passes the ADDRESS of n so scanf can write into it */\n```\n\n- The format string holds **only** conversion specs and whitespace — never a\n  prompt. `scanf(\"Enter radius: %d\", &num)` forces the user to literally type\n  `Enter radius: 42`; print the prompt with `printf` first.\n- `scanf` **returns the number of items successfully read**, not the value. Using\n  that return value where you meant the variable is a classic bug.\n\n---\n\n## To remember\n\n- One `main()`; the six sections always in the same order; a function used\n  before its definition needs a prototype.\n- `%[width][.precision]f` — width pads, precision rounds the fraction.\n- `cc file.c` -> `a.out`; `-o` renames it; `-lm` links `<math.h>`.\n- `#define` is textual substitution by the preprocessor, with no `;`.\n- `scanf` needs `&` (an address) and returns a count, not a value.\n",
+    "questions": [
+      {
+        "question_text": "In what order do the sections of a C source file appear?",
+        "choice_a": "main() function, then link section, then definitions, then subprograms",
+        "choice_b": "Documentation, link, definition, global declaration, main(), subprograms",
+        "choice_c": "Subprograms first, then main(), then the #include directives",
+        "choice_d": "There is no fixed order in C; sections may appear anywhere",
+        "correct_choice": "B",
+        "explanation": "The canonical order is: documentation, link (#include), definition (#define), global declaration, the main() function, then the subprogram section with the user-defined functions."
+      },
+      {
+        "question_text": "How many main() functions may a C program contain, and what happens there?",
+        "choice_a": "Exactly one; execution of the program begins there",
+        "choice_b": "At least one; execution begins at whichever is defined first",
+        "choice_c": "Any number; they run one after another",
+        "choice_d": "Zero or one; with none, execution starts at the first function",
+        "correct_choice": "A",
+        "explanation": "Every C program has exactly one main(). It is the entry point: execution begins at its opening brace regardless of where it sits in the file."
+      },
+      {
+        "question_text": "What does printf(\"%5.2f\", 3.14159); print?",
+        "choice_a": "3.14159",
+        "choice_b": "3.14",
+        "choice_c": " 3.14 (with one leading space)",
+        "choice_d": "03.14",
+        "correct_choice": "C",
+        "explanation": "%.2f rounds to two decimals -> 3.14 (four characters). The width 5 pads it with one leading space to reach a total width of 5. Width is a minimum, never a truncation."
+      },
+      {
+        "question_text": "A program runs printf(\"%d\\n\", 100); then printf(\"%5.2f\", 30.75 + 75.35);. What is the output?",
+        "choice_a": "100 then 106.10",
+        "choice_b": "100 then 106.100000",
+        "choice_c": "100 then 106.1",
+        "choice_d": "100 then 6.10",
+        "correct_choice": "A",
+        "explanation": "First line prints 100 and a newline. 30.75 + 75.35 = 106.10, printed by %5.2f as 106.10 (already 6 characters, so the width 5 adds no padding)."
+      },
+      {
+        "question_text": "In the command cc prog.c -lm, what is -lm for?",
+        "choice_a": "It turns on all compiler warnings",
+        "choice_b": "It links the math library, needed for <math.h> functions like cos and sqrt",
+        "choice_c": "It names the output file 'm'",
+        "choice_d": "It compiles without linking",
+        "correct_choice": "B",
+        "explanation": "-lm links libm, the math library. Functions declared in <math.h> live there and are not linked by default."
+      },
+      {
+        "question_text": "You run cc prog.c with no -o option. What is the executable called?",
+        "choice_a": "prog",
+        "choice_b": "prog.exe",
+        "choice_c": "prog.out",
+        "choice_d": "a.out",
+        "correct_choice": "D",
+        "explanation": "Without -o, the compiled and linked program is written to a.out. cc -o name prog.c chooses the name instead."
+      },
+      {
+        "question_text": "What does the preprocessor do with the line #define PI 3.1416 ?",
+        "choice_a": "It creates a read-only float variable named PI",
+        "choice_b": "It substitutes the text 3.1416 for every PI in the source, before compilation",
+        "choice_c": "It tells the linker to include a constant named PI",
+        "choice_d": "Nothing; #define is only a comment to the reader",
+        "correct_choice": "B",
+        "explanation": "#define is a textual substitution performed by the preprocessor before the compiler runs. It has no type, no '=', and no trailing semicolon."
+      },
+      {
+        "question_text": "A program calls mul(5, 10) inside main(), but mul is defined AFTER main(). What is needed for this to compile cleanly?",
+        "choice_a": "A prototype 'int mul(int a, int b);' before main()",
+        "choice_b": "Nothing; C always scans the whole file first",
+        "choice_c": "mul must be marked 'static'",
+        "choice_d": "mul must be moved into a separate #include file",
+        "correct_choice": "A",
+        "explanation": "The compiler reads top to bottom. A function used before its definition needs a prototype (declaration) earlier, typically in the global declaration section."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "prompt": "int num; int r = scanf(\"Enter radius: %d\", &num); float area = PI * (r * r); -- what is wrong?",
+        "choices": [
+          "The area is computed from r, which is scanf's return value (the count of items read, 1), not from num",
+          "PI cannot be used in a multiplication",
+          "scanf is unable to read an integer",
+          "area must be declared as double, never float"
+        ],
+        "correct": 0,
+        "explanation": "Two bugs: (1) the format string embeds the prompt text 'Enter radius: ', so the user must type it back literally -- print it with printf instead; (2) r holds scanf's return value (1 on success), so PI * r * r is always PI, never the circle area. Use num."
+      },
+      {
+        "type": "mcq",
+        "prompt": "float b = 70, c = 70; float denominator = b - c; if (denominator == 0) { ... } -- what is the concern with 'denominator == 0'?",
+        "choices": [
+          "Comparing a floating-point result to 0 with == is fragile; a tiny rounding error would slip past the guard and the division would still run",
+          "A float can never be compared with an integer literal",
+          "The condition is always true, so the division never happens",
+          "return 1 should be return 0"
+        ],
+        "correct": 0,
+        "explanation": "Here 70.0f - 70.0f is exactly 0.0 so the guard happens to fire, but in general an == test against a float is unsafe. Guard the inputs (b != c) or test against a small tolerance."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A program has #define PI 3.1416 at the top but its body only does sum = x + y;. What can be said?",
+        "choices": [
+          "PI is defined but never used -- the macro is dead code",
+          "sum cannot be a global variable",
+          "printf needs %f to print sum",
+          "main must take argc and argv"
+        ],
+        "correct": 0,
+        "explanation": "An unused #define is harmless but pointless -- it signals either a leftover or an unfinished computation. sum is an int, printed correctly with %d."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "In scanf(\"%d\", &n), why is the & needed in front of n?",
+        "accept": [
+          "to pass the address of n",
+          "so scanf can write into n",
+          "it passes the address of n so scanf can store the value there",
+          "because scanf needs a pointer to n",
+          "to give scanf the address of the variable"
+        ],
+        "normalize": "loose",
+        "explanation": "C passes arguments by value, so scanf receives a copy. &n passes n's address instead, letting scanf write the read value back into n."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart that reads a radius R and displays the area of the circle (AREA = PI * R * R).",
+        "hint": "Linear: start, one input, one process, one output, end. No decision.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "i",
+              "kind": "io",
+              "label": "INPUT R"
+            },
+            {
+              "id": "p",
+              "kind": "process",
+              "label": "AREA = PI * R * R"
+            },
+            {
+              "id": "o",
+              "kind": "io",
+              "label": "DISPLAY AREA"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "i"
+            },
+            {
+              "from": "i",
+              "to": "p"
+            },
+            {
+              "from": "p",
+              "to": "o"
+            },
+            {
+              "from": "o",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "No decision is needed: read R, compute PI * R * R, display it."
+      },
+      {
+        "type": "write_algorithm",
+        "prompt": "Write the algorithm that computes x = a / (b - c), dividing only when b - c is not zero.",
+        "hint": "9 lines: START, INPUT a, INPUT b, INPUT c, IF b - c != 0 THEN, x = a / (b - c), DISPLAY x, END IF, END.",
+        "steps": [
+          [
+            "START",
+            "BEGIN"
+          ],
+          [
+            "INPUT a",
+            "READ a",
+            "INPUT first number into a"
+          ],
+          [
+            "INPUT b",
+            "READ b",
+            "INPUT second number into b"
+          ],
+          [
+            "INPUT c",
+            "READ c",
+            "INPUT third number into c"
+          ],
+          [
+            "IF b - c != 0 THEN",
+            "IF b - c <> 0 THEN",
+            "IF (b - c) != 0 THEN",
+            "IF b != c THEN"
+          ],
+          [
+            "x = a / (b - c)",
+            "x = a / (b-c)",
+            "COMPUTE x = a / (b - c)"
+          ],
+          [
+            "DISPLAY x",
+            "PRINT x",
+            "OUTPUT x"
+          ],
+          [
+            "END IF",
+            "ENDIF"
+          ],
+          [
+            "END",
+            "STOP"
+          ]
+        ],
+        "explanation": "The division sits inside the b - c != 0 branch. With b - c = 0 (e.g. a=300, b=70, c=70) nothing is displayed and the algorithm ends."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Put the steps of building and running a C program with the UNIX cc command in order.",
+        "steps": [
+          "Write prog.c in a text editor",
+          "Run cc prog.c (compile + link)",
+          "The linker writes the executable to a.out",
+          "Run ./a.out",
+          "Read the program's output"
+        ],
+        "explanation": "cc prog.c does compilation and linking in one step; with no -o the result is a.out, which you then execute."
+      }
+    ]
+  },
+  {
     "name": "Database Design",
     "key": "school-db",
     "color": "violet",
@@ -7570,8 +7800,8 @@
         "choices": [
           "a",
           "ae",
-          "o",
-          "i"
+          "eu",
+          "e"
         ],
         "correct": 0,
         "explanation": "ㅏ se prononce « a »."
@@ -7590,10 +7820,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅓ » ?",
         "choices": [
-          "a",
-          "o",
+          "u",
+          "eu",
           "eo",
-          "u"
+          "e"
         ],
         "correct": 2,
         "explanation": "ㅓ se prononce « eo »."
@@ -7614,8 +7844,8 @@
         "choices": [
           "u",
           "o",
-          "eo",
-          "e"
+          "i",
+          "eo"
         ],
         "correct": 1,
         "explanation": "ㅗ se prononce « o »."
@@ -7634,12 +7864,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅜ » ?",
         "choices": [
+          "e",
+          "i",
           "u",
-          "ae",
-          "eo",
-          "a"
+          "ae"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅜ se prononce « u »."
       },
       {
@@ -7656,12 +7886,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅡ » ?",
         "choices": [
+          "a",
           "ae",
-          "i",
-          "eu",
-          "e"
+          "o",
+          "eu"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅡ se prononce « eu »."
       },
       {
@@ -7678,12 +7908,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅣ » ?",
         "choices": [
-          "i",
           "o",
-          "a",
-          "e"
+          "i",
+          "e",
+          "u"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅣ se prononce « i »."
       },
       {
@@ -7700,12 +7930,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅐ » ?",
         "choices": [
-          "ae",
           "eu",
-          "e",
-          "o"
+          "ae",
+          "o",
+          "u"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㅐ se prononce « ae »."
       },
       {
@@ -7722,12 +7952,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅔ » ?",
         "choices": [
-          "a",
           "e",
-          "o",
-          "eo"
+          "i",
+          "u",
+          "a"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "ㅔ se prononce « e »."
       },
       {
@@ -7744,12 +7974,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅑ » ?",
         "choices": [
-          "yeo",
-          "ya",
+          "yo",
           "yu",
-          "yae"
+          "ya",
+          "ye"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅑ se prononce « ya »."
       },
       {
@@ -7766,12 +7996,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅕ » ?",
         "choices": [
-          "yae",
-          "ya",
           "yo",
-          "yeo"
+          "yeo",
+          "ya",
+          "ye"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅕ se prononce « yeo »."
       },
       {
@@ -7788,12 +8018,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅛ » ?",
         "choices": [
-          "yu",
+          "yeo",
+          "ye",
           "ya",
-          "yo",
-          "yeo"
+          "yo"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅛ se prononce « yo »."
       },
       {
@@ -7810,12 +8040,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅠ » ?",
         "choices": [
-          "ye",
-          "yae",
           "yu",
-          "ya"
+          "yo",
+          "yae",
+          "ye"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅠ se prononce « yu »."
       },
       {
@@ -7832,12 +8062,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅒ » ?",
         "choices": [
-          "yeo",
           "yae",
-          "ya",
-          "yu"
+          "ye",
+          "yeo",
+          "yo"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "ㅒ se prononce « yae »."
       },
       {
@@ -7854,12 +8084,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅖ » ?",
         "choices": [
-          "ya",
-          "yu",
-          "yo",
-          "ye"
+          "yeo",
+          "yae",
+          "ye",
+          "yu"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "ㅖ se prononce « ye »."
       },
       {
@@ -7876,12 +8106,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅘ » ?",
         "choices": [
-          "wi",
+          "wa",
           "oe",
-          "wae",
-          "wa"
+          "ui",
+          "wae"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "ㅘ se prononce « wa »."
       },
       {
@@ -7898,12 +8128,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅙ » ?",
         "choices": [
-          "ui",
+          "wi",
+          "oe",
           "wae",
-          "wa",
-          "wo"
+          "wa"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "ㅙ se prononce « wae »."
       },
       {
@@ -7920,12 +8150,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅚ » ?",
         "choices": [
-          "we",
-          "wi",
-          "wae",
-          "oe"
+          "wo",
+          "oe",
+          "ui",
+          "wi"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅚ se prononce « oe »."
       },
       {
@@ -7942,12 +8172,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅝ » ?",
         "choices": [
-          "wa",
-          "wo",
+          "wi",
+          "oe",
           "we",
-          "oe"
+          "wo"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㅝ se prononce « wo »."
       },
       {
@@ -7965,11 +8195,11 @@
         "prompt": "Quel son a « ㅞ » ?",
         "choices": [
           "wa",
-          "wi",
-          "we",
-          "oe"
+          "oe",
+          "ui",
+          "we"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅞ se prononce « we »."
       },
       {
@@ -7986,12 +8216,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅟ » ?",
         "choices": [
-          "wo",
-          "oe",
+          "ui",
           "wi",
+          "wae",
           "wa"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㅟ se prononce « wi »."
       },
       {
@@ -8009,11 +8239,11 @@
         "prompt": "Quel son a « ㅢ » ?",
         "choices": [
           "wae",
+          "wi",
           "oe",
-          "ui",
-          "we"
+          "ui"
         ],
-        "correct": 2,
+        "correct": 3,
         "explanation": "ㅢ se prononce « ui »."
       },
       {
@@ -8032,12 +8262,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄱ » ?",
         "choices": [
+          "m",
+          "n",
           "g",
-          "s",
-          "ng",
           "r"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㄱ se prononce « g »."
       },
       {
@@ -8054,12 +8284,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄴ » ?",
         "choices": [
+          "h",
           "n",
-          "g",
-          "m",
-          "r"
+          "d",
+          "m"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "ㄴ se prononce « n »."
       },
       {
@@ -8078,12 +8308,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄷ » ?",
         "choices": [
-          "r",
           "d",
-          "s",
-          "ng"
+          "g",
+          "n",
+          "h"
         ],
-        "correct": 1,
+        "correct": 0,
         "explanation": "ㄷ se prononce « d »."
       },
       {
@@ -8102,12 +8332,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄹ » ?",
         "choices": [
-          "h",
-          "b",
           "m",
-          "r"
+          "r",
+          "s",
+          "j"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㄹ se prononce « r »."
       },
       {
@@ -8124,12 +8354,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅁ » ?",
         "choices": [
-          "g",
           "b",
-          "h",
-          "m"
+          "m",
+          "ng",
+          "h"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅁ se prononce « m »."
       },
       {
@@ -8149,11 +8379,11 @@
         "prompt": "Quel son a « ㅂ » ?",
         "choices": [
           "r",
-          "d",
           "b",
-          "m"
+          "n",
+          "s"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "ㅂ se prononce « b »."
       },
       {
@@ -8171,11 +8401,11 @@
         "prompt": "Quel son a « ㅅ » ?",
         "choices": [
           "g",
-          "s",
           "m",
-          "j"
+          "d",
+          "s"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "ㅅ se prononce « s »."
       },
       {
@@ -8194,12 +8424,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅇ » ?",
         "choices": [
-          "ng",
-          "g",
           "s",
+          "r",
+          "ng",
           "d"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "ㅇ se prononce « ng »."
       },
       {
@@ -8216,12 +8446,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅈ » ?",
         "choices": [
-          "b",
-          "h",
-          "n",
-          "j"
+          "r",
+          "j",
+          "s",
+          "d"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅈ se prononce « j »."
       },
       {
@@ -8238,12 +8468,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅎ » ?",
         "choices": [
-          "s",
-          "d",
           "h",
+          "b",
+          "d",
           "m"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅎ se prononce « h »."
       },
       {
@@ -8260,12 +8490,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅊ » ?",
         "choices": [
-          "ch",
           "p",
+          "k",
           "t",
-          "k"
+          "ch"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅊ se prononce « ch »."
       },
       {
@@ -8282,12 +8512,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅋ » ?",
         "choices": [
-          "k",
-          "t",
           "p",
-          "ch"
+          "t",
+          "ch",
+          "k"
         ],
-        "correct": 0,
+        "correct": 3,
         "explanation": "ㅋ se prononce « k »."
       },
       {
@@ -8304,12 +8534,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅌ » ?",
         "choices": [
-          "ch",
-          "p",
           "k",
-          "t"
+          "t",
+          "p",
+          "ch"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅌ se prononce « t »."
       },
       {
@@ -8326,8 +8556,8 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅍ » ?",
         "choices": [
-          "ch",
           "t",
+          "ch",
           "p",
           "k"
         ],
@@ -8348,10 +8578,10 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄲ » ?",
         "choices": [
-          "pp",
+          "ss",
           "kk",
-          "jj",
-          "ss"
+          "pp",
+          "jj"
         ],
         "correct": 1,
         "explanation": "ㄲ se prononce « kk »."
@@ -8370,7 +8600,7 @@
         "type": "mcq",
         "prompt": "Quel son a « ㄸ » ?",
         "choices": [
-          "kk",
+          "ss",
           "pp",
           "tt",
           "jj"
@@ -8392,12 +8622,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅃ » ?",
         "choices": [
-          "jj",
           "ss",
-          "tt",
-          "pp"
+          "pp",
+          "jj",
+          "kk"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅃ se prononce « pp »."
       },
       {
@@ -8414,12 +8644,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅆ » ?",
         "choices": [
-          "kk",
-          "tt",
           "ss",
+          "tt",
+          "pp",
           "jj"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "ㅆ se prononce « ss »."
       },
       {
@@ -8436,12 +8666,12 @@
         "type": "mcq",
         "prompt": "Quel son a « ㅉ » ?",
         "choices": [
-          "kk",
-          "pp",
           "tt",
-          "jj"
+          "jj",
+          "ss",
+          "kk"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "ㅉ se prononce « jj »."
       },
       {
@@ -8458,12 +8688,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 아 » ?",
         "choices": [
-          "mul",
+          "cha",
+          "hak",
           "a",
-          "gim",
-          "sa"
+          "gang"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "아 se prononce « a »."
       },
       {
@@ -8480,12 +8710,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 나 » ?",
         "choices": [
+          "gang",
           "na",
-          "hak",
-          "gim",
-          "mul"
+          "guk",
+          "bap"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "나 se prononce « na »."
       },
       {
@@ -8502,12 +8732,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 가 » ?",
         "choices": [
-          "han",
-          "gang",
           "ga",
+          "sa",
+          "na",
           "hak"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "가 se prononce « ga »."
       },
       {
@@ -8524,12 +8754,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 사 » ?",
         "choices": [
-          "han",
-          "na",
+          "a",
           "sa",
-          "gang"
+          "han",
+          "bap"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "사 se prononce « sa »."
       },
       {
@@ -8546,12 +8776,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 한 » ?",
         "choices": [
-          "mul",
-          "gang",
           "han",
-          "cha"
+          "na",
+          "cha",
+          "hak"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "한 se prononce « han »."
       },
       {
@@ -8568,12 +8798,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 국 » ?",
         "choices": [
-          "a",
-          "han",
-          "mul",
-          "guk"
+          "guk",
+          "ga",
+          "cha",
+          "han"
         ],
-        "correct": 3,
+        "correct": 0,
         "explanation": "국 se prononce « guk »."
       },
       {
@@ -8590,12 +8820,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
-          "hak",
-          "na",
           "bap",
-          "ga"
+          "cha",
+          "na",
+          "a"
         ],
-        "correct": 2,
+        "correct": 0,
         "explanation": "밥 se prononce « bap »."
       },
       {
@@ -8612,12 +8842,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 물 » ?",
         "choices": [
-          "cha",
-          "a",
-          "hak",
-          "mul"
+          "ga",
+          "mul",
+          "han",
+          "hak"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "물 se prononce « mul »."
       },
       {
@@ -8634,12 +8864,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 강 » ?",
         "choices": [
-          "cha",
+          "gim",
+          "a",
           "gang",
-          "sa",
-          "guk"
+          "han"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "강 se prononce « gang »."
       },
       {
@@ -8657,9 +8887,9 @@
         "prompt": "Quel son a « 학 » ?",
         "choices": [
           "hak",
-          "ga",
-          "na",
-          "sa"
+          "guk",
+          "gim",
+          "gang"
         ],
         "correct": 0,
         "explanation": "학 se prononce « hak »."
@@ -8678,12 +8908,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 김 » ?",
         "choices": [
-          "sa",
-          "hak",
-          "gang",
-          "gim"
+          "mul",
+          "cha",
+          "gim",
+          "bap"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "김 se prononce « gim »."
       },
       {
@@ -8700,12 +8930,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 차 » ?",
         "choices": [
-          "mul",
           "bap",
-          "gim",
-          "cha"
+          "han",
+          "cha",
+          "sa"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "차 se prononce « cha »."
       },
       {
@@ -8722,12 +8952,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 한국 » ?",
         "choices": [
-          "hanguk",
           "bap",
-          "keopi",
-          "mul"
+          "mul",
+          "hanguk",
+          "annyeong"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "한국 se prononce « hanguk »."
       },
       {
@@ -8744,12 +8974,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 학교 » ?",
         "choices": [
+          "hanguk",
           "hakkyo",
           "bap",
-          "annyeong",
-          "sagwa"
+          "keopi"
         ],
-        "correct": 0,
+        "correct": 1,
         "explanation": "학교 se prononce « hakkyo »."
       },
       {
@@ -8766,12 +8996,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 김치 » ?",
         "choices": [
-          "hakkyo",
+          "gamsa",
+          "mul",
           "gimchi",
-          "keopi",
-          "annyeong"
+          "bap"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "김치 se prononce « gimchi »."
       },
       {
@@ -8788,12 +9018,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 안녕 » ?",
         "choices": [
-          "hanguk",
-          "sagwa",
+          "gamsa",
           "annyeong",
-          "gimchi"
+          "keopi",
+          "hanguk"
         ],
-        "correct": 2,
+        "correct": 1,
         "explanation": "안녕 se prononce « annyeong »."
       },
       {
@@ -8810,12 +9040,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 감사 » ?",
         "choices": [
-          "annyeong",
-          "hanguk",
-          "bap",
-          "gamsa"
+          "mul",
+          "gamsa",
+          "sagwa",
+          "keopi"
         ],
-        "correct": 3,
+        "correct": 1,
         "explanation": "감사 se prononce « gamsa »."
       },
       {
@@ -8832,12 +9062,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 물 » ?",
         "choices": [
-          "gimchi",
-          "mul",
+          "hakkyo",
+          "gamsa",
           "chingu",
-          "keopi"
+          "mul"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "물 se prononce « mul »."
       },
       {
@@ -8855,9 +9085,9 @@
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
           "bap",
+          "hakkyo",
           "annyeong",
-          "sagwa",
-          "chingu"
+          "mul"
         ],
         "correct": 0,
         "explanation": "밥 se prononce « bap »."
@@ -8876,12 +9106,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 사과 » ?",
         "choices": [
-          "gamsa",
-          "mul",
-          "chingu",
-          "sagwa"
+          "hanguk",
+          "bap",
+          "sagwa",
+          "gimchi"
         ],
-        "correct": 3,
+        "correct": 2,
         "explanation": "사과 se prononce « sagwa »."
       },
       {
@@ -8898,12 +9128,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 커피 » ?",
         "choices": [
-          "keopi",
+          "bap",
           "sagwa",
-          "chingu",
-          "annyeong"
+          "keopi",
+          "gimchi"
         ],
-        "correct": 0,
+        "correct": 2,
         "explanation": "커피 se prononce « keopi »."
       },
       {
@@ -8920,12 +9150,12 @@
         "type": "mcq",
         "prompt": "Quel son a « 친구 » ?",
         "choices": [
-          "gimchi",
-          "chingu",
           "keopi",
-          "annyeong"
+          "hanguk",
+          "annyeong",
+          "chingu"
         ],
-        "correct": 1,
+        "correct": 3,
         "explanation": "친구 se prononce « chingu »."
       }
     ]

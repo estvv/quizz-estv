@@ -220,6 +220,14 @@ The `/api/questions/quiz` endpoint returns full question data, including `correc
 
 A seed entry names its parent by `name`, not by id, so the file stays hand-editable. `seedIfEmpty()` resolves those in repeated passes  each pass inserts every category whose parent is already in  which handles any depth and any declaration order, and throws on an unknown or cyclic parent rather than silently filing the category at the root.
 
+`seed.json` is the single source of truth and is **edited by hand**. The one
+exception is the Korean branch (keys `kr` / `kr-*`): its ~300 vocab words live in
+`documentation/coreen-vocab.md` for readability, and `scripts/build-korean-seed.py`
+regenerates that branch of `seed.json` from the documentation sources
+(deterministically  fixed-seed RNG, so re-running with unchanged sources is a
+no-op). No other generator exists; `scripts/` otherwise holds only dev helpers
+(`db-reset.sh`, `docker-up.sh`).
+
 ### One-shot restructure of an existing database
 
 Seeding only ever runs on an empty database, so an already-deployed instance

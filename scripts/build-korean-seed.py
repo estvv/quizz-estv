@@ -2,10 +2,18 @@
 """Merge the Korean branch into backend/src/db/seed.json.
 
 Source of truth for vocab: documentation/coreen-vocab.md (parsed).
-Source of truth for Hangeul: scripts/hangeul-lesson.md + scripts/hangeul-letters.json.
+Source of truth for Hangeul: documentation/coreen-hangeul-lesson.md
+  + documentation/coreen-hangeul-letters.json.
 
 Hangeul exercises are ONLY "identify the sound / meaning" of a letter or word,
 never conceptual questions about the writing system.
+
+This is the ONE sanctioned seed generator: it regenerates the whole Korean
+branch (keys "kr" / "kr-*") of backend/src/db/seed.json from the documentation
+sources above. Every other subject is hand-authored directly in seed.json.
+
+Deterministic: a fixed-seed RNG shuffles the MCQ choices, so re-running with
+unchanged sources produces a byte-identical seed.json.
 
 Idempotent: strips any previously-inserted Korean categories (by key prefix
 "kr-") before re-appending, so it can be re-run after editing the sources.
@@ -13,12 +21,15 @@ Idempotent: strips any previously-inserted Korean categories (by key prefix
 import json
 import re
 import pathlib
+import random
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SEED = ROOT / "backend/src/db/seed.json"
 VOCAB_MD = ROOT / "documentation/coreen-vocab.md"
-HANGEUL_LESSON = ROOT / "scripts/hangeul-lesson.md"
-HANGEUL_LETTERS = ROOT / "scripts/hangeul-letters.json"
+HANGEUL_LESSON = ROOT / "documentation/coreen-hangeul-lesson.md"
+HANGEUL_LETTERS = ROOT / "documentation/coreen-hangeul-letters.json"
+
+RNG = random.Random(0)
 
 COLOR = "rose"
 
@@ -94,7 +105,6 @@ def build_hangeul_exercises(data):
     """Hangeul = reading only. Every item -> 'quel son ?' (mcq) + 'comment se
     prononce ?' (saisie). NEVER a meaning question ('que veut dire') -- meaning
     belongs to the Vocabulary decks."""
-    import random
 
     groups = {k: v for k, v in data.items() if not k.startswith("_")}
     ex = []
@@ -119,10 +129,10 @@ def build_hangeul_exercises(data):
             })
 
             # 4 choix : le son
-            distractors = random.sample([s for s in sound_pool if s != rr],
-                                        k=min(3, len(sound_pool) - 1))
+            distractors = RNG.sample([s for s in sound_pool if s != rr],
+                                     k=min(3, len(sound_pool) - 1))
             choices = distractors + [rr]
-            random.shuffle(choices)
+            RNG.shuffle(choices)
             ex.append({
                 "type": "mcq",
                 "prompt": f"Quel son a « {ko} » ?",
