@@ -156,7 +156,7 @@ export type Response =
 function describeFlowchart(g: FlowchartGraph): string {
   const byId = new Map(g.nodes.map((n) => [n.id, n.label]));
   const lines = g.edges.map((e) => {
-    const b = e.branch ? ` [${e.branch === 'yes' ? 'oui' : 'non'}]` : '';
+    const b = e.branch ? ` [${e.branch}]` : '';
     return `${byId.get(e.from)} → ${byId.get(e.to)}${b}`;
   });
   return lines.join('\n');

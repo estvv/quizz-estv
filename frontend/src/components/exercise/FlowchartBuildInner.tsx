@@ -31,12 +31,14 @@ interface Props {
 type FcData = { kind: FlowchartKind; label: string };
 type FcNode = Node<FcData>;
 
+// The legend keeps the course's English terms  it is flowchart vocabulary, not
+// app chrome (which stays French, like the Valider button below).
 const KINDS: { kind: FlowchartKind; label: string; short: string }[] = [
-  { kind: 'start', label: 'Départ', short: 'START' },
-  { kind: 'io', label: 'Entrée / Sortie', short: 'INPUT x' },
-  { kind: 'process', label: 'Traitement', short: 'x = ...' },
-  { kind: 'decision', label: 'Décision', short: 'x > 0 ?' },
-  { kind: 'end', label: 'Fin', short: 'END' },
+  { kind: 'start', label: 'Start', short: 'START' },
+  { kind: 'io', label: 'Input / Output', short: 'INPUT x' },
+  { kind: 'process', label: 'Process', short: 'x = ...' },
+  { kind: 'decision', label: 'Decision', short: 'x > 0 ?' },
+  { kind: 'end', label: 'End', short: 'END' },
 ];
 
 const SHAPE: Record<FlowchartKind, string> = {
@@ -64,10 +66,10 @@ function FcNodeView({ id, data }: NodeProps<FcNode>) {
       {isDecision ? (
         <>
           <Handle id="yes" type="source" position={Position.Bottom}>
-            <span className="pointer-events-none absolute left-1/2 top-1 -translate-x-1/2 text-[9px] text-emerald-600">oui</span>
+            <span className="pointer-events-none absolute left-1/2 top-1 -translate-x-1/2 text-[9px] text-emerald-600">yes</span>
           </Handle>
           <Handle id="no" type="source" position={Position.Right}>
-            <span className="pointer-events-none absolute right-1 top-1/2 text-[9px] text-rose-600">non</span>
+            <span className="pointer-events-none absolute right-1 top-1/2 text-[9px] text-rose-600">no</span>
           </Handle>
         </>
       ) : (
@@ -104,7 +106,7 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
       addEdge(
         {
           ...params,
-          label: branch === 'yes' ? 'oui' : branch === 'no' ? 'non' : undefined,
+          label: branch,
           data: { branch },
           markerEnd: { type: MarkerType.ArrowClosed },
         },
@@ -137,7 +139,7 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
       <h2 className="mb-2 text-xl font-semibold text-neutral-900">{exercise.prompt}</h2>
       <p className="mb-3 text-sm text-neutral-400">
         {exercise.payload.hint ??
-          'Ajoute des blocs, écris leur contenu, relie-les en tirant depuis le point bas. Une décision a une sortie « oui » (bas) et « non » (droite).'}
+          'Ajoute des blocs, écris leur contenu, relie-les en tirant depuis le point bas. Une décision a une sortie « yes » (bas) et « no » (droite).'}
       </p>
 
       {!revealed && (
@@ -201,7 +203,7 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
           <pre className="overflow-x-auto rounded bg-white p-3 font-mono text-xs text-neutral-800">
             {target.edges
               .map((e) => {
-                const b = e.branch ? `  [${e.branch === 'yes' ? 'oui' : 'non'}]` : '';
+                const b = e.branch ? `  [${e.branch}]` : '';
                 return `${byId.get(e.from)}  →  ${byId.get(e.to)}${b}`;
               })
               .join('\n')}

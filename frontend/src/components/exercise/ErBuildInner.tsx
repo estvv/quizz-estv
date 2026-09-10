@@ -30,16 +30,18 @@ interface Props {
 type ErData = { kind: ErKind; label: string };
 type ErNodeT = Node<ErData>;
 
+// The legend keeps the course's English terms  it is E-R vocabulary, not app
+// chrome (which stays French, like the Valider button below).
 const KINDS: { kind: ErKind; label: string; short: string }[] = [
-  { kind: 'entity', label: 'Entité', short: 'Student' },
-  { kind: 'weak_entity', label: 'Entité faible', short: 'Dependent' },
-  { kind: 'associative_entity', label: 'Entité associative', short: 'Enrolment' },
-  { kind: 'relationship', label: 'Relation', short: 'Issue' },
-  { kind: 'identifying_relationship', label: 'Relation identifiante', short: 'Has' },
-  { kind: 'attribute', label: 'Attribut', short: 'Name' },
-  { kind: 'key_attribute', label: 'Clé primaire', short: 'RollNo' },
-  { kind: 'multi_attribute', label: 'Attribut multivalué', short: 'Phone No' },
-  { kind: 'derived_attribute', label: 'Attribut dérivé', short: 'Age' },
+  { kind: 'entity', label: 'Entity', short: 'Student' },
+  { kind: 'weak_entity', label: 'Weak entity', short: 'Dependent' },
+  { kind: 'associative_entity', label: 'Associative entity', short: 'Enrolment' },
+  { kind: 'relationship', label: 'Relationship', short: 'Issue' },
+  { kind: 'identifying_relationship', label: 'Identifying relationship', short: 'Has' },
+  { kind: 'attribute', label: 'Attribute', short: 'Name' },
+  { kind: 'key_attribute', label: 'Key attribute', short: 'RollNo' },
+  { kind: 'multi_attribute', label: 'Multivalued attribute', short: 'Phone No' },
+  { kind: 'derived_attribute', label: 'Derived attribute', short: 'Age' },
 ];
 
 // Rectangles for entities, diamonds for relationships, ovals for attributes;
