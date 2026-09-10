@@ -8674,7 +8674,7 @@
       },
       {
         "type": "flowchart_build",
-        "prompt": "Build the flowchart of the E-R modelling process: from a written description to a finished E-R diagram.",
+        "prompt": "Process flowchart (not an E-R diagram): the steps of E-R modelling, from a written description to a finished diagram.",
         "hint": "Mostly linear, with one decision 'Any many-to-many relationship?': yes -> resolve it with a linking entity; no -> continue. Both paths reach 'label the cardinalities'.",
         "target": {
           "nodes": [
@@ -8778,7 +8778,7 @@
       },
       {
         "type": "flowchart_build",
-        "prompt": "Build the flowchart that classifies a relationship between entities A and B as 1:1, 1:M or M:N.",
+        "prompt": "Decision flowchart (not an E-R diagram): classify a relationship between entities A and B as 1:1, 1:M or M:N.",
         "hint": "Two decisions. D1: 'Can one A relate to many B?'. D2 (asked on each branch): 'Can one B relate to many A?'. The four leaves are M:N, 1:M, 1:M and 1:1.",
         "target": {
           "nodes": [
@@ -8894,7 +8894,7 @@
       },
       {
         "type": "flowchart_build",
-        "prompt": "Build the flowchart for converting one E-R relationship R (between entities A and B) into relational tables.",
+        "prompt": "Decision flowchart (not an E-R diagram): convert one E-R relationship R (between A and B) into relational tables.",
         "hint": "Decision 'Is R many-to-many?': yes -> new table with both primary keys. No -> decision 'Is R one-to-many?': yes -> foreign key on the 'many' side; no -> foreign key on either side (1:1).",
         "target": {
           "nodes": [
@@ -9014,6 +9014,212 @@
         ],
         "normalize": "loose",
         "explanation": "Durability is ensured by the recovery subsystem; after a crash the log restores committed transactions and rolls back the uncommitted ones."
+      },
+      {
+        "type": "er_build",
+        "prompt": "Draw the E-R diagram of the library system: a Student issues a Book, and the issue has a date.",
+        "hint": "Rectangles for the two entities, ovals for their attributes (the primary key is a key attribute), a diamond for Issue, and the descriptive attribute Issue Date hanging off the diamond. Click a line to set its cardinality: 1 on the Student side, N on the Book side.",
+        "target": {
+          "nodes": [
+            {
+              "id": "st",
+              "kind": "entity",
+              "label": "Student"
+            },
+            {
+              "id": "rn",
+              "kind": "key_attribute",
+              "label": "RollNo"
+            },
+            {
+              "id": "br",
+              "kind": "attribute",
+              "label": "Branch"
+            },
+            {
+              "id": "bk",
+              "kind": "entity",
+              "label": "Book"
+            },
+            {
+              "id": "bn",
+              "kind": "key_attribute",
+              "label": "BookNo"
+            },
+            {
+              "id": "au",
+              "kind": "attribute",
+              "label": "Author"
+            },
+            {
+              "id": "is",
+              "kind": "relationship",
+              "label": "Issue"
+            },
+            {
+              "id": "dt",
+              "kind": "attribute",
+              "label": "Issue Date"
+            }
+          ],
+          "edges": [
+            {
+              "from": "st",
+              "to": "rn"
+            },
+            {
+              "from": "st",
+              "to": "br"
+            },
+            {
+              "from": "st",
+              "to": "is",
+              "card": "1"
+            },
+            {
+              "from": "is",
+              "to": "bk",
+              "card": "N"
+            },
+            {
+              "from": "bk",
+              "to": "bn"
+            },
+            {
+              "from": "bk",
+              "to": "au"
+            },
+            {
+              "from": "is",
+              "to": "dt"
+            }
+          ]
+        },
+        "explanation": "Entity = rectangle, attribute = oval, primary key = underlined oval, relationship = diamond. Issue Date belongs to the relationship, not to either entity: that is a descriptive attribute. One student issues many books, so the line reads 1 on the Student side and N on the Book side."
+      },
+      {
+        "type": "er_build",
+        "prompt": "Draw the entity Student with one attribute of each kind: primary key, stored, derived and multi-valued.",
+        "hint": "One rectangle and four ovals. RollNo is the key attribute (underlined), Birth Date a plain one, Age is derived (dashed oval) and Phone No multi-valued (double oval). No cardinality needed.",
+        "target": {
+          "nodes": [
+            {
+              "id": "st",
+              "kind": "entity",
+              "label": "Student"
+            },
+            {
+              "id": "rn",
+              "kind": "key_attribute",
+              "label": "RollNo"
+            },
+            {
+              "id": "bd",
+              "kind": "attribute",
+              "label": "Birth Date"
+            },
+            {
+              "id": "ag",
+              "kind": "derived_attribute",
+              "label": "Age"
+            },
+            {
+              "id": "ph",
+              "kind": "multi_attribute",
+              "label": "Phone No"
+            }
+          ],
+          "edges": [
+            {
+              "from": "st",
+              "to": "rn"
+            },
+            {
+              "from": "st",
+              "to": "bd"
+            },
+            {
+              "from": "st",
+              "to": "ag"
+            },
+            {
+              "from": "st",
+              "to": "ph"
+            }
+          ]
+        },
+        "explanation": "Age is computed from Birth Date and today's date, so it is a derived attribute (dashed oval). A person may have several numbers, so Phone No is multi-valued (double oval). Birth Date is entered and kept: a plain stored attribute."
+      },
+      {
+        "type": "er_build",
+        "prompt": "Draw the ternary relationship Guide, linking Faculty, Student and Project, each with its primary key.",
+        "hint": "Three rectangles, one diamond named Guide joined to all three, and one key attribute per entity. No cardinality needed.",
+        "target": {
+          "nodes": [
+            {
+              "id": "fa",
+              "kind": "entity",
+              "label": "Faculty"
+            },
+            {
+              "id": "fi",
+              "kind": "key_attribute",
+              "label": "FacID"
+            },
+            {
+              "id": "st",
+              "kind": "entity",
+              "label": "Student"
+            },
+            {
+              "id": "rn",
+              "kind": "key_attribute",
+              "label": "RollNo"
+            },
+            {
+              "id": "pr",
+              "kind": "entity",
+              "label": "Project"
+            },
+            {
+              "id": "pi",
+              "kind": "key_attribute",
+              "label": "ProjectID"
+            },
+            {
+              "id": "gu",
+              "kind": "relationship",
+              "label": "Guide"
+            }
+          ],
+          "edges": [
+            {
+              "from": "fa",
+              "to": "fi"
+            },
+            {
+              "from": "st",
+              "to": "rn"
+            },
+            {
+              "from": "pr",
+              "to": "pi"
+            },
+            {
+              "from": "gu",
+              "to": "fa"
+            },
+            {
+              "from": "gu",
+              "to": "st"
+            },
+            {
+              "from": "gu",
+              "to": "pr"
+            }
+          ]
+        },
+        "explanation": "A relationship joining three entities is ternary. Each entity keeps exactly one primary-key attribute; the single Guide diamond carries all three lines rather than three separate binary relationships."
       }
     ]
   },

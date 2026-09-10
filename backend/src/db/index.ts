@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import type {
   Category, CategoryWithCount, Flashcard,
-  Exercise, ExerciseBrief, ExerciseType, ExercisePayload, FlowchartGraph,
+  Exercise, ExerciseBrief, ExerciseType, ExercisePayload, FlowchartGraph, ErGraph,
   SeedCategory, SeedExercise, SeedQuestion, SeedVocab,
 } from '../types/index.js';
 
@@ -233,6 +233,46 @@ function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, w
     return;
   }
 
+  if (type === 'er_build') {
+    const g = (payload as { target?: ErGraph }).target;
+    const kinds = new Set([
+      'entity', 'weak_entity', 'associative_entity',
+      'relationship', 'identifying_relationship',
+      'attribute', 'key_attribute', 'multi_attribute', 'derived_attribute',
+    ]);
+    if (!g || !Array.isArray(g.nodes) || g.nodes.length < 2 || !Array.isArray(g.edges)) {
+      throw new Error(`seed.json: ${where}  er_build needs target.nodes (>=2) and target.edges`);
+    }
+    const ids = new Set(g.nodes.map((node) => node.id));
+    for (const node of g.nodes) {
+      if (!node.id || !kinds.has(node.kind) || typeof node.label !== 'string' || node.label.trim() === '') {
+        throw new Error(`seed.json: ${where}  E-R node needs id, a known kind, and a non-empty label`);
+      }
+    }
+    if (ids.size !== g.nodes.length) {
+      throw new Error(`seed.json: ${where}  E-R node ids must be unique`);
+    }
+    // Lines are undirected, so the same pair may only be joined once.
+    const pairs = new Set<string>();
+    for (const edge of g.edges) {
+      if (!ids.has(edge.from) || !ids.has(edge.to)) {
+        throw new Error(`seed.json: ${where}  E-R line points at an unknown node`);
+      }
+      if (edge.from === edge.to) {
+        throw new Error(`seed.json: ${where}  E-R line joins a node to itself`);
+      }
+      const pair = [edge.from, edge.to].sort().join('|');
+      if (pairs.has(pair)) {
+        throw new Error(`seed.json: ${where}  duplicate E-R line between the same two nodes`);
+      }
+      pairs.add(pair);
+      if (edge.card !== undefined && (typeof edge.card !== 'string' || edge.card.trim() === '')) {
+        throw new Error(`seed.json: ${where}  E-R line "card" must be a non-empty string`);
+      }
+    }
+    return;
+  }
+
   const p = payload as { accept?: unknown; normalize?: unknown };
   if (!nonEmptyStrings(p.accept)) {
     throw new Error(`seed.json: ${where}  type_answer needs a non-empty "accept" list`);
@@ -282,6 +322,9 @@ function seedExerciseToExercise(e: SeedExercise): PreparedExercise {
       payload = { steps: e.steps, ...(e.hint ? { hint: e.hint } : {}) };
       break;
     case 'flowchart_build':
+      payload = { target: e.target, ...(e.hint ? { hint: e.hint } : {}) };
+      break;
+    case 'er_build':
       payload = { target: e.target, ...(e.hint ? { hint: e.hint } : {}) };
       break;
   }

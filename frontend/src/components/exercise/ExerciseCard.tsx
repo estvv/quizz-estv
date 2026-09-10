@@ -6,6 +6,7 @@ import { VocabExercise } from './VocabExercise';
 import { OrderStepsExercise } from './OrderStepsExercise';
 import { WriteAlgorithmExercise } from './WriteAlgorithmExercise';
 import { FlowchartBuild } from './FlowchartBuild';
+import { ErBuild } from './ErBuild';
 
 interface Props {
   exercise: Exercise;
@@ -30,5 +31,7 @@ export function ExerciseCard({ exercise, revealed, onCommit }: Props) {
       return <WriteAlgorithmExercise exercise={exercise} revealed={revealed} onCommit={onCommit} />;
     case 'flowchart_build':
       return <FlowchartBuild exercise={exercise} revealed={revealed} onCommit={onCommit} />;
+    case 'er_build':
+      return <ErBuild exercise={exercise} revealed={revealed} onCommit={onCommit} />;
   }
 }

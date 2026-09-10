@@ -28,7 +28,8 @@ export type ExerciseType =
   | 'vocab'
   | 'order_steps'
   | 'write_algorithm'
-  | 'flowchart_build';
+  | 'flowchart_build'
+  | 'er_build';
 
 /** One choice is correct; `correct` indexes into `choices`. */
 export interface McqPayload {
@@ -103,13 +104,56 @@ export interface FlowchartBuildPayload {
   hint?: string;
 }
 
+/**
+ * Entity-Relationship diagrams use their own legend, not the flowchart one:
+ * rectangles for entities, diamonds for relationships, ovals for attributes,
+ * doubled or dashed for the weak/multi-valued/derived variants.
+ */
+export type ErKind =
+  | 'entity'
+  | 'weak_entity'
+  | 'associative_entity'
+  | 'relationship'
+  | 'identifying_relationship'
+  | 'attribute'
+  | 'key_attribute'
+  | 'multi_attribute'
+  | 'derived_attribute';
+
+export interface ErNode {
+  id: string;
+  kind: ErKind;
+  label: string;
+}
+
+/** E-R lines carry no direction — `from`/`to` are just the two ends, compared
+ *  unordered. `card` is the cardinality written on the line ("1", "N", "M"). */
+export interface ErEdge {
+  from: string;
+  to: string;
+  card?: string;
+}
+
+export interface ErGraph {
+  nodes: ErNode[];
+  edges: ErEdge[];
+}
+
+/** Build an E-R diagram on a canvas; graded on topology (shapes + undirected
+ *  lines + cardinalities), never on position. */
+export interface ErBuildPayload {
+  target: ErGraph;
+  hint?: string;
+}
+
 export type ExercisePayload =
   | McqPayload
   | TypeAnswerPayload
   | VocabPayload
   | OrderStepsPayload
   | WriteAlgorithmPayload
-  | FlowchartBuildPayload;
+  | FlowchartBuildPayload
+  | ErBuildPayload;
 
 export interface Exercise {
   id: number;
@@ -205,12 +249,22 @@ export interface SeedFlowchartBuildExercise {
   diagram_svg?: string;
 }
 
+export interface SeedErBuildExercise {
+  type: 'er_build';
+  prompt: string;
+  target: ErGraph;
+  hint?: string;
+  explanation?: string;
+  diagram_svg?: string;
+}
+
 export type SeedExercise =
   | SeedMcqExercise
   | SeedTypeAnswerExercise
   | SeedOrderStepsExercise
   | SeedWriteAlgorithmExercise
-  | SeedFlowchartBuildExercise;
+  | SeedFlowchartBuildExercise
+  | SeedErBuildExercise;
 
 /** One vocab word, expanded into four exercises at seed time (see db/index.ts). */
 export interface SeedVocab {

@@ -19,7 +19,8 @@ export type ExerciseType =
   | 'vocab'
   | 'order_steps'
   | 'write_algorithm'
-  | 'flowchart_build';
+  | 'flowchart_build'
+  | 'er_build';
 
 export interface McqPayload {
   choices: string[];
@@ -76,6 +77,44 @@ export interface FlowchartBuildPayload {
   hint?: string;
 }
 
+// E-R diagrams have their own legend: rectangles for entities, diamonds for
+// relationships, ovals for attributes  doubled or dashed for the weak /
+// multi-valued / derived variants. Nothing to do with the flowchart shapes.
+export type ErKind =
+  | 'entity'
+  | 'weak_entity'
+  | 'associative_entity'
+  | 'relationship'
+  | 'identifying_relationship'
+  | 'attribute'
+  | 'key_attribute'
+  | 'multi_attribute'
+  | 'derived_attribute';
+
+export interface ErNode {
+  id: string;
+  kind: ErKind;
+  label: string;
+}
+
+/** E-R lines carry no direction  `from`/`to` are compared unordered. `card` is
+ *  the cardinality written on the line ("1", "N", "M"). */
+export interface ErEdge {
+  from: string;
+  to: string;
+  card?: string;
+}
+
+export interface ErGraph {
+  nodes: ErNode[];
+  edges: ErEdge[];
+}
+
+export interface ErBuildPayload {
+  target: ErGraph;
+  hint?: string;
+}
+
 export interface McqExercise {
   id: number;
   category_id: number;
@@ -127,13 +166,19 @@ export interface FlowchartBuildExercise extends BaseExercise {
   payload: FlowchartBuildPayload;
 }
 
+export interface ErBuildExercise extends BaseExercise {
+  type: 'er_build';
+  payload: ErBuildPayload;
+}
+
 export type Exercise =
   | McqExercise
   | TypeAnswerExercise
   | VocabExercise
   | OrderStepsExercise
   | WriteAlgorithmExercise
-  | FlowchartBuildExercise;
+  | FlowchartBuildExercise
+  | ErBuildExercise;
 
 export interface ExerciseBrief {
   id: number;

@@ -1,4 +1,4 @@
-import type { Exercise, TypeAnswerPayload, FlowchartGraph } from '../types';
+import type { Exercise, TypeAnswerPayload, FlowchartGraph, ErGraph } from '../types';
 
 // Fold Latin diacritics only  never touch Hangul.
 function foldLatin(s: string): string {
@@ -94,6 +94,48 @@ export function flowchartMatches(user: UserGraph, target: FlowchartGraph): boole
   return bt(0);
 }
 
+// --- E-R graph comparison (topology only, lines undirected) ---
+
+interface UserErGraph {
+  nodes: { id: string; kind: string; label: string }[];
+  edges: { from: string; to: string; card?: string }[];
+}
+
+/** An E-R line has no direction, so the two ends are sorted before comparing. */
+function erEdgeKey(a: string, b: string, card?: string): string {
+  const [x, y] = [a, b].sort();
+  return `${x}—${y}:${normalizeCode(card ?? '')}`;
+}
+
+export function erMatches(user: UserErGraph, target: ErGraph): boolean {
+  if (user.nodes.length !== target.nodes.length || user.edges.length !== target.edges.length) {
+    return false;
+  }
+  const userEdgeSet = new Set(user.edges.map((e) => erEdgeKey(e.from, e.to, e.card)));
+
+  const map: Record<string, string> = {};
+  const used = new Set<string>();
+
+  function edgesOk(): boolean {
+    const translated = target.edges.map((e) => erEdgeKey(map[e.from], map[e.to], e.card));
+    return translated.length === userEdgeSet.size && translated.every((k) => userEdgeSet.has(k));
+  }
+
+  function bt(i: number): boolean {
+    if (i === target.nodes.length) return edgesOk();
+    const t = target.nodes[i];
+    for (const u of user.nodes) {
+      if (used.has(u.id) || nodeKey(u) !== nodeKey(t)) continue;
+      map[t.id] = u.id;
+      used.add(u.id);
+      if (bt(i + 1)) return true;
+      used.delete(u.id);
+    }
+    return false;
+  }
+  return bt(0);
+}
+
 // --- grading ---
 
 export interface Grade {
@@ -108,6 +150,7 @@ export type Response =
   | string
   | { sens: string; prononciation: string }
   | UserGraph
+  | UserErGraph
   | null;
 
 function describeFlowchart(g: FlowchartGraph): string {
@@ -117,6 +160,14 @@ function describeFlowchart(g: FlowchartGraph): string {
     return `${byId.get(e.from)} → ${byId.get(e.to)}${b}`;
   });
   return lines.join('\n');
+}
+
+/** E-R lines have no arrow, so the review spells them out as plain pairs. */
+function describeEr(g: ErGraph): string {
+  const byId = new Map(g.nodes.map((n) => [n.id, n.label]));
+  return g.edges
+    .map((e) => `${byId.get(e.from)} — ${byId.get(e.to)}${e.card ? `  [${e.card}]` : ''}`)
+    .join('\n');
 }
 
 export function gradeExercise(exercise: Exercise, response: Response): Grade {
@@ -158,6 +209,13 @@ export function gradeExercise(exercise: Exercise, response: Response): Grade {
         ? (response as UserGraph)
         : { nodes: [], edges: [] };
       return { correct: flowchartMatches(user, target), answer: describeFlowchart(target) };
+    }
+    case 'er_build': {
+      const { target } = exercise.payload;
+      const user = response && typeof response === 'object' && 'nodes' in response
+        ? (response as UserErGraph)
+        : { nodes: [], edges: [] };
+      return { correct: erMatches(user, target), answer: describeEr(target) };
     }
   }
 }

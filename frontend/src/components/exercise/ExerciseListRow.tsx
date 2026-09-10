@@ -15,6 +15,7 @@ const TYPE_LABEL: Record<ExerciseType, string> = {
   order_steps: 'Ordre',
   write_algorithm: 'Algo',
   flowchart_build: 'Flowchart',
+  er_build: 'Diagramme E-R',
 };
 
 export function ExerciseListRow({ exercise, index, selectable, selected, onToggle }: Props) {
