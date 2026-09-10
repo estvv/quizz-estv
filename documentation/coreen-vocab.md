@@ -7,6 +7,8 @@ Source : `voc.md`, relu et corrigé (cf. `coreen-vocab-review.md`).
 - Romanisation = **Romanisation Révisée (RR)**, officielle et cohérente.
 - Format d'une ligne : `français = 한글 = rr`
 - `(+)` = mot que j'ai ajouté (deck trop court, ou complément évident) — à valider.
+- `# S2` = mot des slides « Words / 단어 » du cours GEE3003 semaine 2 (week_2.pdf),
+  rangé dans le deck thématique correspondant.
 - Verbes et adjectifs donnés en **forme du dictionnaire** (`-다`). Forme attributive
   entre parenthèses quand elle est utile : `chaud = 뜨겁다 = tteugeopda (attr. 뜨거운 tteugeoun)`.
 - Chaque mot deviendra **2 exercices** au seed : (1) carte `vocab` — on montre le hangeul,
@@ -46,6 +48,7 @@ donner = 주다 = juda
 recevoir = 받다 = batda
 avoir faim = 배고프다 = baegopeuda
 penser = 생각하다 = saenggakhada
+écrire / utiliser = 쓰다 = sseuda                          # S2
 ```
 
 ## Adjectifs
@@ -68,6 +71,8 @@ lourd = 무겁다 = mugeopda (attr. 무거운 mugeoun)
 épicé = 맵다 = maepda (attr. 매운 maeun)
 sucré = 달다 = dalda (attr. 단 dan)
 mignon = 귀엽다 = gwiyeopda (attr. 귀여운 gwiyeoun)
+froid (météo) = 춥다 = chupda (attr. 추운 chuun)            # S2
+être salé = 짜다 = jjada (attr. 짠 jjan)                    # S2
 ```
 
 ## Mots utiles & liaisons
@@ -90,6 +95,10 @@ combien / combien de = 몇 = myeot
 c'est / ce sont (copule) = 이에요 / 예요 = ieyo / yeyo
 ceci = 이것 = igeot
 particule de thème = 은 / 는 = eun / neun
+pourquoi = 왜 = wae                                        # S2
+dehors / extérieur = 밖 = bak                              # S2
+devant = 앞 = ap                                           # S2
+à côté = 옆 = yeop                                         # S2
 ```
 
 ## Politesse
@@ -145,6 +154,11 @@ bœuf mariné sauce soja = 불고기 = bulgogi
 poitrine de porc grillée = 삼겹살 = samgyeopsal
 galbitang (soupe de côtes de bœuf) = 갈비탕 = galbitang
 nourriture = 음식 = eumsik
+raisin = 포도 = podo                                       # S2
+tomate = 토마토 = tomato                                   # S2
+gâteau sec / friandise = 과자 = gwaja                      # S2
+riz (cru) = 쌀 = ssal                                      # S2
+goût / saveur = 맛 = mat                                   # S2
 ```
 
 ## Animaux
@@ -154,6 +168,10 @@ canard = 오리 = ori
 chat = 고양이 = goyangi
 chien = 개 = gae                                          # (+)
 souris (animal) = 쥐 = jwi                                 # (+)
+lapin = 토끼 = tokki                                       # S2
+cochon = 돼지 = dwaeji                                     # S2
+cheval = 말 = mal                                          # S2
+queue (d'animal) = 꼬리 = kkori                            # S2
 ```
 
 ## Lieux
@@ -166,6 +184,17 @@ marché = 시장 = sijang
 restaurant = 식당 = sikdang
 café (lieu) = 카페 = kape
 hôpital = 병원 = byeongwon
+magasin / boutique = 가게 = gage                           # S2
+bibliothèque = 도서관 = doseogwan                          # S2
+salle de classe = 교실 = gyosil                            # S2
+librairie = 서점 = seojeom                                 # S2
+université = 대학 = daehak                                 # S2
+usine = 공장 = gongjang                                    # S2
+chambre / pièce = 방 = bang                                # S2
+cuisine (pièce) = 부엌 = bueok                             # S2
+ville natale = 고향 = gohyang                              # S2
+route / chemin / rue = 길 = gil                            # S2
+Séoul = 서울 = seoul                                       # S2
 ```
 
 ## Temps & quotidien
@@ -180,6 +209,10 @@ hier = 어제 = eoje                                         # (+)
 anniversaire = 생일 = saengil
 âge (compteur « …ans ») = 살 = sal
 âge = 나이 = nai
+bientôt = 곧 = got                                         # S2
+printemps = 봄 = bom                                       # S2
+automne = 가을 = gaeul                                     # S2
+journée / midi = 낮 = nat                                  # S2
 ```
 
 ## Objets
@@ -196,6 +229,14 @@ souris (ordinateur) = 마우스 = mauseu
 ordinateur = 컴퓨터 = keompyuteo
 appareil photo = 카메라 = kamera
 collier = 목걸이 = mokgeori
+chaise = 의자 = uija                                       # S2
+pinceau = 붓 = but                                         # S2
+tasse / gobelet = 컵 = keop                                # S2
+train = 기차 = gicha                                       # S2
+chanson = 노래 = norae                                     # S2
+histoire / récit = 이야기 = iyagi                          # S2
+argent = 돈 = don                                          # S2
+médicament = 약 = yak                                      # S2
 ```
 
 ## Couleurs
@@ -294,6 +335,36 @@ grand frère (dit par une femme) = 오빠 = oppa              # (+)
 cadet(te) (frère ou sœur) = 동생 = dongsaeng               # (+)
 petite sœur = 여동생 = yeodongsaeng
 petit frère = 남동생 = namdongsaeng                        # (+)
+papa = 아빠 = appa                                         # S2
+```
+
+## Corps & santé
+
+```
+tête / cheveux = 머리 = meori                              # S2
+œil / neige = 눈 = nun                                     # S2
+nez = 코 = ko                                              # S2
+oreille = 귀 = gwi                                         # S2
+bouche = 입 = ip                                           # S2
+rhume = 감기 = gamgi                                       # S2
+```
+
+## Vêtements
+
+```
+vêtement(s) = 옷 = ot                                      # S2
+jupe = 치마 = chima                                        # S2
+serre-tête / bandeau = 머리띠 = meoritti                   # S2
+```
+
+## Nature
+
+```
+fleuve / rivière = 강 = gang                               # S2
+forêt = 숲 = sup                                           # S2
+champ (cultivé) = 밭 = bat                                 # S2
+fleur = 꽃 = kkot                                          # S2
+arbre = 나무 = namu                                        # S2
 ```
 
 ## Phrases utiles

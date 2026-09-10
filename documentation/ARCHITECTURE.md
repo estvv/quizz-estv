@@ -118,15 +118,13 @@ School                          Others
 
 Two rules hold the shape together:
 
-- **A category is either a container or a leaf, never both.** Study material 
-  lesson, flashcards and questions alike  lives only on leaves. The public
-  category page shows a container's sub-categories *instead of* its content, so
-  anything attached directly to a container would be unreachable. This is enforced
-  on both sides: the content routes reject a write to a category that has children
-  (`categoryHasChildren`), and `validateParentId` refuses to give children to a
-  category that already holds content (`categoryHasContent`). Clearing a lesson
-  stays allowed either way, so a category can always be emptied and then nested.
-  Question counts shown on a container are the recursive sum over its subtree.
+- **A container carries no quiz or flashcards of its own** — those live only on
+  leaves, and the recursive question count shown on a container is the sum over
+  its subtree. A **lesson is the one exception**: a container may hold one, and
+  the category page renders its `Leçon` tile *above* the sub-category grid (used
+  by `School → Coréen → Vocabulaire`, whose lesson lists every word across its
+  child decks). Flashcards and quiz attached directly to a container would still
+  be unreachable, so the seed keeps them on leaves.
 - **The tree stays a tree.** `validateParentId` (`routes/categories.ts`) walks
   the `parent_id` chain upward via `getAncestorIds` and rejects any move that
   would put a category under itself or under one of its own descendants.

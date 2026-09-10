@@ -6068,6 +6068,522 @@
     ]
   },
   {
+    "name": "Week 3",
+    "key": "school-os-w3",
+    "color": "teal",
+    "parent": "school-os",
+    "lesson": "# Operating System — Week 3\n\nChapter 2 — Operating-System Services.\n\n## OPERATING-SYSTEM SERVICES (helpful to the user)\n- user interface (UI) = way to interact with the OS: CLI, GUI, touch-screen, or batch\n- program execution = OS loads a program into memory and runs it, ending normally or abnormally (error)\n- I/O operations = OS performs the I/O a running program needs, on a file or a device\n- file-system manipulation = read, write, create, delete, search files/directories, list info, manage permissions\n- communications = information exchange between processes, on one computer or over a network\n- shared memory = communication method: processes read/write a common memory region\n- message passing = communication method: packets of information moved by the OS\n- error detection = OS is constantly aware of errors (CPU, memory, I/O devices, user program) and takes corrective action\n- debugging facilities = tools that help the user and programmer use the system efficiently\n\n## OPERATING-SYSTEM SERVICES (efficient operation of the system itself)\n- resource sharing = allocating resources when multiple users/jobs run concurrently\n- resource allocation = handing out CPU cycles, main memory, file storage, I/O devices\n- logging / accounting = tracking which users use how much of what resources\n- protection = ensuring all access to system resources is controlled\n- security = defending the system from outsiders: user authentication, guarding external I/O devices from invalid access\n\n## USER – OPERATING-SYSTEM INTERFACE\n- CLI (command-line interpreter) = allows direct command entry; fetches a command and executes it\n- shell = a CLI implementation; a system may offer several\n- built-in command = command whose code is inside the shell\n- program-name command = command that is just the name of a program; adding one needs no shell change\n- GUI = user-friendly desktop-metaphor interface: icons for files/programs/actions, operated with a mouse\n- Xerox PARC = where the GUI was invented\n- Windows interface = GUI with a \"cmd\" command shell\n- macOS interface = \"Aqua\" GUI with a UNIX kernel underneath and shells available\n- Linux/Unix interface = CLI with optional GUI (GNOME, KDE, CDE)\n- touchscreen interface = gesture-based selection, virtual keyboard, voice commands\n\n## SYSTEM CALLS\n- system call = programming interface to the services provided by the OS\n- system-call language = typically C or C++\n- API (Application Programming Interface) = higher-level interface programs use instead of direct system calls\n- Win32 API = the API for Windows\n- POSIX API = the API for POSIX systems (UNIX, Linux, macOS)\n- Java API = the API for the Java virtual machine\n- system-call number = number associated with each system call\n- system-call table = table indexed by system-call number, used to invoke the call in the kernel\n- run-time support library = functions shipped with the compiler that hide the OS-interface details\n\n## SYSTEM-CALL PARAMETER PASSING\n- register method = pass the parameters in CPU registers (simplest; limited count)\n- block/table method = store parameters in a memory block, pass its address in a register (Linux, Solaris)\n- stack method = program pushes parameters onto the stack, OS pops them off\n- block and stack methods = do not limit the number or length of parameters\n\n## TYPES OF SYSTEM CALLS\n- process control = create/terminate process, end/abort, load/execute, get/set process attributes, wait for time, wait/signal event, allocate/free memory, dump memory on error, single-step execution, locks for shared data\n- file management = create/delete file, open/close file, read/write/reposition, get/set file attributes\n- device management = request/release device, read/write/reposition, get/set device attributes, attach/detach devices\n- information maintenance = get/set time or date, get/set system data, get/set process/file/device attributes\n- communications (system calls) = create/delete connection, send/receive messages, shared-memory regions, transfer status info, attach/detach remote devices\n- protection (system calls) = control access to resources, get/set permissions, allow/deny user access\n\n## SYSTEM-CALL EXAMPLES\n- printf() = C library call that invokes the write() system call\n- fork() = FreeBSD shell system call that creates a new process\n- exec() = loads a program into the created process\n- shell wait = shell waits for the process to terminate or continues with user commands\n- exit code 0 = no error\n- exit code > 0 = error code\n- Arduino = single-tasking, no OS; boot loader loads one program; program exit reloads the shell\n\n## SYSTEM SERVICES (SYSTEM PROGRAMS)\n- system programs = convenient environment for program development and execution\n- file management (system programs) = create, delete, copy, rename, print, dump, list, manipulate files/directories\n- status information = date, time, available memory, disk space, user count; performance, logging, debugging info\n- registry = store used by some systems to keep configuration information\n- file modification = text editors; commands to search or transform file contents\n- programming-language support = compilers, assemblers, debuggers, interpreters\n- program loading and execution = absolute loaders, relocatable loaders, linkage editors, overlay loaders, debugging systems\n- communications (system programs) = virtual connections among processes, users and computers (messages, web, email, remote login, file transfer)\n- background services = launched at boot, run in user context; disk checking, scheduling, error logging, printing\n- daemon = another name for a background service / subsystem\n- application programs = run by users, not part of the OS\n\n## LINKERS AND LOADERS\n- relocatable object file = compiled source, loadable into any memory location\n- linker = combines object files (and libraries) into a single binary executable\n- binary executable = program as stored on secondary storage\n- loader = brings the executable from secondary storage into memory to be executed\n- relocation = assigns final addresses to program parts and adjusts code/data to match\n- dynamically linked library (DLL) = library loaded on demand, shared by all programs using the same version (loaded once)\n- standard file format = lets the OS know how to load and start object/executable files\n\n## WHY APPLICATIONS ARE OPERATING-SYSTEM SPECIFIC\n- reason = each OS has its own system calls and file formats\n- interpreted-language app = multi-OS if the interpreter exists on each OS (Python, Ruby)\n- VM-based app = multi-OS by running inside a virtual machine (Java)\n- standard-language app = multi-OS by compiling separately on each OS (C)\n- ABI (Application Binary Interface) = architecture-level equivalent of the API; how binary components interface for a given OS + CPU\n\n## DESIGN AND IMPLEMENTATION\n- OS design = not \"solvable\"; internal structures vary widely\n- design start = define goals and specifications\n- user goals = convenient, easy to learn, reliable, safe, fast\n- system goals = easy to design/implement/maintain, flexible, reliable, error-free, efficient\n- policy = what needs to be done (e.g. interrupt every 100 seconds)\n- mechanism = how to do it (e.g. a timer)\n- separation of policy and mechanism = key principle; lets policy change later (100 → 200) without touching the mechanism\n- early implementation language = assembly\n- later implementation languages = Algol, PL/1\n- modern implementation languages = C, C++ (lowest levels still assembly)\n- high-level language trade-off = easier to port, but slower\n- emulation = lets an OS run on non-native hardware\n\n## OPERATING-SYSTEM STRUCTURE\n- simple structure = little or no structure (MS-DOS)\n- monolithic structure = one large kernel with everything below the system-call interface and above the hardware (original UNIX)\n- UNIX kernel contents = file system, CPU scheduling, memory management, other OS functions\n- layered approach = OS split into layers; layer 0 = hardware, layer N = user interface; each layer uses only lower layers\n- microkernel = moves as much as possible from the kernel into user space\n- Mach = example microkernel; basis of the macOS (Darwin) kernel\n- microkernel communication = message passing between user modules\n- microkernel benefits = easier to extend and port; more reliable and secure (less code in kernel mode)\n- microkernel detriment = performance overhead of user-space ↔ kernel-space communication\n- loadable kernel modules (LKMs) = object-oriented; each core component separate, loadable as needed, talking over known interfaces (Linux, Solaris)\n- hybrid system = combines multiple approaches for performance, security, usability\n- Linux/Solaris = monolithic + modular\n- Windows = mostly monolithic + microkernel for subsystem personalities\n- macOS = hybrid, layered; Aqua UI + Cocoa; Mach + BSD kernel + I/O Kit + kernel extensions (kexts)\n- Android = modified Linux kernel; adds power management; core libraries + Dalvik/ART VM; apps in Java + Android API; webkit, SQLite, media, small libc\n\n## BUILDING AND BOOTING AN OPERATING SYSTEM\n- build from scratch = write source, configure for the target, compile, install, boot\n- Linux source = downloaded from kernel.org\n- make menuconfig = configure the kernel\n- make = compile the kernel (produces vmlinuz)\n- vmlinuz = the compiled kernel image\n- make modules = compile the kernel modules\n- make modules_install = install the modules into vmlinuz\n- make install = install the new kernel on the system\n- system boot = on power-on, execution starts at a fixed memory location\n- bootstrap loader = small code (BIOS) in ROM/EEPROM that locates the kernel, loads it into memory, and starts it\n- boot block = code at a fixed location, loaded by ROM code, that loads the bootstrap loader from disk\n- UEFI (Unified Extensible Firmware Interface) = modern replacement for BIOS\n- GRUB = common bootstrap loader; selects a kernel from multiple disks/versions/options\n- single-user mode = a boot state that boot loaders can offer\n\n## OPERATING-SYSTEM DEBUGGING\n- debugging = finding and fixing errors (bugs); also performance tuning\n- log files = OS-generated files containing error information\n- core dump = file capturing the memory of a failed process\n- crash dump = file containing kernel memory after an OS failure\n- performance tuning = optimizing system performance by removing bottlenecks\n- trace listing = recorded activities kept for analysis\n- profiling = periodic sampling of the instruction pointer to find statistical trends\n- Kernighan's Law = \"debugging is twice as hard as writing the code in the first place\"\n- top / Task Manager = programs that compute and display measures of system behavior\n- tracing = collecting data for a specific event (e.g. a system-call invocation)\n- strace = traces the system calls invoked by a process\n- gdb = source-level debugger\n- perf = collection of Linux performance tools\n- tcpdump = collects network packets\n- BCC (BPF Compiler Collection) = rich Linux tracing toolkit spanning user and kernel code\n- DTrace = the original tracing toolkit BCC follows\n- disksnoop.py = BCC example tool that traces disk I/O activity\n",
+    "questions": [
+      {
+        "question_text": "According to Chapter 2, what does an operating system provide?",
+        "choice_a": "An environment for the execution of programs, and services to programs and users",
+        "choice_b": "Only a graphical desktop for the user",
+        "choice_c": "Only the device drivers for the hardware",
+        "choice_d": "A replacement for the CPU's instruction set",
+        "correct_choice": "A",
+        "explanation": "One set of OS services helps the user; another set keeps the system itself running efficiently through resource sharing."
+      },
+      {
+        "question_text": "Which of these is a user-oriented operating-system service?",
+        "choice_a": "Query optimisation",
+        "choice_b": "Program execution: loading a program into memory and running it to completion, normally or abnormally",
+        "choice_c": "Deciding the CPU clock frequency",
+        "choice_d": "Compiling the kernel",
+        "correct_choice": "B",
+        "explanation": "Program execution, I/O operations, file-system manipulation, communications, error detection and the user interface are the services helpful to the user."
+      },
+      {
+        "question_text": "The two ways processes can communicate, per the course, are:",
+        "choice_a": "Polling and interrupts",
+        "choice_b": "Pipes and sockets only",
+        "choice_c": "Shared memory, or message passing (packets moved by the OS)",
+        "choice_d": "Registers and the stack",
+        "correct_choice": "C",
+        "explanation": "Communication may be via shared memory or through message passing; it can be between processes on one computer or across a network."
+      },
+      {
+        "question_text": "Error detection as an OS service means:",
+        "choice_a": "The compiler reports syntax errors",
+        "choice_b": "The OS is constantly aware of possible errors (CPU, memory, I/O, user programs) and takes the appropriate action",
+        "choice_c": "The user must restart the machine on any fault",
+        "choice_d": "Antivirus software scans files",
+        "correct_choice": "B",
+        "explanation": "For each type of error the OS should take an action that ensures correct and consistent computing; debugging facilities help the user and programmer use the system efficiently."
+      },
+      {
+        "question_text": "Which set of services exists for the efficient operation of the system itself?",
+        "choice_a": "User interface, program execution, I/O operations",
+        "choice_b": "Resource allocation, logging / accounting, protection and security",
+        "choice_c": "Compilation, linking, loading",
+        "choice_d": "Backup, restore, defragmentation",
+        "correct_choice": "B",
+        "explanation": "When multiple users or jobs run concurrently, resources (CPU cycles, memory, file storage, I/O devices) must be allocated; logging tracks usage; protection and security control access."
+      },
+      {
+        "question_text": "What is the difference between protection and security in this chapter?",
+        "choice_a": "They are the same thing",
+        "choice_b": "Protection controls all access to system resources; security defends the system from outsiders (user authentication, guarding I/O devices)",
+        "choice_c": "Protection is hardware, security is software",
+        "choice_d": "Protection is for files, security is for memory",
+        "correct_choice": "B",
+        "explanation": "Protection ensures all access to system resources is controlled; security requires user authentication and extends to defending external I/O devices from invalid access attempts."
+      },
+      {
+        "question_text": "The command-line interpreter (shell) primarily:",
+        "choice_a": "Schedules processes on the CPU",
+        "choice_b": "Fetches a command from the user and executes it",
+        "choice_c": "Manages virtual memory pages",
+        "choice_d": "Compiles C programs",
+        "correct_choice": "B",
+        "explanation": "The CLI allows direct command entry. It may be implemented in the kernel or by a system program, and several shells may exist."
+      },
+      {
+        "question_text": "If shell commands are just the names of programs rather than built-in code, what follows?",
+        "choice_a": "The shell runs more slowly",
+        "choice_b": "Adding new features (commands) does not require modifying the shell",
+        "choice_c": "Commands cannot take arguments",
+        "choice_d": "Only the root user can run them",
+        "correct_choice": "B",
+        "explanation": "When a command is the name of a program, a new command is added simply by adding a program; the shell itself never changes."
+      },
+      {
+        "question_text": "Where was the GUI 'desktop metaphor' invented?",
+        "choice_a": "Bell Labs",
+        "choice_b": "MIT",
+        "choice_c": "Xerox PARC",
+        "choice_d": "IBM Research",
+        "correct_choice": "C",
+        "explanation": "The user-friendly desktop-metaphor interface (icons for files, programs and actions, operated with a mouse) was invented at Xerox PARC."
+      },
+      {
+        "question_text": "A system call is best described as:",
+        "choice_a": "A function in the user's own program",
+        "choice_b": "The programming interface to the services provided by the OS",
+        "choice_c": "A hardware interrupt raised by a device",
+        "choice_d": "A message sent between two computers",
+        "correct_choice": "B",
+        "explanation": "System calls are the programming interface to OS services, typically written in C or C++ and usually reached through a higher-level API."
+      },
+      {
+        "question_text": "The three most common APIs used to reach system calls are:",
+        "choice_a": "OpenGL, Vulkan, DirectX",
+        "choice_b": "Win32 (Windows), POSIX (UNIX / Linux / macOS), and the Java API (JVM)",
+        "choice_c": "REST, gRPC, GraphQL",
+        "choice_d": "libc, libm, libpthread",
+        "correct_choice": "B",
+        "explanation": "Programs mostly access OS services through an API rather than direct system calls; the three common ones are Win32, POSIX and the Java API."
+      },
+      {
+        "question_text": "How does the system-call interface find and run the requested call?",
+        "choice_a": "It searches the kernel source code at run time",
+        "choice_b": "A number is associated with each system call; the interface keeps a table indexed by that number, invokes the call in the kernel and returns status plus results",
+        "choice_c": "The caller passes the kernel function's memory address directly",
+        "choice_d": "It asks the user to confirm each call",
+        "correct_choice": "B",
+        "explanation": "The caller needs to know nothing about the implementation — just obey the API. Most details are hidden by the run-time support library."
+      },
+      {
+        "question_text": "Which is NOT one of the three general methods of passing parameters to the OS?",
+        "choice_a": "In registers",
+        "choice_b": "In a block or table in memory, with its address passed in a register",
+        "choice_c": "Pushed onto the stack by the program",
+        "choice_d": "Encoded into the system-call number itself",
+        "correct_choice": "D",
+        "explanation": "The three methods are registers, a memory block whose address is passed in a register (Linux and Solaris), and the stack. The call number identifies the call, not its parameters."
+      },
+      {
+        "question_text": "Which parameter-passing approach do Linux and Solaris use when there may be more parameters than registers?",
+        "choice_a": "They refuse the call",
+        "choice_b": "Parameters are stored in a block in memory and the block's address is passed in a register",
+        "choice_c": "Parameters are always passed on the stack",
+        "choice_d": "Parameters are written to a file",
+        "correct_choice": "B",
+        "explanation": "The block (and the stack) method does not limit the number or length of parameters being passed."
+      },
+      {
+        "question_text": "'create process', 'load', 'execute', 'wait event', 'allocate memory' are examples of which category of system call?",
+        "choice_a": "File management",
+        "choice_b": "Device management",
+        "choice_c": "Process control",
+        "choice_d": "Information maintenance",
+        "correct_choice": "C",
+        "explanation": "Process control also covers end / abort, get / set process attributes, dump memory on error, single-step execution and locks for shared data."
+      },
+      {
+        "question_text": "'request device / release device' and 'logically attach or detach devices' are system calls for:",
+        "choice_a": "Process control",
+        "choice_b": "Device management",
+        "choice_c": "Protection",
+        "choice_d": "Communications",
+        "correct_choice": "B",
+        "explanation": "Device management also includes read / write / reposition and get / set device attributes."
+      },
+      {
+        "question_text": "Getting and setting the time or date, or getting system data, belongs to which category?",
+        "choice_a": "Information maintenance",
+        "choice_b": "File management",
+        "choice_c": "Process control",
+        "choice_d": "Protection",
+        "correct_choice": "A",
+        "explanation": "Information maintenance covers get / set time or date, get / set system data, and get / set process, file or device attributes."
+      },
+      {
+        "question_text": "In the standard C library, printf() ultimately performs its output by calling which system call?",
+        "choice_a": "read()",
+        "choice_b": "write()",
+        "choice_c": "open()",
+        "choice_d": "fork()",
+        "correct_choice": "B",
+        "explanation": "printf() is a library call; it invokes the write() system call to actually produce the output."
+      },
+      {
+        "question_text": "In the FreeBSD example, how does the shell start a user program?",
+        "choice_a": "It jumps directly to the program's first instruction",
+        "choice_b": "It calls fork() to create a process, then exec() to load the program into it, then waits for the process to terminate",
+        "choice_c": "It sends the program to the kernel as a message",
+        "choice_d": "It links the program into the shell binary",
+        "correct_choice": "B",
+        "explanation": "The process then exits with code 0 (no error) or > 0 (an error code); the shell then continues with user commands."
+      },
+      {
+        "question_text": "Why does the Arduino example have no operating system?",
+        "choice_a": "It has too much memory",
+        "choice_b": "It is single-tasking with a single memory space; a boot loader loads one program, and program exit reloads the shell",
+        "choice_c": "It runs Linux instead",
+        "choice_d": "Its CPU is too fast for an OS",
+        "correct_choice": "B",
+        "explanation": "Sketches are loaded via USB into flash memory; there is a single memory space and no multitasking."
+      },
+      {
+        "question_text": "Background services that launch at boot and run in user context are also known as:",
+        "choice_a": "Interrupts",
+        "choice_b": "System calls",
+        "choice_c": "Services, subsystems or daemons",
+        "choice_d": "Shells",
+        "correct_choice": "C",
+        "explanation": "They provide facilities such as disk checking, process scheduling, error logging and printing; they run in user context, not kernel context."
+      },
+      {
+        "question_text": "What does a linker do?",
+        "choice_a": "It brings the executable into memory to run it",
+        "choice_b": "It combines relocatable object files (and libraries) into a single binary executable",
+        "choice_c": "It translates C source into assembly",
+        "choice_d": "It assigns the CPU to a process",
+        "correct_choice": "B",
+        "explanation": "Source is compiled into relocatable object files; the linker combines them, also bringing in libraries, into one executable stored on secondary storage."
+      },
+      {
+        "question_text": "What does the loader do, and what is 'relocation'?",
+        "choice_a": "The loader compiles the program; relocation is moving it to another disk",
+        "choice_b": "The loader brings the executable from secondary storage into memory; relocation assigns final addresses to the program's parts and adjusts code and data to match",
+        "choice_c": "The loader links libraries; relocation renames symbols",
+        "choice_d": "The loader runs the program's tests; relocation reorders functions",
+        "correct_choice": "B",
+        "explanation": "A program resides on secondary storage as a binary executable and must be brought into memory by the loader before it can execute."
+      },
+      {
+        "question_text": "How do modern general-purpose systems usually handle libraries?",
+        "choice_a": "They copy every library into every executable at link time",
+        "choice_b": "They use dynamically linked libraries (DLLs), loaded as needed and shared by all programs using the same version (loaded once)",
+        "choice_c": "They forbid the use of libraries",
+        "choice_d": "They load libraries only into the kernel",
+        "correct_choice": "B",
+        "explanation": "Rather than linking libraries into executables, dynamically linked libraries are loaded on demand and one copy is shared."
+      },
+      {
+        "question_text": "Why is an application compiled on one operating system usually not executable on another?",
+        "choice_a": "The screen resolution differs",
+        "choice_b": "Each OS provides its own unique system calls and file formats",
+        "choice_c": "Compilers are secret",
+        "choice_d": "CPUs cannot run more than one OS's code",
+        "correct_choice": "B",
+        "explanation": "Apps can still be multi-OS if written in an interpreted language, run in a VM (Java), or written in a standard language and compiled separately per OS."
+      },
+      {
+        "question_text": "The Application Binary Interface (ABI) is:",
+        "choice_a": "The list of a program's command-line options",
+        "choice_b": "The architecture-level equivalent of an API: how binary code components interface for a given OS on a given CPU / architecture",
+        "choice_c": "The set of icons shown in the GUI",
+        "choice_d": "A type of system call",
+        "correct_choice": "B",
+        "explanation": "Where the API is a source-level interface, the ABI defines how compiled binary components interface for a specific OS and architecture."
+      },
+      {
+        "question_text": "In OS design, what is the difference between policy and mechanism?",
+        "choice_a": "Policy is hardware, mechanism is software",
+        "choice_b": "Policy is *what* needs to be done (e.g. interrupt every 100 s); mechanism is *how* to do it (e.g. a timer)",
+        "choice_c": "Policy is for users, mechanism is for administrators",
+        "choice_d": "They mean the same thing",
+        "correct_choice": "B",
+        "explanation": "Separating policy from mechanism gives maximum flexibility: a later policy change (100 → 200) leaves the mechanism untouched."
+      },
+      {
+        "question_text": "The original UNIX kernel is described as which kind of structure?",
+        "choice_a": "Microkernel",
+        "choice_b": "Pure layered",
+        "choice_c": "Monolithic — everything below the system-call interface and above the hardware in one large kernel",
+        "choice_d": "Client-server",
+        "correct_choice": "C",
+        "explanation": "Limited by the hardware, original UNIX had two separable parts: the systems programs, and the kernel (file system, CPU scheduling, memory management and more, all at one level)."
+      },
+      {
+        "question_text": "In a strict layered operating system, layer 0 and layer N are:",
+        "choice_a": "Layer 0 = the user interface, layer N = the hardware",
+        "choice_b": "Layer 0 = the hardware, layer N = the user interface",
+        "choice_c": "Both are the kernel",
+        "choice_d": "Both are device drivers",
+        "correct_choice": "B",
+        "explanation": "Each layer is built on top of the lower layers and, with modularity, uses only the operations and services of lower-level layers."
+      },
+      {
+        "question_text": "A microkernel design moves functionality out of the kernel into user space. How do the resulting modules communicate?",
+        "choice_a": "Through shared global variables in the kernel",
+        "choice_b": "By message passing",
+        "choice_c": "By direct function calls into each other",
+        "choice_d": "They cannot communicate",
+        "correct_choice": "B",
+        "explanation": "Mach is the classic example (Darwin / macOS is partly based on it). The trade-off is the performance overhead of user-space to kernel-space communication."
+      },
+      {
+        "question_text": "Which is a stated benefit of a microkernel?",
+        "choice_a": "Faster user-space / kernel-space communication",
+        "choice_b": "Easier to extend and to port, more reliable and more secure (less code runs in kernel mode)",
+        "choice_c": "It needs no device drivers",
+        "choice_d": "It removes the need for system calls",
+        "correct_choice": "B",
+        "explanation": "The detriment is the performance overhead of the extra user-space ↔ kernel-space message passing."
+      },
+      {
+        "question_text": "Loadable kernel modules (LKMs), as in Linux and Solaris, are:",
+        "choice_a": "The same as a pure layered system with fixed layers",
+        "choice_b": "An object-oriented approach: each core component is separate, talks to others over known interfaces, and is loadable as needed within the kernel",
+        "choice_c": "User programs that never enter the kernel",
+        "choice_d": "A microkernel with no message passing",
+        "correct_choice": "B",
+        "explanation": "LKMs are similar to layers but more flexible: components load on demand within the kernel."
+      },
+      {
+        "question_text": "Why are most modern operating systems called 'hybrid'?",
+        "choice_a": "They run on hybrid CPUs",
+        "choice_b": "They combine multiple structural approaches for performance, security and usability (e.g. Linux: monolithic in kernel space plus modular loading)",
+        "choice_c": "They can boot from two disks",
+        "choice_d": "They support both 32-bit and 64-bit programs",
+        "correct_choice": "B",
+        "explanation": "Windows is mostly monolithic plus a microkernel for subsystem personalities; macOS is layered with a Mach + BSD kernel plus loadable kernel extensions."
+      },
+      {
+        "question_text": "Android's kernel is:",
+        "choice_a": "A brand-new microkernel written by Google",
+        "choice_b": "Based on the Linux kernel but modified (process, memory and device-driver management, plus added power management)",
+        "choice_c": "The Windows NT kernel",
+        "choice_d": "The Mach microkernel",
+        "correct_choice": "B",
+        "explanation": "Above the kernel, Android has a core set of libraries and the Dalvik / ART VM; apps are written in Java plus the Android API."
+      },
+      {
+        "question_text": "During system boot, what does the bootstrap loader do?",
+        "choice_a": "It compiles the kernel",
+        "choice_b": "Stored in ROM / EEPROM (BIOS, or modern UEFI), it locates the kernel, loads it into memory and starts it",
+        "choice_c": "It formats the disk",
+        "choice_d": "It authenticates the user",
+        "correct_choice": "B",
+        "explanation": "On power-on, execution starts at a fixed memory location; sometimes a boot block loads a fuller bootstrap loader from disk. GRUB is a common one."
+      },
+      {
+        "question_text": "What is GRUB?",
+        "choice_a": "A performance-monitoring tool",
+        "choice_b": "A common bootstrap loader that can select a kernel from multiple disks / versions / options and offer boot states such as single-user mode",
+        "choice_c": "The Linux system-call table",
+        "choice_d": "A kernel debugger",
+        "correct_choice": "B",
+        "explanation": "After the loader runs, the kernel loads and the system is running."
+      },
+      {
+        "question_text": "What is the difference between a core dump and a crash dump?",
+        "choice_a": "A core dump is the kernel's memory; a crash dump is a process's memory",
+        "choice_b": "A core dump captures the memory of a failed process (application); a crash dump contains kernel memory after an OS failure",
+        "choice_c": "They are the same file with different names",
+        "choice_d": "A core dump is text; a crash dump is binary",
+        "correct_choice": "B",
+        "explanation": "The OS also generates log files with error information; performance tuning may use trace listings recorded for analysis."
+      },
+      {
+        "question_text": "Profiling, as a performance technique, is:",
+        "choice_a": "Running the program twice and comparing",
+        "choice_b": "Periodic sampling of the instruction pointer to look for statistical trends",
+        "choice_c": "Counting the lines of source code",
+        "choice_d": "Recording every system call to a file",
+        "correct_choice": "B",
+        "explanation": "Profiling spots where a program spends its time by sampling the instruction pointer at intervals."
+      },
+      {
+        "question_text": "Which tool traces the system calls invoked by a process?",
+        "choice_a": "tcpdump",
+        "choice_b": "gdb",
+        "choice_c": "strace",
+        "choice_d": "perf",
+        "correct_choice": "C",
+        "explanation": "gdb is a source-level debugger, perf is a collection of Linux performance tools, and tcpdump collects network packets."
+      },
+      {
+        "question_text": "What is BCC (the BPF Compiler Collection)?",
+        "choice_a": "A C compiler",
+        "choice_b": "A rich toolkit that provides tracing features for Linux, able to instrument interactions between user-level and kernel code (a successor to DTrace)",
+        "choice_c": "A boot loader",
+        "choice_d": "A microkernel",
+        "correct_choice": "B",
+        "explanation": "Debugging interactions between user and kernel code is nearly impossible without a toolset that understands both; disksnoop.py, for instance, traces disk I/O activity."
+      },
+      {
+        "question_text": "What does Kernighan's Law say about debugging?",
+        "choice_a": "Debugging is easier than writing code",
+        "choice_b": "Debugging is twice as hard as writing the code in the first place — so code written as cleverly as possible cannot, by definition, be debugged by its author",
+        "choice_c": "Every bug takes exactly one hour to fix",
+        "choice_d": "Debugging should be automated away entirely",
+        "correct_choice": "B",
+        "explanation": "The lesson: write code you can actually debug rather than the cleverest possible code."
+      },
+      {
+        "question_text": "Objectives of the chapter include being able to design and implement kernel modules for interacting with which kernel?",
+        "choice_a": "The Windows NT kernel",
+        "choice_b": "The Linux kernel",
+        "choice_c": "The Mach kernel",
+        "choice_d": "The FreeBSD kernel",
+        "correct_choice": "B",
+        "explanation": "Other objectives: identify OS services, illustrate how system calls provide them, compare kernel-design strategies, illustrate the boot process, and apply performance-monitoring tools."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "order_steps",
+        "prompt": "Order the stages that take a C source file to a running program (linker then loader).",
+        "steps": [
+          "The compiler turns source.c into a relocatable object file (source.o)",
+          "The linker combines the object files and pulls in the needed libraries",
+          "The result is a single binary executable stored on secondary storage",
+          "The loader copies the executable from secondary storage into memory",
+          "Relocation assigns final addresses and adjusts the code and data to match",
+          "The CPU begins executing the program in memory"
+        ],
+        "explanation": "Compile → link (+ libraries) → executable on disk → load into memory → relocate → run. Modern systems defer library linking to load time via dynamically linked libraries."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order the steps to build and boot a Linux kernel from source.",
+        "steps": [
+          "Download the Linux source code from kernel.org",
+          "Configure the kernel with 'make menuconfig'",
+          "Compile the kernel with 'make' (produces vmlinuz)",
+          "Build the kernel modules with 'make modules'",
+          "Install the modules with 'make modules_install'",
+          "Install the new kernel on the system with 'make install' and reboot into it"
+        ],
+        "explanation": "Generating an OS from scratch is: write the source, configure it for the target, compile, install, then boot."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of how a FreeBSD shell runs a user command: fork(), then in the child exec() the program, while the parent waits.",
+        "hint": "Decision 'In the child process?': yes -> exec() to load the program; no -> wait() for the child; both reach END.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "i",
+              "kind": "io",
+              "label": "READ command from user"
+            },
+            {
+              "id": "f",
+              "kind": "process",
+              "label": "fork()"
+            },
+            {
+              "id": "d",
+              "kind": "decision",
+              "label": "In the child process ?"
+            },
+            {
+              "id": "x",
+              "kind": "process",
+              "label": "exec() : load the program"
+            },
+            {
+              "id": "w",
+              "kind": "process",
+              "label": "wait() for the child to terminate"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "i"
+            },
+            {
+              "from": "i",
+              "to": "f"
+            },
+            {
+              "from": "f",
+              "to": "d"
+            },
+            {
+              "from": "d",
+              "to": "x",
+              "branch": "yes"
+            },
+            {
+              "from": "d",
+              "to": "w",
+              "branch": "no"
+            },
+            {
+              "from": "x",
+              "to": "e"
+            },
+            {
+              "from": "w",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "fork() duplicates the process; the child calls exec() to replace its image with the program, while the parent (the shell) calls wait() until the child exits with code 0 (ok) or > 0 (error)."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "What single design principle lets an OS change 'interrupt every 100 seconds' to 'every 200 seconds' without touching the timer code? (State the principle.)",
+        "accept": [
+          "separate policy from mechanism",
+          "separation of policy and mechanism",
+          "separate policy and mechanism",
+          "policy vs mechanism separation",
+          "the separation of policy from mechanism"
+        ],
+        "normalize": "loose",
+        "explanation": "Policy = what to do (100 s); mechanism = how (a timer). Keeping them separate means a policy change does not disturb the mechanism."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "A running application crashes and the OS writes a file capturing that process's memory. What is this file called? (Two words.)",
+        "accept": [
+          "core dump",
+          "a core dump",
+          "coredump"
+        ],
+        "normalize": "loose",
+        "explanation": "A failed application produces a core dump (process memory); a failed operating system produces a crash dump (kernel memory)."
+      }
+    ]
+  },
+  {
     "name": "Computer Programming",
     "key": "school-cp",
     "color": "emerald",
@@ -7766,6 +8282,1041 @@
     ]
   },
   {
+    "name": "Week 2",
+    "key": "school-db-w2",
+    "color": "pink",
+    "parent": "school-db",
+    "lesson": "# Database Design — Week 2\n\nLectures 3–4 — ACID properties, data models, E-R diagrams.\n\n## TABLES AND SCHEMA\n- table = data organized into rows and columns\n- row = a single record / instance of data\n- column = a specific attribute or characteristic of the data\n- schema = description of a collection of data in a given data model; the structure/form of the database with no data in it\n- physical schema = how the data stored in blocks of storage is described\n- logical schema = record types and data structures; where programmers and DBAs work; implementation details hidden\n- view schema = how an end user interacts with the database system\n- instance = the actual content of the database at a moment in time\n\n## LEVELS OF ABSTRACTION\n- conceptual (logical) schema = single schema defining the logical structure\n- physical schema (abstraction) = describes the files and indexes used\n- external schema / view = how a user sees the data; generated on demand from the real data\n- conceptual database design = producing the conceptual schema\n- physical database design = producing the physical schema\n- example conceptual schema = Students(sid, name, login, age, gpa); Courses(cid, cname, credits); Enrolled(sid, cid, grade)\n- example physical schema = relations stored as unordered files; index on Students.sid\n- example external schema = Course_info(cid, enrollment)\n\n## ACID PROPERTIES\n- transaction = a unit of work on the database\n- ACID = Atomicity, Consistency, Isolation, Durability\n- atomicity = transaction performed in its entirety or not at all\n- atomicity ensured by = the transaction-recovery subsystem of the DBMS\n- recovery technique = undo any effects of a failed (aborted) transaction\n- log = record of old values, written back on failure\n- atomicity cooperation = also needs the concurrency-control subsystem\n- consistency = the database should always remain consistent\n- consistent state = the database satisfies the integrity constraints in the schema and any other constraints\n- consistency responsibility = the database program / the programmer\n- abort = instruction leading to a rollback (handled by the recovery subsystem)\n- isolation = a transaction should not interfere with other transactions\n- isolation ensured by = the concurrency-control subsystem\n- isolation anomalies = dirty writes, dirty reads, non-repeatable reads, phantoms\n- isolation levels = relaxations of full isolation, traded for efficiency\n- durability (permanency) = changes of committed transactions must persist\n- durability ensured by = the recovery subsystem\n- durability after a crash = the log restores committed transactions and rolls back uncommitted ones\n- cache = complicates the restoration\n\n## DATA MODEL\n- data model = collection of conceptual tools for describing data, data relationships, data semantics and consistency constraints\n- data model purpose = describes the design of a database; shows how data is related, stored, retrieved, modified\n\n## DATA MODEL BUILDING BLOCKS\n- entity = anything about which data is collected and stored; a type of real-world object\n- entity set = a set of entities of the same type sharing the same properties\n- attribute = a characteristic of an entity\n- constraint = a restriction placed on the data; helps ensure data integrity\n\n## RELATIONSHIPS\n- relationship = an association among entities\n- one-to-one (1:1) = one entity relates to exactly one of another\n- one-to-many (1:M) = one entity relates to many of another\n- many-to-many (M:N) = many entities relate to many of another\n\n## HIERARCHICAL MODEL\n- hierarchical model = data in a tree-like structure, single parent/root per record, siblings in sequence\n- hierarchical relationship = a set of 1:M relationships between a parent and its children's segments\n- hierarchical advantage = simple and fast to traverse; a parent change is reflected in the child, maintaining integrity\n- hierarchical disadvantage = no complex relationships; no more than one parent per child (no M:N); deleting a parent deletes the children\n\n## NETWORK MODEL\n- network model = expansion of the hierarchical model; a record can have several parents; a graph instead of a tree\n- network model history = most prevalent model before the relational model\n- network advantage = data more linked, more than one path to a node, accessible in many ways; parent-child link gives integrity\n- network disadvantage = grows complex as relationships are added; updates, deletions, insertions are difficult\n\n## ENTITY-RELATIONSHIP MODEL\n- ER model = high-level data-model diagram expressing the real-world problem in visual form\n- ER diagram = the visual tool used to depict an ER model\n- ER diagram parts = entities, attributes, relationships\n- ER advantage (simple) = conceptually easy to build\n- ER advantage (communication) = widely used by designers to communicate ideas\n- ER advantage (conversion) = maps well to the relational model and others\n- ER disadvantage (no standard) = no industry standard for the notation\n- ER disadvantage (hidden information) = some detail may be lost or hidden in the high-level view\n\n## RELATIONAL MODEL\n- relational model = data kept as a two-dimensional table of rows and columns\n- relation = another name for a table in the relational model\n- relational advantage (simple) = simpler than the network and hierarchical models\n- relational advantage (scalable) = add as many rows and columns as wanted\n- relational advantage (structural independence) = change the database structure without changing how data is accessed\n- relational disadvantage (hardware overheads) = needs more powerful computers and storage\n- relational disadvantage (bad design) = ease of design can lead to a poor database that slows as it grows\n\n## OBJECT-ORIENTED (OO) MODEL\n- OO model = database is a collection of objects (reusable software parts) with attributes and operations\n- OO relationships = represented by references via the object identifier (OID)\n- multimedia database = OO database holding media such as photos\n- hypertext database = OO database where any object can link to any other\n- OO advantage = complex data saved/retrieved quickly; OIDs assigned automatically; works with OOP languages; adds semantic content; supports complex objects\n- OO disadvantage = not widely adopted; high complexity can cause performance problems; high system overheads slow transactions\n- OO languages = Java, Kotlin, C#, Node JS, Swift\n\n## OBJECT-RELATIONAL (OR) MODEL\n- OR model = hybrid of the relational and object-oriented models\n- OR purpose = bridge the gap between the object-oriented and relational models\n- OR feature = create complex data types based on existing data types\n- OR relationships = represented by foreign-key attributes referencing another relation's primary key\n- OR issue = can become complicated and difficult to manage\n\n## OO vs OR\n- OO relationships = via the object identifier (OID)\n- OR relationships = via foreign-key attributes\n- OO data = handles larger and more complex data than an RDBMS\n- OR data = handles comparatively simpler data\n- OO efficiency = less efficient\n- OR efficiency = improved, comparatively more efficient\n- OO language = data-management language incorporated into a programming language (e.g. C++)\n- OR language = SQL, QUEL, QBE (based on relational calculus)\n\n## SEMI-STRUCTURED MODEL\n- semi-structured model = emerged from the relational model; data and schema not clearly separated\n- semi-structured entities = some may miss attributes, others have extra ones\n- semi-structured advantage = greater data-storage flexibility\n- semi-structured examples = emails, XML and other markup languages, binary executables, TCP/IP packets, zipped files, integrated data, web pages\n\n## E-R DIAGRAM — BASIC CONCEPTS\n- database design = collection of processes for designing, developing, implementing and maintaining enterprise DBMSs\n- E-R diagram = graphical (pictorial) representation of a database using symbols for its objects\n- entity (E-R) = a person, a place or an object\n- entity symbol = a rectangle containing the entity name\n- college database entities = Student, Professor/Faculty, Course, Department, Result, Class, Subject\n- entity set (E-R) = a group of entities of the same type (e.g. all accounts in a bank)\n\n## E-R DIAGRAM — ATTRIBUTES\n- attribute (E-R) = a property or detail about an entity\n- attribute symbol = an oval containing the attribute name, joined to its entity by a line\n- Student attributes = Roll No, Student Name, Branch, Semester, Address, Mobile No, Age, SPI\n- simple attribute = cannot be divided into subparts (e.g. RollNo, CPI)\n- composite attribute = can be divided into subparts (e.g. Name → first/middle/last; Address → street/city)\n- single-valued attribute = has a single value (e.g. RollNo, CPI)\n- multi-valued attribute = has more than one value (e.g. PhoneNo, EmailID)\n- stored attribute = value stored manually in the database (e.g. Birthdate)\n- derived attribute = value calculated from other attributes (e.g. Age from Birthdate + current date)\n- descriptive attribute = an attribute of a relationship (e.g. Issue Date on Student–Issue–Book)\n- primary key = attribute that uniquely identifies an entity; shown underlined; every entity must have exactly one\n\n## E-R DIAGRAM — RELATIONSHIPS\n- relationship (E-R) = an association (connection) between several entities\n- relationship placement = between two entities, with a line connecting it to each\n- relationship symbol = a diamond containing the relationship name\n- library example = Student –Issue– Book, with primary keys RollNo and BookNo\n- binary relationship = a relationship between 2 entities\n- ternary relationship = a relationship between 3 entities (e.g. Faculty –Guide– Student, sharing Project)\n",
+    "questions": [
+      {
+        "question_text": "Data in a database is typically organised into tables. What does one row represent?",
+        "choice_a": "A single attribute of the data",
+        "choice_b": "A single record or instance of data",
+        "choice_c": "The whole schema",
+        "choice_d": "An index",
+        "correct_choice": "B",
+        "explanation": "Each row is one record / instance; each column is a specific attribute or characteristic of that data."
+      },
+      {
+        "question_text": "What is a schema?",
+        "choice_a": "The data currently stored in the database",
+        "choice_b": "A description of a collection of data in a given data model — the structure or form of the database with no data in it",
+        "choice_c": "A backup copy of the database",
+        "choice_d": "A query written in SQL",
+        "correct_choice": "B",
+        "explanation": "The schema is the definition of the structure; an instance is the actual content at a moment in time."
+      },
+      {
+        "question_text": "At which schema level is the storage of data in blocks described?",
+        "choice_a": "View schema",
+        "choice_b": "Logical schema",
+        "choice_c": "Physical schema",
+        "choice_d": "External schema",
+        "correct_choice": "C",
+        "explanation": "The physical schema describes how the data stored in blocks of storage is organised."
+      },
+      {
+        "question_text": "Who works at the logical schema level?",
+        "choice_a": "End users only",
+        "choice_b": "Programmers and database administrators",
+        "choice_c": "The hardware vendor",
+        "choice_d": "Nobody; it is generated automatically",
+        "correct_choice": "B",
+        "explanation": "At the logical level, data is described as record types stored in data structures; the internal implementation details are hidden here (they live at the physical level)."
+      },
+      {
+        "question_text": "The view schema generally describes:",
+        "choice_a": "How indexes are built",
+        "choice_b": "End-user interaction with the database system",
+        "choice_c": "The disk block size",
+        "choice_d": "The transaction log format",
+        "correct_choice": "B",
+        "explanation": "Different views (also called the external schema) describe how particular users see the data; they are generated on demand from the real data."
+      },
+      {
+        "question_text": "In the university-database example, 'Course_info(cid, enrollment)' is part of which schema?",
+        "choice_a": "The physical schema",
+        "choice_b": "The conceptual schema",
+        "choice_c": "An external schema (a view)",
+        "choice_d": "The internal schema",
+        "correct_choice": "C",
+        "explanation": "The conceptual schema holds Students, Courses and Enrolled; the physical schema stores relations as unordered files with an index; Course_info is a view."
+      },
+      {
+        "question_text": "What does the 'A' in ACID stand for, and what does it require?",
+        "choice_a": "Availability — the database is always online",
+        "choice_b": "Atomicity — a transaction is performed in its entirety or not at all",
+        "choice_c": "Authorization — only permitted users may write",
+        "choice_d": "Auditing — every change is logged for review",
+        "correct_choice": "B",
+        "explanation": "Atomicity is ensured by the transaction-recovery subsystem, which must undo any effects of a failed (aborted) transaction, using the log to write back the old values."
+      },
+      {
+        "question_text": "Which subsystem ensures atomicity by undoing a failed transaction's effects?",
+        "choice_a": "The concurrency-control subsystem",
+        "choice_b": "The transaction-recovery subsystem, using the log to write back old values",
+        "choice_c": "The query optimiser",
+        "choice_d": "The buffer manager",
+        "correct_choice": "B",
+        "explanation": "Cooperation with the concurrency-control subsystem is also necessary."
+      },
+      {
+        "question_text": "Consistency (the 'C' in ACID) is primarily the responsibility of:",
+        "choice_a": "The database program — that is, the programmer",
+        "choice_b": "The disk controller",
+        "choice_c": "The end user",
+        "choice_d": "The network layer",
+        "correct_choice": "A",
+        "explanation": "Each transaction should bring the database from one consistent state (integrity constraints satisfied) to another; transactions may use abort instructions, leading to rollbacks handled by the recovery subsystem."
+      },
+      {
+        "question_text": "Isolation is ensured by which subsystem?",
+        "choice_a": "The recovery subsystem",
+        "choice_b": "The concurrency-control subsystem",
+        "choice_c": "The DDL interpreter",
+        "choice_d": "The file manager",
+        "correct_choice": "B",
+        "explanation": "Ideally we avoid all anomalies (dirty writes and reads, non-repeatable reads, phantoms); because full isolation is expensive it is often relaxed via isolation levels."
+      },
+      {
+        "question_text": "Why is full isolation often relaxed in practice?",
+        "choice_a": "It is illegal in some countries",
+        "choice_b": "It can be too expensive in terms of efficiency, so isolation levels trade some guarantees for speed",
+        "choice_c": "Modern hardware makes it unnecessary",
+        "choice_d": "Because atomicity already covers it",
+        "correct_choice": "B",
+        "explanation": "Concurrency control is one of the most difficult and interesting issues in transaction management."
+      },
+      {
+        "question_text": "Durability guarantees that:",
+        "choice_a": "The database never runs out of disk space",
+        "choice_b": "The changes of committed transactions must persist, even after a crash",
+        "choice_c": "Every transaction eventually commits",
+        "choice_d": "Uncommitted data is visible to all users",
+        "correct_choice": "B",
+        "explanation": "After a crash the log is used to restore committed transactions and roll back uncommitted ones; the cache complicates the restoration."
+      },
+      {
+        "question_text": "A data model is:",
+        "choice_a": "A physical layout of disk blocks",
+        "choice_b": "A collection of conceptual tools for describing data, data relationships, data semantics and consistency constraints",
+        "choice_c": "A specific SQL query",
+        "choice_d": "A backup strategy",
+        "correct_choice": "B",
+        "explanation": "A data model provides a way to describe the design of a database; it is widely used in DBMSs to show how data is related, stored, retrieved and modified."
+      },
+      {
+        "question_text": "In data-model terms, an 'entity' is:",
+        "choice_a": "A single column of a table",
+        "choice_b": "Anything about which data is to be collected and stored — a particular type of real-world object",
+        "choice_c": "A restriction placed on the data",
+        "choice_d": "A relationship between two tables",
+        "correct_choice": "B",
+        "explanation": "A set of entities of the same type that share the same properties is an entity set; a characteristic of an entity is an attribute."
+      },
+      {
+        "question_text": "What is a constraint, and why does it matter?",
+        "choice_a": "A synonym for an attribute",
+        "choice_b": "A restriction placed on the data; it helps ensure data integrity",
+        "choice_c": "The maximum number of rows in a table",
+        "choice_d": "The primary key of an entity",
+        "correct_choice": "B",
+        "explanation": "Constraints are important because they help to ensure data integrity."
+      },
+      {
+        "question_text": "Which relationship cardinalities does the course list?",
+        "choice_a": "1:1, 1:M and M:N",
+        "choice_b": "Only 1:1 and M:N",
+        "choice_c": "0:1, 1:1 and 1:N",
+        "choice_d": "Weak, strong and derived",
+        "correct_choice": "A",
+        "explanation": "A relationship describes an association among entities; the types are one-to-one, one-to-many and many-to-many."
+      },
+      {
+        "question_text": "The hierarchical model organises data as:",
+        "choice_a": "A set of two-dimensional tables",
+        "choice_b": "A tree-like structure with a single parent / root for each record, siblings in a set sequence",
+        "choice_c": "A graph where records can have several parents",
+        "choice_d": "A collection of objects",
+        "correct_choice": "B",
+        "explanation": "It depicts a set of 1:M relationships between a parent and its children's segments."
+      },
+      {
+        "question_text": "A stated disadvantage of the hierarchical model is that:",
+        "choice_a": "It is slow to traverse",
+        "choice_b": "It does not support complex relationships / more than one parent per child (so no M:N), and deleting a parent deletes its children",
+        "choice_c": "Changes in a parent are not reflected in children",
+        "choice_d": "It cannot store text",
+        "correct_choice": "B",
+        "explanation": "Advantages: simple and fast to traverse; any change in the parent node is automatically reflected in the child, maintaining integrity."
+      },
+      {
+        "question_text": "The network model differs from the hierarchical model mainly because:",
+        "choice_a": "It uses tables instead of a tree",
+        "choice_b": "A record can have several parents — it replaces the hierarchical tree with a graph",
+        "choice_c": "It has no relationships at all",
+        "choice_d": "It stores only numeric data",
+        "correct_choice": "B",
+        "explanation": "It was the most prevalent model before the relational model; e.g. a Student node can have both a CSE Department parent and a Library parent."
+      },
+      {
+        "question_text": "A disadvantage of the network model is that:",
+        "choice_a": "Data can only be reached by a single path",
+        "choice_b": "As more relationships are added the system becomes complex, and any update, deletion or insertion is quite difficult",
+        "choice_c": "It cannot maintain a parent-child relationship",
+        "choice_d": "It has no data integrity",
+        "correct_choice": "B",
+        "explanation": "Advantage: because data is more linked and there may be more than one path to a node, information can be accessed in several ways, and the parent-child link gives integrity."
+      },
+      {
+        "question_text": "The Entity-Relationship model is described as:",
+        "choice_a": "A low-level physical storage model",
+        "choice_b": "A high-level data-model diagram that expresses the real-world problem in visual form so stakeholders and developers can grasp the system",
+        "choice_c": "A query language",
+        "choice_d": "A backup format",
+        "correct_choice": "B",
+        "explanation": "The ER diagram is the visual tool used to depict an ER model; it is made up of entities, attributes and relationships."
+      },
+      {
+        "question_text": "A disadvantage of the Entity-Relationship model is:",
+        "choice_a": "It cannot be converted to the relational model",
+        "choice_b": "There is no industry standard for the notation, and some information may be hidden in the high-level view",
+        "choice_c": "It is conceptually very hard to build",
+        "choice_d": "It cannot represent relationships",
+        "correct_choice": "B",
+        "explanation": "Advantages: conceptually simple, an effective communication tool, and it maps well to the relational model (and others)."
+      },
+      {
+        "question_text": "In the relational model, tables are also referred to as:",
+        "choice_a": "Segments",
+        "choice_b": "Relations",
+        "choice_c": "Objects",
+        "choice_d": "Nodes",
+        "correct_choice": "B",
+        "explanation": "Data is kept as a two-dimensional table of rows and columns; tables (relations) are the foundation of the relational paradigm."
+      },
+      {
+        "question_text": "'Structural independence' in the relational model means:",
+        "choice_a": "The database has no structure",
+        "choice_b": "You can change the database structure without changing the way the data is accessed (the DBMS can still access the data)",
+        "choice_c": "Every table is independent and cannot be joined",
+        "choice_d": "The hardware is independent of the software",
+        "correct_choice": "B",
+        "explanation": "Advantages of the relational model: simple, scalable (add rows and columns freely), and structural independence."
+      },
+      {
+        "question_text": "A disadvantage of the relational model, per the course, is:",
+        "choice_a": "It cannot scale",
+        "choice_b": "Hardware overheads — hiding the complexity requires more powerful computers and storage — and its ease of design can lead to a poor database that slows down as it grows",
+        "choice_c": "It has no way to enforce integrity",
+        "choice_d": "It cannot represent 1:M relationships",
+        "correct_choice": "B",
+        "explanation": "Because users need not know how data is stored, the ease of design can produce a bad schema."
+      },
+      {
+        "question_text": "In the object-oriented (OO) data model, how are relationships represented?",
+        "choice_a": "By foreign-key attributes",
+        "choice_b": "By references via the object identifier (OID)",
+        "choice_c": "By a parent pointer in a tree",
+        "choice_d": "By a diamond symbol",
+        "correct_choice": "B",
+        "explanation": "An OO database is a collection of objects (attributes + operations); OIDs are assigned automatically and it works well with OOP languages such as Java, C# and Swift."
+      },
+      {
+        "question_text": "The object-relational (OR) model is:",
+        "choice_a": "A pure object database with no tables",
+        "choice_b": "A hybrid of the relational and object-oriented models, created to bridge the gap between them, allowing complex data types built on existing ones",
+        "choice_c": "An older name for the hierarchical model",
+        "choice_d": "A model with no schema",
+        "correct_choice": "B",
+        "explanation": "The trade-off is that it may become complicated and difficult to manage, so a thorough understanding of it is essential."
+      },
+      {
+        "question_text": "Which comparison of OO and OR databases is correct?",
+        "choice_a": "OO uses foreign keys; OR uses the OID",
+        "choice_b": "OO represents relationships by references via the OID and handles larger, more complex data but is less efficient; OR represents relationships by foreign keys and is comparatively more efficient",
+        "choice_c": "OO and OR are identical",
+        "choice_d": "OR handles more complex data than OO",
+        "correct_choice": "B",
+        "explanation": "OR databases have data-manipulation languages such as SQL, QUEL and QBE based on relational calculus."
+      },
+      {
+        "question_text": "The semi-structured model is characterised by:",
+        "choice_a": "A rigid, fixed schema for every entity",
+        "choice_b": "Data and schema that cannot be clearly told apart; some entities may miss attributes while others have extra ones",
+        "choice_c": "Storage only as two-dimensional tables",
+        "choice_d": "A single parent per record",
+        "correct_choice": "B",
+        "explanation": "It emerged from the relational model and allows greater storage flexibility; examples include emails, XML and other markup languages, TCP/IP packets and web pages."
+      },
+      {
+        "question_text": "Which is an example of a semi-structured data source?",
+        "choice_a": "A normalised SQL table",
+        "choice_b": "XML (and other markup languages), emails, web pages",
+        "choice_c": "A B-tree index",
+        "choice_d": "A transaction log",
+        "correct_choice": "B",
+        "explanation": "In web-based data sources we often cannot distinguish the website's structure from its data."
+      },
+      {
+        "question_text": "In an E-R diagram, an entity is represented by:",
+        "choice_a": "An oval",
+        "choice_b": "A diamond",
+        "choice_c": "A rectangle containing the entity name",
+        "choice_d": "An underlined word",
+        "correct_choice": "C",
+        "explanation": "An entity is a person, a place or an object; examples in a college database: Student, Faculty, Course, Department, Result, Class, Subject."
+      },
+      {
+        "question_text": "In an E-R diagram, an attribute is represented by:",
+        "choice_a": "A rectangle",
+        "choice_b": "An oval containing the attribute name, joined to its entity by a line",
+        "choice_c": "A diamond",
+        "choice_d": "A double line",
+        "correct_choice": "B",
+        "explanation": "An attribute is a property or detail about an entity, e.g. RollNo, Student Name, Branch, Semester, Address for the Student entity."
+      },
+      {
+        "question_text": "In an E-R diagram, a relationship is represented by:",
+        "choice_a": "A rectangle",
+        "choice_b": "An oval",
+        "choice_c": "A diamond containing the relationship's name, on the line between two entities",
+        "choice_d": "An arrow",
+        "correct_choice": "C",
+        "explanation": "A relationship is an association (connection) between several entities; e.g. Student —Issue— Book."
+      },
+      {
+        "question_text": "How is a primary-key attribute shown, and how many must an entity have?",
+        "choice_a": "Shown in a double oval; an entity may have several",
+        "choice_b": "Underlined; every entity must have exactly one primary-key attribute",
+        "choice_c": "Shown in bold; an entity has zero or one",
+        "choice_d": "Shown in a rectangle; an entity has exactly two",
+        "correct_choice": "B",
+        "explanation": "Each and every entity must have one primary-key attribute (e.g. RollNo for Student, BookNo for Book)."
+      },
+      {
+        "question_text": "What is a composite attribute?",
+        "choice_a": "An attribute with more than one value",
+        "choice_b": "An attribute that can be divided into subparts, e.g. Name into first / middle / last, or Address into street / city",
+        "choice_c": "An attribute whose value is calculated from others",
+        "choice_d": "An attribute shared by two entities",
+        "correct_choice": "B",
+        "explanation": "A simple attribute (e.g. RollNo, CPI) cannot be divided into subparts."
+      },
+      {
+        "question_text": "Which pair correctly contrasts single-valued and multi-valued attributes?",
+        "choice_a": "RollNo is multi-valued; PhoneNo is single-valued",
+        "choice_b": "RollNo is single-valued (one value); PhoneNo / EmailID are multi-valued (a person may have several)",
+        "choice_c": "Both are always single-valued",
+        "choice_d": "Multi-valued attributes cannot be stored in a database",
+        "correct_choice": "B",
+        "explanation": "A single-valued attribute has one value; a multi-valued attribute has more than one."
+      },
+      {
+        "question_text": "What is a derived attribute?",
+        "choice_a": "An attribute stored manually in the database",
+        "choice_b": "An attribute whose value is derived or calculated from other attributes, e.g. Age from Birthdate and the current date",
+        "choice_c": "An attribute that belongs to a relationship",
+        "choice_d": "The primary key of a weak entity",
+        "correct_choice": "B",
+        "explanation": "Birthdate is a stored attribute (entered manually); Age is derived from it."
+      },
+      {
+        "question_text": "A descriptive attribute is:",
+        "choice_a": "An attribute that describes an entity in words",
+        "choice_b": "An attribute of the relationship (not of an entity), e.g. IssueDate on the Issue relationship between Student and Book",
+        "choice_c": "A synonym for a composite attribute",
+        "choice_d": "Any attribute written in a comment",
+        "correct_choice": "B",
+        "explanation": "Attributes of the relationship are called descriptive attributes."
+      },
+      {
+        "question_text": "A relationship between exactly two entities is called:",
+        "choice_a": "A unary relationship",
+        "choice_b": "A binary relationship",
+        "choice_c": "A ternary relationship",
+        "choice_d": "A composite relationship",
+        "correct_choice": "B",
+        "explanation": "Student —Issue— Book is binary. A relationship between three entities (e.g. Faculty —Guide— Student with a Project) is ternary."
+      },
+      {
+        "question_text": "A relationship between three entities is called:",
+        "choice_a": "A binary relationship",
+        "choice_b": "A ternary relationship",
+        "choice_c": "A triple key",
+        "choice_d": "A composite entity",
+        "correct_choice": "B",
+        "explanation": "Example: Faculty and Student linked through a Guide relationship that also involves a Project entity."
+      },
+      {
+        "question_text": "What is 'Database Design' as defined at the start of Lecture 4?",
+        "choice_a": "The act of writing SQL SELECT statements",
+        "choice_b": "A collection of processes that facilitate the designing, development, implementation and maintenance of enterprise database management systems",
+        "choice_c": "Choosing which disk to buy",
+        "choice_d": "Drawing the user interface",
+        "correct_choice": "B",
+        "explanation": "An E-R diagram is one graphical tool used within that design process."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "order_steps",
+        "prompt": "Order the steps to draw the E-R diagram for a library, given the entities Student and Book.",
+        "steps": [
+          "Draw a rectangle for each entity: Student and Book",
+          "Attach the attributes of each entity as ovals (Student: RollNo, Name, Branch, Sem; Book: BookNo, Name, Author, Price)",
+          "Underline one primary-key attribute per entity (RollNo for Student, BookNo for Book)",
+          "Add a diamond named 'Issue' on the line connecting Student and Book",
+          "Attach the descriptive attribute 'Issue Date' to the Issue relationship",
+          "Label the cardinality of the Issue relationship (e.g. 1:M)"
+        ],
+        "explanation": "Entities (rectangles) → attributes (ovals) → primary keys (underlined) → relationship (diamond) → descriptive attributes → cardinality."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of the E-R modelling process: from a written description to a finished E-R diagram.",
+        "hint": "Mostly linear, with one decision 'Any many-to-many relationship?': yes -> resolve it with a linking entity; no -> continue. Both paths reach 'label the cardinalities'.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "i",
+              "kind": "io",
+              "label": "READ the requirements / real-world description"
+            },
+            {
+              "id": "ent",
+              "kind": "process",
+              "label": "Identify the entities (rectangles)"
+            },
+            {
+              "id": "att",
+              "kind": "process",
+              "label": "Attach attributes (ovals) and underline the primary key"
+            },
+            {
+              "id": "rel",
+              "kind": "process",
+              "label": "Identify the relationships (diamonds)"
+            },
+            {
+              "id": "d",
+              "kind": "decision",
+              "label": "Any many-to-many relationship ?"
+            },
+            {
+              "id": "link",
+              "kind": "process",
+              "label": "Resolve M:N with a linking entity"
+            },
+            {
+              "id": "card",
+              "kind": "process",
+              "label": "Label the cardinalities (1:1, 1:M, M:N)"
+            },
+            {
+              "id": "o",
+              "kind": "io",
+              "label": "DISPLAY the E-R diagram"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "i"
+            },
+            {
+              "from": "i",
+              "to": "ent"
+            },
+            {
+              "from": "ent",
+              "to": "att"
+            },
+            {
+              "from": "att",
+              "to": "rel"
+            },
+            {
+              "from": "rel",
+              "to": "d"
+            },
+            {
+              "from": "d",
+              "to": "link",
+              "branch": "yes"
+            },
+            {
+              "from": "d",
+              "to": "card",
+              "branch": "no"
+            },
+            {
+              "from": "link",
+              "to": "card"
+            },
+            {
+              "from": "card",
+              "to": "o"
+            },
+            {
+              "from": "o",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "Entities first, then their attributes and keys, then the relationships between them, then cardinality. A many-to-many relationship is usually resolved into a linking (junction) entity before the diagram is finished."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart that classifies a relationship between entities A and B as 1:1, 1:M or M:N.",
+        "hint": "Two decisions. D1: 'Can one A relate to many B?'. D2 (asked on each branch): 'Can one B relate to many A?'. The four leaves are M:N, 1:M, 1:M and 1:1.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "i",
+              "kind": "io",
+              "label": "INPUT: a relationship between A and B"
+            },
+            {
+              "id": "d1",
+              "kind": "decision",
+              "label": "Can one A relate to many B ?"
+            },
+            {
+              "id": "d2",
+              "kind": "decision",
+              "label": "Can one B relate to many A ?"
+            },
+            {
+              "id": "d3",
+              "kind": "decision",
+              "label": "Can one B relate to many A ?"
+            },
+            {
+              "id": "mn",
+              "kind": "process",
+              "label": "It is many-to-many (M:N)"
+            },
+            {
+              "id": "om",
+              "kind": "process",
+              "label": "It is one-to-many (1:M)"
+            },
+            {
+              "id": "mo",
+              "kind": "process",
+              "label": "It is one-to-many (1:M)"
+            },
+            {
+              "id": "oo",
+              "kind": "process",
+              "label": "It is one-to-one (1:1)"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "i"
+            },
+            {
+              "from": "i",
+              "to": "d1"
+            },
+            {
+              "from": "d1",
+              "to": "d2",
+              "branch": "yes"
+            },
+            {
+              "from": "d1",
+              "to": "d3",
+              "branch": "no"
+            },
+            {
+              "from": "d2",
+              "to": "mn",
+              "branch": "yes"
+            },
+            {
+              "from": "d2",
+              "to": "om",
+              "branch": "no"
+            },
+            {
+              "from": "d3",
+              "to": "mo",
+              "branch": "yes"
+            },
+            {
+              "from": "d3",
+              "to": "oo",
+              "branch": "no"
+            },
+            {
+              "from": "mn",
+              "to": "e"
+            },
+            {
+              "from": "om",
+              "to": "e"
+            },
+            {
+              "from": "mo",
+              "to": "e"
+            },
+            {
+              "from": "oo",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "If both sides can link to many, the relationship is M:N; if exactly one side can link to many, it is 1:M; if neither can, it is 1:1."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart for converting one E-R relationship R (between entities A and B) into relational tables.",
+        "hint": "Decision 'Is R many-to-many?': yes -> new table with both primary keys. No -> decision 'Is R one-to-many?': yes -> foreign key on the 'many' side; no -> foreign key on either side (1:1).",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "i",
+              "kind": "io",
+              "label": "INPUT: relationship R between A and B"
+            },
+            {
+              "id": "d1",
+              "kind": "decision",
+              "label": "Is R many-to-many (M:N) ?"
+            },
+            {
+              "id": "nt",
+              "kind": "process",
+              "label": "Create a new table R with the primary keys of A and B as a composite key"
+            },
+            {
+              "id": "d2",
+              "kind": "decision",
+              "label": "Is R one-to-many (1:M) ?"
+            },
+            {
+              "id": "fk1",
+              "kind": "process",
+              "label": "Post the 'one' side's primary key as a foreign key in the 'many' side"
+            },
+            {
+              "id": "fk2",
+              "kind": "process",
+              "label": "Post either primary key as a foreign key in the other table (1:1)"
+            },
+            {
+              "id": "o",
+              "kind": "io",
+              "label": "DISPLAY the relational schema"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "i"
+            },
+            {
+              "from": "i",
+              "to": "d1"
+            },
+            {
+              "from": "d1",
+              "to": "nt",
+              "branch": "yes"
+            },
+            {
+              "from": "d1",
+              "to": "d2",
+              "branch": "no"
+            },
+            {
+              "from": "d2",
+              "to": "fk1",
+              "branch": "yes"
+            },
+            {
+              "from": "d2",
+              "to": "fk2",
+              "branch": "no"
+            },
+            {
+              "from": "nt",
+              "to": "o"
+            },
+            {
+              "from": "fk1",
+              "to": "o"
+            },
+            {
+              "from": "fk2",
+              "to": "o"
+            },
+            {
+              "from": "o",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "M:N becomes its own table keyed on both entities' primary keys; 1:M puts the 'one' side's key as a foreign key on the 'many' side; 1:1 puts a foreign key on either side."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Which data model cannot represent a many-to-many relationship because each record may have only one parent?",
+        "accept": [
+          "hierarchical",
+          "the hierarchical model",
+          "hierarchical model"
+        ],
+        "normalize": "loose",
+        "explanation": "The hierarchical model is a tree with a single parent per record; the network model lifted that restriction by allowing several parents."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "In the ACID acronym, which property guarantees that the changes of a committed transaction survive a system crash?",
+        "accept": [
+          "durability",
+          "durability (permanency)",
+          "permanency"
+        ],
+        "normalize": "loose",
+        "explanation": "Durability is ensured by the recovery subsystem; after a crash the log restores committed transactions and rolls back the uncommitted ones."
+      }
+    ]
+  },
+  {
+    "name": "Software Engineering",
+    "key": "school-se",
+    "color": "orange",
+    "parent": "School",
+    "questions": []
+  },
+  {
+    "name": "Week 2",
+    "key": "school-se-w2",
+    "color": "amber",
+    "parent": "school-se",
+    "lesson": "# Software Engineering — Week 2\n\nSoftware processes; the semester project; vision and prototype.\n\n## SEMESTER PROJECT\n- semester project = build one useful app or website around a real problem and a specific user\n- project method = build a small version, then improve it with evidence\n- project scope = test changes, learn to release and maintain it\n- product-like project = no external customer gives a complete contract; the team chooses the target user, the features, and what evidence is convincing\n- freedom creates product responsibility = the team must decide, not just execute a spec\n- vague idea = produces arbitrary features\n- vision = gives the team a basis for saying yes, no, or not yet\n\n## TEAM\n- team size = 2–3 members who can meet and communicate\n- team record = names, a contact channel, a meeting time\n- facilitator = role: runs the session\n- recorder = role: writes things down\n- speaker = role: presents the draft\n- role rotation = combine roles with two members; rotate roles later\n\n## PROGRAMMING vs SOFTWARE ENGINEERING\n- programming = can you make it work?\n- software engineering = can your team build it, test it, maintain it, and improve it?\n- QuickCampus = fictional teaching case: an app that shipped every feature and still failed\n- QuickCampus goal = help students find useful campus spaces and activities\n- QuickCampus launch = rooms, events, chat, attendance, maps, AI recommendations\n- QuickCampus result = stale data, a broken dependency, slow screens, one-star reviews\n\n## SOFTWARE PROCESS\n- software process = activities that produce a software product\n- process activities = specification, design and implementation, validation, evolution\n- plan-driven development = activities planned in advance; progress measured against the plan\n- agile development = incremental; planning interleaved with the work; change expected\n- Scrum = agile method: fixed-length sprints, product backlog, sprint backlog, daily stand-up, review, retrospective\n- Scrum roles = product owner, scrum master, team\n- Kanban = agile method: visualize the workflow on a board, limit work in progress (WIP), pull the next item; no fixed iterations\n- teamwork = plan-driven and agile both depend on a team that communicates\n\n## VISION — WHAT, WHO, WHY\n- vision questions = What, Who, Why (Sommerville, Engineering Software Products, §1.1)\n- What = what product are we proposing? what is its boundary?\n- Who = who has the problem, in a specific situation?\n- Why = what valuable outcome makes it worth choosing?\n- hidden-decision words = \"everyone\", \"all-in-one\", \"easy\" usually hide decisions not yet made\n- one-sentence vision = \"We help [user] do [task] in [situation]\"\n\n## EXAMPLE — FINDING A MEETING TIME\n- user and problem = student project teams lose time comparing availability in chat messages\n- first version = enter available times, show the overlap\n- outside the first version = chat and calendar integration\n- assumption to test = teams will use it to choose a time\n\n## FIRST VERSION AND BOUNDARY\n- first version = one main task, up to three features\n- current workaround = what users do today\n- boundary = one feature deliberately left out for now\n- goal = a useful, testable version the team can finish\n\n## PROTOTYPE\n- prototype purpose = make a risky assumption tangible\n- prototype chain = risky assumption → small prototype → observable evidence (Sommerville §1.3)\n- prototype rule = build only enough to learn whether the idea, interaction or technology is plausible\n- example test plan = ask two classmates to find a shared time using the sketch; if either needs help, revise the flow and try again\n\n## KEEP IMPROVING THE SAME PRODUCT\n- weeks 2–4 = define the problem and requirements\n- weeks 5–7 = build a small working version and check it\n- week 8 = midterm examination\n- weeks 9–12 = test, refactor, deploy, practise recovery\n- weeks 13–15 = complete acceptance checks and show changes\n- evidence to keep = user feedback, test results, change history (kept continuously, not reconstructed at the end)\n\n## MILESTONE 1\n- before leaving class = show one team worksheet; every member can explain the idea and the next test\n- after class = complete M1: vision, assumptions, prototype plan, and an AI decision log\n",
+    "questions": [
+      {
+        "question_text": "According to Week 2, what is the difference between programming and software engineering?",
+        "choice_a": "Programming uses Python; software engineering uses Java",
+        "choice_b": "Programming asks 'can you make it work?'; software engineering asks 'can your team build it, test it, maintain it, and improve it?'",
+        "choice_c": "Programming is done alone; software engineering is done by a manager",
+        "choice_d": "There is no difference",
+        "correct_choice": "B",
+        "explanation": "Software engineering is the disciplined development and evolution of software that must satisfy real stakeholder needs under constraints of time, cost, quality, security and change."
+      },
+      {
+        "question_text": "What lesson does the QuickCampus teaching case illustrate?",
+        "choice_a": "You should always add more features",
+        "choice_b": "A team can ship and demo every feature and still fail — stale data, a broken dependency, slow screens, one-star reviews",
+        "choice_c": "AI recommendations guarantee success",
+        "choice_d": "Campus apps are impossible to build",
+        "correct_choice": "B",
+        "explanation": "QuickCampus is a fictional teaching case: most screens opened and every feature could be demoed, yet the product failed in use."
+      },
+      {
+        "question_text": "What are the four activities of a software process?",
+        "choice_a": "Planning, coding, meetings, shipping",
+        "choice_b": "Specification, design and implementation, validation, evolution",
+        "choice_c": "Design, test, deploy, delete",
+        "choice_d": "Requirements, UML, database, UI",
+        "correct_choice": "B",
+        "explanation": "Every software process includes these activities in some form; processes differ in how they organise and sequence them."
+      },
+      {
+        "question_text": "Plan-driven development is best described as:",
+        "choice_a": "Activities planned in advance, with progress measured against the plan",
+        "choice_b": "No planning at all",
+        "choice_c": "Planning only after the software ships",
+        "choice_d": "Planning done exclusively by the customer",
+        "correct_choice": "A",
+        "explanation": "Plan-driven processes are predictable and well documented but make change costly to accommodate."
+      },
+      {
+        "question_text": "Agile development differs from plan-driven development because:",
+        "choice_a": "It forbids all documentation",
+        "choice_b": "It is incremental, interleaves planning with the work, and expects change",
+        "choice_c": "It has no testing",
+        "choice_d": "It requires a fixed contract before any work starts",
+        "correct_choice": "B",
+        "explanation": "Agile methods such as Scrum and Kanban accept that requirements will evolve during the project."
+      },
+      {
+        "question_text": "In Scrum, work is organised into:",
+        "choice_a": "Unbounded phases",
+        "choice_b": "Fixed-length sprints, with a product backlog and a sprint backlog, a daily stand-up, and a review and retrospective each sprint",
+        "choice_c": "One long release at the end",
+        "choice_d": "Kanban columns with WIP limits",
+        "correct_choice": "B",
+        "explanation": "Scrum roles include the product owner, the scrum master and the team."
+      },
+      {
+        "question_text": "The defining practice of Kanban is:",
+        "choice_a": "Fixed two-week iterations",
+        "choice_b": "Visualising the workflow on a board and limiting work in progress (WIP), pulling the next item only when there is capacity",
+        "choice_c": "Writing a detailed plan up front",
+        "choice_d": "A daily stand-up meeting",
+        "correct_choice": "B",
+        "explanation": "Unlike Scrum, Kanban has no fixed iterations; flow is controlled by WIP limits."
+      },
+      {
+        "question_text": "Why is the semester project called 'product-like' rather than 'project-like'?",
+        "choice_a": "Because it must be sold for money",
+        "choice_b": "Because no external customer gives a complete contract — the team chooses the target user, the features, and what evidence is convincing",
+        "choice_c": "Because it has no deadline",
+        "choice_d": "Because it is built by one person",
+        "correct_choice": "B",
+        "explanation": "Freedom creates product responsibility: the team must decide, not just execute a given spec."
+      },
+      {
+        "question_text": "The slides say a vague idea produces arbitrary features, whereas a vision gives the team:",
+        "choice_a": "A guarantee of a good grade",
+        "choice_b": "A basis for saying yes, no, or not yet to proposed features",
+        "choice_c": "A fixed list of requirements from the professor",
+        "choice_d": "Permission to skip testing",
+        "correct_choice": "B",
+        "explanation": "A vision is the reference the team checks each proposed feature against."
+      },
+      {
+        "question_text": "A product vision answers which three questions?",
+        "choice_a": "When, Where, How much",
+        "choice_b": "What, Who, Why",
+        "choice_c": "Who, How, When",
+        "choice_d": "What, How, How much",
+        "correct_choice": "B",
+        "explanation": "What: the product and its boundary. Who: who has the problem, in a specific situation. Why: the valuable outcome that makes it worth choosing. (Sommerville §1.1)"
+      },
+      {
+        "question_text": "Why do the words 'everyone', 'all-in-one' and 'easy' get flagged in a vision statement?",
+        "choice_a": "They are grammatically incorrect",
+        "choice_b": "They usually hide decisions the team has not made yet",
+        "choice_c": "They are trademarked",
+        "choice_d": "They make the vision too long",
+        "correct_choice": "B",
+        "explanation": "A useful vision names a specific user, a bounded product and a concrete outcome instead of these catch-alls."
+      },
+      {
+        "question_text": "Which sentence form does Week 2 give for a first-version vision?",
+        "choice_a": "'This app will change the world.'",
+        "choice_b": "'We help [user] do [task] in [situation].'",
+        "choice_c": "'Our product is better than the competition.'",
+        "choice_d": "'Everyone can use this easily.'",
+        "correct_choice": "B",
+        "explanation": "Naming the user, the task and the situation forces the concrete decisions a vision needs."
+      },
+      {
+        "question_text": "What should a 'first version' contain?",
+        "choice_a": "Every feature the team can imagine",
+        "choice_b": "One main task and up to about three features, with one feature explicitly left out as a boundary",
+        "choice_c": "Only a written report, no software",
+        "choice_d": "At least ten screens",
+        "correct_choice": "B",
+        "explanation": "Also state the current workaround (what users do today) and aim for something useful, testable and finishable."
+      },
+      {
+        "question_text": "In the meeting-time example, which is named as being *outside* the first version?",
+        "choice_a": "Entering your available times",
+        "choice_b": "Showing the overlap of available times",
+        "choice_c": "Chat and calendar integration",
+        "choice_d": "Choosing a meeting time",
+        "correct_choice": "C",
+        "explanation": "The first version is: enter available times, show the overlap. The assumption to test is that teams will use it to choose a time."
+      },
+      {
+        "question_text": "A prototype, in Week 2's sense, is used to:",
+        "choice_a": "Deliver the finished product early",
+        "choice_b": "Make a risky assumption tangible: build only enough to learn whether the idea, interaction or technology is plausible, and get observable evidence",
+        "choice_c": "Replace all testing",
+        "choice_d": "Impress the customer with polish",
+        "correct_choice": "B",
+        "explanation": "The chain is: risky assumption → small prototype → observable evidence. (Sommerville §1.3)"
+      },
+      {
+        "question_text": "Which sequence describes the prototype loop from the slides?",
+        "choice_a": "Observable evidence → risky assumption → small prototype",
+        "choice_b": "Risky assumption → small prototype → observable evidence",
+        "choice_c": "Small prototype → risky assumption → observable evidence",
+        "choice_d": "Risky assumption → observable evidence → small prototype",
+        "correct_choice": "B",
+        "explanation": "You start from the assumption most likely to sink the idea, build the smallest thing that tests it, and look at what actually happens."
+      },
+      {
+        "question_text": "Over the semester, the teams are told to:",
+        "choice_a": "Switch to a new product idea every few weeks",
+        "choice_b": "Keep improving the same product: weeks 2–4 define the problem, 5–7 build and check a small version, 9–12 test / refactor / deploy, 13–15 acceptance checks",
+        "choice_c": "Build the whole product in the last week",
+        "choice_d": "Work individually and merge at the end",
+        "correct_choice": "B",
+        "explanation": "Week 8 is the midterm examination. Evidence — feedback, test results, change history — is kept continuously."
+      },
+      {
+        "question_text": "What does 'keep evidence' mean in this course?",
+        "choice_a": "Keep the source code only",
+        "choice_b": "Continuously keep user feedback, test results and change history, rather than reconstructing them at the end of the semester",
+        "choice_c": "Keep a copy of every email",
+        "choice_d": "Keep the professor's slides",
+        "correct_choice": "B",
+        "explanation": "Team-project scores can be adjusted using contribution evidence: repository history, issue ownership, review activity, milestone check-ins."
+      },
+      {
+        "question_text": "At the end of the Week 2 class, before leaving, each team must be able to:",
+        "choice_a": "Demo a working release",
+        "choice_b": "Show one team worksheet, with every member able to explain the idea and the next test",
+        "choice_c": "Submit the final report",
+        "choice_d": "Deploy to production",
+        "correct_choice": "B",
+        "explanation": "After class the team completes Milestone 1 (vision, assumptions, prototype plan, and an AI decision log)."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "order_steps",
+        "prompt": "Order the Week-2 studio steps that take a team from a blank page to a first-version draft.",
+        "steps": [
+          "Brainstorm problems you notice (who has it, when, how they handle it today)",
+          "Choose one problem the team can reach, build for, and observe",
+          "Write the one-sentence vision: 'We help [user] do [task] in [situation]'",
+          "Define the first version: one main task and up to three features",
+          "Name one boundary: a feature left out for now",
+          "Sketch two rough screens for the main task and name one assumption to test"
+        ],
+        "explanation": "Problems → pick one → vision sentence → first version → boundary → sketch + assumption. The output is one worksheet every member can explain."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of using a prototype to test a risky assumption, looping until the evidence supports it.",
+        "hint": "Decision 'Does the evidence support the assumption?': yes -> keep the idea, move to the first version, END; no -> revise the idea or flow, then loop back to building the prototype.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "a",
+              "kind": "process",
+              "label": "State the riskiest assumption"
+            },
+            {
+              "id": "b",
+              "kind": "process",
+              "label": "Build the smallest prototype that tests it"
+            },
+            {
+              "id": "o",
+              "kind": "io",
+              "label": "Put it in front of a real user and observe"
+            },
+            {
+              "id": "d",
+              "kind": "decision",
+              "label": "Does the evidence support the assumption ?"
+            },
+            {
+              "id": "k",
+              "kind": "process",
+              "label": "Keep the idea, move to the first version"
+            },
+            {
+              "id": "r",
+              "kind": "process",
+              "label": "Revise the idea or the flow"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "a"
+            },
+            {
+              "from": "a",
+              "to": "b"
+            },
+            {
+              "from": "b",
+              "to": "o"
+            },
+            {
+              "from": "o",
+              "to": "d"
+            },
+            {
+              "from": "d",
+              "to": "k",
+              "branch": "yes"
+            },
+            {
+              "from": "d",
+              "to": "r",
+              "branch": "no"
+            },
+            {
+              "from": "r",
+              "to": "b"
+            },
+            {
+              "from": "k",
+              "to": "e"
+            }
+          ]
+        },
+        "explanation": "Build only enough to learn; if the observable evidence does not support the assumption, revise and test again rather than proceeding to build the product."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Which agile method controls flow by visualising work on a board and limiting work in progress, with no fixed iterations?",
+        "accept": [
+          "kanban",
+          "the kanban method",
+          "kanban method"
+        ],
+        "normalize": "loose",
+        "explanation": "Scrum uses fixed-length sprints; Kanban uses a board plus WIP limits and pull."
+      }
+    ]
+  },
+  {
     "name": "Coréen",
     "key": "kr",
     "color": "rose",
@@ -7775,14 +9326,14 @@
     "name": "Vocabulaire",
     "key": "kr-vocab",
     "color": "rose",
-    "parent": "kr"
+    "parent": "kr",
+    "lesson": "# Vocabulaire coréen\n\n## Pronoms\n\n- je / moi (familier) = 나 = na\n- je / moi (poli) = 저 = jeo\n- je... (avec particule de thème) = 저는 = jeo-neun\n- tu (familier) = 너 = neo\n- nous / notre = 우리 = u-ri\n- mon (poli) = 제 = je\n- mon (familier) = 내 = nae\n\n## Verbes\n\n- faire = 하다 = ha-da\n- être / y avoir / avoir = 있다 = it-da\n- ne pas être / ne pas avoir = 없다 = eop-da\n- aller = 가다 = ga-da\n- venir = 오다 = o-da\n- voir / regarder = 보다 = bo-da\n- manger = 먹다 = meok-da\n- boire = 마시다 = ma-si-da\n- aimer = 좋아하다 = jo-a-ha-da\n- avoir besoin = 필요하다 = pi-ryo-ha-da\n- donner = 주다 = ju-da\n- recevoir = 받다 = bat-da\n- avoir faim = 배고프다 = bae-go-peu-da\n- penser = 생각하다 = saeng-gak-ha-da\n- écrire / utiliser = 쓰다 = sseu-da\n\n## Adjectifs\n\n- être bien / aimer = 좋다 = jo-ta\n- être petit = 작다 = jak-da\n- y avoir beaucoup / être nombreux = 많다 = man-ta\n- y avoir peu = 적다 = jeok-da\n- être joli = 예쁘다 = ye-ppeu-da\n- être bon (goût) / délicieux = 맛있다 = ma-sit-da\n- être occupé = 바쁘다 = ba-ppeu-da\n- être facile = 쉽다 = swip-da\n- être difficile = 어렵다 = eo-ryeop-da\n- chaud (au toucher) = 뜨겁다 = tteu-geop-da\n- chaud (météo) = 덥다 = deop-da\n- cher = 비싸다 = bi-ssa-da\n- grand = 크다 = keu-da\n- lourd = 무겁다 = mu-geop-da\n- épicé = 맵다 = maep-da\n- sucré = 달다 = dal-da\n- mignon = 귀엽다 = gwi-yeop-da\n- froid (météo) = 춥다 = chup-da\n- être salé = 짜다 = jja-da\n\n## Mots utiles & liaisons\n\n- oui = 네 = ne\n- oui (plus formel) = 예 = ye\n- non = 아니요 = a-ni-yo\n- et / avec (oral) = (이)랑 = rang\n- et (entre noms) = 하고 = ha-go\n- ou (particule) = (이)나 = na\n- ou (début de phrase) = 또는 = tto-neun\n- mais = 그런데 = geu-reon-de\n- vraiment = 정말 = jeong-mal\n- beaucoup = 많이 = ma-ni\n- un peu = 조금 = jo-geum\n- maintenant = 지금 = ji-geum\n- ensemble = 같이 = ga-chi\n- combien / combien de = 몇 = myeot\n- c'est / ce sont (copule) = 이에요 / 예요 = ieyo\n- ceci = 이것 = i-geot\n- particule de thème = 은 / 는 = eun\n- pourquoi = 왜 = wae\n- dehors / extérieur = 밖 = bak\n- devant = 앞 = ap\n- à côté = 옆 = yeop\n\n## Politesse\n\n- bonjour = 안녕하세요 = an-nyeong-ha-se-yo\n- merci (formel) = 감사합니다 = gam-sa-ham-ni-da\n- merci (neutre) = 고맙습니다 = go-map-seum-ni-da\n- désolé (formel) = 죄송합니다 = joe-song-ham-ni-da\n- ça va / pas grave = 괜찮아요 = gwaen-cha-na-yo\n- s'il vous plaît (demande) = 부탁합니다 = bu-tak-ham-ni-da\n- s'il vous plaît (donnez-moi) = 주세요 = ju-se-yo\n- enchanté = 반가워요 = ban-ga-wo-yo\n- suffixe de nom (M. / Mme) = 씨 = ssi\n- je t'aime = 사랑해요 = sa-rang-hae-yo\n- joyeux anniversaire = 생일 축하해요 = saengil chukahaeyo\n\n## Boissons\n\n- café = 커피 = keo-pi\n- thé = 차 = cha\n- eau = 물 = mul\n- bière = 맥주 = maek-ju\n- jus = 주스 = ju-seu\n- lait = 우유 = u-yu\n- bubble tea = 버블티 = beo-beul-ti\n\n## Aliments\n\n- riz / repas = 밥 = bap\n- pain = 빵 = ppang\n- viande = 고기 = go-gi\n- poulet frit = 치킨 = chi-kin\n- kimchi = 김치 = gim-chi\n- soupe = 국 = guk\n- fruit = 과일 = gwa-il\n- pomme = 사과 = sa-gwa\n- ramen / nouilles instantanées = 라면 = ra-myeon\n- poisson (aliment) = 생선 = saeng-seon\n- légume = 채소 = chae-so\n- gâteau = 케이크 = ke-i-keu\n- bingsu = 빙수 = bing-su\n- tofu = 두부 = du-bu\n- canard grillé = 오리구이 = o-ri-gu-i\n- raviolis / boulettes = 만두 = man-du\n- ragoût = 찌개 = jji-gae\n- kimbap (riz roulé dans l'algue) = 김밥 = gim-bap\n- bœuf mariné sauce soja = 불고기 = bul-go-gi\n- poitrine de porc grillée = 삼겹살 = sam-gyeop-sal\n- galbitang (soupe de côtes de bœuf) = 갈비탕 = gal-bi-tang\n- nourriture = 음식 = eum-sik\n- raisin = 포도 = po-do\n- tomate = 토마토 = to-ma-to\n- gâteau sec / friandise = 과자 = gwa-ja\n- riz (cru) = 쌀 = ssal\n- goût / saveur = 맛 = mat\n\n## Animaux\n\n- canard = 오리 = o-ri\n- chat = 고양이 = go-yang-i\n- chien = 개 = gae\n- souris (animal) = 쥐 = jwi\n- lapin = 토끼 = to-kki\n- cochon = 돼지 = dwae-ji\n- cheval = 말 = mal\n- queue (d'animal) = 꼬리 = kko-ri\n\n## Lieux\n\n- maison = 집 = jip\n- école = 학교 = hak-gyo\n- entreprise = 회사 = hoe-sa\n- marché = 시장 = si-jang\n- restaurant = 식당 = sik-dang\n- café (lieu) = 카페 = ka-pe\n- hôpital = 병원 = byeong-won\n- magasin / boutique = 가게 = ga-ge\n- bibliothèque = 도서관 = do-seo-gwan\n- salle de classe = 교실 = gyo-sil\n- librairie = 서점 = seo-jeom\n- université = 대학 = dae-hak\n- usine = 공장 = gong-jang\n- chambre / pièce = 방 = bang\n- cuisine (pièce) = 부엌 = bu-eok\n- ville natale = 고향 = go-hyang\n- route / chemin / rue = 길 = gil\n- Séoul = 서울 = seo-ul\n\n## Temps & quotidien\n\n- temps / heure = 시간 = si-gan\n- une journée = 하루 = ha-ru\n- jour = 날 = nal\n- aujourd'hui = 오늘 = o-neul\n- demain = 내일 = nae-il\n- hier = 어제 = eo-je\n- anniversaire = 생일 = saeng-il\n- âge (compteur « …ans ») = 살 = sal\n- âge = 나이 = na-i\n- bientôt = 곧 = got\n- printemps = 봄 = bom\n- automne = 가을 = ga-eul\n- journée / midi = 낮 = nat\n\n## Objets\n\n- montre / horloge = 시계 = si-gye\n- cadeau = 선물 = seon-mul\n- téléphone portable = 핸드폰 = haen-deu-pon\n- sac = 가방 = ga-bang\n- portefeuille = 지갑 = ji-gap\n- livre = 책 = chaek\n- stylo = 볼펜 = bol-pen\n- souris (ordinateur) = 마우스 = ma-u-seu\n- ordinateur = 컴퓨터 = keom-pyu-teo\n- appareil photo = 카메라 = ka-me-ra\n- collier = 목걸이 = mok-geo-ri\n- chaise = 의자 = ui-ja\n- pinceau = 붓 = but\n- tasse / gobelet = 컵 = keop\n- train = 기차 = gi-cha\n- chanson = 노래 = no-rae\n- histoire / récit = 이야기 = i-ya-gi\n- argent = 돈 = don\n- médicament = 약 = yak\n\n## Couleurs\n\n- blanc = 하얀색 = ha-yan-saek\n- gris = 회색 = hoe-saek\n- noir = 검은색 = geo-meun-saek\n- rouge = 빨간색 = ppal-gan-saek\n- bleu = 파란색 = pa-ran-saek\n- jaune = 노란색 = no-ran-saek\n- vert = 초록색 = cho-rok-saek\n\n## Métiers\n\n- employé de bureau = 회사원 = hoe-sa-won\n- peintre = 화가 = hwa-ga\n- médecin = 의사 = ui-sa\n- serveur = 웨이터 = we-i-teo\n- professeur = 선생님 = seon-saeng-nim\n- patron = 사장님 = sa-jang-nim\n\n## Pays & nationalités\n\n- États-Unis = 미국 = mi-guk\n- Corée = 한국 = han-guk\n- Chine = 중국 = jung-guk\n- France = 프랑스 = peu-rang-seu\n\n## Nombres — coréens natifs\n\n- un = 하나 = ha-na\n- deux = 둘 = dul\n- trois = 셋 = set\n- quatre = 넷 = net\n- cinq = 다섯 = da-seot\n- six = 여섯 = yeo-seot\n- sept = 일곱 = il-gop\n- huit = 여덟 = yeo-deol\n- neuf = 아홉 = a-hop\n- dix = 열 = yeol\n- onze = 열하나 = yeol-ha-na\n- quinze = 열다섯 = yeol-da-seot\n- dix-neuf = 열아홉 = yeo-ra-hop\n- vingt = 스물 = seu-mul\n- trente = 서른 = seo-reun\n- quarante = 마흔 = ma-heun\n- cinquante = 쉰 = swin\n- soixante = 예순 = ye-sun\n- soixante-dix = 일흔 = il-heun\n- quatre-vingts = 여든 = yeo-deun\n- quatre-vingt-dix = 아흔 = a-heun\n\n## Nombres — sino-coréens\n\n- un = 일 = il\n- deux = 이 = i\n- trois = 삼 = sam\n- quatre = 사 = sa\n- cinq = 오 = o\n- six = 육 = yuk\n- sept = 칠 = chil\n- huit = 팔 = pal\n- neuf = 구 = gu\n- dix = 십 = sip\n- vingt = 이십 = i-sip\n- cent = 백 = baek\n- mille = 천 = cheon\n- dix mille = 만 = man\n- zéro = 영 / 공 = yeong\n\n## Famille\n\n- ami(e) = 친구 = chin-gu\n- grande sœur (dit par un homme) = 누나 = nu-na\n- grande sœur (dit par une femme) = 언니 = eon-ni\n- grand frère (dit par un homme) = 형 = hyeong\n- grand frère (dit par une femme) = 오빠 = o-ppa\n- cadet(te) (frère ou sœur) = 동생 = dong-saeng\n- petite sœur = 여동생 = yeo-dong-saeng\n- petit frère = 남동생 = nam-dong-saeng\n- papa = 아빠 = a-ppa\n\n## Corps & santé\n\n- tête / cheveux = 머리 = meo-ri\n- œil / neige = 눈 = nun\n- nez = 코 = ko\n- oreille = 귀 = gwi\n- bouche = 입 = ip\n- rhume = 감기 = gam-gi\n\n## Vêtements\n\n- vêtement(s) = 옷 = ot\n- jupe = 치마 = chi-ma\n- serre-tête / bandeau = 머리띠 = meo-ri-tti\n\n## Nature\n\n- fleuve / rivière = 강 = gang\n- forêt = 숲 = sup\n- champ (cultivé) = 밭 = bat\n- fleur = 꽃 = kkot\n- arbre = 나무 = na-mu\n\n## Phrases utiles\n\n- je mange (du riz) = 밥을 먹어요 = babeul meogeoyo\n- je bois du café = 커피 마셔요 = keopi masyeoyo\n- il y a de l'eau = 물이 있어요 = muri isseoyo\n- donnez-moi de l'eau = 물 주세요 = mul juseyo\n- je vais à la maison = 집에 가요 = jibe gayo\n- j'ai un ami = 친구가 있어요 = chinguga isseoyo\n- aujourd'hui je suis occupé = 오늘 바빠요 = oneul bappayo\n- c'est vraiment bon = 정말 맛있어요 = jeongmal masisseoyo\n- cette maison est grande = 이 집이 커요 = i jibi keoyo\n- le repas est bon = 밥이 맛있어요 = babi masisseoyo\n- je t'aime = 사랑해요 = sa-rang-hae-yo\n- je suis français(e) = 저는 프랑스 사람이에요 = jeoneun peurangseu saramieyo\n- joyeux anniversaire = 생일 축하해요 = saengil chukahaeyo\n- c'est comment ? / qu'en penses-tu ? = 어때요 = eo-ttae-yo\n\n## Insultes\n\n- idiot / imbécile = 바보 = ba-bo\n- crétin / abruti = 멍청이 = meong-cheong-i\n- t'es fou ? / t'es malade ? = 미쳤어? = mi-chyeo-sseo\n- dégage / casse-toi = 꺼져 = kkeo-jyeo\n- ferme-la = 닥쳐 = dak-chyeo\n- fils de pute = 개새끼 = gae-sae-kki\n\n## Noms propres (entraînement à la lecture)\n\n- Esteve = 에스테브 = e-seu-te-beu\n- Manon = 마농 = ma-non\n\n## Hangeul — premiers mots\n\n- Corée = 한국 = han-guk\n- école = 학교 = hak-gyo\n- kimchi = 김치 = gim-chi\n- salut / bonjour = 안녕 = an-nyeong\n- merci = 감사 = gam-sa\n- eau = 물 = mul\n- riz / repas = 밥 = bap\n- pomme = 사과 = sa-gwa\n- café = 커피 = keo-pi\n- ami / amie = 친구 = chin-gu\n"
   },
   {
     "name": "Hangeul",
     "key": "kr-hangeul",
     "color": "rose",
     "parent": "kr",
-    "lesson": "# Le hangeul (한글)\n\nLe hangeul est l'alphabet coréen, créé en **1443** sous le roi **Sejong le Grand**\net promulgué en 1446. Ce n'est ni un idéogramme (comme le chinois) ni une simple\nsuite de lettres : c'est un **alphabet featural** où la forme des consonnes\névoque la position de la bouche, et où les lettres se **regroupent en blocs\nsyllabiques**.\n\nObjectif de cette leçon : savoir **lire** n'importe quel mot coréen. On ne\ncherche pas encore à comprendre le sens, seulement à prononcer.\n\n---\n\n## 1. Le bloc syllabique\n\nUne syllabe coréenne s'écrit dans un **carré**, jamais en ligne continue. Chaque\nbloc contient :\n\n- une **consonne initiale** (obligatoire) ;\n- une **voyelle** (obligatoire) ;\n- éventuellement une **consonne finale**, appelée **batchim** (받침, « support »).\n\nL'agencement dépend de la voyelle :\n\n<figure>\n<svg viewBox=\"0 0 420 140\" role=\"img\" aria-label=\"Deux dispositions du bloc syllabique : voyelle verticale à droite de la consonne, voyelle horizontale sous la consonne ; le batchim se place toujours en bas.\">\n  <g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n    <rect x=\"20\" y=\"20\" width=\"80\" height=\"60\" rx=\"4\"/>\n    <line x1=\"66\" y1=\"20\" x2=\"66\" y2=\"80\"/>\n    <rect x=\"20\" y=\"80\" width=\"80\" height=\"34\" rx=\"4\"/>\n  </g>\n  <text x=\"40\" y=\"56\" font-size=\"15\" fill=\"currentColor\">초</text>\n  <text x=\"80\" y=\"56\" font-size=\"15\" fill=\"currentColor\">중</text>\n  <text x=\"55\" y=\"103\" font-size=\"15\" fill=\"currentColor\">종</text>\n  <text x=\"20\" y=\"132\" font-size=\"10\" fill=\"currentColor\" opacity=\"0.7\">voyelle verticale (ㅏ ㅓ ㅣ…)</text>\n\n  <g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n    <rect x=\"260\" y=\"20\" width=\"80\" height=\"40\" rx=\"4\"/>\n    <rect x=\"260\" y=\"60\" width=\"80\" height=\"26\" rx=\"4\"/>\n    <rect x=\"260\" y=\"86\" width=\"80\" height=\"28\" rx=\"4\"/>\n  </g>\n  <text x=\"292\" y=\"46\" font-size=\"15\" fill=\"currentColor\">초</text>\n  <text x=\"292\" y=\"78\" font-size=\"15\" fill=\"currentColor\">중</text>\n  <text x=\"292\" y=\"106\" font-size=\"15\" fill=\"currentColor\">종</text>\n  <text x=\"250\" y=\"132\" font-size=\"10\" fill=\"currentColor\" opacity=\"0.7\">voyelle horizontale (ㅗ ㅜ ㅡ…)</text>\n</svg>\n<figcaption>초 = initiale, 중 = voyelle, 종 = batchim (facultatif).</figcaption>\n</figure>\n\nExemple : **한** = ㅎ + ㅏ + ㄴ → *han*. **국** = ㄱ + ㅜ + ㄱ → *guk*.\nEnsemble : **한국** = *hanguk* (« Corée »).\n\n---\n\n## 2. Les voyelles\n\n### Voyelles simples\n\n| lettre | son (RR) | repère |\n|---|---|---|\n| ㅏ | a | « a » de *patte* |\n| ㅓ | eo | « o » ouvert de *port*, bouche relâchée |\n| ㅗ | o | « o » fermé de *dos* |\n| ㅜ | u | « ou » de *cou* |\n| ㅡ | eu | « e » sans arrondir les lèvres, comme un frisson |\n| ㅣ | i | « i » de *lit* |\n| ㅐ | ae | « è » de *mère* |\n| ㅔ | e | « é » de *été* — aujourd'hui quasi identique à ㅐ |\n\n### Voyelles iotisées (avec un [y] devant)\n\nOn **ajoute un trait** à la voyelle simple :\n\n| simple | → iotisée | son |\n|---|---|---|\n| ㅏ | ㅑ | ya |\n| ㅓ | ㅕ | yeo |\n| ㅗ | ㅛ | yo |\n| ㅜ | ㅠ | yu |\n| ㅐ | ㅒ | yae |\n| ㅔ | ㅖ | ye |\n\n### Voyelles composées (diphtongues)\n\n| lettre | son (RR) | = |\n|---|---|---|\n| ㅘ | wa | ㅗ + ㅏ |\n| ㅙ | wae | ㅗ + ㅐ |\n| ㅚ | oe | prononcé *we* |\n| ㅝ | wo | ㅜ + ㅓ |\n| ㅞ | we | ㅜ + ㅔ |\n| ㅟ | wi | ㅜ + ㅣ |\n| ㅢ | ui | ㅡ + ㅣ, glissé |\n\nÀ l'oral, **ㅙ, ㅚ, ㅞ se confondent** en un même son *we*.\n\n---\n\n## 3. Les consonnes\n\nToute syllabe **commence** par une consonne. S'il n'y a pas de consonne à\nprononcer, on écrit **ㅇ** (muet en position initiale).\n\n### Consonnes simples\n\n| lettre | initiale | entre voyelles | batchim |\n|---|---|---|---|\n| ㄱ | k/g | g | k (bloqué) |\n| ㄴ | n | n | n |\n| ㄷ | t/d | d | t (bloqué) |\n| ㄹ | r | r | l |\n| ㅁ | m | m | m |\n| ㅂ | p/b | b | p (bloqué) |\n| ㅅ | s | s | t (bloqué) |\n| ㅇ | — (muet) | — | ng |\n| ㅈ | j | j | t (bloqué) |\n| ㅎ | h | h (souvent effacé) | t (bloqué) |\n\nㄱ, ㄷ, ㅂ, ㅈ sont **non aspirées** : en début de mot elles sonnent entre la\nsourde et la sonore française ; entre deux voyelles elles se **sonorisent**\n(가구 *gagu*, le second ㄱ sonne « g »).\n\n### Consonnes aspirées\n\nUn **souffle d'air** accompagne la consonne. Une barre en plus par rapport à la simple :\n\n| lettre | son | simple correspondante |\n|---|---|---|\n| ㅊ | ch | ㅈ |\n| ㅋ | k | ㄱ |\n| ㅌ | t | ㄷ |\n| ㅍ | p | ㅂ |\n| ㅎ | h | — |\n\n### Consonnes tendues (doubles)\n\nLa lettre est **écrite deux fois**. Son **glottalisé, tendu, sans souffle** —\nun peu comme une consonne « pincée ».\n\n| lettre | son (RR) |\n|---|---|\n| ㄲ | kk |\n| ㄸ | tt |\n| ㅃ | pp |\n| ㅆ | ss |\n| ㅉ | jj |\n\nTrois séries, donc : **simple** (ㅂ) / **aspirée** (ㅍ) / **tendue** (ㅃ). C'est\nle contraste central du système consonantique coréen.\n\n---\n\n## 4. Le batchim (받침)\n\nLe batchim est la consonne **finale** d'un bloc. Deux points à retenir.\n\n**a) Il n'existe que 7 sons de batchim.** Toutes les consonnes finales se\nramènent à l'un de ces sept :\n\n| son | lettres qui le produisent en finale |\n|---|---|\n| k | ㄱ ㅋ ㄲ |\n| n | ㄴ |\n| t | ㄷ ㅌ ㅅ ㅆ ㅈ ㅊ ㅎ |\n| l | ㄹ |\n| m | ㅁ |\n| p | ㅂ ㅍ |\n| ng | ㅇ |\n\n**b) Les stops finaux ne sont pas relâchés.** Le k de **박** (*bak*), le p de\n**밥** (*bap*), le t de **믿** (*mit*) sont **bloqués** : la bouche prend la\nposition mais ne libère pas l'air. Rien à voir avec un « k » français final.\n\nCertains blocs ont un **double batchim** (ㄳ, ㄼ, ㄺ…). En général on n'en\nprononce **qu'une** des deux consonnes (앉다 → *anta*, 읽다 → *ikda*).\n\n---\n\n## 5. Les règles de prononciation\n\nL'écriture est **morphophonémique** : elle note les unités de sens, pas\nexactement les sons. D'où quelques règles où **ce qui se lit ≠ ce qui s'écrit**.\n\n### Liaison (연음)\n\nUn batchim suivi d'un bloc commençant par **ㅇ** (muet) **glisse** sur la voyelle\nsuivante :\n\n- 한국어 → *han-gu-**geo*** (le ㄱ de 국 passe sur 어)\n- 음악 → *eu-**mak***\n- 좋아요 → *jo-**a**-yo* (le ㅎ tombe, cf. plus bas)\n\n### Nasalisation (비음화)\n\nUn stop final (k, t, p) devant **ㄴ ou ㅁ** devient nasal :\n\n| écrit | k/t/p → | lu |\n|---|---|---|\n| 학년 | k → ng | *hang-nyeon* |\n| 입니다 | p → m | *im-ni-da* |\n| 받는 | t → n | *ban-neun* |\n\nC'est pour ça que la terminaison polie **-습니다** se dit *-seum-ni-da*.\n\n### Affaiblissement de ㅎ\n\n**ㅎ** entre deux voyelles ou après un batchim sonore est **très faible, voire\nmuet** : 전화 → *jeo-nwa*, 은행 → *eu-naeng*, 좋아요 → *jo-a-yo*.\n\nMais **ㅎ + ㄱ/ㄷ/ㅈ** (dans un sens ou l'autre) fusionne en **aspirée** :\n좋다 → *jo-**t**a*, 축하 → *chu-**k**a*, 백화점 → *bae-**k**wa-jeom*.\n\n### Tensification (경음화)\n\nAprès un stop final (k, t, p), une consonne simple **se tend** :\n\n- 학교 → *hak-**kk**yo*\n- 식당 → *sik-**tt**ang*\n- 습관 → *seup-**kk**wan*\n\n### Palatalisation (구개음화)\n\n**ㄷ / ㅌ** en batchim + **이** (ou 히) → **지 / 치** :\n\n- 굳이 → *gu-**ji***\n- 같이 → *ga-**chi***\n- 닫히다 → *da-**chi**-da*\n\n### Assimilation ㄴ / ㄹ (유음화)\n\n**ㄴ** au contact de **ㄹ** devient **ㄹ** :\n\n- 신라 → *Sil-la*\n- 설날 → *Seol-lal*\n- 연락 → *yeol-lak*\n\n---\n\n## 6. La romanisation\n\nLa transcription officielle sud-coréenne est la **Romanisation Révisée (RR)**,\nutilisée dans toute cette section :\n\n- ㅂ ㄷ ㄱ ㅈ = **b d g j** ; ㅍ ㅌ ㅋ ㅊ = **p t k ch** ; doubles = **pp tt kk ss jj**.\n- ㅓ = **eo**, ㅡ = **eu**, ㅜ = **u**, ㅗ = **o**, ㅐ/ㅔ = **ae** / **e**.\n- ㄱ ㄷ ㅂ en **finale** s'écrivent **k t p** (박 = *bak*), mais **g d b** entre\n  voyelles (아기 = *agi*).\n- Les changements de son ci-dessus **sont notés** : 학년 → *hangnyeon*, 좋다 → *jota*.\n\n---\n\n## Récapitulatif\n\n- Une syllabe = un **bloc carré** : initiale + voyelle (+ batchim).\n- **ㅇ** initial est muet ; **ㅇ** final se lit *ng*.\n- Trois séries de consonnes : **simple / aspirée / tendue**.\n- Le batchim n'a que **7 sons** ; les stops finaux sont **bloqués**.\n- Règles clés : **liaison** sur ㅇ, **nasalisation** devant ㄴ/ㅁ, **ㅎ faible**,\n  **tensification** après un stop, **palatalisation** devant 이, **ㄴ→ㄹ** près de ㄹ.\n",
     "exercises": [
       {
         "type": "type_answer",
@@ -9161,6 +10712,26 @@
     ]
   },
   {
+    "name": "Cours",
+    "key": "kr-cours",
+    "color": "rose",
+    "parent": "kr"
+  },
+  {
+    "name": "Semaine 1",
+    "key": "kr-cours-w1",
+    "color": "rose",
+    "parent": "kr-cours",
+    "lesson": "# Coréen — Semaine 1\n\nCours GEE3003 « Basic Korean », Day 1 (week_1.pdf) : les voyelles et les\nconsonnes de base, et la lecture de premiers mots.\n\n## Voyelles de base (모음)\n\n- ㅏ = a\n- ㅑ = ya\n- ㅓ = eo\n- ㅕ = yeo\n- ㅗ = o\n- ㅛ = yo\n- ㅜ = u\n- ㅠ = yu\n- ㅡ = eu\n- ㅣ = i\n\nUn trait court ajouté à ㅣ ou ㅡ donne ㅏ ㅓ ㅗ ㅜ ; un second trait donne les\nvoyelles iotisées ㅑ ㅕ ㅛ ㅠ. Lues seules (avec la consonne muette ㅇ) :\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㅇ** | 아 | 야 | 어 | 여 | 오 | 요 | 우 | 유 | 으 | 이 |\n\n## Consonnes de base (자음)\n\n- ㄱ = g / k\n- ㄴ = n\n- ㄷ = d / t\n- ㄹ = r / l\n- ㅁ = m\n- ㅂ = b / p\n- ㅅ = s\n- ㅇ = muette en tête de syllabe, « ng » en finale\n- ㅈ = j\n- ㅎ = h\n\n## Syllabes — consonne + voyelle\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㄱ** | 가 | 갸 | 거 | 겨 | 고 | 교 | 구 | 규 | 그 | 기 |\n| **ㄴ** | 나 | 냐 | 너 | 녀 | 노 | 뇨 | 누 | 뉴 | 느 | 니 |\n| **ㄷ** | 다 | 댜 | 더 | 뎌 | 도 | 됴 | 두 | 듀 | 드 | 디 |\n| **ㄹ** | 라 | 랴 | 러 | 려 | 로 | 료 | 루 | 류 | 르 | 리 |\n| **ㅁ** | 마 | 먀 | 머 | 며 | 모 | 묘 | 무 | 뮤 | 므 | 미 |\n| **ㅂ** | 바 | 뱌 | 버 | 벼 | 보 | 뵤 | 부 | 뷰 | 브 | 비 |\n| **ㅅ** | 사 | 샤 | 서 | 셔 | 소 | 쇼 | 수 | 슈 | 스 | 시 |\n| **ㅇ** | 아 | 야 | 어 | 여 | 오 | 요 | 우 | 유 | 으 | 이 |\n| **ㅈ** | 자 | 쟈 | 저 | 져 | 조 | 죠 | 주 | 쥬 | 즈 | 지 |\n| **ㅎ** | 하 | 햐 | 허 | 혀 | 호 | 효 | 후 | 휴 | 흐 | 히 |\n\n## Mots (단어)\n\n- dent = 이 = i\n- enfant = 아이 = a-i\n- cinq = 오 = o\n- concombre = 오이 = o-i\n- lait = 우유 = u-yu\n- renard = 여우 = yeo-u\n- meuble = 가구 = ga-gu\n- papillon = 나비 = na-bi\n- banane = 바나나 = ba-na-na\n- chanteur / chanteuse = 가수 = ga-su\n- bébé = 아기 = a-gi\n- radio = 라디오 = ra-di-o\n- viande = 고기 = go-gi\n- chaussures = 구두 = gu-du\n- grande sœur (d'un homme) = 누나 = nu-na\n- jambe / pont = 다리 = da-ri\n- cuisine / plat = 요리 = yo-ri\n- pays = 나라 = na-ra\n- tête / cheveux = 머리 = meo-ri\n- après-midi = 오후 = o-hu\n- arbre = 나무 = na-mu\n- entreprise = 회사 = hoe-sa\n- sauce = 소스 = so-seu\n- lac = 호수 = ho-su\n"
+  },
+  {
+    "name": "Semaine 2",
+    "key": "kr-cours-w2",
+    "color": "rose",
+    "parent": "kr-cours",
+    "lesson": "# Coréen — Semaine 2\n\nCours GEE3003 « Basic Korean », Day 2 (week_2.pdf) : consonnes aspirées et\ntendues, voyelles composées, et les consonnes finales (받침).\n\n## Consonnes aspirées (거센소리)\n\n- ㅊ = ch\n- ㅋ = k\n- ㅌ = t\n- ㅍ = p\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㅊ** | 차 | 챠 | 처 | 쳐 | 초 | 쵸 | 추 | 츄 | 츠 | 치 |\n| **ㅋ** | 카 | 캬 | 커 | 켜 | 코 | 쿄 | 쿠 | 큐 | 크 | 키 |\n| **ㅌ** | 타 | 탸 | 터 | 텨 | 토 | 툐 | 투 | 튜 | 트 | 티 |\n| **ㅍ** | 파 | 퍄 | 퍼 | 펴 | 포 | 표 | 푸 | 퓨 | 프 | 피 |\n\n## Consonnes tendues (된소리)\n\n- ㄲ = kk\n- ㄸ = tt\n- ㅃ = pp\n- ㅆ = ss\n- ㅉ = jj\n\n|  | ㅏ | ㅓ | ㅗ | ㅜ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|\n| **ㄲ** | 까 | 꺼 | 꼬 | 꾸 | 끄 | 끼 |\n| **ㄸ** | 따 | 떠 | 또 | 뚜 | 뜨 | 띠 |\n| **ㅃ** | 빠 | 뻐 | 뽀 | 뿌 | 쁘 | 삐 |\n| **ㅆ** | 싸 | 써 | 쏘 | 쑤 | 쓰 | 씨 |\n| **ㅉ** | 짜 | 쩌 | 쪼 | 쭈 | 쯔 | 찌 |\n\n## Plaine / tendue / aspirée\n\n| plaine | tendue | aspirée |\n|---|---|---|\n| 가 ga | 까 kka | 카 ka |\n| 다 da | 따 tta | 타 ta |\n| 바 ba | 빠 ppa | 파 pa |\n| 사 sa | 싸 ssa | — |\n| 자 ja | 짜 jja | 차 cha |\n\n## Voyelles composées (모음 2)\n\n- ㅐ = ae\n- ㅒ = yae\n- ㅔ = e\n- ㅖ = ye\n- ㅘ = wa\n- ㅝ = wo\n- ㅚ = oe\n- ㅙ = wae\n- ㅞ = we\n- ㅟ = wi\n- ㅢ = ui\n\nLues seules (avec ㅇ) : 애 얘 에 예 와 워 외 왜 웨 위 의.\n\n## Consonnes finales — 받침\n\nUne consonne en fin de syllabe ne se prononce qu'en 7 sons :\n\n- [k] : ㄱ, ㅋ, ㄲ\n- [n] : ㄴ\n- [t] : ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ\n- [l] : ㄹ\n- [m] : ㅁ\n- [p] : ㅂ, ㅍ\n- [ng] : ㅇ\n\n## Mots (단어)\n\n### Consonnes aspirées\n\n- jupe = 치마 = chi-ma\n- café = 커피 = keo-pi\n- train = 기차 = gi-cha\n- nez = 코 = ko\n- raisin = 포도 = po-do\n- tomate = 토마토 = to-ma-to\n\n### Consonnes tendues\n\n- queue (d'animal) = 꼬리 = kko-ri\n- lapin = 토끼 = to-kki\n- serre-tête = 머리띠 = meo-ri-tti\n- papa = 아빠 = a-ppa\n- écrire = 쓰다 = sseu-da\n- être salé = 짜다 = jja-da\n\n### Voyelles composées\n\n- montre / horloge = 시계 = si-gye\n- chaise = 의자 = ui-ja\n- magasin = 가게 = ga-ge\n- gâteau sec = 과자 = gwa-ja\n- oreille = 귀 = gwi\n- serveur = 웨이터 = we-i-teo\n- cochon = 돼지 = dwae-ji\n- entreprise = 회사 = hoe-sa\n- il fait froid = 추워요 = chu-wo-yo\n- pourquoi = 왜 = wae\n- chanson = 노래 = no-rae\n- histoire / conversation = 얘기 = yae-gi\n\n### 받침\n\n- médicament = 약 = yak\n- livre = 책 = chaek\n- université = 대학 = dae-hak\n- États-Unis = 미국 = mi-guk\n- cuisine (pièce) = 부엌 = bu-eok\n- dehors = 밖 = bak\n- œil / neige = 눈 = nun\n- argent = 돈 = don\n- grande sœur (d'une femme) = 언니 = eon-ni\n- bibliothèque = 도서관 = do-seo-gwan\n- ami(e) = 친구 = chin-gu\n- bientôt = 곧 = got\n- goût = 맛 = mat\n- vêtement = 옷 = ot\n- pinceau = 붓 = but\n- journée / midi = 낮 = nat\n- fleur = 꽃 = kkot\n- champ = 밭 = bat\n- route / chemin = 길 = gil\n- cheval / parole = 말 = mal\n- riz (cru) = 쌀 = ssal\n- automne = 가을 = ga-eul\n- salle de classe = 교실 = gyo-sil\n- Séoul = 서울 = seo-ul\n- printemps = 봄 = bom\n- rhume = 감기 = gam-gi\n- kimchi = 김치 = gim-chi\n- personne = 사람 = sa-ram\n- librairie = 서점 = seo-jeom\n- maison = 집 = jip\n- bouche = 입 = ip\n- gobelet / tasse = 컵 = keop\n- neuf = 아홉 = a-hop\n- devant = 앞 = ap\n- à côté = 옆 = yeop\n- forêt = 숲 = sup\n- fleuve / rivière = 강 = gang\n- chambre = 방 = bang\n- pain = 빵 = ppang\n- ville natale = 고향 = go-hyang\n- cadet(te) = 동생 = dong-saeng\n- usine = 공장 = gong-jang\n"
+  },
+  {
     "name": "Pronoms",
     "key": "kr-voc-pronoms",
     "color": "rose",
@@ -9339,6 +10910,15 @@
         "fr": [
           "penser"
         ]
+      },
+      {
+        "ko": "쓰다",
+        "rr": "sseuda",
+        "fr": [
+          "écrire / utiliser",
+          "écrire",
+          "utiliser"
+        ]
       }
     ]
   },
@@ -9502,6 +11082,27 @@
         "rr_accept": [
           "gwiyeoun"
         ]
+      },
+      {
+        "ko": "춥다",
+        "rr": "chupda",
+        "fr": [
+          "froid (météo)",
+          "froid"
+        ],
+        "rr_accept": [
+          "chuun"
+        ]
+      },
+      {
+        "ko": "짜다",
+        "rr": "jjada",
+        "fr": [
+          "être salé"
+        ],
+        "rr_accept": [
+          "jjan"
+        ]
       }
     ]
   },
@@ -9646,6 +11247,36 @@
         ],
         "rr_accept": [
           "neun"
+        ]
+      },
+      {
+        "ko": "왜",
+        "rr": "wae",
+        "fr": [
+          "pourquoi"
+        ]
+      },
+      {
+        "ko": "밖",
+        "rr": "bak",
+        "fr": [
+          "dehors / extérieur",
+          "dehors",
+          "extérieur"
+        ]
+      },
+      {
+        "ko": "앞",
+        "rr": "ap",
+        "fr": [
+          "devant"
+        ]
+      },
+      {
+        "ko": "옆",
+        "rr": "yeop",
+        "fr": [
+          "à côté"
         ]
       }
     ]
@@ -9969,6 +11600,46 @@
         "fr": [
           "nourriture"
         ]
+      },
+      {
+        "ko": "포도",
+        "rr": "podo",
+        "fr": [
+          "raisin"
+        ]
+      },
+      {
+        "ko": "토마토",
+        "rr": "tomato",
+        "fr": [
+          "tomate"
+        ]
+      },
+      {
+        "ko": "과자",
+        "rr": "gwaja",
+        "fr": [
+          "gâteau sec / friandise",
+          "gâteau sec",
+          "friandise"
+        ]
+      },
+      {
+        "ko": "쌀",
+        "rr": "ssal",
+        "fr": [
+          "riz (cru)",
+          "riz"
+        ]
+      },
+      {
+        "ko": "맛",
+        "rr": "mat",
+        "fr": [
+          "goût / saveur",
+          "goût",
+          "saveur"
+        ]
       }
     ]
   },
@@ -10005,6 +11676,35 @@
         "fr": [
           "souris (animal)",
           "souris"
+        ]
+      },
+      {
+        "ko": "토끼",
+        "rr": "tokki",
+        "fr": [
+          "lapin"
+        ]
+      },
+      {
+        "ko": "돼지",
+        "rr": "dwaeji",
+        "fr": [
+          "cochon"
+        ]
+      },
+      {
+        "ko": "말",
+        "rr": "mal",
+        "fr": [
+          "cheval"
+        ]
+      },
+      {
+        "ko": "꼬리",
+        "rr": "kkori",
+        "fr": [
+          "queue (d'animal)",
+          "queue"
         ]
       }
     ]
@@ -10063,6 +11763,91 @@
         "rr": "byeongwon",
         "fr": [
           "hôpital"
+        ]
+      },
+      {
+        "ko": "가게",
+        "rr": "gage",
+        "fr": [
+          "magasin / boutique",
+          "magasin",
+          "boutique"
+        ]
+      },
+      {
+        "ko": "도서관",
+        "rr": "doseogwan",
+        "fr": [
+          "bibliothèque"
+        ]
+      },
+      {
+        "ko": "교실",
+        "rr": "gyosil",
+        "fr": [
+          "salle de classe"
+        ]
+      },
+      {
+        "ko": "서점",
+        "rr": "seojeom",
+        "fr": [
+          "librairie"
+        ]
+      },
+      {
+        "ko": "대학",
+        "rr": "daehak",
+        "fr": [
+          "université"
+        ]
+      },
+      {
+        "ko": "공장",
+        "rr": "gongjang",
+        "fr": [
+          "usine"
+        ]
+      },
+      {
+        "ko": "방",
+        "rr": "bang",
+        "fr": [
+          "chambre / pièce",
+          "chambre",
+          "pièce"
+        ]
+      },
+      {
+        "ko": "부엌",
+        "rr": "bueok",
+        "fr": [
+          "cuisine (pièce)",
+          "cuisine"
+        ]
+      },
+      {
+        "ko": "고향",
+        "rr": "gohyang",
+        "fr": [
+          "ville natale"
+        ]
+      },
+      {
+        "ko": "길",
+        "rr": "gil",
+        "fr": [
+          "route / chemin / rue",
+          "route",
+          "chemin",
+          "rue"
+        ]
+      },
+      {
+        "ko": "서울",
+        "rr": "seoul",
+        "fr": [
+          "Séoul"
         ]
       }
     ]
@@ -10137,6 +11922,36 @@
         "rr": "nai",
         "fr": [
           "âge"
+        ]
+      },
+      {
+        "ko": "곧",
+        "rr": "got",
+        "fr": [
+          "bientôt"
+        ]
+      },
+      {
+        "ko": "봄",
+        "rr": "bom",
+        "fr": [
+          "printemps"
+        ]
+      },
+      {
+        "ko": "가을",
+        "rr": "gaeul",
+        "fr": [
+          "automne"
+        ]
+      },
+      {
+        "ko": "낮",
+        "rr": "nat",
+        "fr": [
+          "journée / midi",
+          "journée",
+          "midi"
         ]
       }
     ]
@@ -10225,6 +12040,66 @@
         "rr": "mokgeori",
         "fr": [
           "collier"
+        ]
+      },
+      {
+        "ko": "의자",
+        "rr": "uija",
+        "fr": [
+          "chaise"
+        ]
+      },
+      {
+        "ko": "붓",
+        "rr": "but",
+        "fr": [
+          "pinceau"
+        ]
+      },
+      {
+        "ko": "컵",
+        "rr": "keop",
+        "fr": [
+          "tasse / gobelet",
+          "tasse",
+          "gobelet"
+        ]
+      },
+      {
+        "ko": "기차",
+        "rr": "gicha",
+        "fr": [
+          "train"
+        ]
+      },
+      {
+        "ko": "노래",
+        "rr": "norae",
+        "fr": [
+          "chanson"
+        ]
+      },
+      {
+        "ko": "이야기",
+        "rr": "iyagi",
+        "fr": [
+          "histoire / récit",
+          "histoire",
+          "récit"
+        ]
+      },
+      {
+        "ko": "돈",
+        "rr": "don",
+        "fr": [
+          "argent"
+        ]
+      },
+      {
+        "ko": "약",
+        "rr": "yak",
+        "fr": [
+          "médicament"
         ]
       }
     ]
@@ -10710,6 +12585,145 @@
         "fr": [
           "petit frère"
         ]
+      },
+      {
+        "ko": "아빠",
+        "rr": "appa",
+        "fr": [
+          "papa"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Corps & santé",
+    "key": "kr-voc-corps-sant",
+    "color": "rose",
+    "parent": "kr-vocab",
+    "vocab": [
+      {
+        "ko": "머리",
+        "rr": "meori",
+        "fr": [
+          "tête / cheveux",
+          "tête",
+          "cheveux"
+        ]
+      },
+      {
+        "ko": "눈",
+        "rr": "nun",
+        "fr": [
+          "œil / neige",
+          "œil",
+          "neige"
+        ]
+      },
+      {
+        "ko": "코",
+        "rr": "ko",
+        "fr": [
+          "nez"
+        ]
+      },
+      {
+        "ko": "귀",
+        "rr": "gwi",
+        "fr": [
+          "oreille"
+        ]
+      },
+      {
+        "ko": "입",
+        "rr": "ip",
+        "fr": [
+          "bouche"
+        ]
+      },
+      {
+        "ko": "감기",
+        "rr": "gamgi",
+        "fr": [
+          "rhume"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Vêtements",
+    "key": "kr-voc-v-tements",
+    "color": "rose",
+    "parent": "kr-vocab",
+    "vocab": [
+      {
+        "ko": "옷",
+        "rr": "ot",
+        "fr": [
+          "vêtement(s)",
+          "vêtement"
+        ]
+      },
+      {
+        "ko": "치마",
+        "rr": "chima",
+        "fr": [
+          "jupe"
+        ]
+      },
+      {
+        "ko": "머리띠",
+        "rr": "meoritti",
+        "fr": [
+          "serre-tête / bandeau",
+          "serre-tête",
+          "bandeau"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nature",
+    "key": "kr-voc-nature",
+    "color": "rose",
+    "parent": "kr-vocab",
+    "vocab": [
+      {
+        "ko": "강",
+        "rr": "gang",
+        "fr": [
+          "fleuve / rivière",
+          "fleuve",
+          "rivière"
+        ]
+      },
+      {
+        "ko": "숲",
+        "rr": "sup",
+        "fr": [
+          "forêt"
+        ]
+      },
+      {
+        "ko": "밭",
+        "rr": "bat",
+        "fr": [
+          "champ (cultivé)",
+          "champ"
+        ]
+      },
+      {
+        "ko": "꽃",
+        "rr": "kkot",
+        "fr": [
+          "fleur"
+        ]
+      },
+      {
+        "ko": "나무",
+        "rr": "namu",
+        "fr": [
+          "arbre"
+        ]
       }
     ]
   },
@@ -10767,354 +12781,6 @@
         "rr": "gaesaekki",
         "fr": [
           "fils de pute"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Hangeul — premiers mots",
-    "key": "kr-voc-hangeul-premiers-mots",
-    "color": "rose",
-    "parent": "kr-vocab",
-    "vocab": [
-      {
-        "ko": "한국",
-        "rr": "hanguk",
-        "fr": [
-          "Corée"
-        ]
-      },
-      {
-        "ko": "학교",
-        "rr": "hakgyo",
-        "fr": [
-          "école"
-        ]
-      },
-      {
-        "ko": "김치",
-        "rr": "gimchi",
-        "fr": [
-          "kimchi"
-        ]
-      },
-      {
-        "ko": "안녕",
-        "rr": "annyeong",
-        "fr": [
-          "salut / bonjour",
-          "salut",
-          "bonjour"
-        ]
-      },
-      {
-        "ko": "감사",
-        "rr": "gamsa",
-        "fr": [
-          "merci"
-        ]
-      },
-      {
-        "ko": "물",
-        "rr": "mul",
-        "fr": [
-          "eau"
-        ]
-      },
-      {
-        "ko": "밥",
-        "rr": "bap",
-        "fr": [
-          "riz / repas",
-          "riz",
-          "repas"
-        ]
-      },
-      {
-        "ko": "사과",
-        "rr": "sagwa",
-        "fr": [
-          "pomme"
-        ]
-      },
-      {
-        "ko": "커피",
-        "rr": "keopi",
-        "fr": [
-          "café"
-        ]
-      },
-      {
-        "ko": "친구",
-        "rr": "chingu",
-        "fr": [
-          "ami / amie",
-          "ami",
-          "amie"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Cours — mots de lecture (Semaine 1)",
-    "key": "kr-voc-cours-mots-de-lecture-semaine-1",
-    "color": "rose",
-    "parent": "kr-vocab",
-    "vocab": [
-      {
-        "ko": "이",
-        "rr": "i",
-        "fr": [
-          "dent"
-        ]
-      },
-      {
-        "ko": "아이",
-        "rr": "ai",
-        "fr": [
-          "enfant"
-        ]
-      },
-      {
-        "ko": "오이",
-        "rr": "oi",
-        "fr": [
-          "concombre"
-        ]
-      },
-      {
-        "ko": "우유",
-        "rr": "uyu",
-        "fr": [
-          "lait"
-        ]
-      },
-      {
-        "ko": "여우",
-        "rr": "yeou",
-        "fr": [
-          "renard"
-        ]
-      },
-      {
-        "ko": "유아",
-        "rr": "yua",
-        "fr": [
-          "jeune enfant / nourrisson",
-          "jeune enfant",
-          "nourrisson"
-        ]
-      },
-      {
-        "ko": "여유",
-        "rr": "yeoyu",
-        "fr": [
-          "marge / aisance",
-          "marge",
-          "aisance"
-        ]
-      },
-      {
-        "ko": "가구",
-        "rr": "gagu",
-        "fr": [
-          "meuble / mobilier",
-          "meuble",
-          "mobilier"
-        ]
-      },
-      {
-        "ko": "나비",
-        "rr": "nabi",
-        "fr": [
-          "papillon"
-        ]
-      },
-      {
-        "ko": "바나나",
-        "rr": "banana",
-        "fr": [
-          "banane"
-        ]
-      },
-      {
-        "ko": "가수",
-        "rr": "gasu",
-        "fr": [
-          "chanteur / chanteuse",
-          "chanteur",
-          "chanteuse"
-        ]
-      },
-      {
-        "ko": "아기",
-        "rr": "agi",
-        "fr": [
-          "bébé"
-        ]
-      },
-      {
-        "ko": "라디오",
-        "rr": "radio",
-        "fr": [
-          "radio"
-        ]
-      },
-      {
-        "ko": "고기",
-        "rr": "gogi",
-        "fr": [
-          "viande"
-        ]
-      },
-      {
-        "ko": "구두",
-        "rr": "gudu",
-        "fr": [
-          "chaussures (habillées)",
-          "chaussures"
-        ]
-      },
-      {
-        "ko": "누나",
-        "rr": "nuna",
-        "fr": [
-          "grande sœur (d'un homme)",
-          "grande sœur"
-        ]
-      },
-      {
-        "ko": "다리",
-        "rr": "dari",
-        "fr": [
-          "jambe / pont",
-          "jambe",
-          "pont"
-        ]
-      },
-      {
-        "ko": "요리",
-        "rr": "yori",
-        "fr": [
-          "cuisine / plat",
-          "cuisine",
-          "plat"
-        ]
-      },
-      {
-        "ko": "나라",
-        "rr": "nara",
-        "fr": [
-          "pays"
-        ]
-      },
-      {
-        "ko": "머리",
-        "rr": "meori",
-        "fr": [
-          "tête / cheveux",
-          "tête",
-          "cheveux"
-        ]
-      },
-      {
-        "ko": "오후",
-        "rr": "ohu",
-        "fr": [
-          "après-midi"
-        ]
-      },
-      {
-        "ko": "나무",
-        "rr": "namu",
-        "fr": [
-          "arbre"
-        ]
-      },
-      {
-        "ko": "회사",
-        "rr": "hoesa",
-        "fr": [
-          "entreprise"
-        ]
-      },
-      {
-        "ko": "소스",
-        "rr": "soseu",
-        "fr": [
-          "sauce"
-        ]
-      },
-      {
-        "ko": "호수",
-        "rr": "hosu",
-        "fr": [
-          "lac"
-        ]
-      },
-      {
-        "ko": "허리",
-        "rr": "heori",
-        "fr": [
-          "taille (du corps)",
-          "taille"
-        ]
-      },
-      {
-        "ko": "노루",
-        "rr": "noru",
-        "fr": [
-          "chevreuil"
-        ]
-      },
-      {
-        "ko": "하다",
-        "rr": "hada",
-        "fr": [
-          "faire"
-        ]
-      },
-      {
-        "ko": "벼루",
-        "rr": "byeoru",
-        "fr": [
-          "pierre à encre"
-        ]
-      },
-      {
-        "ko": "호두",
-        "rr": "hodu",
-        "fr": [
-          "noix"
-        ]
-      },
-      {
-        "ko": "기러기",
-        "rr": "gireogi",
-        "fr": [
-          "oie sauvage"
-        ]
-      },
-      {
-        "ko": "미리",
-        "rr": "miri",
-        "fr": [
-          "à l'avance"
-        ]
-      },
-      {
-        "ko": "그리기",
-        "rr": "geurigi",
-        "fr": [
-          "dessin (action de dessiner)",
-          "dessin"
-        ]
-      },
-      {
-        "ko": "두부",
-        "rr": "dubu",
-        "fr": [
-          "tofu"
         ]
       }
     ]
