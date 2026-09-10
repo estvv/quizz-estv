@@ -9327,13 +9327,14 @@
     "key": "kr-vocab",
     "color": "rose",
     "parent": "kr",
-    "lesson": "# Vocabulaire coréen\n\n## Pronoms\n\n- je / moi (familier) = 나 = na\n- je / moi (poli) = 저 = jeo\n- je... (avec particule de thème) = 저는 = jeo-neun\n- tu (familier) = 너 = neo\n- nous / notre = 우리 = u-ri\n- mon (poli) = 제 = je\n- mon (familier) = 내 = nae\n\n## Verbes\n\n- faire = 하다 = ha-da\n- être / y avoir / avoir = 있다 = it-da\n- ne pas être / ne pas avoir = 없다 = eop-da\n- aller = 가다 = ga-da\n- venir = 오다 = o-da\n- voir / regarder = 보다 = bo-da\n- manger = 먹다 = meok-da\n- boire = 마시다 = ma-si-da\n- aimer = 좋아하다 = jo-a-ha-da\n- avoir besoin = 필요하다 = pi-ryo-ha-da\n- donner = 주다 = ju-da\n- recevoir = 받다 = bat-da\n- avoir faim = 배고프다 = bae-go-peu-da\n- penser = 생각하다 = saeng-gak-ha-da\n- écrire / utiliser = 쓰다 = sseu-da\n\n## Adjectifs\n\n- être bien / aimer = 좋다 = jo-ta\n- être petit = 작다 = jak-da\n- y avoir beaucoup / être nombreux = 많다 = man-ta\n- y avoir peu = 적다 = jeok-da\n- être joli = 예쁘다 = ye-ppeu-da\n- être bon (goût) / délicieux = 맛있다 = ma-sit-da\n- être occupé = 바쁘다 = ba-ppeu-da\n- être facile = 쉽다 = swip-da\n- être difficile = 어렵다 = eo-ryeop-da\n- chaud (au toucher) = 뜨겁다 = tteu-geop-da\n- chaud (météo) = 덥다 = deop-da\n- cher = 비싸다 = bi-ssa-da\n- grand = 크다 = keu-da\n- lourd = 무겁다 = mu-geop-da\n- épicé = 맵다 = maep-da\n- sucré = 달다 = dal-da\n- mignon = 귀엽다 = gwi-yeop-da\n- froid (météo) = 춥다 = chup-da\n- être salé = 짜다 = jja-da\n\n## Mots utiles & liaisons\n\n- oui = 네 = ne\n- oui (plus formel) = 예 = ye\n- non = 아니요 = a-ni-yo\n- et / avec (oral) = (이)랑 = rang\n- et (entre noms) = 하고 = ha-go\n- ou (particule) = (이)나 = na\n- ou (début de phrase) = 또는 = tto-neun\n- mais = 그런데 = geu-reon-de\n- vraiment = 정말 = jeong-mal\n- beaucoup = 많이 = ma-ni\n- un peu = 조금 = jo-geum\n- maintenant = 지금 = ji-geum\n- ensemble = 같이 = ga-chi\n- combien / combien de = 몇 = myeot\n- c'est / ce sont (copule) = 이에요 / 예요 = ieyo\n- ceci = 이것 = i-geot\n- particule de thème = 은 / 는 = eun\n- pourquoi = 왜 = wae\n- dehors / extérieur = 밖 = bak\n- devant = 앞 = ap\n- à côté = 옆 = yeop\n\n## Politesse\n\n- bonjour = 안녕하세요 = an-nyeong-ha-se-yo\n- merci (formel) = 감사합니다 = gam-sa-ham-ni-da\n- merci (neutre) = 고맙습니다 = go-map-seum-ni-da\n- désolé (formel) = 죄송합니다 = joe-song-ham-ni-da\n- ça va / pas grave = 괜찮아요 = gwaen-cha-na-yo\n- s'il vous plaît (demande) = 부탁합니다 = bu-tak-ham-ni-da\n- s'il vous plaît (donnez-moi) = 주세요 = ju-se-yo\n- enchanté = 반가워요 = ban-ga-wo-yo\n- suffixe de nom (M. / Mme) = 씨 = ssi\n- je t'aime = 사랑해요 = sa-rang-hae-yo\n- joyeux anniversaire = 생일 축하해요 = saengil chukahaeyo\n\n## Boissons\n\n- café = 커피 = keo-pi\n- thé = 차 = cha\n- eau = 물 = mul\n- bière = 맥주 = maek-ju\n- jus = 주스 = ju-seu\n- lait = 우유 = u-yu\n- bubble tea = 버블티 = beo-beul-ti\n\n## Aliments\n\n- riz / repas = 밥 = bap\n- pain = 빵 = ppang\n- viande = 고기 = go-gi\n- poulet frit = 치킨 = chi-kin\n- kimchi = 김치 = gim-chi\n- soupe = 국 = guk\n- fruit = 과일 = gwa-il\n- pomme = 사과 = sa-gwa\n- ramen / nouilles instantanées = 라면 = ra-myeon\n- poisson (aliment) = 생선 = saeng-seon\n- légume = 채소 = chae-so\n- gâteau = 케이크 = ke-i-keu\n- bingsu = 빙수 = bing-su\n- tofu = 두부 = du-bu\n- canard grillé = 오리구이 = o-ri-gu-i\n- raviolis / boulettes = 만두 = man-du\n- ragoût = 찌개 = jji-gae\n- kimbap (riz roulé dans l'algue) = 김밥 = gim-bap\n- bœuf mariné sauce soja = 불고기 = bul-go-gi\n- poitrine de porc grillée = 삼겹살 = sam-gyeop-sal\n- galbitang (soupe de côtes de bœuf) = 갈비탕 = gal-bi-tang\n- nourriture = 음식 = eum-sik\n- raisin = 포도 = po-do\n- tomate = 토마토 = to-ma-to\n- gâteau sec / friandise = 과자 = gwa-ja\n- riz (cru) = 쌀 = ssal\n- goût / saveur = 맛 = mat\n\n## Animaux\n\n- canard = 오리 = o-ri\n- chat = 고양이 = go-yang-i\n- chien = 개 = gae\n- souris (animal) = 쥐 = jwi\n- lapin = 토끼 = to-kki\n- cochon = 돼지 = dwae-ji\n- cheval = 말 = mal\n- queue (d'animal) = 꼬리 = kko-ri\n\n## Lieux\n\n- maison = 집 = jip\n- école = 학교 = hak-gyo\n- entreprise = 회사 = hoe-sa\n- marché = 시장 = si-jang\n- restaurant = 식당 = sik-dang\n- café (lieu) = 카페 = ka-pe\n- hôpital = 병원 = byeong-won\n- magasin / boutique = 가게 = ga-ge\n- bibliothèque = 도서관 = do-seo-gwan\n- salle de classe = 교실 = gyo-sil\n- librairie = 서점 = seo-jeom\n- université = 대학 = dae-hak\n- usine = 공장 = gong-jang\n- chambre / pièce = 방 = bang\n- cuisine (pièce) = 부엌 = bu-eok\n- ville natale = 고향 = go-hyang\n- route / chemin / rue = 길 = gil\n- Séoul = 서울 = seo-ul\n\n## Temps & quotidien\n\n- temps / heure = 시간 = si-gan\n- une journée = 하루 = ha-ru\n- jour = 날 = nal\n- aujourd'hui = 오늘 = o-neul\n- demain = 내일 = nae-il\n- hier = 어제 = eo-je\n- anniversaire = 생일 = saeng-il\n- âge (compteur « …ans ») = 살 = sal\n- âge = 나이 = na-i\n- bientôt = 곧 = got\n- printemps = 봄 = bom\n- automne = 가을 = ga-eul\n- journée / midi = 낮 = nat\n\n## Objets\n\n- montre / horloge = 시계 = si-gye\n- cadeau = 선물 = seon-mul\n- téléphone portable = 핸드폰 = haen-deu-pon\n- sac = 가방 = ga-bang\n- portefeuille = 지갑 = ji-gap\n- livre = 책 = chaek\n- stylo = 볼펜 = bol-pen\n- souris (ordinateur) = 마우스 = ma-u-seu\n- ordinateur = 컴퓨터 = keom-pyu-teo\n- appareil photo = 카메라 = ka-me-ra\n- collier = 목걸이 = mok-geo-ri\n- chaise = 의자 = ui-ja\n- pinceau = 붓 = but\n- tasse / gobelet = 컵 = keop\n- train = 기차 = gi-cha\n- chanson = 노래 = no-rae\n- histoire / récit = 이야기 = i-ya-gi\n- argent = 돈 = don\n- médicament = 약 = yak\n\n## Couleurs\n\n- blanc = 하얀색 = ha-yan-saek\n- gris = 회색 = hoe-saek\n- noir = 검은색 = geo-meun-saek\n- rouge = 빨간색 = ppal-gan-saek\n- bleu = 파란색 = pa-ran-saek\n- jaune = 노란색 = no-ran-saek\n- vert = 초록색 = cho-rok-saek\n\n## Métiers\n\n- employé de bureau = 회사원 = hoe-sa-won\n- peintre = 화가 = hwa-ga\n- médecin = 의사 = ui-sa\n- serveur = 웨이터 = we-i-teo\n- professeur = 선생님 = seon-saeng-nim\n- patron = 사장님 = sa-jang-nim\n\n## Pays & nationalités\n\n- États-Unis = 미국 = mi-guk\n- Corée = 한국 = han-guk\n- Chine = 중국 = jung-guk\n- France = 프랑스 = peu-rang-seu\n\n## Nombres — coréens natifs\n\n- un = 하나 = ha-na\n- deux = 둘 = dul\n- trois = 셋 = set\n- quatre = 넷 = net\n- cinq = 다섯 = da-seot\n- six = 여섯 = yeo-seot\n- sept = 일곱 = il-gop\n- huit = 여덟 = yeo-deol\n- neuf = 아홉 = a-hop\n- dix = 열 = yeol\n- onze = 열하나 = yeol-ha-na\n- quinze = 열다섯 = yeol-da-seot\n- dix-neuf = 열아홉 = yeo-ra-hop\n- vingt = 스물 = seu-mul\n- trente = 서른 = seo-reun\n- quarante = 마흔 = ma-heun\n- cinquante = 쉰 = swin\n- soixante = 예순 = ye-sun\n- soixante-dix = 일흔 = il-heun\n- quatre-vingts = 여든 = yeo-deun\n- quatre-vingt-dix = 아흔 = a-heun\n\n## Nombres — sino-coréens\n\n- un = 일 = il\n- deux = 이 = i\n- trois = 삼 = sam\n- quatre = 사 = sa\n- cinq = 오 = o\n- six = 육 = yuk\n- sept = 칠 = chil\n- huit = 팔 = pal\n- neuf = 구 = gu\n- dix = 십 = sip\n- vingt = 이십 = i-sip\n- cent = 백 = baek\n- mille = 천 = cheon\n- dix mille = 만 = man\n- zéro = 영 / 공 = yeong\n\n## Famille\n\n- ami(e) = 친구 = chin-gu\n- grande sœur (dit par un homme) = 누나 = nu-na\n- grande sœur (dit par une femme) = 언니 = eon-ni\n- grand frère (dit par un homme) = 형 = hyeong\n- grand frère (dit par une femme) = 오빠 = o-ppa\n- cadet(te) (frère ou sœur) = 동생 = dong-saeng\n- petite sœur = 여동생 = yeo-dong-saeng\n- petit frère = 남동생 = nam-dong-saeng\n- papa = 아빠 = a-ppa\n\n## Corps & santé\n\n- tête / cheveux = 머리 = meo-ri\n- œil / neige = 눈 = nun\n- nez = 코 = ko\n- oreille = 귀 = gwi\n- bouche = 입 = ip\n- rhume = 감기 = gam-gi\n\n## Vêtements\n\n- vêtement(s) = 옷 = ot\n- jupe = 치마 = chi-ma\n- serre-tête / bandeau = 머리띠 = meo-ri-tti\n\n## Nature\n\n- fleuve / rivière = 강 = gang\n- forêt = 숲 = sup\n- champ (cultivé) = 밭 = bat\n- fleur = 꽃 = kkot\n- arbre = 나무 = na-mu\n\n## Phrases utiles\n\n- je mange (du riz) = 밥을 먹어요 = babeul meogeoyo\n- je bois du café = 커피 마셔요 = keopi masyeoyo\n- il y a de l'eau = 물이 있어요 = muri isseoyo\n- donnez-moi de l'eau = 물 주세요 = mul juseyo\n- je vais à la maison = 집에 가요 = jibe gayo\n- j'ai un ami = 친구가 있어요 = chinguga isseoyo\n- aujourd'hui je suis occupé = 오늘 바빠요 = oneul bappayo\n- c'est vraiment bon = 정말 맛있어요 = jeongmal masisseoyo\n- cette maison est grande = 이 집이 커요 = i jibi keoyo\n- le repas est bon = 밥이 맛있어요 = babi masisseoyo\n- je t'aime = 사랑해요 = sa-rang-hae-yo\n- je suis français(e) = 저는 프랑스 사람이에요 = jeoneun peurangseu saramieyo\n- joyeux anniversaire = 생일 축하해요 = saengil chukahaeyo\n- c'est comment ? / qu'en penses-tu ? = 어때요 = eo-ttae-yo\n\n## Insultes\n\n- idiot / imbécile = 바보 = ba-bo\n- crétin / abruti = 멍청이 = meong-cheong-i\n- t'es fou ? / t'es malade ? = 미쳤어? = mi-chyeo-sseo\n- dégage / casse-toi = 꺼져 = kkeo-jyeo\n- ferme-la = 닥쳐 = dak-chyeo\n- fils de pute = 개새끼 = gae-sae-kki\n\n## Noms propres (entraînement à la lecture)\n\n- Esteve = 에스테브 = e-seu-te-beu\n- Manon = 마농 = ma-non\n\n## Hangeul — premiers mots\n\n- Corée = 한국 = han-guk\n- école = 학교 = hak-gyo\n- kimchi = 김치 = gim-chi\n- salut / bonjour = 안녕 = an-nyeong\n- merci = 감사 = gam-sa\n- eau = 물 = mul\n- riz / repas = 밥 = bap\n- pomme = 사과 = sa-gwa\n- café = 커피 = keo-pi\n- ami / amie = 친구 = chin-gu\n"
+    "lesson": "# Vocabulaire coréen\n\n## Pronoms\n\n- 나 = na = [na] = je / moi (familier)\n- 저 = jeo = [tjo] = je / moi (poli)\n- 저는 = jeo-neun = [tjo-nen] = je... (avec particule de thème)\n- 너 = neo = [no] = tu (familier)\n- 우리 = u-ri = [ou-ri] = nous / notre\n- 제 = je = [tjé] = mon (poli)\n- 내 = nae = [nè] = mon (familier)\n\n## Verbes\n\n- 하다 = ha-da = [ha-da] = faire\n- 있다 = it-da = [it-ta] = être / y avoir / avoir\n- 없다 = eop-da = [op-ta] = ne pas être / ne pas avoir\n- 가다 = ga-da = [ka-da] = aller\n- 오다 = o-da = [o-da] = venir\n- 보다 = bo-da = [po-da] = voir / regarder\n- 먹다 = meok-da = [mok-ta] = manger\n- 마시다 = ma-si-da = [ma-chi-da] = boire\n- 좋아하다 = jo-a-ha-da = [tjo-a-ha-da] = aimer\n- 필요하다 = pi-ryo-ha-da = [phi-ryo-ha-da] = avoir besoin\n- 주다 = ju-da = [tjou-da] = donner\n- 받다 = bat-da = [pat-ta] = recevoir\n- 배고프다 = bae-go-peu-da = [pè-go-phe-da] = avoir faim\n- 생각하다 = saeng-gak-ha-da = [sèng-gak-ha-da] = penser\n- 쓰다 = sseu-da = [sse-da] = écrire / utiliser\n\n## Adjectifs\n\n- 좋다 = jo-ta = [tjo-tha] = être bien / aimer\n- 작다 = jak-da = [tjak-ta] = être petit\n- 많다 = man-ta = [man-tha] = y avoir beaucoup / être nombreux\n- 적다 = jeok-da = [tjok-ta] = y avoir peu\n- 예쁘다 = ye-ppeu-da = [yé-ppe-da] = être joli\n- 맛있다 = ma-sit-da = [ma-chit-ta] = être bon (goût) / délicieux\n- 바쁘다 = ba-ppeu-da = [pa-ppe-da] = être occupé\n- 쉽다 = swip-da = [chwip-ta] = être facile\n- 어렵다 = eo-ryeop-da = [o-ryop-ta] = être difficile\n- 뜨겁다 = tteu-geop-da = [tte-gop-ta] = chaud (au toucher)\n- 덥다 = deop-da = [top-ta] = chaud (météo)\n- 비싸다 = bi-ssa-da = [pi-ssa-da] = cher\n- 크다 = keu-da = [khe-da] = grand\n- 무겁다 = mu-geop-da = [mou-gop-ta] = lourd\n- 맵다 = maep-da = [mèp-ta] = épicé\n- 달다 = dal-da = [tal-da] = sucré\n- 귀엽다 = gwi-yeop-da = [kwi-yop-ta] = mignon\n- 춥다 = chup-da = [tchoup-ta] = froid (météo)\n- 짜다 = jja-da = [ttja-da] = être salé\n\n## Mots utiles & liaisons\n\n- 네 = ne = [né] = oui\n- 예 = ye = [yé] = oui (plus formel)\n- 아니요 = a-ni-yo = [a-ni-yo] = non\n- (이)랑 = rang = [rang] = et / avec (oral)\n- 하고 = ha-go = [ha-go] = et (entre noms)\n- (이)나 = na = [na] = ou (particule)\n- 또는 = tto-neun = [tto-nen] = ou (début de phrase)\n- 그런데 = geu-reon-de = [ke-ron-dé] = mais\n- 정말 = jeong-mal = [tjong-mal] = vraiment\n- 많이 = ma-ni = [ma-ni] = beaucoup\n- 조금 = jo-geum = [tjo-gem] = un peu\n- 지금 = ji-geum = [tji-gem] = maintenant\n- 같이 = ga-chi = [ka-tchi] = ensemble\n- 몇 = myeot = [myot] = combien / combien de\n- 이에요 / 예요 = ieyo = [ieyo] = c'est / ce sont (copule)\n- 이것 = i-geot = [i-got] = ceci\n- 은 / 는 = eun = [en] = particule de thème\n- 왜 = wae = [wè] = pourquoi\n- 밖 = bak = [pak] = dehors / extérieur\n- 앞 = ap = [ap] = devant\n- 옆 = yeop = [yop] = à côté\n\n## Politesse\n\n- 안녕하세요 = an-nyeong-ha-se-yo = [an-nyong-ha-sé-yo] = bonjour\n- 감사합니다 = gam-sa-ham-ni-da = [kam-sa-ham-ni-da] = merci (formel)\n- 고맙습니다 = go-map-seum-ni-da = [ko-map-sem-ni-da] = merci (neutre)\n- 죄송합니다 = joe-song-ham-ni-da = [tjwé-song-ham-ni-da] = désolé (formel)\n- 괜찮아요 = gwaen-cha-na-yo = [kwèn-tcha-na-yo] = ça va / pas grave\n- 부탁합니다 = bu-tak-ham-ni-da = [pou-thak-ham-ni-da] = s'il vous plaît (demande)\n- 주세요 = ju-se-yo = [tjou-sé-yo] = s'il vous plaît (donnez-moi)\n- 반가워요 = ban-ga-wo-yo = [pan-ga-wo-yo] = enchanté\n- 씨 = ssi = [chi] = suffixe de nom (M. / Mme)\n- 사랑해요 = sa-rang-hae-yo = [sa-rang-hè-yo] = je t'aime\n- 생일 축하해요 = saengil chukahaeyo = [sèngil chukahaeyo] = joyeux anniversaire\n\n## Boissons\n\n- 커피 = keo-pi = [kho-phi] = café\n- 차 = cha = [tcha] = thé\n- 물 = mul = [moul] = eau\n- 맥주 = maek-ju = [mèk-tjou] = bière\n- 주스 = ju-seu = [tjou-se] = jus\n- 우유 = u-yu = [ou-you] = lait\n- 버블티 = beo-beul-ti = [po-bel-thi] = bubble tea\n\n## Aliments\n\n- 밥 = bap = [pap] = riz / repas\n- 빵 = ppang = [ppang] = pain\n- 고기 = go-gi = [ko-gi] = viande\n- 치킨 = chi-kin = [tchi-khin] = poulet frit\n- 김치 = gim-chi = [kim-tchi] = kimchi\n- 국 = guk = [kouk] = soupe\n- 과일 = gwa-il = [kwa-il] = fruit\n- 사과 = sa-gwa = [sa-gwa] = pomme\n- 라면 = ra-myeon = [ra-myon] = ramen / nouilles instantanées\n- 생선 = saeng-seon = [sèng-son] = poisson (aliment)\n- 채소 = chae-so = [tchè-so] = légume\n- 케이크 = ke-i-keu = [khé-i-khe] = gâteau\n- 빙수 = bing-su = [ping-sou] = bingsu\n- 두부 = du-bu = [tou-bou] = tofu\n- 오리구이 = o-ri-gu-i = [o-ri-gou-i] = canard grillé\n- 만두 = man-du = [man-dou] = raviolis / boulettes\n- 찌개 = jji-gae = [ttji-gè] = ragoût\n- 김밥 = gim-bap = [kim-bap] = kimbap (riz roulé dans l'algue)\n- 불고기 = bul-go-gi = [poul-go-gi] = bœuf mariné sauce soja\n- 삼겹살 = sam-gyeop-sal = [sam-gyop-sal] = poitrine de porc grillée\n- 갈비탕 = gal-bi-tang = [kal-bi-thang] = galbitang (soupe de côtes de bœuf)\n- 음식 = eum-sik = [em-chik] = nourriture\n- 포도 = po-do = [pho-do] = raisin\n- 토마토 = to-ma-to = [tho-ma-tho] = tomate\n- 과자 = gwa-ja = [kwa-dja] = gâteau sec / friandise\n- 쌀 = ssal = [ssal] = riz (cru)\n- 맛 = mat = [mat] = goût / saveur\n\n## Animaux\n\n- 오리 = o-ri = [o-ri] = canard\n- 고양이 = go-yang-i = [ko-yang-i] = chat\n- 개 = gae = [kè] = chien\n- 쥐 = jwi = [tjwi] = souris (animal)\n- 토끼 = to-kki = [tho-kki] = lapin\n- 돼지 = dwae-ji = [twè-dji] = cochon\n- 말 = mal = [mal] = cheval\n- 꼬리 = kko-ri = [kko-ri] = queue (d'animal)\n\n## Lieux\n\n- 집 = jip = [tjip] = maison\n- 학교 = hak-gyo = [hak-kyo] = école\n- 회사 = hoe-sa = [hwé-sa] = entreprise\n- 시장 = si-jang = [chi-djang] = marché\n- 식당 = sik-dang = [chik-tang] = restaurant\n- 카페 = ka-pe = [kha-phé] = café (lieu)\n- 병원 = byeong-won = [pyong-won] = hôpital\n- 가게 = ga-ge = [ka-gé] = magasin / boutique\n- 도서관 = do-seo-gwan = [to-so-gwan] = bibliothèque\n- 교실 = gyo-sil = [kyo-chil] = salle de classe\n- 서점 = seo-jeom = [so-djom] = librairie\n- 대학 = dae-hak = [tè-hak] = université\n- 공장 = gong-jang = [kong-djang] = usine\n- 방 = bang = [pang] = chambre / pièce\n- 부엌 = bu-eok = [pou-ok] = cuisine (pièce)\n- 고향 = go-hyang = [ko-hyang] = ville natale\n- 길 = gil = [kil] = route / chemin / rue\n- 서울 = seo-ul = [so-oul] = Séoul\n\n## Temps & quotidien\n\n- 시간 = si-gan = [chi-gan] = temps / heure\n- 하루 = ha-ru = [ha-rou] = une journée\n- 날 = nal = [nal] = jour\n- 오늘 = o-neul = [o-nel] = aujourd'hui\n- 내일 = nae-il = [nè-il] = demain\n- 어제 = eo-je = [o-djé] = hier\n- 생일 = saeng-il = [sèng-il] = anniversaire\n- 살 = sal = [sal] = âge (compteur « …ans »)\n- 나이 = na-i = [na-i] = âge\n- 곧 = got = [kot] = bientôt\n- 봄 = bom = [pom] = printemps\n- 가을 = ga-eul = [ka-el] = automne\n- 낮 = nat = [nat] = journée / midi\n\n## Objets\n\n- 시계 = si-gye = [chi-gyé] = montre / horloge\n- 선물 = seon-mul = [son-moul] = cadeau\n- 핸드폰 = haen-deu-pon = [hèn-de-phon] = téléphone portable\n- 가방 = ga-bang = [ka-bang] = sac\n- 지갑 = ji-gap = [tji-gap] = portefeuille\n- 책 = chaek = [tchèk] = livre\n- 볼펜 = bol-pen = [pol-phén] = stylo\n- 마우스 = ma-u-seu = [ma-ou-se] = souris (ordinateur)\n- 컴퓨터 = keom-pyu-teo = [khom-phyou-tho] = ordinateur\n- 카메라 = ka-me-ra = [kha-mé-ra] = appareil photo\n- 목걸이 = mok-geo-ri = [mok-ko-ri] = collier\n- 의자 = ui-ja = [eui-dja] = chaise\n- 붓 = but = [pout] = pinceau\n- 컵 = keop = [khop] = tasse / gobelet\n- 기차 = gi-cha = [ki-tcha] = train\n- 노래 = no-rae = [no-rè] = chanson\n- 이야기 = i-ya-gi = [i-ya-gi] = histoire / récit\n- 돈 = don = [ton] = argent\n- 약 = yak = [yak] = médicament\n\n## Couleurs\n\n- 하얀색 = ha-yan-saek = [ha-yan-sèk] = blanc\n- 회색 = hoe-saek = [hwé-sèk] = gris\n- 검은색 = geo-meun-saek = [ko-men-sèk] = noir\n- 빨간색 = ppal-gan-saek = [ppal-gan-sèk] = rouge\n- 파란색 = pa-ran-saek = [pha-ran-sèk] = bleu\n- 노란색 = no-ran-saek = [no-ran-sèk] = jaune\n- 초록색 = cho-rok-saek = [tcho-rok-sèk] = vert\n\n## Métiers\n\n- 회사원 = hoe-sa-won = [hwé-sa-won] = employé de bureau\n- 화가 = hwa-ga = [hwa-ga] = peintre\n- 의사 = ui-sa = [eui-sa] = médecin\n- 웨이터 = we-i-teo = [wé-i-tho] = serveur\n- 선생님 = seon-saeng-nim = [son-sèng-nim] = professeur\n- 사장님 = sa-jang-nim = [sa-djang-nim] = patron\n\n## Pays & nationalités\n\n- 미국 = mi-guk = [mi-gouk] = États-Unis\n- 한국 = han-guk = [han-gouk] = Corée\n- 중국 = jung-guk = [tjoung-gouk] = Chine\n- 프랑스 = peu-rang-seu = [phe-rang-se] = France\n\n## Nombres — coréens natifs\n\n- 하나 = ha-na = [ha-na] = un\n- 둘 = dul = [toul] = deux\n- 셋 = set = [sét] = trois\n- 넷 = net = [nét] = quatre\n- 다섯 = da-seot = [ta-sot] = cinq\n- 여섯 = yeo-seot = [yo-sot] = six\n- 일곱 = il-gop = [il-gop] = sept\n- 여덟 = yeo-deol = [yo-dol] = huit\n- 아홉 = a-hop = [a-hop] = neuf\n- 열 = yeol = [yol] = dix\n- 열하나 = yeol-ha-na = [yol-ha-na] = onze\n- 열다섯 = yeol-da-seot = [yol-da-sot] = quinze\n- 열아홉 = yeo-ra-hop = [yo-ra-hop] = dix-neuf\n- 스물 = seu-mul = [se-moul] = vingt\n- 서른 = seo-reun = [so-ren] = trente\n- 마흔 = ma-heun = [ma-hen] = quarante\n- 쉰 = swin = [chwin] = cinquante\n- 예순 = ye-sun = [yé-soun] = soixante\n- 일흔 = il-heun = [il-hen] = soixante-dix\n- 여든 = yeo-deun = [yo-den] = quatre-vingts\n- 아흔 = a-heun = [a-hen] = quatre-vingt-dix\n\n## Nombres — sino-coréens\n\n- 일 = il = [il] = un\n- 이 = i = [i] = deux\n- 삼 = sam = [sam] = trois\n- 사 = sa = [sa] = quatre\n- 오 = o = [o] = cinq\n- 육 = yuk = [youk] = six\n- 칠 = chil = [tchil] = sept\n- 팔 = pal = [phal] = huit\n- 구 = gu = [kou] = neuf\n- 십 = sip = [chip] = dix\n- 이십 = i-sip = [i-chip] = vingt\n- 백 = baek = [pèk] = cent\n- 천 = cheon = [tchon] = mille\n- 만 = man = [man] = dix mille\n- 영 / 공 = yeong = [yong] = zéro\n\n## Famille\n\n- 친구 = chin-gu = [tchin-gou] = ami(e)\n- 누나 = nu-na = [nou-na] = grande sœur (dit par un homme)\n- 언니 = eon-ni = [on-ni] = grande sœur (dit par une femme)\n- 형 = hyeong = [hyong] = grand frère (dit par un homme)\n- 오빠 = o-ppa = [o-ppa] = grand frère (dit par une femme)\n- 동생 = dong-saeng = [tong-sèng] = cadet(te) (frère ou sœur)\n- 여동생 = yeo-dong-saeng = [yo-dong-sèng] = petite sœur\n- 남동생 = nam-dong-saeng = [nam-dong-sèng] = petit frère\n- 아빠 = a-ppa = [a-ppa] = papa\n\n## Corps & santé\n\n- 머리 = meo-ri = [mo-ri] = tête / cheveux\n- 눈 = nun = [noun] = œil / neige\n- 코 = ko = [kho] = nez\n- 귀 = gwi = [kwi] = oreille\n- 입 = ip = [ip] = bouche\n- 감기 = gam-gi = [kam-gi] = rhume\n\n## Vêtements\n\n- 옷 = ot = [ot] = vêtement(s)\n- 치마 = chi-ma = [tchi-ma] = jupe\n- 머리띠 = meo-ri-tti = [mo-ri-tti] = serre-tête / bandeau\n\n## Nature\n\n- 강 = gang = [kang] = fleuve / rivière\n- 숲 = sup = [soup] = forêt\n- 밭 = bat = [pat] = champ (cultivé)\n- 꽃 = kkot = [kkot] = fleur\n- 나무 = na-mu = [na-mou] = arbre\n\n## Phrases utiles\n\n- 밥을 먹어요 = babeul meogeoyo = [pabeul meogeoyo] = je mange (du riz)\n- 커피 마셔요 = keopi masyeoyo = [khopi masyeoyo] = je bois du café\n- 물이 있어요 = muri isseoyo = [mouri isseoyo] = il y a de l'eau\n- 물 주세요 = mul juseyo = [moul juseyo] = donnez-moi de l'eau\n- 집에 가요 = jibe gayo = [tjibe gayo] = je vais à la maison\n- 친구가 있어요 = chinguga isseoyo = [tchinguga isseoyo] = j'ai un ami\n- 오늘 바빠요 = oneul bappayo = [oneul bappayo] = aujourd'hui je suis occupé\n- 정말 맛있어요 = jeongmal masisseoyo = [tjongmal masisseoyo] = c'est vraiment bon\n- 이 집이 커요 = i jibi keoyo = [i jibi keoyo] = cette maison est grande\n- 밥이 맛있어요 = babi masisseoyo = [pabi masisseoyo] = le repas est bon\n- 사랑해요 = sa-rang-hae-yo = [sa-rang-hè-yo] = je t'aime\n- 저는 프랑스 사람이에요 = jeoneun peurangseu saramieyo = [tjoneun peurangseu saramieyo] = je suis français(e)\n- 생일 축하해요 = saengil chukahaeyo = [sèngil chukahaeyo] = joyeux anniversaire\n- 어때요 = eo-ttae-yo = [o-ttè-yo] = c'est comment ? / qu'en penses-tu ?\n\n## Insultes\n\n- 바보 = ba-bo = [pa-bo] = idiot / imbécile\n- 멍청이 = meong-cheong-i = [mong-tchong-i] = crétin / abruti\n- 미쳤어? = mi-chyeo-sseo = [mi-tchyo-sso] = t'es fou ? / t'es malade ?\n- 꺼져 = kkeo-jyeo = [kko-djyo] = dégage / casse-toi\n- 닥쳐 = dak-chyeo = [tak-tchyo] = ferme-la\n- 개새끼 = gae-sae-kki = [kè-sè-kki] = fils de pute\n\n## Noms propres (entraînement à la lecture)\n\n- 에스테브 = e-seu-te-beu = [é-se-thé-be] = Esteve\n- 마농 = ma-non = [ma-non] = Manon\n\n## Hangeul — premiers mots\n\n- 한국 = han-guk = [han-gouk] = Corée\n- 학교 = hak-gyo = [hak-kyo] = école\n- 김치 = gim-chi = [kim-tchi] = kimchi\n- 안녕 = an-nyeong = [an-nyong] = salut / bonjour\n- 감사 = gam-sa = [kam-sa] = merci\n- 물 = mul = [moul] = eau\n- 밥 = bap = [pap] = riz / repas\n- 사과 = sa-gwa = [sa-gwa] = pomme\n- 커피 = keo-pi = [kho-phi] = café\n- 친구 = chin-gu = [tchin-gou] = ami / amie\n"
   },
   {
     "name": "Hangeul",
     "key": "kr-hangeul",
     "color": "rose",
     "parent": "kr",
+    "lesson": "# Hangeul — lire et prononcer\n\nChaque case donne la syllabe puis, entre crochets, sa **phonétique approximative\nà la française**. Ce n'est pas de l'API : c'est une béquille pour savoir quoi\ndire à voix haute.\n\nFormat utilisé partout dans l'appli :\n**맥주 = maek-ju = [mèk-tjou] → bière**\n\n## Conventions\n\n| Série | Lettres | Phonétique FR | Exemple |\n|---|---|---|---|\n| non aspirée | ㄱ ㄷ ㅂ ㅈ | **k · t · p · tj** en tête de mot | 가 [ka] · 다 [ta] |\n| non aspirée entre deux sonores | ㄱ ㄷ ㅂ ㅈ | **g · d · b · dj** | 사과 = sa-gwa = [sa-gwa] |\n| aspirée (souffle) | ㅋ ㅌ ㅍ ㅊ | **kh · th · ph · tch** | 카 [kha] · 차 [tcha] |\n| tendue (pincée) | ㄲ ㄸ ㅃ ㅆ ㅉ | **kk · tt · pp · ss · ttj** | 까 [kka] · 빠 [ppa] |\n\nVoyelles à retenir : **ㅜ = ou**, **ㅡ = e** (comme dans « je »), **ㅓ = o**\nouvert, **ㅐ = è**, **ㅔ = é**, **ㅢ = eui**.\n\n## Consonnes (자음)\n\n| Lettre | RR | Phon. FR en tête | Phon. FR en batchim | Exemple |\n|---|---|---|---|---|\n| ㄱ | g / k | k · g entre sonores | k | 가구 = ga-gu = [ka-gou] |\n| ㄲ | kk | kk | k | 꼬리 = kko-ri = [kko-ri] |\n| ㅋ | k | kh | k | 커피 = keo-pi = [kho-phi] |\n| ㄴ | n | n | n | 나라 = na-ra = [na-ra] |\n| ㄷ | d / t | t · d entre sonores | t | 다리 = da-ri = [ta-ri] |\n| ㄸ | tt | tt | — | 머리띠 = meo-ri-tti = [mo-ri-tti] |\n| ㅌ | t | th | t | 토마토 = to-ma-to = [tho-ma-tho] |\n| ㄹ | r / l | r | l | 라디오 = ra-di-o = [ra-di-o] |\n| ㅁ | m | m | m | 머리 = meo-ri = [mo-ri] |\n| ㅂ | b / p | p · b entre sonores | p | 바나나 = ba-na-na = [pa-na-na] |\n| ㅃ | pp | pp | — | 아빠 = a-ppa = [a-ppa] |\n| ㅍ | p | ph | p | 포도 = po-do = [pho-do] |\n| ㅅ | s | s · ch devant i/y | t | 사과 = sa-gwa = [sa-gwa] |\n| ㅆ | ss | ss | t | 쓰다 = sseu-da = [sse-da] |\n| ㅇ | — / ng | muette en tête | ng | 아이 = a-i = [a-i] |\n| ㅈ | j | tj · dj entre sonores | t | 의자 = ui-ja = [eui-dja] |\n| ㅉ | jj | ttj | — | 짜다 = jja-da = [ttja-da] |\n| ㅊ | ch | tch | t | 기차 = gi-cha = [ki-tcha] |\n| ㅎ | h | h (souvent effacé) | t | 호수 = ho-su = [ho-sou] |\n\n## Voyelles (모음)\n\n| Lettre | RR | Phon. FR | Lue seule (avec ㅇ) |\n|---|---|---|---|\n| ㅏ | a | a | 아 [a] |\n| ㅐ | ae | è | 애 [è] |\n| ㅑ | ya | ya | 야 [ya] |\n| ㅒ | yae | yè | 얘 [yè] |\n| ㅓ | eo | o | 어 [o] |\n| ㅔ | e | é | 에 [é] |\n| ㅕ | yeo | yo | 여 [yo] |\n| ㅖ | ye | yé | 예 [yé] |\n| ㅗ | o | o | 오 [o] |\n| ㅘ | wa | wa | 와 [wa] |\n| ㅙ | wae | wè | 왜 [wè] |\n| ㅚ | oe | wé | 외 [wé] |\n| ㅛ | yo | yo | 요 [yo] |\n| ㅜ | u | ou | 우 [ou] |\n| ㅝ | wo | wo | 워 [wo] |\n| ㅞ | we | wé | 웨 [wé] |\n| ㅟ | wi | wi | 위 [wi] |\n| ㅠ | yu | you | 유 [you] |\n| ㅡ | eu | e | 으 [e] |\n| ㅢ | ui | eui | 의 [eui] |\n| ㅣ | i | i | 이 [i] |\n\n## Matrice complète — consonne × voyelle\n\n19 consonnes × 21 voyelles. Le tableau défile horizontalement.\n\n|  | ㅏ a | ㅐ ae | ㅑ ya | ㅒ yae | ㅓ eo | ㅔ e | ㅕ yeo | ㅖ ye | ㅗ o | ㅘ wa | ㅙ wae | ㅚ oe | ㅛ yo | ㅜ u | ㅝ wo | ㅞ we | ㅟ wi | ㅠ yu | ㅡ eu | ㅢ ui | ㅣ i |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| **ㄱ** g | 가 [ka] | 개 [kè] | 갸 [kya] | 걔 [kyè] | 거 [ko] | 게 [ké] | 겨 [kyo] | 계 [kyé] | 고 [ko] | 과 [kwa] | 괘 [kwè] | 괴 [kwé] | 교 [kyo] | 구 [kou] | 궈 [kwo] | 궤 [kwé] | 귀 [kwi] | 규 [kyou] | 그 [ke] | 긔 [keui] | 기 [ki] |\n| **ㄲ** kk | 까 [kka] | 깨 [kkè] | 꺄 [kkya] | 꺠 [kkyè] | 꺼 [kko] | 께 [kké] | 껴 [kkyo] | 꼐 [kkyé] | 꼬 [kko] | 꽈 [kkwa] | 꽤 [kkwè] | 꾀 [kkwé] | 꾜 [kkyo] | 꾸 [kkou] | 꿔 [kkwo] | 꿰 [kkwé] | 뀌 [kkwi] | 뀨 [kkyou] | 끄 [kke] | 끠 [kkeui] | 끼 [kki] |\n| **ㄴ** n | 나 [na] | 내 [nè] | 냐 [nya] | 냬 [nyè] | 너 [no] | 네 [né] | 녀 [nyo] | 녜 [nyé] | 노 [no] | 놔 [nwa] | 놰 [nwè] | 뇌 [nwé] | 뇨 [nyo] | 누 [nou] | 눠 [nwo] | 눼 [nwé] | 뉘 [nwi] | 뉴 [nyou] | 느 [ne] | 늬 [neui] | 니 [ni] |\n| **ㄷ** d | 다 [ta] | 대 [tè] | 댜 [tya] | 댸 [tyè] | 더 [to] | 데 [té] | 뎌 [tyo] | 뎨 [tyé] | 도 [to] | 돠 [twa] | 돼 [twè] | 되 [twé] | 됴 [tyo] | 두 [tou] | 둬 [two] | 뒈 [twé] | 뒤 [twi] | 듀 [tyou] | 드 [te] | 듸 [teui] | 디 [ti] |\n| **ㄸ** tt | 따 [tta] | 때 [ttè] | 땨 [ttya] | 떄 [ttyè] | 떠 [tto] | 떼 [tté] | 뗘 [ttyo] | 뗴 [ttyé] | 또 [tto] | 똬 [ttwa] | 뙈 [ttwè] | 뙤 [ttwé] | 뚀 [ttyo] | 뚜 [ttou] | 뚸 [ttwo] | 뛔 [ttwé] | 뛰 [ttwi] | 뜌 [ttyou] | 뜨 [tte] | 띄 [tteui] | 띠 [tti] |\n| **ㄹ** r | 라 [ra] | 래 [rè] | 랴 [rya] | 럐 [ryè] | 러 [ro] | 레 [ré] | 려 [ryo] | 례 [ryé] | 로 [ro] | 롸 [rwa] | 뢔 [rwè] | 뢰 [rwé] | 료 [ryo] | 루 [rou] | 뤄 [rwo] | 뤠 [rwé] | 뤼 [rwi] | 류 [ryou] | 르 [re] | 릐 [reui] | 리 [ri] |\n| **ㅁ** m | 마 [ma] | 매 [mè] | 먀 [mya] | 먜 [myè] | 머 [mo] | 메 [mé] | 며 [myo] | 몌 [myé] | 모 [mo] | 뫄 [mwa] | 뫠 [mwè] | 뫼 [mwé] | 묘 [myo] | 무 [mou] | 뭐 [mwo] | 뭬 [mwé] | 뮈 [mwi] | 뮤 [myou] | 므 [me] | 믜 [meui] | 미 [mi] |\n| **ㅂ** b | 바 [pa] | 배 [pè] | 뱌 [pya] | 뱨 [pyè] | 버 [po] | 베 [pé] | 벼 [pyo] | 볘 [pyé] | 보 [po] | 봐 [pwa] | 봬 [pwè] | 뵈 [pwé] | 뵤 [pyo] | 부 [pou] | 붜 [pwo] | 붸 [pwé] | 뷔 [pwi] | 뷰 [pyou] | 브 [pe] | 븨 [peui] | 비 [pi] |\n| **ㅃ** pp | 빠 [ppa] | 빼 [ppè] | 뺘 [ppya] | 뺴 [ppyè] | 뻐 [ppo] | 뻬 [ppé] | 뼈 [ppyo] | 뼤 [ppyé] | 뽀 [ppo] | 뽜 [ppwa] | 뽸 [ppwè] | 뾔 [ppwé] | 뾰 [ppyo] | 뿌 [ppou] | 뿨 [ppwo] | 쀄 [ppwé] | 쀠 [ppwi] | 쀼 [ppyou] | 쁘 [ppe] | 쁴 [ppeui] | 삐 [ppi] |\n| **ㅅ** s | 사 [sa] | 새 [sè] | 샤 [chya] | 섀 [chyè] | 서 [so] | 세 [sé] | 셔 [chyo] | 셰 [chyé] | 소 [so] | 솨 [swa] | 쇄 [swè] | 쇠 [swé] | 쇼 [chyo] | 수 [sou] | 숴 [swo] | 쉐 [swé] | 쉬 [chwi] | 슈 [chyou] | 스 [se] | 싀 [seui] | 시 [chi] |\n| **ㅆ** ss | 싸 [ssa] | 쌔 [ssè] | 쌰 [chya] | 썌 [chyè] | 써 [sso] | 쎄 [ssé] | 쎠 [chyo] | 쎼 [chyé] | 쏘 [sso] | 쏴 [sswa] | 쐐 [sswè] | 쐬 [sswé] | 쑈 [chyo] | 쑤 [ssou] | 쒀 [sswo] | 쒜 [sswé] | 쒸 [chwi] | 쓔 [chyou] | 쓰 [sse] | 씌 [sseui] | 씨 [chi] |\n| **ㅇ** — | 아 [a] | 애 [è] | 야 [ya] | 얘 [yè] | 어 [o] | 에 [é] | 여 [yo] | 예 [yé] | 오 [o] | 와 [wa] | 왜 [wè] | 외 [wé] | 요 [yo] | 우 [ou] | 워 [wo] | 웨 [wé] | 위 [wi] | 유 [you] | 으 [e] | 의 [eui] | 이 [i] |\n| **ㅈ** j | 자 [tja] | 재 [tjè] | 쟈 [tjya] | 쟤 [tjyè] | 저 [tjo] | 제 [tjé] | 져 [tjyo] | 졔 [tjyé] | 조 [tjo] | 좌 [tjwa] | 좨 [tjwè] | 죄 [tjwé] | 죠 [tjyo] | 주 [tjou] | 줘 [tjwo] | 줴 [tjwé] | 쥐 [tjwi] | 쥬 [tjyou] | 즈 [tje] | 즤 [tjeui] | 지 [tji] |\n| **ㅉ** jj | 짜 [ttja] | 째 [ttjè] | 쨔 [ttjya] | 쨰 [ttjyè] | 쩌 [ttjo] | 쩨 [ttjé] | 쪄 [ttjyo] | 쪠 [ttjyé] | 쪼 [ttjo] | 쫘 [ttjwa] | 쫴 [ttjwè] | 쬐 [ttjwé] | 쬬 [ttjyo] | 쭈 [ttjou] | 쭤 [ttjwo] | 쮀 [ttjwé] | 쮜 [ttjwi] | 쮸 [ttjyou] | 쯔 [ttje] | 쯰 [ttjeui] | 찌 [ttji] |\n| **ㅊ** ch | 차 [tcha] | 채 [tchè] | 챠 [tchya] | 챼 [tchyè] | 처 [tcho] | 체 [tché] | 쳐 [tchyo] | 쳬 [tchyé] | 초 [tcho] | 촤 [tchwa] | 쵀 [tchwè] | 최 [tchwé] | 쵸 [tchyo] | 추 [tchou] | 춰 [tchwo] | 췌 [tchwé] | 취 [tchwi] | 츄 [tchyou] | 츠 [tche] | 츼 [tcheui] | 치 [tchi] |\n| **ㅋ** k | 카 [kha] | 캐 [khè] | 캬 [khya] | 컈 [khyè] | 커 [kho] | 케 [khé] | 켜 [khyo] | 켸 [khyé] | 코 [kho] | 콰 [khwa] | 쾌 [khwè] | 쾨 [khwé] | 쿄 [khyo] | 쿠 [khou] | 쿼 [khwo] | 퀘 [khwé] | 퀴 [khwi] | 큐 [khyou] | 크 [khe] | 킈 [kheui] | 키 [khi] |\n| **ㅌ** t | 타 [tha] | 태 [thè] | 탸 [thya] | 턔 [thyè] | 터 [tho] | 테 [thé] | 텨 [thyo] | 톄 [thyé] | 토 [tho] | 톼 [thwa] | 퇘 [thwè] | 퇴 [thwé] | 툐 [thyo] | 투 [thou] | 퉈 [thwo] | 퉤 [thwé] | 튀 [thwi] | 튜 [thyou] | 트 [the] | 틔 [theui] | 티 [thi] |\n| **ㅍ** p | 파 [pha] | 패 [phè] | 퍄 [phya] | 퍠 [phyè] | 퍼 [pho] | 페 [phé] | 펴 [phyo] | 폐 [phyé] | 포 [pho] | 퐈 [phwa] | 퐤 [phwè] | 푀 [phwé] | 표 [phyo] | 푸 [phou] | 풔 [phwo] | 풰 [phwé] | 퓌 [phwi] | 퓨 [phyou] | 프 [phe] | 픠 [pheui] | 피 [phi] |\n| **ㅎ** h | 하 [ha] | 해 [hè] | 햐 [hya] | 햬 [hyè] | 허 [ho] | 헤 [hé] | 혀 [hyo] | 혜 [hyé] | 호 [ho] | 화 [hwa] | 홰 [hwè] | 회 [hwé] | 효 [hyo] | 후 [hou] | 훠 [hwo] | 훼 [hwé] | 휘 [hwi] | 휴 [hyou] | 흐 [he] | 희 [heui] | 히 [hi] |\n\n## Batchim — les 7 sons\n\nUne consonne en fin de syllabe ne se prononce qu'en sept sons, **bloqués**\n(la bouche prend la position mais ne libère pas l'air).\n\n| Son | Lettres | Phon. FR | Exemple |\n|---|---|---|---|\n| [k] | ㄱ ㅋ ㄲ | k | 부엌 = bu-eok = [pou-ok] |\n| [n] | ㄴ | n | 산 = san = [san] |\n| [t] | ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ | t | 옷 = ot = [ot] |\n| [l] | ㄹ | l | 물 = mul = [moul] |\n| [m] | ㅁ | m | 봄 = bom = [pom] |\n| [p] | ㅂ ㅍ | p | 앞 = ap = [ap] |\n| [ng] | ㅇ | ng | 강 = gang = [kang] |\n\n## Exemples\n\n- 맥주 = maek-ju = [mèk-tjou] → **bière**\n- 커피 = keo-pi = [kho-phi] → **café**\n- 김치 = gim-chi = [kim-tchi] → **kimchi**\n- 학교 = hak-gyo = [hak-kyo] → **école**\n- 친구 = chin-gu = [tchin-gou] → **ami(e)**\n- 사과 = sa-gwa = [sa-gwa] → **pomme**\n- 물 = mul = [moul] → **eau**\n- 안녕하세요 = an-nyeong-ha-se-yo = [an-nyong-ha-sé-yo] → **bonjour**\n- 감사합니다 = gam-sa-ham-ni-da = [kam-sa-ham-ni-da] → **merci**\n- 병원 = byeong-won = [pyong-won] → **hôpital**\n",
     "exercises": [
       {
         "type": "type_answer",
@@ -9343,7 +9344,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅏ = a"
+        "explanation": "ㅏ = a = [a]"
       },
       {
         "type": "mcq",
@@ -9355,7 +9356,7 @@
           "e"
         ],
         "correct": 0,
-        "explanation": "ㅏ se prononce « a »."
+        "explanation": "ㅏ = a = [a]"
       },
       {
         "type": "type_answer",
@@ -9365,7 +9366,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅓ = eo"
+        "explanation": "ㅓ = eo = [o]"
       },
       {
         "type": "mcq",
@@ -9377,7 +9378,7 @@
           "e"
         ],
         "correct": 2,
-        "explanation": "ㅓ se prononce « eo »."
+        "explanation": "ㅓ = eo = [o]"
       },
       {
         "type": "type_answer",
@@ -9387,7 +9388,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅗ = o"
+        "explanation": "ㅗ = o = [o]"
       },
       {
         "type": "mcq",
@@ -9399,7 +9400,7 @@
           "eo"
         ],
         "correct": 1,
-        "explanation": "ㅗ se prononce « o »."
+        "explanation": "ㅗ = o = [o]"
       },
       {
         "type": "type_answer",
@@ -9409,7 +9410,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅜ = u"
+        "explanation": "ㅜ = u = [ou]"
       },
       {
         "type": "mcq",
@@ -9421,7 +9422,7 @@
           "ae"
         ],
         "correct": 2,
-        "explanation": "ㅜ se prononce « u »."
+        "explanation": "ㅜ = u = [ou]"
       },
       {
         "type": "type_answer",
@@ -9431,7 +9432,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅡ = eu"
+        "explanation": "ㅡ = eu = [e]"
       },
       {
         "type": "mcq",
@@ -9443,7 +9444,7 @@
           "eu"
         ],
         "correct": 3,
-        "explanation": "ㅡ se prononce « eu »."
+        "explanation": "ㅡ = eu = [e]"
       },
       {
         "type": "type_answer",
@@ -9453,7 +9454,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅣ = i"
+        "explanation": "ㅣ = i = [i]"
       },
       {
         "type": "mcq",
@@ -9465,7 +9466,7 @@
           "u"
         ],
         "correct": 1,
-        "explanation": "ㅣ se prononce « i »."
+        "explanation": "ㅣ = i = [i]"
       },
       {
         "type": "type_answer",
@@ -9475,7 +9476,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅐ = ae"
+        "explanation": "ㅐ = ae = [è]"
       },
       {
         "type": "mcq",
@@ -9487,7 +9488,7 @@
           "u"
         ],
         "correct": 1,
-        "explanation": "ㅐ se prononce « ae »."
+        "explanation": "ㅐ = ae = [è]"
       },
       {
         "type": "type_answer",
@@ -9497,7 +9498,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅔ = e"
+        "explanation": "ㅔ = e = [é]"
       },
       {
         "type": "mcq",
@@ -9509,7 +9510,7 @@
           "a"
         ],
         "correct": 0,
-        "explanation": "ㅔ se prononce « e »."
+        "explanation": "ㅔ = e = [é]"
       },
       {
         "type": "type_answer",
@@ -9519,7 +9520,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅑ = ya"
+        "explanation": "ㅑ = ya = [ya]"
       },
       {
         "type": "mcq",
@@ -9531,7 +9532,7 @@
           "ye"
         ],
         "correct": 2,
-        "explanation": "ㅑ se prononce « ya »."
+        "explanation": "ㅑ = ya = [ya]"
       },
       {
         "type": "type_answer",
@@ -9541,7 +9542,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅕ = yeo"
+        "explanation": "ㅕ = yeo = [yo]"
       },
       {
         "type": "mcq",
@@ -9553,7 +9554,7 @@
           "ye"
         ],
         "correct": 1,
-        "explanation": "ㅕ se prononce « yeo »."
+        "explanation": "ㅕ = yeo = [yo]"
       },
       {
         "type": "type_answer",
@@ -9563,7 +9564,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅛ = yo"
+        "explanation": "ㅛ = yo = [yo]"
       },
       {
         "type": "mcq",
@@ -9575,7 +9576,7 @@
           "yo"
         ],
         "correct": 3,
-        "explanation": "ㅛ se prononce « yo »."
+        "explanation": "ㅛ = yo = [yo]"
       },
       {
         "type": "type_answer",
@@ -9585,7 +9586,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅠ = yu"
+        "explanation": "ㅠ = yu = [you]"
       },
       {
         "type": "mcq",
@@ -9597,7 +9598,7 @@
           "ye"
         ],
         "correct": 0,
-        "explanation": "ㅠ se prononce « yu »."
+        "explanation": "ㅠ = yu = [you]"
       },
       {
         "type": "type_answer",
@@ -9607,7 +9608,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅒ = yae"
+        "explanation": "ㅒ = yae = [yè]"
       },
       {
         "type": "mcq",
@@ -9619,7 +9620,7 @@
           "yo"
         ],
         "correct": 0,
-        "explanation": "ㅒ se prononce « yae »."
+        "explanation": "ㅒ = yae = [yè]"
       },
       {
         "type": "type_answer",
@@ -9629,7 +9630,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅖ = ye"
+        "explanation": "ㅖ = ye = [yé]"
       },
       {
         "type": "mcq",
@@ -9641,7 +9642,7 @@
           "yu"
         ],
         "correct": 2,
-        "explanation": "ㅖ se prononce « ye »."
+        "explanation": "ㅖ = ye = [yé]"
       },
       {
         "type": "type_answer",
@@ -9651,7 +9652,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅘ = wa"
+        "explanation": "ㅘ = wa = [wa]"
       },
       {
         "type": "mcq",
@@ -9663,51 +9664,53 @@
           "wae"
         ],
         "correct": 0,
-        "explanation": "ㅘ se prononce « wa »."
+        "explanation": "ㅘ = wa = [wa]"
       },
       {
         "type": "type_answer",
         "prompt": "Comment se prononce « ㅙ » ? (romanisation)",
         "accept": [
-          "wae"
+          "wae",
+          "we"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅙ = wae"
+        "explanation": "ㅙ = wae = [wè]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « ㅙ » ?",
         "choices": [
-          "wi",
+          "ui",
           "oe",
           "wae",
           "wa"
         ],
         "correct": 2,
-        "explanation": "ㅙ se prononce « wae »."
+        "explanation": "ㅙ = wae = [wè]"
       },
       {
         "type": "type_answer",
         "prompt": "Comment se prononce « ㅚ » ? (romanisation)",
         "accept": [
-          "oe"
+          "oe",
+          "we"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅚ = oe"
+        "explanation": "ㅚ = oe = [wé]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « ㅚ » ?",
         "choices": [
-          "wo",
+          "wi",
           "oe",
           "ui",
-          "wi"
+          "wo"
         ],
         "correct": 1,
-        "explanation": "ㅚ se prononce « oe »."
+        "explanation": "ㅚ = oe = [wé]"
       },
       {
         "type": "type_answer",
@@ -9717,7 +9720,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅝ = wo"
+        "explanation": "ㅝ = wo = [wo]"
       },
       {
         "type": "mcq",
@@ -9729,7 +9732,7 @@
           "wo"
         ],
         "correct": 3,
-        "explanation": "ㅝ se prononce « wo »."
+        "explanation": "ㅝ = wo = [wo]"
       },
       {
         "type": "type_answer",
@@ -9739,7 +9742,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅞ = we"
+        "explanation": "ㅞ = we = [wé]"
       },
       {
         "type": "mcq",
@@ -9751,7 +9754,7 @@
           "we"
         ],
         "correct": 3,
-        "explanation": "ㅞ se prononce « we »."
+        "explanation": "ㅞ = we = [wé]"
       },
       {
         "type": "type_answer",
@@ -9761,7 +9764,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅟ = wi"
+        "explanation": "ㅟ = wi = [wi]"
       },
       {
         "type": "mcq",
@@ -9773,7 +9776,7 @@
           "wa"
         ],
         "correct": 1,
-        "explanation": "ㅟ se prononce « wi »."
+        "explanation": "ㅟ = wi = [wi]"
       },
       {
         "type": "type_answer",
@@ -9783,7 +9786,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅢ = ui"
+        "explanation": "ㅢ = ui = [eui]"
       },
       {
         "type": "mcq",
@@ -9795,7 +9798,7 @@
           "ui"
         ],
         "correct": 3,
-        "explanation": "ㅢ se prononce « ui »."
+        "explanation": "ㅢ = ui = [eui]"
       },
       {
         "type": "type_answer",
@@ -9807,7 +9810,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㄱ = g"
+        "explanation": "ㄱ = g = [k]"
       },
       {
         "type": "mcq",
@@ -9819,7 +9822,7 @@
           "r"
         ],
         "correct": 2,
-        "explanation": "ㄱ se prononce « g »."
+        "explanation": "ㄱ = g = [k]"
       },
       {
         "type": "type_answer",
@@ -9829,7 +9832,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㄴ = n"
+        "explanation": "ㄴ = n = [n]"
       },
       {
         "type": "mcq",
@@ -9841,7 +9844,7 @@
           "m"
         ],
         "correct": 1,
-        "explanation": "ㄴ se prononce « n »."
+        "explanation": "ㄴ = n = [n]"
       },
       {
         "type": "type_answer",
@@ -9853,7 +9856,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㄷ = d"
+        "explanation": "ㄷ = d = [t]"
       },
       {
         "type": "mcq",
@@ -9865,7 +9868,7 @@
           "h"
         ],
         "correct": 0,
-        "explanation": "ㄷ se prononce « d »."
+        "explanation": "ㄷ = d = [t]"
       },
       {
         "type": "type_answer",
@@ -9877,7 +9880,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㄹ = r"
+        "explanation": "ㄹ = r = [r]"
       },
       {
         "type": "mcq",
@@ -9889,7 +9892,7 @@
           "j"
         ],
         "correct": 1,
-        "explanation": "ㄹ se prononce « r »."
+        "explanation": "ㄹ = r = [r]"
       },
       {
         "type": "type_answer",
@@ -9899,7 +9902,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅁ = m"
+        "explanation": "ㅁ = m = [m]"
       },
       {
         "type": "mcq",
@@ -9911,7 +9914,7 @@
           "h"
         ],
         "correct": 1,
-        "explanation": "ㅁ se prononce « m »."
+        "explanation": "ㅁ = m = [m]"
       },
       {
         "type": "type_answer",
@@ -9923,7 +9926,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅂ = b"
+        "explanation": "ㅂ = b = [p]"
       },
       {
         "type": "mcq",
@@ -9935,7 +9938,7 @@
           "s"
         ],
         "correct": 1,
-        "explanation": "ㅂ se prononce « b »."
+        "explanation": "ㅂ = b = [p]"
       },
       {
         "type": "type_answer",
@@ -9945,7 +9948,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅅ = s"
+        "explanation": "ㅅ = s = [s]"
       },
       {
         "type": "mcq",
@@ -9957,19 +9960,18 @@
           "s"
         ],
         "correct": 3,
-        "explanation": "ㅅ se prononce « s »."
+        "explanation": "ㅅ = s = [s]"
       },
       {
         "type": "type_answer",
         "prompt": "Comment se prononce « ㅇ » ? (romanisation)",
         "accept": [
           "ng",
-          "muet",
-          "-"
+          "muet"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅇ = ng"
+        "explanation": "ㅇ = ng = [muet · ng en finale] — ㅇ est muette en tête de syllabe et se lit « ng » en finale (batchim)."
       },
       {
         "type": "mcq",
@@ -9981,7 +9983,7 @@
           "d"
         ],
         "correct": 2,
-        "explanation": "ㅇ se prononce « ng »."
+        "explanation": "ㅇ = ng = [muet · ng en finale] — ㅇ est muette en tête de syllabe et se lit « ng » en finale (batchim)."
       },
       {
         "type": "type_answer",
@@ -9991,7 +9993,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅈ = j"
+        "explanation": "ㅈ = j = [tj]"
       },
       {
         "type": "mcq",
@@ -10003,7 +10005,7 @@
           "d"
         ],
         "correct": 1,
-        "explanation": "ㅈ se prononce « j »."
+        "explanation": "ㅈ = j = [tj]"
       },
       {
         "type": "type_answer",
@@ -10013,7 +10015,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅎ = h"
+        "explanation": "ㅎ = h = [h]"
       },
       {
         "type": "mcq",
@@ -10025,7 +10027,7 @@
           "m"
         ],
         "correct": 0,
-        "explanation": "ㅎ se prononce « h »."
+        "explanation": "ㅎ = h = [h]"
       },
       {
         "type": "type_answer",
@@ -10035,7 +10037,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅊ = ch"
+        "explanation": "ㅊ = ch = [tch]"
       },
       {
         "type": "mcq",
@@ -10047,7 +10049,7 @@
           "ch"
         ],
         "correct": 3,
-        "explanation": "ㅊ se prononce « ch »."
+        "explanation": "ㅊ = ch = [tch]"
       },
       {
         "type": "type_answer",
@@ -10057,7 +10059,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅋ = k"
+        "explanation": "ㅋ = k = [kh]"
       },
       {
         "type": "mcq",
@@ -10069,7 +10071,7 @@
           "k"
         ],
         "correct": 3,
-        "explanation": "ㅋ se prononce « k »."
+        "explanation": "ㅋ = k = [kh]"
       },
       {
         "type": "type_answer",
@@ -10079,7 +10081,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅌ = t"
+        "explanation": "ㅌ = t = [th]"
       },
       {
         "type": "mcq",
@@ -10091,7 +10093,7 @@
           "ch"
         ],
         "correct": 1,
-        "explanation": "ㅌ se prononce « t »."
+        "explanation": "ㅌ = t = [th]"
       },
       {
         "type": "type_answer",
@@ -10101,7 +10103,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅍ = p"
+        "explanation": "ㅍ = p = [ph]"
       },
       {
         "type": "mcq",
@@ -10113,7 +10115,7 @@
           "k"
         ],
         "correct": 2,
-        "explanation": "ㅍ se prononce « p »."
+        "explanation": "ㅍ = p = [ph]"
       },
       {
         "type": "type_answer",
@@ -10123,7 +10125,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㄲ = kk"
+        "explanation": "ㄲ = kk = [kk]"
       },
       {
         "type": "mcq",
@@ -10135,7 +10137,7 @@
           "jj"
         ],
         "correct": 1,
-        "explanation": "ㄲ se prononce « kk »."
+        "explanation": "ㄲ = kk = [kk]"
       },
       {
         "type": "type_answer",
@@ -10145,7 +10147,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㄸ = tt"
+        "explanation": "ㄸ = tt = [tt]"
       },
       {
         "type": "mcq",
@@ -10157,7 +10159,7 @@
           "jj"
         ],
         "correct": 2,
-        "explanation": "ㄸ se prononce « tt »."
+        "explanation": "ㄸ = tt = [tt]"
       },
       {
         "type": "type_answer",
@@ -10167,7 +10169,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅃ = pp"
+        "explanation": "ㅃ = pp = [pp]"
       },
       {
         "type": "mcq",
@@ -10179,7 +10181,7 @@
           "kk"
         ],
         "correct": 1,
-        "explanation": "ㅃ se prononce « pp »."
+        "explanation": "ㅃ = pp = [pp]"
       },
       {
         "type": "type_answer",
@@ -10189,7 +10191,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅆ = ss"
+        "explanation": "ㅆ = ss = [ss]"
       },
       {
         "type": "mcq",
@@ -10201,7 +10203,7 @@
           "jj"
         ],
         "correct": 0,
-        "explanation": "ㅆ se prononce « ss »."
+        "explanation": "ㅆ = ss = [ss]"
       },
       {
         "type": "type_answer",
@@ -10211,7 +10213,7 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "ㅉ = jj"
+        "explanation": "ㅉ = jj = [ttj]"
       },
       {
         "type": "mcq",
@@ -10223,139 +10225,526 @@
           "kk"
         ],
         "correct": 1,
-        "explanation": "ㅉ se prononce « jj »."
+        "explanation": "ㅉ = jj = [ttj]"
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 아 » ? (romanisation)",
+        "prompt": "Comment se prononce « ㄱ (batchim) » ? (romanisation)",
         "accept": [
-          "a"
+          "k"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "아 = a"
+        "explanation": "ㄱ (batchim) = k — En finale ㄱ se prononce [k] bloqué : 국 = guk."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 아 » ?",
+        "prompt": "Quel son a « ㄱ (batchim) » ?",
         "choices": [
-          "cha",
-          "hak",
-          "a",
-          "gang"
+          "ng",
+          "l",
+          "k",
+          "t"
         ],
         "correct": 2,
-        "explanation": "아 se prononce « a »."
+        "explanation": "ㄱ (batchim) = k — En finale ㄱ se prononce [k] bloqué : 국 = guk."
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 나 » ? (romanisation)",
+        "prompt": "Comment se prononce « ㅋ (batchim) » ? (romanisation)",
         "accept": [
-          "na"
+          "k"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "나 = na"
+        "explanation": "ㅋ (batchim) = k — ㅋ en finale → [k] : 부엌 = bueok."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 나 » ?",
+        "prompt": "Quel son a « ㅋ (batchim) » ?",
         "choices": [
-          "gang",
-          "na",
-          "guk",
-          "bap"
+          "k",
+          "t"
+        ],
+        "correct": 0,
+        "explanation": "ㅋ (batchim) = k — ㅋ en finale → [k] : 부엌 = bueok."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㄲ (batchim) » ? (romanisation)",
+        "accept": [
+          "k"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㄲ (batchim) = k — ㄲ en finale → [k] : 밖 = bak."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㄲ (batchim) » ?",
+        "choices": [
+          "t",
+          "ng",
+          "k"
+        ],
+        "correct": 2,
+        "explanation": "ㄲ (batchim) = k — ㄲ en finale → [k] : 밖 = bak."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㄴ (batchim) » ? (romanisation)",
+        "accept": [
+          "n"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㄴ (batchim) = n — ㄴ en finale → [n] : 산 = san."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㄴ (batchim) » ?",
+        "choices": [
+          "n",
+          "k",
+          "m",
+          "p"
+        ],
+        "correct": 0,
+        "explanation": "ㄴ (batchim) = n — ㄴ en finale → [n] : 산 = san."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㄷ (batchim) » ? (romanisation)",
+        "accept": [
+          "t"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㄷ (batchim) = t — ㄷ en finale → [t] bloqué : 믿 = mit."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㄷ (batchim) » ?",
+        "choices": [
+          "k",
+          "t",
+          "m"
         ],
         "correct": 1,
-        "explanation": "나 se prononce « na »."
+        "explanation": "ㄷ (batchim) = t — ㄷ en finale → [t] bloqué : 믿 = mit."
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 가 » ? (romanisation)",
+        "prompt": "Comment se prononce « ㅅ (batchim) » ? (romanisation)",
         "accept": [
-          "ga"
+          "t"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "가 = ga"
+        "explanation": "ㅅ (batchim) = t — ㅅ en finale → [t], pas [s] : 옷 = ot."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 가 » ?",
+        "prompt": "Quel son a « ㅅ (batchim) » ?",
         "choices": [
-          "ga",
-          "sa",
-          "na",
-          "hak"
-        ],
-        "correct": 0,
-        "explanation": "가 se prononce « ga »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 사 » ? (romanisation)",
-        "accept": [
-          "sa"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "사 = sa"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 사 » ?",
-        "choices": [
-          "a",
-          "sa",
-          "han",
-          "bap"
+          "k",
+          "t",
+          "p",
+          "ng"
         ],
         "correct": 1,
-        "explanation": "사 se prononce « sa »."
+        "explanation": "ㅅ (batchim) = t — ㅅ en finale → [t], pas [s] : 옷 = ot."
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 한 » ? (romanisation)",
+        "prompt": "Comment se prononce « ㅆ (batchim) » ? (romanisation)",
         "accept": [
-          "han"
+          "t"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "한 = han"
+        "explanation": "ㅆ (batchim) = t — ㅆ en finale → [t] : 있 = it."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 한 » ?",
+        "prompt": "Quel son a « ㅆ (batchim) » ?",
         "choices": [
-          "han",
-          "na",
-          "cha",
-          "hak"
+          "m",
+          "t",
+          "l",
+          "ng"
         ],
-        "correct": 0,
-        "explanation": "한 se prononce « han »."
+        "correct": 1,
+        "explanation": "ㅆ (batchim) = t — ㅆ en finale → [t] : 있 = it."
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 국 » ? (romanisation)",
+        "prompt": "Comment se prononce « ㅈ (batchim) » ? (romanisation)",
         "accept": [
-          "guk"
+          "t"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "국 = guk"
+        "explanation": "ㅈ (batchim) = t — ㅈ en finale → [t] : 낮 = nat."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 국 » ?",
+        "prompt": "Quel son a « ㅈ (batchim) » ?",
         "choices": [
-          "guk",
-          "ga",
-          "cha",
-          "han"
+          "p",
+          "t",
+          "k"
+        ],
+        "correct": 1,
+        "explanation": "ㅈ (batchim) = t — ㅈ en finale → [t] : 낮 = nat."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅊ (batchim) » ? (romanisation)",
+        "accept": [
+          "t"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅊ (batchim) = t — ㅊ en finale → [t] : 꽃 = kkot."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅊ (batchim) » ?",
+        "choices": [
+          "l",
+          "t",
+          "k",
+          "ng"
+        ],
+        "correct": 1,
+        "explanation": "ㅊ (batchim) = t — ㅊ en finale → [t] : 꽃 = kkot."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅌ (batchim) » ? (romanisation)",
+        "accept": [
+          "t"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅌ (batchim) = t — ㅌ en finale → [t] : 밭 = bat."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅌ (batchim) » ?",
+        "choices": [
+          "p",
+          "k",
+          "t",
+          "l"
+        ],
+        "correct": 2,
+        "explanation": "ㅌ (batchim) = t — ㅌ en finale → [t] : 밭 = bat."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅎ (batchim) » ? (romanisation)",
+        "accept": [
+          "t"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅎ (batchim) = t — ㅎ en finale → [t] : 히읗 = hieut."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅎ (batchim) » ?",
+        "choices": [
+          "t",
+          "m",
+          "k",
+          "ng"
         ],
         "correct": 0,
-        "explanation": "국 se prononce « guk »."
+        "explanation": "ㅎ (batchim) = t — ㅎ en finale → [t] : 히읗 = hieut."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㄹ (batchim) » ? (romanisation)",
+        "accept": [
+          "l"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㄹ (batchim) = l — ㄹ en finale → [l] : 물 = mul."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㄹ (batchim) » ?",
+        "choices": [
+          "m",
+          "t",
+          "l"
+        ],
+        "correct": 2,
+        "explanation": "ㄹ (batchim) = l — ㄹ en finale → [l] : 물 = mul."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅁ (batchim) » ? (romanisation)",
+        "accept": [
+          "m"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅁ (batchim) = m — ㅁ en finale → [m] : 봄 = bom."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅁ (batchim) » ?",
+        "choices": [
+          "p",
+          "m",
+          "t"
+        ],
+        "correct": 1,
+        "explanation": "ㅁ (batchim) = m — ㅁ en finale → [m] : 봄 = bom."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅂ (batchim) » ? (romanisation)",
+        "accept": [
+          "p"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅂ (batchim) = p — ㅂ en finale → [p] bloqué : 밥 = bap."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅂ (batchim) » ?",
+        "choices": [
+          "p",
+          "t"
+        ],
+        "correct": 0,
+        "explanation": "ㅂ (batchim) = p — ㅂ en finale → [p] bloqué : 밥 = bap."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅍ (batchim) » ? (romanisation)",
+        "accept": [
+          "p"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅍ (batchim) = p — ㅍ en finale → [p] : 앞 = ap."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅍ (batchim) » ?",
+        "choices": [
+          "k",
+          "p",
+          "ng",
+          "t"
+        ],
+        "correct": 1,
+        "explanation": "ㅍ (batchim) = p — ㅍ en finale → [p] : 앞 = ap."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « ㅇ (batchim) » ? (romanisation)",
+        "accept": [
+          "ng"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "ㅇ (batchim) = ng — ㅇ en finale → [ng] : 강 = gang."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « ㅇ (batchim) » ?",
+        "choices": [
+          "t",
+          "k",
+          "ng",
+          "l"
+        ],
+        "correct": 2,
+        "explanation": "ㅇ (batchim) = ng — ㅇ en finale → [ng] : 강 = gang."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 밖 » ? (romanisation)",
+        "accept": [
+          "bak"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "밖 = bak = [pak] — ㄲ final → [k] : bak."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 밖 » ?",
+        "choices": [
+          "bakk",
+          "bak",
+          "kkot",
+          "bam"
+        ],
+        "correct": 1,
+        "explanation": "밖 = bak = [pak] — ㄲ final → [k] : bak."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 부엌 » ? (romanisation)",
+        "accept": [
+          "bueok"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "부엌 = bu-eok = [pou-ok] — ㅋ final → [k] : bu-eok."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 부엌 » ?",
+        "choices": [
+          "bueong",
+          "bueokeu",
+          "ap",
+          "bueok"
+        ],
+        "correct": 3,
+        "explanation": "부엌 = bu-eok = [pou-ok] — ㅋ final → [k] : bu-eok."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 옷 » ? (romanisation)",
+        "accept": [
+          "ot"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "옷 = ot = [ot] — ㅅ final → [t], jamais [s] : ot."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 옷 » ?",
+        "choices": [
+          "bat",
+          "ot",
+          "oseu",
+          "os"
+        ],
+        "correct": 1,
+        "explanation": "옷 = ot = [ot] — ㅅ final → [t], jamais [s] : ot."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 꽃 » ? (romanisation)",
+        "accept": [
+          "kkot"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "꽃 = kkot = [kkot] — ㅊ final → [t] : kkot."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 꽃 » ?",
+        "choices": [
+          "kkos",
+          "kkot",
+          "kkoch",
+          "bak"
+        ],
+        "correct": 1,
+        "explanation": "꽃 = kkot = [kkot] — ㅊ final → [t] : kkot."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 낮 » ? (romanisation)",
+        "accept": [
+          "nat"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "낮 = nat = [nat] — ㅈ final → [t] : nat."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 낮 » ?",
+        "choices": [
+          "naj",
+          "bat",
+          "nach",
+          "nat"
+        ],
+        "correct": 3,
+        "explanation": "낮 = nat = [nat] — ㅈ final → [t] : nat."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 밭 » ? (romanisation)",
+        "accept": [
+          "bat"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "밭 = bat = [pat] — ㅌ final → [t] : bat."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 밭 » ?",
+        "choices": [
+          "sup",
+          "bach",
+          "bat",
+          "bateu"
+        ],
+        "correct": 2,
+        "explanation": "밭 = bat = [pat] — ㅌ final → [t] : bat."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 앞 » ? (romanisation)",
+        "accept": [
+          "ap"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "앞 = ap = [ap] — ㅍ final → [p] : ap."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 앞 » ?",
+        "choices": [
+          "ap",
+          "apeu",
+          "apo",
+          "bap"
+        ],
+        "correct": 0,
+        "explanation": "앞 = ap = [ap] — ㅍ final → [p] : ap."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 숲 » ? (romanisation)",
+        "accept": [
+          "sup"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "숲 = sup = [soup] — ㅍ final → [p] : sup."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 숲 » ?",
+        "choices": [
+          "sup",
+          "sub",
+          "bap",
+          "supeu"
+        ],
+        "correct": 0,
+        "explanation": "숲 = sup = [soup] — ㅍ final → [p] : sup."
       },
       {
         "type": "type_answer",
@@ -10365,41 +10754,19 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "밥 = bap"
+        "explanation": "밥 = bap = [pap] — ㅂ final → [p] bloqué : bap."
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
           "bap",
-          "cha",
-          "na",
-          "a"
+          "ap",
+          "bam",
+          "bab"
         ],
         "correct": 0,
-        "explanation": "밥 se prononce « bap »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 물 » ? (romanisation)",
-        "accept": [
-          "mul"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "물 = mul"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 물 » ?",
-        "choices": [
-          "ga",
-          "mul",
-          "han",
-          "hak"
-        ],
-        "correct": 1,
-        "explanation": "물 se prononce « mul »."
+        "explanation": "밥 = bap = [pap] — ㅂ final → [p] bloqué : bap."
       },
       {
         "type": "type_answer",
@@ -10409,63 +10776,1224 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "강 = gang"
+        "explanation": "강 = gang = [kang] — ㅇ final → [ng] : gang."
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 강 » ?",
         "choices": [
-          "gim",
-          "a",
+          "dal",
           "gang",
-          "han"
+          "gan",
+          "gak"
         ],
-        "correct": 2,
-        "explanation": "강 se prononce « gang »."
+        "correct": 1,
+        "explanation": "강 = gang = [kang] — ㅇ final → [ng] : gang."
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 학 » ? (romanisation)",
+        "prompt": "Comment se prononce « 산 » ? (romanisation)",
         "accept": [
-          "hak"
+          "san"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "학 = hak"
+        "explanation": "산 = san = [san] — ㄴ final → [n] : san."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 학 » ?",
+        "prompt": "Quel son a « 산 » ?",
         "choices": [
-          "hak",
-          "guk",
-          "gim",
-          "gang"
+          "sat",
+          "dal",
+          "san",
+          "sang"
+        ],
+        "correct": 2,
+        "explanation": "산 = san = [san] — ㄴ final → [n] : san."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 달 » ? (romanisation)",
+        "accept": [
+          "dal"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "달 = dal = [tal] — ㄹ final → [l] : dal."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 달 » ?",
+        "choices": [
+          "kkot",
+          "dal",
+          "dat",
+          "dar"
+        ],
+        "correct": 1,
+        "explanation": "달 = dal = [tal] — ㄹ final → [l] : dal."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 값 » ? (romanisation)",
+        "accept": [
+          "gap",
+          "gaps"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "값 = gap = [kap] — ㅄ → on ne prononce que [p] : gap."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 값 » ?",
+        "choices": [
+          "gap",
+          "dak",
+          "gas",
+          "gapseu"
         ],
         "correct": 0,
-        "explanation": "학 se prononce « hak »."
+        "explanation": "값 = gap = [kap] — ㅄ → on ne prononce que [p] : gap."
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 김 » ? (romanisation)",
+        "prompt": "Comment se prononce « 닭 » ? (romanisation)",
         "accept": [
-          "gim"
+          "dak",
+          "dalk"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "김 = gim"
+        "explanation": "닭 = dak = [tak] — ㄺ → [k] : dak."
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 김 » ?",
+        "prompt": "Quel son a « 닭 » ?",
         "choices": [
-          "mul",
-          "cha",
-          "gim",
-          "bap"
+          "dal",
+          "dalgeu",
+          "anta",
+          "dak"
+        ],
+        "correct": 3,
+        "explanation": "닭 = dak = [tak] — ㄺ → [k] : dak."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 여덟 » ? (romanisation)",
+        "accept": [
+          "yeodeol"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "여덟 = yeo-deol = [yo-dol] — ㄼ → [l] : yeo-deol."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 여덟 » ?",
+        "choices": [
+          "anta",
+          "yeodeol",
+          "yeodeop",
+          "yeodeolb"
+        ],
+        "correct": 1,
+        "explanation": "여덟 = yeo-deol = [yo-dol] — ㄼ → [l] : yeo-deol."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 삶 » ? (romanisation)",
+        "accept": [
+          "sam",
+          "salm"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "삶 = sam = [sam] — ㄻ → [m] : sam."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 삶 » ?",
+        "choices": [
+          "yeodeol",
+          "salmeu",
+          "sam",
+          "sal"
         ],
         "correct": 2,
-        "explanation": "김 se prononce « gim »."
+        "explanation": "삶 = sam = [sam] — ㄻ → [m] : sam."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 앉다 » ? (romanisation)",
+        "accept": [
+          "anta",
+          "anda"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "앉다 = an-ta = [an-tha] — ㄵ → [n], et le ㄷ suivant se tend : an-ta."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 앉다 » ?",
+        "choices": [
+          "antta",
+          "yeodeol",
+          "anta",
+          "anjda"
+        ],
+        "correct": 2,
+        "explanation": "앉다 = an-ta = [an-tha] — ㄵ → [n], et le ㄷ suivant se tend : an-ta."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 읽다 » ? (romanisation)",
+        "accept": [
+          "ikta",
+          "ikda"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "읽다 = ik-ta = [ik-tha] — ㄺ → [k], puis tensification : ik-ta."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 읽다 » ?",
+        "choices": [
+          "ilta",
+          "ilkda",
+          "anta",
+          "ikta"
+        ],
+        "correct": 3,
+        "explanation": "읽다 = ik-ta = [ik-tha] — ㄺ → [k], puis tensification : ik-ta."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 없다 » ? (romanisation)",
+        "accept": [
+          "eopta",
+          "eopda"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "없다 = eop-ta = [op-tha] — ㅄ → [p], puis tensification : eop-ta."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 없다 » ?",
+        "choices": [
+          "eopsda",
+          "gap",
+          "eota",
+          "eopta"
+        ],
+        "correct": 3,
+        "explanation": "없다 = eop-ta = [op-tha] — ㅄ → [p], puis tensification : eop-ta."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 옷이 » ? (romanisation)",
+        "accept": [
+          "osi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "옷이 = o-si = [o-chi] — Le ㅅ final glisse sur ㅇ : o-si (et non « ot-i »)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 옷이 » ?",
+        "choices": [
+          "oshi",
+          "naje",
+          "osi",
+          "oti"
+        ],
+        "correct": 2,
+        "explanation": "옷이 = o-si = [o-chi] — Le ㅅ final glisse sur ㅇ : o-si (et non « ot-i »)."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 꽃이 » ? (romanisation)",
+        "accept": [
+          "kkochi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "꽃이 = kko-chi = [kko-tchi] — Le ㅊ final glisse : kko-chi."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 꽃이 » ?",
+        "choices": [
+          "kkoti",
+          "osi",
+          "kkochi",
+          "kkosi"
+        ],
+        "correct": 2,
+        "explanation": "꽃이 = kko-chi = [kko-tchi] — Le ㅊ final glisse : kko-chi."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 낮에 » ? (romanisation)",
+        "accept": [
+          "naje"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "낮에 = na-je = [na-djé] — Le ㅈ final glisse : na-je."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 낮에 » ?",
+        "choices": [
+          "chaegeul",
+          "naje",
+          "nate",
+          "nache"
+        ],
+        "correct": 1,
+        "explanation": "낮에 = na-je = [na-djé] — Le ㅈ final glisse : na-je."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 책을 » ? (romanisation)",
+        "accept": [
+          "chaegeul"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "책을 = chae-geul = [tchè-gel] — Le ㄱ final se sonorise en glissant : chae-geul."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 책을 » ?",
+        "choices": [
+          "chaekeul",
+          "chaegneul",
+          "kkochi",
+          "chaegeul"
+        ],
+        "correct": 3,
+        "explanation": "책을 = chae-geul = [tchè-gel] — Le ㄱ final se sonorise en glissant : chae-geul."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 집에 » ? (romanisation)",
+        "accept": [
+          "jibe"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "집에 = ji-be = [tji-bé] — Le ㅂ final se sonorise : ji-be."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 집에 » ?",
+        "choices": [
+          "jipe",
+          "jibbe",
+          "hangugeo",
+          "jibe"
+        ],
+        "correct": 3,
+        "explanation": "집에 = ji-be = [tji-bé] — Le ㅂ final se sonorise : ji-be."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 한국어 » ? (romanisation)",
+        "accept": [
+          "hangugeo"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "한국어 = han-gu-geo = [han-gou-go] — Le ㄱ de 국 passe sur 어 : han-gu-geo."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 한국어 » ?",
+        "choices": [
+          "hangugueo",
+          "hangukeo",
+          "chaegeul",
+          "hangugeo"
+        ],
+        "correct": 3,
+        "explanation": "한국어 = han-gu-geo = [han-gou-go] — Le ㄱ de 국 passe sur 어 : han-gu-geo."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 좋아요 » ? (romanisation)",
+        "accept": [
+          "joayo"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "좋아요 = jo-a-yo = [tjo-a-yo] — Liaison + ㅎ qui tombe : jo-a-yo."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 좋아요 » ?",
+        "choices": [
+          "jibe",
+          "joayo",
+          "johayo",
+          "jotayo"
+        ],
+        "correct": 1,
+        "explanation": "좋아요 = jo-a-yo = [tjo-a-yo] — Liaison + ㅎ qui tombe : jo-a-yo."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 학년 » ? (romanisation)",
+        "accept": [
+          "hangnyeon"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "학년 = hang-nyeon = [hang-nyon] — ㄱ + ㄴ → [ng-n] : hang-nyeon."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 학년 » ?",
+        "choices": [
+          "hannyeon",
+          "hangnyeon",
+          "haknyeon",
+          "gungmul"
+        ],
+        "correct": 1,
+        "explanation": "학년 = hang-nyeon = [hang-nyon] — ㄱ + ㄴ → [ng-n] : hang-nyeon."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 입니다 » ? (romanisation)",
+        "accept": [
+          "imnida"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "입니다 = im-ni-da = [im-ni-da] — ㅂ + ㄴ → [m-n] : im-ni-da."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 입니다 » ?",
+        "choices": [
+          "ipnida",
+          "gungmul",
+          "imnida",
+          "innida"
+        ],
+        "correct": 2,
+        "explanation": "입니다 = im-ni-da = [im-ni-da] — ㅂ + ㄴ → [m-n] : im-ni-da."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 받는 » ? (romanisation)",
+        "accept": [
+          "banneun"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "받는 = ban-neun = [pan-nen] — ㄷ + ㄴ → [n-n] : ban-neun."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 받는 » ?",
+        "choices": [
+          "batneun",
+          "amnal",
+          "banneun",
+          "badneun"
+        ],
+        "correct": 2,
+        "explanation": "받는 = ban-neun = [pan-nen] — ㄷ + ㄴ → [n-n] : ban-neun."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 국물 » ? (romanisation)",
+        "accept": [
+          "gungmul"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "국물 = gung-mul = [koung-moul] — ㄱ + ㅁ → [ng-m] : gung-mul."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 국물 » ?",
+        "choices": [
+          "gungmul",
+          "hangnyeon",
+          "gukmul",
+          "gunmul"
+        ],
+        "correct": 0,
+        "explanation": "국물 = gung-mul = [koung-moul] — ㄱ + ㅁ → [ng-m] : gung-mul."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 앞날 » ? (romanisation)",
+        "accept": [
+          "amnal"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "앞날 = am-nal = [am-nal] — ㅍ + ㄴ → [m-n] : am-nal."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 앞날 » ?",
+        "choices": [
+          "amnal",
+          "banneun",
+          "annal",
+          "apnal"
+        ],
+        "correct": 0,
+        "explanation": "앞날 = am-nal = [am-nal] — ㅍ + ㄴ → [m-n] : am-nal."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 감사합니다 » ? (romanisation)",
+        "accept": [
+          "gamsahamnida"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "감사합니다 = gam-sa-ham-ni-da = [kam-sa-ham-ni-da] — 합 + 니 → ㅂ devient [m] : gam-sa-ham-ni-da."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 감사합니다 » ?",
+        "choices": [
+          "gamsahapnida",
+          "gamsahamnida",
+          "imnida",
+          "gamsahannida"
+        ],
+        "correct": 1,
+        "explanation": "감사합니다 = gam-sa-ham-ni-da = [kam-sa-ham-ni-da] — 합 + 니 → ㅂ devient [m] : gam-sa-ham-ni-da."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 학교 » ? (romanisation)",
+        "accept": [
+          "hakkyo",
+          "hakgyo"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "학교 = ha-kkyo = [ha-kkyo] — Après un stop final, ㄱ se tend : hak-kkyo."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 학교 » ?",
+        "choices": [
+          "hagyo",
+          "hakgyo",
+          "itta",
+          "hakkyo"
+        ],
+        "correct": 3,
+        "explanation": "학교 = ha-kkyo = [ha-kkyo] — Après un stop final, ㄱ se tend : hak-kkyo."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 식당 » ? (romanisation)",
+        "accept": [
+          "siktang",
+          "sikdang",
+          "sikttang"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "식당 = sik-tang = [chik-thang] — Après ㄱ, ㄷ se tend : sik-ttang."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 식당 » ?",
+        "choices": [
+          "siktang",
+          "sitang",
+          "hakkyo",
+          "sikdang"
+        ],
+        "correct": 0,
+        "explanation": "식당 = sik-tang = [chik-thang] — Après ㄱ, ㄷ se tend : sik-ttang."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 국밥 » ? (romanisation)",
+        "accept": [
+          "gukppap",
+          "gukbap"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "국밥 = guk-ppap = [kouk-ppap] — Après ㄱ, ㅂ se tend : guk-ppap."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 국밥 » ?",
+        "choices": [
+          "gukbap",
+          "gubap",
+          "gukppap",
+          "siktang"
+        ],
+        "correct": 2,
+        "explanation": "국밥 = guk-ppap = [kouk-ppap] — Après ㄱ, ㅂ se tend : guk-ppap."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 있다 » ? (romanisation)",
+        "accept": [
+          "itta",
+          "itda"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "있다 = i-tta = [i-tta] — ㅆ → [t], puis ㄷ se tend : it-tta."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 있다 » ?",
+        "choices": [
+          "issda",
+          "itda",
+          "hakssaeng",
+          "itta"
+        ],
+        "correct": 3,
+        "explanation": "있다 = i-tta = [i-tta] — ㅆ → [t], puis ㄷ se tend : it-tta."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 학생 » ? (romanisation)",
+        "accept": [
+          "hakssaeng",
+          "haksaeng"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "학생 = hak-ssaeng = [hak-ssèng] — Après ㄱ, ㅅ se tend : hak-ssaeng."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 학생 » ?",
+        "choices": [
+          "hangsaeng",
+          "hakssaeng",
+          "hakkyo",
+          "haksaeng"
+        ],
+        "correct": 1,
+        "explanation": "학생 = hak-ssaeng = [hak-ssèng] — Après ㄱ, ㅅ se tend : hak-ssaeng."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 좋다 » ? (romanisation)",
+        "accept": [
+          "jota"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "좋다 = jo-ta = [tjo-tha] — ㅎ + ㄷ → aspirée : jo-ta."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 좋다 » ?",
+        "choices": [
+          "jota",
+          "johda",
+          "jotta",
+          "chuka"
+        ],
+        "correct": 0,
+        "explanation": "좋다 = jo-ta = [tjo-tha] — ㅎ + ㄷ → aspirée : jo-ta."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 놓고 » ? (romanisation)",
+        "accept": [
+          "noko"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "놓고 = no-ko = [no-kho] — ㅎ + ㄱ → aspirée : no-ko."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 놓고 » ?",
+        "choices": [
+          "nohgo",
+          "noko",
+          "notgo",
+          "gukwa"
+        ],
+        "correct": 1,
+        "explanation": "놓고 = no-ko = [no-kho] — ㅎ + ㄱ → aspirée : no-ko."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 많다 » ? (romanisation)",
+        "accept": [
+          "manta"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "많다 = man-ta = [man-tha] — ㄶ + ㄷ → aspirée : man-ta."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 많다 » ?",
+        "choices": [
+          "manda",
+          "gukwa",
+          "manhda",
+          "manta"
+        ],
+        "correct": 3,
+        "explanation": "많다 = man-ta = [man-tha] — ㄶ + ㄷ → aspirée : man-ta."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 축하 » ? (romanisation)",
+        "accept": [
+          "chuka"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "축하 = chu-ka = [tchou-kha] — ㄱ + ㅎ → aspirée : chu-ka."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 축하 » ?",
+        "choices": [
+          "chukha",
+          "noko",
+          "chuka",
+          "chuha"
+        ],
+        "correct": 2,
+        "explanation": "축하 = chu-ka = [tchou-kha] — ㄱ + ㅎ → aspirée : chu-ka."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 국화 » ? (romanisation)",
+        "accept": [
+          "gukwa"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "국화 = gu-kwa = [kou-khwa] — ㄱ + ㅎ → aspirée : gu-kwa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 국화 » ?",
+        "choices": [
+          "gukwa",
+          "jota",
+          "guhwa",
+          "gukhwa"
+        ],
+        "correct": 0,
+        "explanation": "국화 = gu-kwa = [kou-khwa] — ㄱ + ㅎ → aspirée : gu-kwa."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 백화점 » ? (romanisation)",
+        "accept": [
+          "baekwajeom"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "백화점 = bae-kwa-jeom = [pè-khwa-djom] — ㄱ + ㅎ → aspirée : bae-kwa-jeom."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 백화점 » ?",
+        "choices": [
+          "baehwajeom",
+          "baekhwajeom",
+          "noko",
+          "baekwajeom"
+        ],
+        "correct": 3,
+        "explanation": "백화점 = bae-kwa-jeom = [pè-khwa-djom] — ㄱ + ㅎ → aspirée : bae-kwa-jeom."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 전화 » ? (romanisation)",
+        "accept": [
+          "jeonwa",
+          "jeonhwa"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "전화 = jeo-nwa = [tjo-nwa] — ㅎ après ㄴ s'efface presque : jeo-nwa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 전화 » ?",
+        "choices": [
+          "jeonwa",
+          "jeonhwa",
+          "jeohwa",
+          "yeongwa"
+        ],
+        "correct": 0,
+        "explanation": "전화 = jeo-nwa = [tjo-nwa] — ㅎ après ㄴ s'efface presque : jeo-nwa."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 은행 » ? (romanisation)",
+        "accept": [
+          "eunaeng",
+          "eunhaeng"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "은행 = eu-naeng = [e-nèng] — ㅎ entre sonores très faible : eu-naeng."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 은행 » ?",
+        "choices": [
+          "beono",
+          "eunhaeng",
+          "euhaeng",
+          "eunaeng"
+        ],
+        "correct": 3,
+        "explanation": "은행 = eu-naeng = [e-nèng] — ㅎ entre sonores très faible : eu-naeng."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 영화 » ? (romanisation)",
+        "accept": [
+          "yeongwa",
+          "yeonghwa"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "영화 = yeong-wa = [yong-wa] — ㅎ après ㅇ faible : yeong-wa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 영화 » ?",
+        "choices": [
+          "yeowa",
+          "jeonwa",
+          "yeonghwa",
+          "yeongwa"
+        ],
+        "correct": 3,
+        "explanation": "영화 = yeong-wa = [yong-wa] — ㅎ après ㅇ faible : yeong-wa."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 결혼 » ? (romanisation)",
+        "accept": [
+          "gyeoron",
+          "gyeolhon"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "결혼 = gyeo-ron = [kyo-ron] — ㅎ après ㄹ s'efface : gyeo-ron."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 결혼 » ?",
+        "choices": [
+          "gyeolhon",
+          "gyeoron",
+          "jeonwa",
+          "gyeohon"
+        ],
+        "correct": 1,
+        "explanation": "결혼 = gyeo-ron = [kyo-ron] — ㅎ après ㄹ s'efface : gyeo-ron."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 번호 » ? (romanisation)",
+        "accept": [
+          "beono",
+          "beonho"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "번호 = beo-no = [po-no] — ㅎ après ㄴ s'efface : beo-no."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 번호 » ?",
+        "choices": [
+          "beono",
+          "beoho",
+          "beonho",
+          "jeonwa"
+        ],
+        "correct": 0,
+        "explanation": "번호 = beo-no = [po-no] — ㅎ après ㄴ s'efface : beo-no."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 굳이 » ? (romanisation)",
+        "accept": [
+          "guji"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "굳이 = gu-ji = [kou-dji] — ㄷ + 이 → 지 : gu-ji."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 굳이 » ?",
+        "choices": [
+          "kkeuchi",
+          "guti",
+          "guji",
+          "gudi"
+        ],
+        "correct": 2,
+        "explanation": "굳이 = gu-ji = [kou-dji] — ㄷ + 이 → 지 : gu-ji."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 같이 » ? (romanisation)",
+        "accept": [
+          "gachi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "같이 = ga-chi = [ka-tchi] — ㅌ + 이 → 치 : ga-chi."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 같이 » ?",
+        "choices": [
+          "gadi",
+          "gati",
+          "gachi",
+          "bachi"
+        ],
+        "correct": 2,
+        "explanation": "같이 = ga-chi = [ka-tchi] — ㅌ + 이 → 치 : ga-chi."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 해돋이 » ? (romanisation)",
+        "accept": [
+          "haedoji"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "해돋이 = hae-do-ji = [hè-do-dji] — ㄷ + 이 → 지 : hae-do-ji."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 해돋이 » ?",
+        "choices": [
+          "haedoji",
+          "haedoti",
+          "haedodi",
+          "bachi"
+        ],
+        "correct": 0,
+        "explanation": "해돋이 = hae-do-ji = [hè-do-dji] — ㄷ + 이 → 지 : hae-do-ji."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 닫히다 » ? (romanisation)",
+        "accept": [
+          "dachida"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "닫히다 = da-chi-da = [ta-tchi-da] — ㄷ + 히 → 치 : da-chi-da."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 닫히다 » ?",
+        "choices": [
+          "dadida",
+          "dachida",
+          "haedoji",
+          "dathida"
+        ],
+        "correct": 1,
+        "explanation": "닫히다 = da-chi-da = [ta-tchi-da] — ㄷ + 히 → 치 : da-chi-da."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 끝이 » ? (romanisation)",
+        "accept": [
+          "kkeuchi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "끝이 = kkeu-chi = [kke-tchi] — ㅌ + 이 → 치 : kkeu-chi."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 끝이 » ?",
+        "choices": [
+          "kkeuti",
+          "guji",
+          "kkeutchi",
+          "kkeuchi"
+        ],
+        "correct": 3,
+        "explanation": "끝이 = kkeu-chi = [kke-tchi] — ㅌ + 이 → 치 : kkeu-chi."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 밭이 » ? (romanisation)",
+        "accept": [
+          "bachi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "밭이 = ba-chi = [pa-tchi] — ㅌ + 이 → 치 : ba-chi."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 밭이 » ?",
+        "choices": [
+          "gachi",
+          "bati",
+          "bachhi",
+          "bachi"
+        ],
+        "correct": 3,
+        "explanation": "밭이 = ba-chi = [pa-tchi] — ㅌ + 이 → 치 : ba-chi."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 신라 » ? (romanisation)",
+        "accept": [
+          "silla"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "신라 = sil-la = [chil-la] — ㄴ au contact de ㄹ devient ㄹ : sil-la."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 신라 » ?",
+        "choices": [
+          "silla",
+          "seollal",
+          "sinla",
+          "sinra"
+        ],
+        "correct": 0,
+        "explanation": "신라 = sil-la = [chil-la] — ㄴ au contact de ㄹ devient ㄹ : sil-la."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 설날 » ? (romanisation)",
+        "accept": [
+          "seollal"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "설날 = seol-lal = [sol-lal] — ㄹ + ㄴ → ㄹ-ㄹ : seol-lal."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 설날 » ?",
+        "choices": [
+          "seollal",
+          "silla",
+          "seolnal",
+          "seonnal"
+        ],
+        "correct": 0,
+        "explanation": "설날 = seol-lal = [sol-lal] — ㄹ + ㄴ → ㄹ-ㄹ : seol-lal."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 연락 » ? (romanisation)",
+        "accept": [
+          "yeollak"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "연락 = yeol-lak = [yol-lak] — ㄴ + ㄹ → ㄹ-ㄹ : yeol-lak."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 연락 » ?",
+        "choices": [
+          "yeonrak",
+          "yeonnak",
+          "sillae",
+          "yeollak"
+        ],
+        "correct": 3,
+        "explanation": "연락 = yeol-lak = [yol-lak] — ㄴ + ㄹ → ㄹ-ㄹ : yeol-lak."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 관리 » ? (romanisation)",
+        "accept": [
+          "gwalli"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "관리 = gwal-li = [kwal-li] — ㄴ + ㄹ → ㄹ-ㄹ : gwal-li."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 관리 » ?",
+        "choices": [
+          "gwanri",
+          "silla",
+          "gwalli",
+          "gwanni"
+        ],
+        "correct": 2,
+        "explanation": "관리 = gwal-li = [kwal-li] — ㄴ + ㄹ → ㄹ-ㄹ : gwal-li."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 한류 » ? (romanisation)",
+        "accept": [
+          "hallyu"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "한류 = hal-lyu = [hal-lyou] — ㄴ + ㄹ → ㄹ-ㄹ : hal-lyu."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 한류 » ?",
+        "choices": [
+          "silla",
+          "hallyu",
+          "hannyu",
+          "hanryu"
+        ],
+        "correct": 1,
+        "explanation": "한류 = hal-lyu = [hal-lyou] — ㄴ + ㄹ → ㄹ-ㄹ : hal-lyu."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 실내 » ? (romanisation)",
+        "accept": [
+          "sillae"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "실내 = sil-lae = [chil-lè] — ㄹ + ㄴ → ㄹ-ㄹ : sil-lae."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 실내 » ?",
+        "choices": [
+          "sinnae",
+          "silla",
+          "silnae",
+          "sillae"
+        ],
+        "correct": 3,
+        "explanation": "실내 = sil-lae = [chil-lè] — ㄹ + ㄴ → ㄹ-ㄹ : sil-lae."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 아 » ? (romanisation)",
+        "accept": [
+          "a"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "아 = a = [a]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 아 » ?",
+        "choices": [
+          "a",
+          "wi",
+          "byeol",
+          "hyeong"
+        ],
+        "correct": 0,
+        "explanation": "아 = a = [a]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 나 » ? (romanisation)",
+        "accept": [
+          "na"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "나 = na = [na]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 나 » ?",
+        "choices": [
+          "wang",
+          "sa",
+          "na",
+          "gang"
+        ],
+        "correct": 2,
+        "explanation": "나 = na = [na]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 가 » ? (romanisation)",
+        "accept": [
+          "ga"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "가 = ga = [ka]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 가 » ?",
+        "choices": [
+          "ga",
+          "wi",
+          "a",
+          "wang"
+        ],
+        "correct": 0,
+        "explanation": "가 = ga = [ka]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 사 » ? (romanisation)",
+        "accept": [
+          "sa"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "사 = sa = [sa]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 사 » ?",
+        "choices": [
+          "sa",
+          "han",
+          "wang",
+          "ga"
+        ],
+        "correct": 0,
+        "explanation": "사 = sa = [sa]"
       },
       {
         "type": "type_answer",
@@ -10475,151 +12003,63 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "차 = cha"
+        "explanation": "차 = cha = [tcha]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 차 » ?",
         "choices": [
-          "bap",
-          "han",
+          "a",
+          "sa",
           "cha",
-          "sa"
+          "hak"
         ],
         "correct": 2,
-        "explanation": "차 se prononce « cha »."
+        "explanation": "차 = cha = [tcha]"
       },
       {
         "type": "type_answer",
-        "prompt": "Comment se prononce « 한국 » ? (romanisation)",
+        "prompt": "Comment se prononce « 한 » ? (romanisation)",
         "accept": [
-          "hanguk"
+          "han"
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "한국 = hanguk"
+        "explanation": "한 = han = [han]"
       },
       {
         "type": "mcq",
-        "prompt": "Quel son a « 한국 » ?",
+        "prompt": "Quel son a « 한 » ?",
         "choices": [
-          "bap",
+          "guk",
+          "cha",
           "mul",
-          "hanguk",
-          "annyeong"
-        ],
-        "correct": 2,
-        "explanation": "한국 se prononce « hanguk »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 학교 » ? (romanisation)",
-        "accept": [
-          "hakkyo"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "학교 = hakkyo"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 학교 » ?",
-        "choices": [
-          "hanguk",
-          "hakkyo",
-          "bap",
-          "keopi"
-        ],
-        "correct": 1,
-        "explanation": "학교 se prononce « hakkyo »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 김치 » ? (romanisation)",
-        "accept": [
-          "gimchi"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "김치 = gimchi"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 김치 » ?",
-        "choices": [
-          "gamsa",
-          "mul",
-          "gimchi",
-          "bap"
-        ],
-        "correct": 2,
-        "explanation": "김치 se prononce « gimchi »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 안녕 » ? (romanisation)",
-        "accept": [
-          "annyeong"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "안녕 = annyeong"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 안녕 » ?",
-        "choices": [
-          "gamsa",
-          "annyeong",
-          "keopi",
-          "hanguk"
-        ],
-        "correct": 1,
-        "explanation": "안녕 se prononce « annyeong »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 감사 » ? (romanisation)",
-        "accept": [
-          "gamsa"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "감사 = gamsa"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 감사 » ?",
-        "choices": [
-          "mul",
-          "gamsa",
-          "sagwa",
-          "keopi"
-        ],
-        "correct": 1,
-        "explanation": "감사 se prononce « gamsa »."
-      },
-      {
-        "type": "type_answer",
-        "prompt": "Comment se prononce « 물 » ? (romanisation)",
-        "accept": [
-          "mul"
-        ],
-        "normalize": "romaja",
-        "placeholder": "romanisation",
-        "explanation": "물 = mul"
-      },
-      {
-        "type": "mcq",
-        "prompt": "Quel son a « 물 » ?",
-        "choices": [
-          "hakkyo",
-          "gamsa",
-          "chingu",
-          "mul"
+          "han"
         ],
         "correct": 3,
-        "explanation": "물 se prononce « mul »."
+        "explanation": "한 = han = [han]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 국 » ? (romanisation)",
+        "accept": [
+          "guk"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "국 = guk = [kouk]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 국 » ?",
+        "choices": [
+          "cha",
+          "gang",
+          "guk",
+          "wang"
+        ],
+        "correct": 2,
+        "explanation": "국 = guk = [kouk]"
       },
       {
         "type": "type_answer",
@@ -10629,19 +12069,438 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "밥 = bap"
+        "explanation": "밥 = bap = [pap]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 밥 » ?",
+        "choices": [
+          "gim",
+          "ssi",
+          "bap",
+          "hak"
+        ],
+        "correct": 2,
+        "explanation": "밥 = bap = [pap]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 물 » ? (romanisation)",
+        "accept": [
+          "mul"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "물 = mul = [moul]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 물 » ?",
+        "choices": [
+          "mul",
+          "ga",
+          "han",
+          "sa"
+        ],
+        "correct": 0,
+        "explanation": "물 = mul = [moul]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 강 » ? (romanisation)",
+        "accept": [
+          "gang"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "강 = gang = [kang]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 강 » ?",
+        "choices": [
+          "ui",
+          "cha",
+          "gang",
+          "bap"
+        ],
+        "correct": 2,
+        "explanation": "강 = gang = [kang]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 학 » ? (romanisation)",
+        "accept": [
+          "hak"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "학 = hak = [hak]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 학 » ?",
+        "choices": [
+          "hak",
+          "bap",
+          "han",
+          "gang"
+        ],
+        "correct": 0,
+        "explanation": "학 = hak = [hak]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 김 » ? (romanisation)",
+        "accept": [
+          "gim"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "김 = gim = [kim]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 김 » ?",
+        "choices": [
+          "a",
+          "gim",
+          "kkum",
+          "cha"
+        ],
+        "correct": 1,
+        "explanation": "김 = gim = [kim]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 왕 » ? (romanisation)",
+        "accept": [
+          "wang"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "왕 = wang = [wang]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 왕 » ?",
+        "choices": [
+          "byeol",
+          "cha",
+          "gang",
+          "wang"
+        ],
+        "correct": 3,
+        "explanation": "왕 = wang = [wang]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 꿈 » ? (romanisation)",
+        "accept": [
+          "kkum"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "꿈 = kkum = [kkoum]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 꿈 » ?",
+        "choices": [
+          "byeol",
+          "kkum",
+          "ui",
+          "gang"
+        ],
+        "correct": 1,
+        "explanation": "꿈 = kkum = [kkoum]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 별 » ? (romanisation)",
+        "accept": [
+          "byeol"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "별 = byeol = [pyol]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 별 » ?",
+        "choices": [
+          "byeol",
+          "tteut",
+          "gim",
+          "hyeong"
+        ],
+        "correct": 0,
+        "explanation": "별 = byeol = [pyol]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 형 » ? (romanisation)",
+        "accept": [
+          "hyeong"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "형 = hyeong = [hyong]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 형 » ?",
+        "choices": [
+          "hak",
+          "kkum",
+          "a",
+          "hyeong"
+        ],
+        "correct": 3,
+        "explanation": "형 = hyeong = [hyong]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 씨 » ? (romanisation)",
+        "accept": [
+          "ssi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "씨 = ssi = [chi]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 씨 » ?",
+        "choices": [
+          "ga",
+          "ssi",
+          "gang",
+          "hyeong"
+        ],
+        "correct": 1,
+        "explanation": "씨 = ssi = [chi]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 뜻 » ? (romanisation)",
+        "accept": [
+          "tteut"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "뜻 = tteut = [ttet]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 뜻 » ?",
+        "choices": [
+          "cha",
+          "sa",
+          "wi",
+          "tteut"
+        ],
+        "correct": 3,
+        "explanation": "뜻 = tteut = [ttet]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 위 » ? (romanisation)",
+        "accept": [
+          "wi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "위 = wi = [wi]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 위 » ?",
+        "choices": [
+          "kkum",
+          "han",
+          "wi",
+          "ui"
+        ],
+        "correct": 2,
+        "explanation": "위 = wi = [wi]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 의 » ? (romanisation)",
+        "accept": [
+          "ui"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "의 = ui = [eui]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 의 » ?",
+        "choices": [
+          "cha",
+          "ssi",
+          "gim",
+          "ui"
+        ],
+        "correct": 3,
+        "explanation": "의 = ui = [eui]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 한국 » ? (romanisation)",
+        "accept": [
+          "hanguk"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "한국 = han-guk = [han-gouk]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 한국 » ?",
+        "choices": [
+          "hanguk",
+          "sagwa",
+          "chima",
+          "uija"
+        ],
+        "correct": 0,
+        "explanation": "한국 = han-guk = [han-gouk]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 학교 » ? (romanisation)",
+        "accept": [
+          "hakkyo",
+          "hakgyo"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "학교 = ha-kkyo = [ha-kkyo]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 학교 » ?",
+        "choices": [
+          "hanguk",
+          "gyosil",
+          "hakkyo",
+          "sigye"
+        ],
+        "correct": 2,
+        "explanation": "학교 = ha-kkyo = [ha-kkyo]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 김치 » ? (romanisation)",
+        "accept": [
+          "gimchi"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "김치 = gim-chi = [kim-tchi]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 김치 » ?",
+        "choices": [
+          "seoul",
+          "norae",
+          "gimchi",
+          "chima"
+        ],
+        "correct": 2,
+        "explanation": "김치 = gim-chi = [kim-tchi]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 안녕 » ? (romanisation)",
+        "accept": [
+          "annyeong"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "안녕 = an-nyeong = [an-nyong]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 안녕 » ?",
+        "choices": [
+          "gimchi",
+          "annyeong",
+          "uija",
+          "annyeonghaseyo"
+        ],
+        "correct": 1,
+        "explanation": "안녕 = an-nyeong = [an-nyong]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 감사 » ? (romanisation)",
+        "accept": [
+          "gamsa"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "감사 = gam-sa = [kam-sa]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 감사 » ?",
+        "choices": [
+          "hanguk",
+          "gamsa",
+          "seoul",
+          "chingu"
+        ],
+        "correct": 1,
+        "explanation": "감사 = gam-sa = [kam-sa]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 물 » ? (romanisation)",
+        "accept": [
+          "mul"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "물 = mul = [moul]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 물 » ?",
+        "choices": [
+          "tokki",
+          "hanguk",
+          "chingu",
+          "mul"
+        ],
+        "correct": 3,
+        "explanation": "물 = mul = [moul]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 밥 » ? (romanisation)",
+        "accept": [
+          "bap"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "밥 = bap = [pap]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 밥 » ?",
         "choices": [
           "bap",
-          "hakkyo",
-          "annyeong",
-          "mul"
+          "chingu",
+          "chima",
+          "podo"
         ],
         "correct": 0,
-        "explanation": "밥 se prononce « bap »."
+        "explanation": "밥 = bap = [pap]"
       },
       {
         "type": "type_answer",
@@ -10651,19 +12510,19 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "사과 = sagwa"
+        "explanation": "사과 = sa-gwa = [sa-gwa]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 사과 » ?",
         "choices": [
-          "hanguk",
-          "bap",
+          "hakkyo",
+          "gimchi",
           "sagwa",
-          "gimchi"
+          "chingu"
         ],
         "correct": 2,
-        "explanation": "사과 se prononce « sagwa »."
+        "explanation": "사과 = sa-gwa = [sa-gwa]"
       },
       {
         "type": "type_answer",
@@ -10673,19 +12532,19 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "커피 = keopi"
+        "explanation": "커피 = keo-pi = [kho-phi]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 커피 » ?",
         "choices": [
-          "bap",
           "sagwa",
           "keopi",
-          "gimchi"
+          "annyeong",
+          "dwaeji"
         ],
-        "correct": 2,
-        "explanation": "커피 se prononce « keopi »."
+        "correct": 1,
+        "explanation": "커피 = keo-pi = [kho-phi]"
       },
       {
         "type": "type_answer",
@@ -10695,19 +12554,328 @@
         ],
         "normalize": "romaja",
         "placeholder": "romanisation",
-        "explanation": "친구 = chingu"
+        "explanation": "친구 = chin-gu = [tchin-gou]"
       },
       {
         "type": "mcq",
         "prompt": "Quel son a « 친구 » ?",
         "choices": [
-          "keopi",
-          "hanguk",
-          "annyeong",
-          "chingu"
+          "chingu",
+          "chima",
+          "gamsa",
+          "dwaeji"
+        ],
+        "correct": 0,
+        "explanation": "친구 = chin-gu = [tchin-gou]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 치마 » ? (romanisation)",
+        "accept": [
+          "chima"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "치마 = chi-ma = [tchi-ma]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 치마 » ?",
+        "choices": [
+          "appa",
+          "seoul",
+          "norae",
+          "chima"
         ],
         "correct": 3,
-        "explanation": "친구 se prononce « chingu »."
+        "explanation": "치마 = chi-ma = [tchi-ma]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 기차 » ? (romanisation)",
+        "accept": [
+          "gicha"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "기차 = gi-cha = [ki-tcha]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 기차 » ?",
+        "choices": [
+          "gicha",
+          "podo",
+          "chingu",
+          "sigye"
+        ],
+        "correct": 0,
+        "explanation": "기차 = gi-cha = [ki-tcha]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 포도 » ? (romanisation)",
+        "accept": [
+          "podo"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "포도 = po-do = [pho-do]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 포도 » ?",
+        "choices": [
+          "gamsahamnida",
+          "annyeong",
+          "tokki",
+          "podo"
+        ],
+        "correct": 3,
+        "explanation": "포도 = po-do = [pho-do]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 토끼 » ? (romanisation)",
+        "accept": [
+          "tokki"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "토끼 = to-kki = [tho-kki]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 토끼 » ?",
+        "choices": [
+          "gamsa",
+          "tokki",
+          "norae",
+          "annyeonghaseyo"
+        ],
+        "correct": 1,
+        "explanation": "토끼 = to-kki = [tho-kki]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 아빠 » ? (romanisation)",
+        "accept": [
+          "appa"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "아빠 = a-ppa = [a-ppa]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 아빠 » ?",
+        "choices": [
+          "tokki",
+          "bap",
+          "uija",
+          "appa"
+        ],
+        "correct": 3,
+        "explanation": "아빠 = a-ppa = [a-ppa]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 시계 » ? (romanisation)",
+        "accept": [
+          "sigye"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "시계 = si-gye = [chi-gyé]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 시계 » ?",
+        "choices": [
+          "hakkyo",
+          "uija",
+          "seoul",
+          "sigye"
+        ],
+        "correct": 3,
+        "explanation": "시계 = si-gye = [chi-gyé]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 의자 » ? (romanisation)",
+        "accept": [
+          "uija"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "의자 = ui-ja = [eui-dja]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 의자 » ?",
+        "choices": [
+          "gyosil",
+          "uija",
+          "sigye",
+          "hakkyo"
+        ],
+        "correct": 1,
+        "explanation": "의자 = ui-ja = [eui-dja]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 돼지 » ? (romanisation)",
+        "accept": [
+          "dwaeji"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "돼지 = dwae-ji = [twè-dji]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 돼지 » ?",
+        "choices": [
+          "podo",
+          "dwaeji",
+          "hanguk",
+          "sigye"
+        ],
+        "correct": 1,
+        "explanation": "돼지 = dwae-ji = [twè-dji]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 노래 » ? (romanisation)",
+        "accept": [
+          "norae"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "노래 = no-rae = [no-rè]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 노래 » ?",
+        "choices": [
+          "podo",
+          "norae",
+          "annyeonghaseyo",
+          "hanguk"
+        ],
+        "correct": 1,
+        "explanation": "노래 = no-rae = [no-rè]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 부엌 » ? (romanisation)",
+        "accept": [
+          "bueok"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "부엌 = bu-eok = [pou-ok]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 부엌 » ?",
+        "choices": [
+          "hanguk",
+          "gyosil",
+          "bueok",
+          "keopi"
+        ],
+        "correct": 2,
+        "explanation": "부엌 = bu-eok = [pou-ok]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 교실 » ? (romanisation)",
+        "accept": [
+          "gyosil"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "교실 = gyo-sil = [kyo-chil]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 교실 » ?",
+        "choices": [
+          "chingu",
+          "gyosil",
+          "gamsa",
+          "norae"
+        ],
+        "correct": 1,
+        "explanation": "교실 = gyo-sil = [kyo-chil]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 서울 » ? (romanisation)",
+        "accept": [
+          "seoul"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "서울 = seo-ul = [so-oul]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 서울 » ?",
+        "choices": [
+          "chima",
+          "gamsahamnida",
+          "appa",
+          "seoul"
+        ],
+        "correct": 3,
+        "explanation": "서울 = seo-ul = [so-oul]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 안녕하세요 » ? (romanisation)",
+        "accept": [
+          "annyeonghaseyo"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "안녕하세요 = an-nyeong-ha-se-yo = [an-nyong-ha-sé-yo]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 안녕하세요 » ?",
+        "choices": [
+          "seoul",
+          "gyosil",
+          "tokki",
+          "annyeonghaseyo"
+        ],
+        "correct": 3,
+        "explanation": "안녕하세요 = an-nyeong-ha-se-yo = [an-nyong-ha-sé-yo]"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Comment se prononce « 감사합니다 » ? (romanisation)",
+        "accept": [
+          "gamsahamnida",
+          "gamsahapnida"
+        ],
+        "normalize": "romaja",
+        "placeholder": "romanisation",
+        "explanation": "감사합니다 = gam-sa-ham-ni-da = [kam-sa-ham-ni-da]"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a « 감사합니다 » ?",
+        "choices": [
+          "gamsa",
+          "gamsahamnida",
+          "annyeonghaseyo",
+          "uija"
+        ],
+        "correct": 1,
+        "explanation": "감사합니다 = gam-sa-ham-ni-da = [kam-sa-ham-ni-da]"
       }
     ]
   },
@@ -10745,7 +12913,9 @@
           "je",
           "moi (familier)",
           "moi"
-        ]
+        ],
+        "rr_syl": "na",
+        "phon": "na"
       },
       {
         "ko": "저",
@@ -10755,7 +12925,9 @@
           "je",
           "moi (poli)",
           "moi"
-        ]
+        ],
+        "rr_syl": "jeo",
+        "phon": "tjo"
       },
       {
         "ko": "저는",
@@ -10763,7 +12935,9 @@
         "fr": [
           "je... (avec particule de thème)",
           "je..."
-        ]
+        ],
+        "rr_syl": "jeo-neun",
+        "phon": "tjo-nen"
       },
       {
         "ko": "너",
@@ -10771,7 +12945,9 @@
         "fr": [
           "tu (familier)",
           "tu"
-        ]
+        ],
+        "rr_syl": "neo",
+        "phon": "no"
       },
       {
         "ko": "우리",
@@ -10780,7 +12956,9 @@
           "nous / notre",
           "nous",
           "notre"
-        ]
+        ],
+        "rr_syl": "u-ri",
+        "phon": "ou-ri"
       },
       {
         "ko": "제",
@@ -10788,7 +12966,9 @@
         "fr": [
           "mon (poli)",
           "mon"
-        ]
+        ],
+        "rr_syl": "je",
+        "phon": "tjé"
       },
       {
         "ko": "내",
@@ -10796,7 +12976,9 @@
         "fr": [
           "mon (familier)",
           "mon"
-        ]
+        ],
+        "rr_syl": "nae",
+        "phon": "nè"
       }
     ]
   },
@@ -10811,7 +12993,9 @@
         "rr": "hada",
         "fr": [
           "faire"
-        ]
+        ],
+        "rr_syl": "ha-da",
+        "phon": "ha-da"
       },
       {
         "ko": "있다",
@@ -10821,7 +13005,9 @@
           "être",
           "y avoir",
           "avoir"
-        ]
+        ],
+        "rr_syl": "it-da",
+        "phon": "it-ta"
       },
       {
         "ko": "없다",
@@ -10830,21 +13016,27 @@
           "ne pas être / ne pas avoir",
           "ne pas être",
           "ne pas avoir"
-        ]
+        ],
+        "rr_syl": "eop-da",
+        "phon": "op-ta"
       },
       {
         "ko": "가다",
         "rr": "gada",
         "fr": [
           "aller"
-        ]
+        ],
+        "rr_syl": "ga-da",
+        "phon": "ka-da"
       },
       {
         "ko": "오다",
         "rr": "oda",
         "fr": [
           "venir"
-        ]
+        ],
+        "rr_syl": "o-da",
+        "phon": "o-da"
       },
       {
         "ko": "보다",
@@ -10853,63 +13045,81 @@
           "voir / regarder",
           "voir",
           "regarder"
-        ]
+        ],
+        "rr_syl": "bo-da",
+        "phon": "po-da"
       },
       {
         "ko": "먹다",
         "rr": "meokda",
         "fr": [
           "manger"
-        ]
+        ],
+        "rr_syl": "meok-da",
+        "phon": "mok-ta"
       },
       {
         "ko": "마시다",
         "rr": "masida",
         "fr": [
           "boire"
-        ]
+        ],
+        "rr_syl": "ma-si-da",
+        "phon": "ma-chi-da"
       },
       {
         "ko": "좋아하다",
         "rr": "joahada",
         "fr": [
           "aimer"
-        ]
+        ],
+        "rr_syl": "jo-a-ha-da",
+        "phon": "tjo-a-ha-da"
       },
       {
         "ko": "필요하다",
         "rr": "piryohada",
         "fr": [
           "avoir besoin"
-        ]
+        ],
+        "rr_syl": "pi-ryo-ha-da",
+        "phon": "phi-ryo-ha-da"
       },
       {
         "ko": "주다",
         "rr": "juda",
         "fr": [
           "donner"
-        ]
+        ],
+        "rr_syl": "ju-da",
+        "phon": "tjou-da"
       },
       {
         "ko": "받다",
         "rr": "batda",
         "fr": [
           "recevoir"
-        ]
+        ],
+        "rr_syl": "bat-da",
+        "phon": "pat-ta"
       },
       {
         "ko": "배고프다",
         "rr": "baegopeuda",
         "fr": [
           "avoir faim"
-        ]
+        ],
+        "rr_syl": "bae-go-peu-da",
+        "phon": "pè-go-phe-da"
       },
       {
         "ko": "생각하다",
         "rr": "saenggakhada",
         "fr": [
           "penser"
-        ]
+        ],
+        "rr_syl": "saeng-gak-ha-da",
+        "phon": "sèng-gak-ha-da"
       },
       {
         "ko": "쓰다",
@@ -10918,7 +13128,9 @@
           "écrire / utiliser",
           "écrire",
           "utiliser"
-        ]
+        ],
+        "rr_syl": "sseu-da",
+        "phon": "sse-da"
       }
     ]
   },
@@ -10935,14 +13147,18 @@
           "être bien / aimer",
           "être bien",
           "aimer"
-        ]
+        ],
+        "rr_syl": "jo-ta",
+        "phon": "tjo-tha"
       },
       {
         "ko": "작다",
         "rr": "jakda",
         "fr": [
           "être petit"
-        ]
+        ],
+        "rr_syl": "jak-da",
+        "phon": "tjak-ta"
       },
       {
         "ko": "많다",
@@ -10951,21 +13167,27 @@
           "y avoir beaucoup / être nombreux",
           "y avoir beaucoup",
           "être nombreux"
-        ]
+        ],
+        "rr_syl": "man-ta",
+        "phon": "man-tha"
       },
       {
         "ko": "적다",
         "rr": "jeokda",
         "fr": [
           "y avoir peu"
-        ]
+        ],
+        "rr_syl": "jeok-da",
+        "phon": "tjok-ta"
       },
       {
         "ko": "예쁘다",
         "rr": "yeppeuda",
         "fr": [
           "être joli"
-        ]
+        ],
+        "rr_syl": "ye-ppeu-da",
+        "phon": "yé-ppe-da"
       },
       {
         "ko": "맛있다",
@@ -10978,28 +13200,36 @@
         ],
         "rr_accept": [
           "masinneun"
-        ]
+        ],
+        "rr_syl": "ma-sit-da",
+        "phon": "ma-chit-ta"
       },
       {
         "ko": "바쁘다",
         "rr": "bappeuda",
         "fr": [
           "être occupé"
-        ]
+        ],
+        "rr_syl": "ba-ppeu-da",
+        "phon": "pa-ppe-da"
       },
       {
         "ko": "쉽다",
         "rr": "swipda",
         "fr": [
           "être facile"
-        ]
+        ],
+        "rr_syl": "swip-da",
+        "phon": "chwip-ta"
       },
       {
         "ko": "어렵다",
         "rr": "eoryeopda",
         "fr": [
           "être difficile"
-        ]
+        ],
+        "rr_syl": "eo-ryeop-da",
+        "phon": "o-ryop-ta"
       },
       {
         "ko": "뜨겁다",
@@ -11010,7 +13240,9 @@
         ],
         "rr_accept": [
           "tteugeoun"
-        ]
+        ],
+        "rr_syl": "tteu-geop-da",
+        "phon": "tte-gop-ta"
       },
       {
         "ko": "덥다",
@@ -11021,7 +13253,9 @@
         ],
         "rr_accept": [
           "deoun"
-        ]
+        ],
+        "rr_syl": "deop-da",
+        "phon": "top-ta"
       },
       {
         "ko": "비싸다",
@@ -11031,7 +13265,9 @@
         ],
         "rr_accept": [
           "bissan"
-        ]
+        ],
+        "rr_syl": "bi-ssa-da",
+        "phon": "pi-ssa-da"
       },
       {
         "ko": "크다",
@@ -11041,7 +13277,9 @@
         ],
         "rr_accept": [
           "keun"
-        ]
+        ],
+        "rr_syl": "keu-da",
+        "phon": "khe-da"
       },
       {
         "ko": "무겁다",
@@ -11051,7 +13289,9 @@
         ],
         "rr_accept": [
           "mugeoun"
-        ]
+        ],
+        "rr_syl": "mu-geop-da",
+        "phon": "mou-gop-ta"
       },
       {
         "ko": "맵다",
@@ -11061,7 +13301,9 @@
         ],
         "rr_accept": [
           "maeun"
-        ]
+        ],
+        "rr_syl": "maep-da",
+        "phon": "mèp-ta"
       },
       {
         "ko": "달다",
@@ -11071,7 +13313,9 @@
         ],
         "rr_accept": [
           "dan"
-        ]
+        ],
+        "rr_syl": "dal-da",
+        "phon": "tal-da"
       },
       {
         "ko": "귀엽다",
@@ -11081,7 +13325,9 @@
         ],
         "rr_accept": [
           "gwiyeoun"
-        ]
+        ],
+        "rr_syl": "gwi-yeop-da",
+        "phon": "kwi-yop-ta"
       },
       {
         "ko": "춥다",
@@ -11092,7 +13338,9 @@
         ],
         "rr_accept": [
           "chuun"
-        ]
+        ],
+        "rr_syl": "chup-da",
+        "phon": "tchoup-ta"
       },
       {
         "ko": "짜다",
@@ -11102,7 +13350,9 @@
         ],
         "rr_accept": [
           "jjan"
-        ]
+        ],
+        "rr_syl": "jja-da",
+        "phon": "ttja-da"
       }
     ]
   },
@@ -11117,7 +13367,9 @@
         "rr": "ne",
         "fr": [
           "oui"
-        ]
+        ],
+        "rr_syl": "ne",
+        "phon": "né"
       },
       {
         "ko": "예",
@@ -11125,14 +13377,18 @@
         "fr": [
           "oui (plus formel)",
           "oui"
-        ]
+        ],
+        "rr_syl": "ye",
+        "phon": "yé"
       },
       {
         "ko": "아니요",
         "rr": "aniyo",
         "fr": [
           "non"
-        ]
+        ],
+        "rr_syl": "a-ni-yo",
+        "phon": "a-ni-yo"
       },
       {
         "ko": "(이)랑",
@@ -11142,7 +13398,9 @@
           "et",
           "avec (oral)",
           "avec"
-        ]
+        ],
+        "rr_syl": "rang",
+        "phon": "rang"
       },
       {
         "ko": "하고",
@@ -11150,7 +13408,9 @@
         "fr": [
           "et (entre noms)",
           "et"
-        ]
+        ],
+        "rr_syl": "ha-go",
+        "phon": "ha-go"
       },
       {
         "ko": "(이)나",
@@ -11158,7 +13418,9 @@
         "fr": [
           "ou (particule)",
           "ou"
-        ]
+        ],
+        "rr_syl": "na",
+        "phon": "na"
       },
       {
         "ko": "또는",
@@ -11166,49 +13428,63 @@
         "fr": [
           "ou (début de phrase)",
           "ou"
-        ]
+        ],
+        "rr_syl": "tto-neun",
+        "phon": "tto-nen"
       },
       {
         "ko": "그런데",
         "rr": "geureonde",
         "fr": [
           "mais"
-        ]
+        ],
+        "rr_syl": "geu-reon-de",
+        "phon": "ke-ron-dé"
       },
       {
         "ko": "정말",
         "rr": "jeongmal",
         "fr": [
           "vraiment"
-        ]
+        ],
+        "rr_syl": "jeong-mal",
+        "phon": "tjong-mal"
       },
       {
         "ko": "많이",
         "rr": "mani",
         "fr": [
           "beaucoup"
-        ]
+        ],
+        "rr_syl": "ma-ni",
+        "phon": "ma-ni"
       },
       {
         "ko": "조금",
         "rr": "jogeum",
         "fr": [
           "un peu"
-        ]
+        ],
+        "rr_syl": "jo-geum",
+        "phon": "tjo-gem"
       },
       {
         "ko": "지금",
         "rr": "jigeum",
         "fr": [
           "maintenant"
-        ]
+        ],
+        "rr_syl": "ji-geum",
+        "phon": "tji-gem"
       },
       {
         "ko": "같이",
         "rr": "gachi",
         "fr": [
           "ensemble"
-        ]
+        ],
+        "rr_syl": "ga-chi",
+        "phon": "ka-tchi"
       },
       {
         "ko": "몇",
@@ -11217,7 +13493,9 @@
           "combien / combien de",
           "combien",
           "combien de"
-        ]
+        ],
+        "rr_syl": "myeot",
+        "phon": "myot"
       },
       {
         "ko": "이에요 / 예요",
@@ -11230,14 +13508,18 @@
         ],
         "rr_accept": [
           "yeyo"
-        ]
+        ],
+        "rr_syl": "ieyo",
+        "phon": "ieyo"
       },
       {
         "ko": "이것",
         "rr": "igeot",
         "fr": [
           "ceci"
-        ]
+        ],
+        "rr_syl": "i-geot",
+        "phon": "i-got"
       },
       {
         "ko": "은 / 는",
@@ -11247,14 +13529,18 @@
         ],
         "rr_accept": [
           "neun"
-        ]
+        ],
+        "rr_syl": "eun",
+        "phon": "en"
       },
       {
         "ko": "왜",
         "rr": "wae",
         "fr": [
           "pourquoi"
-        ]
+        ],
+        "rr_syl": "wae",
+        "phon": "wè"
       },
       {
         "ko": "밖",
@@ -11263,21 +13549,27 @@
           "dehors / extérieur",
           "dehors",
           "extérieur"
-        ]
+        ],
+        "rr_syl": "bak",
+        "phon": "pak"
       },
       {
         "ko": "앞",
         "rr": "ap",
         "fr": [
           "devant"
-        ]
+        ],
+        "rr_syl": "ap",
+        "phon": "ap"
       },
       {
         "ko": "옆",
         "rr": "yeop",
         "fr": [
           "à côté"
-        ]
+        ],
+        "rr_syl": "yeop",
+        "phon": "yop"
       }
     ]
   },
@@ -11292,7 +13584,9 @@
         "rr": "annyeonghaseyo",
         "fr": [
           "bonjour"
-        ]
+        ],
+        "rr_syl": "an-nyeong-ha-se-yo",
+        "phon": "an-nyong-ha-sé-yo"
       },
       {
         "ko": "감사합니다",
@@ -11300,7 +13594,9 @@
         "fr": [
           "merci (formel)",
           "merci"
-        ]
+        ],
+        "rr_syl": "gam-sa-ham-ni-da",
+        "phon": "kam-sa-ham-ni-da"
       },
       {
         "ko": "고맙습니다",
@@ -11308,7 +13604,9 @@
         "fr": [
           "merci (neutre)",
           "merci"
-        ]
+        ],
+        "rr_syl": "go-map-seum-ni-da",
+        "phon": "ko-map-sem-ni-da"
       },
       {
         "ko": "죄송합니다",
@@ -11316,7 +13614,9 @@
         "fr": [
           "désolé (formel)",
           "désolé"
-        ]
+        ],
+        "rr_syl": "joe-song-ham-ni-da",
+        "phon": "tjwé-song-ham-ni-da"
       },
       {
         "ko": "괜찮아요",
@@ -11325,7 +13625,9 @@
           "ça va / pas grave",
           "ça va",
           "pas grave"
-        ]
+        ],
+        "rr_syl": "gwaen-cha-na-yo",
+        "phon": "kwèn-tcha-na-yo"
       },
       {
         "ko": "부탁합니다",
@@ -11333,7 +13635,9 @@
         "fr": [
           "s'il vous plaît (demande)",
           "s'il vous plaît"
-        ]
+        ],
+        "rr_syl": "bu-tak-ham-ni-da",
+        "phon": "pou-thak-ham-ni-da"
       },
       {
         "ko": "주세요",
@@ -11341,14 +13645,18 @@
         "fr": [
           "s'il vous plaît (donnez-moi)",
           "s'il vous plaît"
-        ]
+        ],
+        "rr_syl": "ju-se-yo",
+        "phon": "tjou-sé-yo"
       },
       {
         "ko": "반가워요",
         "rr": "bangawoyo",
         "fr": [
           "enchanté"
-        ]
+        ],
+        "rr_syl": "ban-ga-wo-yo",
+        "phon": "pan-ga-wo-yo"
       },
       {
         "ko": "씨",
@@ -11357,21 +13665,27 @@
           "suffixe de nom (M. / Mme)",
           "suffixe de nom (M.",
           "Mme)"
-        ]
+        ],
+        "rr_syl": "ssi",
+        "phon": "chi"
       },
       {
         "ko": "사랑해요",
         "rr": "saranghaeyo",
         "fr": [
           "je t'aime"
-        ]
+        ],
+        "rr_syl": "sa-rang-hae-yo",
+        "phon": "sa-rang-hè-yo"
       },
       {
         "ko": "생일 축하해요",
         "rr": "saengil chukahaeyo",
         "fr": [
           "joyeux anniversaire"
-        ]
+        ],
+        "rr_syl": "saengil chukahaeyo",
+        "phon": "sèngil chukahaeyo"
       }
     ]
   },
@@ -11386,49 +13700,63 @@
         "rr": "keopi",
         "fr": [
           "café"
-        ]
+        ],
+        "rr_syl": "keo-pi",
+        "phon": "kho-phi"
       },
       {
         "ko": "차",
         "rr": "cha",
         "fr": [
           "thé"
-        ]
+        ],
+        "rr_syl": "cha",
+        "phon": "tcha"
       },
       {
         "ko": "물",
         "rr": "mul",
         "fr": [
           "eau"
-        ]
+        ],
+        "rr_syl": "mul",
+        "phon": "moul"
       },
       {
         "ko": "맥주",
         "rr": "maekju",
         "fr": [
           "bière"
-        ]
+        ],
+        "rr_syl": "maek-ju",
+        "phon": "mèk-tjou"
       },
       {
         "ko": "주스",
         "rr": "juseu",
         "fr": [
           "jus"
-        ]
+        ],
+        "rr_syl": "ju-seu",
+        "phon": "tjou-se"
       },
       {
         "ko": "우유",
         "rr": "uyu",
         "fr": [
           "lait"
-        ]
+        ],
+        "rr_syl": "u-yu",
+        "phon": "ou-you"
       },
       {
         "ko": "버블티",
         "rr": "beobeulti",
         "fr": [
           "bubble tea"
-        ]
+        ],
+        "rr_syl": "beo-beul-ti",
+        "phon": "po-bel-thi"
       }
     ]
   },
@@ -11445,56 +13773,72 @@
           "riz / repas",
           "riz",
           "repas"
-        ]
+        ],
+        "rr_syl": "bap",
+        "phon": "pap"
       },
       {
         "ko": "빵",
         "rr": "ppang",
         "fr": [
           "pain"
-        ]
+        ],
+        "rr_syl": "ppang",
+        "phon": "ppang"
       },
       {
         "ko": "고기",
         "rr": "gogi",
         "fr": [
           "viande"
-        ]
+        ],
+        "rr_syl": "go-gi",
+        "phon": "ko-gi"
       },
       {
         "ko": "치킨",
         "rr": "chikin",
         "fr": [
           "poulet frit"
-        ]
+        ],
+        "rr_syl": "chi-kin",
+        "phon": "tchi-khin"
       },
       {
         "ko": "김치",
         "rr": "gimchi",
         "fr": [
           "kimchi"
-        ]
+        ],
+        "rr_syl": "gim-chi",
+        "phon": "kim-tchi"
       },
       {
         "ko": "국",
         "rr": "guk",
         "fr": [
           "soupe"
-        ]
+        ],
+        "rr_syl": "guk",
+        "phon": "kouk"
       },
       {
         "ko": "과일",
         "rr": "gwail",
         "fr": [
           "fruit"
-        ]
+        ],
+        "rr_syl": "gwa-il",
+        "phon": "kwa-il"
       },
       {
         "ko": "사과",
         "rr": "sagwa",
         "fr": [
           "pomme"
-        ]
+        ],
+        "rr_syl": "sa-gwa",
+        "phon": "sa-gwa"
       },
       {
         "ko": "라면",
@@ -11503,7 +13847,9 @@
           "ramen / nouilles instantanées",
           "ramen",
           "nouilles instantanées"
-        ]
+        ],
+        "rr_syl": "ra-myeon",
+        "phon": "ra-myon"
       },
       {
         "ko": "생선",
@@ -11511,42 +13857,54 @@
         "fr": [
           "poisson (aliment)",
           "poisson"
-        ]
+        ],
+        "rr_syl": "saeng-seon",
+        "phon": "sèng-son"
       },
       {
         "ko": "채소",
         "rr": "chaeso",
         "fr": [
           "légume"
-        ]
+        ],
+        "rr_syl": "chae-so",
+        "phon": "tchè-so"
       },
       {
         "ko": "케이크",
         "rr": "keikeu",
         "fr": [
           "gâteau"
-        ]
+        ],
+        "rr_syl": "ke-i-keu",
+        "phon": "khé-i-khe"
       },
       {
         "ko": "빙수",
         "rr": "bingsu",
         "fr": [
           "bingsu"
-        ]
+        ],
+        "rr_syl": "bing-su",
+        "phon": "ping-sou"
       },
       {
         "ko": "두부",
         "rr": "dubu",
         "fr": [
           "tofu"
-        ]
+        ],
+        "rr_syl": "du-bu",
+        "phon": "tou-bou"
       },
       {
         "ko": "오리구이",
         "rr": "origui",
         "fr": [
           "canard grillé"
-        ]
+        ],
+        "rr_syl": "o-ri-gu-i",
+        "phon": "o-ri-gou-i"
       },
       {
         "ko": "만두",
@@ -11555,14 +13913,18 @@
           "raviolis / boulettes",
           "raviolis",
           "boulettes"
-        ]
+        ],
+        "rr_syl": "man-du",
+        "phon": "man-dou"
       },
       {
         "ko": "찌개",
         "rr": "jjigae",
         "fr": [
           "ragoût"
-        ]
+        ],
+        "rr_syl": "jji-gae",
+        "phon": "ttji-gè"
       },
       {
         "ko": "김밥",
@@ -11570,21 +13932,27 @@
         "fr": [
           "kimbap (riz roulé dans l'algue)",
           "kimbap"
-        ]
+        ],
+        "rr_syl": "gim-bap",
+        "phon": "kim-bap"
       },
       {
         "ko": "불고기",
         "rr": "bulgogi",
         "fr": [
           "bœuf mariné sauce soja"
-        ]
+        ],
+        "rr_syl": "bul-go-gi",
+        "phon": "poul-go-gi"
       },
       {
         "ko": "삼겹살",
         "rr": "samgyeopsal",
         "fr": [
           "poitrine de porc grillée"
-        ]
+        ],
+        "rr_syl": "sam-gyeop-sal",
+        "phon": "sam-gyop-sal"
       },
       {
         "ko": "갈비탕",
@@ -11592,28 +13960,36 @@
         "fr": [
           "galbitang (soupe de côtes de bœuf)",
           "galbitang"
-        ]
+        ],
+        "rr_syl": "gal-bi-tang",
+        "phon": "kal-bi-thang"
       },
       {
         "ko": "음식",
         "rr": "eumsik",
         "fr": [
           "nourriture"
-        ]
+        ],
+        "rr_syl": "eum-sik",
+        "phon": "em-chik"
       },
       {
         "ko": "포도",
         "rr": "podo",
         "fr": [
           "raisin"
-        ]
+        ],
+        "rr_syl": "po-do",
+        "phon": "pho-do"
       },
       {
         "ko": "토마토",
         "rr": "tomato",
         "fr": [
           "tomate"
-        ]
+        ],
+        "rr_syl": "to-ma-to",
+        "phon": "tho-ma-tho"
       },
       {
         "ko": "과자",
@@ -11622,7 +13998,9 @@
           "gâteau sec / friandise",
           "gâteau sec",
           "friandise"
-        ]
+        ],
+        "rr_syl": "gwa-ja",
+        "phon": "kwa-dja"
       },
       {
         "ko": "쌀",
@@ -11630,7 +14008,9 @@
         "fr": [
           "riz (cru)",
           "riz"
-        ]
+        ],
+        "rr_syl": "ssal",
+        "phon": "ssal"
       },
       {
         "ko": "맛",
@@ -11639,7 +14019,9 @@
           "goût / saveur",
           "goût",
           "saveur"
-        ]
+        ],
+        "rr_syl": "mat",
+        "phon": "mat"
       }
     ]
   },
@@ -11654,21 +14036,27 @@
         "rr": "ori",
         "fr": [
           "canard"
-        ]
+        ],
+        "rr_syl": "o-ri",
+        "phon": "o-ri"
       },
       {
         "ko": "고양이",
         "rr": "goyangi",
         "fr": [
           "chat"
-        ]
+        ],
+        "rr_syl": "go-yang-i",
+        "phon": "ko-yang-i"
       },
       {
         "ko": "개",
         "rr": "gae",
         "fr": [
           "chien"
-        ]
+        ],
+        "rr_syl": "gae",
+        "phon": "kè"
       },
       {
         "ko": "쥐",
@@ -11676,28 +14064,36 @@
         "fr": [
           "souris (animal)",
           "souris"
-        ]
+        ],
+        "rr_syl": "jwi",
+        "phon": "tjwi"
       },
       {
         "ko": "토끼",
         "rr": "tokki",
         "fr": [
           "lapin"
-        ]
+        ],
+        "rr_syl": "to-kki",
+        "phon": "tho-kki"
       },
       {
         "ko": "돼지",
         "rr": "dwaeji",
         "fr": [
           "cochon"
-        ]
+        ],
+        "rr_syl": "dwae-ji",
+        "phon": "twè-dji"
       },
       {
         "ko": "말",
         "rr": "mal",
         "fr": [
           "cheval"
-        ]
+        ],
+        "rr_syl": "mal",
+        "phon": "mal"
       },
       {
         "ko": "꼬리",
@@ -11705,7 +14101,9 @@
         "fr": [
           "queue (d'animal)",
           "queue"
-        ]
+        ],
+        "rr_syl": "kko-ri",
+        "phon": "kko-ri"
       }
     ]
   },
@@ -11720,35 +14118,45 @@
         "rr": "jip",
         "fr": [
           "maison"
-        ]
+        ],
+        "rr_syl": "jip",
+        "phon": "tjip"
       },
       {
         "ko": "학교",
         "rr": "hakgyo",
         "fr": [
           "école"
-        ]
+        ],
+        "rr_syl": "hak-gyo",
+        "phon": "hak-kyo"
       },
       {
         "ko": "회사",
         "rr": "hoesa",
         "fr": [
           "entreprise"
-        ]
+        ],
+        "rr_syl": "hoe-sa",
+        "phon": "hwé-sa"
       },
       {
         "ko": "시장",
         "rr": "sijang",
         "fr": [
           "marché"
-        ]
+        ],
+        "rr_syl": "si-jang",
+        "phon": "chi-djang"
       },
       {
         "ko": "식당",
         "rr": "sikdang",
         "fr": [
           "restaurant"
-        ]
+        ],
+        "rr_syl": "sik-dang",
+        "phon": "chik-tang"
       },
       {
         "ko": "카페",
@@ -11756,14 +14164,18 @@
         "fr": [
           "café (lieu)",
           "café"
-        ]
+        ],
+        "rr_syl": "ka-pe",
+        "phon": "kha-phé"
       },
       {
         "ko": "병원",
         "rr": "byeongwon",
         "fr": [
           "hôpital"
-        ]
+        ],
+        "rr_syl": "byeong-won",
+        "phon": "pyong-won"
       },
       {
         "ko": "가게",
@@ -11772,42 +14184,54 @@
           "magasin / boutique",
           "magasin",
           "boutique"
-        ]
+        ],
+        "rr_syl": "ga-ge",
+        "phon": "ka-gé"
       },
       {
         "ko": "도서관",
         "rr": "doseogwan",
         "fr": [
           "bibliothèque"
-        ]
+        ],
+        "rr_syl": "do-seo-gwan",
+        "phon": "to-so-gwan"
       },
       {
         "ko": "교실",
         "rr": "gyosil",
         "fr": [
           "salle de classe"
-        ]
+        ],
+        "rr_syl": "gyo-sil",
+        "phon": "kyo-chil"
       },
       {
         "ko": "서점",
         "rr": "seojeom",
         "fr": [
           "librairie"
-        ]
+        ],
+        "rr_syl": "seo-jeom",
+        "phon": "so-djom"
       },
       {
         "ko": "대학",
         "rr": "daehak",
         "fr": [
           "université"
-        ]
+        ],
+        "rr_syl": "dae-hak",
+        "phon": "tè-hak"
       },
       {
         "ko": "공장",
         "rr": "gongjang",
         "fr": [
           "usine"
-        ]
+        ],
+        "rr_syl": "gong-jang",
+        "phon": "kong-djang"
       },
       {
         "ko": "방",
@@ -11816,7 +14240,9 @@
           "chambre / pièce",
           "chambre",
           "pièce"
-        ]
+        ],
+        "rr_syl": "bang",
+        "phon": "pang"
       },
       {
         "ko": "부엌",
@@ -11824,14 +14250,18 @@
         "fr": [
           "cuisine (pièce)",
           "cuisine"
-        ]
+        ],
+        "rr_syl": "bu-eok",
+        "phon": "pou-ok"
       },
       {
         "ko": "고향",
         "rr": "gohyang",
         "fr": [
           "ville natale"
-        ]
+        ],
+        "rr_syl": "go-hyang",
+        "phon": "ko-hyang"
       },
       {
         "ko": "길",
@@ -11841,14 +14271,18 @@
           "route",
           "chemin",
           "rue"
-        ]
+        ],
+        "rr_syl": "gil",
+        "phon": "kil"
       },
       {
         "ko": "서울",
         "rr": "seoul",
         "fr": [
           "Séoul"
-        ]
+        ],
+        "rr_syl": "seo-ul",
+        "phon": "so-oul"
       }
     ]
   },
@@ -11865,49 +14299,63 @@
           "temps / heure",
           "temps",
           "heure"
-        ]
+        ],
+        "rr_syl": "si-gan",
+        "phon": "chi-gan"
       },
       {
         "ko": "하루",
         "rr": "haru",
         "fr": [
           "une journée"
-        ]
+        ],
+        "rr_syl": "ha-ru",
+        "phon": "ha-rou"
       },
       {
         "ko": "날",
         "rr": "nal",
         "fr": [
           "jour"
-        ]
+        ],
+        "rr_syl": "nal",
+        "phon": "nal"
       },
       {
         "ko": "오늘",
         "rr": "oneul",
         "fr": [
           "aujourd'hui"
-        ]
+        ],
+        "rr_syl": "o-neul",
+        "phon": "o-nel"
       },
       {
         "ko": "내일",
         "rr": "naeil",
         "fr": [
           "demain"
-        ]
+        ],
+        "rr_syl": "nae-il",
+        "phon": "nè-il"
       },
       {
         "ko": "어제",
         "rr": "eoje",
         "fr": [
           "hier"
-        ]
+        ],
+        "rr_syl": "eo-je",
+        "phon": "o-djé"
       },
       {
         "ko": "생일",
         "rr": "saengil",
         "fr": [
           "anniversaire"
-        ]
+        ],
+        "rr_syl": "saeng-il",
+        "phon": "sèng-il"
       },
       {
         "ko": "살",
@@ -11915,35 +14363,45 @@
         "fr": [
           "âge (compteur « …ans »)",
           "âge"
-        ]
+        ],
+        "rr_syl": "sal",
+        "phon": "sal"
       },
       {
         "ko": "나이",
         "rr": "nai",
         "fr": [
           "âge"
-        ]
+        ],
+        "rr_syl": "na-i",
+        "phon": "na-i"
       },
       {
         "ko": "곧",
         "rr": "got",
         "fr": [
           "bientôt"
-        ]
+        ],
+        "rr_syl": "got",
+        "phon": "kot"
       },
       {
         "ko": "봄",
         "rr": "bom",
         "fr": [
           "printemps"
-        ]
+        ],
+        "rr_syl": "bom",
+        "phon": "pom"
       },
       {
         "ko": "가을",
         "rr": "gaeul",
         "fr": [
           "automne"
-        ]
+        ],
+        "rr_syl": "ga-eul",
+        "phon": "ka-el"
       },
       {
         "ko": "낮",
@@ -11952,7 +14410,9 @@
           "journée / midi",
           "journée",
           "midi"
-        ]
+        ],
+        "rr_syl": "nat",
+        "phon": "nat"
       }
     ]
   },
@@ -11969,49 +14429,63 @@
           "montre / horloge",
           "montre",
           "horloge"
-        ]
+        ],
+        "rr_syl": "si-gye",
+        "phon": "chi-gyé"
       },
       {
         "ko": "선물",
         "rr": "seonmul",
         "fr": [
           "cadeau"
-        ]
+        ],
+        "rr_syl": "seon-mul",
+        "phon": "son-moul"
       },
       {
         "ko": "핸드폰",
         "rr": "haendeupon",
         "fr": [
           "téléphone portable"
-        ]
+        ],
+        "rr_syl": "haen-deu-pon",
+        "phon": "hèn-de-phon"
       },
       {
         "ko": "가방",
         "rr": "gabang",
         "fr": [
           "sac"
-        ]
+        ],
+        "rr_syl": "ga-bang",
+        "phon": "ka-bang"
       },
       {
         "ko": "지갑",
         "rr": "jigap",
         "fr": [
           "portefeuille"
-        ]
+        ],
+        "rr_syl": "ji-gap",
+        "phon": "tji-gap"
       },
       {
         "ko": "책",
         "rr": "chaek",
         "fr": [
           "livre"
-        ]
+        ],
+        "rr_syl": "chaek",
+        "phon": "tchèk"
       },
       {
         "ko": "볼펜",
         "rr": "bolpen",
         "fr": [
           "stylo"
-        ]
+        ],
+        "rr_syl": "bol-pen",
+        "phon": "pol-phén"
       },
       {
         "ko": "마우스",
@@ -12019,42 +14493,54 @@
         "fr": [
           "souris (ordinateur)",
           "souris"
-        ]
+        ],
+        "rr_syl": "ma-u-seu",
+        "phon": "ma-ou-se"
       },
       {
         "ko": "컴퓨터",
         "rr": "keompyuteo",
         "fr": [
           "ordinateur"
-        ]
+        ],
+        "rr_syl": "keom-pyu-teo",
+        "phon": "khom-phyou-tho"
       },
       {
         "ko": "카메라",
         "rr": "kamera",
         "fr": [
           "appareil photo"
-        ]
+        ],
+        "rr_syl": "ka-me-ra",
+        "phon": "kha-mé-ra"
       },
       {
         "ko": "목걸이",
         "rr": "mokgeori",
         "fr": [
           "collier"
-        ]
+        ],
+        "rr_syl": "mok-geo-ri",
+        "phon": "mok-ko-ri"
       },
       {
         "ko": "의자",
         "rr": "uija",
         "fr": [
           "chaise"
-        ]
+        ],
+        "rr_syl": "ui-ja",
+        "phon": "eui-dja"
       },
       {
         "ko": "붓",
         "rr": "but",
         "fr": [
           "pinceau"
-        ]
+        ],
+        "rr_syl": "but",
+        "phon": "pout"
       },
       {
         "ko": "컵",
@@ -12063,21 +14549,27 @@
           "tasse / gobelet",
           "tasse",
           "gobelet"
-        ]
+        ],
+        "rr_syl": "keop",
+        "phon": "khop"
       },
       {
         "ko": "기차",
         "rr": "gicha",
         "fr": [
           "train"
-        ]
+        ],
+        "rr_syl": "gi-cha",
+        "phon": "ki-tcha"
       },
       {
         "ko": "노래",
         "rr": "norae",
         "fr": [
           "chanson"
-        ]
+        ],
+        "rr_syl": "no-rae",
+        "phon": "no-rè"
       },
       {
         "ko": "이야기",
@@ -12086,21 +14578,27 @@
           "histoire / récit",
           "histoire",
           "récit"
-        ]
+        ],
+        "rr_syl": "i-ya-gi",
+        "phon": "i-ya-gi"
       },
       {
         "ko": "돈",
         "rr": "don",
         "fr": [
           "argent"
-        ]
+        ],
+        "rr_syl": "don",
+        "phon": "ton"
       },
       {
         "ko": "약",
         "rr": "yak",
         "fr": [
           "médicament"
-        ]
+        ],
+        "rr_syl": "yak",
+        "phon": "yak"
       }
     ]
   },
@@ -12115,49 +14613,63 @@
         "rr": "hayansaek",
         "fr": [
           "blanc"
-        ]
+        ],
+        "rr_syl": "ha-yan-saek",
+        "phon": "ha-yan-sèk"
       },
       {
         "ko": "회색",
         "rr": "hoesaek",
         "fr": [
           "gris"
-        ]
+        ],
+        "rr_syl": "hoe-saek",
+        "phon": "hwé-sèk"
       },
       {
         "ko": "검은색",
         "rr": "geomeunsaek",
         "fr": [
           "noir"
-        ]
+        ],
+        "rr_syl": "geo-meun-saek",
+        "phon": "ko-men-sèk"
       },
       {
         "ko": "빨간색",
         "rr": "ppalgansaek",
         "fr": [
           "rouge"
-        ]
+        ],
+        "rr_syl": "ppal-gan-saek",
+        "phon": "ppal-gan-sèk"
       },
       {
         "ko": "파란색",
         "rr": "paransaek",
         "fr": [
           "bleu"
-        ]
+        ],
+        "rr_syl": "pa-ran-saek",
+        "phon": "pha-ran-sèk"
       },
       {
         "ko": "노란색",
         "rr": "noransaek",
         "fr": [
           "jaune"
-        ]
+        ],
+        "rr_syl": "no-ran-saek",
+        "phon": "no-ran-sèk"
       },
       {
         "ko": "초록색",
         "rr": "choroksaek",
         "fr": [
           "vert"
-        ]
+        ],
+        "rr_syl": "cho-rok-saek",
+        "phon": "tcho-rok-sèk"
       }
     ]
   },
@@ -12172,42 +14684,54 @@
         "rr": "hoesawon",
         "fr": [
           "employé de bureau"
-        ]
+        ],
+        "rr_syl": "hoe-sa-won",
+        "phon": "hwé-sa-won"
       },
       {
         "ko": "화가",
         "rr": "hwaga",
         "fr": [
           "peintre"
-        ]
+        ],
+        "rr_syl": "hwa-ga",
+        "phon": "hwa-ga"
       },
       {
         "ko": "의사",
         "rr": "uisa",
         "fr": [
           "médecin"
-        ]
+        ],
+        "rr_syl": "ui-sa",
+        "phon": "eui-sa"
       },
       {
         "ko": "웨이터",
         "rr": "weiteo",
         "fr": [
           "serveur"
-        ]
+        ],
+        "rr_syl": "we-i-teo",
+        "phon": "wé-i-tho"
       },
       {
         "ko": "선생님",
         "rr": "seonsaengnim",
         "fr": [
           "professeur"
-        ]
+        ],
+        "rr_syl": "seon-saeng-nim",
+        "phon": "son-sèng-nim"
       },
       {
         "ko": "사장님",
         "rr": "sajangnim",
         "fr": [
           "patron"
-        ]
+        ],
+        "rr_syl": "sa-jang-nim",
+        "phon": "sa-djang-nim"
       }
     ]
   },
@@ -12222,28 +14746,36 @@
         "rr": "miguk",
         "fr": [
           "États-Unis"
-        ]
+        ],
+        "rr_syl": "mi-guk",
+        "phon": "mi-gouk"
       },
       {
         "ko": "한국",
         "rr": "hanguk",
         "fr": [
           "Corée"
-        ]
+        ],
+        "rr_syl": "han-guk",
+        "phon": "han-gouk"
       },
       {
         "ko": "중국",
         "rr": "jungguk",
         "fr": [
           "Chine"
-        ]
+        ],
+        "rr_syl": "jung-guk",
+        "phon": "tjoung-gouk"
       },
       {
         "ko": "프랑스",
         "rr": "peurangseu",
         "fr": [
           "France"
-        ]
+        ],
+        "rr_syl": "peu-rang-seu",
+        "phon": "phe-rang-se"
       }
     ]
   },
@@ -12258,147 +14790,189 @@
         "rr": "hana",
         "fr": [
           "un"
-        ]
+        ],
+        "rr_syl": "ha-na",
+        "phon": "ha-na"
       },
       {
         "ko": "둘",
         "rr": "dul",
         "fr": [
           "deux"
-        ]
+        ],
+        "rr_syl": "dul",
+        "phon": "toul"
       },
       {
         "ko": "셋",
         "rr": "set",
         "fr": [
           "trois"
-        ]
+        ],
+        "rr_syl": "set",
+        "phon": "sét"
       },
       {
         "ko": "넷",
         "rr": "net",
         "fr": [
           "quatre"
-        ]
+        ],
+        "rr_syl": "net",
+        "phon": "nét"
       },
       {
         "ko": "다섯",
         "rr": "daseot",
         "fr": [
           "cinq"
-        ]
+        ],
+        "rr_syl": "da-seot",
+        "phon": "ta-sot"
       },
       {
         "ko": "여섯",
         "rr": "yeoseot",
         "fr": [
           "six"
-        ]
+        ],
+        "rr_syl": "yeo-seot",
+        "phon": "yo-sot"
       },
       {
         "ko": "일곱",
         "rr": "ilgop",
         "fr": [
           "sept"
-        ]
+        ],
+        "rr_syl": "il-gop",
+        "phon": "il-gop"
       },
       {
         "ko": "여덟",
         "rr": "yeodeol",
         "fr": [
           "huit"
-        ]
+        ],
+        "rr_syl": "yeo-deol",
+        "phon": "yo-dol"
       },
       {
         "ko": "아홉",
         "rr": "ahop",
         "fr": [
           "neuf"
-        ]
+        ],
+        "rr_syl": "a-hop",
+        "phon": "a-hop"
       },
       {
         "ko": "열",
         "rr": "yeol",
         "fr": [
           "dix"
-        ]
+        ],
+        "rr_syl": "yeol",
+        "phon": "yol"
       },
       {
         "ko": "열하나",
         "rr": "yeolhana",
         "fr": [
           "onze"
-        ]
+        ],
+        "rr_syl": "yeol-ha-na",
+        "phon": "yol-ha-na"
       },
       {
         "ko": "열다섯",
         "rr": "yeoldaseot",
         "fr": [
           "quinze"
-        ]
+        ],
+        "rr_syl": "yeol-da-seot",
+        "phon": "yol-da-sot"
       },
       {
         "ko": "열아홉",
         "rr": "yeorahop",
         "fr": [
           "dix-neuf"
-        ]
+        ],
+        "rr_syl": "yeo-ra-hop",
+        "phon": "yo-ra-hop"
       },
       {
         "ko": "스물",
         "rr": "seumul",
         "fr": [
           "vingt"
-        ]
+        ],
+        "rr_syl": "seu-mul",
+        "phon": "se-moul"
       },
       {
         "ko": "서른",
         "rr": "seoreun",
         "fr": [
           "trente"
-        ]
+        ],
+        "rr_syl": "seo-reun",
+        "phon": "so-ren"
       },
       {
         "ko": "마흔",
         "rr": "maheun",
         "fr": [
           "quarante"
-        ]
+        ],
+        "rr_syl": "ma-heun",
+        "phon": "ma-hen"
       },
       {
         "ko": "쉰",
         "rr": "swin",
         "fr": [
           "cinquante"
-        ]
+        ],
+        "rr_syl": "swin",
+        "phon": "chwin"
       },
       {
         "ko": "예순",
         "rr": "yesun",
         "fr": [
           "soixante"
-        ]
+        ],
+        "rr_syl": "ye-sun",
+        "phon": "yé-soun"
       },
       {
         "ko": "일흔",
         "rr": "ilheun",
         "fr": [
           "soixante-dix"
-        ]
+        ],
+        "rr_syl": "il-heun",
+        "phon": "il-hen"
       },
       {
         "ko": "여든",
         "rr": "yeodeun",
         "fr": [
           "quatre-vingts"
-        ]
+        ],
+        "rr_syl": "yeo-deun",
+        "phon": "yo-den"
       },
       {
         "ko": "아흔",
         "rr": "aheun",
         "fr": [
           "quatre-vingt-dix"
-        ]
+        ],
+        "rr_syl": "a-heun",
+        "phon": "a-hen"
       }
     ]
   },
@@ -12413,98 +14987,126 @@
         "rr": "il",
         "fr": [
           "un"
-        ]
+        ],
+        "rr_syl": "il",
+        "phon": "il"
       },
       {
         "ko": "이",
         "rr": "i",
         "fr": [
           "deux"
-        ]
+        ],
+        "rr_syl": "i",
+        "phon": "i"
       },
       {
         "ko": "삼",
         "rr": "sam",
         "fr": [
           "trois"
-        ]
+        ],
+        "rr_syl": "sam",
+        "phon": "sam"
       },
       {
         "ko": "사",
         "rr": "sa",
         "fr": [
           "quatre"
-        ]
+        ],
+        "rr_syl": "sa",
+        "phon": "sa"
       },
       {
         "ko": "오",
         "rr": "o",
         "fr": [
           "cinq"
-        ]
+        ],
+        "rr_syl": "o",
+        "phon": "o"
       },
       {
         "ko": "육",
         "rr": "yuk",
         "fr": [
           "six"
-        ]
+        ],
+        "rr_syl": "yuk",
+        "phon": "youk"
       },
       {
         "ko": "칠",
         "rr": "chil",
         "fr": [
           "sept"
-        ]
+        ],
+        "rr_syl": "chil",
+        "phon": "tchil"
       },
       {
         "ko": "팔",
         "rr": "pal",
         "fr": [
           "huit"
-        ]
+        ],
+        "rr_syl": "pal",
+        "phon": "phal"
       },
       {
         "ko": "구",
         "rr": "gu",
         "fr": [
           "neuf"
-        ]
+        ],
+        "rr_syl": "gu",
+        "phon": "kou"
       },
       {
         "ko": "십",
         "rr": "sip",
         "fr": [
           "dix"
-        ]
+        ],
+        "rr_syl": "sip",
+        "phon": "chip"
       },
       {
         "ko": "이십",
         "rr": "isip",
         "fr": [
           "vingt"
-        ]
+        ],
+        "rr_syl": "i-sip",
+        "phon": "i-chip"
       },
       {
         "ko": "백",
         "rr": "baek",
         "fr": [
           "cent"
-        ]
+        ],
+        "rr_syl": "baek",
+        "phon": "pèk"
       },
       {
         "ko": "천",
         "rr": "cheon",
         "fr": [
           "mille"
-        ]
+        ],
+        "rr_syl": "cheon",
+        "phon": "tchon"
       },
       {
         "ko": "만",
         "rr": "man",
         "fr": [
           "dix mille"
-        ]
+        ],
+        "rr_syl": "man",
+        "phon": "man"
       },
       {
         "ko": "영 / 공",
@@ -12514,7 +15116,9 @@
         ],
         "rr_accept": [
           "gong"
-        ]
+        ],
+        "rr_syl": "yeong",
+        "phon": "yong"
       }
     ]
   },
@@ -12530,7 +15134,9 @@
         "fr": [
           "ami(e)",
           "ami"
-        ]
+        ],
+        "rr_syl": "chin-gu",
+        "phon": "tchin-gou"
       },
       {
         "ko": "누나",
@@ -12538,7 +15144,9 @@
         "fr": [
           "grande sœur (dit par un homme)",
           "grande sœur"
-        ]
+        ],
+        "rr_syl": "nu-na",
+        "phon": "nou-na"
       },
       {
         "ko": "언니",
@@ -12546,7 +15154,9 @@
         "fr": [
           "grande sœur (dit par une femme)",
           "grande sœur"
-        ]
+        ],
+        "rr_syl": "eon-ni",
+        "phon": "on-ni"
       },
       {
         "ko": "형",
@@ -12554,7 +15164,9 @@
         "fr": [
           "grand frère (dit par un homme)",
           "grand frère"
-        ]
+        ],
+        "rr_syl": "hyeong",
+        "phon": "hyong"
       },
       {
         "ko": "오빠",
@@ -12562,7 +15174,9 @@
         "fr": [
           "grand frère (dit par une femme)",
           "grand frère"
-        ]
+        ],
+        "rr_syl": "o-ppa",
+        "phon": "o-ppa"
       },
       {
         "ko": "동생",
@@ -12570,28 +15184,36 @@
         "fr": [
           "cadet(te) (frère ou sœur)",
           "cadet"
-        ]
+        ],
+        "rr_syl": "dong-saeng",
+        "phon": "tong-sèng"
       },
       {
         "ko": "여동생",
         "rr": "yeodongsaeng",
         "fr": [
           "petite sœur"
-        ]
+        ],
+        "rr_syl": "yeo-dong-saeng",
+        "phon": "yo-dong-sèng"
       },
       {
         "ko": "남동생",
         "rr": "namdongsaeng",
         "fr": [
           "petit frère"
-        ]
+        ],
+        "rr_syl": "nam-dong-saeng",
+        "phon": "nam-dong-sèng"
       },
       {
         "ko": "아빠",
         "rr": "appa",
         "fr": [
           "papa"
-        ]
+        ],
+        "rr_syl": "a-ppa",
+        "phon": "a-ppa"
       }
     ]
   },
@@ -12608,7 +15230,9 @@
           "tête / cheveux",
           "tête",
           "cheveux"
-        ]
+        ],
+        "rr_syl": "meo-ri",
+        "phon": "mo-ri"
       },
       {
         "ko": "눈",
@@ -12617,35 +15241,45 @@
           "œil / neige",
           "œil",
           "neige"
-        ]
+        ],
+        "rr_syl": "nun",
+        "phon": "noun"
       },
       {
         "ko": "코",
         "rr": "ko",
         "fr": [
           "nez"
-        ]
+        ],
+        "rr_syl": "ko",
+        "phon": "kho"
       },
       {
         "ko": "귀",
         "rr": "gwi",
         "fr": [
           "oreille"
-        ]
+        ],
+        "rr_syl": "gwi",
+        "phon": "kwi"
       },
       {
         "ko": "입",
         "rr": "ip",
         "fr": [
           "bouche"
-        ]
+        ],
+        "rr_syl": "ip",
+        "phon": "ip"
       },
       {
         "ko": "감기",
         "rr": "gamgi",
         "fr": [
           "rhume"
-        ]
+        ],
+        "rr_syl": "gam-gi",
+        "phon": "kam-gi"
       }
     ]
   },
@@ -12661,14 +15295,18 @@
         "fr": [
           "vêtement(s)",
           "vêtement"
-        ]
+        ],
+        "rr_syl": "ot",
+        "phon": "ot"
       },
       {
         "ko": "치마",
         "rr": "chima",
         "fr": [
           "jupe"
-        ]
+        ],
+        "rr_syl": "chi-ma",
+        "phon": "tchi-ma"
       },
       {
         "ko": "머리띠",
@@ -12677,7 +15315,9 @@
           "serre-tête / bandeau",
           "serre-tête",
           "bandeau"
-        ]
+        ],
+        "rr_syl": "meo-ri-tti",
+        "phon": "mo-ri-tti"
       }
     ]
   },
@@ -12694,14 +15334,18 @@
           "fleuve / rivière",
           "fleuve",
           "rivière"
-        ]
+        ],
+        "rr_syl": "gang",
+        "phon": "kang"
       },
       {
         "ko": "숲",
         "rr": "sup",
         "fr": [
           "forêt"
-        ]
+        ],
+        "rr_syl": "sup",
+        "phon": "soup"
       },
       {
         "ko": "밭",
@@ -12709,21 +15353,27 @@
         "fr": [
           "champ (cultivé)",
           "champ"
-        ]
+        ],
+        "rr_syl": "bat",
+        "phon": "pat"
       },
       {
         "ko": "꽃",
         "rr": "kkot",
         "fr": [
           "fleur"
-        ]
+        ],
+        "rr_syl": "kkot",
+        "phon": "kkot"
       },
       {
         "ko": "나무",
         "rr": "namu",
         "fr": [
           "arbre"
-        ]
+        ],
+        "rr_syl": "na-mu",
+        "phon": "na-mou"
       }
     ]
   },
@@ -12740,7 +15390,9 @@
           "idiot / imbécile",
           "idiot",
           "imbécile"
-        ]
+        ],
+        "rr_syl": "ba-bo",
+        "phon": "pa-bo"
       },
       {
         "ko": "멍청이",
@@ -12749,7 +15401,9 @@
           "crétin / abruti",
           "crétin",
           "abruti"
-        ]
+        ],
+        "rr_syl": "meong-cheong-i",
+        "phon": "mong-tchong-i"
       },
       {
         "ko": "미쳤어?",
@@ -12758,7 +15412,9 @@
           "t'es fou ? / t'es malade ?",
           "t'es fou ?",
           "t'es malade ?"
-        ]
+        ],
+        "rr_syl": "mi-chyeo-sseo",
+        "phon": "mi-tchyo-sso"
       },
       {
         "ko": "꺼져",
@@ -12767,21 +15423,27 @@
           "dégage / casse-toi",
           "dégage",
           "casse-toi"
-        ]
+        ],
+        "rr_syl": "kkeo-jyeo",
+        "phon": "kko-djyo"
       },
       {
         "ko": "닥쳐",
         "rr": "dakchyeo",
         "fr": [
           "ferme-la"
-        ]
+        ],
+        "rr_syl": "dak-chyeo",
+        "phon": "tak-tchyo"
       },
       {
         "ko": "개새끼",
         "rr": "gaesaekki",
         "fr": [
           "fils de pute"
-        ]
+        ],
+        "rr_syl": "gae-sae-kki",
+        "phon": "kè-sè-kki"
       }
     ]
   }

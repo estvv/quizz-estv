@@ -20,12 +20,25 @@ export default function MarkdownRenderer({ children }: { children: string }) {
       [&_pre]:bg-neutral-900 [&_pre]:text-neutral-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:text-sm
       [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:p-0
       [&_hr]:border-neutral-200 [&_hr]:my-8
-      [&_table]:w-full [&_table]:text-sm [&_table]:border-collapse
+      [&_table]:min-w-full [&_table]:text-sm [&_table]:border-collapse
       [&_th]:border [&_th]:border-neutral-200 [&_th]:bg-neutral-50 [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold
       [&_td]:border [&_td]:border-neutral-200 [&_td]:px-3 [&_td]:py-2
       [&_img]:max-w-full [&_img]:rounded-lg
       [&_svg]:max-w-full [&_svg]:h-auto">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          // The Hangeul reference sheet holds a 19x21 consonant/vowel matrix:
+          // wider than any phone. Each table scrolls inside its own box rather
+          // than pushing the page sideways.
+          table: (props) => (
+            <div className="overflow-x-auto">
+              <table {...props} />
+            </div>
+          ),
+        }}
+      >
         {children}
       </ReactMarkdown>
     </div>

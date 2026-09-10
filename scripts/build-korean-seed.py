@@ -187,6 +187,80 @@ def hyphenate_rr(ko, rr):
     return "-".join(g for g in groups if g)
 
 
+# --- phonétique « à la française » ----------------------------------------------
+# Béquille visuelle, pas de l'API : on veut savoir quoi dire à voix haute.
+# Conventions : non aspirées ㄱㄷㅂㅈ = k t p tj en tête de mot, g d b dj entre
+# sonores · aspirées ㅋㅌㅍㅊ = kh th ph tch · tendues ㄲㄸㅃㅆㅉ = kk tt pp ss ttj
+# · ㅜ = ou, ㅡ = e, ㅓ = o, ㅐ = è, ㅔ = é.
+_FR_ONSET = {
+    "g": "k", "kk": "kk", "k": "kh",
+    "d": "t", "tt": "tt", "t": "th",
+    "b": "p", "pp": "pp", "p": "ph",
+    "j": "tj", "jj": "ttj", "ch": "tch",
+    "n": "n", "m": "m", "r": "r", "l": "l",
+    "s": "s", "ss": "ss", "h": "h", "ng": "ng", "": "",
+}
+# ㄱㄷㅂㅈ se sonorisent entre deux sons voisés (사과 sa-gwa [sa-gwa]).
+_FR_ONSET_VOICED = {"g": "g", "d": "d", "b": "b", "j": "dj"}
+_FR_CODA = {"k": "k", "n": "n", "t": "t", "l": "l", "m": "m", "p": "p", "ng": "ng",
+            "g": "k", "d": "t", "b": "p", "s": "t", "ss": "t", "ch": "t", "j": "t",
+            "h": "t", "": ""}
+_FR_VOWEL = {
+    "a": "a", "ae": "è", "ya": "ya", "yae": "yè",
+    "eo": "o", "e": "é", "yeo": "yo", "ye": "yé",
+    "o": "o", "wa": "wa", "wae": "wè", "oe": "wé", "yo": "yo",
+    "u": "ou", "wo": "wo", "we": "wé", "wi": "wi", "yu": "you",
+    "eu": "e", "ui": "eui", "i": "i",
+}
+_FR_VOICED_CODA = {"n", "m", "ng", "l"}
+
+# Consonne isolée (ㄱ = g) : pas de syllabe à découper, on donne l'équivalent.
+_JAMO_PHON = {
+    "ㄱ": "k", "ㄲ": "kk", "ㅋ": "kh", "ㄴ": "n", "ㄷ": "t", "ㄸ": "tt", "ㅌ": "th",
+    "ㄹ": "r", "ㅁ": "m", "ㅂ": "p", "ㅃ": "pp", "ㅍ": "ph", "ㅅ": "s", "ㅆ": "ss",
+    "ㅇ": "muet · ng en finale", "ㅈ": "tj", "ㅉ": "ttj", "ㅊ": "tch", "ㅎ": "h",
+}
+
+
+def _split_syllable(s):
+    """(onset, voyelle, coda) d'une syllabe romanisée, ou None si ce n'en est pas une."""
+    onset = next((c for c in _RR_CONS if s.startswith(c)), "")
+    i = len(onset)
+    vowel = next((v for v in _RR_VOWELS if s.startswith(v, i)), "")
+    if not vowel:
+        return None
+    return onset, vowel, s[i + len(vowel):]
+
+
+def romaja_to_fr(rr_syllabe):
+    """« maek-ju » -> « mèk-tjou ». Chaîne vide si ce n'est pas découpable."""
+    parts = [p for p in rr_syllabe.lower().split("-") if p]
+    if not parts:
+        return ""
+    out, prev_voiced = [], False
+    for idx, syl in enumerate(parts):
+        split = _split_syllable(syl)
+        if split is None:
+            return ""
+        onset, vowel, coda = split
+        if onset in _FR_ONSET_VOICED and idx > 0 and prev_voiced:
+            fr_onset = _FR_ONSET_VOICED[onset]
+        elif onset in ("s", "ss") and (vowel[0] in "iy" or vowel == "wi"):
+            fr_onset = "ch" if onset == "s" else "ch"   # 시 [chi], 씨 [chi]
+        else:
+            fr_onset = _FR_ONSET.get(onset, onset)
+        out.append(fr_onset + _FR_VOWEL.get(vowel, vowel) + _FR_CODA.get(coda, coda))
+        prev_voiced = coda == "" or coda in _FR_VOICED_CODA
+    return "-".join(out)
+
+
+def gloss(ko, rr):
+    """La ligne de correction : « 맥주 = maek-ju = [mèk-tjou] »."""
+    syl = hyphenate_rr(ko, rr)
+    phon = romaja_to_fr(syl) or _JAMO_PHON.get(ko, "")
+    return f"{ko} = {syl}" + (f" = [{phon}]" if phon else "")
+
+
 def build_vocab_lesson(text):
     """The Vocabulaire container's lesson is an exhaustive list of every word
     across its child decks: one line per word,
@@ -198,7 +272,7 @@ def build_vocab_lesson(text):
         out.append(f"## {name}")
         out.append("")
         for w in words:
-            out.append(f"- {w['fr'][0]} = {w['ko']} = {hyphenate_rr(w['ko'], w['rr'])}")
+            out.append(f"- {gloss(w['ko'], w['rr'])} = {w['fr'][0]}")
         out.append("")
     return "\n".join(out).rstrip() + "\n"
 
@@ -423,6 +497,130 @@ Une consonne en fin de syllabe ne se prononce qu'en 7 sons :
     ]
 
 
+# RR de chaque consonne initiale, dans l'ordre de _CHO (ㅇ initial est muet).
+_CHO_RR = ["g", "kk", "n", "d", "tt", "r", "m", "b", "pp", "s", "ss", "",
+           "j", "jj", "ch", "k", "t", "p", "h"]
+
+_CONS_REF = [
+    # lettre, RR, phon. initiale, phon. batchim, exemple (ko, rr)
+    ("ㄱ", "g / k", "k · g entre sonores", "k", "가구", "gagu"),
+    ("ㄲ", "kk", "kk", "k", "꼬리", "kkori"),
+    ("ㅋ", "k", "kh", "k", "커피", "keopi"),
+    ("ㄴ", "n", "n", "n", "나라", "nara"),
+    ("ㄷ", "d / t", "t · d entre sonores", "t", "다리", "dari"),
+    ("ㄸ", "tt", "tt", "—", "머리띠", "meoritti"),
+    ("ㅌ", "t", "th", "t", "토마토", "tomato"),
+    ("ㄹ", "r / l", "r", "l", "라디오", "radio"),
+    ("ㅁ", "m", "m", "m", "머리", "meori"),
+    ("ㅂ", "b / p", "p · b entre sonores", "p", "바나나", "banana"),
+    ("ㅃ", "pp", "pp", "—", "아빠", "appa"),
+    ("ㅍ", "p", "ph", "p", "포도", "podo"),
+    ("ㅅ", "s", "s · ch devant i/y", "t", "사과", "sagwa"),
+    ("ㅆ", "ss", "ss", "t", "쓰다", "sseuda"),
+    ("ㅇ", "— / ng", "muette en tête", "ng", "아이", "ai"),
+    ("ㅈ", "j", "tj · dj entre sonores", "t", "의자", "uija"),
+    ("ㅉ", "jj", "ttj", "—", "짜다", "jjada"),
+    ("ㅊ", "ch", "tch", "t", "기차", "gicha"),
+    ("ㅎ", "h", "h (souvent effacé)", "t", "호수", "hosu"),
+]
+
+_LESSON_EXAMPLES = [
+    ("bière", "맥주", "maekju"), ("café", "커피", "keopi"),
+    ("kimchi", "김치", "gimchi"), ("école", "학교", "hakgyo"),
+    ("ami(e)", "친구", "chingu"), ("pomme", "사과", "sagwa"),
+    ("eau", "물", "mul"), ("bonjour", "안녕하세요", "annyeonghaseyo"),
+    ("merci", "감사합니다", "gamsahamnida"), ("hôpital", "병원", "byeongwon"),
+]
+
+
+def build_hangeul_lesson():
+    """La feuille de référence : chaque lettre reliée à son RR et à sa
+    phonétique française, plus la matrice complète consonne × voyelle."""
+    jung = list(_JUNG)
+
+    # matrice 19 x 21 : chaque case = syllabe + phonétique
+    head = "|  | " + " | ".join(f"{v} {_RR_JUNG[i]}" for i, v in enumerate(jung)) + " |"
+    sep = "|" + "---|" * (len(jung) + 1)
+    rows = []
+    for ci, c in enumerate(_CHO):
+        cells = []
+        for vi, v in enumerate(jung):
+            rr = _CHO_RR[ci] + _RR_JUNG[vi]
+            cells.append(f"{_syl(c, v)} [{romaja_to_fr(rr)}]")
+        label = f"**{c}** {_CHO_RR[ci] or '—'}"
+        rows.append("| " + label + " | " + " | ".join(cells) + " |")
+    matrix = "\n".join([head, sep] + rows)
+
+    cons_ref = "\n".join(
+        f"| {ko} | {rr} | {ini} | {bat} | {gloss(ex_ko, ex_rr)} |"
+        for ko, rr, ini, bat, ex_ko, ex_rr in _CONS_REF
+    )
+    vowel_ref = "\n".join(
+        f"| {v} | {_RR_JUNG[i]} | {_FR_VOWEL[_RR_JUNG[i]]} | {_syl('ㅇ', v)} [{romaja_to_fr(_RR_JUNG[i])}] |"
+        for i, v in enumerate(jung)
+    )
+    examples = "\n".join(f"- {gloss(ko, rr)} → **{fr}**" for fr, ko, rr in _LESSON_EXAMPLES)
+
+    return f"""# Hangeul — lire et prononcer
+
+Chaque case donne la syllabe puis, entre crochets, sa **phonétique approximative
+à la française**. Ce n'est pas de l'API : c'est une béquille pour savoir quoi
+dire à voix haute.
+
+Format utilisé partout dans l'appli :
+**{gloss("맥주", "maekju")} → bière**
+
+## Conventions
+
+| Série | Lettres | Phonétique FR | Exemple |
+|---|---|---|---|
+| non aspirée | ㄱ ㄷ ㅂ ㅈ | **k · t · p · tj** en tête de mot | 가 [ka] · 다 [ta] |
+| non aspirée entre deux sonores | ㄱ ㄷ ㅂ ㅈ | **g · d · b · dj** | {gloss("사과", "sagwa")} |
+| aspirée (souffle) | ㅋ ㅌ ㅍ ㅊ | **kh · th · ph · tch** | 카 [kha] · 차 [tcha] |
+| tendue (pincée) | ㄲ ㄸ ㅃ ㅆ ㅉ | **kk · tt · pp · ss · ttj** | 까 [kka] · 빠 [ppa] |
+
+Voyelles à retenir : **ㅜ = ou**, **ㅡ = e** (comme dans « je »), **ㅓ = o**
+ouvert, **ㅐ = è**, **ㅔ = é**, **ㅢ = eui**.
+
+## Consonnes (자음)
+
+| Lettre | RR | Phon. FR en tête | Phon. FR en batchim | Exemple |
+|---|---|---|---|---|
+{cons_ref}
+
+## Voyelles (모음)
+
+| Lettre | RR | Phon. FR | Lue seule (avec ㅇ) |
+|---|---|---|---|
+{vowel_ref}
+
+## Matrice complète — consonne × voyelle
+
+19 consonnes × 21 voyelles. Le tableau défile horizontalement.
+
+{matrix}
+
+## Batchim — les 7 sons
+
+Une consonne en fin de syllabe ne se prononce qu'en sept sons, **bloqués**
+(la bouche prend la position mais ne libère pas l'air).
+
+| Son | Lettres | Phon. FR | Exemple |
+|---|---|---|---|
+| [k] | ㄱ ㅋ ㄲ | k | {gloss("부엌", "bueok")} |
+| [n] | ㄴ | n | {gloss("산", "san")} |
+| [t] | ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ | t | {gloss("옷", "ot")} |
+| [l] | ㄹ | l | {gloss("물", "mul")} |
+| [m] | ㅁ | m | {gloss("봄", "bom")} |
+| [p] | ㅂ ㅍ | p | {gloss("앞", "ap")} |
+| [ng] | ㅇ | ng | {gloss("강", "gang")} |
+
+## Exemples
+
+{examples}
+"""
+
+
 def build_hangeul_exercises(data):
     """Hangeul = reading only. Every item -> 'quel son ?' (mcq) + 'comment se
     prononce ?' (saisie). NEVER a meaning question ('que veut dire') -- meaning
@@ -438,7 +636,10 @@ def build_hangeul_exercises(data):
 
         for it in items:
             ko, rr = it["ko"], it["rr"]
-            accept_rr = [rr] + it.get("rr_accept", [])
+            accept_rr = list(dict.fromkeys([rr] + it.get("rr_accept", [])))
+            # « 맥주 = maek-ju = [mèk-tjou] », suivi de la note de règle s'il y en a.
+            note = it.get("explanation")
+            saisie_exp = mcq_exp = gloss(ko, rr) + (f" — {note}" if note else "")
 
             # saisie : la prononciation
             ex.append({
@@ -447,20 +648,25 @@ def build_hangeul_exercises(data):
                 "accept": accept_rr,
                 "normalize": "romaja",
                 "placeholder": "romanisation",
-                "explanation": f"{ko} = {rr}",
+                "explanation": saisie_exp,
             })
 
-            # 4 choix : le son
-            distractors = RNG.sample([s for s in sound_pool if s != rr],
-                                     k=min(3, len(sound_pool) - 1))
-            choices = distractors + [rr]
+            # 4 choix : le son. Distracteurs explicites d'abord (souvent la
+            # lecture naïve qui ignore la règle), complétés depuis le pool.
+            forced = [d for d in it.get("distractors", []) if d != rr][:3]
+            pool = [s for s in sound_pool
+                    if s != rr and s not in forced and s not in accept_rr]
+            fill = RNG.sample(pool, k=min(max(0, 3 - len(forced)), len(pool)))
+            choices = list(dict.fromkeys(forced + fill + [rr]))
+            if len(choices) < 2:
+                continue
             RNG.shuffle(choices)
             ex.append({
                 "type": "mcq",
                 "prompt": f"Quel son a « {ko} » ?",
                 "choices": choices,
                 "correct": choices.index(rr),
-                "explanation": f"{ko} se prononce « {rr} ».",
+                "explanation": mcq_exp,
             })
 
         _ = noun  # kept for readability of intent
@@ -482,6 +688,7 @@ def main():
     hangeul_exercises = build_hangeul_exercises(json.loads(HANGEUL_LETTERS.read_text()))
     kr.append({
         "name": "Hangeul", "key": "kr-hangeul", "color": COLOR, "parent": "kr",
+        "lesson": build_hangeul_lesson(),
         "exercises": hangeul_exercises,
     })
 
@@ -489,6 +696,13 @@ def main():
 
     decks = parse_vocab_md(VOCAB_MD.read_text())
     for name, words in decks:
+        # Pré-calculé ici plutôt que dans le seed TS : la romanisation syllabée
+        # et la phonétique FR affichées dans la correction (맥주 = maek-ju = [mèk-tjou]).
+        for w in words:
+            w["rr_syl"] = hyphenate_rr(w["ko"], w["rr"])
+            phon = romaja_to_fr(w["rr_syl"])
+            if phon:
+                w["phon"] = phon
         key = "kr-voc-" + re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
         kr.append({
             "name": name, "key": key, "color": COLOR, "parent": "kr-vocab",

@@ -220,6 +220,12 @@ export interface SeedVocab {
   fr: string[];
   /** Extra accepted romanisations (alternate spellings). */
   rr_accept?: string[];
+  /** `rr` cut at syllable boundaries — "maek-ju". Precomputed by the Korean
+   *  seed builder; falls back to `rr` when absent. */
+  rr_syl?: string;
+  /** Rough French-reader phonetics — "mèk-tjou". Shown in the feedback so the
+   *  learner can say the word out loud; deliberately not IPA. */
+  phon?: string;
 }
 
 export interface SeedFlashcard {

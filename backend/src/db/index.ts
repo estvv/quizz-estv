@@ -316,7 +316,11 @@ function expandVocab(vocab: SeedVocab[]): PreparedExercise[] {
   const out: PreparedExercise[] = [];
 
   for (const w of vocab) {
-    const triple = `${w.ko} = ${w.rr} = ${w.fr[0]}`;
+    // 맥주 = maek-ju = [mèk-tjou] = bière  the romanisation is cut at syllable
+    // boundaries and followed by a rough French phonetic, both precomputed by
+    // scripts/build-korean-seed.py; older entries without them degrade to `rr`.
+    const phon = w.phon ? ` = [${w.phon}]` : '';
+    const triple = `${w.ko} = ${w.rr_syl ?? w.rr}${phon} = ${w.fr[0]}`;
     const distractors = shuffle(
       vocab.filter((o) => o.ko !== w.ko).map((o) => o.fr[0])
     ).slice(0, 3);

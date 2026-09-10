@@ -1,5 +1,5 @@
 {
-  "_comment": "Items pour la feuille Hangeul. Chaque item -> 'quel son ?' (mcq) + 'comment se prononce ?' (saisie). Les items avec 'fr' ajoutent 'que veut dire ?' (mcq + saisie). group = pool de distracteurs pour le mcq de son.",
+  "_comment": "Items pour la feuille Hangeul (quiz de lecture). Chaque item -> 'quel son ?' (mcq) + 'comment se prononce ?' (saisie). Groups jamo/syllabes/mots = lecture directe ; groups de règles (batchim, liaison, nasalisation, tensification, aspiration, palatalisation, assimilation) = la romanisation attendue est la PRONONCIATION, pas la lecture naïve lettre à lettre. 'distractors' = mauvaises réponses forcées dans le mcq (souvent la lecture naïve qui ignore la règle). 'rr_accept' = autres graphies acceptées à la saisie. 'explanation' = feedback affiché.",
 
   "voyelles simples": [
     { "ko": "ㅏ", "rr": "a" },
@@ -23,8 +23,8 @@
 
   "voyelles composées": [
     { "ko": "ㅘ", "rr": "wa" },
-    { "ko": "ㅙ", "rr": "wae" },
-    { "ko": "ㅚ", "rr": "oe" },
+    { "ko": "ㅙ", "rr": "wae", "rr_accept": ["we"] },
+    { "ko": "ㅚ", "rr": "oe", "rr_accept": ["we"] },
     { "ko": "ㅝ", "rr": "wo" },
     { "ko": "ㅞ", "rr": "we" },
     { "ko": "ㅟ", "rr": "wi" },
@@ -39,7 +39,7 @@
     { "ko": "ㅁ", "rr": "m" },
     { "ko": "ㅂ", "rr": "b", "rr_accept": ["p", "b/p"] },
     { "ko": "ㅅ", "rr": "s" },
-    { "ko": "ㅇ", "rr": "ng", "rr_accept": ["muet", "-"] },
+    { "ko": "ㅇ", "rr": "ng", "rr_accept": ["muet"], "explanation": "ㅇ est muette en tête de syllabe et se lit « ng » en finale (batchim)." },
     { "ko": "ㅈ", "rr": "j" },
     { "ko": "ㅎ", "rr": "h" }
   ],
@@ -59,11 +59,118 @@
     { "ko": "ㅉ", "rr": "jj" }
   ],
 
+  "batchim — les 7 sons": [
+    { "ko": "ㄱ (batchim)", "rr": "k", "explanation": "En finale ㄱ se prononce [k] bloqué : 국 = guk." },
+    { "ko": "ㅋ (batchim)", "rr": "k", "explanation": "ㅋ en finale → [k] : 부엌 = bueok." },
+    { "ko": "ㄲ (batchim)", "rr": "k", "explanation": "ㄲ en finale → [k] : 밖 = bak." },
+    { "ko": "ㄴ (batchim)", "rr": "n", "explanation": "ㄴ en finale → [n] : 산 = san." },
+    { "ko": "ㄷ (batchim)", "rr": "t", "explanation": "ㄷ en finale → [t] bloqué : 믿 = mit." },
+    { "ko": "ㅅ (batchim)", "rr": "t", "explanation": "ㅅ en finale → [t], pas [s] : 옷 = ot." },
+    { "ko": "ㅆ (batchim)", "rr": "t", "explanation": "ㅆ en finale → [t] : 있 = it." },
+    { "ko": "ㅈ (batchim)", "rr": "t", "explanation": "ㅈ en finale → [t] : 낮 = nat." },
+    { "ko": "ㅊ (batchim)", "rr": "t", "explanation": "ㅊ en finale → [t] : 꽃 = kkot." },
+    { "ko": "ㅌ (batchim)", "rr": "t", "explanation": "ㅌ en finale → [t] : 밭 = bat." },
+    { "ko": "ㅎ (batchim)", "rr": "t", "explanation": "ㅎ en finale → [t] : 히읗 = hieut." },
+    { "ko": "ㄹ (batchim)", "rr": "l", "explanation": "ㄹ en finale → [l] : 물 = mul." },
+    { "ko": "ㅁ (batchim)", "rr": "m", "explanation": "ㅁ en finale → [m] : 봄 = bom." },
+    { "ko": "ㅂ (batchim)", "rr": "p", "explanation": "ㅂ en finale → [p] bloqué : 밥 = bap." },
+    { "ko": "ㅍ (batchim)", "rr": "p", "explanation": "ㅍ en finale → [p] : 앞 = ap." },
+    { "ko": "ㅇ (batchim)", "rr": "ng", "explanation": "ㅇ en finale → [ng] : 강 = gang." }
+  ],
+
+  "batchim — lecture de mots": [
+    { "ko": "밖", "rr": "bak", "distractors": ["bakk", "bam"], "explanation": "ㄲ final → [k] : bak." },
+    { "ko": "부엌", "rr": "bueok", "distractors": ["bueokeu", "bueong"], "explanation": "ㅋ final → [k] : bu-eok." },
+    { "ko": "옷", "rr": "ot", "distractors": ["os", "oseu"], "explanation": "ㅅ final → [t], jamais [s] : ot." },
+    { "ko": "꽃", "rr": "kkot", "distractors": ["kkoch", "kkos"], "explanation": "ㅊ final → [t] : kkot." },
+    { "ko": "낮", "rr": "nat", "distractors": ["naj", "nach"], "explanation": "ㅈ final → [t] : nat." },
+    { "ko": "밭", "rr": "bat", "distractors": ["bateu", "bach"], "explanation": "ㅌ final → [t] : bat." },
+    { "ko": "앞", "rr": "ap", "distractors": ["apeu", "apo"], "explanation": "ㅍ final → [p] : ap." },
+    { "ko": "숲", "rr": "sup", "distractors": ["supeu", "sub"], "explanation": "ㅍ final → [p] : sup." },
+    { "ko": "밥", "rr": "bap", "distractors": ["bab", "bam"], "explanation": "ㅂ final → [p] bloqué : bap." },
+    { "ko": "강", "rr": "gang", "distractors": ["gan", "gak"], "explanation": "ㅇ final → [ng] : gang." },
+    { "ko": "산", "rr": "san", "distractors": ["sang", "sat"], "explanation": "ㄴ final → [n] : san." },
+    { "ko": "달", "rr": "dal", "distractors": ["dat", "dar"], "explanation": "ㄹ final → [l] : dal." }
+  ],
+
+  "batchim double (겹받침)": [
+    { "ko": "값", "rr": "gap", "rr_accept": ["gaps"], "distractors": ["gapseu", "gas"], "explanation": "ㅄ → on ne prononce que [p] : gap." },
+    { "ko": "닭", "rr": "dak", "rr_accept": ["dalk"], "distractors": ["dalgeu", "dal"], "explanation": "ㄺ → [k] : dak." },
+    { "ko": "여덟", "rr": "yeodeol", "distractors": ["yeodeolb", "yeodeop"], "explanation": "ㄼ → [l] : yeo-deol." },
+    { "ko": "삶", "rr": "sam", "rr_accept": ["salm"], "distractors": ["salmeu", "sal"], "explanation": "ㄻ → [m] : sam." },
+    { "ko": "앉다", "rr": "anta", "rr_accept": ["anda"], "distractors": ["anjda", "antta"], "explanation": "ㄵ → [n], et le ㄷ suivant se tend : an-ta." },
+    { "ko": "읽다", "rr": "ikta", "rr_accept": ["ikda"], "distractors": ["ilkda", "ilta"], "explanation": "ㄺ → [k], puis tensification : ik-ta." },
+    { "ko": "없다", "rr": "eopta", "rr_accept": ["eopda"], "distractors": ["eopsda", "eota"], "explanation": "ㅄ → [p], puis tensification : eop-ta." }
+  ],
+
+  "liaison (연음)": [
+    { "ko": "옷이", "rr": "osi", "distractors": ["oti", "oshi"], "explanation": "Le ㅅ final glisse sur ㅇ : o-si (et non « ot-i »)." },
+    { "ko": "꽃이", "rr": "kkochi", "distractors": ["kkoti", "kkosi"], "explanation": "Le ㅊ final glisse : kko-chi." },
+    { "ko": "낮에", "rr": "naje", "distractors": ["nate", "nache"], "explanation": "Le ㅈ final glisse : na-je." },
+    { "ko": "책을", "rr": "chaegeul", "distractors": ["chaekeul", "chaegneul"], "explanation": "Le ㄱ final se sonorise en glissant : chae-geul." },
+    { "ko": "집에", "rr": "jibe", "distractors": ["jipe", "jibbe"], "explanation": "Le ㅂ final se sonorise : ji-be." },
+    { "ko": "한국어", "rr": "hangugeo", "distractors": ["hangukeo", "hangugueo"], "explanation": "Le ㄱ de 국 passe sur 어 : han-gu-geo." },
+    { "ko": "좋아요", "rr": "joayo", "distractors": ["johayo", "jotayo"], "explanation": "Liaison + ㅎ qui tombe : jo-a-yo." }
+  ],
+
+  "nasalisation (비음화)": [
+    { "ko": "학년", "rr": "hangnyeon", "distractors": ["haknyeon", "hannyeon"], "explanation": "ㄱ + ㄴ → [ng-n] : hang-nyeon." },
+    { "ko": "입니다", "rr": "imnida", "distractors": ["ipnida", "innida"], "explanation": "ㅂ + ㄴ → [m-n] : im-ni-da." },
+    { "ko": "받는", "rr": "banneun", "distractors": ["badneun", "batneun"], "explanation": "ㄷ + ㄴ → [n-n] : ban-neun." },
+    { "ko": "국물", "rr": "gungmul", "distractors": ["gukmul", "gunmul"], "explanation": "ㄱ + ㅁ → [ng-m] : gung-mul." },
+    { "ko": "앞날", "rr": "amnal", "distractors": ["apnal", "annal"], "explanation": "ㅍ + ㄴ → [m-n] : am-nal." },
+    { "ko": "감사합니다", "rr": "gamsahamnida", "distractors": ["gamsahapnida", "gamsahannida"], "explanation": "합 + 니 → ㅂ devient [m] : gam-sa-ham-ni-da." }
+  ],
+
+  "tensification (경음화)": [
+    { "ko": "학교", "rr": "hakkyo", "rr_accept": ["hakgyo"], "distractors": ["hakgyo", "hagyo"], "explanation": "Après un stop final, ㄱ se tend : hak-kkyo." },
+    { "ko": "식당", "rr": "siktang", "rr_accept": ["sikdang", "sikttang"], "distractors": ["sikdang", "sitang"], "explanation": "Après ㄱ, ㄷ se tend : sik-ttang." },
+    { "ko": "국밥", "rr": "gukppap", "rr_accept": ["gukbap"], "distractors": ["gukbap", "gubap"], "explanation": "Après ㄱ, ㅂ se tend : guk-ppap." },
+    { "ko": "있다", "rr": "itta", "rr_accept": ["itda"], "distractors": ["itda", "issda"], "explanation": "ㅆ → [t], puis ㄷ se tend : it-tta." },
+    { "ko": "학생", "rr": "hakssaeng", "rr_accept": ["haksaeng"], "distractors": ["haksaeng", "hangsaeng"], "explanation": "Après ㄱ, ㅅ se tend : hak-ssaeng." }
+  ],
+
+  "aspiration ㅎ (격음화)": [
+    { "ko": "좋다", "rr": "jota", "distractors": ["johda", "jotta"], "explanation": "ㅎ + ㄷ → aspirée : jo-ta." },
+    { "ko": "놓고", "rr": "noko", "distractors": ["nohgo", "notgo"], "explanation": "ㅎ + ㄱ → aspirée : no-ko." },
+    { "ko": "많다", "rr": "manta", "distractors": ["manhda", "manda"], "explanation": "ㄶ + ㄷ → aspirée : man-ta." },
+    { "ko": "축하", "rr": "chuka", "distractors": ["chukha", "chuha"], "explanation": "ㄱ + ㅎ → aspirée : chu-ka." },
+    { "ko": "국화", "rr": "gukwa", "distractors": ["gukhwa", "guhwa"], "explanation": "ㄱ + ㅎ → aspirée : gu-kwa." },
+    { "ko": "백화점", "rr": "baekwajeom", "distractors": ["baekhwajeom", "baehwajeom"], "explanation": "ㄱ + ㅎ → aspirée : bae-kwa-jeom." }
+  ],
+
+  "ㅎ faible": [
+    { "ko": "전화", "rr": "jeonwa", "rr_accept": ["jeonhwa"], "distractors": ["jeonhwa", "jeohwa"], "explanation": "ㅎ après ㄴ s'efface presque : jeo-nwa." },
+    { "ko": "은행", "rr": "eunaeng", "rr_accept": ["eunhaeng"], "distractors": ["eunhaeng", "euhaeng"], "explanation": "ㅎ entre sonores très faible : eu-naeng." },
+    { "ko": "영화", "rr": "yeongwa", "rr_accept": ["yeonghwa"], "distractors": ["yeonghwa", "yeowa"], "explanation": "ㅎ après ㅇ faible : yeong-wa." },
+    { "ko": "결혼", "rr": "gyeoron", "rr_accept": ["gyeolhon"], "distractors": ["gyeolhon", "gyeohon"], "explanation": "ㅎ après ㄹ s'efface : gyeo-ron." },
+    { "ko": "번호", "rr": "beono", "rr_accept": ["beonho"], "distractors": ["beonho", "beoho"], "explanation": "ㅎ après ㄴ s'efface : beo-no." }
+  ],
+
+  "palatalisation (구개음화)": [
+    { "ko": "굳이", "rr": "guji", "distractors": ["gudi", "guti"], "explanation": "ㄷ + 이 → 지 : gu-ji." },
+    { "ko": "같이", "rr": "gachi", "distractors": ["gati", "gadi"], "explanation": "ㅌ + 이 → 치 : ga-chi." },
+    { "ko": "해돋이", "rr": "haedoji", "distractors": ["haedodi", "haedoti"], "explanation": "ㄷ + 이 → 지 : hae-do-ji." },
+    { "ko": "닫히다", "rr": "dachida", "distractors": ["dathida", "dadida"], "explanation": "ㄷ + 히 → 치 : da-chi-da." },
+    { "ko": "끝이", "rr": "kkeuchi", "distractors": ["kkeuti", "kkeutchi"], "explanation": "ㅌ + 이 → 치 : kkeu-chi." },
+    { "ko": "밭이", "rr": "bachi", "distractors": ["bati", "bachhi"], "explanation": "ㅌ + 이 → 치 : ba-chi." }
+  ],
+
+  "assimilation ㄴ/ㄹ (유음화)": [
+    { "ko": "신라", "rr": "silla", "distractors": ["sinra", "sinla"], "explanation": "ㄴ au contact de ㄹ devient ㄹ : sil-la." },
+    { "ko": "설날", "rr": "seollal", "distractors": ["seolnal", "seonnal"], "explanation": "ㄹ + ㄴ → ㄹ-ㄹ : seol-lal." },
+    { "ko": "연락", "rr": "yeollak", "distractors": ["yeonrak", "yeonnak"], "explanation": "ㄴ + ㄹ → ㄹ-ㄹ : yeol-lak." },
+    { "ko": "관리", "rr": "gwalli", "distractors": ["gwanri", "gwanni"], "explanation": "ㄴ + ㄹ → ㄹ-ㄹ : gwal-li." },
+    { "ko": "한류", "rr": "hallyu", "distractors": ["hanryu", "hannyu"], "explanation": "ㄴ + ㄹ → ㄹ-ㄹ : hal-lyu." },
+    { "ko": "실내", "rr": "sillae", "distractors": ["silnae", "sinnae"], "explanation": "ㄹ + ㄴ → ㄹ-ㄹ : sil-lae." }
+  ],
+
   "syllabes": [
     { "ko": "아", "rr": "a" },
     { "ko": "나", "rr": "na" },
     { "ko": "가", "rr": "ga" },
     { "ko": "사", "rr": "sa" },
+    { "ko": "차", "rr": "cha" },
     { "ko": "한", "rr": "han" },
     { "ko": "국", "rr": "guk" },
     { "ko": "밥", "rr": "bap" },
@@ -71,19 +178,40 @@
     { "ko": "강", "rr": "gang" },
     { "ko": "학", "rr": "hak" },
     { "ko": "김", "rr": "gim" },
-    { "ko": "차", "rr": "cha" }
+    { "ko": "왕", "rr": "wang" },
+    { "ko": "꿈", "rr": "kkum" },
+    { "ko": "별", "rr": "byeol" },
+    { "ko": "형", "rr": "hyeong" },
+    { "ko": "씨", "rr": "ssi" },
+    { "ko": "뜻", "rr": "tteut" },
+    { "ko": "위", "rr": "wi" },
+    { "ko": "의", "rr": "ui" }
   ],
 
   "mots": [
     { "ko": "한국", "rr": "hanguk", "fr": ["Corée"] },
-    { "ko": "학교", "rr": "hakkyo", "fr": ["école"] },
+    { "ko": "학교", "rr": "hakkyo", "rr_accept": ["hakgyo"], "fr": ["école"] },
     { "ko": "김치", "rr": "gimchi", "fr": ["kimchi"] },
-    { "ko": "안녕", "rr": "annyeong", "fr": ["salut", "bonjour"] },
-    { "ko": "감사", "rr": "gamsa", "fr": ["merci", "gratitude"] },
+    { "ko": "안녕", "rr": "annyeong", "fr": ["salut"] },
+    { "ko": "감사", "rr": "gamsa", "fr": ["merci"] },
     { "ko": "물", "rr": "mul", "fr": ["eau"] },
     { "ko": "밥", "rr": "bap", "fr": ["riz", "repas"] },
     { "ko": "사과", "rr": "sagwa", "fr": ["pomme"] },
     { "ko": "커피", "rr": "keopi", "fr": ["café"] },
-    { "ko": "친구", "rr": "chingu", "fr": ["ami", "amie"] }
+    { "ko": "친구", "rr": "chingu", "fr": ["ami", "amie"] },
+    { "ko": "치마", "rr": "chima", "fr": ["jupe"] },
+    { "ko": "기차", "rr": "gicha", "fr": ["train"] },
+    { "ko": "포도", "rr": "podo", "fr": ["raisin"] },
+    { "ko": "토끼", "rr": "tokki", "fr": ["lapin"] },
+    { "ko": "아빠", "rr": "appa", "fr": ["papa"] },
+    { "ko": "시계", "rr": "sigye", "fr": ["montre", "horloge"] },
+    { "ko": "의자", "rr": "uija", "fr": ["chaise"] },
+    { "ko": "돼지", "rr": "dwaeji", "fr": ["cochon"] },
+    { "ko": "노래", "rr": "norae", "fr": ["chanson"] },
+    { "ko": "부엌", "rr": "bueok", "fr": ["cuisine"] },
+    { "ko": "교실", "rr": "gyosil", "fr": ["salle de classe"] },
+    { "ko": "서울", "rr": "seoul", "fr": ["Séoul"] },
+    { "ko": "안녕하세요", "rr": "annyeonghaseyo", "fr": ["bonjour"] },
+    { "ko": "감사합니다", "rr": "gamsahamnida", "rr_accept": ["gamsahapnida"], "fr": ["merci"] }
   ]
 }
