@@ -89,7 +89,8 @@ export type ErKind =
   | 'attribute'
   | 'key_attribute'
   | 'multi_attribute'
-  | 'derived_attribute';
+  | 'derived_attribute'
+  | 'isa';
 
 export interface ErNode {
   id: string;

@@ -239,6 +239,7 @@ function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, w
       'entity', 'weak_entity', 'associative_entity',
       'relationship', 'identifying_relationship',
       'attribute', 'key_attribute', 'multi_attribute', 'derived_attribute',
+      'isa',
     ]);
     if (!g || !Array.isArray(g.nodes) || g.nodes.length < 2 || !Array.isArray(g.edges)) {
       throw new Error(`seed.json: ${where}  er_build needs target.nodes (>=2) and target.edges`);

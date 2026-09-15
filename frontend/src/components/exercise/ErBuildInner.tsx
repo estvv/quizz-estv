@@ -42,6 +42,7 @@ const KINDS: { kind: ErKind; label: string; short: string }[] = [
   { kind: 'key_attribute', label: 'Key attribute', short: 'RollNo' },
   { kind: 'multi_attribute', label: 'Multivalued attribute', short: 'Phone No' },
   { kind: 'derived_attribute', label: 'Derived attribute', short: 'Age' },
+  { kind: 'isa', label: 'ISA (generalization)', short: 'ISA' },
 ];
 
 // Rectangles for entities, diamonds for relationships, ovals for attributes;
@@ -105,11 +106,20 @@ const OUTLINE: Record<ErKind, { hue: string; shape: React.ReactNode }> = {
     hue: 'text-violet-600',
     shape: <ellipse cx="100" cy="40" rx="98" ry="38" strokeDasharray="7 5" />,
   },
+  // Superclass/subclass link (generalization/specialization): the triangle
+  // sits between a superclass entity above and subclass entities below,
+  // flat edge up  same "undirected line, cycle the label" mechanics as
+  // every other E-R node, just a different shape.
+  isa: {
+    hue: 'text-emerald-600',
+    shape: <polygon points="10,3 190,3 100,77" />,
+  },
 };
 
 const BOX: Partial<Record<ErKind, string>> = {
   relationship: 'w-48 h-24',
   identifying_relationship: 'w-48 h-24',
+  isa: 'w-28 h-16',
 };
 
 function ErNodeView({ id, data }: NodeProps<ErNodeT>) {

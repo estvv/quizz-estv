@@ -15652,5 +15652,1193 @@
         "phon": "kè-sè-kki"
       }
     ]
+  },
+  {
+    "name": "Week 3",
+    "key": "school-cp-w3",
+    "color": "rose",
+    "parent": "school-cp",
+    "lesson": "# Computer Programming — Week 3\n\nChapter 3, *Constants, Variables, Data Type*. How C names and stores a value:\nwhat type it has, how long it lives, and what \"empty\" means for it.\n\n---\n\n## 1. Primary data types\n\n| category | types |\n|---|---|\n| **Integral — integer** | `int`, `short int`, `long int` (each `signed` by default, or `unsigned`) |\n| **Integral — character** | `char`, `signed char`, `unsigned char` |\n| **Floating point** | `float`, `double`, `long double` |\n| **Other** | `void` |\n\nSize and range depend on the machine word, but the slides give both:\n\n| type | 16-bit machine | 32-bit machine (widely used) |\n|---|---|---|\n| `char` | 8 bits, -128 ~ 127 | 8 bits, -128 ~ 127 |\n| `int` | 16 bits, -32,768 ~ 32,767 | 32 bits, -2,147,483,648 ~ 2,147,483,647 |\n| `unsigned int` | 16 bits, 0 ~ 65,536 | 32 bits, 0 ~ 4,294,967,295 |\n| `short int` | 8 bits, -128 ~ 127 | 16 bits, -32,768 ~ 32,767 |\n| `long int` | 32 bits, -2,147,483 ~ 2,147,483,647 | 32 bits, same range |\n\n| type | size (bits) | range / precision |\n|---|---|---|\n| `float` | 32 | ~3.4E-38 ~ 3.4E+38, 6 digits of precision |\n| `double` | 64 | ~1.7E-308 ~ 1.7E+308, 14 digits of precision |\n| `long double` | 80 | ~3.4E-4932 ~ 1.1E+4932 |\n\n## 2. Declaring variables\n\n```c\nfloat x, y;\nint code;\nshort int count;\nlong int amount;\ndouble deviation;\nunsigned n, m;\nchar c, d;\n```\n\n**Default type of a literal constant:**\n\n| literal | type | why |\n|---|---|---|\n| `+111`, `-222` | `int` | integer constant, no suffix |\n| `45678U` | `unsigned int` | `U` suffix |\n| `-56789L` | `long int` | `L` suffix |\n| `987654UL` | `unsigned long int` | `UL` suffix |\n| `0.`, `.0`, `12.0`, `1.234` | `double` | floating constant, no suffix |\n| `-1.2f` | `float` | `f` suffix |\n| `1.23456789` (long) | `long double` | context/suffix dependent |\n\nSo: **an integer literal defaults to `int`; a floating literal defaults to\n`double`.**\n\n## 3. `typedef` and `enum`\n\n```c\ntypedef int units;         /* units is now an alias for int */\ntypedef float marks;\n\nunits b1, b2;               /* declares two ints */\nmarks name1[50], name2[50]; /* declares two float arrays */\n```\n\n```c\nenum day {Mon, Tues, Wed, Thurs, Fri, Sat, Sun};\n/*          0    1    2    3     4    5    6   <- assigned by the compiler */\nenum day week_st, week_end;\nweek_st = Mon;\n```\n\nAn enumerator's value defaults to `0` for the first name and increments by 1\nfor each following name, unless the code assigns values explicitly.\n\n## 4. Storage class and scope\n\n```c\nint m;                 /* global variable: seen and used anywhere in the file */\n\nmain()\n{\n    int i; float blc;  /* local variables: only visible inside this function */\n    ...\n}\n\nfunction1()\n{\n    int i;              /* a DIFFERENT i, local to function1 */\n    float sum;\n    ...\n}\n```\n\n| storage class | meaning |\n|---|---|\n| `auto` | **default.** Local variable known only to the function where it is declared |\n| `static` | Local variable that **keeps its value** between calls, after control returns to the caller |\n| `extern` | Global variable, known to every function in the file |\n| `register` | Local variable the programmer asks the compiler to keep in a CPU register |\n\n- `static` and `extern` variables are **automatically initialized to zero** if\n  no explicit initializer is given.\n- `auto` (plain local) variables are **not** initialized — they hold garbage.\n\n## 5. Assigning and initializing values\n\n```c\ninitial_value = 0;\nfinal_value = 100;\nbalance = 75.84;\nyes = 'x';\n\ninitial_value = 0; final_value = 100;   /* several statements, one line */\np = q = s = 0;                          /* chained assignment: right to left */\n```\n\n**Declaration + initialization** combines the two:\n\n```c\nint final_value = 100;\nchar yes = 'x';\n```\n\n## 6. Reading input with `scanf`\n\n```c\nint age;\nprintf(\"Enter your age: \\n\");\nscanf(\"%d\", &age);\n```\n\n- `scanf`'s format string should hold **only conversion specs**, never a\n  prompt — print the prompt with `printf` first.\n- The `&` before `age` passes the variable's **address**, so `scanf` can write\n  the value back into it.\n\n## 7. Symbolic constants: `#define`\n\n```c\n#define PI 3.14159\n#define MAX 200\n```\n\n| statement | validity | why |\n|---|---|---|\n| `#define X = 2.5` | invalid | `=` is not allowed |\n| `# define MAX 10` | invalid | no whitespace between `#` and `define` |\n| `#define N 25;` | invalid | **no semicolon** at the end |\n| `#define N 5, M 10` | invalid | one name per `#define` statement |\n| `#define PRICE$ 100` | invalid | `$` is not permitted in the name |\n\nA `#define`d constant **cannot be reassigned** later: `MAX = 120;` is illegal.\n\n## 8. `const` and `volatile`\n\n```c\nconst int class_size = 40;    /* cannot be changed after initialization */\nvolatile int date;            /* may change at any time from outside the program */\n```\n\n## 9. Common programming errors\n\n| kind | detected | symptom |\n|---|---|---|\n| **Syntax error** | during compilation (translation) | the program does not compile / run at all |\n| **Run-time error** | during execution | an illegal operation (e.g. divide by zero) stops the program with a diagnostic message |\n| **Logic / design error** | not detected automatically | no error message — only wrong output; found by comparing results, prevented by checking the algorithm before typing code |\n\n---\n\n## To remember\n\n- Integer literal → `int` by default; floating literal → `double` by default.\n  Suffixes `U`/`L`/`UL`/`f` change that.\n- `auto` (default, local, not initialized) vs `static` (local, keeps its\n  value, zero-initialized) vs `extern` (global) vs `register` (hint for a\n  CPU register).\n- `#define` is text substitution: no `=`, no `;`, one name per line, name\n  cannot contain `$`.\n- `const` forbids reassignment; `volatile` tells the compiler the value can\n  change outside the program's control.\n- Syntax error (compile-time) → run-time error (execution, e.g. div by 0) →\n  logic error (wrong output, no message at all).\n",
+    "questions": [
+      {
+        "question_text": "Which two families make up C's integral data types?",
+        "choice_a": "Integer and character",
+        "choice_b": "Integer and floating point",
+        "choice_c": "Character and void",
+        "choice_d": "Signed and array",
+        "correct_choice": "A",
+        "explanation": "The integral type splits into integer (int, short int, long int, each signed or unsigned) and character (char, signed char, unsigned char)."
+      },
+      {
+        "question_text": "On a 32-bit machine, what is the range of a plain `int`?",
+        "choice_a": "0 to 65,536",
+        "choice_b": "-32,768 to 32,767",
+        "choice_c": "-2,147,483,648 to 2,147,483,647",
+        "choice_d": "-128 to 127",
+        "correct_choice": "C",
+        "explanation": "On the widely-used 32-bit machine, int is 32 bits: -2,147,483,648 to 2,147,483,647."
+      },
+      {
+        "question_text": "On a 16-bit machine, how many bits does a plain `int` occupy?",
+        "choice_a": "8",
+        "choice_b": "16",
+        "choice_c": "32",
+        "choice_d": "64",
+        "correct_choice": "B",
+        "explanation": "On a 16-bit machine int is 16 bits (-32,768 to 32,767); it grows to 32 bits on the more common 32-bit machine."
+      },
+      {
+        "question_text": "What is the size and range of `char`?",
+        "choice_a": "16 bits, -32,768 to 32,767",
+        "choice_b": "8 bits, -128 to 127",
+        "choice_c": "8 bits, 0 to 127",
+        "choice_d": "32 bits, -128 to 127",
+        "correct_choice": "B",
+        "explanation": "char is 8 bits on both 16-bit and 32-bit machines, signed range -128 to 127 (unsigned char: 0 to 255)."
+      },
+      {
+        "question_text": "Which floating-point type has 64 bits and about 14 digits of precision?",
+        "choice_a": "float",
+        "choice_b": "double",
+        "choice_c": "long double",
+        "choice_d": "unsigned",
+        "correct_choice": "B",
+        "explanation": "float is 32 bits / 6 digits of precision; double is 64 bits / 14 digits; long double is 80 bits."
+      },
+      {
+        "question_text": "By default, what type does the integer literal `+111` have?",
+        "choice_a": "unsigned int",
+        "choice_b": "long int",
+        "choice_c": "int",
+        "choice_d": "double",
+        "correct_choice": "C",
+        "explanation": "An integer constant with no suffix defaults to int, regardless of sign."
+      },
+      {
+        "question_text": "By default, what type does the floating literal `12.0` have?",
+        "choice_a": "float",
+        "choice_b": "double",
+        "choice_c": "long double",
+        "choice_d": "int",
+        "correct_choice": "B",
+        "explanation": "A floating-point constant with no suffix defaults to double."
+      },
+      {
+        "question_text": "What does the `U` suffix do to an integer literal, as in `45678U`?",
+        "choice_a": "Marks it as unsigned int",
+        "choice_b": "Marks it as a float",
+        "choice_c": "Marks it as a character literal",
+        "choice_d": "Has no effect, it is decorative",
+        "correct_choice": "A",
+        "explanation": "The U suffix makes 45678U an unsigned int constant instead of the default int."
+      },
+      {
+        "question_text": "What type does `-1.2f` have?",
+        "choice_a": "double",
+        "choice_b": "long double",
+        "choice_c": "float",
+        "choice_d": "int",
+        "correct_choice": "C",
+        "explanation": "The f suffix forces a floating literal to be float instead of the default double."
+      },
+      {
+        "question_text": "Given `typedef int units;` followed by `units b1, b2;`, what are `b1` and `b2`?",
+        "choice_a": "Two variables of a new type unrelated to int",
+        "choice_b": "Two int variables, `units` being just an alias for int",
+        "choice_c": "A compile error, typedef cannot alias int",
+        "choice_d": "Two function prototypes",
+        "correct_choice": "B",
+        "explanation": "typedef only introduces an alias name for an existing type; units b1, b2 declares two ordinary int variables."
+      },
+      {
+        "question_text": "In `enum day {Mon, Tues, Wed, Thurs, Fri, Sat, Sun};`, what value does the compiler assign to `Mon` by default?",
+        "choice_a": "1",
+        "choice_b": "-1",
+        "choice_c": "0",
+        "choice_d": "It is left undefined",
+        "correct_choice": "C",
+        "explanation": "Enumerator values are assigned by the compiler starting at 0 for the first name and incrementing by 1, unless the code overrides them."
+      },
+      {
+        "question_text": "Where is a global variable declared, and where is it visible?",
+        "choice_a": "Inside main() only; visible only in main()",
+        "choice_b": "Outside every function; visible to every function in the file",
+        "choice_c": "Inside each function separately; a copy per function",
+        "choice_d": "Only inside the function that uses it first",
+        "correct_choice": "B",
+        "explanation": "A global variable is declared outside all functions and can be seen and used anywhere in the file, unlike local variables restricted to their own function."
+      },
+      {
+        "question_text": "Which storage class is the default for a variable declared inside a function with no explicit specifier?",
+        "choice_a": "static",
+        "choice_b": "extern",
+        "choice_c": "register",
+        "choice_d": "auto",
+        "correct_choice": "D",
+        "explanation": "auto is the default storage class: a local variable known only to the function in which it is declared."
+      },
+      {
+        "question_text": "Which storage class specifier makes a local variable keep its value between successive calls to its function?",
+        "choice_a": "auto",
+        "choice_b": "static",
+        "choice_c": "register",
+        "choice_d": "extern",
+        "correct_choice": "B",
+        "explanation": "static gives a local variable a lifetime that spans the whole program run: it retains its value even after control returns to the caller."
+      },
+      {
+        "question_text": "What does the `register` storage class specifier ask the compiler to do?",
+        "choice_a": "Zero-initialize the variable automatically",
+        "choice_b": "Make the variable visible to every function in the file",
+        "choice_c": "Store the local variable in a CPU register for faster access",
+        "choice_d": "Forbid the variable from ever changing",
+        "correct_choice": "C",
+        "explanation": "register is a hint that the variable should be kept in a register rather than ordinary memory, for speed."
+      },
+      {
+        "question_text": "If no initializer is given, what value do `static` and `extern` variables start with?",
+        "choice_a": "Zero, automatically",
+        "choice_b": "Garbage, like auto variables",
+        "choice_c": "The value 1",
+        "choice_d": "It is a compile error to leave them uninitialized",
+        "correct_choice": "A",
+        "explanation": "static and extern variables are automatically initialized to zero; auto (plain local) variables are not initialized and contain garbage."
+      },
+      {
+        "question_text": "Why is `#define N 25;` invalid?",
+        "choice_a": "N is not a valid identifier",
+        "choice_b": "25 must be written as 25.0",
+        "choice_c": "A #define statement must not end with a semicolon",
+        "choice_d": "#define cannot be used for numbers",
+        "correct_choice": "C",
+        "explanation": "Unlike a C statement, #define takes no trailing semicolon; a ';' would become part of the substituted text."
+      },
+      {
+        "question_text": "After `#define MAX 200`, what happens with `MAX = 120;` later in the code?",
+        "choice_a": "MAX is updated to 120",
+        "choice_b": "It is illegal: a #define'd constant cannot be reassigned",
+        "choice_c": "It silently does nothing",
+        "choice_d": "It redefines the macro for the rest of the file",
+        "correct_choice": "B",
+        "explanation": "#define performs pure text substitution before compilation; the resulting code (200 = 120;) is not a valid assignment, so it is illegal."
+      },
+      {
+        "question_text": "What does declaring `const int class_size = 40;` guarantee?",
+        "choice_a": "class_size can only be changed by other files",
+        "choice_b": "class_size cannot be changed after its initialization",
+        "choice_c": "class_size is automatically zero if unused",
+        "choice_d": "class_size is stored in a register",
+        "correct_choice": "B",
+        "explanation": "const marks the variable as read-only after initialization: any later assignment to it is illegal."
+      },
+      {
+        "question_text": "What does the `volatile` qualifier tell the compiler about a variable, as in `volatile int date;`?",
+        "choice_a": "The variable must never change",
+        "choice_b": "The variable's value may change at any time from outside the program's own control flow",
+        "choice_c": "The variable is always zero-initialized",
+        "choice_d": "The variable must be stored in a CPU register",
+        "correct_choice": "B",
+        "explanation": "volatile warns the compiler that the value can be altered externally (hardware, another thread), so it must not be cached or optimized away between reads."
+      },
+      {
+        "question_text": "In `scanf(\"%d\", &age);`, what is the purpose of the `&` before `age`?",
+        "choice_a": "It converts age to a string",
+        "choice_b": "It passes the address of age so scanf can write the value into it",
+        "choice_c": "It is optional, only used for style",
+        "choice_d": "It forces age to be unsigned",
+        "correct_choice": "B",
+        "explanation": "C passes arguments by value; & passes age's address instead, letting scanf store the read value directly into the variable."
+      },
+      {
+        "question_text": "Which kind of programming error is detected during compilation, before the program can even run?",
+        "choice_a": "Logic error",
+        "choice_b": "Run-time error",
+        "choice_c": "Syntax error",
+        "choice_d": "Design error",
+        "correct_choice": "C",
+        "explanation": "A syntax error violates the C grammar rules and is caught during translation (compilation); the program cannot be executed until it is fixed."
+      },
+      {
+        "question_text": "Dividing a number by zero at execution time is an example of which kind of error?",
+        "choice_a": "Syntax error",
+        "choice_b": "Run-time error",
+        "choice_c": "Logic error",
+        "choice_d": "None, it always compiles and runs fine",
+        "correct_choice": "B",
+        "explanation": "A run-time error is an attempt at an invalid operation detected during execution; the computer stops and displays a diagnostic message."
+      },
+      {
+        "question_text": "A program compiles, runs to completion, and prints no error message, but the result is wrong. What kind of error is this?",
+        "choice_a": "Syntax error",
+        "choice_b": "Run-time error",
+        "choice_c": "Logic (design) error",
+        "choice_d": "It cannot be a bug if there is no error message",
+        "correct_choice": "C",
+        "explanation": "A logic error follows an incorrect algorithm: no syntax or run-time error is raised, only incorrect output, found by comparing results to what is expected."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "type_answer",
+        "prompt": "What is the default storage class of a variable declared inside a function, with no explicit specifier written?",
+        "accept": [
+          "auto",
+          "the auto storage class",
+          "auto storage class"
+        ],
+        "normalize": "loose",
+        "explanation": "auto is the default: local, known only within the function, not automatically initialized."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Which storage class specifier keeps a local variable's value alive between successive calls to its function?",
+        "accept": [
+          "static",
+          "the static storage class",
+          "static storage class"
+        ],
+        "normalize": "loose",
+        "explanation": "static gives the variable a lifetime spanning the whole program run, unlike the default auto which resets each call."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "An integer literal like `45678` with no suffix defaults to which C type?",
+        "accept": [
+          "int",
+          "the int type",
+          "signed int"
+        ],
+        "normalize": "loose",
+        "explanation": "Integer constants default to int unless a U, L, or UL suffix says otherwise."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "A floating-point literal like `1.234` with no suffix defaults to which C type?",
+        "accept": [
+          "double",
+          "the double type"
+        ],
+        "normalize": "loose",
+        "explanation": "Floating constants default to double; the f suffix is needed to force float instead."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order the three kinds of programming errors by when each one is typically detected.",
+        "steps": [
+          "Syntax error — caught while the compiler translates the source code, before it can run",
+          "Run-time error — caught while the program executes, e.g. a division by zero stops it with a diagnostic",
+          "Logic (design) error — never raises a message; only found afterwards by comparing the program's output to the expected result"
+        ],
+        "explanation": "Compilation catches syntax errors first; execution can then surface run-time errors; a logic error produces no error at all, only wrong output, and is caught only by checking results."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order these by scope and lifetime, from most local and short-lived to most global.",
+        "steps": [
+          "auto (default) — local to the function, exists only while that function call is active",
+          "static — local to the function, but keeps its value across calls for the whole program run",
+          "extern — global, declared outside every function, visible to and shared by every function in the file"
+        ],
+        "explanation": "auto is confined to one call; static survives across calls but stays private to its function; extern is visible file-wide."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of the investment program (Fig. 2.10): read amount, interest rate and period, then print the value at the end of each year while year <= period.",
+        "hint": "Linear read/init, then a loop: while year <= period, compute value, display it, update amount and year; when the loop ends, stop. One decision node.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "i",
+              "kind": "io",
+              "label": "INPUT amount, inrate, period"
+            },
+            {
+              "id": "p1",
+              "kind": "process",
+              "label": "year = 1"
+            },
+            {
+              "id": "d",
+              "kind": "decision",
+              "label": "year <= period ?"
+            },
+            {
+              "id": "p2",
+              "kind": "process",
+              "label": "value = amount + inrate * amount"
+            },
+            {
+              "id": "o",
+              "kind": "io",
+              "label": "DISPLAY year, value"
+            },
+            {
+              "id": "p3",
+              "kind": "process",
+              "label": "amount = value ; year = year + 1"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "i"
+            },
+            {
+              "from": "i",
+              "to": "p1"
+            },
+            {
+              "from": "p1",
+              "to": "d"
+            },
+            {
+              "from": "d",
+              "to": "p2",
+              "branch": "yes"
+            },
+            {
+              "from": "d",
+              "to": "e",
+              "branch": "no"
+            },
+            {
+              "from": "p2",
+              "to": "o"
+            },
+            {
+              "from": "o",
+              "to": "p3"
+            },
+            {
+              "from": "p3",
+              "to": "d"
+            }
+          ]
+        },
+        "explanation": "The while loop tests year <= period before each pass: compute this year's value, display it, reinvest (amount = value) and advance year, then loop back to the test."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of Fig. 2.12: print a Fahrenheit-to-Celsius table from F_LOW to F_MAX in steps of STEP.",
+        "hint": "Init fahrenheit = F_LOW, then loop while fahrenheit <= F_MAX: compute celsius, display both, add STEP to fahrenheit. One decision node.",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "p1",
+              "kind": "process",
+              "label": "fahrenheit = F_LOW"
+            },
+            {
+              "id": "d",
+              "kind": "decision",
+              "label": "fahrenheit <= F_MAX ?"
+            },
+            {
+              "id": "p2",
+              "kind": "process",
+              "label": "celsius = (fahrenheit - 32.0) / 1.8"
+            },
+            {
+              "id": "o",
+              "kind": "io",
+              "label": "DISPLAY fahrenheit, celsius"
+            },
+            {
+              "id": "p3",
+              "kind": "process",
+              "label": "fahrenheit = fahrenheit + STEP"
+            },
+            {
+              "id": "e",
+              "kind": "end",
+              "label": "END"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "p1"
+            },
+            {
+              "from": "p1",
+              "to": "d"
+            },
+            {
+              "from": "d",
+              "to": "p2",
+              "branch": "yes"
+            },
+            {
+              "from": "d",
+              "to": "e",
+              "branch": "no"
+            },
+            {
+              "from": "p2",
+              "to": "o"
+            },
+            {
+              "from": "o",
+              "to": "p3"
+            },
+            {
+              "from": "p3",
+              "to": "d"
+            }
+          ]
+        },
+        "explanation": "F_LOW, F_MAX and STEP are symbolic constants (#define). The loop tests fahrenheit <= F_MAX, prints one converted line per pass, then advances by STEP before testing again."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of these #define statements is invalid, and why? `#define PRICE$ 100`",
+        "choices": [
+          "Invalid: the $ symbol is not permitted in a macro name",
+          "Invalid: 100 must be written as 100.0",
+          "Valid: PRICE$ is a perfectly normal identifier",
+          "Invalid: PRICE must be written in lowercase"
+        ],
+        "correct": 0,
+        "explanation": "The $ symbol is not permitted in a #define name; PRICE_100 or similar would be valid."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of these #define statements is invalid, and why? `#define N 5, M 10`",
+        "choices": [
+          "Invalid: a single #define statement can only define one name",
+          "Invalid: numbers cannot be separated by commas anywhere in C",
+          "Valid: it defines both N and M at once",
+          "Invalid: N and M must start with a lowercase letter"
+        ],
+        "correct": 0,
+        "explanation": "Each #define statement defines exactly one symbolic name; N and M need two separate #define lines."
+      }
+    ]
+  },
+  {
+    "name": "Week 3",
+    "key": "school-db-w3",
+    "color": "slate",
+    "parent": "school-db",
+    "lesson": "# Database Design — Week 3\n\nLecture 05, *E-R Diagrams - 2*. Roles, recursive relationships, cardinality,\nparticipation constraints, weak entities, and generalization/specialization.\n\n---\n\n## 1. Role names\n\nA **role** is a label on the line connecting a relationship (diamond) to an\nentity (rectangle), clarifying how that entity participates. Example: a\n`Faculty` entity connects to the `Reports_To` relationship twice, once\nlabelled **Coordinator** and once **Head** — both ends are the same entity\nset, playing two different roles. Role labels are **optional**, used to\nclarify meaning.\n\n## 2. Recursive relationship set\n\nWhen the **same entity set participates in a relationship set more than\nonce**, the relationship is recursive. Example: `Faculty` — `Works` —\n`Department`, plus a second, recursive relationship among `Faculty` members\nthemselves (who reports to whom), both connecting back to the same `Faculty`\nrectangle.\n\n## 3. Mapping cardinality (cardinality constraints)\n\nThe number of entities of one set that can be connected, via a relationship\nset, to an entity of the other set. Most useful for **binary** relationship\nsets. For a binary relationship between A and B, four types exist:\n\n| type | meaning | example (customer `borrow` loan) |\n|---|---|---|\n| **One-to-one (1:1)** | one A ↔ one B, both ways | a customer holds exactly one loan, and that loan belongs to exactly one customer |\n| **One-to-many (1:N)** | one A ↔ many B; one B ↔ one A | one loan is held by one customer, but a customer may hold several loans |\n| **Many-to-one (N:1)** | one A ↔ one B; one B ↔ many A | one customer holds one loan, but a loan can be shared by several customers |\n| **Many-to-many (N:N)** | many A ↔ many B, both ways | a customer can hold several loans, and a loan can be shared by several customers |\n\nOn the diagram, the relationship diamond's edges carry the cardinality\nlabel (`1` or `N`) on each side.\n\n## 4. Participation constraints\n\nDescribes whether **every** entity of a set must take part in a relationship.\n\n| kind | meaning | drawn as |\n|---|---|---|\n| **Total participation** | every entity in the set participates in at least one relationship | double line |\n| **Partial participation** | some entities may not participate in any relationship | single line |\n\nExample: if every loan must have at least one customer, the `loan` side of\n`borrow` has total participation (double line); if a customer need not have a\nloan, the `customer` side has partial participation (single line).\n\n## 5. Weak entity sets\n\nAn entity set that **has no primary key of its own** is a weak entity set.\n\n- The **discriminator** (partial key) is the set of attributes that\n  distinguishes all the entities of the weak entity set. It is underlined\n  with a **dashed line** (not a solid one, which marks an ordinary primary\n  key).\n- The weak entity set's real **primary key** is formed by combining the\n  primary key of the **strong (identifying) entity set** it depends on with\n  its own discriminator.\n- A weak entity set is drawn as a **double rectangle**; the relationship that\n  ties it to its identifying strong entity is drawn as a **double diamond**\n  (identifying relationship).\n- Example: `payment` is weak, identified through `loan`. `payment-no` is only\n  a discriminator; the real primary key of `payment` is `(loan-no,\n  payment-no)`.\n- A weak entity set's existence **depends on** the existence of the strong\n  entity set it is attached to.\n\n## 6. Superclass vs subclass\n\n| | Super Class | Sub Class |\n|---|---|---|\n| definition | an entity from which other entities can be derived | an entity that is derived from another entity |\n| example | `Account` is a superclass | `Saving_Account` and `Current_Account`, derived from `Account`, are subclasses |\n\n## 7. Generalization vs specialization\n\nBoth describe an **ISA** (is-a) hierarchy between a superclass and its\nsubclasses, drawn with a triangle labelled \"ISA\" connecting them, but they\ndiffer in the direction the design is built:\n\n| | Generalization | Specialization |\n|---|---|---|\n| process | creation of a group from various entities | creation of sub-groups within one entity |\n| approach | **bottom-up** | **top-down** |\n| mechanism | takes the **union of two or more lower-level** entity sets to produce a higher-level entity set | takes a **subset of a higher-level** entity set to form a lower-level entity set |\n| starting point | starts from a number of entity sets and extracts common features to build the high-level set | starts from a single entity set and creates different low-level entity sets using distinguishing features |\n\nExample: `Person` — ISA — `{Student, Faculty}` — ISA — `{Full Time, Part\nTime}` (a two-level ISA hierarchy: subclasses can themselves have\nsubclasses).\n\n## 8. Building an E-R diagram end to end\n\nGiven a written description (e.g. the NHL database: teams, players, games,\ninjury records), the usual method is: identify the entities (rectangles),\nattach their attributes (ovals) and underline the primary key, identify the\nrelationships (diamonds) between entities, add role names where a relation\nconnects an entity to itself or is ambiguous, then label every relationship's\ncardinality and participation constraints.\n\n---\n\n## To remember\n\n- Roles label the lines when the same entity plays different parts in one\n  relationship (or a recursive one, where an entity relates to itself).\n- Cardinality: 1:1, 1:N, N:1, N:N — always described from each side's point\n  of view (\"one A relates to how many B\").\n- Participation: **double line = total**, **single line = partial**.\n- Weak entity = **no own primary key**; discriminator underlined with a\n  **dashed** line; real primary key = strong entity's key + discriminator;\n  drawn as **double rectangle** + **double diamond**.\n- Generalization = **bottom-up**, union of entities into one. Specialization\n  = **top-down**, splitting one entity into subsets. Both drawn with an\n  **ISA** triangle.\n",
+    "questions": [
+      {
+        "question_text": "What is a role, in an E-R diagram?",
+        "choice_a": "The primary key of an entity",
+        "choice_b": "A label on the line connecting a relationship to an entity, clarifying how that entity participates",
+        "choice_c": "A synonym for the relationship's name",
+        "choice_d": "The cardinality written on a line",
+        "correct_choice": "B",
+        "explanation": "Roles are indicated by labeling the lines that connect diamonds (relationship) to rectangles (entity); they clarify semantics and are optional."
+      },
+      {
+        "question_text": "In the Faculty — Reports_To example, 'Coordinator' and 'Head' are examples of what?",
+        "choice_a": "Two different entity sets",
+        "choice_b": "Role names on the same recursive relationship",
+        "choice_c": "Two separate primary keys",
+        "choice_d": "Weak entity discriminators",
+        "correct_choice": "B",
+        "explanation": "Coordinator and Head are role labels: they specify which Faculty entities interact with whom via the Reports_To relationship set."
+      },
+      {
+        "question_text": "What makes a relationship set 'recursive'?",
+        "choice_a": "It has more than one attribute",
+        "choice_b": "The same entity set participates in the relationship set more than once",
+        "choice_c": "It connects three or more different entity sets",
+        "choice_d": "It has no cardinality constraint",
+        "correct_choice": "B",
+        "explanation": "A recursive relationship set is one where the same entity participates in the relationship more than once, e.g. Faculty reporting to another Faculty."
+      },
+      {
+        "question_text": "What does mapping cardinality describe?",
+        "choice_a": "The number of attributes an entity has",
+        "choice_b": "The number of entities of another set connected to an entity via a relationship set",
+        "choice_c": "Whether an entity set is weak or strong",
+        "choice_d": "The physical storage size of a table",
+        "correct_choice": "B",
+        "explanation": "Mapping cardinality is most useful for describing binary relationship sets, and comes in four types: 1:1, 1:N, N:1, N:N."
+      },
+      {
+        "question_text": "A customer holds exactly one loan, and that loan belongs to exactly one customer. What mapping cardinality is this?",
+        "choice_a": "One-to-many",
+        "choice_b": "Many-to-one",
+        "choice_c": "One-to-one",
+        "choice_d": "Many-to-many",
+        "correct_choice": "C",
+        "explanation": "Both sides are restricted to exactly one: an entity in A is associated with only one entity in B and vice versa, which is 1:1."
+      },
+      {
+        "question_text": "A loan is connected with more than one customer, and a customer is connected with only one loan. What mapping cardinality is this (from loan's perspective toward customer)?",
+        "choice_a": "One-to-one",
+        "choice_b": "Many-to-one",
+        "choice_c": "Many-to-many",
+        "choice_d": "One-to-many",
+        "correct_choice": "D",
+        "explanation": "An entity in A (loan) is associated with more than one entity in B (customer), and each B is associated with only one A: that is one-to-many for loan-to-customer."
+      },
+      {
+        "question_text": "In a many-to-many (N-N) relationship between customer and loan, what holds?",
+        "choice_a": "A customer can have only one loan and a loan only one customer",
+        "choice_b": "A customer can be connected with more than one loan, and a loan can be connected with more than one customer",
+        "choice_c": "Only customers can have multiple connections, loans cannot",
+        "choice_d": "N-N relationships are not allowed between binary entity sets",
+        "correct_choice": "B",
+        "explanation": "Many-to-many means both sides can connect to more than one entity of the other set."
+      },
+      {
+        "question_text": "What do participation constraints specify?",
+        "choice_a": "The maximum number of attributes an entity can have",
+        "choice_b": "The participation of an entity set in a relationship set: whether every entity must take part",
+        "choice_c": "The order in which relationships are drawn",
+        "choice_d": "Which entity set is the primary key holder",
+        "correct_choice": "B",
+        "explanation": "Participation constraints describe whether every entity in a set participates in at least one relationship (total) or not (partial)."
+      },
+      {
+        "question_text": "How is total participation represented on an E-R diagram?",
+        "choice_a": "A dashed line",
+        "choice_b": "A single line",
+        "choice_c": "A double line",
+        "choice_d": "An arrow",
+        "correct_choice": "C",
+        "explanation": "Total participation, where every entity in the set participates in at least one relationship, is drawn with a double line."
+      },
+      {
+        "question_text": "How is partial participation represented on an E-R diagram?",
+        "choice_a": "A double line",
+        "choice_b": "A single line",
+        "choice_c": "A dotted oval",
+        "choice_d": "A double diamond",
+        "correct_choice": "B",
+        "explanation": "Partial participation, where some entities may not participate in any relationship, is drawn with a single line."
+      },
+      {
+        "question_text": "What is a weak entity set?",
+        "choice_a": "An entity set with fewer than three attributes",
+        "choice_b": "An entity set that does not have a primary key of its own",
+        "choice_c": "An entity set that only appears in recursive relationships",
+        "choice_d": "An entity set with no relationships at all",
+        "correct_choice": "B",
+        "explanation": "A weak entity set is defined as an entity set that does not have a primary key; its identity depends on a strong entity set."
+      },
+      {
+        "question_text": "What is a weak entity set's discriminator?",
+        "choice_a": "Its full primary key",
+        "choice_b": "The set of attributes that distinguishes all the entities of the weak entity set",
+        "choice_c": "A foreign key pointing at the strong entity",
+        "choice_d": "The relationship diamond connecting it to the strong entity",
+        "correct_choice": "B",
+        "explanation": "The discriminator (partial key) is the attribute set that distinguishes the weak entity's own entities; it is not, by itself, a full primary key."
+      },
+      {
+        "question_text": "How do you form the actual primary key of a weak entity set?",
+        "choice_a": "Use the discriminator alone",
+        "choice_b": "Combine the primary key of the identifying strong entity set with the weak entity's discriminator",
+        "choice_c": "Use the relationship's name as the key",
+        "choice_d": "Weak entity sets never have a usable primary key",
+        "correct_choice": "B",
+        "explanation": "The primary key of a weak entity set is created by combining the identifying strong entity set's primary key with the weak entity's own discriminator, e.g. (loan-no, payment-no)."
+      },
+      {
+        "question_text": "How is the discriminator attribute of a weak entity set underlined?",
+        "choice_a": "With a solid line, exactly like an ordinary primary key",
+        "choice_b": "With a dashed line",
+        "choice_c": "It is never underlined",
+        "choice_d": "With a double line",
+        "correct_choice": "B",
+        "explanation": "The discriminator (partial key) is underlined with a dashed line, distinguishing it visually from a full, solid-underlined primary key."
+      },
+      {
+        "question_text": "How is a weak entity set itself drawn on the diagram?",
+        "choice_a": "As a diamond",
+        "choice_b": "As a single rectangle",
+        "choice_c": "As a double rectangle",
+        "choice_d": "As a dashed oval",
+        "correct_choice": "C",
+        "explanation": "A weak entity set is indicated by a double rectangle; the identifying relationship that ties it to its strong entity is a double diamond."
+      },
+      {
+        "question_text": "If `account` is an entity with two subsets `saving_account` and `current_account`, which is the superclass?",
+        "choice_a": "saving_account",
+        "choice_b": "current_account",
+        "choice_c": "account",
+        "choice_d": "None of them, superclasses do not apply here",
+        "correct_choice": "C",
+        "explanation": "account is the superclass: another entity (saving_account, current_account) can be derived from it. Those two are the subclasses."
+      },
+      {
+        "question_text": "What is the process of extracting the common features of multiple entities to form one new, higher-level entity called?",
+        "choice_a": "Specialization",
+        "choice_b": "Generalization",
+        "choice_c": "Normalization",
+        "choice_d": "Weak entity resolution",
+        "correct_choice": "B",
+        "explanation": "Generalization extracts the common features of multiple entities to form a new (higher-level) entity, using a bottom-up approach."
+      },
+      {
+        "question_text": "What is the process of splitting one entity into multiple new entities that each inherit some of its features called?",
+        "choice_a": "Generalization",
+        "choice_b": "Specialization",
+        "choice_c": "Weak entity discrimination",
+        "choice_d": "Recursive relationship resolution",
+        "correct_choice": "B",
+        "explanation": "Specialization splits an entity to form new entities that inherit some of its features, using a top-down approach."
+      },
+      {
+        "question_text": "Generalization takes the union of two or more lower-level entity sets to produce a higher-level entity set. What approach is this?",
+        "choice_a": "Top-down",
+        "choice_b": "Bottom-up",
+        "choice_c": "Left-to-right",
+        "choice_d": "Depth-first",
+        "correct_choice": "B",
+        "explanation": "Generalization starts from a number of entity sets and builds a high-level entity set using common features: a bottom-up approach."
+      },
+      {
+        "question_text": "Specialization takes a subset of a higher-level entity set to form a lower-level entity set. What approach is this?",
+        "choice_a": "Bottom-up",
+        "choice_b": "Top-down",
+        "choice_c": "Breadth-first",
+        "choice_d": "Recursive",
+        "correct_choice": "B",
+        "explanation": "Specialization starts from a single entity set and creates different low-level entity sets using distinguishing features: a top-down approach."
+      },
+      {
+        "question_text": "In an ISA hierarchy such as Person — ISA — {Student, Faculty}, what does the ISA triangle represent?",
+        "choice_a": "A weak entity relationship",
+        "choice_b": "A generalization/specialization link between a superclass and its subclasses",
+        "choice_c": "A cardinality constraint of many-to-many",
+        "choice_d": "A recursive relationship set",
+        "correct_choice": "B",
+        "explanation": "The ISA triangle is the notation for a generalization/specialization hierarchy: Student and Faculty are subclasses derived from the Person superclass."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "type_answer",
+        "prompt": "In an E-R diagram, what kind of participation is drawn with a double line between an entity and a relationship diamond?",
+        "accept": [
+          "total",
+          "total participation"
+        ],
+        "normalize": "loose",
+        "explanation": "Total participation (every entity of the set must appear in the relationship) is drawn with a double line; partial participation uses a single line."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "What kind of entity set has no primary key of its own and depends on a strong entity set for its identity?",
+        "accept": [
+          "weak entity set",
+          "weak entity",
+          "a weak entity set"
+        ],
+        "normalize": "loose",
+        "explanation": "A weak entity set has no primary key; its real primary key combines its own discriminator with the identifying strong entity set's key."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order the steps to build an E-R diagram from a written description (e.g. the NHL database).",
+        "steps": [
+          "Identify the entities and draw a rectangle for each",
+          "Attach each entity's attributes as ovals and underline the primary key",
+          "Identify the relationships between entities and draw a diamond for each",
+          "Add role names on the lines where an entity plays more than one part (recursive or ambiguous relationships)",
+          "Label each relationship's cardinality (1:1, 1:N, N:1, N:N)",
+          "Mark each relationship's participation constraints (single line = partial, double line = total)"
+        ],
+        "explanation": "Entities and their attributes come first, then the relationships between them, then the refinements — roles, cardinality, participation — that make the diagram precise."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order the four mapping cardinalities from the most restrictive to the least restrictive (fewest possible connections to most).",
+        "steps": [
+          "One-to-one (1:1) — each side connects to at most one entity of the other",
+          "One-to-many (1:N) or many-to-one (N:1) — one side connects to many, the other to only one",
+          "Many-to-many (N:N) — both sides can connect to many entities of the other set"
+        ],
+        "explanation": "1:1 is the tightest constraint (one on both sides), N:N the loosest (many on both sides); 1:N/N:1 sit in between, restricting exactly one side."
+      },
+      {
+        "type": "er_build",
+        "prompt": "Draw the customer–loan relationship 'borrow' as a many-to-many (N:N) relationship, with total participation on the loan side (every loan must have a customer) and partial participation on the customer side.",
+        "hint": "Two entities (customer, loan) and a relationship diamond (borrow) between them. Click the loan–borrow line twice to cycle its cardinality to N, and the customer–borrow line to N as well.",
+        "target": {
+          "nodes": [
+            {
+              "id": "cu",
+              "kind": "entity",
+              "label": "customer"
+            },
+            {
+              "id": "lo",
+              "kind": "entity",
+              "label": "loan"
+            },
+            {
+              "id": "bo",
+              "kind": "relationship",
+              "label": "borrow"
+            }
+          ],
+          "edges": [
+            {
+              "from": "cu",
+              "to": "bo",
+              "card": "N"
+            },
+            {
+              "from": "bo",
+              "to": "lo",
+              "card": "N"
+            }
+          ]
+        },
+        "explanation": "A customer may hold several loans and a loan may be shared by several customers, so both sides of borrow carry an N cardinality: many-to-many."
+      },
+      {
+        "type": "er_build",
+        "prompt": "Draw the weak entity set 'payment', identified through the strong entity 'loan' by the weak (double) relationship 'L_P', each with one key attribute.",
+        "hint": "loan is a plain (single) rectangle with its key attribute loan-no. payment is a weak entity (double rectangle) with its discriminator payment-no, joined to loan through the weak relationship L_P (double diamond).",
+        "target": {
+          "nodes": [
+            {
+              "id": "lo",
+              "kind": "entity",
+              "label": "loan"
+            },
+            {
+              "id": "ln",
+              "kind": "key_attribute",
+              "label": "loan-no"
+            },
+            {
+              "id": "lp",
+              "kind": "identifying_relationship",
+              "label": "L_P"
+            },
+            {
+              "id": "pa",
+              "kind": "weak_entity",
+              "label": "payment"
+            },
+            {
+              "id": "pn",
+              "kind": "key_attribute",
+              "label": "payment-no"
+            }
+          ],
+          "edges": [
+            {
+              "from": "lo",
+              "to": "ln"
+            },
+            {
+              "from": "lo",
+              "to": "lp"
+            },
+            {
+              "from": "lp",
+              "to": "pa"
+            },
+            {
+              "from": "pa",
+              "to": "pn"
+            }
+          ]
+        },
+        "explanation": "loan is strong (single rectangle, own primary key loan-no); payment has no primary key of its own so it is weak (double rectangle), tied to loan through the identifying (double-diamond) relationship L_P. Its real primary key is (loan-no, payment-no)."
+      },
+      {
+        "type": "er_build",
+        "prompt": "Draw the generalization/specialization hierarchy: Person is the superclass; Student and Faculty are its subclasses (one ISA link).",
+        "hint": "One entity Person, an ISA node, and two entities Student and Faculty below it. The ISA node sits between Person (above) and the two subclasses (below).",
+        "target": {
+          "nodes": [
+            {
+              "id": "pe",
+              "kind": "entity",
+              "label": "Person"
+            },
+            {
+              "id": "ia",
+              "kind": "isa",
+              "label": "ISA"
+            },
+            {
+              "id": "st",
+              "kind": "entity",
+              "label": "Student"
+            },
+            {
+              "id": "fa",
+              "kind": "entity",
+              "label": "Faculty"
+            }
+          ],
+          "edges": [
+            {
+              "from": "pe",
+              "to": "ia"
+            },
+            {
+              "from": "ia",
+              "to": "st"
+            },
+            {
+              "from": "ia",
+              "to": "fa"
+            }
+          ]
+        },
+        "explanation": "The ISA triangle links the superclass Person to its subclasses Student and Faculty, each inheriting Person's shared attributes while adding their own."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which pair correctly matches the total/partial participation marks used in an E-R diagram?",
+        "choices": [
+          "Total = double line, Partial = single line",
+          "Total = single line, Partial = double line",
+          "Total = dashed line, Partial = solid line",
+          "Total and Partial use the same mark; only the cardinality label differs"
+        ],
+        "correct": 0,
+        "explanation": "Total participation (every entity of the set is involved) is drawn with a double line; partial participation is a single line."
+      }
+    ]
+  },
+  {
+    "name": "Week 3",
+    "key": "school-se-w3",
+    "color": "indigo",
+    "parent": "school-se",
+    "lesson": "# Software Engineering — Week 3\n\n*Agile Software Engineering — Incremental development and Scrum.*\n\n---\n\n## 1. Product development and uncertainty\n\nA **product vision** identifies the proposed product, its users, and the\nvalue it should provide. Detailed features develop as the team learns more\nabout users, technology, and the product's environment.\n\nFlow: `Product vision (What/Who/Why)` → `Candidate product features` → `A\nsmall, tested product increment` → `Evaluation and new information`, which\nfeeds back into refining the features.\n\nIncremental development gives users an early opportunity to evaluate working\nsoftware; their feedback can expose missing requirements and change the\norder of future work.\n\n## 2. Plan-driven vs agile development\n\n| | Plan-driven development | Agile development |\n|---|---|---|\n| **Planning** | define substantial requirements and design detail before implementation | develop near-term detail and revise later work as knowledge grows |\n| **Coordination** | documents support large teams, handovers, and long system lifetimes | frequent interaction supports rapid decisions and shared understanding |\n| **Change** | revise affected plans and completed development work | use frequent increments to evaluate results and redirect work |\n\nDetailed documentation can justify its cost in critical, long-lived systems.\nAgile approaches reduce overhead in rapidly evolving products.\n\n## 3. Incremental vs iterative development\n\n- **Incremental development**: extend the product with additional usable\n  functionality. Each new addition works with what the product already\n  provides (`Feature A` → `A+B` → `A+B+C`).\n- **Iterative development**: revisit and improve an existing result. A later\n  cycle can refine requirements, change a design, or improve behaviour after\n  evaluation (`Initial version` → `Evaluate` → `Revised version`).\n- The two ideas can operate together: a cycle can add a feature while\n  revising earlier work.\n\nAn increment adds a small amount of functionality: **select features → refine\ndescriptions → implement and test → integrate and test the system → deliver\nand evaluate**, with feedback informing the next selection.\n\n## 4. Agile values and principles\n\nThe Agile Manifesto expresses **relative priorities** — each comparison\nvalues both sides, with greater weight on the left:\n\n| Greater emphasis | over | Also valuable |\n|---|---|---|\n| Individuals and interactions | over | Processes and tools |\n| Working software | over | Comprehensive documentation |\n| Customer collaboration | over | Contract negotiation |\n| Responding to change | over | Following a plan |\n\nFive agile principles:\n\n| Principle | Meaning |\n|---|---|\n| Involve the customer | customers/representatives help prioritize requirements and evaluate increments |\n| Embrace change | adapt features as users and developers learn more |\n| Develop incrementally | develop, test, evaluate small additions; use feedback in later work |\n| Maintain simplicity | reduce unnecessary complexity in software and process |\n| Focus on people | trust capable team members to organize their own way of working |\n\n## 5. Extreme Programming (XP) practices\n\n| Practice | Mechanism |\n|---|---|\n| Incremental planning | select work for the next increment through discussion and relative priority |\n| Small releases | deliver a useful subset of functionality, add capability over time |\n| Test-driven development | write a test for required behaviour before coding; rerun tests after changes |\n| Continuous integration | integrate completed changes frequently, check the combined system automatically |\n| Refactoring | improve code structure while preserving its externally observable behaviour |\n\n## 6. The Scrum framework\n\nScrum organizes complex product development around short **Sprints** and\nregular inspection: `Ordered product work` → `Sprint planning and work` →\n`Usable Increment` → `Inspection and adaptation`, which updates future work.\n\n**Empiricism and the three pillars** (each supports the next):\n\n`Transparency` (make work, results, quality visible) → `Inspection` (examine\nartifacts and progress toward agreed goals) → `Adaptation` (adjust work or\nprocess when inspection reveals a problem) → feeds back into transparency.\n\n**Scrum values**: Commitment, Focus, Openness, Respect, Courage.\n\n## 7. Scrum Team accountabilities\n\nA self-managing Scrum Team combines complementary skills and three\naccountabilities:\n\n| Accountability | Primary responsibilities |\n|---|---|\n| Product Owner | maximize product value; communicate direction; keep the Product Backlog ordered and understandable |\n| Developers | create a usable Increment; plan the Sprint's work; uphold quality; adapt the plan as development progresses |\n| Scrum Master | help establish Scrum and improve team effectiveness; coach the team; help remove impediments |\n\n**Self-managing** means the team decides who does what, when, and how — the\naccountabilities do not create a command hierarchy.\n\n## 8. Artifacts and commitments\n\n| Artifact | Content | Commitment |\n|---|---|---|\n| Product Backlog | ordered, evolving list of improvements | Product Goal (longer-term direction) |\n| Sprint Backlog | work and delivery plan for one Sprint | Sprint Goal (one Sprint's objective) |\n| Increment | integrated, usable work | Definition of Done (required product quality) |\n\n- The **Product Backlog** can contain new features, defect corrections,\n  technical improvements, and investigation of uncertain work.\n- The **Product Goal** describes a future product state; near-term items are\n  detailed, further ones stay broad.\n- **Backlog refinement**: a broad item is discussed, clarified, and divided\n  until it is detailed enough to be selected for a Sprint.\n- An **Increment** adds verified, usable work; a Sprint can produce several\n  Increments.\n- The **Definition of Done** states the quality conditions completed work\n  must satisfy; work not meeting it stays visible as unfinished.\n\n## 9. The Sprint and its events\n\nA **Sprint** is a fixed period of one month or less, containing planning,\ndevelopment, inspection, and improvement.\n\n| Event | Purpose |\n|---|---|\n| **Sprint Planning** | the team defines Why (Sprint Goal), What (selected Product Backlog items), and How (the Developers' actionable plan); max 8 hours for a one-month Sprint |\n| **Daily Scrum** | 15-minute daily event: inspect progress toward the Sprint Goal, adapt the plan for the day |\n| **Sprint Review** | Scrum Team and stakeholders inspect the outcome and discuss what to do next |\n| **Sprint Retrospective** | the team examines its own process — collaboration, tools, quality — and chooses useful changes to how it works |\n\n**Sprint Review vs Sprint Retrospective**:\n\n| | Sprint Review | Sprint Retrospective |\n|---|---|---|\n| Main focus | product outcome and progress toward the Product Goal | development process, collaboration, quality |\n| Participants | Scrum Team and relevant stakeholders | Scrum Team only |\n| Adaptation | revises the direction and order of future product work | improves the team's way of working |\n\n## 10. The integrated Scrum cycle\n\n`Product Backlog / Product Goal` → `Sprint Planning` → `Sprint Backlog /\nSprint Goal` → `Development and Daily Scrum` → `Increment meets DoD` →\n`Sprint Review (product and future work)` → `Sprint Retrospective\n(development process)` → process improvements feed the next Sprint's\nPlanning, while the Review's findings feed the Product Backlog.\n\n---\n\n## To remember\n\n- Plan-driven plans everything up front; agile plans near-term detail and\n  revises as it learns, through frequent increments.\n- Agile Manifesto: individuals/interactions, working software, customer\n  collaboration, responding to change are valued *more* — not *instead of*\n  their counterparts.\n- Scrum's three accountabilities: **Product Owner** (value, backlog order),\n  **Developers** (build the Increment), **Scrum Master** (coach, remove\n  impediments) — self-managing, no hierarchy.\n- Three artifacts, each with a commitment: Product Backlog ↔ Product Goal,\n  Sprint Backlog ↔ Sprint Goal, Increment ↔ Definition of Done.\n- Four Sprint events in order: **Planning → Daily Scrum (repeated) → Review →\n  Retrospective**. Review looks at the *product*; Retrospective looks at the\n  *process*.\n",
+    "questions": [
+      {
+        "question_text": "What does a product vision identify?",
+        "choice_a": "The exact source code structure of the first release",
+        "choice_b": "The proposed product, its users, and the value it should provide",
+        "choice_c": "Only the technical architecture, not the users",
+        "choice_d": "The final, unchangeable feature list",
+        "correct_choice": "B",
+        "explanation": "A product vision identifies the proposed product, its users, and the value it provides; detailed features develop as the team learns more."
+      },
+      {
+        "question_text": "In plan-driven development, when is planning mostly done?",
+        "choice_a": "Substantial requirements and design detail are defined before implementation",
+        "choice_b": "Only near-term detail is planned, revised as knowledge grows",
+        "choice_c": "Planning never happens, only coding",
+        "choice_d": "Planning happens exclusively during the Sprint Retrospective",
+        "correct_choice": "A",
+        "explanation": "Plan-driven development defines substantial requirements and design detail up front, unlike agile which plans near-term detail and revises later work."
+      },
+      {
+        "question_text": "What best describes agile development's approach to change?",
+        "choice_a": "Change is avoided entirely once planning is finished",
+        "choice_b": "Frequent increments are used to evaluate results and redirect work",
+        "choice_c": "Only the customer may request changes, and only once",
+        "choice_d": "Changes are batched and applied only at project end",
+        "correct_choice": "B",
+        "explanation": "Agile development uses frequent increments to evaluate results and redirect work, embracing change as understanding grows."
+      },
+      {
+        "question_text": "What is incremental development, as distinct from iterative development?",
+        "choice_a": "Revisiting and improving an existing result after evaluation",
+        "choice_b": "Extending the product with additional usable functionality that works with what already exists",
+        "choice_c": "Writing all requirements before any code",
+        "choice_d": "A synonym for the Sprint Retrospective",
+        "correct_choice": "B",
+        "explanation": "Incremental development extends the product with additional usable functionality (Feature A -> A+B -> A+B+C); iterative development instead revisits and improves an existing result."
+      },
+      {
+        "question_text": "According to the Agile Manifesto, which of these is valued MORE, without discarding the other side entirely?",
+        "choice_a": "Comprehensive documentation over working software",
+        "choice_b": "Working software over comprehensive documentation",
+        "choice_c": "Following a plan over responding to change",
+        "choice_d": "Processes and tools over individuals and interactions",
+        "correct_choice": "B",
+        "explanation": "The manifesto values working software over comprehensive documentation, while still recognizing documentation's value."
+      },
+      {
+        "question_text": "Which of the five agile development principles is 'reduce unnecessary complexity in the software and in the development process'?",
+        "choice_a": "Embrace change",
+        "choice_b": "Focus on people",
+        "choice_c": "Maintain simplicity",
+        "choice_d": "Involve the customer",
+        "correct_choice": "C",
+        "explanation": "Maintain simplicity means reducing unnecessary complexity in both the software and the process used to build it."
+      },
+      {
+        "question_text": "Which Extreme Programming practice means writing a test for required behaviour before coding it?",
+        "choice_a": "Continuous integration",
+        "choice_b": "Refactoring",
+        "choice_c": "Small releases",
+        "choice_d": "Test-driven development",
+        "correct_choice": "D",
+        "explanation": "Test-driven development writes a test for the required behaviour before coding, then reruns the tests after changes."
+      },
+      {
+        "question_text": "Which XP practice improves code structure while preserving its externally observable behaviour?",
+        "choice_a": "Refactoring",
+        "choice_b": "Incremental planning",
+        "choice_c": "Continuous integration",
+        "choice_d": "Test-driven development",
+        "correct_choice": "A",
+        "explanation": "Refactoring improves the internal structure of code without changing its externally observable behaviour."
+      },
+      {
+        "question_text": "What does Scrum organize complex product development around?",
+        "choice_a": "A single long planning phase followed by one release",
+        "choice_b": "Short Sprints and regular inspection",
+        "choice_c": "Unlimited-length iterations with no fixed events",
+        "choice_d": "A fixed contract signed before any work begins",
+        "correct_choice": "B",
+        "explanation": "Scrum organizes complex product development around short Sprints and regular inspection, with defined responsibilities, events, and artifacts."
+      },
+      {
+        "question_text": "What are Scrum's three pillars of empiricism, and in what relationship?",
+        "choice_a": "Transparency, Inspection, Adaptation — each supports the next",
+        "choice_b": "Planning, Coding, Testing — done in sequence once",
+        "choice_c": "Product Owner, Developers, Scrum Master — a command hierarchy",
+        "choice_d": "Backlog, Sprint, Increment — three separate teams",
+        "correct_choice": "A",
+        "explanation": "Empiricism rests on Transparency (visible work), Inspection (examine progress), and Adaptation (adjust when inspection reveals a problem); each pillar supports the next."
+      },
+      {
+        "question_text": "Which of these is one of the five Scrum values?",
+        "choice_a": "Documentation",
+        "choice_b": "Courage",
+        "choice_c": "Contract negotiation",
+        "choice_d": "Hierarchy",
+        "correct_choice": "B",
+        "explanation": "The five Scrum values are Commitment, Focus, Openness, Respect, and Courage."
+      },
+      {
+        "question_text": "Which Scrum accountability is responsible for maximizing product value and keeping the Product Backlog ordered and understandable?",
+        "choice_a": "Scrum Master",
+        "choice_b": "Developers",
+        "choice_c": "Product Owner",
+        "choice_d": "Stakeholders",
+        "correct_choice": "C",
+        "explanation": "The Product Owner maximizes product value, communicates product direction, and keeps the Product Backlog ordered and understandable."
+      },
+      {
+        "question_text": "Which Scrum accountability creates a usable Increment and plans the Sprint's work?",
+        "choice_a": "Developers",
+        "choice_b": "Product Owner",
+        "choice_c": "Scrum Master",
+        "choice_d": "Project manager",
+        "correct_choice": "A",
+        "explanation": "Developers create a usable Increment, plan the Sprint's work, uphold quality, and adapt the plan as development progresses."
+      },
+      {
+        "question_text": "What does 'self-managing', as applied to a Scrum Team, mean?",
+        "choice_a": "The team follows strict orders from the Scrum Master",
+        "choice_b": "The team decides who does what, when, and how; the accountabilities do not form a command hierarchy",
+        "choice_c": "Only the Product Owner can assign tasks",
+        "choice_d": "Each Developer works entirely alone with no coordination",
+        "correct_choice": "B",
+        "explanation": "Self-managing means the team itself determines who does what, when, and how, with no command hierarchy among Product Owner, Developers, and Scrum Master."
+      },
+      {
+        "question_text": "Which commitment gives the Product Backlog a shared basis for understanding its longer-term direction?",
+        "choice_a": "Sprint Goal",
+        "choice_b": "Definition of Done",
+        "choice_c": "Product Goal",
+        "choice_d": "Sprint Backlog",
+        "correct_choice": "C",
+        "explanation": "The Product Goal is the commitment attached to the Product Backlog, describing a future state the product should reach."
+      },
+      {
+        "question_text": "Which commitment states the quality conditions completed product work must satisfy?",
+        "choice_a": "Sprint Goal",
+        "choice_b": "Definition of Done",
+        "choice_c": "Product Goal",
+        "choice_d": "Sprint Backlog",
+        "correct_choice": "B",
+        "explanation": "The Definition of Done states the quality conditions completed work must meet before it contributes to an Increment."
+      },
+      {
+        "question_text": "What is the maximum length of a Sprint?",
+        "choice_a": "One week",
+        "choice_b": "One month or less",
+        "choice_c": "Three months",
+        "choice_d": "There is no maximum",
+        "correct_choice": "B",
+        "explanation": "A Sprint is a fixed period of one month or less, containing planning, development, inspection, and improvement."
+      },
+      {
+        "question_text": "What three questions does Sprint Planning address?",
+        "choice_a": "Who, When, Where",
+        "choice_b": "Why (Sprint Goal), What (selected items), How (the plan)",
+        "choice_c": "What, When, Budget",
+        "choice_d": "How much, How long, Who pays",
+        "correct_choice": "B",
+        "explanation": "Sprint Planning addresses Why (the Sprint Goal), What (Product Backlog items selected), and How (the Developers' actionable delivery plan)."
+      },
+      {
+        "question_text": "What is the purpose of the Daily Scrum?",
+        "choice_a": "A 15-minute daily event to inspect progress toward the Sprint Goal and adapt the plan",
+        "choice_b": "A monthly status report to management",
+        "choice_c": "The event where the Product Backlog is created from scratch",
+        "choice_d": "A one-time kickoff meeting at the start of the whole project",
+        "correct_choice": "A",
+        "explanation": "The Daily Scrum is a 15-minute event for Developers on every working day of the Sprint, inspecting progress and adjusting the plan for the day."
+      },
+      {
+        "question_text": "What distinguishes the Sprint Review from the Sprint Retrospective in main focus?",
+        "choice_a": "Review focuses on the product outcome; Retrospective focuses on the development process",
+        "choice_b": "Review focuses on the process; Retrospective focuses on the product",
+        "choice_c": "They have exactly the same focus and participants",
+        "choice_d": "Review is for the Scrum Master only; Retrospective is for stakeholders only",
+        "correct_choice": "A",
+        "explanation": "The Sprint Review inspects the product outcome and progress toward the Product Goal, with stakeholders present; the Retrospective examines the team's own process, with only the Scrum Team."
+      },
+      {
+        "question_text": "Who participates in the Sprint Retrospective?",
+        "choice_a": "The Scrum Team and relevant stakeholders",
+        "choice_b": "Stakeholders only",
+        "choice_c": "The Scrum Team only",
+        "choice_d": "The Product Owner alone",
+        "correct_choice": "C",
+        "explanation": "Unlike the Sprint Review, which includes stakeholders, the Sprint Retrospective involves only the Scrum Team, examining its own collaboration, tools, and quality."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "type_answer",
+        "prompt": "Which Scrum accountability is responsible for coaching the team, establishing Scrum, and helping remove impediments to progress?",
+        "accept": [
+          "scrum master",
+          "the scrum master"
+        ],
+        "normalize": "loose",
+        "explanation": "The Scrum Master helps establish Scrum, improves team effectiveness, coaches the team, and helps remove impediments to progress."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "What is the name of the commitment attached to the Sprint Backlog, expressing one Sprint's shared objective?",
+        "accept": [
+          "sprint goal",
+          "the sprint goal"
+        ],
+        "normalize": "loose",
+        "explanation": "The Sprint Goal is the commitment for the Sprint Backlog: the shared outcome the team seeks for that Sprint."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order the events that occur within a single Sprint.",
+        "steps": [
+          "Sprint Planning — the team defines the Sprint Goal, selects Product Backlog items, and plans the work",
+          "Development and Daily Scrum, repeated on every working day — inspect progress toward the Sprint Goal and adapt the day's plan",
+          "Sprint Review — the Scrum Team and stakeholders inspect the outcome and discuss what to do next",
+          "Sprint Retrospective — the Scrum Team examines its own process and chooses useful changes to how it works"
+        ],
+        "explanation": "A Sprint always opens with Planning, is filled with Development punctuated by the Daily Scrum, and closes with the Review (product-focused) followed by the Retrospective (process-focused)."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order the stages of the integrated Scrum cycle, from the Product Backlog to the next Sprint's Planning.",
+        "steps": [
+          "Product Backlog / Product Goal — the ordered, evolving list of work and its longer-term direction",
+          "Sprint Planning — selects items and defines the Sprint Backlog / Sprint Goal",
+          "Development and Daily Scrum — Developers build toward an Increment that meets the Definition of Done",
+          "Sprint Review — inspects the product and informs the Product Backlog for the next cycle",
+          "Sprint Retrospective — inspects the development process and produces improvements for the next Sprint"
+        ],
+        "explanation": "Product decisions shape the Sprint; the Sprint produces an Increment; the Review feeds insights back into the Product Backlog, while the Retrospective's process improvements carry into the next Sprint's Planning."
+      },
+      {
+        "type": "flowchart_build",
+        "prompt": "Build the flowchart of one increment of incremental development: select features, refine them, implement and test, integrate and test the system, then deliver and evaluate, with feedback looping back to the next selection.",
+        "hint": "Linear process chain of five steps, then loop back from the last step to the first (no decision node needed  it always loops).",
+        "target": {
+          "nodes": [
+            {
+              "id": "s",
+              "kind": "start",
+              "label": "START"
+            },
+            {
+              "id": "p1",
+              "kind": "process",
+              "label": "Select features for this increment"
+            },
+            {
+              "id": "p2",
+              "kind": "process",
+              "label": "Refine feature descriptions"
+            },
+            {
+              "id": "p3",
+              "kind": "process",
+              "label": "Implement and test features"
+            },
+            {
+              "id": "p4",
+              "kind": "process",
+              "label": "Integrate and test the system"
+            },
+            {
+              "id": "p5",
+              "kind": "process",
+              "label": "Deliver and evaluate"
+            }
+          ],
+          "edges": [
+            {
+              "from": "s",
+              "to": "p1"
+            },
+            {
+              "from": "p1",
+              "to": "p2"
+            },
+            {
+              "from": "p2",
+              "to": "p3"
+            },
+            {
+              "from": "p3",
+              "to": "p4"
+            },
+            {
+              "from": "p4",
+              "to": "p5"
+            },
+            {
+              "from": "p5",
+              "to": "p1"
+            }
+          ]
+        },
+        "explanation": "Each increment selects a manageable set of features, refines and implements them, integrates and tests the whole, then delivers and evaluates — feedback from evaluation informs the next selection, so the cycle loops rather than ending."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which pair of artifact and commitment is correctly matched?",
+        "choices": [
+          "Sprint Backlog ↔ Sprint Goal",
+          "Product Backlog ↔ Definition of Done",
+          "Increment ↔ Product Goal",
+          "Sprint Backlog ↔ Product Goal"
+        ],
+        "correct": 0,
+        "explanation": "Each artifact has one commitment: Product Backlog ↔ Product Goal, Sprint Backlog ↔ Sprint Goal, Increment ↔ Definition of Done."
+      }
+    ]
   }
 ]
