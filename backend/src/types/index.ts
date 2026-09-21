@@ -117,6 +117,7 @@ export type ErKind =
   | 'identifying_relationship'
   | 'attribute'
   | 'key_attribute'
+  | 'partial_key_attribute'
   | 'multi_attribute'
   | 'derived_attribute'
   | 'isa';

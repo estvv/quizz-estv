@@ -1,6 +1,18 @@
+import { isValidElement, type ComponentProps, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import { DiagramFence } from '../diagram/DiagramFence';
+
+// A fenced block tagged `er` or `diagram` holds JSON for one of the lesson
+// diagram renderers instead of code to display (see documentation/DIAGRAMS.md).
+function fenceLanguage(children: ReactNode): { lang: 'er' | 'diagram'; source: string } | null {
+  const child = Array.isArray(children) ? children[0] : children;
+  if (!isValidElement<{ className?: string; children?: ReactNode }>(child)) return null;
+  const lang = /language-(\w+)/.exec(child.props.className ?? '')?.[1];
+  if (lang !== 'er' && lang !== 'diagram') return null;
+  return { lang, source: String(child.props.children ?? '') };
+}
 
 // `rehype-raw` keeps inline HTML  chiefly <svg>, matching the raw diagram_svg
 // already allowed on questions. Same trust model: a single admin authors it.
@@ -29,6 +41,11 @@ export default function MarkdownRenderer({ children }: { children: string }) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
+          pre: ({ children, ...props }: ComponentProps<'pre'>) => {
+            const fence = fenceLanguage(children);
+            if (fence) return <DiagramFence lang={fence.lang} source={fence.source} />;
+            return <pre {...props}>{children}</pre>;
+          },
           // The Hangeul reference sheet holds a 19x21 consonant/vowel matrix:
           // wider than any phone. Each table scrolls inside its own box rather
           // than pushing the page sideways.

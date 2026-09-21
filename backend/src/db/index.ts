@@ -143,6 +143,97 @@ interface PreparedExercise {
 
 const CHOICE_INDEX: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
 
+const ER_KINDS = new Set([
+  'entity', 'weak_entity', 'associative_entity',
+  'relationship', 'identifying_relationship',
+  'attribute', 'key_attribute', 'partial_key_attribute', 'multi_attribute', 'derived_attribute',
+  'isa',
+]);
+
+/** Shared by er_build targets and the ```er figures embedded in lessons. */
+function validateErGraph(g: ErGraph, where: string, opts: { parallelLines: boolean }): void {
+  const ids = new Set(g.nodes.map((node) => node.id));
+  for (const node of g.nodes) {
+    if (!node.id || !ER_KINDS.has(node.kind) || typeof node.label !== 'string' || node.label.trim() === '') {
+      throw new Error(`seed.json: ${where}  E-R node needs id, a known kind, and a non-empty label`);
+    }
+  }
+  if (ids.size !== g.nodes.length) {
+    throw new Error(`seed.json: ${where}  E-R node ids must be unique`);
+  }
+  // Lines are undirected, so the same pair may only be joined once — except in
+  // a lesson figure, where a recursive relationship shows two lines to the
+  // same entity, each with its own role.
+  const pairs = new Set<string>();
+  for (const edge of g.edges) {
+    if (!ids.has(edge.from) || !ids.has(edge.to)) {
+      throw new Error(`seed.json: ${where}  E-R line points at an unknown node`);
+    }
+    if (edge.from === edge.to) {
+      throw new Error(`seed.json: ${where}  E-R line joins a node to itself`);
+    }
+    const pair = [edge.from, edge.to].sort().join('|');
+    if (pairs.has(pair) && !opts.parallelLines) {
+      throw new Error(`seed.json: ${where}  duplicate E-R line between the same two nodes`);
+    }
+    pairs.add(pair);
+    if (edge.card !== undefined && (typeof edge.card !== 'string' || edge.card.trim() === '')) {
+      throw new Error(`seed.json: ${where}  E-R line "card" must be a non-empty string`);
+    }
+  }
+}
+
+const BLOCK_SHAPES = new Set(['box', 'ellipse', 'diamond', 'cylinder', 'text', 'table', 'note']);
+
+/**
+ * A lesson may embed figures as ```er / ```diagram fenced JSON blocks (see
+ * documentation/DIAGRAMS.md). They are checked here so a typo breaks the
+ * boot, not a page render weeks later.
+ */
+function validateLessonDiagrams(lesson: string, where: string): void {
+  const fence = /```(er|diagram)[ \t]*\n([\s\S]*?)```/g;
+  let m: RegExpExecArray | null;
+  let n = 0;
+  while ((m = fence.exec(lesson)) !== null) {
+    n++;
+    const [, lang, body] = m;
+    const at = `${where}, ${lang} figure #${n}`;
+    let spec: any;
+    try {
+      spec = JSON.parse(body);
+    } catch (e) {
+      throw new Error(`seed.json: ${at}  invalid JSON: ${(e as Error).message}`);
+    }
+    if (!spec || !Array.isArray(spec.nodes) || spec.nodes.length === 0) {
+      throw new Error(`seed.json: ${at}  needs a non-empty nodes[]`);
+    }
+    if (lang === 'er') {
+      if (!Array.isArray(spec.edges)) throw new Error(`seed.json: ${at}  needs edges[]`);
+      validateErGraph(spec as ErGraph, at, { parallelLines: true });
+      continue;
+    }
+    const ids = new Set<string>();
+    for (const node of spec.nodes) {
+      if (typeof node.id !== 'string' || typeof node.x !== 'number' || typeof node.y !== 'number') {
+        throw new Error(`seed.json: ${at}  every diagram node needs id, x and y`);
+      }
+      if (node.shape !== undefined && !BLOCK_SHAPES.has(node.shape)) {
+        throw new Error(`seed.json: ${at}  unknown shape "${node.shape}" on node "${node.id}"`);
+      }
+      if (node.shape === 'table' && !Array.isArray(node.rows)) {
+        throw new Error(`seed.json: ${at}  table node "${node.id}" needs rows[][]`);
+      }
+      if (ids.has(node.id)) throw new Error(`seed.json: ${at}  duplicate node id "${node.id}"`);
+      ids.add(node.id);
+    }
+    for (const edge of spec.edges ?? []) {
+      if (!ids.has(edge.from) || !ids.has(edge.to)) {
+        throw new Error(`seed.json: ${at}  edge "${edge.from}" -> "${edge.to}" points at an unknown node`);
+      }
+    }
+  }
+}
+
 /** Throws (aborting the boot) if a payload does not match its declared type. */
 function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, where: string): void {
   const nonEmptyStrings = (v: unknown): v is string[] =>
@@ -235,42 +326,12 @@ function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, w
 
   if (type === 'er_build') {
     const g = (payload as { target?: ErGraph }).target;
-    const kinds = new Set([
-      'entity', 'weak_entity', 'associative_entity',
-      'relationship', 'identifying_relationship',
-      'attribute', 'key_attribute', 'multi_attribute', 'derived_attribute',
-      'isa',
-    ]);
     if (!g || !Array.isArray(g.nodes) || g.nodes.length < 2 || !Array.isArray(g.edges)) {
       throw new Error(`seed.json: ${where}  er_build needs target.nodes (>=2) and target.edges`);
     }
-    const ids = new Set(g.nodes.map((node) => node.id));
-    for (const node of g.nodes) {
-      if (!node.id || !kinds.has(node.kind) || typeof node.label !== 'string' || node.label.trim() === '') {
-        throw new Error(`seed.json: ${where}  E-R node needs id, a known kind, and a non-empty label`);
-      }
-    }
-    if (ids.size !== g.nodes.length) {
-      throw new Error(`seed.json: ${where}  E-R node ids must be unique`);
-    }
-    // Lines are undirected, so the same pair may only be joined once.
-    const pairs = new Set<string>();
-    for (const edge of g.edges) {
-      if (!ids.has(edge.from) || !ids.has(edge.to)) {
-        throw new Error(`seed.json: ${where}  E-R line points at an unknown node`);
-      }
-      if (edge.from === edge.to) {
-        throw new Error(`seed.json: ${where}  E-R line joins a node to itself`);
-      }
-      const pair = [edge.from, edge.to].sort().join('|');
-      if (pairs.has(pair)) {
-        throw new Error(`seed.json: ${where}  duplicate E-R line between the same two nodes`);
-      }
-      pairs.add(pair);
-      if (edge.card !== undefined && (typeof edge.card !== 'string' || edge.card.trim() === '')) {
-        throw new Error(`seed.json: ${where}  E-R line "card" must be a non-empty string`);
-      }
-    }
+    // The canvas cannot draw two lines between the same pair, so a target
+    // must not ask for one.
+    validateErGraph(g, where, { parallelLines: false });
     return;
   }
 
@@ -431,6 +492,7 @@ function seedIfEmpty() {
       for (const cat of ready) {
         const slug = uniqueSlug(cat.name);
         const parentId = cat.parent ? idByKey.get(cat.parent)! : null;
+        if (cat.lesson) validateLessonDiagrams(cat.lesson, `category "${cat.name}"`);
         const result = insertCategory.run(cat.name, slug, cat.color ?? 'slate', parentId, cat.lesson ?? null);
         const categoryId = result.lastInsertRowid as number;
         idByKey.set(cat.key ?? cat.name, categoryId);

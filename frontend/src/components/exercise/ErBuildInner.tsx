@@ -20,6 +20,7 @@ import type { ErBuildExercise, ErKind } from '../../types';
 import type { Response } from '../../utils/grade';
 import { erMatches } from '../../utils/grade';
 import { Feedback } from './Feedback';
+import { ErGraphView } from '../diagram/ErDiagram';
 
 interface Props {
   exercise: ErBuildExercise;
@@ -40,6 +41,7 @@ const KINDS: { kind: ErKind; label: string; short: string }[] = [
   { kind: 'identifying_relationship', label: 'Identifying relationship', short: 'Has' },
   { kind: 'attribute', label: 'Attribute', short: 'Name' },
   { kind: 'key_attribute', label: 'Key attribute', short: 'RollNo' },
+  { kind: 'partial_key_attribute', label: 'Discriminator (partial key)', short: 'payment-no' },
   { kind: 'multi_attribute', label: 'Multivalued attribute', short: 'Phone No' },
   { kind: 'derived_attribute', label: 'Derived attribute', short: 'Age' },
   { kind: 'isa', label: 'ISA (generalization)', short: 'ISA' },
@@ -90,6 +92,10 @@ const OUTLINE: Record<ErKind, { hue: string; shape: React.ReactNode }> = {
     shape: <ellipse cx="100" cy="40" rx="98" ry="38" />,
   },
   key_attribute: {
+    hue: 'text-violet-600',
+    shape: <ellipse cx="100" cy="40" rx="98" ry="38" />,
+  },
+  partial_key_attribute: {
     hue: 'text-violet-600',
     shape: <ellipse cx="100" cy="40" rx="98" ry="38" />,
   },
@@ -146,7 +152,7 @@ function ErNodeView({ id, data }: NodeProps<ErNodeT>) {
       <input
         className={`nodrag relative z-10 w-[78%] bg-transparent text-center text-xs text-neutral-800 outline-none ${
           data.kind === 'key_attribute' ? 'underline underline-offset-2' : ''
-        }`}
+        } ${data.kind === 'partial_key_attribute' ? 'underline decoration-dashed underline-offset-2' : ''}`}
         value={data.label}
         onChange={(e) => updateNodeData(id, { label: e.target.value })}
         placeholder="…"
@@ -200,7 +206,6 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
   }, [revealed, setEdges]);
 
   const target = exercise.payload.target;
-  const byId = new Map(target.nodes.map((n) => [n.id, n.label]));
   const allOk = nodes.every((n) => n.data.label.trim() !== '');
 
   const userGraph = {
@@ -286,11 +291,7 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
           explanation={exercise.explanation}
         >
           <p className="mb-1 text-sm font-medium text-neutral-700">Diagramme E-R attendu :</p>
-          <pre className="overflow-x-auto rounded bg-white p-3 font-mono text-xs text-neutral-800">
-            {target.edges
-              .map((e) => `${byId.get(e.from)}  —  ${byId.get(e.to)}${e.card ? `  [${e.card}]` : ''}`)
-              .join('\n')}
-          </pre>
+          <ErGraphView graph={target} />
         </Feedback>
       )}
     </div>
