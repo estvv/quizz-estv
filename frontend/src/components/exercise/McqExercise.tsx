@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { McqExercise as McqExerciseType } from '../../types';
 import type { Response } from '../../utils/grade';
 import { Feedback } from './Feedback';
+import { FigureView } from '../diagram/FigureView';
 
 interface Props {
   exercise: McqExerciseType;
@@ -34,6 +35,7 @@ export function McqExercise({ exercise, revealed, onCommit }: Props) {
     <div>
       <h2 className="text-xl font-semibold text-neutral-900 mb-2">{exercise.prompt}</h2>
       {hint && <p className="text-sm text-neutral-400 mb-4">{hint}</p>}
+      {exercise.figure && <FigureView figure={exercise.figure} />}
 
       <div className="space-y-3 mt-4">
         {choices.map((choice, index) => (
@@ -55,6 +57,7 @@ export function McqExercise({ exercise, revealed, onCommit }: Props) {
         <Feedback
           correct={picked === correct}
           diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure}
           explanation={exercise.explanation}
         />
       )}

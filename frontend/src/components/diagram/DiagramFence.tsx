@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import { BlockDiagram, type BlockSpec } from './BlockDiagram';
 import { ErDiagram, type ErDiagramSpec } from './ErDiagram';
+import { FlowchartDiagram, type FlowchartSpec } from './FlowchartDiagram';
 
 /**
- * A ```er or ```diagram fenced block in a lesson. The seed already refuses a
+ * A ```er, ```diagram or ```flowchart fenced block in a lesson. The seed already refuses a
  * lesson whose fence is not valid JSON, so the error box here only ever shows
  * up while authoring.
  */
-export function DiagramFence({ lang, source }: { lang: 'er' | 'diagram'; source: string }) {
+export function DiagramFence({ lang, source }: { lang: 'er' | 'diagram' | 'flowchart'; source: string }) {
   const parsed = useMemo(() => {
     try {
       return { spec: JSON.parse(source) as unknown, error: null };
@@ -23,9 +24,7 @@ export function DiagramFence({ lang, source }: { lang: 'er' | 'diagram'; source:
       </pre>
     );
   }
-  return lang === 'er' ? (
-    <ErDiagram spec={parsed.spec as ErDiagramSpec} />
-  ) : (
-    <BlockDiagram spec={parsed.spec as BlockSpec} />
-  );
+  if (lang === 'er') return <ErDiagram spec={parsed.spec as ErDiagramSpec} />;
+  if (lang === 'flowchart') return <FlowchartDiagram spec={parsed.spec as FlowchartSpec} />;
+  return <BlockDiagram spec={parsed.spec as BlockSpec} />;
 }

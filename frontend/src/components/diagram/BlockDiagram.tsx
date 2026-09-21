@@ -45,6 +45,8 @@ export interface BlockNode {
   mark?: number[];
   /** `table` shape only: fixed column widths, so callouts can be aimed at cells. */
   cols?: number[];
+  /** `table` shape only: false when the first row is data, not a header. */
+  header?: boolean;
 }
 
 export interface BlockEdge {
@@ -148,7 +150,7 @@ function Text({ x, y, text, font, bold, color }: { x: number; y: number; text: s
     >
       {lines.map((line, i) => (
         <tspan key={i} x={x} dy={i === 0 ? 0 : lh}>
-          {line}
+          {line === '' ? '\u00a0' : line}
         </tspan>
       ))}
     </text>
@@ -177,7 +179,7 @@ function Shape({ p }: { p: Placed }) {
     }
     node.rows.forEach((row, r) => {
       let cx = left;
-      const header = r === 0;
+      const header = r === 0 && node.header !== false;
       const marked = node.mark?.includes(r);
       p.colWidths!.forEach((cw, c) => {
         cells.push(
@@ -328,7 +330,7 @@ function Edge({ edge, from, to }: { edge: BlockEdge; from: Placed; to: Placed })
   );
 }
 
-export function BlockDiagram({ spec }: { spec: BlockSpec }) {
+export function BlockDiagram({ spec, compact }: { spec: BlockSpec; compact?: boolean }) {
   const placed = new Map<string, Placed>();
   const box = emptyBox();
 
@@ -364,7 +366,7 @@ export function BlockDiagram({ spec }: { spec: BlockSpec }) {
   const height = box.maxY - box.minY + PAD * 2;
 
   return (
-    <figure className="my-5">
+    <figure className={compact ? 'my-2' : 'my-5'}>
       <div className="overflow-x-auto rounded-lg border border-neutral-200 bg-white p-3">
         <svg
           viewBox={`${minX} ${minY} ${width} ${height}`}

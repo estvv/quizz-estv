@@ -84,6 +84,7 @@ export function OrderStepsExercise({ exercise, revealed, onCommit }: Props) {
         <Feedback
           correct={order.every((v, i) => v === solution[i])}
           diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure}
           explanation={exercise.explanation}
         >
           <p className="mb-1 text-sm font-medium text-neutral-700">Ordre attendu :</p>

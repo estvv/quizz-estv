@@ -4,13 +4,13 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { DiagramFence } from '../diagram/DiagramFence';
 
-// A fenced block tagged `er` or `diagram` holds JSON for one of the lesson
+// A fenced block tagged `er`, `diagram` or `flowchart` holds JSON for one of the lesson
 // diagram renderers instead of code to display (see documentation/DIAGRAMS.md).
-function fenceLanguage(children: ReactNode): { lang: 'er' | 'diagram'; source: string } | null {
+function fenceLanguage(children: ReactNode): { lang: 'er' | 'diagram' | 'flowchart'; source: string } | null {
   const child = Array.isArray(children) ? children[0] : children;
   if (!isValidElement<{ className?: string; children?: ReactNode }>(child)) return null;
   const lang = /language-(\w+)/.exec(child.props.className ?? '')?.[1];
-  if (lang !== 'er' && lang !== 'diagram') return null;
+  if (lang !== 'er' && lang !== 'diagram' && lang !== 'flowchart') return null;
   return { lang, source: String(child.props.children ?? '') };
 }
 

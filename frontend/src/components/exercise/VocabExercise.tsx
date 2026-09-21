@@ -107,6 +107,7 @@ export function VocabExercise({ exercise, revealed, onCommit }: Props) {
           correct={sensOk}
           correctAnswer={sensOk ? undefined : fr[0]}
           diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure}
           explanation={
             romajaOk
               ? `Prononciation : ${rr}  bien joué, garde ce réflexe.`

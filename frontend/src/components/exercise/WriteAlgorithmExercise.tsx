@@ -56,7 +56,8 @@ export function WriteAlgorithmExercise({ exercise, revealed, onCommit }: Props) 
       )}
 
       {revealed && (
-        <Feedback correct={allOk} diagramSvg={exercise.diagram_svg} explanation={exercise.explanation}>
+        <Feedback correct={allOk} diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure} explanation={exercise.explanation}>
           {!allOk && (
             <p className="mb-1 text-sm text-neutral-700">
               {lines.length !== steps.length

@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import type {
   Category, CategoryWithCount, Flashcard,
-  Exercise, ExerciseBrief, ExerciseType, ExercisePayload, FlowchartGraph, ErGraph,
+  Exercise, ExerciseBrief, ExerciseType, ExercisePayload, FlowchartGraph, ErGraph, Figure,
   SeedCategory, SeedExercise, SeedQuestion, SeedVocab,
 } from '../types/index.js';
 
@@ -68,6 +68,14 @@ function runMigrations() {
   const hasLesson = categoryColumns.some((c) => c.name === 'lesson');
   if (!hasLesson) {
     db.exec('ALTER TABLE categories ADD COLUMN lesson TEXT');
+  }
+
+  // Exercise figures (JSON diagrams shown with the prompt / the feedback).
+  const exerciseColumns = db.prepare("PRAGMA table_info(exercises)").all() as { name: string }[];
+  for (const col of ['figure', 'feedback_figure']) {
+    if (!exerciseColumns.some((c) => c.name === col)) {
+      db.exec(`ALTER TABLE exercises ADD COLUMN ${col} TEXT`);
+    }
   }
 }
 
@@ -139,9 +147,42 @@ interface PreparedExercise {
   payload: ExercisePayload;
   explanation: string | null;
   diagram_svg: string | null;
+  figure: Figure | null;
+  feedback_figure: Figure | null;
 }
 
 const CHOICE_INDEX: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
+
+/** Shared by flowchart_build targets and the ```flowchart figures in lessons. */
+function validateFlowchartGraph(g: FlowchartGraph, where: string, opts: { decisionsComplete: boolean } = { decisionsComplete: true }): void {
+  const kinds = new Set(['start', 'end', 'io', 'process', 'decision']);
+  const ids = new Set(g.nodes.map((node) => node.id));
+  for (const node of g.nodes) {
+    if (!node.id || !kinds.has(node.kind) || typeof node.label !== 'string' || node.label.trim() === '') {
+      throw new Error(`seed.json: ${where}  flowchart node needs id, kind, non-empty label`);
+    }
+  }
+  if (ids.size !== g.nodes.length) {
+    throw new Error(`seed.json: ${where}  flowchart node ids must be unique`);
+  }
+  for (const edge of g.edges) {
+    if (!ids.has(edge.from) || !ids.has(edge.to)) {
+      throw new Error(`seed.json: ${where}  flowchart edge points at an unknown node`);
+    }
+    if (edge.branch !== undefined && edge.branch !== 'yes' && edge.branch !== 'no') {
+      throw new Error(`seed.json: ${where}  flowchart edge "branch" must be "yes" or "no"`);
+    }
+  }
+  // A legend figure may show a bare diamond; a graded target may not.
+  if (!opts.decisionsComplete) return;
+  for (const node of g.nodes) {
+    if (node.kind !== 'decision') continue;
+    const out = g.edges.filter((edge) => edge.from === node.id).map((edge) => edge.branch).sort();
+    if (out.length !== 2 || out[0] !== 'no' || out[1] !== 'yes') {
+      throw new Error(`seed.json: ${where}  decision node "${node.label}" needs exactly one "yes" and one "no" edge`);
+    }
+  }
+}
 
 const ER_KINDS = new Set([
   'entity', 'weak_entity', 'associative_entity',
@@ -186,12 +227,50 @@ function validateErGraph(g: ErGraph, where: string, opts: { parallelLines: boole
 const BLOCK_SHAPES = new Set(['box', 'ellipse', 'diamond', 'cylinder', 'text', 'table', 'note']);
 
 /**
- * A lesson may embed figures as ```er / ```diagram fenced JSON blocks (see
- * documentation/DIAGRAMS.md). They are checked here so a typo breaks the
- * boot, not a page render weeks later.
+ * A lesson may embed figures as ```er / ```diagram / ```flowchart fenced JSON
+ * blocks, and an exercise may carry the same JSON as `figure` (with the
+ * prompt) or `feedback_figure` (with the explanation) — see
+ * documentation/DIAGRAMS.md. They are checked here so a typo breaks the boot,
+ * not a page render weeks later.
  */
+function validateFigure(lang: string, spec: any, at: string): void {
+  if (!spec || !Array.isArray(spec.nodes) || spec.nodes.length === 0) {
+    throw new Error(`seed.json: ${at}  needs a non-empty nodes[]`);
+  }
+  if (lang === 'er') {
+    if (!Array.isArray(spec.edges)) throw new Error(`seed.json: ${at}  needs edges[]`);
+    validateErGraph(spec as ErGraph, at, { parallelLines: true });
+    return;
+  }
+  if (lang === 'flowchart') {
+    if (!Array.isArray(spec.edges)) throw new Error(`seed.json: ${at}  needs edges[]`);
+    validateFlowchartGraph(spec as FlowchartGraph, at, { decisionsComplete: false });
+    return;
+  }
+  if (lang !== 'diagram') throw new Error(`seed.json: ${at}  unknown figure kind "${lang}"`);
+  const ids = new Set<string>();
+  for (const node of spec.nodes) {
+    if (typeof node.id !== 'string' || typeof node.x !== 'number' || typeof node.y !== 'number') {
+      throw new Error(`seed.json: ${at}  every diagram node needs id, x and y`);
+    }
+    if (node.shape !== undefined && !BLOCK_SHAPES.has(node.shape)) {
+      throw new Error(`seed.json: ${at}  unknown shape "${node.shape}" on node "${node.id}"`);
+    }
+    if (node.shape === 'table' && !Array.isArray(node.rows)) {
+      throw new Error(`seed.json: ${at}  table node "${node.id}" needs rows[][]`);
+    }
+    if (ids.has(node.id)) throw new Error(`seed.json: ${at}  duplicate node id "${node.id}"`);
+    ids.add(node.id);
+  }
+  for (const edge of spec.edges ?? []) {
+    if (!ids.has(edge.from) || !ids.has(edge.to)) {
+      throw new Error(`seed.json: ${at}  edge "${edge.from}" -> "${edge.to}" points at an unknown node`);
+    }
+  }
+}
+
 function validateLessonDiagrams(lesson: string, where: string): void {
-  const fence = /```(er|diagram)[ \t]*\n([\s\S]*?)```/g;
+  const fence = /```(er|diagram|flowchart)[ \t]*\n([\s\S]*?)```/g;
   let m: RegExpExecArray | null;
   let n = 0;
   while ((m = fence.exec(lesson)) !== null) {
@@ -204,33 +283,7 @@ function validateLessonDiagrams(lesson: string, where: string): void {
     } catch (e) {
       throw new Error(`seed.json: ${at}  invalid JSON: ${(e as Error).message}`);
     }
-    if (!spec || !Array.isArray(spec.nodes) || spec.nodes.length === 0) {
-      throw new Error(`seed.json: ${at}  needs a non-empty nodes[]`);
-    }
-    if (lang === 'er') {
-      if (!Array.isArray(spec.edges)) throw new Error(`seed.json: ${at}  needs edges[]`);
-      validateErGraph(spec as ErGraph, at, { parallelLines: true });
-      continue;
-    }
-    const ids = new Set<string>();
-    for (const node of spec.nodes) {
-      if (typeof node.id !== 'string' || typeof node.x !== 'number' || typeof node.y !== 'number') {
-        throw new Error(`seed.json: ${at}  every diagram node needs id, x and y`);
-      }
-      if (node.shape !== undefined && !BLOCK_SHAPES.has(node.shape)) {
-        throw new Error(`seed.json: ${at}  unknown shape "${node.shape}" on node "${node.id}"`);
-      }
-      if (node.shape === 'table' && !Array.isArray(node.rows)) {
-        throw new Error(`seed.json: ${at}  table node "${node.id}" needs rows[][]`);
-      }
-      if (ids.has(node.id)) throw new Error(`seed.json: ${at}  duplicate node id "${node.id}"`);
-      ids.add(node.id);
-    }
-    for (const edge of spec.edges ?? []) {
-      if (!ids.has(edge.from) || !ids.has(edge.to)) {
-        throw new Error(`seed.json: ${at}  edge "${edge.from}" -> "${edge.to}" points at an unknown node`);
-      }
-    }
+    validateFigure(lang, spec, at);
   }
 }
 
@@ -293,34 +346,10 @@ function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, w
 
   if (type === 'flowchart_build') {
     const g = (payload as { target?: FlowchartGraph }).target;
-    const kinds = new Set(['start', 'end', 'io', 'process', 'decision']);
     if (!g || !Array.isArray(g.nodes) || g.nodes.length < 2 || !Array.isArray(g.edges)) {
       throw new Error(`seed.json: ${where}  flowchart_build needs target.nodes (>=2) and target.edges`);
     }
-    const ids = new Set(g.nodes.map((node) => node.id));
-    for (const node of g.nodes) {
-      if (!node.id || !kinds.has(node.kind) || typeof node.label !== 'string' || node.label.trim() === '') {
-        throw new Error(`seed.json: ${where}  flowchart node needs id, kind, non-empty label`);
-      }
-    }
-    if (ids.size !== g.nodes.length) {
-      throw new Error(`seed.json: ${where}  flowchart node ids must be unique`);
-    }
-    for (const edge of g.edges) {
-      if (!ids.has(edge.from) || !ids.has(edge.to)) {
-        throw new Error(`seed.json: ${where}  flowchart edge points at an unknown node`);
-      }
-      if (edge.branch !== undefined && edge.branch !== 'yes' && edge.branch !== 'no') {
-        throw new Error(`seed.json: ${where}  flowchart edge "branch" must be "yes" or "no"`);
-      }
-    }
-    for (const node of g.nodes) {
-      if (node.kind !== 'decision') continue;
-      const out = g.edges.filter((edge) => edge.from === node.id).map((edge) => edge.branch).sort();
-      if (out.length !== 2 || out[0] !== 'no' || out[1] !== 'yes') {
-        throw new Error(`seed.json: ${where}  decision node "${node.label}" needs exactly one "yes" and one "no" edge`);
-      }
-    }
+    validateFlowchartGraph(g, where);
     return;
   }
 
@@ -354,6 +383,8 @@ function questionToExercise(q: SeedQuestion): PreparedExercise {
     },
     explanation: q.explanation ?? null,
     diagram_svg: q.diagram_svg ?? null,
+    figure: q.figure ?? null,
+    feedback_figure: q.feedback_figure ?? null,
   };
 }
 
@@ -396,6 +427,8 @@ function seedExerciseToExercise(e: SeedExercise): PreparedExercise {
     payload,
     explanation: e.explanation ?? null,
     diagram_svg: e.diagram_svg ?? null,
+    figure: e.figure ?? null,
+    feedback_figure: e.feedback_figure ?? null,
   };
 }
 
@@ -443,6 +476,8 @@ function expandVocab(vocab: SeedVocab[]): PreparedExercise[] {
       },
       explanation: triple,
       diagram_svg: null,
+      figure: null,
+      feedback_figure: null,
     });
 
     if (choices.length >= 2) {
@@ -452,6 +487,8 @@ function expandVocab(vocab: SeedVocab[]): PreparedExercise[] {
         payload: { choices, correct: choices.indexOf(w.fr[0]) },
         explanation: triple,
         diagram_svg: null,
+      figure: null,
+      feedback_figure: null,
       });
     }
   }
@@ -469,8 +506,8 @@ function seedIfEmpty() {
 
   const insertCategory = db.prepare('INSERT INTO categories (name, slug, color, parent_id, lesson) VALUES (?, ?, ?, ?, ?)');
   const insertExercise = db.prepare(`INSERT INTO exercises
-    (category_id, type, prompt, payload, explanation, diagram_svg, position)
-    VALUES (?, ?, ?, ?, ?, ?, ?)`);
+    (category_id, type, prompt, payload, explanation, diagram_svg, figure, feedback_figure, position)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
   const insertFlashcard = db.prepare('INSERT INTO flashcards (category_id, front, back, position) VALUES (?, ?, ?, ?)');
 
   let exerciseCount = 0;
@@ -506,10 +543,16 @@ function seedIfEmpty() {
         ];
 
         prepared.forEach((ex, index) => {
-          validateExercisePayload(ex.type, ex.payload, `category "${cat.name}", exercise "${ex.prompt}"`);
+          const where = `category "${cat.name}", exercise "${ex.prompt}"`;
+          validateExercisePayload(ex.type, ex.payload, where);
+          if (ex.figure) validateFigure(ex.figure.kind, ex.figure.spec, `${where}, figure`);
+          if (ex.feedback_figure) validateFigure(ex.feedback_figure.kind, ex.feedback_figure.spec, `${where}, feedback figure`);
           insertExercise.run(
             categoryId, ex.type, ex.prompt, JSON.stringify(ex.payload),
-            ex.explanation, ex.diagram_svg, index,
+            ex.explanation, ex.diagram_svg,
+            ex.figure ? JSON.stringify(ex.figure) : null,
+            ex.feedback_figure ? JSON.stringify(ex.feedback_figure) : null,
+            index,
           );
           exerciseCount++;
         });
@@ -575,10 +618,19 @@ function createCategory(name: string, color: string): Category {
 
 // --- exercises ---
 
-interface ExerciseRow extends Omit<Exercise, 'payload'> { payload: string }
+interface ExerciseRow extends Omit<Exercise, 'payload' | 'figure' | 'feedback_figure'> {
+  payload: string;
+  figure: string | null;
+  feedback_figure: string | null;
+}
 
 function toExercise(row: ExerciseRow): Exercise {
-  return { ...row, payload: JSON.parse(row.payload) };
+  return {
+    ...row,
+    payload: JSON.parse(row.payload),
+    figure: row.figure ? JSON.parse(row.figure) : null,
+    feedback_figure: row.feedback_figure ? JSON.parse(row.feedback_figure) : null,
+  };
 }
 
 export function getExercisesBrief(categoryId: number): ExerciseBrief[] {

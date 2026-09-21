@@ -12,6 +12,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ErDiagram } from '../src/components/diagram/ErDiagram';
 import { BlockDiagram } from '../src/components/diagram/BlockDiagram';
+import { FlowchartDiagram } from '../src/components/diagram/FlowchartDiagram';
 
 const CLASS_COLORS: Record<string, string> = {
   'text-sky-600': '#0284c7',
@@ -42,14 +43,14 @@ function inlineClasses(svg: string): string {
 const [, , file, outDir] = process.argv;
 const md = fs.readFileSync(file, 'utf8');
 fs.mkdirSync(outDir, { recursive: true });
-const fence = /```(er|diagram)[ \t]*\n([\s\S]*?)```/g;
+const fence = /```(er|diagram|flowchart)[ \t]*\n([\s\S]*?)```/g;
 let m: RegExpExecArray | null;
 let n = 0;
 while ((m = fence.exec(md)) !== null) {
   n++;
   const [, lang, body] = m;
   const spec = JSON.parse(body);
-  const el = lang === 'er' ? createElement(ErDiagram, { spec }) : createElement(BlockDiagram, { spec });
+  const el = lang === 'er' ? createElement(ErDiagram, { spec }) : lang === 'flowchart' ? createElement(FlowchartDiagram, { spec }) : createElement(BlockDiagram, { spec });
   const html = renderToStaticMarkup(el);
   const svgMatch = /<svg[\s\S]*<\/svg>/.exec(html);
   if (!svgMatch) throw new Error(`figure ${n}: no svg`);

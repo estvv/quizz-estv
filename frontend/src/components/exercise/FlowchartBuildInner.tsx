@@ -21,6 +21,7 @@ import type { FlowchartBuildExercise, FlowchartKind } from '../../types';
 import type { Response } from '../../utils/grade';
 import { flowchartMatches } from '../../utils/grade';
 import { Feedback } from './Feedback';
+import { FlowchartGraphView } from '../diagram/FlowchartDiagram';
 
 interface Props {
   exercise: FlowchartBuildExercise;
@@ -116,7 +117,6 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
   }, [setEdges]);
 
   const target = exercise.payload.target;
-  const byId = new Map(target.nodes.map((n) => [n.id, n.label]));
   const allOk = nodes.every((n) => n.data.label.trim() !== '');
 
   const userGraph = {
@@ -197,17 +197,11 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
         <Feedback
           correct={correct}
           diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure}
           explanation={exercise.explanation}
         >
           <p className="mb-1 text-sm font-medium text-neutral-700">Flowchart attendu :</p>
-          <pre className="overflow-x-auto rounded bg-white p-3 font-mono text-xs text-neutral-800">
-            {target.edges
-              .map((e) => {
-                const b = e.branch ? `  [${e.branch}]` : '';
-                return `${byId.get(e.from)}  →  ${byId.get(e.to)}${b}`;
-              })
-              .join('\n')}
-          </pre>
+          <FlowchartGraphView graph={target} />
         </Feedback>
       )}
     </div>

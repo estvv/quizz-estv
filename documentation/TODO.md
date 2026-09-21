@@ -10,6 +10,12 @@
       categories under **Others**
 - [x] Questions: 4 fixed choices (A/B/C/D), one correct answer
 - [x] Optional Markdown lesson per leaf category (lazy-loaded renderer, inline SVG allowed)
+- [x] Lesson figures as JSON fences — ```er (Chen E-R), ```flowchart, ```diagram (boxes,
+      tables, groups, routes) — validated at seed time; see `documentation/DIAGRAMS.md`.
+      Database Design W1–W3, OS W1/W3, CP W1 and SE W3 rebuilt from the slides with ~95 figures
+- [x] Exercise figures: `figure` (with the prompt, "read the diagram" MCQs) and
+      `feedback_figure` (with the explanation); `er_build` / `flowchart_build` draw their
+      expected answer instead of listing it
 - [x] Optional flashcard deck per leaf category
 - [x] Seed script (`backend/src/db/seed.json`) bulk-imports content on first boot if the DB is empty
 
@@ -55,4 +61,8 @@
 - [ ] Quiz spanning a whole subtree (e.g. all of `IA` at once), not just one leaf
 - [ ] Optional per-question difficulty tag (would need a seed.json field + a build step)
 - [ ] Optional anonymous aggregate stats (% correct per question)  explicitly deferred, app is stateless by design for now
-- [ ] Dark mode
+- [ ] Dark mode (the JSON figures use `currentColor` for E-R shapes but fixed hex tones for
+      block diagrams — swap `TONES` in `BlockDiagram.tsx` when theming)
+- [ ] Figures for the remaining lessons (CP W2/W3, SE W2) and more feedback figures in the
+      Others banks (28 done: Réseau, Algorithmie, Git, Docker/K8s, Archi, Blockchain,
+      Compilateurs, Deep Learning, Serving LLM, Systèmes, Python)

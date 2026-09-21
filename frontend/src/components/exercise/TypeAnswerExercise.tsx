@@ -3,6 +3,7 @@ import type { TypeAnswerExercise as TypeAnswerExerciseType } from '../../types';
 import type { Response } from '../../utils/grade';
 import { isTypeAnswerCorrect } from '../../utils/grade';
 import { Feedback } from './Feedback';
+import { FigureView } from '../diagram/FigureView';
 
 interface Props {
   exercise: TypeAnswerExerciseType;
@@ -24,6 +25,7 @@ export function TypeAnswerExercise({ exercise, revealed, onCommit }: Props) {
     >
       <h2 className="text-xl font-semibold text-neutral-900 mb-2">{exercise.prompt}</h2>
       {hint && <p className="text-sm text-neutral-400 mb-4">{hint}</p>}
+      {exercise.figure && <FigureView figure={exercise.figure} />}
 
       <input
         type="text"
@@ -59,6 +61,7 @@ export function TypeAnswerExercise({ exercise, revealed, onCommit }: Props) {
           correct={correct}
           correctAnswer={exercise.payload.accept[0]}
           diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure}
           explanation={exercise.explanation}
         />
       )}

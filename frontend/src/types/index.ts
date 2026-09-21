@@ -117,6 +117,12 @@ export interface ErBuildPayload {
   hint?: string;
 }
 
+/** A lesson-style figure carried by an exercise (see documentation/DIAGRAMS.md). */
+export interface Figure {
+  kind: 'er' | 'diagram' | 'flowchart';
+  spec: unknown;
+}
+
 export interface McqExercise {
   id: number;
   category_id: number;
@@ -125,6 +131,8 @@ export interface McqExercise {
   payload: McqPayload;
   explanation: string | null;
   diagram_svg: string | null;
+  figure: Figure | null;
+  feedback_figure: Figure | null;
   position: number;
 }
 
@@ -136,6 +144,8 @@ export interface TypeAnswerExercise {
   payload: TypeAnswerPayload;
   explanation: string | null;
   diagram_svg: string | null;
+  figure: Figure | null;
+  feedback_figure: Figure | null;
   position: number;
 }
 
@@ -145,6 +155,8 @@ interface BaseExercise {
   prompt: string;
   explanation: string | null;
   diagram_svg: string | null;
+  figure: Figure | null;
+  feedback_figure: Figure | null;
   position: number;
 }
 

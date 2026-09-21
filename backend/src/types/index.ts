@@ -157,6 +157,17 @@ export type ExercisePayload =
   | FlowchartBuildPayload
   | ErBuildPayload;
 
+/**
+ * A lesson-style figure attached to an exercise: `er`, `diagram` or
+ * `flowchart` JSON (see documentation/DIAGRAMS.md). `figure` is shown with the
+ * prompt (a "read the diagram" question), `feedback_figure` with the
+ * explanation once the exercise is answered.
+ */
+export interface Figure {
+  kind: 'er' | 'diagram' | 'flowchart';
+  spec: Record<string, unknown>;
+}
+
 export interface Exercise {
   id: number;
   category_id: number;
@@ -165,6 +176,8 @@ export interface Exercise {
   payload: ExercisePayload;
   explanation: string | null;
   diagram_svg: string | null;
+  figure: Figure | null;
+  feedback_figure: Figure | null;
   position: number;
   created_at: string;
   updated_at: string;
@@ -200,6 +213,8 @@ export interface SeedQuestion {
   correct_choice: Choice;
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export interface SeedMcqExercise {
@@ -210,6 +225,8 @@ export interface SeedMcqExercise {
   hint?: string;
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export interface SeedTypeAnswerExercise {
@@ -221,6 +238,8 @@ export interface SeedTypeAnswerExercise {
   normalize?: 'loose' | 'romaja';
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export interface SeedOrderStepsExercise {
@@ -230,6 +249,8 @@ export interface SeedOrderStepsExercise {
   steps: string[];
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export interface SeedWriteAlgorithmExercise {
@@ -240,6 +261,8 @@ export interface SeedWriteAlgorithmExercise {
   hint?: string;
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export interface SeedFlowchartBuildExercise {
@@ -249,6 +272,8 @@ export interface SeedFlowchartBuildExercise {
   hint?: string;
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export interface SeedErBuildExercise {
@@ -258,6 +283,8 @@ export interface SeedErBuildExercise {
   hint?: string;
   explanation?: string;
   diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
 }
 
 export type SeedExercise =

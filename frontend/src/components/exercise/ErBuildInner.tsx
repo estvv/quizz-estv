@@ -288,6 +288,7 @@ function Canvas({ exercise, revealed, onCommit }: Props) {
         <Feedback
           correct={correct}
           diagramSvg={exercise.diagram_svg}
+          figure={exercise.feedback_figure}
           explanation={exercise.explanation}
         >
           <p className="mb-1 text-sm font-medium text-neutral-700">Diagramme E-R attendu :</p>
