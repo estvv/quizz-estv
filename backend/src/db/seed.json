@@ -13087,191 +13087,12 @@
     "lesson": "# Operating System — Week 5 · Threads & server monitoring\n\n**Cours** : chapitre 4 du Silberschatz, *Threads & Concurrency* : ce qu'est un\nthread, ses avantages, **concurrency vs parallelism**, la **loi d'Amdahl**,\nles modèles **many-to-one / one-to-one / many-to-many**, les bibliothèques\n(Pthreads), l'**implicit threading** (thread pools, fork-join, OpenMP, GCD,\nTBB), les problèmes (fork/exec, signaux, annulation, TLS) et les threads sous\nWindows et Linux.\n**Lab** : *Server Health Checkup* (CPU, zombies, load, mémoire, disque), puis\nles redirections, les utilisateurs et permissions, et les processus sous\nLinux.\n\n> **En bref.** Un **thread** est un « fil d'exécution » à l'intérieur d'un\n> processus : les threads d'un même processus **partagent** le code, les\n> données et les fichiers ouverts, mais chacun a **sa propre pile, ses\n> registres et son program counter**. Créer un thread est **beaucoup moins\n> cher** que créer un processus. La **loi d'Amdahl** rappelle que la partie\n> **séquentielle** d'un programme limite le gain apporté par les cœurs.\n\n---\n\n# Partie 1 — Cours\n\n## 1. Pourquoi des threads ?\n\nLa plupart des applications modernes sont **multithreaded**. Dans un\ntraitement de texte, un thread met à jour l'affichage, un autre lit les\nfrappes, un autre vérifie l'orthographe. Un serveur web crée un thread par\nrequête plutôt qu'un processus.\n\n- La **création d'un processus** est **lourde** (*heavy-weight*), celle d'un\n  **thread** est **légère** (*light-weight*).\n- Les **noyaux** eux-mêmes sont en général multithread.\n\n```diagram\n{\n  \"title\": \"Processus mono-thread vs multithread : le code, les données et les fichiers sont partagés ; registres, PC et pile sont propres à chaque thread.\",\n  \"nodes\": [\n    { \"id\": \"h1\", \"x\": 130, \"y\": 12, \"shape\": \"text\", \"label\": \"single-threaded process\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"h2\", \"x\": 470, \"y\": 12, \"shape\": \"text\", \"label\": \"multithreaded process\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"s1\", \"x\": 130, \"y\": 50, \"shape\": \"table\", \"size\": 11, \"header\": false, \"cols\": [60, 60, 60], \"rows\": [[\"code\", \"data\", \"files\"]] },\n    { \"id\": \"s2\", \"x\": 130, \"y\": 90, \"shape\": \"table\", \"size\": 11, \"header\": false, \"cols\": [60, 60, 60], \"rows\": [[\"registers\", \"PC\", \"stack\"]] },\n    { \"id\": \"st\", \"x\": 130, \"y\": 150, \"w\": 40, \"h\": 50, \"label\": \"T\", \"tone\": \"emerald\", \"size\": 14 },\n    { \"id\": \"sl\", \"x\": 130, \"y\": 190, \"shape\": \"text\", \"label\": \"1 thread\", \"size\": 11 },\n    { \"id\": \"m1\", \"x\": 470, \"y\": 50, \"shape\": \"table\", \"size\": 11, \"header\": false, \"cols\": [90, 90, 90], \"rows\": [[\"code\", \"data\", \"files\"]] },\n    { \"id\": \"m2\", \"x\": 470, \"y\": 120, \"shape\": \"table\", \"size\": 11, \"header\": false, \"cols\": [90, 90, 90], \"rows\": [[\"registers\", \"registers\", \"registers\"], [\"PC\", \"PC\", \"PC\"], [\"stack\", \"stack\", \"stack\"]] },\n    { \"id\": \"t1\", \"x\": 380, \"y\": 215, \"w\": 40, \"h\": 40, \"label\": \"T\", \"tone\": \"emerald\", \"size\": 14 },\n    { \"id\": \"t2\", \"x\": 470, \"y\": 215, \"w\": 40, \"h\": 40, \"label\": \"T\", \"tone\": \"emerald\", \"size\": 14 },\n    { \"id\": \"t3\", \"x\": 560, \"y\": 215, \"w\": 40, \"h\": 40, \"label\": \"T\", \"tone\": \"emerald\", \"size\": 14 },\n    { \"id\": \"ml\", \"x\": 470, \"y\": 250, \"shape\": \"text\", \"label\": \"3 threads\", \"size\": 11 }\n  ],\n  \"edges\": []\n}\n```\n\n| Partagé entre les threads du processus | Propre à chaque thread |\n|---|---|\n| **code** (text section) | **thread ID** |\n| **data** (variables globales) | **program counter** |\n| **fichiers ouverts**, autres ressources | **registres** |\n| | **stack** (pile) |\n\n### Les 4 avantages (à connaître par cœur)\n\n| Avantage | Explication |\n|---|---|\n| **Responsiveness** | le programme continue de répondre même si une partie est **bloquée** (important pour les interfaces) |\n| **Resource sharing** | les threads **partagent les ressources** du processus : plus simple que la mémoire partagée ou les messages |\n| **Economy** | **moins cher** que créer un processus ; changer de thread coûte moins qu'un context switch de processus |\n| **Scalability** | un processus peut tirer parti d'une **architecture multicœur** |\n\n## 2. Programmation multicœur\n\nLes systèmes multicœurs mettent la pression sur les développeurs. Défis :\n**dividing activities** (découper le travail), **balance** (répartir\néquitablement), **data splitting** (découper les données), **data dependency**\n(gérer les dépendances), **testing and debugging**.\n\n| **Concurrency** | **Parallelism** |\n|---|---|\n| **plusieurs tâches progressent** | plusieurs tâches s'exécutent **en même temps** |\n| possible **sur un seul cœur** : l'ordonnanceur alterne vite | nécessite **plusieurs cœurs** |\n\n```diagram\n{\n  \"title\": \"Concurrence sur un cœur (les tâches alternent) vs parallélisme sur deux cœurs (elles tournent en même temps).\",\n  \"nodes\": [\n    { \"id\": \"l1\", \"x\": 40, \"y\": 30, \"shape\": \"text\", \"label\": \"1 cœur\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"a1\", \"x\": 120, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T1\", \"tone\": \"sky\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a2\", \"x\": 180, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T2\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a3\", \"x\": 240, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T3\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a4\", \"x\": 300, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T4\", \"tone\": \"rose\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a5\", \"x\": 360, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T1\", \"tone\": \"sky\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a6\", \"x\": 420, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T2\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a7\", \"x\": 480, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T3\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"a8\", \"x\": 540, \"y\": 30, \"w\": 60, \"h\": 28, \"label\": \"T4\", \"tone\": \"rose\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"l2\", \"x\": 40, \"y\": 100, \"shape\": \"text\", \"label\": \"core 1\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"b1\", \"x\": 120, \"y\": 100, \"w\": 60, \"h\": 28, \"label\": \"T1\", \"tone\": \"sky\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"b2\", \"x\": 180, \"y\": 100, \"w\": 60, \"h\": 28, \"label\": \"T3\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"b3\", \"x\": 240, \"y\": 100, \"w\": 60, \"h\": 28, \"label\": \"T1\", \"tone\": \"sky\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"b4\", \"x\": 300, \"y\": 100, \"w\": 60, \"h\": 28, \"label\": \"T3\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"l3\", \"x\": 40, \"y\": 140, \"shape\": \"text\", \"label\": \"core 2\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"c1\", \"x\": 120, \"y\": 140, \"w\": 60, \"h\": 28, \"label\": \"T2\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"c2\", \"x\": 180, \"y\": 140, \"w\": 60, \"h\": 28, \"label\": \"T4\", \"tone\": \"rose\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"c3\", \"x\": 240, \"y\": 140, \"w\": 60, \"h\": 28, \"label\": \"T2\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"c4\", \"x\": 300, \"y\": 140, \"w\": 60, \"h\": 28, \"label\": \"T4\", \"tone\": \"rose\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"t0\", \"x\": 90, \"y\": 180, \"shape\": \"text\" },\n    { \"id\": \"t9\", \"x\": 580, \"y\": 180, \"shape\": \"text\", \"label\": \"temps\", \"size\": 11 }\n  ],\n  \"edges\": [\n    { \"from\": \"t0\", \"to\": \"t9\" }\n  ]\n}\n```\n\n> **Piège :** on peut avoir de la **concurrence sans parallélisme** (un seul\n> cœur), mais pas de parallélisme sans plusieurs cœurs.\n\n### Deux types de parallélisme\n\n| **Data parallelism** | **Task parallelism** |\n|---|---|\n| découper **les données** entre les cœurs, **même opération** sur chaque morceau | répartir **des threads différents** sur les cœurs, chacun fait une **opération différente** |\n| ex. sommer un tableau : cœur 1 fait la 1re moitié, cœur 2 la 2de | ex. un thread calcule la moyenne, un autre le maximum |\n\n## 3. La loi d'Amdahl\n\nElle donne le gain de performance (*speedup*) quand on ajoute des cœurs à une\napplication qui a une partie **séquentielle** (*serial*) **S** et une partie\nparallèle **1 − S**, avec **N** cœurs :\n\n```\n                    1\nspeedup  ≤  ─────────────────\n             S  +  (1 − S) / N\n```\n\nQuand **N → ∞**, le speedup tend vers **1 / S**.\n\n**Exemple du cours :** 75 % parallèle, 25 % séquentiel (S = 0,25) :\n\n| Cœurs N | Calcul | Speedup |\n|---|---|---|\n| 1 | 1 / (0,25 + 0,75) | **1** |\n| 2 | 1 / (0,25 + 0,375) = 1 / 0,625 | **1,6** |\n| 4 | 1 / (0,25 + 0,1875) = 1 / 0,4375 | **≈ 2,29** |\n| ∞ | 1 / 0,25 | **4** (le maximum) |\n\n> **À retenir :** la partie séquentielle a un effet **disproportionné**. Avec\n> 25 % de code séquentiel, même une infinité de cœurs ne donne **jamais plus\n> que ×4**. Avec 10 % séquentiel, le maximum est ×10 ; avec 50 %, ×2.\n\n**Méthode rapide pour le quiz :** speedup maximal = **1 / (part séquentielle)**.\n\n## 4. User threads et kernel threads\n\n| **User threads** | **Kernel threads** |\n|---|---|\n| gérés par une **bibliothèque de threads** en espace utilisateur | gérés **directement par le noyau** |\n| 3 bibliothèques principales : **POSIX Pthreads**, **Windows threads**, **Java threads** | présents dans quasiment tous les OS : Windows, Linux, macOS, iOS, Android |\n\n### Les modèles de correspondance\n\n```diagram\n{\n  \"title\": \"Les trois modèles : plusieurs user threads sur un kernel thread, un pour un, ou plusieurs sur plusieurs.\",\n  \"nodes\": [\n    { \"id\": \"h1\", \"x\": 110, \"y\": 12, \"shape\": \"text\", \"label\": \"many-to-one\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"h2\", \"x\": 340, \"y\": 12, \"shape\": \"text\", \"label\": \"one-to-one\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"h3\", \"x\": 570, \"y\": 12, \"shape\": \"text\", \"label\": \"many-to-many\", \"bold\": true, \"size\": 12 },\n    { \"id\": \"u1\", \"x\": 50, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"u2\", \"x\": 110, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"u3\", \"x\": 170, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"k1\", \"x\": 110, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"v1\", \"x\": 280, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"v2\", \"x\": 340, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"v3\", \"x\": 400, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"j1\", \"x\": 280, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"j2\", \"x\": 340, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"j3\", \"x\": 400, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"w1\", \"x\": 500, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"w2\", \"x\": 550, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"w3\", \"x\": 600, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"w4\", \"x\": 650, \"y\": 60, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"U\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"x1\", \"x\": 525, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"x2\", \"x\": 575, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"x3\", \"x\": 625, \"y\": 160, \"w\": 36, \"h\": 30, \"shape\": \"ellipse\", \"label\": \"K\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"lu\", \"x\": 340, \"y\": 200, \"shape\": \"text\", \"label\": \"U = user thread · K = kernel thread\", \"size\": 11 }\n  ],\n  \"edges\": [\n    { \"from\": \"u1\", \"to\": \"k1\", \"arrow\": \"none\" }, { \"from\": \"u2\", \"to\": \"k1\", \"arrow\": \"none\" }, { \"from\": \"u3\", \"to\": \"k1\", \"arrow\": \"none\" },\n    { \"from\": \"v1\", \"to\": \"j1\", \"arrow\": \"none\" }, { \"from\": \"v2\", \"to\": \"j2\", \"arrow\": \"none\" }, { \"from\": \"v3\", \"to\": \"j3\", \"arrow\": \"none\" },\n    { \"from\": \"w1\", \"to\": \"x1\", \"arrow\": \"none\" }, { \"from\": \"w2\", \"to\": \"x1\", \"arrow\": \"none\" }, { \"from\": \"w2\", \"to\": \"x2\", \"arrow\": \"none\" },\n    { \"from\": \"w3\", \"to\": \"x2\", \"arrow\": \"none\" }, { \"from\": \"w3\", \"to\": \"x3\", \"arrow\": \"none\" }, { \"from\": \"w4\", \"to\": \"x3\", \"arrow\": \"none\" }\n  ]\n}\n```\n\n| Modèle | Principe | Conséquences | Exemples |\n|---|---|---|---|\n| **Many-to-One** | **plusieurs** user threads sur **un seul** kernel thread | **un thread qui bloque bloque tous les autres** ; **pas de vrai parallélisme** sur multicœur (un seul peut être dans le noyau à la fois) ; peu utilisé aujourd'hui | Solaris Green Threads, GNU Portable Threads |\n| **One-to-One** | **chaque** user thread a **son** kernel thread | créer un user thread crée un kernel thread ; **plus de concurrence** ; nombre de threads parfois **limité** à cause du coût | **Windows, Linux** |\n| **Many-to-Many** | **plusieurs** user threads sur **plusieurs** kernel threads | l'OS crée **autant de kernel threads que nécessaire** ; peu courant | Windows avec ThreadFiber |\n| **Two-level** | comme many-to-many, mais un user thread **peut être lié** (*bound*) à un kernel thread | | |\n\n## 5. Les bibliothèques de threads\n\nUne **thread library** donne au programmeur une API pour créer et gérer des\nthreads. Deux implémentations : **entièrement en espace utilisateur**, ou\n**au niveau noyau** (supportée par l'OS).\n\n**Pthreads** : standard **POSIX** (IEEE 1003.1c) pour créer et synchroniser des\nthreads. C'est une **spécification, pas une implémentation** : elle décrit le\ncomportement, chaque système l'implémente à sa façon. Courante sous UNIX (Linux,\nmacOS).\n\n```c\npthread_t tid;\npthread_create(&tid, NULL, runner, argv[1]);  /* crée le thread */\npthread_join(tid, NULL);                      /* attend sa fin */\n```\n\n## 6. Implicit threading\n\nAvec beaucoup de threads, les gérer à la main devient difficile. L'**implicit\nthreading** confie la création et la gestion des threads aux **compilateurs et\nbibliothèques d'exécution**. Cinq méthodes :\n\n| Méthode | Idée |\n|---|---|\n| **Thread pools** | créer à l'avance un **groupe de threads** qui attendent du travail |\n| **Fork-Join** | plusieurs threads (tâches) sont **forkés** puis **rejoints** (*joined*) |\n| **OpenMP** | **directives de compilation** + API pour C, C++, FORTRAN ; `#pragma omp parallel` crée **autant de threads que de cœurs** |\n| **Grand Central Dispatch (GCD)** | technologie **Apple** (macOS, iOS) ; des **blocks** `^{ … }` placés dans des **dispatch queues** |\n| **Intel TBB** | bibliothèque de **templates C++** ; `parallel_for` |\n\n**Avantages des thread pools :**\n\n1. servir une requête avec un **thread existant** est un peu **plus rapide**\n   que d'en créer un ;\n2. le nombre de threads est **borné** par la taille du pool ;\n3. séparer la tâche de la façon de la lancer permet différentes stratégies\n   (ex. exécution **périodique**).\n\n**GCD** : deux types de files. **Serial** : blocs retirés en ordre **FIFO**, un\nà la fois (la **main queue** par processus). **Concurrent** : ordre FIFO, mais\n**plusieurs à la fois** ; quatre files système par **qualité de service**\n(`USER_INTERACTIVE`, `USER_INITIATED`, `UTILITY`, `BACKGROUND`).\n\n## 7. Les problèmes du multithreading\n\n### fork() et exec()\n\n**`fork()` copie-t-il seulement le thread appelant, ou tous les threads ?**\nCertains UNIX ont **deux versions** de `fork()`. **`exec()`** fonctionne\nnormalement : il **remplace tout le processus**, **threads compris**.\n\n### Les signaux\n\nUn **signal** notifie un processus qu'un événement s'est produit : il est\n**généré** par un événement, **délivré** au processus, puis **traité** par un\n**signal handler** : le handler **par défaut** (celui du noyau) ou un handler\n**défini par l'utilisateur**, qui peut remplacer le défaut.\n\nPour un processus multithread, où délivrer le signal ? Quatre options :\nau **thread concerné**, à **tous les threads**, à **certains threads**, ou à un\n**thread désigné** qui reçoit tous les signaux.\n\n### L'annulation de threads (thread cancellation)\n\nTerminer un thread (**target thread**) avant la fin :\n\n| **Asynchronous cancellation** | **Deferred cancellation** |\n|---|---|\n| le thread cible est tué **immédiatement** | le thread cible **vérifie régulièrement** s'il doit s'arrêter |\n| | **mode par défaut** ; l'annulation a lieu à un **cancellation point** (ex. `pthread_testcancel()`), puis un **cleanup handler** s'exécute |\n\nSi l'annulation est **désactivée**, la demande reste **en attente** jusqu'à ce\nque le thread la réactive. Sous Linux, l'annulation passe par des **signaux**.\n\n### Thread-local storage (TLS)\n\nChaque thread a **sa propre copie** d'une donnée. Utile quand on ne contrôle\npas la création des threads (thread pool). À ne pas confondre :\n\n- une **variable locale** n'est visible que **pendant un appel de fonction** ;\n- une donnée **TLS** est visible **à travers les appels de fonctions**, comme une\n  donnée `static`, mais **propre à chaque thread**.\n\n### Scheduler activations\n\nLes modèles many-to-many et two-level ont besoin d'une communication pour\ngarder le bon nombre de kernel threads. On utilise une structure\nintermédiaire, le **LWP** (*lightweight process*), vu comme un **processeur\nvirtuel** sur lequel l'application place ses user threads, chaque LWP étant\nattaché à un kernel thread. Les **scheduler activations** fournissent des\n**upcalls** : le noyau prévient la bibliothèque de threads.\n\n## 8. Threads sous Windows et Linux\n\n**Windows** : API Windows, modèle **one-to-one**. Chaque thread contient un\n**thread id**, un **jeu de registres**, des **piles utilisateur et noyau**\nséparées, une zone de **stockage privée** ; ensemble = le **contexte** du\nthread. Structures :\n\n| Structure | Où | Contenu |\n|---|---|---|\n| **ETHREAD** (executive thread block) | noyau | pointeur vers le processus et vers le KTHREAD |\n| **KTHREAD** (kernel thread block) | noyau | ordonnancement, synchronisation, pile noyau, pointeur vers le TEB |\n| **TEB** (thread environment block) | **espace utilisateur** | thread id, pile utilisateur, **thread-local storage** |\n\n**Linux** : parle de **tasks** plutôt que de threads. Un thread est créé avec\nl'appel système **`clone()`**, qui permet à la tâche enfant de **partager\nl'espace d'adressage** du parent ; des **flags** contrôlent ce qui est partagé.\n`struct task_struct` pointe vers les structures du processus (partagées ou\nnon).\n\n---\n\n# Partie 2 — Lab\n\n## 9. Server Health Checkup\n\nSurveiller régulièrement un serveur : repérer les goulots d'étranglement, les\nproblèmes matériels, la latence réseau, vérifier les sauvegardes. Le script du\nlab est découpé en fonctions :\n\n| Fonction | Commande clé | Ce qu'elle vérifie |\n|---|---|---|\n| `check_running_processes` | `ps aux --sort=-%cpu \\| awk 'NR<=5'` | les **processus qui consomment le plus de CPU** |\n| — | `ps aux \\| grep 'java'` | les processus qui contiennent « java » |\n| `check_cpu_utilization` | `ps -eo %cpu,command \\| egrep '(java\\|http\\|mysql)' \\| awk '$1 > 10'` | les services critiques à **plus de 10 % CPU** |\n| `check_memory_utilization` | `free -h`, `swapon` | RAM et swap |\n| — | `sync && echo 3 > /proc/sys/vm/drop_caches` | écrire le cache sur disque puis **vider le cache** (root) |\n| `check_zombie_processes` | `ps aux \\| awk '$8==\"Z\"'` | les processus **zombies** (colonne STAT = Z) |\n| `check_load_average` | `uptime` | le **load average** sur 1, 5 et 15 min |\n| `check_disk_utilization` | `iostat`, `df -h` | les **E/S disque** et l'**espace disque** |\n\nBoucle de surveillance du CPU :\n\n```bash\n#!/bin/bash\nwhile true; do\n    top -b -n1 | grep 'Cpu(s)' | awk '{print $2 + $4}'   # user + system\n    sleep 5\ndone\n```\n\n> **Piège :** `kill -9` sur un **zombie** ne sert à rien : il est **déjà\n> mort**. Il disparaît quand son **parent** appelle `wait()` ou se termine.\n\n## 10. Commandes simples : date\n\n```bash\ndate                 # Wed Apr  5 06:52:20 UTC 2023\ndate +%R             # 06:53        (heure:minute)\ndate +\"%m-%d-%y\"     # 04-05-23\ndate +\"%D\"           # 04/05/23\ndate +\"%T\"           # 07:14:10     (heure:minute:seconde)\nYear=`date +%Y`      # capturer une valeur dans une variable\n```\n\n## 11. Redirections et pipes\n\nChaque processus a trois **canaux** (*file descriptors*) :\n\n| N° | Nom | Par défaut | Usage |\n|---|---|---|---|\n| **0** | **stdin** | clavier | lecture seule |\n| **1** | **stdout** | terminal | écriture seule |\n| **2** | **stderr** | terminal | écriture seule |\n| 3+ | *filename* | — | autres fichiers |\n\n| Syntaxe | Effet |\n|---|---|\n| `> file` | stdout vers un fichier, **écrase** |\n| `>> file` | stdout vers un fichier, **ajoute à la fin** |\n| `2> file` | **stderr** vers un fichier |\n| `2> /dev/null` | **jeter** les erreurs |\n| `> file 2>&1` ou `&> file` | stdout **et** stderr dans le **même** fichier |\n| `>> file 2>&1` ou `&>> file` | les deux, **en ajout** |\n| `cmd1 \\| cmd2` | **pipe** : stdout de cmd1 → stdin de cmd2 |\n| `cmd \\| tee file` | **enregistre** dans un fichier **et** affiche |\n\n```bash\ndate > /tmp/saved-timestamp                      # écrase\nfind /etc -name passwd > output 2> errors        # résultats et erreurs séparés\nfind /etc -name passwd 2> /dev/null              # ignorer \"Permission denied\"\nls -l | tee saved-output | less                  # garder une copie au milieu d'un pipe\n```\n\n> **Piège :** `>` **écrase**, `>>` **ajoute**. Et `2>` redirige **stderr**\n> (les erreurs), pas stdout.\n\n## 12. Utilisateurs, groupes et permissions\n\n- `id` : UID, GID et groupes de l'utilisateur.\n- `ls -l` : la 3e colonne est le **propriétaire** du fichier.\n- `ps au` : la 1re colonne est l'**utilisateur** de chaque processus.\n- `su - user` : ouvre un **login shell** (environnement propre de\n  l'utilisateur) ; `su user` : garde l'environnement courant. Sans nom,\n  `su` passe en **root**.\n\n### chmod : méthode symbolique\n\n`chmod WhoWhatWhich file` :\n\n| Qui (*who*) | Quoi (*what*) | Lequel (*which*) |\n|---|---|---|\n| **u** user, **g** group, **o** other, **a** all | **+** ajouter, **-** retirer, **=** fixer exactement | **r**, **w**, **x** |\n\n```bash\nchmod go-rw file1      # retire read et write au groupe et aux autres\nchmod a+x file2        # ajoute execute pour tout le monde\nchmod -R g+rwX demodir # récursif ; X majuscule = execute seulement sur les dossiers\n```\n\n### chmod : méthode numérique\n\n**r = 4, w = 2, x = 1**, un chiffre pour user, group, other.\n\n| Exemple | Calcul | Résultat |\n|---|---|---|\n| `-rwxr-x---` | 4+2+1, 4+0+1, 0 | **750** |\n| `-rw-r-----` | 4+2, 4, 0 | **640** |\n| `chmod 750 sampledir` | | `rwxr-x---` |\n\n### chown : changer le propriétaire\n\n```bash\nchown student foofile          # nouveau propriétaire\nchown -R student foodir        # récursif sur tout un dossier\nchown :admins foofile          # changer seulement le groupe\n```\n\n## 13. Les processus sous Linux\n\n- Un processus est une **instance en cours d'exécution** d'un programme : un\n  **espace d'adressage**, des **propriétés de sécurité** (propriétaire,\n  privilèges), **un ou plusieurs threads**, un **état**.\n- Un parent **duplique** son espace d'adressage (**fork**) pour créer un\n  enfant ; chaque processus a un **PID** unique et connaît le **PPID** de son\n  parent. Tous descendent du premier processus, **systemd (PID 1)**.\n- L'enfant peut **exec** son propre code ; le parent **dort** (*wait*) jusqu'à\n  la fin de l'enfant. À sa sortie, l'enfant libère ses ressources ; ce qui\n  reste est le **zombie**, que le parent nettoie.\n\n**États dans `ps` (colonne STAT) :**\n\n| Lettre | État |\n|---|---|\n| **R** | running (ou prêt à tourner) |\n| **S** | sleeping (en attente, interruptible) |\n| **D** | uninterruptible sleep (souvent une E/S disque) |\n| **T** | stopped (mis en pause, ex. Ctrl+Z) |\n| **Z** | zombie |\n\n## 14. Daemons et systemd (rappel)\n\n**systemd** gère le démarrage et les services, au boot et pendant le\nfonctionnement. Un **daemon** attend ou tourne **en arrière-plan** ; il\ndémarre en général au boot et tourne jusqu'à l'arrêt ; son nom finit souvent\npar **« d »**. Pour écouter les connexions, un daemon utilise un **socket**.\n\n---\n\n## À retenir\n\n- Thread = unité d'exécution **dans** un processus ; **partage** code, data,\n  fichiers ; **propre** : ID, PC, registres, **stack**.\n- Avantages : **responsiveness, resource sharing, economy, scalability**.\n- **Concurrency** = plusieurs tâches progressent (1 cœur possible) ;\n  **parallelism** = en même temps (plusieurs cœurs). **Data** vs **task**\n  parallelism.\n- **Amdahl** : speedup ≤ 1 / (S + (1 − S)/N) ; maximum = **1 / S**. 25 %\n  séquentiel → ×1,6 avec 2 cœurs, ×4 au maximum.\n- **Many-to-one** (un blocage bloque tout, pas de parallélisme),\n  **one-to-one** (**Linux, Windows**), **many-to-many**, **two-level**.\n- **Pthreads** = spécification POSIX. Implicit threading : **thread pools,\n  fork-join, OpenMP, GCD, TBB**.\n- `exec()` remplace **tout le processus**. Signal : handler **par défaut** ou\n  **utilisateur**. Annulation **asynchrone** (immédiate) vs **différée** (par\n  défaut, aux cancellation points). **TLS** = copie par thread.\n- Windows : ETHREAD, KTHREAD (noyau), **TEB** (utilisateur). Linux : **tasks**,\n  **`clone()`**.\n- Lab : zombies = STAT **Z** ; `uptime` = load 1/5/15 min ; `df -h` disque ;\n  `free -h` RAM. **0 stdin, 1 stdout, 2 stderr** ; `>` écrase, `>>` ajoute,\n  `2>&1` fusionne ; `tee`. `chmod u/g/o/a +-= rwx` ; **r4 w2 x1**.\n\n## Pièges classiques du quiz\n\n| Affirmation | Vrai / Faux |\n|---|---|\n| Les threads d'un processus partagent leur pile | **Faux** : chaque thread a sa pile |\n| Créer un thread coûte plus cher que créer un processus | **Faux** |\n| La concurrence nécessite plusieurs cœurs | **Faux** : c'est le parallélisme |\n| Avec 25 % séquentiel et une infinité de cœurs, le speedup est infini | **Faux** : 4 au maximum |\n| Linux utilise le modèle many-to-one | **Faux** : one-to-one |\n| Dans le many-to-one, un thread qui bloque bloque tous les autres | **Vrai** |\n| Pthreads est une implémentation précise | **Faux** : une spécification |\n| L'annulation par défaut est asynchrone | **Faux** : différée |\n| `exec()` ne remplace que le thread appelant | **Faux** : tout le processus |\n| `>>` écrase le fichier | **Faux** : il ajoute |\n| stderr est le descripteur 1 | **Faux** : 2 |\n"
   },
   {
-    "name": "Mock quiz (W1–W5)",
+    "name": "Mock quiz (W1–W6)",
     "key": "school-os-mock",
     "color": "rose",
     "parent": "school-os",
     "questions": [],
     "exercises": [
-      {
-        "type": "matching",
-        "prompt": "Match each Git command with what it does.",
-        "pairs": [
-          [
-            "git status",
-            "Lists new or modified files not yet committed"
-          ],
-          [
-            "git diff",
-            "Shows the changes line by line"
-          ],
-          [
-            "git log",
-            "Shows the commit history of the branch"
-          ],
-          [
-            "git reset <file>",
-            "Unstages a file but keeps its changes"
-          ]
-        ],
-        "explanation": "status = état ; diff = différences ; log = historique ; reset <file> = retirer du staging."
-      },
-      {
-        "type": "mcq",
-        "prompt": "True or false? git commit sends your changes to GitHub.",
-        "choices": [
-          "True",
-          "False"
-        ],
-        "correct": 1,
-        "explanation": "Faux : commit enregistre localement. C'est git push qui envoie sur le dépôt distant."
-      },
-      {
-        "type": "matching",
-        "prompt": "Match each job-control action with its command.",
-        "pairs": [
-          [
-            "Start a command in the background",
-            "command &"
-          ],
-          [
-            "Pause the foreground job",
-            "Ctrl+Z"
-          ],
-          [
-            "Resume job 1 in the background",
-            "bg %1"
-          ],
-          [
-            "Bring job 1 to the foreground",
-            "fg %1"
-          ]
-        ],
-        "explanation": "Job control du manuel de lab."
-      },
-      {
-        "type": "mcq",
-        "prompt": "What is the worst-case search time in a binary search tree, and in a balanced one?",
-        "choices": [
-          "O(1) worst case, O(n) when balanced",
-          "O(lg n) worst case, O(1) when balanced",
-          "O(n) worst case, O(lg n) when balanced",
-          "O(n²) worst case, O(n) when balanced"
-        ],
-        "correct": 2,
-        "explanation": "Un arbre dégénéré est une liste : O(n). Équilibré : O(lg n)."
-      },
-      {
-        "type": "matching",
-        "prompt": "Match each component of a computer system with its role.",
-        "pairs": [
-          [
-            "Hardware",
-            "Provides the basic computing resources"
-          ],
-          [
-            "Operating system",
-            "Controls and coordinates the use of the hardware"
-          ],
-          [
-            "Application programs",
-            "Use the resources to solve users' problems"
-          ],
-          [
-            "Users",
-            "People, machines or other computers"
-          ]
-        ],
-        "explanation": "Les quatre composants : hardware, operating system, application programs, users."
-      },
-      {
-        "type": "mcq",
-        "prompt": "How many bytes are in 1 KB according to the course?",
-        "choices": [
-          "1,000",
-          "1,024",
-          "512",
-          "8,192"
-        ],
-        "correct": 1,
-        "explanation": "1 KB = 2^10 = 1 024 octets ; 1 MB = 1 024², etc."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Which is NOT a reason for a parent to abort() a child in the course?",
-        "choices": [
-          "The child has exceeded its allocated resources",
-          "The task assigned to the child is no longer required",
-          "The parent is exiting and the OS forbids orphans",
-          "The child has opened too many files for reading"
-        ],
-        "correct": 3,
-        "explanation": "Les trois raisons du cours : ressources dépassées, tâche inutile, parent qui se termine."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Which command checks that Git is installed?",
-        "choices": [
-          "git --version",
-          "git status",
-          "git init --check",
-          "apt git"
-        ],
-        "correct": 0,
-        "explanation": "git --version affiche la version installée ; même logique pour python3 --version et code --version."
-      },
-      {
-        "type": "mcq",
-        "prompt": "True or false? The kill command sends SIGKILL by default.",
-        "choices": [
-          "True",
-          "False"
-        ],
-        "correct": 1,
-        "explanation": "Faux : par défaut, kill envoie SIGTERM (15)."
-      },
-      {
-        "type": "mcq",
-        "prompt": "True or false? A private cloud is run by a company for its own use.",
-        "choices": [
-          "True",
-          "False"
-        ],
-        "correct": 0,
-        "explanation": "Vrai : public = ouvert à qui paie ; private = pour l'entreprise elle-même ; hybrid = les deux."
-      },
-      {
-        "type": "mcq",
-        "prompt": "True or false? In the layered approach, layer 0 is the user interface.",
-        "choices": [
-          "True",
-          "False"
-        ],
-        "correct": 1,
-        "explanation": "Faux : la couche 0 est le matériel ; la couche N est l'interface utilisateur."
-      },
-      {
-        "type": "mcq",
-        "prompt": "What does 'git checkout -b feature' do?",
-        "choices": [
-          "Deletes the branch 'feature' after merging it",
-          "Creates the branch 'feature' and switches to it",
-          "Pushes the branch 'feature' to the remote",
-          "Lists the commits of the branch 'feature'"
-        ],
-        "correct": 1,
-        "explanation": "-b crée la branche puis bascule dessus."
-      },
-      {
-        "type": "mcq",
-        "prompt": "True or false? The PCB is also called a task control block.",
-        "choices": [
-          "True",
-          "False"
-        ],
-        "correct": 0,
-        "explanation": "Vrai : process control block = task control block."
-      },
       {
         "type": "matching",
         "prompt": "Match each Linux directory with its content.",
@@ -13301,140 +13122,90 @@
       },
       {
         "type": "mcq",
-        "prompt": "Which parameter-passing method do Linux and Solaris use?",
-        "choices": [
-          "Only CPU registers, with no memory involved",
-          "A block of memory whose address is passed in a register",
-          "The stack, pushed by the program and popped by the OS",
-          "A file written to /tmp and read by the kernel"
-        ],
-        "correct": 1,
-        "explanation": "Linux et Solaris : bloc (table) en mémoire, adresse dans un registre."
-      },
-      {
-        "type": "matching",
-        "prompt": "Match each UNIX system call with its effect.",
-        "pairs": [
-          [
-            "fork()",
-            "Creates a new process that is a copy of the parent"
-          ],
-          [
-            "exec()",
-            "Replaces the process memory with a new program"
-          ],
-          [
-            "wait()",
-            "The parent waits for a child to terminate"
-          ],
-          [
-            "exit()",
-            "The process asks the OS to delete it"
-          ]
-        ],
-        "explanation": "fork crée, exec remplace, wait attend, exit termine."
-      },
-      {
-        "type": "mcq",
-        "prompt": "True or false? Creating a thread is more expensive than creating a process.",
+        "prompt": "True or false? Git and GitHub are two names for the same thing.",
         "choices": [
           "True",
           "False"
         ],
         "correct": 1,
-        "explanation": "Faux : process = heavy-weight, thread = light-weight."
+        "explanation": "Faux : Git est l'outil de gestion de versions ; GitHub est un service en ligne qui héberge des dépôts Git."
       },
       {
         "type": "mcq",
-        "prompt": "Which command shows the absolute path of the current directory?",
+        "prompt": "Which algorithm gives the minimum average waiting time for a given set of processes?",
         "choices": [
-          "cd",
-          "ls -l",
-          "pwd",
-          "whoami"
-        ],
-        "correct": 2,
-        "explanation": "pwd = print working directory."
-      },
-      {
-        "type": "mcq",
-        "prompt": "What does fork() return in the parent process?",
-        "choices": [
-          "0",
-          "The PID of the child",
-          "The PID of the parent",
-          "1"
+          "First-Come, First-Served (FCFS)",
+          "Shortest-Job-First (SJF)",
+          "Round Robin (RR)",
+          "Priority scheduling"
         ],
         "correct": 1,
-        "explanation": "Le parent reçoit le PID de l'enfant."
-      },
-      {
-        "type": "matching",
-        "prompt": "Match each I/O term with its description.",
-        "pairs": [
-          [
-            "Synchronous I/O",
-            "Control returns to the program only when the I/O completes"
-          ],
-          [
-            "Asynchronous I/O",
-            "Control returns immediately without waiting for completion"
-          ],
-          [
-            "Device-status table",
-            "One entry per device: type, address and state"
-          ],
-          [
-            "DMA",
-            "Transfers whole blocks to memory without the CPU"
-          ]
-        ],
-        "explanation": "Synchrone = on attend la fin ; asynchrone = on continue et la device-status table suit l'état des périphériques ; DMA = transferts par blocs."
+        "explanation": "SJF est optimal pour le temps d'attente moyen."
       },
       {
         "type": "mcq",
-        "prompt": "True or false? Dynamically linked libraries (DLLs) are loaded once and shared by the programs that use the same version.",
+        "prompt": "What does 'git checkout -b feature' do?",
+        "choices": [
+          "Deletes the branch 'feature' after merging it",
+          "Creates the branch 'feature' and switches to it",
+          "Pushes the branch 'feature' to the remote",
+          "Lists the commits of the branch 'feature'"
+        ],
+        "correct": 1,
+        "explanation": "-b crée la branche puis bascule dessus."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which firmware interface replaces BIOS on modern systems?",
+        "choices": [
+          "GRUB",
+          "ELF",
+          "POSIX",
+          "UEFI"
+        ],
+        "correct": 3,
+        "explanation": "UEFI remplace le BIOS ; GRUB est un bootstrap loader."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How many program counters does a multithreaded process have?",
+        "choices": [
+          "One per thread",
+          "Exactly one",
+          "One per CPU core",
+          "One per open file"
+        ],
+        "correct": 0,
+        "explanation": "Un processus mono-thread a un program counter ; un processus multi-thread en a un par thread."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? The CPU-burst distribution consists of a large number of short bursts and a small number of long bursts.",
         "choices": [
           "True",
           "False"
         ],
         "correct": 0,
-        "explanation": "Vrai : chargées à la demande, partagées."
-      },
-      {
-        "type": "mcq",
-        "prompt": "What numeric mode corresponds to -rw-r-----?",
-        "choices": [
-          "640",
-          "644",
-          "604",
-          "460"
-        ],
-        "correct": 0,
-        "explanation": "rw- = 6, r-- = 4, --- = 0."
+        "explanation": "Vrai : c'est l'histogramme des CPU bursts du cours."
       },
       {
         "type": "matching",
-        "prompt": "Match each multithreading model with its description.",
+        "prompt": "Preemptive or not? Match each algorithm.",
         "pairs": [
           [
-            "Many-to-One",
-            "Many user threads mapped to a single kernel thread"
+            "FCFS",
+            "Nonpreemptive"
           ],
           [
-            "One-to-One",
-            "Each user thread maps to its own kernel thread"
+            "Round Robin",
+            "Preemptive"
           ],
           [
-            "Many-to-Many",
-            "Many user threads mapped to many kernel threads"
-          ],
-          [
-            "Two-level",
-            "Like many-to-many, but a user thread can be bound to a kernel thread"
+            "Priority",
+            "Both versions exist"
           ]
         ],
-        "explanation": "Les modèles du chapitre 4."
+        "explanation": "SJF est non préemptif, SRTF préemptif."
       },
       {
         "type": "matching",
@@ -13465,15 +13236,146 @@
       },
       {
         "type": "mcq",
-        "prompt": "Which firmware interface replaces BIOS on modern systems?",
+        "prompt": "True or false? From the point of view of a mainframe shared by many users, the OS acts as a resource allocator and control program.",
         "choices": [
-          "GRUB",
-          "ELF",
-          "POSIX",
-          "UEFI"
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : sur une machine partagée, l'OS doit répartir les ressources et contrôler l'exécution pour satisfaire tout le monde."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which parameter-passing method do Linux and Solaris use?",
+        "choices": [
+          "Only CPU registers, with no memory involved",
+          "A block of memory whose address is passed in a register",
+          "The stack, pushed by the program and popped by the OS",
+          "A file written to /tmp and read by the kernel"
+        ],
+        "correct": 1,
+        "explanation": "Linux et Solaris : bloc (table) en mémoire, adresse dans un registre."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which command checks that Git is installed?",
+        "choices": [
+          "git --version",
+          "git status",
+          "git init --check",
+          "apt git"
+        ],
+        "correct": 0,
+        "explanation": "git --version affiche la version installée ; même logique pour python3 --version et code --version."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each I/O term with its description.",
+        "pairs": [
+          [
+            "Synchronous I/O",
+            "Control returns to the program only when the I/O completes"
+          ],
+          [
+            "Asynchronous I/O",
+            "Control returns immediately without waiting for completion"
+          ],
+          [
+            "Device-status table",
+            "One entry per device: type, address and state"
+          ],
+          [
+            "DMA",
+            "Transfers whole blocks to memory without the CPU"
+          ]
+        ],
+        "explanation": "Synchrone = on attend la fin ; asynchrone = on continue et la device-status table suit l'état des périphériques ; DMA = transferts par blocs."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? The kill command sends SIGKILL by default.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : par défaut, kill envoie SIGTERM (15)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? The registers method does not limit the number of parameters.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : le nombre de registres est limité. Ce sont block et stack qui ne limitent pas."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does fork() return in the parent process?",
+        "choices": [
+          "0",
+          "The PID of the child",
+          "The PID of the parent",
+          "1"
+        ],
+        "correct": 1,
+        "explanation": "Le parent reçoit le PID de l'enfant."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? git commit sends your changes to GitHub.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : commit enregistre localement. C'est git push qui envoie sur le dépôt distant."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? In the layered approach, layer 0 is the user interface.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : la couche 0 est le matériel ; la couche N est l'interface utilisateur."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Where is the GID of a local user's primary group defined?",
+        "choices": [
+          "In the first field of /etc/group",
+          "In the second field of /etc/shadow",
+          "In the home directory of the user",
+          "In the fourth field of /etc/passwd"
         ],
         "correct": 3,
-        "explanation": "UEFI remplace le BIOS ; GRUB est un bootstrap loader."
+        "explanation": "4e champ de /etc/passwd ; les groupes eux-mêmes sont listés dans /etc/group."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What numeric mode corresponds to -rw-r-----?",
+        "choices": [
+          "640",
+          "644",
+          "604",
+          "460"
+        ],
+        "correct": 0,
+        "explanation": "rw- = 6, r-- = 4, --- = 0."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? A private cloud is run by a company for its own use.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : public = ouvert à qui paie ; private = pour l'entreprise elle-même ; hybrid = les deux."
       },
       {
         "type": "matching",
@@ -13503,6 +13405,61 @@
         "explanation": "init crée, clone copie, add met en staging, commit enregistre, push envoie."
       },
       {
+        "type": "mcq",
+        "prompt": "True or false? The PCB is also called a task control block.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : process control block = task control block."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Waiting time includes the time a process spends executing on the CPU.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : seulement le temps passé dans la ready queue."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the worst-case search time in a binary search tree, and in a balanced one?",
+        "choices": [
+          "O(1) worst case, O(n) when balanced",
+          "O(lg n) worst case, O(1) when balanced",
+          "O(n) worst case, O(lg n) when balanced",
+          "O(n²) worst case, O(n) when balanced"
+        ],
+        "correct": 2,
+        "explanation": "Un arbre dégénéré est une liste : O(n). Équilibré : O(lg n)."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each UNIX system call with its effect.",
+        "pairs": [
+          [
+            "fork()",
+            "Creates a new process that is a copy of the parent"
+          ],
+          [
+            "exec()",
+            "Replaces the process memory with a new program"
+          ],
+          [
+            "wait()",
+            "The parent waits for a child to terminate"
+          ],
+          [
+            "exit()",
+            "The process asks the OS to delete it"
+          ]
+        ],
+        "explanation": "fork crée, exec remplace, wait attend, exit termine."
+      },
+      {
         "type": "matching",
         "prompt": "Match each redirection with its effect.",
         "pairs": [
@@ -13526,36 +13483,51 @@
         "explanation": "> écrase, >> ajoute, 2> les erreurs, &> les deux."
       },
       {
-        "type": "mcq",
-        "prompt": "How many program counters does a multithreaded process have?",
-        "choices": [
-          "One per thread",
-          "Exactly one",
-          "One per CPU core",
-          "One per open file"
+        "type": "matching",
+        "prompt": "Match each job-control action with its command.",
+        "pairs": [
+          [
+            "Start a command in the background",
+            "command &"
+          ],
+          [
+            "Pause the foreground job",
+            "Ctrl+Z"
+          ],
+          [
+            "Resume job 1 in the background",
+            "bg %1"
+          ],
+          [
+            "Bring job 1 to the foreground",
+            "fg %1"
+          ]
         ],
-        "correct": 0,
-        "explanation": "Un processus mono-thread a un program counter ; un processus multi-thread en a un par thread."
+        "explanation": "Job control du manuel de lab."
       },
       {
         "type": "mcq",
-        "prompt": "True or false? The registers method does not limit the number of parameters.",
+        "prompt": "Which program is described as 'the one program running at all times on the computer'?",
         "choices": [
-          "True",
-          "False"
+          "The shell",
+          "The bootstrap program",
+          "The kernel",
+          "The middleware"
         ],
-        "correct": 1,
-        "explanation": "Faux : le nombre de registres est limité. Ce sont block et stack qui ne limitent pas."
+        "correct": 2,
+        "explanation": "Le kernel tourne en permanence. Le shell est un programme système, le bootstrap ne sert qu'au démarrage, le middleware est une couche de services pour les développeurs."
       },
       {
         "type": "mcq",
-        "prompt": "True or false? Git and GitHub are two names for the same thing.",
+        "prompt": "What is a User Private Group (UPG)?",
         "choices": [
-          "True",
-          "False"
+          "A group that only root can join or leave",
+          "A group shared by every user of the system",
+          "A hidden group used by daemons at boot",
+          "A group named after the user, who is its only member"
         ],
-        "correct": 1,
-        "explanation": "Faux : Git est l'outil de gestion de versions ; GitHub est un service en ligne qui héberge des dépôts Git."
+        "correct": 3,
+        "explanation": "Groupe primaire créé avec le même nom que l'utilisateur."
       },
       {
         "type": "mcq",
@@ -13566,6 +13538,157 @@
         ],
         "correct": 0,
         "explanation": "Vrai : pull récupère puis fusionne."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each Git command with what it does.",
+        "pairs": [
+          [
+            "git status",
+            "Lists new or modified files not yet committed"
+          ],
+          [
+            "git diff",
+            "Shows the changes line by line"
+          ],
+          [
+            "git log",
+            "Shows the commit history of the branch"
+          ],
+          [
+            "git reset <file>",
+            "Unstages a file but keeps its changes"
+          ]
+        ],
+        "explanation": "status = état ; diff = différences ; log = historique ; reset <file> = retirer du staging."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How do you run 'find /etc -name passwd' and discard its error messages?",
+        "choices": [
+          "find /etc -name passwd > /dev/null",
+          "find /etc -name passwd | /dev/null",
+          "find /etc -name passwd >> /dev/null",
+          "find /etc -name passwd 2> /dev/null"
+        ],
+        "correct": 3,
+        "explanation": "2> redirige stderr ; /dev/null jette tout."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each Linux process state letter with its meaning.",
+        "pairs": [
+          [
+            "R",
+            "Running or runnable"
+          ],
+          [
+            "D",
+            "Uninterruptible sleep"
+          ],
+          [
+            "K",
+            "Like D but can be killed"
+          ],
+          [
+            "T",
+            "Stopped or being traced"
+          ],
+          [
+            "X",
+            "Dead, fully released after being reaped"
+          ]
+        ],
+        "explanation": "États Linux affichés par ps."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which is NOT a reason for a parent to abort() a child in the course?",
+        "choices": [
+          "The child has exceeded its allocated resources",
+          "The task assigned to the child is no longer required",
+          "The parent is exiting and the OS forbids orphans",
+          "The child has opened too many files for reading"
+        ],
+        "correct": 3,
+        "explanation": "Les trois raisons du cours : ressources dépassées, tâche inutile, parent qui se termine."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? SJF is a special case of priority scheduling where the priority is the inverse of the predicted next CPU burst.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How many bytes are in 1 KB according to the course?",
+        "choices": [
+          "1,000",
+          "1,024",
+          "512",
+          "8,192"
+        ],
+        "correct": 1,
+        "explanation": "1 KB = 2^10 = 1 024 octets ; 1 MB = 1 024², etc."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each component of a computer system with its role.",
+        "pairs": [
+          [
+            "Hardware",
+            "Provides the basic computing resources"
+          ],
+          [
+            "Operating system",
+            "Controls and coordinates the use of the hardware"
+          ],
+          [
+            "Application programs",
+            "Use the resources to solve users' problems"
+          ],
+          [
+            "Users",
+            "People, machines or other computers"
+          ]
+        ],
+        "explanation": "Les quatre composants : hardware, operating system, application programs, users."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? A signal handler can be either the default handler run by the kernel or a user-defined handler.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which command shows the absolute path of the current directory?",
+        "choices": [
+          "cd",
+          "ls -l",
+          "pwd",
+          "whoami"
+        ],
+        "correct": 2,
+        "explanation": "pwd = print working directory."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Dynamically linked libraries (DLLs) are loaded once and shared by the programs that use the same version.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : chargées à la demande, partagées."
       },
       {
         "type": "mcq",
@@ -13579,6 +13702,16 @@
       },
       {
         "type": "mcq",
+        "prompt": "True or false? Creating a thread is more expensive than creating a process.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : process = heavy-weight, thread = light-weight."
+      },
+      {
+        "type": "mcq",
         "prompt": "In the lab, Ubuntu runs inside VMware Workstation Player on your laptop. What is Ubuntu here?",
         "choices": [
           "The host OS",
@@ -13588,6 +13721,18 @@
         ],
         "correct": 3,
         "explanation": "Ubuntu tourne dans la VM : c'est le guest. Ton OS réel est le host."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is a system call?",
+        "choices": [
+          "A library function that never enters the kernel",
+          "The programming interface to the services provided by the OS",
+          "A hardware signal sent by a device controller",
+          "A command typed by the user in the shell"
+        ],
+        "correct": 1,
+        "explanation": "Le system call est l'interface de programmation vers les services de l'OS."
       },
       {
         "type": "mcq",
@@ -13613,15 +13758,50 @@
       },
       {
         "type": "mcq",
-        "prompt": "How do you run 'find /etc -name passwd' and discard its error messages?",
+        "prompt": "What does a NUMA-aware operating system do when scheduling a thread?",
         "choices": [
-          "find /etc -name passwd > /dev/null",
-          "find /etc -name passwd | /dev/null",
-          "find /etc -name passwd >> /dev/null",
-          "find /etc -name passwd 2> /dev/null"
+          "Always runs the thread on CPU 0",
+          "Moves the thread to the least loaded CPU every tick",
+          "Allocates memory closest to the CPU the thread runs on",
+          "Gives each thread its own memory controller"
         ],
-        "correct": 3,
-        "explanation": "2> redirige stderr ; /dev/null jette tout."
+        "correct": 2,
+        "explanation": "Mémoire la plus proche du CPU du thread."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each multithreading model with its description.",
+        "pairs": [
+          [
+            "Many-to-One",
+            "Many user threads mapped to a single kernel thread"
+          ],
+          [
+            "One-to-One",
+            "Each user thread maps to its own kernel thread"
+          ],
+          [
+            "Many-to-Many",
+            "Many user threads mapped to many kernel threads"
+          ],
+          [
+            "Two-level",
+            "Like many-to-many, but a user thread can be bound to a kernel thread"
+          ]
+        ],
+        "explanation": "Les modèles du chapitre 4."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does 'chmod a+x file2' do?",
+        "choices": [
+          "Removes execute for everyone",
+          "Adds execute for the owner only",
+          "Adds execute permission for everyone",
+          "Sets the file to be executable by root"
+        ],
+        "correct": 2,
+        "explanation": "a = all, + = ajouter, x = execute."
       },
       {
         "type": "mcq",
@@ -13647,42 +13827,6 @@
       },
       {
         "type": "mcq",
-        "prompt": "What does 'chmod a+x file2' do?",
-        "choices": [
-          "Removes execute for everyone",
-          "Adds execute for the owner only",
-          "Adds execute permission for everyone",
-          "Sets the file to be executable by root"
-        ],
-        "correct": 2,
-        "explanation": "a = all, + = ajouter, x = execute."
-      },
-      {
-        "type": "mcq",
-        "prompt": "Where does memory allocated with malloc() come from?",
-        "choices": [
-          "The stack",
-          "The data section",
-          "The PCB",
-          "The heap"
-        ],
-        "correct": 3,
-        "explanation": "malloc() alloue dans le tas (heap)."
-      },
-      {
-        "type": "mcq",
-        "prompt": "What is a system call?",
-        "choices": [
-          "A library function that never enters the kernel",
-          "The programming interface to the services provided by the OS",
-          "A hardware signal sent by a device controller",
-          "A command typed by the user in the shell"
-        ],
-        "correct": 1,
-        "explanation": "Le system call est l'interface de programmation vers les services de l'OS."
-      },
-      {
-        "type": "mcq",
         "prompt": "Which of these database types is NOT a NoSQL type?",
         "choices": [
           "Key-Value",
@@ -13695,7 +13839,87 @@
       },
       {
         "type": "mcq",
-        "prompt": "True or false? A signal handler can be either the default handler run by the kernel or a user-defined handler.",
+        "prompt": "Where does memory allocated with malloc() come from?",
+        "choices": [
+          "The stack",
+          "The data section",
+          "The PCB",
+          "The heap"
+        ],
+        "correct": 3,
+        "explanation": "malloc() alloue dans le tas (heap)."
+      }
+    ]
+  },
+  {
+    "name": "Week 6",
+    "key": "school-os-w6",
+    "color": "orange",
+    "parent": "school-os",
+    "questions": [],
+    "exercises": [
+      {
+        "type": "mcq",
+        "prompt": "What does the CPU scheduler do?",
+        "choices": [
+          "Selects a process from the ready queue and allocates a CPU core to it",
+          "Gives control of the CPU to the process chosen by another module",
+          "Moves processes between main memory and the swap space on disk",
+          "Decides which interrupt service routine runs after an interrupt"
+        ],
+        "correct": 0,
+        "explanation": "Le scheduler choisit ; le dispatcher donne le CPU."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? The CPU-burst distribution consists of a large number of short bursts and a small number of long bursts.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : c'est l'histogramme des CPU bursts du cours."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each process profile with its CPU bursts.",
+        "pairs": [
+          [
+            "I/O-bound process",
+            "Many short CPU bursts"
+          ],
+          [
+            "CPU-bound process",
+            "A few long CPU bursts"
+          ]
+        ],
+        "explanation": "Un processus I/O-bound attend surtout des E/S ; un CPU-bound calcule longtemps."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In which two situations does the scheduler have NO choice and must pick a new process?",
+        "choices": [
+          "When the process switches from running to ready, or from waiting to ready",
+          "When the process switches from running to waiting, or terminates",
+          "When a new process is admitted, or when the timer expires",
+          "When the process makes a system call, or returns from it"
+        ],
+        "correct": 1,
+        "explanation": "Cas 1 (running → waiting) et cas 4 (terminate) : le CPU est libre, il faut un nouveau processus."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? A scheduling scheme where decisions happen only when a process switches to waiting or terminates is preemptive.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : seulement les cas 1 et 4 = nonpreemptive."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Virtually all modern operating systems, including Windows, macOS and Linux, use preemptive scheduling.",
         "choices": [
           "True",
           "False"
@@ -13705,27 +13929,965 @@
       },
       {
         "type": "mcq",
-        "prompt": "True or false? From the point of view of a mainframe shared by many users, the OS acts as a resource allocator and control program.",
+        "prompt": "Which problem can preemptive scheduling cause when processes share data?",
+        "choices": [
+          "Convoy effect",
+          "Starvation",
+          "Race conditions",
+          "Thrashing"
+        ],
+        "correct": 2,
+        "explanation": "Un processus interrompu en pleine mise à jour laisse des données incohérentes pour l'autre."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Order what the dispatcher does to give the CPU to the selected process.",
+        "steps": [
+          "Switch context",
+          "Switch to user mode",
+          "Jump to the proper location in the user program"
+        ],
+        "explanation": "Les trois étapes du dispatcher."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is dispatch latency?",
+        "choices": [
+          "The time from process arrival until its first response",
+          "The time a process spends waiting in the ready queue",
+          "The time between an interrupt and the start of its handler",
+          "The time for the dispatcher to stop one process and start another"
+        ],
+        "correct": 3,
+        "explanation": "Dispatch latency = arrêter un processus et en lancer un autre. La dernière proposition est l'interrupt latency."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each scheduling criterion with its definition.",
+        "pairs": [
+          [
+            "CPU utilization",
+            "Keep the CPU as busy as possible"
+          ],
+          [
+            "Throughput",
+            "Number of processes completed per time unit"
+          ],
+          [
+            "Turnaround time",
+            "Time to execute a process, from arrival to completion"
+          ],
+          [
+            "Waiting time",
+            "Time spent waiting in the ready queue"
+          ],
+          [
+            "Response time",
+            "Time from submission until the first response"
+          ]
+        ],
+        "explanation": "Les 5 critères du chapitre 5."
+      },
+      {
+        "type": "matching",
+        "prompt": "Should each criterion be maximized or minimized?",
+        "pairs": [
+          [
+            "CPU utilization",
+            "Maximize"
+          ],
+          [
+            "Waiting time",
+            "Minimize"
+          ]
+        ],
+        "explanation": "Max : CPU utilization et throughput. Min : turnaround, waiting, response."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Waiting time includes the time a process spends executing on the CPU.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : seulement le temps passé dans la ready queue."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "A process arrives at time 2, needs a 5 ms CPU burst and completes at time 15. What is its waiting time (in ms)?",
+        "accept": [
+          "8",
+          "8 ms",
+          "8ms"
+        ],
+        "explanation": "Turnaround = 15 − 2 = 13 ; waiting = 13 − 5 = 8.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "A process arrives at time 0 and completes at time 24. What is its turnaround time (in ms)?",
+        "accept": [
+          "24",
+          "24 ms",
+          "24ms"
+        ],
+        "explanation": "Turnaround = completion − arrival = 24 − 0.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "FCFS with P1 = 24, P2 = 3, P3 = 3 arriving in the order P1, P2, P3 at time 0. What is the average waiting time?",
+        "accept": [
+          "17",
+          "17 ms",
+          "17ms"
+        ],
+        "explanation": "Waiting : 0, 24, 27 → 51 / 3 = 17.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "mcq",
+        "prompt": "FCFS with P1 = 24, P2 = 3, P3 = 3 arriving in the order P2, P3, P1. What is the average waiting time?",
+        "choices": [
+          "17",
+          "6",
+          "3",
+          "10"
+        ],
+        "correct": 2,
+        "explanation": "Waiting : P2 = 0, P3 = 3, P1 = 6 → 9 / 3 = 3."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the convoy effect?",
+        "choices": [
+          "Short processes waiting behind one long process",
+          "Long processes never getting the CPU at all",
+          "Processes moving between several ready queues",
+          "Processes losing their cache after migrating"
+        ],
+        "correct": 0,
+        "explanation": "Défaut de FCFS : les petits processus attendent derrière un gros."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? FCFS is a preemptive algorithm.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : FCFS est non préemptif."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which algorithm gives the minimum average waiting time for a given set of processes?",
+        "choices": [
+          "First-Come, First-Served (FCFS)",
+          "Shortest-Job-First (SJF)",
+          "Round Robin (RR)",
+          "Priority scheduling"
+        ],
+        "correct": 1,
+        "explanation": "SJF est optimal pour le temps d'attente moyen."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "SJF with bursts P1 = 6, P2 = 8, P3 = 7, P4 = 3, all arriving at time 0. What is the average waiting time?",
+        "accept": [
+          "7",
+          "7 ms",
+          "7ms"
+        ],
+        "explanation": "Ordre P4, P1, P3, P2 : waiting 3, 16, 9, 0 → 28 / 4 = 7.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "order_steps",
+        "prompt": "SJF with bursts P1 = 6, P2 = 8, P3 = 7, P4 = 3 (all at time 0). Order the processes as they run.",
+        "steps": [
+          "P4",
+          "P1",
+          "P3",
+          "P2"
+        ],
+        "explanation": "Du plus court au plus long."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the main difficulty of SJF?",
+        "choices": [
+          "It never lets short processes run first",
+          "It needs a timer interrupt for each quantum",
+          "It creates one queue per process type",
+          "Knowing the length of the next CPU burst"
+        ],
+        "correct": 3,
+        "explanation": "On doit prédire la durée du burst, en général par moyenne exponentielle."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How is the length of the next CPU burst usually predicted?",
+        "choices": [
+          "A fixed value chosen at boot time",
+          "The priority number given by the user",
+          "The size of the program on disk",
+          "Exponential averaging of the previous bursts"
+        ],
+        "correct": 3,
+        "explanation": "τ(n+1) = α·t(n) + (1 − α)·τ(n), avec en général α = ½."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is Shortest-Remaining-Time-First (SRTF)?",
+        "choices": [
+          "The nonpreemptive version of RR",
+          "The preemptive version of SJF",
+          "SJF with aging to avoid starvation",
+          "FCFS with a time quantum"
+        ],
+        "correct": 1,
+        "explanation": "À chaque arrivée, on préempte si le nouveau a un temps restant plus court."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "SRTF with P1 (arrival 0, burst 8), P2 (1, 4), P3 (2, 9), P4 (3, 5). What is the average waiting time?",
+        "accept": [
+          "6.5",
+          "6,5",
+          "6.5 ms"
+        ],
+        "explanation": "Waiting : P1 9, P2 0, P3 15, P4 2 → 26 / 4 = 6,5.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "mcq",
+        "prompt": "With SRTF and P1 (arrival 0, burst 8), P2 (arrival 1, burst 4), what happens at time 1?",
+        "choices": [
+          "P2 preempts P1 because 4 < 7 remaining",
+          "P1 keeps the CPU until it finishes",
+          "P2 waits until P1's quantum expires",
+          "Both processes share the CPU equally"
+        ],
+        "correct": 0,
+        "explanation": "P1 a encore 7 unités à faire, P2 n'en a que 4 : préemption."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? The main disadvantage of SRTF is the overhead caused by preemption.",
         "choices": [
           "True",
           "False"
         ],
         "correct": 0,
-        "explanation": "Vrai : sur une machine partagée, l'OS doit répartir les ressources et contrôler l'exécution pour satisfaire tout le monde."
+        "explanation": "Vrai."
       },
       {
         "type": "mcq",
-        "prompt": "Which program is described as 'the one program running at all times on the computer'?",
+        "prompt": "In Round Robin, what happens when a process's time quantum expires?",
         "choices": [
-          "The shell",
-          "The bootstrap program",
-          "The kernel",
-          "The middleware"
+          "It is terminated and its resources are released",
+          "It keeps running until it blocks for I/O",
+          "It is preempted and added to the end of the ready queue",
+          "It is moved to a lower-priority queue forever"
         ],
         "correct": 2,
-        "explanation": "Le kernel tourne en permanence. Le shell est un programme système, le bootstrap ne sert qu'au démarrage, le middleware est une couche de services pour les développeurs."
+        "explanation": "Préemption et retour en fin de ready queue."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is a typical time quantum in Round Robin?",
+        "choices": [
+          "1 to 10 microseconds",
+          "10 to 100 milliseconds",
+          "1 to 10 seconds",
+          "Exactly 1 nanosecond"
+        ],
+        "correct": 1,
+        "explanation": "q ≈ 10–100 ms, alors qu'un context switch prend < 10 µs."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Round Robin with n = 5 processes and a quantum q = 20 ms. What is the maximum time (in ms) a process waits before getting the CPU again?",
+        "accept": [
+          "80",
+          "80 ms",
+          "80ms"
+        ],
+        "explanation": "(n − 1) × q = 4 × 20 = 80.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? If the time quantum is very large, Round Robin behaves like FCFS.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? The time quantum should be small compared to the context-switch time.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : q doit être grand devant le context switch, sinon l'overhead est trop élevé."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Rule of thumb: what fraction of CPU bursts should be shorter than the time quantum?",
+        "choices": [
+          "20%",
+          "50%",
+          "80%",
+          "100%"
+        ],
+        "correct": 2,
+        "explanation": "80 % des CPU bursts doivent être plus courts que q."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Compared to SJF, Round Robin typically has:",
+        "choices": [
+          "Lower turnaround and worse response",
+          "The same turnaround and the same response",
+          "No preemption at all",
+          "Higher average turnaround but better response"
+        ],
+        "correct": 3,
+        "explanation": "RR : turnaround plus élevé, meilleur temps de réponse."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Round Robin with q = 4, P1 = 24, P2 = 3, P3 = 3 (all at time 0). At what time does P3 finish?",
+        "accept": [
+          "10"
+        ],
+        "explanation": "P1 0–4, P2 4–7, P3 7–10.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? In the course's priority scheduling, a larger priority number means a higher priority.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : le plus petit entier = la plus haute priorité."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Priority scheduling: P1 (burst 10, prio 3), P2 (1, 1), P3 (2, 4), P4 (1, 5), P5 (5, 2), all at time 0. What is the average waiting time?",
+        "accept": [
+          "8.2",
+          "8,2",
+          "8.2 ms"
+        ],
+        "explanation": "Ordre P2, P5, P1, P3, P4 : waiting 6, 0, 16, 18, 1 → 41 / 5 = 8,2.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the main problem of priority scheduling?",
+        "choices": [
+          "Starvation",
+          "Convoy effect",
+          "Priority inversion only",
+          "Belady's anomaly"
+        ],
+        "correct": 0,
+        "explanation": "Un processus de faible priorité peut ne jamais tourner."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which technique solves starvation in priority scheduling?",
+        "choices": [
+          "Aging",
+          "Swapping",
+          "Spooling",
+          "Paging"
+        ],
+        "correct": 0,
+        "explanation": "Aging : augmenter la priorité d'un processus au fil de son attente."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? SJF is a special case of priority scheduling where the priority is the inverse of the predicted next CPU burst.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai."
+      },
+      {
+        "type": "mcq",
+        "prompt": "With priority + round robin, how do processes of equal priority share the CPU?",
+        "choices": [
+          "They run in FCFS order",
+          "They run round-robin",
+          "The shorter one always wins",
+          "They run in parallel"
+        ],
+        "correct": 1,
+        "explanation": "Même priorité → round robin."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each algorithm with its key idea.",
+        "pairs": [
+          [
+            "Multilevel queue",
+            "Ready queue split into queues, each with its own algorithm"
+          ],
+          [
+            "Multilevel feedback queue",
+            "Processes can move between the queues"
+          ],
+          [
+            "Round Robin",
+            "Fixed time quantum, then back to the end of the queue"
+          ],
+          [
+            "SRTF",
+            "Preempt when a shorter remaining time arrives"
+          ]
+        ],
+        "explanation": "MLFQ = multilevel queue + déplacement entre files."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "MLFQ example: order the queues a long CPU-bound process goes through.",
+        "steps": [
+          "Q0 – RR with an 8 ms quantum",
+          "Q1 – RR with a 16 ms quantum",
+          "Q2 – FCFS"
+        ],
+        "explanation": "Il descend d'un niveau chaque fois qu'il ne finit pas dans son quantum."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Aging can be implemented with a multilevel feedback queue.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each algorithm with its main disadvantage.",
+        "pairs": [
+          [
+            "FCFS",
+            "Convoy effect"
+          ],
+          [
+            "SJF",
+            "Requires burst-length prediction"
+          ],
+          [
+            "Priority",
+            "Starvation of low-priority processes"
+          ],
+          [
+            "Multilevel feedback queue",
+            "Most complex to configure"
+          ]
+        ],
+        "explanation": "Tableau comparatif de la lecture note."
+      },
+      {
+        "type": "matching",
+        "prompt": "Preemptive or not? Match each algorithm.",
+        "pairs": [
+          [
+            "FCFS",
+            "Nonpreemptive"
+          ],
+          [
+            "Round Robin",
+            "Preemptive"
+          ],
+          [
+            "Priority",
+            "Both versions exist"
+          ]
+        ],
+        "explanation": "SJF est non préemptif, SRTF préemptif."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each contention scope with its description.",
+        "pairs": [
+          [
+            "Process-contention scope (PCS)",
+            "Competition among threads within the same process"
+          ],
+          [
+            "System-contention scope (SCS)",
+            "Competition among all threads in the system"
+          ]
+        ],
+        "explanation": "PCS : user threads sur les LWP. SCS : kernel threads sur les CPU."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which Pthread scope do Linux and macOS allow?",
+        "choices": [
+          "Only PTHREAD_SCOPE_PROCESS",
+          "Both scopes freely",
+          "Only PTHREAD_SCOPE_SYSTEM",
+          "Neither scope"
+        ],
+        "correct": 2,
+        "explanation": "Linux et macOS : SCS uniquement."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each load-balancing technique with its description.",
+        "pairs": [
+          [
+            "Push migration",
+            "A periodic task moves tasks from overloaded CPUs"
+          ],
+          [
+            "Pull migration",
+            "An idle CPU pulls a waiting task from a busy one"
+          ]
+        ],
+        "explanation": "Deux façons d'équilibrer la charge."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each affinity type with its description.",
+        "pairs": [
+          [
+            "Soft affinity",
+            "The OS tries to keep a thread on the same CPU, no guarantee"
+          ],
+          [
+            "Hard affinity",
+            "The process specifies the set of CPUs it may run on"
+          ]
+        ],
+        "explanation": "L'affinité exploite le contenu du cache."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A quad-core system with 2 hardware threads per core. How many logical processors does the OS see?",
+        "choices": [
+          "4",
+          "2",
+          "16",
+          "8"
+        ],
+        "correct": 3,
+        "explanation": "4 × 2 = 8 (chip multithreading / hyperthreading)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Load balancing can hurt processor affinity, because a migrated thread loses its cache contents.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does a NUMA-aware operating system do when scheduling a thread?",
+        "choices": [
+          "Always runs the thread on CPU 0",
+          "Moves the thread to the least loaded CPU every tick",
+          "Allocates memory closest to the CPU the thread runs on",
+          "Gives each thread its own memory controller"
+        ],
+        "correct": 2,
+        "explanation": "Mémoire la plus proche du CPU du thread."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each real-time type with its guarantee.",
+        "pairs": [
+          [
+            "Soft real-time",
+            "Critical tasks get priority, no deadline guarantee"
+          ],
+          [
+            "Hard real-time",
+            "Tasks must be serviced by their deadline"
+          ]
+        ],
+        "explanation": "Soft = pas de garantie ; hard = deadline obligatoire."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each real-time algorithm with its rule.",
+        "pairs": [
+          [
+            "Rate Monotonic",
+            "Shorter period, higher fixed priority"
+          ],
+          [
+            "Earliest Deadline First",
+            "Earlier deadline, higher dynamic priority"
+          ],
+          [
+            "Proportional share",
+            "An application with N of T shares gets N/T of the CPU"
+          ]
+        ],
+        "explanation": "RMS = priorité statique ; EDF = priorité dynamique."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Rate Monotonic Scheduling uses dynamic priorities based on deadlines.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : c'est EDF. RMS utilise des priorités fixes selon la période."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each latency with its definition.",
+        "pairs": [
+          [
+            "Interrupt latency",
+            "From interrupt arrival to the start of its service routine"
+          ],
+          [
+            "Dispatch latency",
+            "Time to take the current process off the CPU and switch"
+          ]
+        ],
+        "explanation": "Les deux composantes de l'event latency."
+      },
+      {
+        "type": "mcq",
+        "prompt": "For a periodic real-time task with processing time t, deadline d and period p, which relation holds?",
+        "choices": [
+          "0 ≤ t ≤ d ≤ p",
+          "0 ≤ p ≤ d ≤ t",
+          "0 ≤ d ≤ t ≤ p",
+          "0 ≤ t ≤ p ≤ d"
+        ],
+        "correct": 0,
+        "explanation": "Le traitement tient dans la deadline, qui tient dans la période. Le rate vaut 1/p."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each POSIX real-time class with its behaviour.",
+        "pairs": [
+          [
+            "SCHED_FIFO",
+            "FCFS with no time-slicing among equal priorities"
+          ],
+          [
+            "SCHED_RR",
+            "Like FIFO but with time-slicing among equal priorities"
+          ]
+        ],
+        "explanation": "Classes définies par POSIX.1b."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which scheduler has Linux used since kernel 2.6.23?",
+        "choices": [
+          "The O(1) scheduler",
+          "The Completely Fair Scheduler (CFS)",
+          "A multilevel feedback queue",
+          "Earliest Deadline First"
+        ],
+        "correct": 1,
+        "explanation": "CFS, depuis 2.6.23."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How does CFS pick the next task to run?",
+        "choices": [
+          "The task with the highest nice value",
+          "The task that arrived first",
+          "The task with the longest burst",
+          "The task with the lowest virtual run time"
+        ],
+        "correct": 3,
+        "explanation": "Le plus petit vruntime."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the range of Linux nice values?",
+        "choices": [
+          "-20 to +19",
+          "0 to 99",
+          "0 to 139",
+          "-10 to +10"
+        ],
+        "correct": 0,
+        "explanation": "Nice −20 à +19 ; plus petit = plus prioritaire. Temps réel : 0–99."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each evaluation method with its description.",
+        "pairs": [
+          [
+            "Deterministic modeling",
+            "Performance of each algorithm on a fixed workload"
+          ],
+          [
+            "Queueing models",
+            "Probabilistic description of arrivals and bursts"
+          ],
+          [
+            "Simulation",
+            "Programmed model driven by random data or trace tapes"
+          ],
+          [
+            "Implementation",
+            "Coding the scheduler and testing it in a real system"
+          ]
+        ],
+        "explanation": "Du plus simple au plus coûteux."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is Little's formula?",
+        "choices": [
+          "W = n × λ",
+          "n = λ × W",
+          "λ = n × W",
+          "n = λ / W"
+        ],
+        "correct": 1,
+        "explanation": "n = longueur moyenne de la file, λ = taux d'arrivée, W = attente moyenne."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Little's formula: 7 processes arrive per second and there are normally 14 processes in the queue. What is the average waiting time in seconds?",
+        "accept": [
+          "2",
+          "2 s",
+          "2s",
+          "2 seconds"
+        ],
+        "explanation": "W = n / λ = 14 / 7 = 2.",
+        "placeholder": "a number"
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Little's formula is valid for any scheduling algorithm and arrival distribution.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai (en régime stable)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Every user has exactly one primary group.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai ; les autres sont des supplementary groups."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Where is the GID of a local user's primary group defined?",
+        "choices": [
+          "In the first field of /etc/group",
+          "In the second field of /etc/shadow",
+          "In the home directory of the user",
+          "In the fourth field of /etc/passwd"
+        ],
+        "correct": 3,
+        "explanation": "4e champ de /etc/passwd ; les groupes eux-mêmes sont listés dans /etc/group."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In which file are local groups defined?",
+        "choices": [
+          "/etc/passwd",
+          "/etc/groups.conf",
+          "/etc/group",
+          "/var/group"
+        ],
+        "correct": 2,
+        "explanation": "/etc/group."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is a User Private Group (UPG)?",
+        "choices": [
+          "A group that only root can join or leave",
+          "A group shared by every user of the system",
+          "A hidden group used by daemons at boot",
+          "A group named after the user, who is its only member"
+        ],
+        "correct": 3,
+        "explanation": "Groupe primaire créé avec le même nom que l'utilisateur."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which command shows the UID, GID and groups of the current user?",
+        "choices": [
+          "id",
+          "whoami -a",
+          "groups -u",
+          "ps au"
+        ],
+        "correct": 0,
+        "explanation": "id (ou id nom_utilisateur)."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each Linux process state letter with its meaning.",
+        "pairs": [
+          [
+            "R",
+            "Running or runnable"
+          ],
+          [
+            "D",
+            "Uninterruptible sleep"
+          ],
+          [
+            "K",
+            "Like D but can be killed"
+          ],
+          [
+            "T",
+            "Stopped or being traced"
+          ],
+          [
+            "X",
+            "Dead, fully released after being reaped"
+          ]
+        ],
+        "explanation": "États Linux affichés par ps."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? In Linux, a zombie keeps only its process identity (PID) until its parent reaps it.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : toutes les autres ressources sont libérées."
       }
-    ]
+    ],
+    "flashcards": [
+      {
+        "front": "CPU–I/O burst cycle",
+        "back": "L'exécution alterne calcul (CPU burst) et attente d'E/S (I/O burst). Beaucoup de bursts courts, peu de longs."
+      },
+      {
+        "front": "Nonpreemptive vs preemptive",
+        "back": "Non préemptif : décision seulement quand le processus passe en waiting ou se termine. Préemptif : l'OS peut retirer le CPU."
+      },
+      {
+        "front": "Scheduler vs dispatcher",
+        "back": "Le scheduler choisit ; le dispatcher donne le CPU (context switch, user mode, saut)."
+      },
+      {
+        "front": "Dispatch latency",
+        "back": "Temps pour arrêter un processus et en lancer un autre."
+      },
+      {
+        "front": "Critères",
+        "back": "Max : CPU utilization, throughput. Min : turnaround, waiting, response."
+      },
+      {
+        "front": "Formules",
+        "back": "Turnaround = fin − arrivée. Waiting = turnaround − burst. Response = 1er passage CPU − arrivée."
+      },
+      {
+        "front": "FCFS",
+        "back": "Ordre d'arrivée, non préemptif, convoy effect. Exemple : 17 (P1 d'abord) vs 3."
+      },
+      {
+        "front": "SJF",
+        "back": "Plus court d'abord, optimal pour l'attente moyenne ; il faut prédire le burst (moyenne exponentielle, α = ½)."
+      },
+      {
+        "front": "SRTF",
+        "back": "SJF préemptif : préemption si un nouveau a un temps restant plus court. Exemple : 6,5."
+      },
+      {
+        "front": "Round Robin",
+        "back": "Quantum 10–100 ms ; attente max (n−1)·q ; q grand → FCFS ; 80 % des bursts < q."
+      },
+      {
+        "front": "Priority",
+        "back": "Plus petit nombre = plus prioritaire. Starvation → aging. Exemple : 8,2."
+      },
+      {
+        "front": "Multilevel queue vs MLFQ",
+        "back": "MLQ : une file par type, chacune son algorithme. MLFQ : les processus changent de file."
+      },
+      {
+        "front": "PCS vs SCS",
+        "back": "PCS : threads d'un même processus. SCS : tous les threads du système. Linux : SCS seulement."
+      },
+      {
+        "front": "Push vs pull migration",
+        "back": "Push : on déplace depuis un CPU surchargé. Pull : un CPU inactif prend une tâche."
+      },
+      {
+        "front": "Soft vs hard affinity",
+        "back": "Soft : l'OS essaie. Hard : le processus impose ses CPU."
+      },
+      {
+        "front": "Hyperthreading",
+        "back": "Plusieurs hardware threads par cœur : 4 cœurs × 2 = 8 CPU logiques."
+      },
+      {
+        "front": "Soft vs hard real-time",
+        "back": "Soft : priorité, pas de garantie. Hard : deadline obligatoire."
+      },
+      {
+        "front": "RMS vs EDF",
+        "back": "RMS : période courte = priorité fixe haute. EDF : deadline proche = priorité dynamique haute."
+      },
+      {
+        "front": "SCHED_FIFO vs SCHED_RR",
+        "back": "FIFO : pas de time-slicing entre égaux. RR : time-slicing entre égaux."
+      },
+      {
+        "front": "Linux CFS",
+        "back": "Nice −20 à +19 ; choisit la tâche au plus petit vruntime."
+      },
+      {
+        "front": "Évaluation",
+        "back": "Deterministic modeling, queueing models, simulation, implementation."
+      },
+      {
+        "front": "Little's formula",
+        "back": "n = λ × W (valable pour tout algorithme). 14 = 7 × W → W = 2 s."
+      },
+      {
+        "front": "Groupe primaire",
+        "back": "Exactement un par utilisateur ; GID au 4e champ de /etc/passwd ; souvent un UPG."
+      },
+      {
+        "front": "États Linux",
+        "back": "R running, S sleeping, D uninterruptible, K killable, T stopped/traced, Z zombie, X dead."
+      }
+    ],
+    "lesson": "# Operating System — Week 6 · CPU Scheduling\n\n**Cours** : chapitre 5 du Silberschatz, *CPU Scheduling*, et la *lecture note*\ndu professeur : les notions de base (CPU–I/O burst, scheduler, dispatcher,\npréemption), les **critères**, les **algorithmes** (FCFS, SJF, SRTF, Round\nRobin, Priority, Multilevel Queue, Multilevel Feedback Queue), l'ordonnancement\ndes threads et des multiprocesseurs, le **temps réel** (RMS, EDF), Linux (CFS)\net l'évaluation des algorithmes (Little's formula).\n**Lab** : utilisateurs et groupes (`id`, `/etc/passwd`, `/etc/group`, `su`),\nprocessus et états Linux.\n\n> **En bref.** Le **CPU scheduler** choisit quel processus de la **ready\n> queue** reçoit le CPU. On juge un algorithme sur l'**utilisation CPU**, le\n> **throughput**, le **turnaround**, le **waiting time** et le **response\n> time**. **SJF** donne le plus petit temps d'attente moyen, **Round Robin**\n> est le plus équitable, **Priority** risque la **starvation** (solution :\n> l'**aging**). Au quiz, sache **lire et calculer un diagramme de Gantt**.\n\n---\n\n# Partie 1 — Cours\n\n## 1. Notions de base\n\n- La **multiprogrammation** sert à **maximiser l'utilisation du CPU**.\n- L'exécution d'un processus alterne des **CPU bursts** (calcul) et des **I/O\n  bursts** (attente d'E/S) : c'est le **CPU–I/O burst cycle**.\n- La distribution des CPU bursts : **beaucoup de bursts courts**, **peu de\n  bursts longs**.\n\n| Type de processus | Profil |\n|---|---|\n| **I/O-bound** | beaucoup de bursts CPU **courts** (un éditeur, un navigateur) |\n| **CPU-bound** | quelques bursts CPU **longs** (un calcul scientifique) |\n\n### Le CPU scheduler\n\nIl choisit un processus dans la **ready queue** et lui alloue un cœur. Une\ndécision d'ordonnancement peut avoir lieu quand un processus :\n\n1. passe de **running à waiting** (demande d'E/S) ;\n2. passe de **running à ready** (interruption) ;\n3. passe de **waiting à ready** (fin d'E/S) ;\n4. **se termine**.\n\nDans les cas **1 et 4**, pas le choix : il faut prendre un nouveau processus.\nDans les cas **2 et 3**, il y a un choix.\n\n| **Nonpreemptive** | **Preemptive** |\n|---|---|\n| ordonnancement **seulement dans les cas 1 et 4** | ordonnancement aussi dans les cas 2 et 3 |\n| une fois le CPU obtenu, le processus le garde **jusqu'à ce qu'il se termine ou passe en waiting** | l'OS peut **retirer** le CPU à un processus |\n| | utilisé par **quasiment tous les OS modernes** : Windows, macOS, Linux, UNIX |\n\n> **Attention :** la préemption peut créer des **race conditions** si des\n> processus partagent des données : l'un est interrompu en pleine mise à jour,\n> l'autre lit des données incohérentes (chapitre 6).\n\n### Le dispatcher\n\nLe **dispatcher** donne le contrôle du CPU au processus choisi par le\nscheduler :\n\n1. **context switch** ;\n2. **passage en user mode** ;\n3. **saut au bon endroit** du programme pour le reprendre.\n\nLa **dispatch latency** est le temps qu'il faut au dispatcher pour **arrêter\nun processus et en lancer un autre**.\n\n> **Piège :** le **scheduler** **choisit** le processus ; le **dispatcher**\n> lui **donne** le CPU.\n\n## 2. Les critères d'ordonnancement\n\n| Critère | Définition | On veut |\n|---|---|---|\n| **CPU utilization** | garder le CPU **le plus occupé possible** | **max** |\n| **Throughput** | nombre de processus **terminés par unité de temps** | **max** |\n| **Turnaround time** | temps total pour exécuter un processus (arrivée → fin) | **min** |\n| **Waiting time** | temps passé **à attendre dans la ready queue** | **min** |\n| **Response time** | temps entre la soumission d'une requête et la **première réponse** | **min** |\n\nLes formules :\n\n```\nTurnaround time = completion time − arrival time\nWaiting time    = turnaround time − burst time\nResponse time   = first time on the CPU − arrival time\nThroughput      = number of processes completed / total time\n```\n\n> **Piège :** le **waiting time** ne compte **que** le temps dans la **ready\n> queue**, pas le temps d'exécution ni le temps d'E/S.\n\n## 3. Les algorithmes\n\n### First-Come, First-Served (FCFS)\n\nLes processus sont servis **dans l'ordre d'arrivée** (une file FIFO).\n**Nonpreemptive.**\n\n| Process | Burst time |\n|---|---|\n| P1 | 24 |\n| P2 | 3 |\n| P3 | 3 |\n\nArrivée dans l'ordre P1, P2, P3 :\n\n```diagram\n{\n  \"title\": \"FCFS, arrival order P1, P2, P3 — average waiting time 17\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 264.0,\n      \"y\": 40,\n      \"w\": 448.0,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 516.0,\n      \"y\": 40,\n      \"w\": 56.0,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 572.0,\n      \"y\": 40,\n      \"w\": 56.0,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t24\",\n      \"x\": 488.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"24\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t27\",\n      \"x\": 544.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"27\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t30\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"30\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\nWaiting : P1 = 0, P2 = 24, P3 = 27 → **moyenne = (0 + 24 + 27) / 3 = 17**.\n\nArrivée dans l'ordre P2, P3, P1 :\n\n```diagram\n{\n  \"title\": \"FCFS, arrival order P2, P3, P1 — average waiting time 3\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 68.0,\n      \"y\": 40,\n      \"w\": 56.0,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 124.0,\n      \"y\": 40,\n      \"w\": 56.0,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 376.0,\n      \"y\": 40,\n      \"w\": 448.0,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t3\",\n      \"x\": 96.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"3\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t6\",\n      \"x\": 152.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"6\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t30\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"30\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\nWaiting : P1 = 6, P2 = 0, P3 = 3 → **moyenne = (6 + 0 + 3) / 3 = 3**. Bien\nmieux !\n\n- **Avantage** : simple à implémenter.\n- **Inconvénient** : l'**effet convoi** (*convoy effect*) : les processus\n  courts attendent derrière un processus long ; temps d'attente moyen élevé.\n\n### Shortest-Job-First (SJF)\n\nOn associe à chaque processus la **longueur de son prochain CPU burst**, et on\nexécute **le plus court d'abord**.\n\n| Process | Burst time |\n|---|---|\n| P1 | 6 |\n| P2 | 8 |\n| P3 | 7 |\n| P4 | 3 |\n\n```diagram\n{\n  \"title\": \"SJF — average waiting time 7\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 75.0,\n      \"y\": 40,\n      \"w\": 70.0,\n      \"h\": 34,\n      \"label\": \"P4\",\n      \"tone\": \"violet\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 180.0,\n      \"y\": 40,\n      \"w\": 140.0,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 331.7,\n      \"y\": 40,\n      \"w\": 163.3,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s3\",\n      \"x\": 506.7,\n      \"y\": 40,\n      \"w\": 186.7,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t3\",\n      \"x\": 110.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"3\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t9\",\n      \"x\": 250.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"9\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t16\",\n      \"x\": 413.3,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"16\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t24\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"24\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\nWaiting : P1 = 3, P2 = 16, P3 = 9, P4 = 0 → **moyenne = (3 + 16 + 9 + 0) / 4 = 7**.\n\n- **SJF est optimal** : il donne le **temps d'attente moyen minimal** pour un\n  ensemble de processus donné.\n- **Problème** : il faut **connaître la durée du prochain burst**. On peut\n  demander à l'utilisateur, ou **l'estimer** à partir des bursts précédents par\n  une **moyenne exponentielle** (*exponential averaging*) :\n  τₙ₊₁ = α·tₙ + (1 − α)·τₙ, avec en général **α = ½**.\n- La version **préemptive** s'appelle **SRTF**.\n\n### Shortest-Remaining-Time-First (SRTF)\n\nVersion **préemptive** de SJF : à chaque **arrivée** d'un processus, on\nrecalcule ; si le nouveau a un temps **restant** plus court que le processus en\ncours, il prend le CPU.\n\n| Process | Arrival | Burst |\n|---|---|---|\n| P1 | 0 | 8 |\n| P2 | 1 | 4 |\n| P3 | 2 | 9 |\n| P4 | 3 | 5 |\n\n```diagram\n{\n  \"title\": \"SRTF (preemptive SJF) — average waiting time 6.5\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 50.8,\n      \"y\": 40,\n      \"w\": 21.5,\n      \"h\": 34,\n      \"label\": \"\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 104.6,\n      \"y\": 40,\n      \"w\": 86.2,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 201.5,\n      \"y\": 40,\n      \"w\": 107.7,\n      \"h\": 34,\n      \"label\": \"P4\",\n      \"tone\": \"violet\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s3\",\n      \"x\": 330.8,\n      \"y\": 40,\n      \"w\": 150.8,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s4\",\n      \"x\": 503.1,\n      \"y\": 40,\n      \"w\": 193.8,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t1\",\n      \"x\": 61.5,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"1\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t5\",\n      \"x\": 147.7,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"5\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t10\",\n      \"x\": 255.4,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"10\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t17\",\n      \"x\": 406.2,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"17\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t26\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"26\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\nÀ t = 1, P2 (4) est plus court que ce qui reste à P1 (7) : **préemption**.\nWaiting = (fin − arrivée − burst) :\n\n| Process | Calcul | Waiting |\n|---|---|---|\n| P1 | 17 − 0 − 8 | 9 |\n| P2 | 5 − 1 − 4 | 0 |\n| P3 | 26 − 2 − 9 | 15 |\n| P4 | 10 − 3 − 5 | 2 |\n\n**Moyenne = 26 / 4 = 6,5.**\n\n- **Avantage** : réduit encore le temps d'attente.\n- **Inconvénient** : **overhead** dû aux préemptions.\n\n### Round Robin (RR)\n\nChaque processus reçoit un petit **time quantum q** (en général **10 à 100 ms**).\nQuand il est écoulé, le processus est **préempté** et remis **à la fin de la\nready queue**. Un **timer** interrompt à chaque quantum.\n\n- Avec *n* processus et un quantum *q*, chacun reçoit **1/n du CPU**, par\n  tranches d'au plus *q*. **Aucun processus n'attend plus de (n − 1)·q.**\n- **q très grand → RR devient FCFS.** q trop petit → trop de context switches.\n- **q doit être grand devant le temps de context switch** (< 10 µs).\n- Règle pratique : **80 % des CPU bursts** doivent être **plus courts que q**.\n\nMême exemple que FCFS (P1 = 24, P2 = 3, P3 = 3), **q = 4** :\n\n```diagram\n{\n  \"title\": \"Round Robin, q = 4 — average waiting time 17/3 ≈ 5.66\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 77.3,\n      \"y\": 40,\n      \"w\": 74.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 142.7,\n      \"y\": 40,\n      \"w\": 56.0,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 198.7,\n      \"y\": 40,\n      \"w\": 56.0,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s3\",\n      \"x\": 264.0,\n      \"y\": 40,\n      \"w\": 74.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s4\",\n      \"x\": 338.7,\n      \"y\": 40,\n      \"w\": 74.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s5\",\n      \"x\": 413.3,\n      \"y\": 40,\n      \"w\": 74.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s6\",\n      \"x\": 488.0,\n      \"y\": 40,\n      \"w\": 74.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s7\",\n      \"x\": 562.7,\n      \"y\": 40,\n      \"w\": 74.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t4\",\n      \"x\": 114.7,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"4\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t7\",\n      \"x\": 170.7,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"7\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t10\",\n      \"x\": 226.7,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"10\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t14\",\n      \"x\": 301.3,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"14\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t18\",\n      \"x\": 376.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"18\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t22\",\n      \"x\": 450.7,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"22\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t26\",\n      \"x\": 525.3,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"26\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t30\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"30\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\nWaiting : P1 = 30 − 24 = 6, P2 = 4, P3 = 7 → moyenne ≈ **5,66**.\n\n- **Avantage** : **équitable**, bon **temps de réponse**.\n- **Inconvénient** : **turnaround** en général **plus élevé que SJF**, surtout\n  avec un petit quantum.\n\n### Priority Scheduling\n\nChaque processus a une **priorité** (un entier). Le CPU va au processus de\n**plus haute priorité** : **le plus petit entier = la plus haute priorité**.\nExiste en **préemptif** et **non préemptif**.\n\n| Process | Burst | Priority |\n|---|---|---|\n| P1 | 10 | 3 |\n| P2 | 1 | 1 |\n| P3 | 2 | 4 |\n| P4 | 1 | 5 |\n| P5 | 5 | 2 |\n\n```diagram\n{\n  \"title\": \"Priority (smallest number = highest priority) — average waiting time 8.2\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 54.7,\n      \"y\": 40,\n      \"w\": 29.5,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 143.2,\n      \"y\": 40,\n      \"w\": 147.4,\n      \"h\": 34,\n      \"label\": \"P5\",\n      \"tone\": \"rose\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 364.2,\n      \"y\": 40,\n      \"w\": 294.7,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s3\",\n      \"x\": 541.1,\n      \"y\": 40,\n      \"w\": 58.9,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s4\",\n      \"x\": 585.3,\n      \"y\": 40,\n      \"w\": 29.5,\n      \"h\": 34,\n      \"label\": \"P4\",\n      \"tone\": \"violet\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t1\",\n      \"x\": 69.5,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"1\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t6\",\n      \"x\": 216.8,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"6\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t16\",\n      \"x\": 511.6,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"16\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t18\",\n      \"x\": 570.5,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"18\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t19\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"19\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\nWaiting : P1 = 6, P2 = 0, P3 = 16, P4 = 18, P5 = 1 → **moyenne = 41 / 5 = 8,2**.\n\n- **SJF est un cas particulier** : la priorité est l'**inverse** de la durée\n  prévue du prochain burst.\n- **Problème : la starvation** (famine) : un processus de faible priorité\n  peut **ne jamais s'exécuter**.\n- **Solution : l'aging** (vieillissement) : **augmenter la priorité** d'un\n  processus **avec le temps** qu'il passe à attendre.\n\n**Priority + Round Robin** : on exécute la plus haute priorité ; les processus\nde **même priorité** tournent en **round robin**.\n\n| Process | Burst | Priority |\n|---|---|---|\n| P1 | 4 | 3 |\n| P2 | 5 | 2 |\n| P3 | 8 | 2 |\n| P4 | 7 | 1 |\n| P5 | 3 | 3 |\n\n```diagram\n{\n  \"title\": \"Priority + Round Robin (q = 2) for equal priorities\",\n  \"nodes\": [\n    {\n      \"id\": \"s0\",\n      \"x\": 112.6,\n      \"y\": 40,\n      \"w\": 145.2,\n      \"h\": 34,\n      \"label\": \"P4\",\n      \"tone\": \"violet\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s1\",\n      \"x\": 205.9,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s2\",\n      \"x\": 247.4,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s3\",\n      \"x\": 288.9,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P2\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s4\",\n      \"x\": 330.4,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s5\",\n      \"x\": 361.5,\n      \"y\": 40,\n      \"w\": 20.7,\n      \"h\": 34,\n      \"label\": \"\",\n      \"tone\": \"amber\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s6\",\n      \"x\": 413.3,\n      \"y\": 40,\n      \"w\": 83.0,\n      \"h\": 34,\n      \"label\": \"P3\",\n      \"tone\": \"emerald\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s7\",\n      \"x\": 475.6,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s8\",\n      \"x\": 517.0,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P5\",\n      \"tone\": \"rose\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s9\",\n      \"x\": 558.5,\n      \"y\": 40,\n      \"w\": 41.5,\n      \"h\": 34,\n      \"label\": \"P1\",\n      \"tone\": \"sky\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"s10\",\n      \"x\": 589.6,\n      \"y\": 40,\n      \"w\": 20.7,\n      \"h\": 34,\n      \"label\": \"\",\n      \"tone\": \"rose\",\n      \"filled\": true,\n      \"size\": 12\n    },\n    {\n      \"id\": \"t0\",\n      \"x\": 40.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"0\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t7\",\n      \"x\": 185.2,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"7\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t9\",\n      \"x\": 226.7,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"9\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t11\",\n      \"x\": 268.1,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"11\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t13\",\n      \"x\": 309.6,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"13\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t15\",\n      \"x\": 351.1,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"15\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t16\",\n      \"x\": 371.9,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"16\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t20\",\n      \"x\": 454.8,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"20\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t22\",\n      \"x\": 496.3,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"22\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t24\",\n      \"x\": 537.8,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"24\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t26\",\n      \"x\": 579.3,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"26\",\n      \"size\": 10\n    },\n    {\n      \"id\": \"t27\",\n      \"x\": 600.0,\n      \"y\": 72,\n      \"shape\": \"text\",\n      \"label\": \"27\",\n      \"size\": 10\n    }\n  ],\n  \"edges\": []\n}\n```\n\n### Multilevel Queue\n\nLa ready queue est **divisée en plusieurs files**, souvent par **type de\nprocessus** ou par priorité ; **chaque file a son propre algorithme**. On sert\nd'abord la file de **plus haute priorité**.\n\n```diagram\n{\n  \"title\": \"Multilevel queue : une file par type de processus, de la plus haute à la plus basse priorité.\",\n  \"nodes\": [\n    { \"id\": \"hp\", \"x\": 40, \"y\": 30, \"shape\": \"text\", \"label\": \"highest\\npriority\", \"size\": 11 },\n    { \"id\": \"q1\", \"x\": 300, \"y\": 30, \"w\": 360, \"h\": 34, \"label\": \"real-time processes\", \"tone\": \"rose\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"q2\", \"x\": 300, \"y\": 75, \"w\": 360, \"h\": 34, \"label\": \"system processes\", \"tone\": \"amber\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"q3\", \"x\": 300, \"y\": 120, \"w\": 360, \"h\": 34, \"label\": \"interactive processes\", \"tone\": \"sky\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"q4\", \"x\": 300, \"y\": 165, \"w\": 360, \"h\": 34, \"label\": \"batch processes\", \"tone\": \"emerald\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"lp\", \"x\": 40, \"y\": 165, \"shape\": \"text\", \"label\": \"lowest\\npriority\", \"size\": 11 },\n    { \"id\": \"a\", \"x\": 40, \"y\": 60, \"shape\": \"text\" },\n    { \"id\": \"b\", \"x\": 40, \"y\": 135, \"shape\": \"text\" }\n  ],\n  \"edges\": [\n    { \"from\": \"a\", \"to\": \"b\" }\n  ]\n}\n```\n\nParamètres : **nombre de files**, **algorithme de chaque file**, **méthode\npour choisir la file** d'un processus, **ordonnancement entre les files**.\n**Inconvénient** : configuration complexe.\n\n### Multilevel Feedback Queue (MLFQ)\n\nComme la multilevel queue, mais **un processus peut changer de file** selon son\ncomportement. C'est le plus **adaptable**, mais le plus **complexe** à régler.\nOn peut y implémenter l'**aging**.\n\n```diagram\n{\n  \"title\": \"Exemple de multilevel feedback queue : un processus qui ne finit pas descend d'un niveau.\",\n  \"nodes\": [\n    { \"id\": \"in\", \"x\": 40, \"y\": 40, \"shape\": \"text\", \"label\": \"new\\nprocess\", \"size\": 11 },\n    { \"id\": \"q0\", \"x\": 260, \"y\": 40, \"w\": 300, \"h\": 36, \"label\": \"Q0 — RR, quantum = 8 ms\", \"tone\": \"sky\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"q1\", \"x\": 260, \"y\": 120, \"w\": 300, \"h\": 36, \"label\": \"Q1 — RR, quantum = 16 ms\", \"tone\": \"amber\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"q2\", \"x\": 260, \"y\": 200, \"w\": 300, \"h\": 36, \"label\": \"Q2 — FCFS\", \"tone\": \"rose\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"d0\", \"x\": 560, \"y\": 40, \"shape\": \"text\", \"label\": \"finished\", \"size\": 11 },\n    { \"id\": \"d1\", \"x\": 560, \"y\": 120, \"shape\": \"text\", \"label\": \"finished\", \"size\": 11 },\n    { \"id\": \"d2\", \"x\": 560, \"y\": 200, \"shape\": \"text\", \"label\": \"finished\", \"size\": 11 }\n  ],\n  \"edges\": [\n    { \"from\": \"in\", \"to\": \"q0\" },\n    { \"from\": \"q0\", \"to\": \"q1\", \"label\": \"not done in 8 ms\" },\n    { \"from\": \"q1\", \"to\": \"q2\", \"label\": \"not done in 16 more ms\" },\n    { \"from\": \"q0\", \"to\": \"d0\" }, { \"from\": \"q1\", \"to\": \"d1\" }, { \"from\": \"q2\", \"to\": \"d2\" }\n  ]\n}\n```\n\nUn nouveau processus entre dans **Q0** (RR, 8 ms). S'il ne finit pas en 8 ms,\nil descend dans **Q1** (RR, 16 ms de plus) ; s'il ne finit toujours pas, il\ndescend dans **Q2** (**FCFS**). Les processus courts (interactifs) restent en\nhaut, les longs (CPU-bound) descendent.\n\nParamètres : nombre de files, algorithme de chaque file, méthode pour **promouvoir**\n(*upgrade*), pour **rétrograder** (*demote*), et pour choisir la file d'entrée.\n\n### Tableau comparatif (lecture note du professeur)\n\n| Algorithme | Préemptif ? | Avantage | Inconvénient |\n|---|---|---|---|\n| **FCFS** | non | simple | **convoy effect**, attente élevée |\n| **SJF** | non | **attente moyenne minimale** (optimal) | il faut **prédire** la durée du burst |\n| **SRTF** | **oui** | attente encore plus faible | **overhead** des préemptions |\n| **Round Robin** | **oui** | **équitable**, bon temps de réponse | turnaround élevé avec un petit quantum |\n| **Priority** | les deux | flexible | **starvation** → **aging** |\n| **Multilevel Queue** | selon les files | gère bien des priorités différentes | configuration complexe |\n| **MLFQ** | oui | **adaptable, dynamique** | le plus complexe à configurer |\n\n## 4. Ordonnancement des threads\n\nQuand l'OS gère des threads, ce sont **les threads** (pas les processus) qui\nsont ordonnancés.\n\n| **Process-contention scope (PCS)** | **System-contention scope (SCS)** |\n|---|---|\n| la bibliothèque de threads place les **user threads** sur les **LWP** (modèles many-to-one, many-to-many) | le noyau place les **kernel threads** sur les CPU |\n| la compétition a lieu **à l'intérieur du processus** | la compétition a lieu **entre tous les threads du système** |\n| en général selon une priorité fixée par le programmeur | |\n\nPthreads permet de choisir à la création : `PTHREAD_SCOPE_PROCESS` (PCS) ou\n`PTHREAD_SCOPE_SYSTEM` (SCS). **Linux et macOS n'autorisent que\n`PTHREAD_SCOPE_SYSTEM`.**\n\n## 5. Ordonnancement multiprocesseur\n\nArchitectures possibles : multicore, cœurs multithreads, NUMA, multiprocesseur\nhétérogène.\n\n- **SMP** (*symmetric multiprocessing*) : **chaque processeur s'ordonnance\n  lui-même**. Soit **une ready queue commune** à tous, soit **une file privée\n  par processeur**.\n- **Multicore** : plusieurs cœurs sur une puce ; plus rapide et consomme moins.\n- **Chip multithreading (CMT)** = **hyperthreading** chez Intel : chaque cœur a\n  **plusieurs hardware threads**. Quand un thread attend la mémoire (*memory\n  stall*), le cœur passe à un autre. **4 cœurs × 2 hardware threads = 8\n  processeurs logiques** vus par l'OS. Deux niveaux d'ordonnancement : l'OS\n  choisit le thread logiciel pour chaque CPU logique ; chaque cœur choisit son\n  hardware thread.\n\n### Load balancing\n\nGarder **tous les CPU chargés** de façon équilibrée :\n\n| **Push migration** | **Pull migration** |\n|---|---|\n| une tâche périodique vérifie la charge et **pousse** des tâches d'un CPU surchargé vers les autres | un CPU **inactif tire** une tâche d'un CPU occupé |\n\n### Processor affinity\n\nUn thread qui a tourné sur un processeur a **rempli son cache** : il a une\n**affinité** pour ce processeur. Le load balancing peut casser cette affinité\n(le thread perd son cache en changeant de CPU).\n\n| **Soft affinity** | **Hard affinity** |\n|---|---|\n| l'OS **essaie** de garder le thread sur le même CPU, **sans garantie** | le processus **impose** l'ensemble des CPU sur lesquels il peut tourner |\n\n**NUMA** : un OS **NUMA-aware** alloue la mémoire **la plus proche** du CPU\noù tourne le thread.\n\n## 6. Ordonnancement temps réel\n\n| **Soft real-time** | **Hard real-time** |\n|---|---|\n| les tâches critiques ont la **plus haute priorité**, mais **aucune garantie** de délai | une tâche **doit** être servie **avant sa deadline** |\n\n**Event latency** : temps entre un événement et son traitement. Deux\ncomposantes :\n\n- **Interrupt latency** : de l'arrivée de l'interruption au début de la routine\n  qui la traite ;\n- **Dispatch latency** : le temps pour retirer le processus courant du CPU et\n  lancer l'autre.\n\nPour le temps réel, le scheduler doit être **préemptif et à priorités** (ce qui\nsuffit pour du soft real-time). Les tâches **périodiques** ont un temps de\ntraitement **t**, une deadline **d**, une période **p**, avec **0 ≤ t ≤ d ≤ p** ;\nleur **rate** est **1/p**.\n\n| Algorithme | Priorité | Règle |\n|---|---|---|\n| **Rate Monotonic (RMS)** | **fixe** (statique) | **période plus courte = priorité plus haute** |\n| **Earliest Deadline First (EDF)** | **dynamique** | **deadline la plus proche = priorité la plus haute** |\n| **Proportional share** | parts | *T* parts au total ; une appli qui a *N* parts reçoit **N / T** du CPU |\n\n**POSIX real-time** (POSIX.1b) : deux classes.\n**`SCHED_FIFO`** : FCFS avec une file FIFO, **sans time-slicing** entre threads de\nmême priorité. **`SCHED_RR`** : pareil, mais **avec time-slicing** entre threads\nde même priorité.\n\n## 7. Exemple : l'ordonnancement sous Linux\n\n- **Avant 2.5** : variante de l'algorithme UNIX classique.\n- **2.5** : ordonnanceur **O(1)**, préemptif, à priorités ; deux plages :\n  **temps réel 0–99** et **nice 100–140** ; un plus petit nombre = plus haute\n  priorité ; deux tableaux *active* / *expired*. Mauvais temps de réponse pour\n  les processus interactifs.\n- **Depuis 2.6.23 : CFS (Completely Fair Scheduler)** :\n  - des **classes d'ordonnancement** (défaut et temps réel) ;\n  - pas de quantum fixe : une **proportion du temps CPU** ;\n  - quantum calculé à partir de la **nice value, de −20 à +19** (plus petit =\n    plus prioritaire) ;\n  - **target latency** : intervalle pendant lequel chaque tâche doit tourner au\n    moins une fois ;\n  - chaque tâche a un **`vruntime`** (temps d'exécution virtuel) ; **le\n    scheduler choisit la tâche au plus petit `vruntime`**.\n- Nice −20 → priorité globale 100 ; nice +19 → 139.\n- Linux fait du **load balancing** et est **NUMA-aware** (**scheduling domains**).\n\n## 8. Évaluer un algorithme\n\n| Méthode | Principe | Limite |\n|---|---|---|\n| **Deterministic modeling** | on prend une **charge fixe** et on calcule la performance de chaque algorithme | simple et rapide, mais **valable seulement pour ces données** |\n| **Queueing models** | décrire arrivées et bursts de façon **probabiliste** | modèles limités |\n| **Simulation** | programmer un modèle du système, avec des données aléatoires ou des **trace tapes** (événements réels enregistrés) | plus précis, mais coûteux |\n| **Implementation** | implémenter pour de vrai et tester | coût et risque élevés |\n\n**Exemple déterministe du cours** (5 processus à t = 0, bursts 10, 29, 3, 7,\n12) : FCFS = **28 ms**, SJF non préemptif = **13 ms**, RR = **23 ms**.\n\n### Little's formula\n\n```\nn = λ × W\n```\n\n- **n** : longueur moyenne de la file ;\n- **λ** : taux d'arrivée moyen ;\n- **W** : temps d'attente moyen dans la file.\n\nValable **pour n'importe quel algorithme et n'importe quelle distribution**\nd'arrivées, en régime stable. **Exemple :** 7 processus arrivent par seconde\net il y a normalement 14 processus dans la file → **W = n / λ = 14 / 7 = 2 s**.\n\n---\n\n# Partie 2 — Lab : utilisateurs, groupes, processus\n\n## 9. Utilisateurs et groupes\n\n- **Tout processus tourne en tant qu'un utilisateur**, et **tout fichier\n  appartient à un utilisateur**. L'utilisateur d'un processus détermine les\n  fichiers auxquels il a accès.\n- `id` : infos sur l'utilisateur courant (ou `id autre_user`) ;\n  exemple : `uid=1000(student) gid=1000(student) groups=1000(student),10(wheel)`.\n- `ls -l` : la **3e colonne** est le propriétaire du fichier.\n- `ps au` : la **1re colonne** est l'utilisateur du processus (`a` = tous les\n  processus avec un terminal, `u` = afficher l'utilisateur).\n\n### Les groupes\n\n- Un groupe a un **nom** et un **numéro (GID)**. Les groupes locaux sont\n  définis dans **`/etc/group`**.\n- **Chaque utilisateur a exactement un groupe primaire** (*primary group*).\n- Pour les utilisateurs locaux, il est défini par le **GID du 4e champ de\n  `/etc/passwd`**.\n- En général, **le groupe primaire possède les nouveaux fichiers** créés par\n  l'utilisateur.\n- Un nouvel utilisateur reçoit en général un groupe **du même nom** dont il\n  est le seul membre : un **User Private Group (UPG)**.\n- Les autres groupes d'un utilisateur sont ses **supplementary groups** (ex.\n  `wheel`, le groupe des administrateurs).\n\n### Changer d'utilisateur\n\n| Commande | Effet |\n|---|---|\n| `su - username` | **login shell** : l'environnement est celui de l'utilisateur, comme à une vraie connexion |\n| `su username` | shell **non-login** : garde l'environnement courant |\n| `su -` (sans nom) | passe en **root** ; demande le mot de passe de **root** |\n\nUn utilisateur normal doit donner **le mot de passe du compte cible** ; root,\nlui, n'a pas besoin de mot de passe.\n\n## 10. Processus et états Linux\n\nUn processus = **espace d'adressage**, **propriétés de sécurité**\n(propriétaire, privilèges), **un ou plusieurs threads**, un **état**. Son\n**environnement** : variables locales et globales, contexte d'ordonnancement,\nressources (descripteurs de fichiers, ports réseau).\n\n```diagram\n{\n  \"title\": \"États des processus sous Linux (lettre affichée par ps).\",\n  \"nodes\": [\n    { \"id\": \"new\", \"x\": 60, \"y\": 150, \"w\": 80, \"h\": 40, \"shape\": \"ellipse\", \"label\": \"new\", \"tone\": \"neutral\", \"filled\": true, \"size\": 12 },\n    { \"id\": \"rr\", \"x\": 210, \"y\": 150, \"w\": 120, \"h\": 44, \"shape\": \"ellipse\", \"label\": \"R · runnable\\n(ready)\", \"tone\": \"sky\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"rk\", \"x\": 400, \"y\": 150, \"w\": 120, \"h\": 44, \"shape\": \"ellipse\", \"label\": \"R · running\\n(kernel)\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"ru\", \"x\": 400, \"y\": 40, \"w\": 120, \"h\": 44, \"shape\": \"ellipse\", \"label\": \"R · running\\n(user)\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"t\", \"x\": 210, \"y\": 40, \"w\": 110, \"h\": 40, \"shape\": \"ellipse\", \"label\": \"T · stopped\", \"tone\": \"amber\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"s\", \"x\": 300, \"y\": 260, \"w\": 190, \"h\": 44, \"shape\": \"ellipse\", \"label\": \"S / D / K · sleeping\", \"tone\": \"violet\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"z\", \"x\": 580, \"y\": 150, \"w\": 100, \"h\": 40, \"shape\": \"ellipse\", \"label\": \"Z · zombie\", \"tone\": \"rose\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"x\", \"x\": 580, \"y\": 40, \"w\": 90, \"h\": 36, \"shape\": \"ellipse\", \"label\": \"X · dead\", \"tone\": \"neutral\", \"size\": 11 }\n  ],\n  \"edges\": [\n    { \"from\": \"new\", \"to\": \"rr\", \"label\": \"fork\" },\n    { \"from\": \"rr\", \"to\": \"rk\", \"label\": \"run\" },\n    { \"from\": \"rk\", \"to\": \"ru\", \"arrow\": \"both\", \"label\": \"syscall / return\" },\n    { \"from\": \"rr\", \"to\": \"t\", \"arrow\": \"both\", \"label\": \"suspend / resume\" },\n    { \"from\": \"rk\", \"to\": \"s\", \"label\": \"wait\" },\n    { \"from\": \"s\", \"to\": \"rr\", \"label\": \"event or signal\" },\n    { \"from\": \"rk\", \"to\": \"z\", \"label\": \"exit\" },\n    { \"from\": \"z\", \"to\": \"x\", \"label\": \"reap\" }\n  ]\n}\n```\n\n| Lettre | Nom noyau | Signification |\n|---|---|---|\n| **R** | TASK_RUNNING | s'exécute sur un CPU **ou** attend de s'exécuter (*runnable*) |\n| **S** | TASK_INTERRUPTIBLE | **sleeping** : attend une condition (matériel, E/S, signal) |\n| **D** | TASK_UNINTERRUPTIBLE | sleeping, mais **ne répond pas aux signaux** (souvent une E/S) |\n| **K** | TASK_KILLABLE | comme D, mais **peut être tué** |\n| **T** | TASK_STOPPED / TRACED | **suspendu** (signal, Ctrl+Z) ou en cours de **débogage** |\n| **Z** | EXIT_ZOMBIE | l'enfant a fini, **seul son PID** reste en attendant le parent |\n| **X** | EXIT_DEAD | le parent a **récupéré** (*reaped*) l'enfant : il est entièrement libéré |\n\n`ps` affiche : l'**UID**, le **PID**, le temps CPU consommé, la mémoire\nallouée, le **terminal de contrôle** (où va stdout), l'**état**. Pour tracer\nplus finement : les outils **bcc / BPF**.\n\n---\n\n## À retenir\n\n- **CPU–I/O burst cycle** ; beaucoup de bursts courts, peu de longs.\n- Décisions en cas **1** (running → waiting) et **4** (terminate) =\n  **nonpreemptive** ; en plus 2 et 3 = **preemptive** (tous les OS modernes).\n- **Dispatcher** : context switch + user mode + saut dans le programme ;\n  **dispatch latency**.\n- Critères : **max** CPU utilization et throughput ; **min** turnaround,\n  waiting, response. **Waiting = turnaround − burst.**\n- **FCFS** : convoy effect (17 vs 3). **SJF** : optimal (7), mais il faut\n  prédire (moyenne exponentielle, α = ½). **SRTF** : SJF préemptif (6,5).\n  **RR** : quantum 10–100 ms, attente max (n − 1)·q, q grand → FCFS.\n  **Priority** : petit nombre = haute priorité, **starvation → aging** (8,2).\n  **MLFQ** : les processus changent de file.\n- **PCS** (dans le processus) vs **SCS** (tout le système) ; Linux : SCS\n  uniquement.\n- SMP : file commune ou privée ; **hyperthreading** ; **push / pull\n  migration** ; **soft / hard affinity** ; NUMA-aware.\n- **Soft** vs **hard** real-time ; **RMS** = période courte, priorité fixe ;\n  **EDF** = deadline proche, priorité dynamique ; SCHED_FIFO vs SCHED_RR.\n- Linux **CFS** : nice −20 à +19, plus petit **vruntime** d'abord.\n- Évaluation : deterministic, queueing, simulation, implementation. **Little :\n  n = λ × W**.\n- Lab : groupe primaire = 4e champ de `/etc/passwd` ; groupes dans\n  `/etc/group` ; UPG ; `su -` = login shell. États ps : R, S, D, K, T, Z, X.\n\n## Pièges classiques du quiz\n\n| Affirmation | Vrai / Faux |\n|---|---|\n| Le dispatcher choisit le prochain processus | **Faux** : c'est le scheduler |\n| En nonpreemptive, un processus garde le CPU jusqu'à sa fin ou jusqu'à une attente | **Vrai** |\n| Le waiting time inclut le temps d'exécution | **Faux** : seulement la ready queue |\n| SJF minimise le temps d'attente moyen | **Vrai** |\n| SRTF est la version non préemptive de SJF | **Faux** : préemptive |\n| Avec un quantum très grand, RR se comporte comme FCFS | **Vrai** |\n| Une plus grande valeur de priorité = plus prioritaire | **Faux** : plus petit = plus prioritaire |\n| L'aging provoque la starvation | **Faux** : il la résout |\n| RMS donne la priorité à la deadline la plus proche | **Faux** : c'est EDF ; RMS = période la plus courte |\n| Hard affinity : l'OS essaie sans garantie | **Faux** : ça, c'est soft affinity |\n| Little's formula ne vaut que pour FCFS | **Faux** : pour tout algorithme |\n| Un utilisateur a plusieurs groupes primaires | **Faux** : exactement un |\n"
   },
   {
     "name": "Computer Programming",
