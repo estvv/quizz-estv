@@ -335,6 +335,28 @@ function validateExercisePayload(type: ExerciseType, payload: ExercisePayload, w
     return;
   }
 
+  if (type === 'matching') {
+    const p = payload as { left?: unknown; right?: unknown; solution?: unknown };
+    if (!nonEmptyStrings(p.left) || (p.left as string[]).length < 2) {
+      throw new Error(`seed.json: ${where}  matching needs at least 2 pairs`);
+    }
+    if (!nonEmptyStrings(p.right)) {
+      throw new Error(`seed.json: ${where}  matching needs a non-empty "right" list`);
+    }
+    const left = p.left as string[];
+    const right = p.right as string[];
+    const sol = p.solution;
+    if (new Set(right).size !== right.length) {
+      throw new Error(`seed.json: ${where}  matching right-side options must be distinct`);
+    }
+    if (!Array.isArray(sol) || sol.length !== left.length ||
+        !sol.every((v) => Number.isInteger(v) && v >= 0 && v < right.length) ||
+        new Set(sol).size !== sol.length) {
+      throw new Error(`seed.json: ${where}  matching "solution" must map each left item to a distinct right index`);
+    }
+    return;
+  }
+
   if (type === 'write_algorithm') {
     const p = payload as { steps?: unknown };
     if (!Array.isArray(p.steps) || p.steps.length < 1 ||
@@ -414,6 +436,14 @@ function seedExerciseToExercise(e: SeedExercise): PreparedExercise {
     case 'write_algorithm':
       payload = { steps: e.steps, ...(e.hint ? { hint: e.hint } : {}) };
       break;
+    case 'matching': {
+      // Same idea as order_steps: shuffle the right column for display and
+      // keep, for each left item, where its partner landed.
+      const answers = e.pairs.map(([, r]) => r);
+      const right = shuffle([...answers, ...(e.distractors ?? [])]);
+      payload = { left: e.pairs.map(([l]) => l), right, solution: answers.map((r) => right.indexOf(r)) };
+      break;
+    }
     case 'flowchart_build':
       payload = { target: e.target, ...(e.hint ? { hint: e.hint } : {}) };
       break;

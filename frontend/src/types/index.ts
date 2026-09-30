@@ -20,7 +20,8 @@ export type ExerciseType =
   | 'order_steps'
   | 'write_algorithm'
   | 'flowchart_build'
-  | 'er_build';
+  | 'er_build'
+  | 'matching';
 
 export interface McqPayload {
   choices: string[];
@@ -45,6 +46,13 @@ export interface VocabPayload {
 
 export interface OrderStepsPayload {
   items: string[];
+  solution: number[];
+}
+
+/** `solution[i]` is the index into `right` that belongs to `left[i]`. */
+export interface MatchingPayload {
+  left: string[];
+  right: string[];
   solution: number[];
 }
 
@@ -170,6 +178,11 @@ export interface OrderStepsExercise extends BaseExercise {
   payload: OrderStepsPayload;
 }
 
+export interface MatchingExercise extends BaseExercise {
+  type: 'matching';
+  payload: MatchingPayload;
+}
+
 export interface WriteAlgorithmExercise extends BaseExercise {
   type: 'write_algorithm';
   payload: WriteAlgorithmPayload;
@@ -192,7 +205,8 @@ export type Exercise =
   | OrderStepsExercise
   | WriteAlgorithmExercise
   | FlowchartBuildExercise
-  | ErBuildExercise;
+  | ErBuildExercise
+  | MatchingExercise;
 
 export interface ExerciseBrief {
   id: number;

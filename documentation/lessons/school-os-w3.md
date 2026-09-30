@@ -1,16 +1,26 @@
-# Operating System — Week 3
+# Operating System — Week 3 · OS structures & Shell basics
 
-Chapter 2 — *Operating-System Structures* (Silberschatz, Galvin & Gagne, 10th
-ed.). Services, user interfaces, system calls, system programs, linkers and
-loaders, design and implementation, the ways an OS is structured (monolithic,
-layered, microkernel, modules, hybrid), building and booting, debugging.
+**Cours** : chapitre 2 du Silberschatz, *Operating-System Structures* : les
+services de l'OS, les interfaces, les **system calls**, les programmes système,
+linker et loader, les structures d'OS (**monolithic, layered, microkernel,
+modules, hybrid**), le boot, le debugging.
+**Lab** : la hiérarchie du système de fichiers Linux, la gestion des fichiers,
+les commandes Ubuntu, les premiers scripts shell et le push sur GitHub.
+
+> **En bref.** Les programmes n'accèdent jamais directement au matériel : ils
+> demandent un service à l'OS via un **system call**, en général à travers une
+> **API** (POSIX, Win32, Java). La façon d'organiser le noyau est un compromis
+> entre **performance** (tout dans un gros noyau) et **fiabilité / modularité**
+> (le minimum dans le noyau).
 
 ---
 
-## 1. Operating-system services
+# Partie 1 — Cours
 
-An OS provides an **environment for the execution of programs** and services
-to programs and users.
+## 1. Les services de l'OS
+
+L'OS fournit un **environnement d'exécution** pour les programmes, et des
+services aux programmes et aux utilisateurs.
 
 ```diagram
 {
@@ -41,71 +51,65 @@ to programs and users.
 }
 ```
 
-One set of services provides functions that are **helpful to the user**:
+**Services utiles à l'utilisateur :**
 
-| Service | What it does |
+| Service | Rôle |
 |---|---|
-| **User interface (UI)** | almost all OSes have one: command-line (**CLI**), graphical (**GUI**), touch-screen, or batch |
-| **Program execution** | load a program into memory and run it; end execution normally or abnormally (indicating an error) |
-| **I/O operations** | a running program may require I/O on a file or an I/O device |
-| **File-system manipulation** | read and write files and directories, create and delete them, search, list information, manage permissions |
-| **Communications** | processes exchange information, on the same computer or over a network — via **shared memory** or **message passing** (packets moved by the OS) |
-| **Error detection** | the OS is constantly aware of possible errors (CPU and memory hardware, I/O devices, user program) and takes the appropriate action; debugging facilities help users and programmers |
+| **User interface (UI)** | **CLI** (ligne de commande), **GUI** (graphique), **touch-screen**, **batch** |
+| **Program execution** | charger un programme en mémoire, l'exécuter, le terminer normalement ou anormalement (erreur) |
+| **I/O operations** | un programme peut avoir besoin d'E/S sur un fichier ou un périphérique |
+| **File-system manipulation** | lire, écrire, créer, supprimer, chercher des fichiers et dossiers, gérer les **permissions** |
+| **Communications** | échanges entre processus, sur la même machine ou via le réseau : **shared memory** ou **message passing** |
+| **Error detection** | surveiller les erreurs (CPU, mémoire, E/S, programme) et réagir ; outils de debugging |
 
-Another set exists for the **efficient operation of the system itself** via
-resource sharing:
+**Services pour le bon fonctionnement du système lui-même :**
 
-| Service | What it does |
+| Service | Rôle |
 |---|---|
-| **Resource allocation** | when multiple users or jobs run concurrently, resources must be allocated to each: CPU cycles, main memory, file storage, I/O devices |
-| **Logging** | keep track of which users use how much and what kinds of resources |
-| **Protection and security** | owners of information may want to control its use; concurrent processes should not interfere. **Protection**: all access to system resources is controlled. **Security** from outsiders: user authentication, defending external I/O devices from invalid access |
+| **Resource allocation** | répartir CPU, mémoire, stockage, périphériques entre les jobs concurrents |
+| **Logging** (accounting) | savoir qui utilise combien et quelles ressources |
+| **Protection and security** | **protection** : tout accès aux ressources est contrôlé ; **security** : défense contre l'extérieur (authentification…) |
 
-## 2. User – operating-system interface
+> **Piège :** *resource allocation*, *logging* et *protection & security*
+> servent **le système**, pas directement l'utilisateur.
 
-- **Command-line interpreter (CLI)**: allows direct command entry. Sometimes
-  implemented in the kernel, sometimes by a system program; sometimes several
-  flavours — **shells**. It primarily **fetches a command from the user and
-  executes it**. Some commands are **built in**, others are just the **names of
-  programs** — in that case adding a feature needs no shell modification.
-- **GUI**: user-friendly **desktop metaphor** (mouse, keyboard, monitor);
-  **icons** represent files, programs, actions; mouse buttons over objects
-  trigger actions (information, options, execute, open a directory — a
-  *folder*). Invented at **Xerox PARC**. Many systems have both: Windows is a
-  GUI with a CLI "command" shell; macOS is the "Aqua" GUI over a UNIX kernel
-  with shells available; UNIX/Linux are CLI with optional GUIs (CDE, KDE,
-  GNOME).
-- **Touchscreen** interfaces: mouse not possible or not desired; actions and
-  selection based on **gestures**; virtual keyboard; voice commands.
+## 2. Les interfaces utilisateur
 
-## 3. System calls
+- **CLI** (*command-line interpreter*) : on tape des commandes. Parfois dans le
+  noyau, souvent un programme système ; il en existe plusieurs variantes : les
+  **shells** (bash, zsh…). Son travail : **lire une commande et l'exécuter**.
+  Certaines commandes sont **intégrées** (*built-in*, comme `cd`), d'autres sont
+  juste **des noms de programmes** (`ls` est le programme `/bin/ls`) : ajouter
+  une commande ne demande alors **pas de modifier le shell**.
+- **GUI** : la **métaphore du bureau** (icônes, dossiers, souris), inventée au
+  **Xerox PARC**. Windows = GUI + shell « command » ; macOS = GUI *Aqua* sur un
+  noyau UNIX ; Linux = CLI + GUI optionnelle (**GNOME**, KDE).
+- **Touchscreen** : gestes, clavier virtuel, commandes vocales.
 
-A **system call** is the **programming interface to the services provided by
-the OS**, typically written in a high-level language (C or C++). Programs
-mostly use a high-level **API** (Application Programming Interface) rather than
-direct system calls. The three most common APIs: **Win32 API** (Windows),
-**POSIX API** (virtually all UNIX, Linux, macOS), **Java API** (the JVM).
+## 3. Les system calls
 
-Example — the system-call sequence to **copy one file to another**:
+Un **system call** est l'**interface de programmation vers les services de
+l'OS**. Les programmes passent le plus souvent par une **API** de haut niveau
+plutôt que d'appeler directement les system calls :
 
-1. acquire the input file name, acquire the output file name (write prompts,
-   accept input — or select from a GUI);
-2. open the input file (if it does not exist → abort); create the output file
-   (if it exists → abort or ask);
-3. loop: read from the input file, write to the output file — until read
-   fails;
-4. close the output file, write a completion message, terminate normally.
+| API | Où |
+|---|---|
+| **Win32 API** | Windows |
+| **POSIX API** | quasiment tous les UNIX, **Linux**, macOS |
+| **Java API** | la machine virtuelle Java (JVM) |
 
-Even a tiny program is a long sequence of system calls.
+**Exemple : copier un fichier**, c'est déjà une longue suite de system calls :
+demander les noms des fichiers, ouvrir l'entrée (abandon si elle n'existe pas),
+créer la sortie (abandon ou question si elle existe), boucle *lire → écrire*
+jusqu'à la fin, fermer, afficher un message, terminer normalement.
 
-### Implementation
+### Comment c'est implémenté
 
-Typically **a number is associated with each system call**; the **system-call
-interface** maintains a **table indexed by these numbers**, invokes the intended
-call in the kernel and returns its status and any return values. The caller
-needs to know nothing about how the call is implemented — just obey the API.
-Most details are hidden by the API and managed by the **run-time support
-library** (functions built into the libraries shipped with the compiler).
+Chaque system call a un **numéro**. La **system-call interface** tient une
+**table indexée par ces numéros** : elle appelle la bonne fonction du noyau et
+renvoie le statut et les valeurs de retour. L'appelant n'a **rien besoin de
+savoir** de l'implémentation : il suit l'API, et la **run-time support
+library** (livrée avec le compilateur) cache les détails.
 
 ```diagram
 {
@@ -129,8 +133,8 @@ library** (functions built into the libraries shipped with the compiler).
 }
 ```
 
-The standard C library is the usual middleman: a C program calling `printf()`
-invokes the library, which calls the `write()` system call.
+Exemple typique : en C, `printf()` appelle la **bibliothèque C standard**, qui
+fait elle-même le system call **`write()`**.
 
 ```diagram
 {
@@ -154,19 +158,16 @@ invokes the library, which calls the `write()` system call.
 }
 ```
 
-### Parameter passing
+### Passer des paramètres au noyau
 
-Often more information is required than just the identity of the system call
-(type and amount vary by OS and call). Three general methods:
-
-| Method | How | Note |
+| Méthode | Comment | Remarque |
 |---|---|---|
-| **Registers** | pass the parameters in CPU registers | simplest; there may be more parameters than registers |
-| **Block / table** | store the parameters in a block in memory, pass the **address** of the block in a register | approach of **Linux and Solaris** |
-| **Stack** | the program **pushes** the parameters onto the stack, the OS **pops** them off | |
+| **Registers** | paramètres dans les registres du CPU | le plus simple, mais le nombre de registres est limité |
+| **Block / table** | paramètres dans un bloc mémoire, **l'adresse** du bloc dans un registre | méthode de **Linux** et **Solaris** |
+| **Stack** | le programme **empile** (*push*), l'OS **dépile** (*pop*) | |
 
-Block and stack methods **do not limit the number or length** of the
-parameters.
+Les méthodes **block** et **stack** ne limitent **ni le nombre ni la taille**
+des paramètres.
 
 ```diagram
 {
@@ -189,27 +190,29 @@ parameters.
 }
 ```
 
-### Types of system calls
+### Les six catégories de system calls
 
-| Category | Examples |
-|---|---|
-| **Process control** | create / terminate process; end, abort; load, execute; get / set process attributes; wait for time; wait event, signal event; allocate and free memory; dump memory on error; debugger (single step); locks for shared data |
-| **File management** | create / delete file; open, close; read, write, reposition; get / set file attributes |
-| **Device management** | request / release device; read, write, reposition; get / set device attributes; logically attach or detach devices |
-| **Information maintenance** | get / set time or date, system data; get / set process, file or device attributes |
-| **Communications** | create / delete communication connection; send / receive messages (message-passing model: from client to server); shared-memory model: create and gain access to memory regions; transfer status information; attach / detach remote devices |
-| **Protection** | control access to resources; get / set permissions; allow / deny user access |
+| Catégorie | Exemples | Équivalents UNIX |
+|---|---|---|
+| **Process control** | créer / terminer un processus, charger, exécuter, attendre, allouer de la mémoire | `fork()`, `exec()`, `exit()`, `wait()` |
+| **File management** | créer, supprimer, ouvrir, fermer, lire, écrire | `open()`, `read()`, `write()`, `close()` |
+| **Device management** | demander / libérer un périphérique, lire, écrire | `ioctl()`, `read()`, `write()` |
+| **Information maintenance** | lire / régler l'heure, la date, les attributs | `getpid()`, `alarm()`, `sleep()` |
+| **Communications** | créer une connexion, envoyer / recevoir des messages, mémoire partagée | `pipe()`, `shm_open()`, `mmap()` |
+| **Protection** | contrôler l'accès, lire / changer les permissions | `chmod()`, `umask()`, `chown()` |
 
-### Two examples
+> **Astuce :** retiens l'acronyme **P-F-D-I-C-P** : **P**rocess, **F**ile,
+> **D**evice, **I**nformation, **C**ommunications, **P**rotection.
 
-- **Arduino** — single-tasking, **no operating system**. Programs (*sketches*)
-  are loaded via USB into flash memory; single memory space; a **boot loader**
-  loads the program; at program exit the shell is reloaded.
-- **FreeBSD** — UNIX variant, multitasking. User login → invoke the user's
-  shell. The shell executes the **`fork()`** system call to create a process,
-  then **`exec()`** to load the program into it; the shell **waits** for the
-  process to terminate or continues with user commands. The process exits with
-  code **0** (no error) or **> 0** (error code).
+### Deux exemples
+
+- **Arduino** : **mono-tâche**, **pas d'OS**. Un **boot loader** charge le
+  programme (*sketch*) envoyé par USB dans la mémoire flash.
+- **FreeBSD** (UNIX, multitâche) : à la connexion, le shell de l'utilisateur
+  démarre. Pour lancer une commande, le shell fait **`fork()`** (crée un
+  processus) puis **`exec()`** (y charge le programme), et **attend** sa fin.
+  Le processus se termine avec le code **0 = pas d'erreur**, **> 0 = code
+  d'erreur**.
 
 ```diagram
 {
@@ -237,37 +240,36 @@ parameters.
 }
 ```
 
-## 4. System services (system programs)
+## 4. Les programmes système
 
-**System programs** provide a convenient environment for program development
-and execution. Most users' view of the OS is defined by **system programs, not
-by the actual system calls**. Some are simple interfaces to system calls, others
-are considerably more complex.
+Les **system programs** offrent un environnement pratique pour développer et
+exécuter des programmes. **La vision que les utilisateurs ont de l'OS vient des
+programmes système, pas des system calls.**
 
-| Category | Content |
+| Catégorie | Exemples |
 |---|---|
-| **File management** | create, delete, copy, rename, print, dump, list and generally manipulate files and directories |
-| **Status information** | date, time, available memory, disk space, number of users; detailed performance, logging and debugging information; some systems keep a **registry** for configuration |
-| **File modification** | text editors; commands to search file contents or transform text |
-| **Programming-language support** | compilers, assemblers, debuggers, interpreters |
-| **Program loading and execution** | absolute loaders, relocatable loaders, linkage editors, overlay loaders; debugging systems |
-| **Communications** | virtual connections among processes, users and computer systems: messages to another's screen, browsing, e-mail, remote login, file transfer |
-| **Background services** | launched at boot time (some terminate after startup, some run until shutdown); disk checking, process scheduling, error logging, printing. Run in **user context**, not kernel context. Known as **services, subsystems, daemons** |
-| **Application programs** | do not pertain to the system; run by users; not considered part of the OS; launched by command line, mouse click, finger poke |
+| **File management** | créer, copier, renommer, lister des fichiers (`cp`, `mv`, `ls`) |
+| **Status information** | date, heure, mémoire libre, espace disque ; parfois un **registry** |
+| **File modification** | éditeurs de texte, recherche et transformation de texte (`nano`, `grep`) |
+| **Programming-language support** | compilateurs, assembleurs, debuggers, interpréteurs |
+| **Program loading and execution** | loaders, linkage editors |
+| **Communications** | messages, navigation, e-mail, connexion à distance, transfert de fichiers |
+| **Background services** | lancés au boot : **services**, **subsystems**, **daemons** ; ils tournent en **user context** |
+| **Application programs** | pas considérés comme faisant partie de l'OS |
 
-## 5. Linkers and loaders
+## 5. Linker et loader
 
-Source code is compiled into **object files** designed to be loaded into any
-physical memory location — **relocatable object files**. The **linker**
-combines them into a single **binary executable** file, also bringing in
-**libraries**. The program resides on secondary storage as a binary executable
-and must be brought into memory by the **loader** to be executed;
-**relocation** assigns final addresses to the program parts and adjusts code and
-data to match. Modern systems do not link libraries into executables: they use
-**dynamically linked libraries** (**DLLs** on Windows), loaded as needed and
-**shared** by all programs using the same version (loaded once). Object and
-executable files have **standard formats** (ELF on Linux), so the OS knows how
-to load and start them.
+1. Le **compiler** transforme le code source en **relocatable object files**
+   (`main.o`), chargeables à n'importe quelle adresse.
+2. Le **linker** les combine, avec les **bibliothèques**, en un **binary
+   executable**.
+3. Le **loader** charge l'exécutable en mémoire ; la **relocation** fixe les
+   adresses finales.
+
+Les systèmes modernes utilisent des **dynamically linked libraries** (**DLL**
+sous Windows, `.so` sous Linux) : chargées **à la demande** et **partagées**
+par tous les programmes qui utilisent la même version. Les fichiers objets et
+exécutables ont un **format standard** (**ELF** sous Linux).
 
 ```diagram
 {
@@ -297,49 +299,44 @@ to load and start them.
 }
 ```
 
-### Why applications are operating-system specific
+### Pourquoi une appli est liée à son OS
 
-Apps compiled on one system are usually not executable on other OSes: each OS
-provides its **own unique system calls**, file formats, etc. An app can be
-multi-OS if it is written in an **interpreted** language with an interpreter
-available on each OS (Python, Ruby), if it runs in a **VM** shipped with the
-language (Java), or if it is written in a standard language (C) and
-**compiled separately** on each OS. The **Application Binary Interface (ABI)**
-is the architecture-level equivalent of the API: it defines how the components
-of binary code interface for a given OS on a given architecture and CPU.
+Un binaire compilé pour un OS ne tourne en général pas sur un autre : chaque OS
+a **ses propres system calls** et formats de fichiers. Une appli peut être
+multi-OS si elle est écrite dans un **langage interprété** (Python), si elle
+tourne dans une **VM** (Java) ou si elle est **recompilée** pour chaque OS (C).
+L'**ABI** (*Application Binary Interface*) est l'équivalent de l'API **au
+niveau binaire** : comment le code binaire interagit avec un OS donné sur une
+architecture donnée.
 
-## 6. Design and implementation
+## 6. Conception : policy vs mechanism
 
-Designing an OS is not "solvable", but some approaches have proven
-successful. Start by defining **goals and specifications**, affected by the
-choice of hardware and type of system. **User goals**: convenient to use, easy
-to learn, reliable, safe, fast. **System goals**: easy to design, implement and
-maintain; flexible, reliable, error-free, efficient.
+- **User goals** : pratique, facile à apprendre, fiable, sûr, rapide.
+- **System goals** : facile à concevoir, implémenter, maintenir ; flexible,
+  fiable, sans erreurs, efficace.
 
-**Policy vs mechanism** — *policy*: **what** needs to be done (interrupt every
-100 seconds); *mechanism*: **how** to do it (the timer). **Separating policy
-from mechanism** is a very important principle: it gives maximum flexibility if
-policy decisions change later (change 100 to 200 without touching the timer).
+**Le principe clé :** séparer la **policy** (**quoi** faire) du **mechanism**
+(**comment** le faire).
 
-**Implementation**: early OSes in assembly, then system programming languages
-(Algol, PL/1), now **C, C++** — usually a mix: lowest levels in assembly, main
-body in C, system programs in C, C++ and scripting languages (Perl, Python,
-shell). A higher-level language is easier to **port** to other hardware, but
-slower; **emulation** can run an OS on non-native hardware.
+| | Exemple |
+|---|---|
+| **Policy** (*what*) | « interrompre le programme toutes les 100 ms » |
+| **Mechanism** (*how*) | le **timer** matériel |
 
-## 7. Operating-system structure
+Si la politique change (200 ms au lieu de 100), on ne touche **pas** au
+mécanisme : maximum de **flexibilité**.
 
-A general-purpose OS is a very large program. Ways to structure it: **simple**
-(MS-DOS), **monolithic** (UNIX), **layered** (an abstraction), **microkernel**
-(Mach), plus **modules** and **hybrids**.
+**Implémentation** : avant en assembleur, aujourd'hui surtout en **C / C++**
+(bas niveau en assembleur, programmes système en C, C++, Python, shell). Un
+langage de haut niveau est plus facile à **porter**, mais plus lent.
 
-### Monolithic structure — original UNIX
+## 7. Les structures d'OS
 
-Limited by the hardware of its time, the original UNIX had limited
-structuring: two separable parts, the **system programs** and the **kernel** —
-everything **below the system-call interface and above the physical
-hardware**, providing the file system, CPU scheduling, memory management and
-other OS functions: a large number of functions for one level.
+### Monolithic — UNIX d'origine
+
+Deux parties : les **programmes système** et le **kernel**, qui contient
+**tout** ce qui est sous l'interface des system calls et au-dessus du matériel
+(fichiers, ordonnancement, mémoire…). Beaucoup de fonctions à un seul niveau.
 
 ```diagram
 {
@@ -360,10 +357,9 @@ other OS functions: a large number of functions for one level.
 }
 ```
 
-**Linux** is monolithic **plus modular**: applications call **glibc**, which
-crosses the system-call interface into a kernel made of file systems, CPU
-scheduler, networks, memory manager, block and character devices, device
-drivers — with **loadable kernel modules** for dynamic loading.
+**Linux** est **monolithique + modulaire** : les applis appellent **glibc**,
+qui passe l'interface des system calls ; le noyau accepte des **loadable
+kernel modules**.
 
 ```diagram
 {
@@ -386,12 +382,12 @@ drivers — with **loadable kernel modules** for dynamic loading.
 }
 ```
 
-### Layered approach
+### Layered
 
-The OS is divided into a number of **layers (levels)**, each built on top of
-lower layers. The bottom layer (**layer 0**) is the **hardware**; the highest
-(**layer N**) is the **user interface**. With modularity, each layer uses the
-functions and services **of lower-level layers only**.
+L'OS est découpé en **couches** : la **couche 0** est le **matériel**, la
+**couche N** l'**interface utilisateur**. Chaque couche n'utilise **que les
+couches inférieures**. Facile à déboguer couche par couche, mais difficile de
+bien définir les couches, et traverser les couches coûte du temps.
 
 ```diagram
 {
@@ -409,11 +405,13 @@ functions and services **of lower-level layers only**.
 }
 ```
 
-### Microkernels
+### Microkernel
 
-Move **as much as possible from the kernel into user space**. **Mach** is an
-example; the macOS kernel (**Darwin**) is partly based on Mach. Communication
-between user modules uses **message passing**.
+On déplace **le plus de choses possible du noyau vers l'espace utilisateur**.
+Il ne reste dans le noyau que le minimum : **communication (IPC), gestion
+mémoire, ordonnancement CPU**. Les modules utilisateur communiquent par
+**message passing**. Exemple : **Mach** (dont est en partie issu **Darwin**,
+le noyau de macOS).
 
 ```diagram
 {
@@ -441,26 +439,27 @@ between user modules uses **message passing**.
 }
 ```
 
-| Benefits | Detriment |
+| Avantages | Inconvénient |
 |---|---|
-| easier to **extend** a microkernel; easier to **port** the OS to new architectures; more **reliable** (less code runs in kernel mode); more **secure** | **performance overhead** of user-space ↔ kernel-space communication |
+| plus facile à **étendre**, à **porter**, plus **fiable** (moins de code en mode noyau), plus **sûr** | **surcoût de performance** des messages entre espace utilisateur et noyau |
 
-### Modules and hybrid systems
+### Modules
 
-Many modern OSes implement **loadable kernel modules (LKMs)**: an
-object-oriented approach where each core component is separate, talks to the
-others over **known interfaces**, and is **loadable as needed** within the
-kernel. Overall similar to layers but more flexible (Linux, Solaris).
+La plupart des OS modernes utilisent des **loadable kernel modules (LKMs)** :
+chaque composant est séparé, parle aux autres via des **interfaces connues** et
+se **charge à la demande** dans le noyau. Ressemble aux couches, mais plus
+flexible (Linux, Solaris).
 
-Most modern OSes are **not one pure model** — **hybrid** systems combine
-approaches for performance, security and usability:
+### Hybrid
 
-| System | Structure |
+Aucun OS moderne n'est un modèle pur :
+
+| Système | Structure |
 |---|---|
-| **Linux, Solaris** | kernel in kernel address space → **monolithic**, plus **modular** for dynamic loading |
-| **Windows** | mostly **monolithic**, plus **microkernel** for the different subsystem *personalities* |
-| **macOS / iOS** | **hybrid, layered**: Aqua UI + Cocoa; below, a kernel made of the **Mach microkernel** and **BSD UNIX** parts, plus the I/O kit and dynamically loadable modules (**kernel extensions**) |
-| **Android** | based on a modified **Linux kernel** (process, memory, device-driver management + power management); runtime with core libraries and the **Dalvik / ART** VM; apps in Java + Android API, compiled to bytecode then to an executable for the VM; libraries: webkit, SQLite, multimedia, a smaller libc (Bionic) |
+| **Linux, Solaris** | **monolithique** + **modules** |
+| **Windows** | surtout **monolithique**, + **microkernel** pour les sous-systèmes |
+| **macOS / iOS** | **hybride en couches** : noyau **Darwin** = **Mach** + **BSD UNIX** + I/O kit + *kernel extensions* |
+| **Android** | noyau **Linux modifié** + runtime **ART** (ex-Dalvik) + bibliothèques (Bionic, SQLite, webkit) |
 
 ```diagram
 {
@@ -503,27 +502,23 @@ approaches for performance, security and usability:
 }
 ```
 
-### The five strategies side by side
+### Tableau comparatif
 
-| Strategy | Idea | Pros | Cons | Example |
+| Structure | Idée | Pour | Contre | Exemple |
 |---|---|---|---|---|
-| **Monolithic** | one large kernel, everything below the system-call interface | fast (no boundary crossings) | hard to extend, a bug anywhere crashes all | original UNIX, Linux core |
-| **Layered** | layers 0…N, each uses only lower layers | modular, easy to debug layer by layer | hard to define layers, overhead of traversing them | THE, early designs |
-| **Microkernel** | minimum in the kernel (IPC, memory, scheduling); services in user space, message passing | extensible, portable, reliable, secure | message-passing performance overhead | Mach, Darwin (partly) |
-| **Modules** | separate loadable components with known interfaces | flexible, load on demand | still kernel-mode code | Linux LKMs, Solaris |
-| **Hybrid** | mix of the above | pragmatic balance of performance / security / usability | no pure model | Windows, macOS, Android |
+| **Monolithic** | un gros noyau | **rapide** | dur à étendre, un bug fait tout planter | UNIX, cœur de Linux |
+| **Layered** | couches 0…N | modulaire, debug facile | couches dures à définir, lent à traverser | THE |
+| **Microkernel** | minimum dans le noyau, messages | extensible, portable, fiable, sûr | **lent** (messages) | Mach |
+| **Modules** | composants chargeables | flexible | toujours en mode noyau | Linux LKMs |
+| **Hybrid** | mélange | compromis | pas de modèle pur | Windows, macOS, Android |
 
-## 8. Building and booting an operating system
+## 8. Construire et démarrer un OS
 
-OSes are designed to run on a **class of systems** with a variety of
-peripherals; commonly the OS is already installed on the purchased computer.
-Generating one from scratch: **write** the source, **configure** it for the
-target system, **compile**, **install**, **boot**.
+**Compiler Linux** : télécharger les sources (kernel.org) → `make menuconfig`
+(configurer) → `make` (compiler → image **vmlinuz**) → `make modules` →
+`make modules_install` → `make install`.
 
-**Building Linux**: download the source from kernel.org → `make menuconfig`
-(configure) → `make` (compile — produces **vmlinuz**, the kernel image) →
-`make modules` (compile the modules) → `make modules_install` (install them
-into vmlinuz) → `make install` (install the new kernel).
+**Le boot :**
 
 ```diagram
 {
@@ -548,67 +543,260 @@ into vmlinuz) → `make install` (install the new kernel).
 }
 ```
 
-- Power on: execution starts at a **fixed memory location**.
-- A small piece of code — the **bootstrap loader** (BIOS), stored in **ROM or
-  EEPROM** — locates the kernel, loads it into memory and starts it. Sometimes a
-  **two-step** process: a **boot block** at a fixed location is loaded by the
-  ROM code and loads the bootstrap loader from disk.
-- Modern systems replace BIOS with **UEFI** (Unified Extensible Firmware
-  Interface).
-- **GRUB** is a common bootstrap loader: it allows selecting the kernel from
-  multiple disks, versions and kernel options; boot loaders often offer boot
-  states such as **single-user mode**.
-- The kernel loads and the system is running.
+1. à l'allumage, l'exécution commence à une **adresse mémoire fixe** ;
+2. le **bootstrap loader** (le **BIOS**), stocké en **ROM / EEPROM**, trouve le
+   noyau. Parfois en deux temps : un **boot block** à un endroit fixe du disque
+   charge le vrai bootstrap loader ;
+3. les systèmes modernes remplacent le BIOS par l'**UEFI** ;
+4. **GRUB** permet de choisir le noyau et ses options (dont le **single-user
+   mode**) ;
+5. le noyau démarre, puis les daemons (**systemd**).
 
-## 9. Operating-system debugging
+## 9. Debugging et performance
 
-**Debugging** = finding and fixing errors (bugs) — also **performance tuning**.
-The OS generates **log files** with error information; a failing application
-produces a **core dump** (the process memory), a failing OS a **crash dump**
-(kernel memory). Performance tuning removes bottlenecks, using **trace
-listings** and **profiling** (periodic sampling of the instruction pointer);
-the OS must provide measures of system behaviour (`top`, Windows Task Manager).
+- **Log files** : l'OS y écrit les erreurs.
+- **Core dump** : mémoire d'un **processus** qui plante. **Crash dump** :
+  mémoire du **noyau** quand l'OS plante.
+- **Performance tuning** : trouver les goulots d'étranglement ; **profiling**
+  (échantillonner régulièrement le pointeur d'instruction) ; outils `top`, Task
+  Manager.
+- **Tracing** : **strace** (system calls d'un processus), **gdb** (debugger),
+  **perf** (performances Linux), **tcpdump** (paquets réseau), **BCC / BPF**.
 
-**Tracing** tools collect data for a specific event: **strace** (system calls
-of a process), **gdb** (source-level debugger), **perf** (Linux performance
-tools), **tcpdump** (network packets). **BCC** (BPF Compiler Collection) is a
-rich toolkit for tracing Linux interactions between user-level and kernel code
-(e.g. `disksnoop.py` traces disk I/O) — successor to DTrace.
-
-> **Kernighan's law**: "Debugging is twice as hard as writing the code in the
-> first place. Therefore, if you write the code as cleverly as possible, you
-> are, by definition, not smart enough to debug it."
+> **Kernighan's law :** « Debugging is twice as hard as writing the code in the
+> first place. »
 
 ---
 
-## To remember
+# Partie 2 — Lab : shell Linux
 
-- Services for the user: UI, program execution, I/O, file system,
-  communication (shared memory / message passing), error detection. For the
-  system: resource allocation, logging, protection & security.
-- UI: CLI / shells (built-in vs program-name commands), GUI (Xerox PARC),
-  touchscreen.
-- **System call** = programming interface to OS services, reached through an
-  **API** (Win32, POSIX, Java); number → **system-call table**; hidden by the
-  run-time support library. Parameters via **registers**, **block/table**
-  (Linux, Solaris) or **stack**. Six categories: process control, file, device,
-  information maintenance, communications, protection.
-- `printf()` → C library → `write()`. FreeBSD shell: `fork()` then `exec()`,
-  exit code 0 = OK. Arduino: no OS, boot loader + one sketch.
-- **System programs** define the user's view of the OS; daemons run in user
-  context.
-- Compiler → relocatable **object file** → **linker** (+ libraries) →
-  **executable** → **loader** (relocation) → memory; **DLLs** loaded once,
-  shared. Apps are OS-specific because of system calls and file formats; the
-  **ABI** is the binary-level API.
-- Design: user goals vs system goals; **separate policy (what) from mechanism
-  (how)**.
-- Structures: **monolithic** (UNIX), **layered** (0 = hardware, N = UI),
-  **microkernel** (Mach: message passing, extensible/portable/reliable/secure
-  but slower), **modules** (LKMs), **hybrid** (Linux, Windows, macOS = Mach +
-  BSD, Android = Linux + ART).
-- Boot: fixed address → BIOS/UEFI in ROM → (boot block) → **GRUB** → kernel
-  (vmlinuz) → daemons. Build Linux: `make menuconfig`, `make`,
-  `make modules`, `make modules_install`, `make install`.
-- Debugging: logs, core dump vs crash dump, profiling; strace, gdb, perf,
-  tcpdump, BCC/BPF.
+## 10. La hiérarchie du système de fichiers
+
+Sous Linux, **tout est dans un seul arbre** qui part de la racine **`/`** (pas
+de `C:\`). Le `/` sert aussi de séparateur : `/etc/issue` est le fichier
+`issue` du dossier `/etc`.
+
+```diagram
+{
+  "title": "L'arborescence Linux : un seul arbre inversé, enraciné en /.",
+  "nodes": [
+    { "id": "root", "x": 330, "y": 30, "w": 50, "h": 34, "label": "/", "tone": "amber", "filled": true, "bold": true },
+    { "id": "bin", "x": 40, "y": 110, "w": 56, "h": 30, "label": "bin", "size": 12 },
+    { "id": "boot", "x": 105, "y": 110, "w": 56, "h": 30, "label": "boot", "size": 12 },
+    { "id": "dev", "x": 170, "y": 110, "w": 56, "h": 30, "label": "dev", "size": 12 },
+    { "id": "etc", "x": 235, "y": 110, "w": 56, "h": 30, "label": "etc", "tone": "sky", "filled": true, "size": 12 },
+    { "id": "home", "x": 300, "y": 110, "w": 56, "h": 30, "label": "home", "tone": "sky", "filled": true, "size": 12 },
+    { "id": "rootd", "x": 365, "y": 110, "w": 56, "h": 30, "label": "root", "size": 12 },
+    { "id": "run", "x": 430, "y": 110, "w": 56, "h": 30, "label": "run", "size": 12 },
+    { "id": "tmp", "x": 495, "y": 110, "w": 56, "h": 30, "label": "tmp", "size": 12 },
+    { "id": "usr", "x": 560, "y": 110, "w": 56, "h": 30, "label": "usr", "size": 12 },
+    { "id": "var", "x": 625, "y": 110, "w": 56, "h": 30, "label": "var", "size": 12 },
+    { "id": "alice", "x": 260, "y": 190, "w": 56, "h": 30, "label": "alice", "size": 11 },
+    { "id": "bob", "x": 330, "y": 190, "w": 56, "h": 30, "label": "bob", "size": 11 },
+    { "id": "issue", "x": 200, "y": 190, "w": 56, "h": 30, "label": "issue", "shape": "note", "size": 11 },
+    { "id": "ubin", "x": 530, "y": 190, "w": 56, "h": 30, "label": "bin", "size": 11 },
+    { "id": "ulocal", "x": 595, "y": 190, "w": 56, "h": 30, "label": "local", "size": 11 },
+    { "id": "vlog", "x": 660, "y": 190, "w": 56, "h": 30, "label": "log", "size": 11 }
+  ],
+  "edges": [
+    { "from": "root", "to": "bin", "arrow": "none" }, { "from": "root", "to": "boot", "arrow": "none" }, { "from": "root", "to": "dev", "arrow": "none" },
+    { "from": "root", "to": "etc", "arrow": "none" }, { "from": "root", "to": "home", "arrow": "none" }, { "from": "root", "to": "rootd", "arrow": "none" },
+    { "from": "root", "to": "run", "arrow": "none" }, { "from": "root", "to": "tmp", "arrow": "none" }, { "from": "root", "to": "usr", "arrow": "none" },
+    { "from": "root", "to": "var", "arrow": "none" },
+    { "from": "home", "to": "alice", "arrow": "none" }, { "from": "home", "to": "bob", "arrow": "none" },
+    { "from": "etc", "to": "issue", "arrow": "none" },
+    { "from": "usr", "to": "ubin", "arrow": "none" }, { "from": "usr", "to": "ulocal", "arrow": "none" },
+    { "from": "var", "to": "vlog", "arrow": "none" }
+  ]
+}
+```
+
+| Dossier | Contenu | Moyen mnémotechnique |
+|---|---|---|
+| **`/etc`** | **fichiers de configuration** du système | *et cetera* = les réglages |
+| **`/var`** | données **variables** qui persistent : **logs** (`/var/log`), bases, cache | **var**iable |
+| **`/home`** | fichiers personnels des utilisateurs (`/home/alice`) | la maison |
+| **`/root`** | dossier personnel du **superutilisateur root** | ≠ la racine `/` ! |
+| **`/tmp`** | fichiers **temporaires**, accessibles à tous, nettoyés régulièrement | **t**e**mp** |
+| **`/dev`** | **fichiers de périphériques** (`/dev/sda` = premier disque) | **dev**ices |
+| **`/boot`** | fichiers nécessaires au **démarrage** (noyau) | boot |
+| **`/usr`** | logiciels installés, bibliothèques (`/usr/bin`, `/usr/sbin`, `/usr/local`) | |
+| **`/bin`** | commandes essentielles (`ls`, `cp`, `mkdir`) | **bin**aires |
+| **`/run`** | données d'exécution depuis le dernier boot (PID, verrous) | |
+
+Types de contenu : **static** (ne change pas sans intervention), **dynamic /
+variable** (modifié par les processus), **persistent** (survit au reboot, comme
+la configuration), **runtime** (propre à un processus, effacé au reboot).
+
+> **Piège :** **`/root`** (dossier de l'admin) ≠ **`/`** (la racine de
+> l'arbre).
+
+## 11. Gérer les fichiers et dossiers
+
+| Action | Commande |
+|---|---|
+| Créer un dossier | `mkdir dir` |
+| Créer des dossiers parents manquants | `mkdir -p a/b/c` |
+| Créer un fichier vide | `touch file` |
+| Copier un fichier | `cp file new-file` |
+| Copier un dossier **et son contenu** | `cp -r dir new-dir` |
+| Déplacer **ou renommer** | `mv old new` |
+| Supprimer un fichier | `rm file` |
+| Supprimer un dossier **non vide** | `rm -r dir` |
+| Supprimer un dossier **vide** | `rmdir dir` |
+| Où suis-je ? | `pwd` |
+| Changer de dossier / remonter | `cd dir` / `cd ..` |
+| Lister (détaillé, récursif, cachés) | `ls -l`, `ls -R`, `ls -a` |
+
+À savoir, tiré des exemples du lab :
+
+- `cp` **écrase** le fichier de destination s'il existe, **sans prévenir**.
+- Avec plusieurs sources, le **dernier argument doit être un dossier** :
+  `cp f1 f2 dossier/`.
+- Sans `-r`, `cp` **ignore les dossiers** : `cp: omitting directory 'Thesis'`.
+- `cp /etc/hostname .` copie dans le **dossier courant** (le `.`).
+- `mv` sert **à la fois** à renommer et à déplacer.
+- `rm` sans `-r` **échoue** sur un dossier : `Is a directory`.
+- `rmdir` **échoue** si le dossier n'est pas vide.
+- Il n'y a **pas de corbeille** en ligne de commande : `rm` est définitif.
+  Vérifie avec `pwd` avant de supprimer.
+
+```bash
+mkdir -p Thesis/Chapter1 Thesis/Chapter2    # crée Thesis et ses sous-dossiers
+cp -r Thesis ProjectX                       # copie tout l'arbre
+mv thesis_chapter2.odf thesis_reviewed.odf  # renomme
+rm -r Thesis/Chapter1                       # supprime un dossier non vide
+```
+
+## 12. Commandes Ubuntu utiles
+
+| Commande | Rôle |
+|---|---|
+| `top` | processus en **temps réel** |
+| `df -h` | **espace disque** en format lisible (*human-readable*) |
+| `ping google.com` | tester la **connexion réseau** |
+| `wget <url>` | **télécharger** un fichier |
+| `grep "mot" file` | **chercher** un texte dans un fichier |
+| `wc file` | compter **lignes, mots, caractères** |
+| `chmod 755 file` | changer les **permissions** |
+| `sudo chown user:group file` | changer le **propriétaire** et le groupe |
+| `sudo apt update && sudo apt upgrade` | mettre à jour la liste des paquets puis les paquets |
+
+### Lire des permissions
+
+`ls -l` affiche par exemple `-rwxr-xr-x`. Le 1er caractère est le type (`-`
+fichier, `d` dossier), puis **3 groupes de 3** : **user** (propriétaire),
+**group**, **others**. En numérique, **r = 4, w = 2, x = 1**, on additionne :
+
+```
+-  rwx   r-x   r-x
+   4+2+1 4+0+1 4+0+1
+   7     5     5      →  chmod 755
+```
+
+| Chiffre | Droits |
+|---|---|
+| 7 | `rwx` |
+| 6 | `rw-` |
+| 5 | `r-x` |
+| 4 | `r--` |
+| 0 | `---` |
+
+Valeurs classiques : **755** (scripts, dossiers), **644** (fichiers normaux),
+**700** (privé), **600** (fichier privé).
+
+## 13. Premiers scripts shell
+
+Un **shell script** est un fichier texte qui contient des commandes.
+
+```bash
+nano myscript.sh          # 1. écrire le script
+```
+
+```bash
+#!/bin/bash
+# La 1re ligne, le "shebang", indique l'interpréteur à utiliser.
+for file in *.jpg; do                 # boucle sur les fichiers
+    mv "$file" "prefix_$file"         # renommage
+done
+
+for seed in {1..5}; do                # lancer 5 expériences
+    python3 experiment.py --seed $seed
+done
+```
+
+```bash
+chmod +x myscript.sh      # 2. le rendre exécutable
+./myscript.sh             # 3a. le lancer
+bash myscript.sh          # 3b. ou via bash (pas besoin de +x)
+bash -x myscript.sh       # debug : affiche chaque commande avant de l'exécuter
+```
+
+| Élément | Rôle |
+|---|---|
+| `#!/bin/bash` | le **shebang** : l'interpréteur du script |
+| `chmod +x` | ajoute le droit d'**exécution** |
+| `./script.sh` | lance le script du dossier courant |
+| `bash -x` | mode **debug** (trace) |
+| `$variable` | valeur d'une variable |
+| `for … do … done` | boucle |
+| `0 * * * * /path/script.sh` | ligne **cron** : lancer le script toutes les heures |
+
+> **Attention** à l'exemple des notes `rm -rf /tmp/*` : il efface les fichiers
+> temporaires **de tous les programmes**. Ne supprime que ce que ton script a
+> créé.
+
+## 14. Pousser son code sur GitHub (Remote GitHub Notes)
+
+Les 8 étapes du cours :
+
+1. `cd project_folder` : aller dans le projet ;
+2. `git init` : initialiser le dépôt (si ce n'est pas fait) ;
+3. créer un **`.gitignore`**, puis `git rm -r --cached .` pour ne plus suivre
+   les fichiers désormais ignorés ;
+4. `git checkout -b local-branch-name` : créer / choisir la branche locale ;
+5. `git add .` : tout mettre en staging ;
+6. `git commit -m "Initial commit"` : commiter ;
+7. `git remote add origin <url>` (ou `git remote set-url origin <url>` si
+   origin existe déjà) ;
+8. `git push origin <branch>` : envoyer.
+
+---
+
+## À retenir
+
+- Services **pour l'utilisateur** : UI, program execution, I/O, file system,
+  communications, error detection. **Pour le système** : resource allocation,
+  logging, protection & security.
+- **System call** = interface vers les services de l'OS, via une **API**
+  (Win32, **POSIX**, Java) ; un **numéro** par appel, une **table** ; paramètres
+  par **registers**, **block** (Linux) ou **stack**. Six catégories : process,
+  file, device, information, communications, protection.
+- `printf()` → bibliothèque C → `write()`. Shell : **`fork()` puis `exec()`**,
+  code 0 = OK.
+- Compiler → **object file** → **linker** → **executable** → **loader** →
+  mémoire ; **DLL** partagées. **ABI** = API binaire.
+- **Policy = quoi, mechanism = comment** : les séparer.
+- Monolithic (UNIX, rapide), layered (0 = matériel, N = UI), **microkernel**
+  (Mach, messages, lent mais fiable), **modules** (LKM), **hybrid** (Windows,
+  macOS, Android).
+- Boot : adresse fixe → **BIOS / UEFI** en ROM → boot block → **GRUB** →
+  kernel → daemons. **Core dump** = processus, **crash dump** = noyau.
+- Lab : `/etc` config, `/var` logs, `/dev` périphériques, `/tmp` temporaire,
+  `/root` ≠ `/`. `cp -r`, `rm -r`, `rmdir` (vide), `mkdir -p`. r = 4, w = 2,
+  x = 1. Script : `#!/bin/bash`, `chmod +x`, `bash -x`.
+
+## Pièges classiques du quiz
+
+| Affirmation | Vrai / Faux |
+|---|---|
+| Les programmes appellent en général directement les system calls | **Faux** : via une API |
+| Linux passe les paramètres par un bloc en mémoire | **Vrai** |
+| Logging est un service pour l'utilisateur | **Faux** : pour le système |
+| Un microkernel est plus rapide qu'un noyau monolithique | **Faux** : les messages coûtent |
+| Dans l'approche en couches, la couche 0 est l'interface utilisateur | **Faux** : c'est le matériel |
+| La vision de l'OS qu'ont les utilisateurs vient des system calls | **Faux** : des programmes système |
+| Policy = comment, mechanism = quoi | **Faux** : c'est l'inverse |
+| `rmdir` supprime un dossier non vide | **Faux** : `rm -r` |
+| `/root` est la racine du système de fichiers | **Faux** : la racine est `/` |
+| `cp` sans option copie les dossiers | **Faux** : il faut `-r` |

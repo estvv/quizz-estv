@@ -16,6 +16,7 @@ const TYPE_LABEL: Record<ExerciseType, string> = {
   write_algorithm: 'Algo',
   flowchart_build: 'Flowchart',
   er_build: 'Diagramme E-R',
+  matching: 'Associer',
 };
 
 export function ExerciseListRow({ exercise, index, selectable, selected, onToggle }: Props) {

@@ -193,6 +193,12 @@ export function gradeExercise(exercise: Exercise, response: Response): Grade {
         arrangement.every((v, i) => v === solution[i]);
       return { correct, answer: solution.map((idx) => items[idx]).join('\n') };
     }
+    case 'matching': {
+      const { left, right, solution } = exercise.payload;
+      const picks = Array.isArray(response) ? (response as number[]) : [];
+      const correct = picks.length === solution.length && picks.every((v, i) => v === solution[i]);
+      return { correct, answer: left.map((l, i) => `${l} → ${right[solution[i]]}`).join('\n') };
+    }
     case 'write_algorithm': {
       const { steps } = exercise.payload;
       const model = steps.map((forms) => forms[0]).join('\n');

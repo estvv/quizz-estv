@@ -29,7 +29,8 @@ export type ExerciseType =
   | 'order_steps'
   | 'write_algorithm'
   | 'flowchart_build'
-  | 'er_build';
+  | 'er_build'
+  | 'matching';
 
 /** One choice is correct; `correct` indexes into `choices`. */
 export interface McqPayload {
@@ -75,6 +76,15 @@ export interface OrderStepsPayload {
 export interface WriteAlgorithmPayload {
   steps: string[][];
   hint?: string;
+}
+
+/** Pair every left item with one right item. `right` is the shuffled display
+ *  order; `solution[i]` is the index into `right` that belongs to `left[i]`.
+ *  `right` may hold extra distractors that match nothing. */
+export interface MatchingPayload {
+  left: string[];
+  right: string[];
+  solution: number[];
 }
 
 export type FlowchartKind = 'start' | 'end' | 'io' | 'process' | 'decision';
@@ -155,7 +165,8 @@ export type ExercisePayload =
   | OrderStepsPayload
   | WriteAlgorithmPayload
   | FlowchartBuildPayload
-  | ErBuildPayload;
+  | ErBuildPayload
+  | MatchingPayload;
 
 /**
  * A lesson-style figure attached to an exercise: `er`, `diagram` or
@@ -287,7 +298,21 @@ export interface SeedErBuildExercise {
   feedback_figure?: Figure;
 }
 
+export interface SeedMatchingExercise {
+  type: 'matching';
+  prompt: string;
+  /** The correct pairs, [left, right]. Right side shuffled at seed time. */
+  pairs: [string, string][];
+  /** Extra right-side options that belong to no left item. */
+  distractors?: string[];
+  explanation?: string;
+  diagram_svg?: string;
+  figure?: Figure;
+  feedback_figure?: Figure;
+}
+
 export type SeedExercise =
+  | SeedMatchingExercise
   | SeedMcqExercise
   | SeedTypeAnswerExercise
   | SeedOrderStepsExercise

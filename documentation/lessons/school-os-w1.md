@@ -1,21 +1,34 @@
-# Operating System — Week 1
+# Operating System — Week 1 · Introduction
 
-Chapter 1 — *Introduction* (Silberschatz, Galvin & Gagne, 10th ed.). What an
-OS does, computer-system organization and interrupts, storage, operating-system
-operations, the main OS functions, protection and security, virtualization,
-architectures and computing environments, kernel data structures.
+Chapitre 1 du Silberschatz (*Operating System Concepts*, 10e éd.) : ce qu'est
+un OS, comment l'ordinateur est organisé (bus, contrôleurs, interruptions), la
+mémoire et le stockage, le fonctionnement de l'OS (dual mode, timer), ses
+grandes fonctions, la virtualisation, les architectures et les environnements.
+
+> **En bref.** L'OS est le **chef d'orchestre** entre le matériel et les
+> programmes. Il est **piloté par les interruptions** : il ne « tourne » pas en
+> boucle, il **réagit** aux événements (un périphérique a fini, un programme
+> fait un appel système, une erreur survient). Il se protège grâce au **dual
+> mode** (user / kernel) et au **timer**.
+
+Les termes en **gras anglais** sont ceux qui tombent au quiz : apprends-les
+tels quels.
 
 ---
 
-## 1. What is an operating system?
+## 1. Qu'est-ce qu'un système d'exploitation ?
 
-An OS is a **program that acts as an intermediary between the user and the
-hardware**. Its three goals: **execute user programs** and make solving user
-problems easier, make the computer **convenient to use**, and use the hardware
-in an **efficient** manner.
+Un OS est un **programme qui sert d'intermédiaire entre l'utilisateur et le
+matériel** (*an intermediary between the user of a computer and the computer
+hardware*). Ses trois objectifs :
 
-A computer system has **four components**: the hardware (CPU, memory, I/O
-devices), the operating system, the application programs, and the users.
+1. **exécuter les programmes** de l'utilisateur et faciliter la résolution de
+   ses problèmes ;
+2. rendre l'ordinateur **pratique à utiliser** (*convenient*) ;
+3. utiliser le matériel de façon **efficace** (*efficient*).
+
+Un système informatique a **quatre composants** : le **hardware**, l'**operating
+system**, les **application programs** et les **users**.
 
 ```diagram
 {
@@ -37,37 +50,40 @@ devices), the operating system, the application programs, and the users.
 }
 ```
 
-- **Hardware** provides the basic computing resources.
-- The **operating system** controls and coordinates the use of the hardware
-  among the various applications and users.
-- **Application programs** define the ways the resources are used to solve the
-  users' computing problems (word processors, compilers, browsers, databases,
-  video games).
-- **Users**: people, machines, other computers.
+| Composant | Rôle | Exemples |
+|---|---|---|
+| **Hardware** | fournit les ressources de base | CPU, mémoire, périphériques d'E/S |
+| **Operating system** | **contrôle et coordonne** l'usage du matériel entre applications et utilisateurs | Linux, Windows, macOS |
+| **Application programs** | utilisent les ressources pour résoudre les problèmes des utilisateurs | navigateur, compilateur, base de données, jeux |
+| **Users** | ceux qui utilisent le système | personnes, machines, autres ordinateurs |
 
-There is **no universally accepted definition**. Two useful approximations:
+### Pas de définition universelle
 
-- *everything a vendor ships when you order an operating system*;
-- the **kernel** is *the one program running at all times on the computer*.
+Il n'existe **aucune définition universellement acceptée** d'un OS. Deux
+approximations utiles :
 
-Everything else is either a **system program** (ships with the OS but is not part
-of the kernel) or an **application program**. Modern OSes also add
-**middleware**: software frameworks that give application developers extra
-services such as databases, multimedia and graphics.
+- « tout ce que le vendeur livre quand on commande un OS » ;
+- le **kernel** : *le seul programme qui tourne en permanence sur l'ordinateur*.
 
-Point of view matters: users want convenience, ease of use and performance and
-don't care about resource utilization; on a shared machine (mainframe,
-minicomputer) the OS is a **resource allocator and control program** that must
-keep all users happy. Workstation users have dedicated resources but use shared
-servers. Mobile devices are resource-poor and optimized for **usability and
-battery life** (touch screens, voice recognition). Embedded computers (devices,
-cars) have little or no user interface and run without user intervention.
+Tout le reste est soit un **system program** (livré avec l'OS mais hors du
+noyau), soit un **application program**. Les OS modernes ajoutent du
+**middleware** : des frameworks qui offrent des services en plus aux
+développeurs (bases de données, multimédia, graphisme).
 
-## 2. Computer-system organization and interrupts
+### Le point de vue change tout
 
-One or more CPUs and the device controllers connect through a **common bus**
-providing access to **shared memory**, and execute **concurrently**, competing
-for memory cycles.
+| Point de vue | Ce qui compte |
+|---|---|
+| Utilisateur d'un PC | confort, facilité, performance — il se moque de l'utilisation des ressources |
+| Machine partagée (mainframe) | l'OS est un **resource allocator** et un **control program** : il doit satisfaire tout le monde |
+| Mobile | pauvre en ressources, optimisé pour l'**utilisabilité** et la **batterie** |
+| Embarqué (voiture, électroménager) | peu ou pas d'interface, tourne sans intervention humaine |
+
+## 2. Organisation de l'ordinateur et interruptions
+
+Un ou plusieurs **CPU** et des **device controllers** sont reliés par un **bus
+commun** à une **mémoire partagée**. Ils s'exécutent **en parallèle** et se
+disputent les cycles mémoire.
 
 ```diagram
 {
@@ -96,28 +112,31 @@ for memory cycles.
 }
 ```
 
-- I/O devices and the CPU can execute **concurrently**.
-- Each **device controller** is in charge of a particular device type and has a
-  **local buffer**; each controller type has an OS **device driver** to manage
-  it, which gives the kernel a uniform interface.
-- The CPU moves data from/to main memory to/from the local buffers; I/O goes
-  from the device to the controller's local buffer.
-- The controller informs the CPU that it has finished its operation by
-  **causing an interrupt**.
+- Chaque **device controller** gère un type de périphérique et possède un
+  **local buffer** (petite mémoire tampon).
+- Pour chaque contrôleur, l'OS a un **device driver** qui offre au noyau une
+  interface uniforme.
+- Le CPU déplace les données entre la mémoire principale et les buffers ; l'E/S
+  elle-même se fait entre le périphérique et le buffer du contrôleur.
+- Quand il a fini, le contrôleur **prévient le CPU en déclenchant une
+  interruption** (*interrupt*).
 
-### Interrupts
+### Les interruptions
 
-- An interrupt **transfers control to the interrupt service routine**,
-  generally through the **interrupt vector**, which contains the addresses of
-  all the service routines.
-- The interrupt architecture must **save the address of the interrupted
-  instruction**; the OS preserves the CPU state by storing the **registers and
-  the program counter**, determines which type of interrupt occurred, and runs
-  the segment of code for that type.
-- A **trap** or **exception** is a *software*-generated interrupt caused either
-  by an **error** (division by zero) or by a **user request** (a system call).
+Une **interrupt** transfère le contrôle à la **routine de service**
+(*interrupt service routine*), en général via l'**interrupt vector** : une
+table qui contient l'adresse de toutes les routines.
 
-**An operating system is interrupt driven.**
+1. le matériel **sauvegarde l'adresse de l'instruction interrompue** ;
+2. l'OS sauvegarde l'état du CPU (**registres** et **program counter**) ;
+3. il détermine le type d'interruption et exécute le code correspondant ;
+4. il restaure l'état et reprend le programme interrompu.
+
+Un **trap** (ou **exception**) est une interruption **générée par le
+logiciel**, soit par une **erreur** (division par zéro, accès mémoire
+interdit), soit par une **demande de l'utilisateur** : un **system call**.
+
+> **À retenir mot pour mot :** *An operating system is interrupt driven.*
 
 ```diagram
 {
@@ -147,18 +166,14 @@ for memory cycles.
 }
 ```
 
-### I/O structure
+### Structure des E/S : synchrone ou asynchrone
 
-Two methods after an I/O starts:
-
-- **synchronous**: control returns to the user program only **upon I/O
-  completion**. A `wait` instruction idles the CPU until the next interrupt
-  (or a wait loop contends for memory access); at most **one I/O request** is
-  outstanding at a time, no simultaneous I/O processing.
-- **asynchronous**: control returns **without waiting** for completion. A
-  **system call** lets the program request to wait for completion, and the
-  **device-status table** keeps an entry per device (type, address, state); the
-  OS indexes into it to determine the device status and records the interrupt.
+| | **Synchronous I/O** | **Asynchronous I/O** |
+|---|---|---|
+| Après la demande d'E/S | le contrôle revient au programme **seulement quand l'E/S est finie** | le contrôle revient **tout de suite**, sans attendre |
+| Le CPU pendant ce temps | attend (instruction `wait` ou boucle d'attente) | exécute ce programme ou un autre |
+| Nombre d'E/S en cours | **une seule** à la fois | plusieurs |
+| Suivi | — | **device-status table** : une entrée par périphérique (type, adresse, état) |
 
 ```diagram
 {
@@ -180,10 +195,12 @@ Two methods after an I/O starts:
 }
 ```
 
-**DMA** (Direct Memory Access) is for high-speed devices able to transmit close
-to memory speed: the controller transfers **whole blocks** from its buffer
-straight into main memory **without CPU intervention**, generating **one
-interrupt per block** instead of one per byte.
+### DMA (Direct Memory Access)
+
+Pour les périphériques rapides, interrompre le CPU à chaque octet serait
+ingérable. Avec le **DMA**, le contrôleur copie des **blocs entiers** de son
+buffer vers la mémoire **sans intervention du CPU**, et ne génère **qu'une
+interruption par bloc** (au lieu d'une par octet).
 
 ```diagram
 {
@@ -205,36 +222,42 @@ interrupt per block** instead of one per byte.
 }
 ```
 
-## 3. Storage
+## 3. Le stockage
 
-**Main memory** is the only large storage media the CPU can access directly:
-**random access**, typically **volatile**, built as **DRAM**. **Secondary
-storage** extends it: large **nonvolatile** capacity.
+La **main memory** (RAM) est le **seul grand support que le CPU peut accéder
+directement**. Elle est à **accès aléatoire**, en général **volatile**
+(perdue à l'extinction) et construite en **DRAM**. Le **secondary storage**
+l'étend avec une grande capacité **non volatile** :
 
-- **Hard disk drives (HDD)**: rigid metal or glass platters covered with
-  magnetic recording material. The surface is logically divided into
-  **tracks**, subdivided into **sectors**; the **disk controller** determines
-  the logical interaction between the device and the computer.
-- **Non-volatile memory (NVM)**: faster than hard disks, nonvolatile; various
-  technologies, more popular as capacity and performance grow and prices drop.
+- **HDD** (disques durs) : plateaux magnétiques divisés en **tracks**, elles-mêmes
+  découpées en **sectors** ; le **disk controller** gère l'interaction avec
+  l'ordinateur.
+- **NVM** (*non-volatile memory*, SSD, flash) : plus rapide que les disques,
+  de plus en plus répandue.
 
-### Units
+### Les unités
 
-The basic unit of storage is the **bit** (0 or 1). A **byte** is 8 bits — the
-smallest convenient chunk (most computers have no instruction to move a bit,
-but one to move a byte). A **word** is a given architecture's native unit of
-data, one or more bytes (64-bit registers → 8-byte words); a computer executes
-many operations in its native word size.
+- **bit** : 0 ou 1, l'unité de base.
+- **byte** : 8 bits, le plus petit morceau pratique (les CPU savent déplacer un
+  octet, rarement un bit).
+- **word** : l'unité native d'une architecture (registres 64 bits → mots de 8
+  octets).
 
-1 KB = **1,024** bytes, 1 MB = 1,024², 1 GB = 1,024³, 1 TB = 1,024⁴,
-1 PB = 1,024⁵ (manufacturers round: a megabyte ≈ 1 million bytes).
-**Exception: networking is measured in bits**, because networks move data one
-bit at a time.
+| Unité | Valeur exacte |
+|---|---|
+| 1 KB (kilobyte) | 1 024 bytes = 2¹⁰ |
+| 1 MB | 1 024² bytes |
+| 1 GB | 1 024³ bytes |
+| 1 TB | 1 024⁴ bytes |
+| 1 PB | 1 024⁵ bytes |
 
-### Storage hierarchy
+> **Piège :** les **réseaux se mesurent en bits** (Mbit/s), pas en octets,
+> parce qu'ils transmettent les données bit par bit.
 
-Storage systems are organized in a hierarchy by **speed, cost and
-volatility**.
+### La hiérarchie de stockage
+
+Les supports sont organisés selon **vitesse, coût et volatilité** : en haut,
+petit, rapide et cher ; en bas, grand, lent et bon marché.
 
 ```diagram
 {
@@ -265,12 +288,12 @@ volatility**.
 }
 ```
 
-Movement between levels can be explicit or implicit. **Caching** copies
-information in use from slower to faster storage temporarily: the cache is
-checked first; if the information is there it is used directly (fast),
-otherwise it is copied into the cache and used there. Main memory can be viewed
-as a cache for secondary storage. A cache is **smaller** than what it caches,
-hence two design problems: **its size and its replacement policy**.
+Le **caching** copie temporairement les données utilisées d'un support lent
+vers un support plus rapide. On regarde d'abord dans le cache : si la donnée y
+est, on l'utilise directement ; sinon on la copie dans le cache. La mémoire
+principale sert elle-même de cache pour le disque. Un cache étant **plus petit**
+que ce qu'il cache, deux problèmes de conception se posent : **sa taille** et
+sa **politique de remplacement** (*replacement policy*).
 
 ```diagram
 {
@@ -289,32 +312,33 @@ hence two design problems: **its size and its replacement policy**.
 }
 ```
 
-In a **multitasking** environment the system must use the **most recent
-value**, wherever it is stored. On a **multiprocessor** the hardware must
-provide **cache coherency** so that all CPUs have the most recent value in
-their cache. In a **distributed** environment several copies of a datum can
-exist — even more complex.
+- En **multitâche**, il faut toujours utiliser la **valeur la plus récente**,
+  où qu'elle soit.
+- En **multiprocesseur**, le matériel doit assurer la **cache coherency** :
+  tous les CPU voient la valeur la plus récente.
+- En environnement **distribué**, plusieurs copies d'une donnée peuvent
+  exister : encore plus complexe.
 
-## 4. Operating-system operations
+## 4. Le fonctionnement de l'OS
 
-At start-up the **bootstrap program** (simple code) initializes the system and
-loads the **kernel**; the kernel then starts the **system daemons** (services
-provided outside the kernel). The kernel is **interrupt driven**: hardware
-interrupts from devices, software interrupts (**exception** or **trap**) for a
-software error (division by zero), a request for OS service (**system call**),
-or other process problems (infinite loop, processes modifying each other or the
-OS).
+Au démarrage, le **bootstrap program** (code simple, en ROM) initialise le
+système et **charge le kernel**. Le noyau lance ensuite les **system daemons**
+(services hors du noyau). À partir de là, le noyau est **interrupt driven** :
 
-- **Multiprogramming (batch system)**: a single user cannot keep the CPU and
-  I/O devices busy, so several **jobs** (code and data) are kept in memory and
-  the CPU always has one to execute. One job is selected via **job
-  scheduling**; when it has to wait (for I/O), the OS switches to another.
-- **Multitasking (timesharing)**: a logical extension of batch — the CPU
-  switches jobs so frequently that users can **interact** with each job while
-  it runs. Response time should be **< 1 second**; each user has at least one
-  program in memory (a **process**); several ready jobs → **CPU scheduling**;
-  if processes don't fit in memory, **swapping** moves them in and out; **virtual
-  memory** allows executing processes not completely in memory.
+- **hardware interrupts** envoyées par les périphériques ;
+- **software interrupts** (**trap** / **exception**) : erreur logicielle, appel
+  système, ou problème d'un processus (boucle infinie, processus qui modifient
+  l'OS ou d'autres processus).
+
+### Multiprogramming et multitasking
+
+| | **Multiprogramming** (batch) | **Multitasking** (timesharing) |
+|---|---|---|
+| Idée | garder **plusieurs jobs en mémoire** pour que le CPU ait toujours du travail | le CPU change de job **si souvent** que les utilisateurs peuvent **interagir** |
+| Quand on change de job | quand le job courant **attend** (une E/S) | très fréquemment (quelques ms) |
+| Choix du job | **job scheduling** | **CPU scheduling** |
+| Objectif | utilisation du CPU | temps de réponse **< 1 seconde** |
+| Si ça ne tient pas en mémoire | — | **swapping** et **virtual memory** |
 
 ```diagram
 {
@@ -332,14 +356,19 @@ OS).
 }
 ```
 
-### Hardware protection
+### Protection matérielle : le dual mode
 
-**Dual-mode operation** allows the OS to protect itself and the other system
-components: **user mode** and **kernel mode**. A **mode bit** provided by the
-hardware tells whether the system is running user code or kernel code. The
-user cannot set the mode bit to "kernel" themselves: a **system call** changes
-the mode to kernel, and the **return** from the call resets it to user. Some
-instructions are **privileged**, executable only in kernel mode.
+Pour se protéger, l'OS distingue deux modes grâce à un **mode bit** fourni par
+le matériel :
+
+| Mode | mode bit | Qui s'y exécute |
+|---|---|---|
+| **User mode** | **1** | les programmes utilisateur |
+| **Kernel mode** | **0** | le noyau ; seul mode où les **privileged instructions** sont permises |
+
+L'utilisateur **ne peut pas** mettre lui-même le bit en mode noyau. Un **system
+call** fait passer en kernel mode (trap, bit = 0) et le **retour** de l'appel
+remet en user mode (bit = 1).
 
 ```diagram
 {
@@ -364,67 +393,58 @@ instructions are **privileged**, executable only in kernel mode.
 }
 ```
 
-A **timer** prevents an infinite loop or a process hogging resources: the timer
-is set to interrupt the computer after some period — a counter decremented by
-the physical clock, set by the OS (a **privileged** instruction); when it
-reaches zero it generates an interrupt. It is set up before scheduling a
-process, to regain control or terminate a program that exceeds its allotted
-time.
+### Le timer
 
-## 5. The main OS functions
+Un **timer** empêche un programme de monopoliser le CPU (boucle infinie) : l'OS
+règle un compteur, décrémenté par l'horloge physique ; à zéro, il génère une
+**interruption** et l'OS reprend la main. **Régler le timer est une
+instruction privilégiée.**
 
-- **Process management**: a process is a **program in execution**, a unit of
-  work within the system. The program is a **passive** entity, the process an
-  **active** one. A process needs resources (CPU, memory, I/O, files,
-  initialization data); termination requires reclaiming them. A
-  single-threaded process has **one program counter**; a multi-threaded one
-  has **one per thread**. Many processes run concurrently on one or more CPUs
-  by **multiplexing** the CPUs among them. Activities: creating and deleting
-  user and system processes; suspending and resuming; mechanisms for
-  **synchronization**, **communication** and **deadlock handling**.
-- **Memory management**: all (or part) of a program's instructions and data
-  must be in memory to execute. It determines **what is in memory and when**,
-  optimizing CPU utilization and response: keeping track of which parts of
-  memory are used and by whom, deciding which processes and data to move in
-  and out, allocating and deallocating space.
-- **File-system management**: a uniform, logical view of information storage —
-  the **file** abstracts the physical properties of the medium (each medium,
-  disk or tape, has its own speed, capacity, transfer rate, sequential or random
-  access). Files are organized in **directories** with access control;
-  activities: create/delete files and directories, primitives to manipulate
-  them, map files onto secondary storage, back up onto stable media.
-- **Mass-storage management**: disks hold what does not fit in main memory or
-  must be kept for a long period; the entire speed of the computer hinges on
-  the disk subsystem. Activities: mounting/unmounting, **free-space
-  management**, storage allocation, **disk scheduling**, partitioning,
-  protection.
-- **I/O subsystem**: hides the peculiarities of hardware devices from the user.
-  Responsible for memory management of I/O — **buffering** (storing data
-  temporarily while it is transferred), **caching** (parts of data in faster
-  storage), **spooling** (overlapping the output of one job with the input of
-  others) — plus a general device-driver interface and the drivers for specific
-  devices.
+> **Piège :** c'est le **timer** (et non le mode bit) qui empêche une boucle
+> infinie de bloquer la machine. Le mode bit, lui, empêche un programme
+> d'exécuter des instructions privilégiées.
 
-## 6. Protection, security, virtualization
+## 5. Les grandes fonctions de l'OS
 
-**Protection** = any mechanism for controlling the access of processes or users
-to the resources defined by the OS. **Security** = defense of the system
-against internal and external attacks (denial-of-service, worms, viruses,
-identity theft, theft of service). Systems first distinguish users: a **user
-ID** (name + number, one per user) is associated with all the user's files and
-processes to determine access control; a **group ID** defines a set of users
-with shared controls; **privilege escalation** lets a user change to an
-effective ID with more rights.
+| Fonction | Ce que l'OS fait |
+|---|---|
+| **Process management** | créer / supprimer des processus, les suspendre / reprendre, fournir des mécanismes de **synchronisation**, de **communication** et de gestion des **deadlocks** |
+| **Memory management** | savoir **quelles parties de la mémoire** sont utilisées et **par qui**, décider **quoi charger / décharger**, allouer et libérer |
+| **File-system management** | offrir une vue logique uniforme (le **file**), créer / supprimer fichiers et **directories**, les mapper sur le stockage, sauvegarder |
+| **Mass-storage management** | monter / démonter, **free-space management**, allocation, **disk scheduling**, partitionnement, protection |
+| **I/O subsystem** | cacher les particularités du matériel : **buffering**, **caching**, **spooling**, interface générique de drivers |
 
-**Virtualization** allows operating systems to run applications within other
-OSes — a vast and growing industry. **Emulation** is used when the source CPU
-type differs from the target (PowerPC to Intel x86) — generally the **slowest**
-method (a language not compiled to native code is *interpreted*).
-Virtualization proper: an OS natively compiled for the CPU running **guest**
-OSes also natively compiled (VMware running Windows XP guests on a Windows XP
-host). The **VMM** (virtual machine manager) provides the virtualization
-services; it can also run natively, being then itself the host (VMware ESX,
-Citrix XenServer — no general-purpose host OS).
+Un **process** est un **programme en exécution**, l'unité de travail du
+système. Le **program** est une entité **passive** (un fichier sur disque) ; le
+**process** est une entité **active**. Un processus mono-thread a **un seul
+program counter** ; un processus multi-thread en a **un par thread**.
+
+| Terme d'E/S | Définition |
+|---|---|
+| **Buffering** | stocker temporairement des données pendant leur transfert |
+| **Caching** | garder des parties de données dans un stockage plus rapide |
+| **Spooling** | superposer la sortie d'un job avec l'entrée d'autres jobs (ex. file d'impression) |
+
+## 6. Protection, sécurité, virtualisation
+
+| **Protection** | **Security** |
+|---|---|
+| tout mécanisme qui **contrôle l'accès** des processus ou utilisateurs aux ressources de l'OS | **défense** du système contre les attaques **internes et externes** (DoS, vers, virus, vol d'identité) |
+
+L'OS identifie les utilisateurs par un **user ID** (un par utilisateur, associé
+à ses fichiers et processus) et des **group ID** (ensembles d'utilisateurs). La
+**privilege escalation** permet de passer temporairement à un ID effectif avec
+plus de droits (comme `sudo`).
+
+### Virtualisation et émulation
+
+- **Emulation** : le CPU source est **différent** du CPU cible (PowerPC → x86).
+  C'est en général la méthode **la plus lente**.
+- **Virtualization** : un OS compilé pour le CPU héberge des OS **guests**
+  eux aussi compilés nativement. Le **VMM** (*virtual machine manager*)
+  fournit les services de virtualisation. Il peut tourner sur un OS hôte
+  (VMware Workstation, VirtualBox) ou **directement sur le matériel** (VMware
+  ESX, Citrix XenServer).
 
 ```diagram
 {
@@ -456,25 +476,31 @@ Citrix XenServer — no general-purpose host OS).
 }
 ```
 
-Use cases: a laptop running macOS as host and Windows as guest, developing or
-QA-testing apps for multiple OSes without multiple machines, executing and
-managing compute environments within data centers.
+Usages : lancer Windows sous macOS, tester une appli sur plusieurs OS sans
+plusieurs machines, gérer des environnements de calcul dans les data centers.
+Tu l'utilises toi-même dans les labs : VMware (ou VirtualBox) fait tourner
+Ubuntu comme **guest** sur ton OS **host**.
 
-**Distributed systems**: a collection of separate, possibly heterogeneous,
-systems networked together. The network is a communications path — **TCP/IP**
-most common — sized as **LAN**, **WAN**, **MAN**, **PAN**. A **network operating
-system** provides features between systems across the network (message
-exchange, the illusion of a single system).
+### Systèmes distribués
 
-## 7. Computer-system architecture
+Un **distributed system** est un ensemble de systèmes séparés, reliés par un
+réseau (le plus souvent **TCP/IP**). Réseaux par taille : **PAN** < **LAN** <
+**MAN** < **WAN**. Un **network operating system** fournit des fonctions entre
+machines (échange de messages, illusion d'un seul système).
 
-Most systems use a **single general-purpose processor** (plus special-purpose
-ones). **Multiprocessor** systems — also called **parallel** or
-**tightly-coupled** systems — bring three advantages: **increased throughput,
-economy of scale, increased reliability** (graceful degradation / fault
-tolerance). Two types: **asymmetric multiprocessing** (each processor is
-assigned a specific task) and **symmetric multiprocessing (SMP)** (each
-processor performs all tasks).
+## 7. Architectures matérielles
+
+La plupart des systèmes ont **un processeur généraliste** (plus des
+processeurs spécialisés). Les **multiprocessor systems** (aussi appelés
+**parallel** ou **tightly-coupled**) apportent trois avantages :
+
+1. **increased throughput** (plus de débit) ;
+2. **economy of scale** (on partage périphériques, stockage, alimentation) ;
+3. **increased reliability** : *graceful degradation*, *fault tolerance*.
+
+| **Asymmetric multiprocessing** | **Symmetric multiprocessing (SMP)** |
+|---|---|
+| chaque processeur a **une tâche précise** | **chaque processeur fait toutes les tâches** |
 
 ```diagram
 {
@@ -500,9 +526,8 @@ processor performs all tasks).
 }
 ```
 
-**Multicore**: several computing cores on one chip (each core has its CPU,
-registers and L1 cache; the L2 cache is shared), as opposed to multi-chip
-systems; a **chassis** can even contain multiple separate systems.
+**Multicore** : plusieurs cœurs sur **une seule puce**. Chaque cœur a ses
+registres et son cache L1, le cache L2 est partagé.
 
 ```diagram
 {
@@ -527,9 +552,9 @@ systems; a **chassis** can even contain multiple separate systems.
 }
 ```
 
-**NUMA** (non-uniform memory access): each CPU has its own local memory,
-reachable fast; accessing another CPU's memory goes through the interconnect
-and is slower — the memory-access time **varies by bank**.
+**NUMA** (*non-uniform memory access*) : chaque CPU a sa mémoire locale,
+rapide ; accéder à la mémoire d'un autre CPU passe par l'interconnexion et
+coûte plus cher. Le temps d'accès **dépend du banc mémoire**.
 
 ```diagram
 {
@@ -555,14 +580,20 @@ and is slower — the memory-access time **varies by bank**.
 }
 ```
 
-**Clustered systems**: like multiprocessors, but **multiple systems** working
-together, usually sharing storage via a **storage-area network (SAN)**. They
-provide a **high-availability** service that survives failures: **asymmetric
-clustering** keeps one machine in **hot-standby**, **symmetric clustering** has
-multiple nodes running applications and monitoring each other. Some clusters
-target **high-performance computing (HPC)** — applications must be written to
-use **parallelization** — and some use a **distributed lock manager (DLM)** to
-avoid conflicting operations.
+### Clusters
+
+Un **clustered system** regroupe **plusieurs systèmes** complets qui
+travaillent ensemble, en partageant souvent le stockage via un **SAN**
+(*storage-area network*). Objectif : la **high availability** (le service
+survit aux pannes).
+
+| **Asymmetric clustering** | **Symmetric clustering** |
+|---|---|
+| une machine en **hot-standby** surveille les autres et prend le relais | **plusieurs nœuds** font tourner des applications et se surveillent mutuellement |
+
+Certains clusters visent le **HPC** (*high-performance computing*) : les
+applications doivent être écrites pour la **parallélisation**. Un **DLM**
+(*distributed lock manager*) évite les opérations conflictuelles.
 
 ```diagram
 {
@@ -580,25 +611,19 @@ avoid conflicting operations.
 }
 ```
 
-## 8. Computing environments
+> **Piège :** multiprocessor = **plusieurs CPU dans une machine** ; cluster =
+> **plusieurs machines** reliées entre elles.
 
-- **Traditional**: stand-alone general-purpose machines, now blurred since most
-  systems interconnect (the Internet). **Portals** provide web access to
-  internal systems; **network computers (thin clients)** are like web
-  terminals; mobile computers interconnect via wireless; even home systems use
-  **firewalls**.
-- **Mobile**: handheld smartphones, tablets. Extra OS features (GPS,
-  gyroscope) allow new app types like augmented reality; connectivity via
-  IEEE 802.11 wireless or cellular data. Leaders: Apple iOS and Google Android.
-- **Client-server**: dumb terminals supplanted by smart PCs; many systems are
-  now **servers** responding to requests from **clients**. A **compute-server**
-  system provides an interface to request services (a database); a
-  **file-server** system provides an interface to store and retrieve files.
-- **Peer-to-peer**: another distributed model with **no distinction between
-  clients and servers** — all nodes are peers, each may act as client, server
-  or both. A node joins the network by registering its service with a
-  **central lookup service**, or by **broadcasting** a request and answering
-  through a **discovery protocol**. Examples: Napster, Gnutella, VoIP (Skype).
+## 8. Les environnements informatiques
+
+| Environnement | Idée clé |
+|---|---|
+| **Traditional** | machines autonomes, désormais connectées (portails web, **thin clients**, pare-feu à la maison) |
+| **Mobile** | smartphones, tablettes ; GPS, gyroscope → réalité augmentée ; leaders **iOS** et **Android** |
+| **Client-server** | des **servers** répondent aux requêtes des **clients** ; *compute-server* (ex. base de données) ou *file-server* |
+| **Peer-to-peer** | **aucune distinction client / serveur**, chaque nœud peut être les deux ; découverte par un **central lookup service** ou par **broadcast** (*discovery protocol*). Ex. Napster, Gnutella, Skype |
+| **Cloud computing** | calcul, stockage et applis **fournis comme service** via le réseau ; bâti sur la **virtualisation** |
+| **Real-time embedded** | la forme d'ordinateur **la plus répandue** ; un **real-time OS** a des **contraintes de temps fixes** : correct **seulement si** elles sont respectées |
 
 ```diagram
 {
@@ -626,16 +651,17 @@ avoid conflicting operations.
 }
 ```
 
-- **Cloud computing**: delivers computing, storage, even apps **as a service
-  across a network**; a logical extension of virtualization, which it uses as
-  its base (Amazon EC2: thousands of servers, millions of VMs, petabytes of
-  storage, pay per usage). Types: **public** cloud (anyone willing to pay),
-  **private** (a company for its own use), **hybrid**; by layer **SaaS** (an
-  application via the Internet — a word processor), **PaaS** (a software stack
-  ready for application use — a database server), **IaaS** (servers or storage
-  over the Internet — backup storage). A cloud environment = traditional OSes +
-  VMMs + cloud management tools; Internet connectivity requires **firewalls**;
-  **load balancers** spread traffic across applications.
+### Le cloud en détail
+
+| Par qui | Par couche |
+|---|---|
+| **Public** : ouvert à qui paie | **SaaS** : une application via Internet (ex. traitement de texte en ligne) |
+| **Private** : une entreprise pour elle-même | **PaaS** : une pile logicielle prête à l'emploi (ex. serveur de base de données) |
+| **Hybrid** : mélange des deux | **IaaS** : serveurs ou stockage via Internet (ex. stockage de sauvegarde) |
+
+Un environnement cloud = OS classiques + **VMM** + outils de gestion du cloud,
+protégés par des **firewalls**, avec des **load balancers** qui répartissent le
+trafic.
 
 ```diagram
 {
@@ -659,22 +685,19 @@ avoid conflicting operations.
 }
 ```
 
-- **Real-time embedded systems**: the most prevalent form of computers — vary
-  considerably, special purpose, limited-purpose OS or real-time OS. A
-  **real-time OS** has **well-defined fixed time constraints**: processing must
-  be done within the constraint, correct operation **only if constraints are
-  met**.
+## 9. Open source et structures de données du noyau
 
-## 9. Free and open-source OS, kernel data structures
+Un OS **open-source** est distribué sous forme de **code source**, et non
+seulement en binaire (fermé, propriétaire), à l'opposé de la protection contre
+la copie et du **DRM**. Le mouvement a été lancé par la **Free Software
+Foundation (FSF)** et sa licence **copyleft** : la **GNU General Public License
+(GPL)**. Exemples : **GNU/Linux**, **BSD UNIX** (le cœur de macOS).
 
-An **open-source** OS is available in **source-code** format rather than just
-binary, closed-source and proprietary — counter to copy protection and **DRM**.
-Started by the **Free Software Foundation (FSF)** with its **copyleft GNU
-Public License (GPL)** (free software and open-source software are two
-different ideas). Examples: **GNU/Linux**, **BSD UNIX** (core of macOS). A VMM
-(VMware Player, VirtualBox) lets you run guest OSes for exploration.
+> **Piège :** *free software* et *open-source software* sont **deux idées
+> différentes** (liberté vs accès au code), même si elles se recoupent.
 
-Kernel data structures are similar to standard programming data structures:
+Les structures de données du noyau sont les mêmes qu'en programmation
+classique :
 
 ```diagram
 {
@@ -741,37 +764,51 @@ Kernel data structures are similar to standard programming data structures:
 }
 ```
 
-- **Bitmap**: a string of *n* binary digits representing the status of *n*
-  items (free / used blocks, for instance).
-- Linux defines these in include files: `<linux/list.h>`, `<linux/kfifo.h>`,
+- **Bitmap** : une chaîne de *n* bits qui représente l'état de *n* éléments
+  (par exemple bloc libre / occupé).
+- Linux les définit dans `<linux/list.h>`, `<linux/kfifo.h>`,
   `<linux/rbtree.h>`.
+- Recherche dans un arbre binaire de recherche : **O(n)** au pire, **O(lg n)**
+  s'il est équilibré.
 
 ---
 
-## To remember
+## À retenir
 
-- OS = intermediary between user and hardware; the **kernel** is the one
-  program always running; system programs, applications and middleware sit
-  above it. Four components: hardware, OS, applications, users.
-- CPUs and controllers share a **bus** to memory; each controller has a local
-  buffer and a **driver**; it signals completion with an **interrupt** routed
-  through the **interrupt vector**. Trap/exception = software interrupt. The OS
-  is **interrupt driven**. **DMA** = one interrupt per block.
-- Storage hierarchy by speed/cost/volatility: registers → cache → main memory
-  (volatile) → NVM → HDD → optical → tape. **Caching** at every level; cache
-  coherency on multiprocessors. Units: 1 KB = 1,024 B; networks count in bits.
-- Boot: bootstrap → kernel → daemons. **Multiprogramming** keeps the CPU busy,
-  **timesharing** adds interactivity (< 1 s), swapping and virtual memory.
-- **Dual mode**: mode bit, system call → kernel, return → user; privileged
-  instructions; **timer** against infinite loops.
-- Process = program in execution (passive vs active), one PC per thread.
-  Memory, file, mass-storage and I/O management (buffering, caching, spooling).
-- Protection vs security; user ID, group ID, privilege escalation.
-  Virtualization: emulation (slowest) vs native VMM; guests on a host.
-- Multiprocessors: throughput, economy of scale, reliability; asymmetric vs
-  **SMP**; multicore, **NUMA**; clusters over a SAN (asymmetric hot-standby vs
-  symmetric), HPC, DLM.
-- Environments: traditional, mobile, client-server (compute vs file server),
-  P2P, cloud (public/private/hybrid, SaaS/PaaS/IaaS), real-time embedded.
-- Open source: FSF, GPL, GNU/Linux, BSD. Kernel structures: linked lists,
-  BST (O(n), O(lg n) balanced), hash map, bitmap.
+- OS = **intermédiaire** entre l'utilisateur et le matériel ; le **kernel** est
+  le seul programme qui tourne en permanence. Quatre composants : hardware, OS,
+  applications, users.
+- CPU et contrôleurs partagent un **bus** vers la mémoire ; chaque contrôleur a
+  un **local buffer** et un **driver** ; il signale la fin par une
+  **interrupt**, routée via l'**interrupt vector**. **Trap / exception** =
+  interruption logicielle (erreur ou system call). L'OS est **interrupt
+  driven**.
+- **DMA** : une interruption **par bloc**, sans le CPU.
+- Hiérarchie : registers → cache → main memory (volatile) → NVM → HDD →
+  optical → tape. **Caching** partout, **cache coherency** en multiprocesseur.
+  1 KB = 1 024 B ; les réseaux comptent en **bits**.
+- **Multiprogramming** : le CPU a toujours un job. **Timesharing** : en plus,
+  l'interactivité (< 1 s).
+- **Dual mode** : mode bit 1 = user, 0 = kernel ; system call → kernel, retour
+  → user ; **privileged instructions**. **Timer** contre les boucles infinies.
+- Process = programme **en exécution** (actif) ; program = **passif**.
+- **Protection** (contrôle d'accès) ≠ **security** (défense contre les
+  attaques). Emulation = CPU différent, la plus lente.
+- **SMP** : chaque CPU fait tout. **Multicore** : plusieurs cœurs, une puce.
+  **NUMA** : accès mémoire non uniforme. **Cluster** : plusieurs machines + SAN.
+- Cloud : public / private / hybrid ; **SaaS / PaaS / IaaS**.
+
+## Pièges classiques du quiz
+
+| Affirmation | Vrai / Faux |
+|---|---|
+| Le kernel est le seul programme qui tourne en permanence | **Vrai** |
+| Un trap est une interruption matérielle | **Faux** : générée par le logiciel |
+| Avec le DMA, le CPU reçoit une interruption par octet | **Faux** : une par **bloc** |
+| La RAM est non volatile | **Faux** : volatile |
+| 1 KB = 1 000 bytes | **Faux** : 1 024 |
+| En user mode, le mode bit vaut 0 | **Faux** : user = 1, kernel = 0 |
+| Un programme utilisateur peut régler le timer | **Faux** : instruction privilégiée |
+| L'emulation est plus rapide que la virtualisation | **Faux** : c'est la plus lente |
+| En SMP, chaque processeur a une tâche dédiée | **Faux** : ça, c'est l'asymmetric |
+| Un real-time OS n'a pas de contrainte de temps stricte | **Faux** : contraintes fixes |
