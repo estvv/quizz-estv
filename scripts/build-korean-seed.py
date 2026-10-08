@@ -1379,6 +1379,125 @@ s'il vous plaît ») ? Trois cas, à reconnaître vite.
     ]
 
 
+# Règles affichées en tête de la leçon de certains decks du Vocabulaire (ceux
+# où un mot ne s'emploie pas sans sa règle). Le reste des decks n'a pas de
+# leçon : la liste complète est dans la leçon du conteneur Vocabulaire.
+_DECK_RULES = {
+    "Verbes": """Les verbes sont donnés à la **forme du dictionnaire**, en **-다**. Pour
+s'en servir, on enlève **다** et on ajoute une terminaison.
+
+## La demande polie -(으)세요 (« faites…, s'il vous plaît »)
+
+1. **Enlève 다** : 앉다 → **앉** ; 가다 → **가**.
+2. Le radical finit par une **voyelle** → **세요** : 가 → **가세요**,
+   기다리 → **기다리세요**, 공부하 → **공부하세요**.
+3. Le radical finit par une **consonne** (받침) → **으세요** : 앉 →
+   **앉으세요**, 읽 → **읽으세요**.
+4. **Exceptions : 마시다 (boire) et 먹다 (manger)** → **드세요** : tout le verbe
+   est remplacé (forme honorifique, celle des slides). 마시세요 / 먹으세요
+   existent mais sont moins polis.
+
+| Verbe | Radical | Demande polie |
+|---|---|---|
+| 가다 (aller) | 가 | 가세요 |
+| 오다 (venir) | 오 | 오세요 |
+| 주다 (donner) | 주 | 주세요 — **pas** une exception |
+| 쓰다 (écrire) | 쓰 | 쓰세요 |
+| 앉다 (s'asseoir) | 앉 | 앉으세요 |
+| 읽다 (lire) | 읽 | 읽으세요 |
+| 마시다 (boire) | — | **드세요** (exception) |
+| 먹다 (manger) | — | **드세요** (exception) |
+
+Pour t'entraîner verbe par verbe : **Cours → Entraînement -(으)세요**.""",
+
+    "Pays & nationalités": """## Dire sa nationalité
+
+**Nationalité = pays + 사람** (personne) :
+
+- 프랑스 → **프랑스 사람** (Français·e)
+- 한국 → **한국 사람** (Coréen·ne)
+- 일본 → **일본 사람** (Japonais·e)
+
+Pour dire « je suis… », on ajoute **이에요** : 사람 finit par la consonne ㅁ,
+donc c'est **toujours 사람이에요**, quel que soit le pays.
+
+- 저는 프랑스 사람**이에요**. — Je suis français·e.
+- 웨이 씨는 중국 사람**이에요**? — Wei est chinois ?
+- 네, 중국 사람이에요. / 아니요, 일본 사람이에요.
+
+> **Piège :** **국적** = la nationalité (le mot), **나라** = le pays. On ne dit
+> pas 프랑스이에요 pour « je suis français » : il faut **사람**.""",
+
+    "Politesse": """## Dire au revoir : qui part, qui reste ?
+
+| Coréen | À qui | Sens littéral |
+|---|---|---|
+| 안녕히 **가세요** | à la personne **qui part** | « allez en paix » |
+| 안녕히 **계세요** | à la personne **qui reste** | « restez en paix » |
+
+Toi tu pars, l'autre reste → **안녕히 계세요**. L'autre part → **안녕히
+가세요**. Les deux partent → **안녕히 가세요**.
+
+## Au restaurant
+
+| Qui le dit | Coréen | Sens |
+|---|---|---|
+| serveur | 어서 오세요. | Bienvenue. |
+| serveur | 뭐 드릴까요? | Que désirez-vous ? |
+| client | 여기요! | Excusez-moi ! (pour appeler) |
+| serveur | 잠깐만 기다리세요. | Un instant, s'il vous plaît. |
+| serveur | 여기 있어요. | Voici. |
+
+**N 주세요** = « donnez-moi N » (주다 + 세요) ; **좀** rend la demande plus
+douce : 물 좀 주세요.""",
+
+    "Compteurs": """## Compter des choses : nom + nombre + compteur
+
+On compte avec les nombres **coréens natifs** (하나, 둘, 셋…), suivis d'un
+**compteur** qui dépend de ce qu'on compte. L'ordre est toujours
+**nom → nombre → compteur** :
+
+- 콜라 **한 병** — un coca (une bouteille)
+- 사과 **두 개** — deux pommes
+- 커피 **세 잔** — trois cafés
+- 학생 **네 명** — quatre étudiants
+
+## Les formes réduites
+
+Devant un compteur, les quatre premiers nombres **raccourcissent** :
+
+| Nombre | Seul | Devant un compteur |
+|---|---|---|
+| 1 | 하나 | **한** 개 |
+| 2 | 둘 | **두** 개 |
+| 3 | 셋 | **세** 개 |
+| 4 | 넷 | **네** 개 |
+| 5 et plus | 다섯, 여섯… | **inchangés** : 다섯 개 |
+
+## Quel compteur ?
+
+| Compteur | Pour | Question |
+|---|---|---|
+| **개** | les objets en général | 몇 개 있어요? |
+| **병** | les bouteilles | 몇 병 있어요? |
+| **잔** | les verres, les tasses | 몇 잔 있어요? |
+| **명** | les personnes | 몇 명 있어요? |
+| **분** | les personnes (poli) | 몇 분이에요? |
+
+Pour **commander** : 콜라 한 병**하고** 맥주 두 병 주세요 (하고 = et).
+
+> **Piège :** 네 (quatre devant un compteur) ressemble à 네 (oui) ; et 개
+> (compteur) est aussi le mot « chien ». C'est le contexte qui tranche.""",
+}
+
+
+def build_deck_lesson(name, words):
+    """Leçon d'un deck : sa règle, puis ses mots (comme la liste du Vocabulaire)."""
+    out = [f"# {name}", "", _DECK_RULES[name], "", "## Les mots", ""]
+    out += [f"- {gloss(w['ko'], w['rr'])} = {w['fr'][0]}" for w in words]
+    return "\n".join(out).rstrip() + "\n"
+
+
 def main():
     seed = json.loads(SEED.read_text())
     # Re-insert the branch where it was, so a re-run does not reorder seed.json.
@@ -1414,10 +1533,11 @@ def main():
             if phon:
                 w["phon"] = phon
         key = "kr-voc-" + re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
-        kr.append({
-            "name": name, "key": key, "color": COLOR, "parent": "kr-vocab",
-            "vocab": words,
-        })
+        deck = {"name": name, "key": key, "color": COLOR, "parent": "kr-vocab",
+                "vocab": words}
+        if name in _DECK_RULES:
+            deck["lesson"] = build_deck_lesson(name, words)
+        kr.append(deck)
 
     seed[at:at] = kr
     SEED.write_text(json.dumps(seed, ensure_ascii=False, indent=2) + "\n")
