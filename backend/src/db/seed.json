@@ -22020,14 +22020,1365 @@
     "key": "kr-cours-w1",
     "color": "rose",
     "parent": "kr-cours",
-    "lesson": "# Coréen — Semaine 1\n\nCours GEE3003 « Basic Korean », Day 1 (week_1.pdf) : les voyelles et les\nconsonnes de base, et la lecture de premiers mots.\n\n## Voyelles de base (모음)\n\n- ㅏ = a\n- ㅑ = ya\n- ㅓ = eo\n- ㅕ = yeo\n- ㅗ = o\n- ㅛ = yo\n- ㅜ = u\n- ㅠ = yu\n- ㅡ = eu\n- ㅣ = i\n\nUn trait court ajouté à ㅣ ou ㅡ donne ㅏ ㅓ ㅗ ㅜ ; un second trait donne les\nvoyelles iotisées ㅑ ㅕ ㅛ ㅠ. Lues seules (avec la consonne muette ㅇ) :\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㅇ** | 아 | 야 | 어 | 여 | 오 | 요 | 우 | 유 | 으 | 이 |\n\n## Consonnes de base (자음)\n\n- ㄱ = g / k\n- ㄴ = n\n- ㄷ = d / t\n- ㄹ = r / l\n- ㅁ = m\n- ㅂ = b / p\n- ㅅ = s\n- ㅇ = muette en tête de syllabe, « ng » en finale\n- ㅈ = j\n- ㅎ = h\n\n## Syllabes — consonne + voyelle\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㄱ** | 가 | 갸 | 거 | 겨 | 고 | 교 | 구 | 규 | 그 | 기 |\n| **ㄴ** | 나 | 냐 | 너 | 녀 | 노 | 뇨 | 누 | 뉴 | 느 | 니 |\n| **ㄷ** | 다 | 댜 | 더 | 뎌 | 도 | 됴 | 두 | 듀 | 드 | 디 |\n| **ㄹ** | 라 | 랴 | 러 | 려 | 로 | 료 | 루 | 류 | 르 | 리 |\n| **ㅁ** | 마 | 먀 | 머 | 며 | 모 | 묘 | 무 | 뮤 | 므 | 미 |\n| **ㅂ** | 바 | 뱌 | 버 | 벼 | 보 | 뵤 | 부 | 뷰 | 브 | 비 |\n| **ㅅ** | 사 | 샤 | 서 | 셔 | 소 | 쇼 | 수 | 슈 | 스 | 시 |\n| **ㅇ** | 아 | 야 | 어 | 여 | 오 | 요 | 우 | 유 | 으 | 이 |\n| **ㅈ** | 자 | 쟈 | 저 | 져 | 조 | 죠 | 주 | 쥬 | 즈 | 지 |\n| **ㅎ** | 하 | 햐 | 허 | 혀 | 호 | 효 | 후 | 휴 | 흐 | 히 |\n\n## Mots (단어)\n\n- dent = 이 = i\n- enfant = 아이 = a-i\n- cinq = 오 = o\n- concombre = 오이 = o-i\n- lait = 우유 = u-yu\n- renard = 여우 = yeo-u\n- meuble = 가구 = ga-gu\n- papillon = 나비 = na-bi\n- banane = 바나나 = ba-na-na\n- chanteur / chanteuse = 가수 = ga-su\n- bébé = 아기 = a-gi\n- radio = 라디오 = ra-di-o\n- viande = 고기 = go-gi\n- chaussures = 구두 = gu-du\n- grande sœur (d'un homme) = 누나 = nu-na\n- jambe / pont = 다리 = da-ri\n- cuisine / plat = 요리 = yo-ri\n- pays = 나라 = na-ra\n- tête / cheveux = 머리 = meo-ri\n- après-midi = 오후 = o-hu\n- arbre = 나무 = na-mu\n- entreprise = 회사 = hoe-sa\n- sauce = 소스 = so-seu\n- lac = 호수 = ho-su\n"
+    "lesson": "# Coréen — Semaine 1 · Le hangeul : voyelles et consonnes de base\n\nCours GEE3003 « Basic Korean », Day 1 (week_1.pdf) : comment le **hangeul**\n(한글) est construit, les **10 voyelles de base**, les **10 consonnes de\nbase**, et comment on les assemble en **syllabes**.\n\n> **En bref.** Le hangeul a été créé par le **roi Sejong** (XVe siècle). Les\n> **voyelles** viennent de **trois éléments** : **•** (le ciel), **ㅡ** (la\n> terre), **ㅣ** (l'humain). Les **consonnes** dessinent la **forme de la\n> bouche** qui les prononce, et **un trait en plus** = un son **plus fort**.\n> On écrit par **syllabes** : consonne + voyelle, dans un bloc carré. Une\n> voyelle seule s'écrit avec **ㅇ muet** devant : 아, 오, 이.\n\n## 1. Le principe des voyelles (모음)\n\nTrois éléments de base :\n\n| Élément | Symbolise |\n|---|---|\n| **•** | le **ciel** (le soleil) |\n| **ㅡ** | la **terre** (plate) |\n| **ㅣ** | l'**humain** (debout) |\n\nOn colle le point (•) à ㅣ ou à ㅡ, d'un côté ou de l'autre :\n\n| Combinaison | Voyelle | | Combinaison | Voyelle |\n|---|---|---|---|---|\n| ㅣ + • | **ㅏ** (a) | | • + ㅣ | **ㅓ** (eo) |\n| • + ㅡ (point au-dessus) | **ㅗ** (o) | | ㅡ + • (point en dessous) | **ㅜ** (u) |\n\nUn **deuxième point** ajoute un son **[y]** devant : ㅏ → **ㅑ** (ya),\nㅓ → **ㅕ** (yeo), ㅗ → **ㅛ** (yo), ㅜ → **ㅠ** (yu).\n\n### Les 10 voyelles de base\n\n| ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|\n| a | ya | eo | yeo | o | yo | u | yu | eu | i |\n| [a] | [ya] | [o ouvert, « or »] | [yo ouvert] | [o fermé, « eau »] | [yo] | [ou] | [you] | [eu, lèvres étirées] | [i] |\n\n> **Piège :** **ㅓ (eo)** et **ㅗ (o)** sont deux « o » différents : ㅓ est\n> **ouvert** (bouche ouverte, comme dans « porte »), ㅗ est **fermé**, lèvres\n> arrondies (comme dans « eau »). Et **ㅜ = [ou]**, pas [u].\n\n### Écrire une voyelle seule\n\nUne syllabe commence **toujours par une consonne**. Pour écrire une voyelle\nseule, on met devant **ㅇ, muet en début de syllabe** :\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㅇ** | 아 | 야 | 어 | 여 | 오 | 요 | 우 | 유 | 으 | 이 |\n\n### Où placer la voyelle ?\n\n- Voyelles **verticales** (ㅏ ㅑ ㅓ ㅕ ㅣ) → **à droite** de la consonne : 가, 너, 리.\n- Voyelles **horizontales** (ㅗ ㅛ ㅜ ㅠ ㅡ) → **sous** la consonne : 고, 누, 므.\n\n## 2. Le principe des consonnes (자음)\n\nLes consonnes de base **dessinent l'organe** qui les prononce :\n\n| Consonne | Ce qu'elle dessine |\n|---|---|\n| **ㄱ** | l'**arrière de la langue** qui bloque le fond de la gorge |\n| **ㄴ** | le **bout de la langue** qui touche l'arrière des dents du haut |\n| **ㅁ** | la **bouche** (les lèvres fermées) |\n| **ㅅ** | une **dent** |\n| **ㅇ** | la **gorge** (le gosier) |\n\n**Un trait en plus = un son plus fort** (plus d'air) :\n\n| Base | + un trait | + encore un |\n|---|---|---|\n| ㄱ | ㅋ | |\n| ㄴ | ㄷ | ㅌ |\n| ㅁ | ㅂ | ㅍ |\n| ㅅ | ㅈ | ㅊ |\n| ㅇ | ㅎ | |\n\nEt en **doublant** une consonne, on obtient les consonnes **tendues** :\nㄲ ㄸ ㅃ ㅆ ㅉ (semaine 2).\n\n### Les 10 consonnes de base\n\n| Consonne | Son | Image des slides |\n|---|---|---|\n| **ㄱ** | [k / g] | un pistolet (la forme de ㄱ) |\n| **ㄴ** | [n] | le nez |\n| **ㄷ** | [t / d] | la porte (door) |\n| **ㄹ** | [r / l] | le serpent (la forme qui ondule) |\n| **ㅁ** | [m] | la bouche |\n| **ㅂ** | [p / b] | |\n| **ㅅ** | [s] | |\n| **ㅇ** | **muet** en début de syllabe, **[ng]** en fin | « No sound » |\n| **ㅈ** | [j] (« dj ») | |\n| **ㅎ** | [h] | |\n\n> **Bon à savoir :** ㄱ ㄷ ㅂ ㅈ sont plutôt **[k] [t] [p] [tch]** en début de\n> mot, et deviennent **[g] [d] [b] [dj]** entre deux voyelles : 가구 se dit\n> [ka-gou], 바다 [pa-da].\n\n## 3. Les syllabes : consonne + voyelle\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㄱ** | 가 | 갸 | 거 | 겨 | 고 | 교 | 구 | 규 | 그 | 기 |\n| **ㄴ** | 나 | 냐 | 너 | 녀 | 노 | 뇨 | 누 | 뉴 | 느 | 니 |\n| **ㄷ** | 다 | 댜 | 더 | 뎌 | 도 | 됴 | 두 | 듀 | 드 | 디 |\n| **ㄹ** | 라 | 랴 | 러 | 려 | 로 | 료 | 루 | 류 | 르 | 리 |\n| **ㅁ** | 마 | 먀 | 머 | 며 | 모 | 묘 | 무 | 뮤 | 므 | 미 |\n| **ㅂ** | 바 | 뱌 | 버 | 벼 | 보 | 뵤 | 부 | 뷰 | 브 | 비 |\n| **ㅅ** | 사 | 샤 | 서 | 셔 | 소 | 쇼 | 수 | 슈 | 스 | 시 |\n| **ㅇ** | 아 | 야 | 어 | 여 | 오 | 요 | 우 | 유 | 으 | 이 |\n| **ㅈ** | 자 | 쟈 | 저 | 져 | 조 | 죠 | 주 | 쥬 | 즈 | 지 |\n| **ㅎ** | 하 | 햐 | 허 | 혀 | 호 | 효 | 후 | 휴 | 흐 | 히 |\n\n## 4. Mots (단어)\n\n- dent = 이 = i\n- enfant = 아이 = a-i\n- cinq = 오 = o\n- concombre = 오이 = o-i\n- lait = 우유 = u-yu\n- renard = 여우 = yeo-u\n- meuble = 가구 = ga-gu\n- papillon = 나비 = na-bi\n- banane = 바나나 = ba-na-na\n- chanteur / chanteuse = 가수 = ga-su\n- bébé = 아기 = a-gi\n- radio = 라디오 = ra-di-o\n- viande = 고기 = go-gi\n- chaussures = 구두 = gu-du\n- grande sœur (d'un homme) = 누나 = nu-na\n- jambe / pont = 다리 = da-ri\n- cuisine / plat = 요리 = yo-ri\n- pays = 나라 = na-ra\n- tête / cheveux = 머리 = meo-ri\n- après-midi = 오후 = o-hu\n- arbre = 나무 = na-mu\n- entreprise = 회사 = hoe-sa\n- sauce = 소스 = so-seu\n- lac = 호수 = ho-su\n\n## 5. Pratique des slides (corrigé)\n\nLes exercices d'écoute opposent des voyelles proches. Pour les distinguer à\nl'écrit :\n\n| Paire | Différence |\n|---|---|\n| 어 / 아 | ㅓ (o ouvert) / ㅏ (a) |\n| 여 / 유 | ㅕ (yo ouvert) / ㅠ (you) |\n| 오 / 우 | ㅗ (o fermé) / ㅜ (ou) |\n| 야 / 유 | ㅑ (ya) / ㅠ (you) |\n| 으 / 이 | ㅡ (eu) / ㅣ (i) |\n| 가 / 다, 마 / 나, 아 / 라, 자 / 바, 하 / 사 | la **consonne** change, la voyelle ㅏ reste |\n",
+    "exercises": [
+      {
+        "type": "matching",
+        "prompt": "Associe chaque élément de base des voyelles à ce qu'il symbolise.",
+        "pairs": [
+          [
+            "•",
+            "le ciel"
+          ],
+          [
+            "ㅡ",
+            "la terre"
+          ],
+          [
+            "ㅣ",
+            "l'humain"
+          ]
+        ],
+        "explanation": "Les trois éléments du roi Sejong : ciel, terre, humain."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle donne ㅣ + • (point à droite) ?",
+        "choices": [
+          "ㅜ",
+          "ㅓ",
+          "ㅗ",
+          "ㅏ"
+        ],
+        "correct": 3,
+        "explanation": "ㅣ + • (point à droite) = ㅏ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle donne • + ㅣ (point à gauche) ?",
+        "choices": [
+          "ㅗ",
+          "ㅓ",
+          "ㅜ",
+          "ㅏ"
+        ],
+        "correct": 1,
+        "explanation": "• + ㅣ (point à gauche) = ㅓ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle donne • au-dessus de ㅡ ?",
+        "choices": [
+          "ㅜ",
+          "ㅗ",
+          "ㅓ",
+          "ㅏ"
+        ],
+        "correct": 1,
+        "explanation": "• au-dessus de ㅡ = ㅗ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle donne • au-dessous de ㅡ ?",
+        "choices": [
+          "ㅗ",
+          "ㅓ",
+          "ㅜ",
+          "ㅏ"
+        ],
+        "correct": 2,
+        "explanation": "• au-dessous de ㅡ = ㅜ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un deuxième trait à ㅏ. Quelle voyelle obtient-on ?",
+        "choices": [
+          "ㅛ",
+          "ㅕ",
+          "ㅑ",
+          "ㅠ"
+        ],
+        "correct": 2,
+        "explanation": "Deux traits = son [y] devant : ㅏ → ㅑ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un deuxième trait à ㅓ. Quelle voyelle obtient-on ?",
+        "choices": [
+          "ㅛ",
+          "ㅑ",
+          "ㅠ",
+          "ㅕ"
+        ],
+        "correct": 3,
+        "explanation": "Deux traits = son [y] devant : ㅓ → ㅕ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un deuxième trait à ㅗ. Quelle voyelle obtient-on ?",
+        "choices": [
+          "ㅠ",
+          "ㅛ",
+          "ㅕ",
+          "ㅑ"
+        ],
+        "correct": 1,
+        "explanation": "Deux traits = son [y] devant : ㅗ → ㅛ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un deuxième trait à ㅜ. Quelle voyelle obtient-on ?",
+        "choices": [
+          "ㅑ",
+          "ㅛ",
+          "ㅕ",
+          "ㅠ"
+        ],
+        "correct": 3,
+        "explanation": "Deux traits = son [y] devant : ㅜ → ㅠ."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque voyelle à sa romanisation.",
+        "pairs": [
+          [
+            "ㅏ",
+            "a"
+          ],
+          [
+            "ㅑ",
+            "ya"
+          ],
+          [
+            "ㅓ",
+            "eo"
+          ],
+          [
+            "ㅕ",
+            "yeo"
+          ],
+          [
+            "ㅗ",
+            "o"
+          ],
+          [
+            "ㅛ",
+            "yo"
+          ],
+          [
+            "ㅜ",
+            "u"
+          ],
+          [
+            "ㅠ",
+            "yu"
+          ],
+          [
+            "ㅡ",
+            "eu"
+          ],
+          [
+            "ㅣ",
+            "i"
+          ]
+        ],
+        "explanation": "Les 10 voyelles de base."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Pourquoi écrit-on 아 et pas ㅏ tout seul ?",
+        "choices": [
+          "Une syllabe commence par une consonne : ㅇ muet sert de support",
+          "ㅇ ajoute un son [ng] devant",
+          "ㅏ seul se lit [ya]",
+          "C'est la forme de politesse"
+        ],
+        "correct": 0,
+        "explanation": "ㅇ est muet en début de syllabe ; il ne se prononce [ng] qu'en fin de syllabe."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Où se place la voyelle ㅗ dans une syllabe ?",
+        "choices": [
+          "Sous la consonne (voyelle horizontale)",
+          "À droite de la consonne",
+          "Au-dessus de la consonne",
+          "À gauche de la consonne"
+        ],
+        "correct": 0,
+        "explanation": "ㅗ ㅛ ㅜ ㅠ ㅡ sont horizontales : 고, 노, 도."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Où se place la voyelle ㅓ dans une syllabe ?",
+        "choices": [
+          "À gauche de la consonne",
+          "Au-dessus de la consonne",
+          "Sous la consonne",
+          "À droite de la consonne (voyelle verticale)"
+        ],
+        "correct": 3,
+        "explanation": "ㅏ ㅑ ㅓ ㅕ ㅣ sont verticales : 거, 너, 더."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle différence entre ㅓ (eo) et ㅗ (o) ?",
+        "choices": [
+          "Aucune, c'est le même son",
+          "ㅗ se lit [ou]",
+          "ㅓ se lit [a]",
+          "ㅓ est un o ouvert (« or »), ㅗ un o fermé, lèvres arrondies (« eau »)"
+        ],
+        "correct": 3,
+        "explanation": "Deux « o » différents : ouvert pour ㅓ, fermé pour ㅗ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment se prononce ㅜ ?",
+        "choices": [
+          "[o]",
+          "[ou]",
+          "[eu]",
+          "[u] comme en français « tu »"
+        ],
+        "correct": 1,
+        "explanation": "ㅜ (u en romanisation) se dit [ou]."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque consonne de base à l'organe qu'elle dessine.",
+        "pairs": [
+          [
+            "ㄱ",
+            "l'arrière de la langue qui bloque la gorge"
+          ],
+          [
+            "ㄴ",
+            "le bout de la langue contre les dents"
+          ],
+          [
+            "ㅁ",
+            "la bouche"
+          ],
+          [
+            "ㅅ",
+            "une dent"
+          ],
+          [
+            "ㅇ",
+            "la gorge"
+          ]
+        ],
+        "explanation": "Les consonnes de base dessinent la forme des organes de la parole."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un trait à ㄱ (son plus fort). Quelle consonne obtient-on ?",
+        "choices": [
+          "ㅂ",
+          "ㄷ",
+          "ㅋ",
+          "ㅈ"
+        ],
+        "correct": 2,
+        "explanation": "ㄱ + un trait = ㅋ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un trait à ㄴ (son plus fort). Quelle consonne obtient-on ?",
+        "choices": [
+          "ㅈ",
+          "ㄷ",
+          "ㅋ",
+          "ㅂ"
+        ],
+        "correct": 1,
+        "explanation": "ㄴ + un trait = ㄷ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un trait à ㅁ (son plus fort). Quelle consonne obtient-on ?",
+        "choices": [
+          "ㅋ",
+          "ㄷ",
+          "ㅂ",
+          "ㅈ"
+        ],
+        "correct": 2,
+        "explanation": "ㅁ + un trait = ㅂ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un trait à ㅅ (son plus fort). Quelle consonne obtient-on ?",
+        "choices": [
+          "ㅋ",
+          "ㄷ",
+          "ㅂ",
+          "ㅈ"
+        ],
+        "correct": 3,
+        "explanation": "ㅅ + un trait = ㅈ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "On ajoute un trait à ㅇ (son plus fort). Quelle consonne obtient-on ?",
+        "choices": [
+          "ㅎ",
+          "ㄷ",
+          "ㅂ",
+          "ㅋ"
+        ],
+        "correct": 0,
+        "explanation": "ㅇ + un trait = ㅎ."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque consonne de base à son son.",
+        "pairs": [
+          [
+            "ㄱ",
+            "[k / g]"
+          ],
+          [
+            "ㄴ",
+            "[n]"
+          ],
+          [
+            "ㄷ",
+            "[t / d]"
+          ],
+          [
+            "ㄹ",
+            "[r / l]"
+          ],
+          [
+            "ㅁ",
+            "[m]"
+          ],
+          [
+            "ㅂ",
+            "[p / b]"
+          ],
+          [
+            "ㅅ",
+            "[s]"
+          ],
+          [
+            "ㅇ",
+            "muet / [ng]"
+          ],
+          [
+            "ㅈ",
+            "[j]"
+          ],
+          [
+            "ㅎ",
+            "[h]"
+          ]
+        ],
+        "explanation": "Les 10 consonnes de base de la semaine 1."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment se prononce ㅇ au début d'une syllabe ?",
+        "choices": [
+          "[o]",
+          "Il est muet",
+          "[ng]",
+          "[h]"
+        ],
+        "correct": 1,
+        "explanation": "ㅇ est muet en début de syllabe (아 = [a]) et se dit [ng] en fin (강 = [kang])."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment se prononce 가구 (meuble) ?",
+        "choices": [
+          "[ka-kou]",
+          "[ka-gou] : ㄱ = [k] en début de mot, [g] entre deux voyelles",
+          "[ga-kou]",
+          "[ga-gou]"
+        ],
+        "correct": 1,
+        "explanation": "ㄱ ㄷ ㅂ ㅈ s'adoucissent entre deux voyelles."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㄴ + ㅏ",
+        "accept": [
+          "나"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㄴ + ㅏ = 나."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㅎ + ㅗ",
+        "accept": [
+          "호"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㅎ + ㅗ = 호."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㄹ + ㅣ",
+        "accept": [
+          "리"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㄹ + ㅣ = 리."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㅂ + ㅠ",
+        "accept": [
+          "뷰"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㅂ + ㅠ = 뷰."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㅈ + ㅓ",
+        "accept": [
+          "저"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㅈ + ㅓ = 저."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㅁ + ㅡ",
+        "accept": [
+          "므"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㅁ + ㅡ = 므."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Assemble la syllabe : ㅅ + ㅜ",
+        "accept": [
+          "수"
+        ],
+        "placeholder": "en hangeul",
+        "explanation": "ㅅ + ㅜ = 수."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelles lettres forment 무 ?",
+        "choices": [
+          "ㅁ + ㅡ",
+          "ㅂ + ㅜ",
+          "ㅁ + ㅗ",
+          "ㅁ + ㅜ"
+        ],
+        "correct": 3,
+        "explanation": "무 = ㅁ + ㅜ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelles lettres forment 너 ?",
+        "choices": [
+          "ㄴ + ㅏ",
+          "ㄴ + ㅕ",
+          "ㄴ + ㅓ",
+          "ㄷ + ㅓ"
+        ],
+        "correct": 2,
+        "explanation": "너 = ㄴ + ㅓ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelles lettres forment 효 ?",
+        "choices": [
+          "ㅎ + ㅛ",
+          "ㅎ + ㅠ",
+          "ㅇ + ㅛ",
+          "ㅎ + ㅗ"
+        ],
+        "correct": 0,
+        "explanation": "효 = ㅎ + ㅛ."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque mot de la semaine 1 à son sens.",
+        "pairs": [
+          [
+            "아이",
+            "enfant"
+          ],
+          [
+            "오이",
+            "concombre"
+          ],
+          [
+            "우유",
+            "lait"
+          ],
+          [
+            "여우",
+            "renard"
+          ],
+          [
+            "나비",
+            "papillon"
+          ],
+          [
+            "가수",
+            "chanteur"
+          ]
+        ],
+        "explanation": "Mots des slides (SB p.21)."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe d'autres mots de la semaine 1 à leur sens.",
+        "pairs": [
+          [
+            "고기",
+            "viande"
+          ],
+          [
+            "구두",
+            "chaussures"
+          ],
+          [
+            "다리",
+            "jambe / pont"
+          ],
+          [
+            "나라",
+            "pays"
+          ],
+          [
+            "머리",
+            "tête / cheveux"
+          ],
+          [
+            "나무",
+            "arbre"
+          ]
+        ],
+        "explanation": "Mots des slides."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Lequel se lit [o ouvert] : 어 ou 아 ?",
+        "choices": [
+          "어",
+          "아"
+        ],
+        "correct": 0,
+        "explanation": "어 = [o ouvert] ; 아 est l'autre voyelle de la paire."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Lequel se lit [ou] : 오 ou 우 ?",
+        "choices": [
+          "오",
+          "우"
+        ],
+        "correct": 1,
+        "explanation": "우 = [ou] ; 오 est l'autre voyelle de la paire."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Lequel se lit [eu] : 으 ou 이 ?",
+        "choices": [
+          "으",
+          "이"
+        ],
+        "correct": 0,
+        "explanation": "으 = [eu] ; 이 est l'autre voyelle de la paire."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Lequel se lit [you] : 여 ou 유 ?",
+        "choices": [
+          "여",
+          "유"
+        ],
+        "correct": 1,
+        "explanation": "유 = [you] ; 여 est l'autre voyelle de la paire."
+      }
+    ],
+    "flashcards": [
+      {
+        "front": "•  ㅡ  ㅣ",
+        "back": "Les trois éléments des voyelles : le ciel, la terre, l'humain."
+      },
+      {
+        "front": "ㅏ ㅑ ㅓ ㅕ ㅗ",
+        "back": "a, ya, eo (o ouvert), yeo, o (o fermé)."
+      },
+      {
+        "front": "ㅛ ㅜ ㅠ ㅡ ㅣ",
+        "back": "yo, u [ou], yu [you], eu, i."
+      },
+      {
+        "front": "Deuxième trait sur une voyelle",
+        "back": "Ajoute un [y] : ㅏ → ㅑ, ㅓ → ㅕ, ㅗ → ㅛ, ㅜ → ㅠ."
+      },
+      {
+        "front": "Voyelle verticale / horizontale",
+        "back": "ㅏㅑㅓㅕㅣ à droite de la consonne ; ㅗㅛㅜㅠㅡ en dessous."
+      },
+      {
+        "front": "ㅇ",
+        "back": "Muet en début de syllabe (아), [ng] en fin (강)."
+      },
+      {
+        "front": "Consonnes = forme de la bouche",
+        "back": "ㄱ arrière de la langue, ㄴ bout de la langue, ㅁ bouche, ㅅ dent, ㅇ gorge."
+      },
+      {
+        "front": "Un trait en plus",
+        "back": "Son plus fort : ㄱ→ㅋ, ㄴ→ㄷ→ㅌ, ㅁ→ㅂ→ㅍ, ㅅ→ㅈ→ㅊ, ㅇ→ㅎ."
+      },
+      {
+        "front": "ㄱ ㄴ ㄷ ㄹ ㅁ",
+        "back": "[k/g] [n] [t/d] [r/l] [m]."
+      },
+      {
+        "front": "ㅂ ㅅ ㅇ ㅈ ㅎ",
+        "back": "[p/b] [s] muet/[ng] [j] [h]."
+      },
+      {
+        "front": "ㄱ ㄷ ㅂ ㅈ entre deux voyelles",
+        "back": "S'adoucissent : 가구 [ka-gou], 바다 [pa-da]."
+      }
+    ]
   },
   {
     "name": "Semaine 2",
     "key": "kr-cours-w2",
     "color": "rose",
     "parent": "kr-cours",
-    "lesson": "# Coréen — Semaine 2\n\nCours GEE3003 « Basic Korean », Day 2 (week_2.pdf) : consonnes aspirées et\ntendues, voyelles composées, et les consonnes finales (받침).\n\n## Consonnes aspirées (거센소리)\n\n- ㅊ = ch\n- ㅋ = k\n- ㅌ = t\n- ㅍ = p\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㅊ** | 차 | 챠 | 처 | 쳐 | 초 | 쵸 | 추 | 츄 | 츠 | 치 |\n| **ㅋ** | 카 | 캬 | 커 | 켜 | 코 | 쿄 | 쿠 | 큐 | 크 | 키 |\n| **ㅌ** | 타 | 탸 | 터 | 텨 | 토 | 툐 | 투 | 튜 | 트 | 티 |\n| **ㅍ** | 파 | 퍄 | 퍼 | 펴 | 포 | 표 | 푸 | 퓨 | 프 | 피 |\n\n## Consonnes tendues (된소리)\n\n- ㄲ = kk\n- ㄸ = tt\n- ㅃ = pp\n- ㅆ = ss\n- ㅉ = jj\n\n|  | ㅏ | ㅓ | ㅗ | ㅜ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|\n| **ㄲ** | 까 | 꺼 | 꼬 | 꾸 | 끄 | 끼 |\n| **ㄸ** | 따 | 떠 | 또 | 뚜 | 뜨 | 띠 |\n| **ㅃ** | 빠 | 뻐 | 뽀 | 뿌 | 쁘 | 삐 |\n| **ㅆ** | 싸 | 써 | 쏘 | 쑤 | 쓰 | 씨 |\n| **ㅉ** | 짜 | 쩌 | 쪼 | 쭈 | 쯔 | 찌 |\n\n## Plaine / tendue / aspirée\n\n| plaine | tendue | aspirée |\n|---|---|---|\n| 가 ga | 까 kka | 카 ka |\n| 다 da | 따 tta | 타 ta |\n| 바 ba | 빠 ppa | 파 pa |\n| 사 sa | 싸 ssa | — |\n| 자 ja | 짜 jja | 차 cha |\n\n## Voyelles composées (모음 2)\n\n- ㅐ = ae\n- ㅒ = yae\n- ㅔ = e\n- ㅖ = ye\n- ㅘ = wa\n- ㅝ = wo\n- ㅚ = oe\n- ㅙ = wae\n- ㅞ = we\n- ㅟ = wi\n- ㅢ = ui\n\nLues seules (avec ㅇ) : 애 얘 에 예 와 워 외 왜 웨 위 의.\n\n## Consonnes finales — 받침\n\nUne consonne en fin de syllabe ne se prononce qu'en 7 sons :\n\n- [k] : ㄱ, ㅋ, ㄲ\n- [n] : ㄴ\n- [t] : ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ\n- [l] : ㄹ\n- [m] : ㅁ\n- [p] : ㅂ, ㅍ\n- [ng] : ㅇ\n\n## Mots (단어)\n\n### Consonnes aspirées\n\n- jupe = 치마 = chi-ma\n- café = 커피 = keo-pi\n- train = 기차 = gi-cha\n- nez = 코 = ko\n- raisin = 포도 = po-do\n- tomate = 토마토 = to-ma-to\n\n### Consonnes tendues\n\n- queue (d'animal) = 꼬리 = kko-ri\n- lapin = 토끼 = to-kki\n- serre-tête = 머리띠 = meo-ri-tti\n- papa = 아빠 = a-ppa\n- écrire = 쓰다 = sseu-da\n- être salé = 짜다 = jja-da\n\n### Voyelles composées\n\n- montre / horloge = 시계 = si-gye\n- chaise = 의자 = ui-ja\n- magasin = 가게 = ga-ge\n- gâteau sec = 과자 = gwa-ja\n- oreille = 귀 = gwi\n- serveur = 웨이터 = we-i-teo\n- cochon = 돼지 = dwae-ji\n- entreprise = 회사 = hoe-sa\n- il fait froid = 추워요 = chu-wo-yo\n- pourquoi = 왜 = wae\n- chanson = 노래 = no-rae\n- histoire / conversation = 얘기 = yae-gi\n\n### 받침\n\n- médicament = 약 = yak\n- livre = 책 = chaek\n- université = 대학 = dae-hak\n- États-Unis = 미국 = mi-guk\n- cuisine (pièce) = 부엌 = bu-eok\n- dehors = 밖 = bak\n- œil / neige = 눈 = nun\n- argent = 돈 = don\n- grande sœur (d'une femme) = 언니 = eon-ni\n- bibliothèque = 도서관 = do-seo-gwan\n- ami(e) = 친구 = chin-gu\n- bientôt = 곧 = got\n- goût = 맛 = mat\n- vêtement = 옷 = ot\n- pinceau = 붓 = but\n- journée / midi = 낮 = nat\n- fleur = 꽃 = kkot\n- champ = 밭 = bat\n- route / chemin = 길 = gil\n- cheval / parole = 말 = mal\n- riz (cru) = 쌀 = ssal\n- automne = 가을 = ga-eul\n- salle de classe = 교실 = gyo-sil\n- Séoul = 서울 = seo-ul\n- printemps = 봄 = bom\n- rhume = 감기 = gam-gi\n- kimchi = 김치 = gim-chi\n- personne = 사람 = sa-ram\n- librairie = 서점 = seo-jeom\n- maison = 집 = jip\n- bouche = 입 = ip\n- gobelet / tasse = 컵 = keop\n- neuf = 아홉 = a-hop\n- devant = 앞 = ap\n- à côté = 옆 = yeop\n- forêt = 숲 = sup\n- fleuve / rivière = 강 = gang\n- chambre = 방 = bang\n- pain = 빵 = ppang\n- ville natale = 고향 = go-hyang\n- cadet(te) = 동생 = dong-saeng\n- usine = 공장 = gong-jang\n"
+    "lesson": "# Coréen — Semaine 2 · Consonnes fortes, voyelles composées, 받침\n\nCours GEE3003 « Basic Korean », Day 2 (week_2.pdf) : les consonnes\n**aspirées** et **tendues**, les **voyelles composées**, et les **consonnes\nfinales** (받침).\n\n> **En bref.** **Aspirées** (ㅊ ㅋ ㅌ ㅍ) = avec un **souffle d'air**.\n> **Tendues** (ㄲ ㄸ ㅃ ㅆ ㅉ) = gorge **serrée**, **sans souffle**. Les\n> **voyelles composées** collent deux voyelles (ㅗ + ㅏ = ㅘ). En **fin de\n> syllabe**, une consonne ne se prononce qu'avec **7 sons** : [k] [n] [t]\n> [l] [m] [p] [ng].\n\n## 1. Les consonnes aspirées (거센소리)\n\nOn ajoute un trait à la consonne de base, et on prononce avec un **fort\nsouffle d'air** (mets ta main devant la bouche : tu dois le sentir).\n\n| Base | Aspirée | Son |\n|---|---|---|\n| ㅈ | **ㅊ** | [ch] (« tch » + souffle) |\n| ㄱ | **ㅋ** | [kh] |\n| ㄷ | **ㅌ** | [th] |\n| ㅂ | **ㅍ** | [ph] |\n\n|  | ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **ㅊ** | 차 | 챠 | 처 | 쳐 | 초 | 쵸 | 추 | 츄 | 츠 | 치 |\n| **ㅋ** | 카 | 캬 | 커 | 켜 | 코 | 쿄 | 쿠 | 큐 | 크 | 키 |\n| **ㅌ** | 타 | 탸 | 터 | 텨 | 토 | 툐 | 투 | 튜 | 트 | 티 |\n| **ㅍ** | 파 | 퍄 | 퍼 | 펴 | 포 | 표 | 푸 | 퓨 | 프 | 피 |\n\nMots : 치마 (jupe), 커피 (café), 기차 (train), 코 (nez), 포도 (raisin), 토마토 (tomate).\n\n## 2. Les consonnes tendues (된소리)\n\nOn **double** la consonne de base. On serre la gorge, on ne laisse **pas**\nsortir d'air : le son est sec et dur.\n\n| Base | Tendue | Son |\n|---|---|---|\n| ㄱ | **ㄲ** | [kk] |\n| ㄷ | **ㄸ** | [tt] |\n| ㅂ | **ㅃ** | [pp] |\n| ㅅ | **ㅆ** | [ss] |\n| ㅈ | **ㅉ** | [jj] |\n\n|  | ㅏ | ㅓ | ㅗ | ㅜ | ㅡ | ㅣ |\n|---|---|---|---|---|---|---|\n| **ㄲ** | 까 | 꺼 | 꼬 | 꾸 | 끄 | 끼 |\n| **ㄸ** | 따 | 떠 | 또 | 뚜 | 뜨 | 띠 |\n| **ㅃ** | 빠 | 뻐 | 뽀 | 뿌 | 쁘 | 삐 |\n| **ㅆ** | 싸 | 써 | 쏘 | 쑤 | 쓰 | 씨 |\n| **ㅉ** | 짜 | 쩌 | 쪼 | 쭈 | 쯔 | 찌 |\n\nMots : 꼬리 (queue (d'animal)), 토끼 (lapin), 머리띠 (serre-tête), 아빠 (papa), 쓰다 (écrire), 짜다 (être salé).\n\n### Plaine / tendue / aspirée\n\nC'est l'exercice d'écoute des slides (« Listen and repeat ») :\n\n| plaine (douce) | tendue (serrée, sans air) | aspirée (avec de l'air) |\n|---|---|---|\n| 가 ga | 까 kka | 카 ka |\n| 다 da | 따 tta | 타 ta |\n| 바 ba | 빠 ppa | 파 pa |\n| 사 sa | 싸 ssa | — |\n| 자 ja | 짜 jja | 차 cha |\n\n> **Piège :** ㅅ n'a **pas** de version aspirée, seulement la tendue ㅆ.\n\n## 3. Les voyelles composées (모음 2)\n\n| Voyelle | Formée de | Son |\n|---|---|---|\n| **ㅐ** | ㅏ + ㅣ | [è] |\n| **ㅒ** | ㅑ + ㅣ | [yè] |\n| **ㅔ** | ㅓ + ㅣ | [é] |\n| **ㅖ** | ㅕ + ㅣ | [yé] |\n| **ㅘ** | ㅗ + ㅏ | [wa] |\n| **ㅝ** | ㅜ + ㅓ | [wo] |\n| **ㅚ** | ㅗ + ㅣ | [wè] |\n| **ㅙ** | ㅗ + ㅐ | [wè] |\n| **ㅞ** | ㅜ + ㅔ | [wè] |\n| **ㅟ** | ㅜ + ㅣ | [wi] |\n| **ㅢ** | ㅡ + ㅣ | [eui] |\n\nLues seules (avec ㅇ) : 애 얘 에 예 와 워 외 왜 웨 위 의.\n\n> **Astuce :** une voyelle en **ㅗ** se combine avec **ㅏ** (ㅘ, ㅙ) ; une\n> voyelle en **ㅜ** avec **ㅓ** (ㅝ, ㅞ). Jamais ㅗ + ㅓ ni ㅜ + ㅏ.\n> **ㅐ et ㅔ** se prononcent presque pareil aujourd'hui ; **ㅚ, ㅙ, ㅞ**\n> aussi ([wè]).\n\nMots : 시계 (montre / horloge), 의자 (chaise), 가게 (magasin), 과자 (gâteau sec), 귀 (oreille), 웨이터 (serveur), 돼지 (cochon), 회사 (entreprise), 추워요 (il fait froid), 왜 (pourquoi), 노래 (chanson), 얘기 (histoire / conversation).\n\n## 4. Les consonnes finales — 받침\n\nUne consonne peut se placer **sous** la syllabe : c'est le **받침** (« ce qui\nsoutient »). Quelle que soit la lettre écrite, elle ne se prononce qu'avec\n**7 sons**, **sans relâcher** (la bouche reste fermée sur le son) :\n\n| Son | Lettres | Mots des slides |\n|---|---|---|\n| **[k]** | ㄱ, ㅋ, ㄲ | 약, 책, 대학, 미국, 부엌, 밖 |\n| **[n]** | ㄴ | 눈, 돈, 언니, 도서관, 친구 |\n| **[t]** | ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ | 곧, 맛, 옷, 붓, 있, 낮, 꽃, 밭 |\n| **[l]** | ㄹ | 길, 말, 쌀, 가을, 교실, 서울 |\n| **[m]** | ㅁ | 봄, 감기, 김치, 사람, 서점 |\n| **[p]** | ㅂ, ㅍ | 집, 입, 컵, 아홉, 앞, 옆, 숲 |\n| **[ng]** | ㅇ | 강, 방, 빵, 고향, 동생, 공장 |\n\n> **Piège :** 꽃, 옷, 낮, 밭 se terminent tous par **[t]** : 꽃 [kkot],\n> 옷 [ot]. Et 부엌 se dit [pu-eok], avec un [k] simple.\n\n### Bon à savoir (slides)\n\n- Après un 받침 [k] [t] [p], la consonne suivante devient **tendue** :\n  **낚시 → [낙씨]**, **숟가락 → [숟까락]**.\n- Avec ou sans 받침, c'est un autre mot : **눈** (œil) / **누**, **물** (eau) /\n  **무** (radis), **밤** (nuit) / **밖** (dehors), **입** (bouche) / **잎**\n  (feuille) — même son [ip], sens différent.\n\n## 5. Mots (단어)\n\n### Consonnes aspirées\n\n- jupe = 치마 = chi-ma\n- café = 커피 = keo-pi\n- train = 기차 = gi-cha\n- nez = 코 = ko\n- raisin = 포도 = po-do\n- tomate = 토마토 = to-ma-to\n\n### Consonnes tendues\n\n- queue (d'animal) = 꼬리 = kko-ri\n- lapin = 토끼 = to-kki\n- serre-tête = 머리띠 = meo-ri-tti\n- papa = 아빠 = a-ppa\n- écrire = 쓰다 = sseu-da\n- être salé = 짜다 = jja-da\n\n### Voyelles composées\n\n- montre / horloge = 시계 = si-gye\n- chaise = 의자 = ui-ja\n- magasin = 가게 = ga-ge\n- gâteau sec = 과자 = gwa-ja\n- oreille = 귀 = gwi\n- serveur = 웨이터 = we-i-teo\n- cochon = 돼지 = dwae-ji\n- entreprise = 회사 = hoe-sa\n- il fait froid = 추워요 = chu-wo-yo\n- pourquoi = 왜 = wae\n- chanson = 노래 = no-rae\n- histoire / conversation = 얘기 = yae-gi\n\n### 받침\n\n- médicament = 약 = yak\n- livre = 책 = chaek\n- université = 대학 = dae-hak\n- États-Unis = 미국 = mi-guk\n- cuisine (pièce) = 부엌 = bu-eok\n- dehors = 밖 = bak\n- œil / neige = 눈 = nun\n- argent = 돈 = don\n- grande sœur (d'une femme) = 언니 = eon-ni\n- bibliothèque = 도서관 = do-seo-gwan\n- ami(e) = 친구 = chin-gu\n- bientôt = 곧 = got\n- goût = 맛 = mat\n- vêtement = 옷 = ot\n- pinceau = 붓 = but\n- journée / midi = 낮 = nat\n- fleur = 꽃 = kkot\n- champ = 밭 = bat\n- route / chemin = 길 = gil\n- cheval / parole = 말 = mal\n- riz (cru) = 쌀 = ssal\n- automne = 가을 = ga-eul\n- salle de classe = 교실 = gyo-sil\n- Séoul = 서울 = seo-ul\n- printemps = 봄 = bom\n- rhume = 감기 = gam-gi\n- kimchi = 김치 = gim-chi\n- personne = 사람 = sa-ram\n- librairie = 서점 = seo-jeom\n- maison = 집 = jip\n- bouche = 입 = ip\n- gobelet / tasse = 컵 = keop\n- neuf = 아홉 = a-hop\n- devant = 앞 = ap\n- à côté = 옆 = yeop\n- forêt = 숲 = sup\n- fleuve / rivière = 강 = gang\n- chambre = 방 = bang\n- pain = 빵 = ppang\n- ville natale = 고향 = go-hyang\n- cadet(te) = 동생 = dong-saeng\n- usine = 공장 = gong-jang\n",
+    "exercises": [
+      {
+        "type": "matching",
+        "prompt": "Associe chaque consonne de base à sa version aspirée.",
+        "pairs": [
+          [
+            "ㅈ",
+            "ㅊ"
+          ],
+          [
+            "ㄱ",
+            "ㅋ"
+          ],
+          [
+            "ㄷ",
+            "ㅌ"
+          ],
+          [
+            "ㅂ",
+            "ㅍ"
+          ]
+        ],
+        "explanation": "Un trait en plus = un souffle d'air."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque consonne de base à sa version tendue.",
+        "pairs": [
+          [
+            "ㄱ",
+            "ㄲ"
+          ],
+          [
+            "ㄷ",
+            "ㄸ"
+          ],
+          [
+            "ㅂ",
+            "ㅃ"
+          ],
+          [
+            "ㅅ",
+            "ㅆ"
+          ],
+          [
+            "ㅈ",
+            "ㅉ"
+          ]
+        ],
+        "explanation": "On double la lettre : gorge serrée, sans souffle."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment prononce-t-on une consonne aspirée (ㅊ ㅋ ㅌ ㅍ) ?",
+        "choices": [
+          "Avec un fort souffle d'air",
+          "Comme une voyelle",
+          "La gorge serrée, sans air",
+          "Sans faire de bruit"
+        ],
+        "correct": 0,
+        "explanation": "Aspirée = souffle ; tendue = gorge serrée, sans souffle."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment prononce-t-on une consonne tendue (ㄲ ㄸ ㅃ ㅆ ㅉ) ?",
+        "choices": [
+          "Deux fois de suite",
+          "Très doucement",
+          "La gorge serrée, sans laisser sortir d'air",
+          "Avec un fort souffle d'air"
+        ],
+        "correct": 2,
+        "explanation": "Doubler la lettre ne veut pas dire la prononcer deux fois."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 까 ?",
+        "choices": [
+          "aspirée",
+          "tendue",
+          "plaine"
+        ],
+        "correct": 1,
+        "explanation": "까 : consonne tendue."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 카 ?",
+        "choices": [
+          "aspirée",
+          "tendue",
+          "plaine"
+        ],
+        "correct": 0,
+        "explanation": "카 : consonne aspirée."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 가 ?",
+        "choices": [
+          "aspirée",
+          "plaine",
+          "tendue"
+        ],
+        "correct": 1,
+        "explanation": "가 : consonne plaine."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 따 ?",
+        "choices": [
+          "plaine",
+          "tendue",
+          "aspirée"
+        ],
+        "correct": 1,
+        "explanation": "따 : consonne tendue."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 파 ?",
+        "choices": [
+          "tendue",
+          "aspirée",
+          "plaine"
+        ],
+        "correct": 1,
+        "explanation": "파 : consonne aspirée."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 짜 ?",
+        "choices": [
+          "aspirée",
+          "plaine",
+          "tendue"
+        ],
+        "correct": 2,
+        "explanation": "짜 : consonne tendue."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel type de consonne commence 차 ?",
+        "choices": [
+          "tendue",
+          "plaine",
+          "aspirée"
+        ],
+        "correct": 2,
+        "explanation": "차 : consonne aspirée."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle consonne n'a PAS de version aspirée ?",
+        "choices": [
+          "ㅂ",
+          "ㄱ",
+          "ㄷ",
+          "ㅅ"
+        ],
+        "correct": 3,
+        "explanation": "ㅅ a seulement une version tendue (ㅆ) : 사 / 싸 / —."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅗ + ㅏ ?",
+        "choices": [
+          "ㅘ",
+          "ㅝ",
+          "ㅚ",
+          "ㅙ"
+        ],
+        "correct": 0,
+        "explanation": "ㅗ + ㅏ = ㅘ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅜ + ㅓ ?",
+        "choices": [
+          "ㅞ",
+          "ㅟ",
+          "ㅘ",
+          "ㅝ"
+        ],
+        "correct": 3,
+        "explanation": "ㅜ + ㅓ = ㅝ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅗ + ㅣ ?",
+        "choices": [
+          "ㅢ",
+          "ㅟ",
+          "ㅚ",
+          "ㅘ"
+        ],
+        "correct": 2,
+        "explanation": "ㅗ + ㅣ = ㅚ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅜ + ㅣ ?",
+        "choices": [
+          "ㅝ",
+          "ㅢ",
+          "ㅚ",
+          "ㅟ"
+        ],
+        "correct": 3,
+        "explanation": "ㅜ + ㅣ = ㅟ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅡ + ㅣ ?",
+        "choices": [
+          "ㅐ",
+          "ㅟ",
+          "ㅢ",
+          "ㅚ"
+        ],
+        "correct": 2,
+        "explanation": "ㅡ + ㅣ = ㅢ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅏ + ㅣ ?",
+        "choices": [
+          "ㅐ",
+          "ㅔ",
+          "ㅒ",
+          "ㅖ"
+        ],
+        "correct": 0,
+        "explanation": "ㅏ + ㅣ = ㅐ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅓ + ㅣ ?",
+        "choices": [
+          "ㅔ",
+          "ㅐ",
+          "ㅖ",
+          "ㅒ"
+        ],
+        "correct": 0,
+        "explanation": "ㅓ + ㅣ = ㅔ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅗ + ㅐ ?",
+        "choices": [
+          "ㅞ",
+          "ㅘ",
+          "ㅙ",
+          "ㅚ"
+        ],
+        "correct": 2,
+        "explanation": "ㅗ + ㅐ = ㅙ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelle voyelle composée donne ㅜ + ㅔ ?",
+        "choices": [
+          "ㅝ",
+          "ㅟ",
+          "ㅞ",
+          "ㅙ"
+        ],
+        "correct": 2,
+        "explanation": "ㅜ + ㅔ = ㅞ."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque voyelle composée à son son.",
+        "pairs": [
+          [
+            "ㅘ",
+            "wa"
+          ],
+          [
+            "ㅝ",
+            "wo"
+          ],
+          [
+            "ㅟ",
+            "wi"
+          ],
+          [
+            "ㅢ",
+            "ui"
+          ],
+          [
+            "ㅖ",
+            "ye"
+          ],
+          [
+            "ㅒ",
+            "yae"
+          ]
+        ],
+        "explanation": "Voyelles composées de la semaine 2."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Pourquoi n'existe-t-il pas de voyelle « ㅗ + ㅓ » ?",
+        "choices": [
+          "Parce qu'elle se prononce comme ㅘ",
+          "Parce que ㅗ est vertical",
+          "Elle existe : c'est ㅝ",
+          "ㅗ se combine avec ㅏ, et ㅜ avec ㅓ"
+        ],
+        "correct": 3,
+        "explanation": "ㅘ ㅙ (ㅗ + ㅏ/ㅐ) ; ㅝ ㅞ (ㅜ + ㅓ/ㅔ)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quelles voyelles se prononcent presque toutes [wè] ?",
+        "choices": [
+          "ㅢ, ㅟ et ㅚ",
+          "ㅐ, ㅒ et ㅔ",
+          "ㅘ, ㅝ et ㅟ",
+          "ㅚ, ㅙ et ㅞ"
+        ],
+        "correct": 3,
+        "explanation": "Aujourd'hui, ㅚ ㅙ ㅞ sonnent presque pareil."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque son final (받침) aux lettres qui le donnent.",
+        "pairs": [
+          [
+            "[k]",
+            "ㄱ, ㅋ, ㄲ"
+          ],
+          [
+            "[n]",
+            "ㄴ"
+          ],
+          [
+            "[t]",
+            "ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ"
+          ],
+          [
+            "[l]",
+            "ㄹ"
+          ],
+          [
+            "[m]",
+            "ㅁ"
+          ],
+          [
+            "[p]",
+            "ㅂ, ㅍ"
+          ],
+          [
+            "[ng]",
+            "ㅇ"
+          ]
+        ],
+        "explanation": "Les 7 sons du 받침."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 꽃 ?",
+        "choices": [
+          "[p]",
+          "[k]",
+          "[l]",
+          "[t]"
+        ],
+        "correct": 3,
+        "explanation": "꽃 : 받침 prononcé [t]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 밖 ?",
+        "choices": [
+          "[p]",
+          "[n]",
+          "[k]",
+          "[l]"
+        ],
+        "correct": 2,
+        "explanation": "밖 : 받침 prononcé [k]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 옷 ?",
+        "choices": [
+          "[l]",
+          "[p]",
+          "[n]",
+          "[t]"
+        ],
+        "correct": 3,
+        "explanation": "옷 : 받침 prononcé [t]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 부엌 ?",
+        "choices": [
+          "[t]",
+          "[ng]",
+          "[l]",
+          "[k]"
+        ],
+        "correct": 3,
+        "explanation": "부엌 : 받침 prononcé [k]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 앞 ?",
+        "choices": [
+          "[t]",
+          "[n]",
+          "[p]",
+          "[l]"
+        ],
+        "correct": 2,
+        "explanation": "앞 : 받침 prononcé [p]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 숲 ?",
+        "choices": [
+          "[t]",
+          "[p]",
+          "[k]",
+          "[ng]"
+        ],
+        "correct": 1,
+        "explanation": "숲 : 받침 prononcé [p]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 있 ?",
+        "choices": [
+          "[t]",
+          "[ng]",
+          "[m]",
+          "[l]"
+        ],
+        "correct": 0,
+        "explanation": "있 : 받침 prononcé [t]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 밭 ?",
+        "choices": [
+          "[t]",
+          "[m]",
+          "[l]",
+          "[p]"
+        ],
+        "correct": 0,
+        "explanation": "밭 : 받침 prononcé [t]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 낮 ?",
+        "choices": [
+          "[m]",
+          "[l]",
+          "[t]",
+          "[ng]"
+        ],
+        "correct": 2,
+        "explanation": "낮 : 받침 prononcé [t]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 길 ?",
+        "choices": [
+          "[l]",
+          "[m]",
+          "[t]",
+          "[n]"
+        ],
+        "correct": 0,
+        "explanation": "길 : 받침 prononcé [l]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 봄 ?",
+        "choices": [
+          "[k]",
+          "[n]",
+          "[m]",
+          "[p]"
+        ],
+        "correct": 2,
+        "explanation": "봄 : 받침 prononcé [m]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 방 ?",
+        "choices": [
+          "[n]",
+          "[ng]",
+          "[l]",
+          "[p]"
+        ],
+        "correct": 1,
+        "explanation": "방 : 받침 prononcé [ng]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 돈 ?",
+        "choices": [
+          "[k]",
+          "[p]",
+          "[t]",
+          "[n]"
+        ],
+        "correct": 3,
+        "explanation": "돈 : 받침 prononcé [n]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Quel son a le 받침 de 집 ?",
+        "choices": [
+          "[l]",
+          "[p]",
+          "[ng]",
+          "[m]"
+        ],
+        "correct": 1,
+        "explanation": "집 : 받침 prononcé [p]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Combien de sons différents un 받침 peut-il avoir ?",
+        "choices": [
+          "7",
+          "14",
+          "5",
+          "10"
+        ],
+        "correct": 0,
+        "explanation": "[k] [n] [t] [l] [m] [p] [ng]."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment se prononce 낚시 (pêche) ?",
+        "choices": [
+          "[낙시]",
+          "[낚시]",
+          "[나시]",
+          "[낙씨] : après le 받침 [k], ㅅ devient tendu"
+        ],
+        "correct": 3,
+        "explanation": "Après [k] [t] [p], la consonne suivante se tend."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Comment se prononce 숟가락 (cuillère) ?",
+        "choices": [
+          "[숟가락]",
+          "[숟까락]",
+          "[수가락]",
+          "[숫가락]"
+        ],
+        "correct": 1,
+        "explanation": "Après le 받침 [t], ㄱ devient ㄲ."
+      },
+      {
+        "type": "mcq",
+        "prompt": "입 (bouche) et 잎 (feuille) se prononcent…",
+        "choices": [
+          "Différemment : [ip] et [iph]",
+          "Pareil : [ip]",
+          "[i] et [ip]",
+          "[im] et [ip]"
+        ],
+        "correct": 1,
+        "explanation": "ㅂ et ㅍ en 받침 donnent tous deux [p]."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe chaque mot de la semaine 2 à son sens.",
+        "pairs": [
+          [
+            "치마",
+            "jupe"
+          ],
+          [
+            "기차",
+            "train"
+          ],
+          [
+            "코",
+            "nez"
+          ],
+          [
+            "포도",
+            "raisin"
+          ],
+          [
+            "토끼",
+            "lapin"
+          ],
+          [
+            "아빠",
+            "papa"
+          ]
+        ],
+        "explanation": "Mots des consonnes aspirées et tendues."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe d'autres mots de la semaine 2 à leur sens.",
+        "pairs": [
+          [
+            "시계",
+            "montre"
+          ],
+          [
+            "의자",
+            "chaise"
+          ],
+          [
+            "과자",
+            "gâteau sec"
+          ],
+          [
+            "귀",
+            "oreille"
+          ],
+          [
+            "돼지",
+            "cochon"
+          ],
+          [
+            "노래",
+            "chanson"
+          ]
+        ],
+        "explanation": "Mots des voyelles composées."
+      },
+      {
+        "type": "matching",
+        "prompt": "Associe ces mots à 받침 à leur sens.",
+        "pairs": [
+          [
+            "책",
+            "livre"
+          ],
+          [
+            "눈",
+            "œil / neige"
+          ],
+          [
+            "꽃",
+            "fleur"
+          ],
+          [
+            "길",
+            "route"
+          ],
+          [
+            "봄",
+            "printemps"
+          ],
+          [
+            "강",
+            "fleuve"
+          ]
+        ],
+        "explanation": "Mots du tableau des 받침."
+      }
+    ],
+    "flashcards": [
+      {
+        "front": "Aspirées : ㅊ ㅋ ㅌ ㅍ",
+        "back": "Avec un souffle d'air. Base + un trait (ㅈ→ㅊ, ㄱ→ㅋ, ㄷ→ㅌ, ㅂ→ㅍ)."
+      },
+      {
+        "front": "Tendues : ㄲ ㄸ ㅃ ㅆ ㅉ",
+        "back": "Gorge serrée, sans souffle. Base doublée."
+      },
+      {
+        "front": "가 / 까 / 카",
+        "back": "plaine / tendue / aspirée."
+      },
+      {
+        "front": "ㅅ aspirée ?",
+        "back": "N'existe pas : 사 / 싸 seulement."
+      },
+      {
+        "front": "ㅐ / ㅔ",
+        "back": "ㅏ+ㅣ [è] / ㅓ+ㅣ [é] — presque pareils aujourd'hui."
+      },
+      {
+        "front": "ㅘ / ㅝ",
+        "back": "ㅗ+ㅏ [wa] / ㅜ+ㅓ [wo]."
+      },
+      {
+        "front": "ㅚ / ㅙ / ㅞ",
+        "back": "ㅗ+ㅣ / ㅗ+ㅐ / ㅜ+ㅔ — tous ≈ [wè]."
+      },
+      {
+        "front": "ㅟ / ㅢ",
+        "back": "ㅜ+ㅣ [wi] / ㅡ+ㅣ [eui]."
+      },
+      {
+        "front": "받침 : les 7 sons",
+        "back": "[k] [n] [t] [l] [m] [p] [ng]."
+      },
+      {
+        "front": "받침 [k] / [p]",
+        "back": "[k] : ㄱ ㅋ ㄲ ; [p] : ㅂ ㅍ."
+      },
+      {
+        "front": "받침 [t]",
+        "back": "ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ (꽃, 옷, 낮, 밭 → [t])."
+      },
+      {
+        "front": "낚시 / 숟가락",
+        "back": "[낙씨] / [숟까락] : après [k] [t] [p], la consonne suivante se tend."
+      }
+    ]
   },
   {
     "name": "Semaine 3",

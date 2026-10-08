@@ -279,9 +279,9 @@ def build_vocab_lesson(text):
 
 
 # --- Cours (par semaine) --------------------------------------------------------
-# A plain recap of each week of GEE3003 "Basic Korean": the jamo introduced that
-# week + the reading words from its slides. Duplicates the Vocabulaire decks on
-# purpose -- these leaves follow the course, not the themes.
+# One lesson per week of GEE3003 "Basic Korean", rebuilt from its slides (rules,
+# tables, corrected practice), with exercises and flashcards. Duplicates the
+# Vocabulaire decks on purpose -- these leaves follow the course, not the themes.
 
 _W1_WORDS = [
     ("dent", "이", "i"), ("enfant", "아이", "ai"), ("cinq", "오", "o"),
@@ -363,78 +363,179 @@ _V6 = list("ㅏㅓㅗㅜㅡㅣ")
 
 
 def build_course_categories():
-    w1 = f"""# Coréen — Semaine 1
+    w1 = f"""# Coréen — Semaine 1 · Le hangeul : voyelles et consonnes de base
 
-Cours GEE3003 « Basic Korean », Day 1 (week_1.pdf) : les voyelles et les
-consonnes de base, et la lecture de premiers mots.
+Cours GEE3003 « Basic Korean », Day 1 (week_1.pdf) : comment le **hangeul**
+(한글) est construit, les **10 voyelles de base**, les **10 consonnes de
+base**, et comment on les assemble en **syllabes**.
 
-## Voyelles de base (모음)
+> **En bref.** Le hangeul a été créé par le **roi Sejong** (XVe siècle). Les
+> **voyelles** viennent de **trois éléments** : **•** (le ciel), **ㅡ** (la
+> terre), **ㅣ** (l'humain). Les **consonnes** dessinent la **forme de la
+> bouche** qui les prononce, et **un trait en plus** = un son **plus fort**.
+> On écrit par **syllabes** : consonne + voyelle, dans un bloc carré. Une
+> voyelle seule s'écrit avec **ㅇ muet** devant : 아, 오, 이.
 
-- ㅏ = a
-- ㅑ = ya
-- ㅓ = eo
-- ㅕ = yeo
-- ㅗ = o
-- ㅛ = yo
-- ㅜ = u
-- ㅠ = yu
-- ㅡ = eu
-- ㅣ = i
+## 1. Le principe des voyelles (모음)
 
-Un trait court ajouté à ㅣ ou ㅡ donne ㅏ ㅓ ㅗ ㅜ ; un second trait donne les
-voyelles iotisées ㅑ ㅕ ㅛ ㅠ. Lues seules (avec la consonne muette ㅇ) :
+Trois éléments de base :
+
+| Élément | Symbolise |
+|---|---|
+| **•** | le **ciel** (le soleil) |
+| **ㅡ** | la **terre** (plate) |
+| **ㅣ** | l'**humain** (debout) |
+
+On colle le point (•) à ㅣ ou à ㅡ, d'un côté ou de l'autre :
+
+| Combinaison | Voyelle | | Combinaison | Voyelle |
+|---|---|---|---|---|
+| ㅣ + • | **ㅏ** (a) | | • + ㅣ | **ㅓ** (eo) |
+| • + ㅡ (point au-dessus) | **ㅗ** (o) | | ㅡ + • (point en dessous) | **ㅜ** (u) |
+
+Un **deuxième point** ajoute un son **[y]** devant : ㅏ → **ㅑ** (ya),
+ㅓ → **ㅕ** (yeo), ㅗ → **ㅛ** (yo), ㅜ → **ㅠ** (yu).
+
+### Les 10 voyelles de base
+
+| ㅏ | ㅑ | ㅓ | ㅕ | ㅗ | ㅛ | ㅜ | ㅠ | ㅡ | ㅣ |
+|---|---|---|---|---|---|---|---|---|---|
+| a | ya | eo | yeo | o | yo | u | yu | eu | i |
+| [a] | [ya] | [o ouvert, « or »] | [yo ouvert] | [o fermé, « eau »] | [yo] | [ou] | [you] | [eu, lèvres étirées] | [i] |
+
+> **Piège :** **ㅓ (eo)** et **ㅗ (o)** sont deux « o » différents : ㅓ est
+> **ouvert** (bouche ouverte, comme dans « porte »), ㅗ est **fermé**, lèvres
+> arrondies (comme dans « eau »). Et **ㅜ = [ou]**, pas [u].
+
+### Écrire une voyelle seule
+
+Une syllabe commence **toujours par une consonne**. Pour écrire une voyelle
+seule, on met devant **ㅇ, muet en début de syllabe** :
 
 {_syl_table(["ㅇ"], _V10)}
 
-## Consonnes de base (자음)
+### Où placer la voyelle ?
 
-- ㄱ = g / k
-- ㄴ = n
-- ㄷ = d / t
-- ㄹ = r / l
-- ㅁ = m
-- ㅂ = b / p
-- ㅅ = s
-- ㅇ = muette en tête de syllabe, « ng » en finale
-- ㅈ = j
-- ㅎ = h
+- Voyelles **verticales** (ㅏ ㅑ ㅓ ㅕ ㅣ) → **à droite** de la consonne : 가, 너, 리.
+- Voyelles **horizontales** (ㅗ ㅛ ㅜ ㅠ ㅡ) → **sous** la consonne : 고, 누, 므.
 
-## Syllabes — consonne + voyelle
+## 2. Le principe des consonnes (자음)
+
+Les consonnes de base **dessinent l'organe** qui les prononce :
+
+| Consonne | Ce qu'elle dessine |
+|---|---|
+| **ㄱ** | l'**arrière de la langue** qui bloque le fond de la gorge |
+| **ㄴ** | le **bout de la langue** qui touche l'arrière des dents du haut |
+| **ㅁ** | la **bouche** (les lèvres fermées) |
+| **ㅅ** | une **dent** |
+| **ㅇ** | la **gorge** (le gosier) |
+
+**Un trait en plus = un son plus fort** (plus d'air) :
+
+| Base | + un trait | + encore un |
+|---|---|---|
+| ㄱ | ㅋ | |
+| ㄴ | ㄷ | ㅌ |
+| ㅁ | ㅂ | ㅍ |
+| ㅅ | ㅈ | ㅊ |
+| ㅇ | ㅎ | |
+
+Et en **doublant** une consonne, on obtient les consonnes **tendues** :
+ㄲ ㄸ ㅃ ㅆ ㅉ (semaine 2).
+
+### Les 10 consonnes de base
+
+| Consonne | Son | Image des slides |
+|---|---|---|
+| **ㄱ** | [k / g] | un pistolet (la forme de ㄱ) |
+| **ㄴ** | [n] | le nez |
+| **ㄷ** | [t / d] | la porte (door) |
+| **ㄹ** | [r / l] | le serpent (la forme qui ondule) |
+| **ㅁ** | [m] | la bouche |
+| **ㅂ** | [p / b] | |
+| **ㅅ** | [s] | |
+| **ㅇ** | **muet** en début de syllabe, **[ng]** en fin | « No sound » |
+| **ㅈ** | [j] (« dj ») | |
+| **ㅎ** | [h] | |
+
+> **Bon à savoir :** ㄱ ㄷ ㅂ ㅈ sont plutôt **[k] [t] [p] [tch]** en début de
+> mot, et deviennent **[g] [d] [b] [dj]** entre deux voyelles : 가구 se dit
+> [ka-gou], 바다 [pa-da].
+
+## 3. Les syllabes : consonne + voyelle
 
 {_syl_table(list("ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅎ"), _V10)}
 
-## Mots (단어)
+## 4. Mots (단어)
 
 {_word_lines(_W1_WORDS)}
+
+## 5. Pratique des slides (corrigé)
+
+Les exercices d'écoute opposent des voyelles proches. Pour les distinguer à
+l'écrit :
+
+| Paire | Différence |
+|---|---|
+| 어 / 아 | ㅓ (o ouvert) / ㅏ (a) |
+| 여 / 유 | ㅕ (yo ouvert) / ㅠ (you) |
+| 오 / 우 | ㅗ (o fermé) / ㅜ (ou) |
+| 야 / 유 | ㅑ (ya) / ㅠ (you) |
+| 으 / 이 | ㅡ (eu) / ㅣ (i) |
+| 가 / 다, 마 / 나, 아 / 라, 자 / 바, 하 / 사 | la **consonne** change, la voyelle ㅏ reste |
 """
 
-    w2 = f"""# Coréen — Semaine 2
+    w2 = f"""# Coréen — Semaine 2 · Consonnes fortes, voyelles composées, 받침
 
-Cours GEE3003 « Basic Korean », Day 2 (week_2.pdf) : consonnes aspirées et
-tendues, voyelles composées, et les consonnes finales (받침).
+Cours GEE3003 « Basic Korean », Day 2 (week_2.pdf) : les consonnes
+**aspirées** et **tendues**, les **voyelles composées**, et les **consonnes
+finales** (받침).
 
-## Consonnes aspirées (거센소리)
+> **En bref.** **Aspirées** (ㅊ ㅋ ㅌ ㅍ) = avec un **souffle d'air**.
+> **Tendues** (ㄲ ㄸ ㅃ ㅆ ㅉ) = gorge **serrée**, **sans souffle**. Les
+> **voyelles composées** collent deux voyelles (ㅗ + ㅏ = ㅘ). En **fin de
+> syllabe**, une consonne ne se prononce qu'avec **7 sons** : [k] [n] [t]
+> [l] [m] [p] [ng].
 
-- ㅊ = ch
-- ㅋ = k
-- ㅌ = t
-- ㅍ = p
+## 1. Les consonnes aspirées (거센소리)
+
+On ajoute un trait à la consonne de base, et on prononce avec un **fort
+souffle d'air** (mets ta main devant la bouche : tu dois le sentir).
+
+| Base | Aspirée | Son |
+|---|---|---|
+| ㅈ | **ㅊ** | [ch] (« tch » + souffle) |
+| ㄱ | **ㅋ** | [kh] |
+| ㄷ | **ㅌ** | [th] |
+| ㅂ | **ㅍ** | [ph] |
 
 {_syl_table(list("ㅊㅋㅌㅍ"), _V10)}
 
-## Consonnes tendues (된소리)
+Mots : {", ".join(f"{ko} ({fr})" for fr, ko, _ in _W2_ASPIR)}.
 
-- ㄲ = kk
-- ㄸ = tt
-- ㅃ = pp
-- ㅆ = ss
-- ㅉ = jj
+## 2. Les consonnes tendues (된소리)
+
+On **double** la consonne de base. On serre la gorge, on ne laisse **pas**
+sortir d'air : le son est sec et dur.
+
+| Base | Tendue | Son |
+|---|---|---|
+| ㄱ | **ㄲ** | [kk] |
+| ㄷ | **ㄸ** | [tt] |
+| ㅂ | **ㅃ** | [pp] |
+| ㅅ | **ㅆ** | [ss] |
+| ㅈ | **ㅉ** | [jj] |
 
 {_syl_table(list("ㄲㄸㅃㅆㅉ"), _V6)}
 
-## Plaine / tendue / aspirée
+Mots : {", ".join(f"{ko} ({fr})" for fr, ko, _ in _W2_TENSE)}.
 
-| plaine | tendue | aspirée |
+### Plaine / tendue / aspirée
+
+C'est l'exercice d'écoute des slides (« Listen and repeat ») :
+
+| plaine (douce) | tendue (serrée, sans air) | aspirée (avec de l'air) |
 |---|---|---|
 | 가 ga | 까 kka | 카 ka |
 | 다 da | 따 tta | 타 ta |
@@ -442,35 +543,61 @@ tendues, voyelles composées, et les consonnes finales (받침).
 | 사 sa | 싸 ssa | — |
 | 자 ja | 짜 jja | 차 cha |
 
-## Voyelles composées (모음 2)
+> **Piège :** ㅅ n'a **pas** de version aspirée, seulement la tendue ㅆ.
 
-- ㅐ = ae
-- ㅒ = yae
-- ㅔ = e
-- ㅖ = ye
-- ㅘ = wa
-- ㅝ = wo
-- ㅚ = oe
-- ㅙ = wae
-- ㅞ = we
-- ㅟ = wi
-- ㅢ = ui
+## 3. Les voyelles composées (모음 2)
+
+| Voyelle | Formée de | Son |
+|---|---|---|
+| **ㅐ** | ㅏ + ㅣ | [è] |
+| **ㅒ** | ㅑ + ㅣ | [yè] |
+| **ㅔ** | ㅓ + ㅣ | [é] |
+| **ㅖ** | ㅕ + ㅣ | [yé] |
+| **ㅘ** | ㅗ + ㅏ | [wa] |
+| **ㅝ** | ㅜ + ㅓ | [wo] |
+| **ㅚ** | ㅗ + ㅣ | [wè] |
+| **ㅙ** | ㅗ + ㅐ | [wè] |
+| **ㅞ** | ㅜ + ㅔ | [wè] |
+| **ㅟ** | ㅜ + ㅣ | [wi] |
+| **ㅢ** | ㅡ + ㅣ | [eui] |
 
 Lues seules (avec ㅇ) : 애 얘 에 예 와 워 외 왜 웨 위 의.
 
-## Consonnes finales — 받침
+> **Astuce :** une voyelle en **ㅗ** se combine avec **ㅏ** (ㅘ, ㅙ) ; une
+> voyelle en **ㅜ** avec **ㅓ** (ㅝ, ㅞ). Jamais ㅗ + ㅓ ni ㅜ + ㅏ.
+> **ㅐ et ㅔ** se prononcent presque pareil aujourd'hui ; **ㅚ, ㅙ, ㅞ**
+> aussi ([wè]).
 
-Une consonne en fin de syllabe ne se prononce qu'en 7 sons :
+Mots : {", ".join(f"{ko} ({fr})" for fr, ko, _ in _W2_VOWELS)}.
 
-- [k] : ㄱ, ㅋ, ㄲ
-- [n] : ㄴ
-- [t] : ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ
-- [l] : ㄹ
-- [m] : ㅁ
-- [p] : ㅂ, ㅍ
-- [ng] : ㅇ
+## 4. Les consonnes finales — 받침
 
-## Mots (단어)
+Une consonne peut se placer **sous** la syllabe : c'est le **받침** (« ce qui
+soutient »). Quelle que soit la lettre écrite, elle ne se prononce qu'avec
+**7 sons**, **sans relâcher** (la bouche reste fermée sur le son) :
+
+| Son | Lettres | Mots des slides |
+|---|---|---|
+| **[k]** | ㄱ, ㅋ, ㄲ | 약, 책, 대학, 미국, 부엌, 밖 |
+| **[n]** | ㄴ | 눈, 돈, 언니, 도서관, 친구 |
+| **[t]** | ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ | 곧, 맛, 옷, 붓, 있, 낮, 꽃, 밭 |
+| **[l]** | ㄹ | 길, 말, 쌀, 가을, 교실, 서울 |
+| **[m]** | ㅁ | 봄, 감기, 김치, 사람, 서점 |
+| **[p]** | ㅂ, ㅍ | 집, 입, 컵, 아홉, 앞, 옆, 숲 |
+| **[ng]** | ㅇ | 강, 방, 빵, 고향, 동생, 공장 |
+
+> **Piège :** 꽃, 옷, 낮, 밭 se terminent tous par **[t]** : 꽃 [kkot],
+> 옷 [ot]. Et 부엌 se dit [pu-eok], avec un [k] simple.
+
+### Bon à savoir (slides)
+
+- Après un 받침 [k] [t] [p], la consonne suivante devient **tendue** :
+  **낚시 → [낙씨]**, **숟가락 → [숟까락]**.
+- Avec ou sans 받침, c'est un autre mot : **눈** (œil) / **누**, **물** (eau) /
+  **무** (radis), **밤** (nuit) / **밖** (dehors), **입** (bouche) / **잎**
+  (feuille) — même son [ip], sens différent.
+
+## 5. Mots (단어)
 
 ### Consonnes aspirées
 
@@ -492,10 +619,186 @@ Une consonne en fin de syllabe ne se prononce qu'en 7 sons :
     return [
         {"name": "Cours", "key": "kr-cours", "color": COLOR, "parent": "kr"},
         {"name": "Semaine 1", "key": "kr-cours-w1", "color": COLOR,
-         "parent": "kr-cours", "lesson": w1},
+         "parent": "kr-cours", "lesson": w1, "exercises": _w1_exercises(),
+         "flashcards": _fc(_W1_FC)},
         {"name": "Semaine 2", "key": "kr-cours-w2", "color": COLOR,
-         "parent": "kr-cours", "lesson": w2},
+         "parent": "kr-cours", "lesson": w2, "exercises": _w2_exercises(),
+         "flashcards": _fc(_W2_FC)},
     ]
+
+
+_V10_RR = ["a", "ya", "eo", "yeo", "o", "yo", "u", "yu", "eu", "i"]
+_C10 = list("ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅎ")
+_C10_SOUND = ["[k / g]", "[n]", "[t / d]", "[r / l]", "[m]", "[p / b]", "[s]",
+              "muet / [ng]", "[j]", "[h]"]
+
+
+def _w1_exercises():
+    ex = []
+    ex.append({"type": "matching", "prompt": "Associe chaque élément de base des voyelles à ce qu'il symbolise.",
+               "pairs": [["•", "le ciel"], ["ㅡ", "la terre"], ["ㅣ", "l'humain"]],
+               "explanation": "Les trois éléments du roi Sejong : ciel, terre, humain."})
+    for combo, right in [("ㅣ + • (point à droite)", "ㅏ"), ("• + ㅣ (point à gauche)", "ㅓ"),
+                         ("• au-dessus de ㅡ", "ㅗ"), ("• au-dessous de ㅡ", "ㅜ")]:
+        ex.append(_mcq(f"Quelle voyelle donne {combo} ?", right,
+                       [v for v in "ㅏㅓㅗㅜ" if v != right],
+                       f"{combo} = {right}."))
+    for base, right in [("ㅏ", "ㅑ"), ("ㅓ", "ㅕ"), ("ㅗ", "ㅛ"), ("ㅜ", "ㅠ")]:
+        ex.append(_mcq(f"On ajoute un deuxième trait à {base}. Quelle voyelle obtient-on ?", right,
+                       [v for v in "ㅑㅕㅛㅠ" if v != right],
+                       f"Deux traits = son [y] devant : {base} → {right}."))
+    ex.append({"type": "matching", "prompt": "Associe chaque voyelle à sa romanisation.",
+               "pairs": [[v, rr] for v, rr in zip(_V10, _V10_RR)],
+               "explanation": "Les 10 voyelles de base."})
+    ex.append(_mcq("Pourquoi écrit-on 아 et pas ㅏ tout seul ?", "Une syllabe commence par une consonne : ㅇ muet sert de support",
+                   ["ㅇ ajoute un son [ng] devant", "C'est la forme de politesse", "ㅏ seul se lit [ya]"],
+                   "ㅇ est muet en début de syllabe ; il ne se prononce [ng] qu'en fin de syllabe."))
+    ex.append(_mcq("Où se place la voyelle ㅗ dans une syllabe ?", "Sous la consonne (voyelle horizontale)",
+                   ["À droite de la consonne", "À gauche de la consonne", "Au-dessus de la consonne"],
+                   "ㅗ ㅛ ㅜ ㅠ ㅡ sont horizontales : 고, 노, 도."))
+    ex.append(_mcq("Où se place la voyelle ㅓ dans une syllabe ?", "À droite de la consonne (voyelle verticale)",
+                   ["Sous la consonne", "Au-dessus de la consonne", "À gauche de la consonne"],
+                   "ㅏ ㅑ ㅓ ㅕ ㅣ sont verticales : 거, 너, 더."))
+    ex.append(_mcq("Quelle différence entre ㅓ (eo) et ㅗ (o) ?", "ㅓ est un o ouvert (« or »), ㅗ un o fermé, lèvres arrondies (« eau »)",
+                   ["Aucune, c'est le même son", "ㅓ se lit [a]", "ㅗ se lit [ou]"],
+                   "Deux « o » différents : ouvert pour ㅓ, fermé pour ㅗ."))
+    ex.append(_mcq("Comment se prononce ㅜ ?", "[ou]", ["[u] comme en français « tu »", "[o]", "[eu]"],
+                   "ㅜ (u en romanisation) se dit [ou]."))
+    ex.append({"type": "matching", "prompt": "Associe chaque consonne de base à l'organe qu'elle dessine.",
+               "pairs": [["ㄱ", "l'arrière de la langue qui bloque la gorge"], ["ㄴ", "le bout de la langue contre les dents"],
+                         ["ㅁ", "la bouche"], ["ㅅ", "une dent"], ["ㅇ", "la gorge"]],
+               "explanation": "Les consonnes de base dessinent la forme des organes de la parole."})
+    for base, right in [("ㄱ", "ㅋ"), ("ㄴ", "ㄷ"), ("ㅁ", "ㅂ"), ("ㅅ", "ㅈ"), ("ㅇ", "ㅎ")]:
+        ex.append(_mcq(f"On ajoute un trait à {base} (son plus fort). Quelle consonne obtient-on ?", right,
+                       [c for c in "ㅋㄷㅂㅈㅎ" if c != right],
+                       f"{base} + un trait = {right}."))
+    ex.append({"type": "matching", "prompt": "Associe chaque consonne de base à son son.",
+               "pairs": [[c, s] for c, s in zip(_C10, _C10_SOUND)],
+               "explanation": "Les 10 consonnes de base de la semaine 1."})
+    ex.append(_mcq("Comment se prononce ㅇ au début d'une syllabe ?", "Il est muet", ["[ng]", "[o]", "[h]"],
+                   "ㅇ est muet en début de syllabe (아 = [a]) et se dit [ng] en fin (강 = [kang])."))
+    ex.append(_mcq("Comment se prononce 가구 (meuble) ?", "[ka-gou] : ㄱ = [k] en début de mot, [g] entre deux voyelles",
+                   ["[ga-gou]", "[ka-kou]", "[ga-kou]"],
+                   "ㄱ ㄷ ㅂ ㅈ s'adoucissent entre deux voyelles."))
+    for cons, vow, right in [("ㄴ", "ㅏ", "나"), ("ㅎ", "ㅗ", "호"), ("ㄹ", "ㅣ", "리"), ("ㅂ", "ㅠ", "뷰"),
+                             ("ㅈ", "ㅓ", "저"), ("ㅁ", "ㅡ", "므"), ("ㅅ", "ㅜ", "수")]:
+        ex.append(_ta(f"Assemble la syllabe : {cons} + {vow}", [right], f"{cons} + {vow} = {right}."))
+    for word, parts, wrongs in [("무", "ㅁ + ㅜ", ["ㅁ + ㅗ", "ㅂ + ㅜ", "ㅁ + ㅡ"]),
+                                ("너", "ㄴ + ㅓ", ["ㄴ + ㅏ", "ㄷ + ㅓ", "ㄴ + ㅕ"]),
+                                ("효", "ㅎ + ㅛ", ["ㅎ + ㅗ", "ㅇ + ㅛ", "ㅎ + ㅠ"])]:
+        ex.append(_mcq(f"Quelles lettres forment {word} ?", parts, wrongs, f"{word} = {parts}."))
+    ex.append({"type": "matching", "prompt": "Associe chaque mot de la semaine 1 à son sens.",
+               "pairs": [["아이", "enfant"], ["오이", "concombre"], ["우유", "lait"], ["여우", "renard"],
+                         ["나비", "papillon"], ["가수", "chanteur"]],
+               "explanation": "Mots des slides (SB p.21)."})
+    ex.append({"type": "matching", "prompt": "Associe d'autres mots de la semaine 1 à leur sens.",
+               "pairs": [["고기", "viande"], ["구두", "chaussures"], ["다리", "jambe / pont"], ["나라", "pays"],
+                         ["머리", "tête / cheveux"], ["나무", "arbre"]],
+               "explanation": "Mots des slides."})
+    for a, b, which, sound in [("어", "아", "어", "[o ouvert]"), ("오", "우", "우", "[ou]"),
+                               ("으", "이", "으", "[eu]"), ("여", "유", "유", "[you]")]:
+        other = b if which == a else a
+        ex.append(_mcq(f"Lequel se lit {sound} : {a} ou {b} ?", which, [other],
+                       f"{which} = {sound} ; {other} est l'autre voyelle de la paire."))
+    return ex
+
+
+_W1_FC = [
+    ("•  ㅡ  ㅣ", "Les trois éléments des voyelles : le ciel, la terre, l'humain."),
+    ("ㅏ ㅑ ㅓ ㅕ ㅗ", "a, ya, eo (o ouvert), yeo, o (o fermé)."),
+    ("ㅛ ㅜ ㅠ ㅡ ㅣ", "yo, u [ou], yu [you], eu, i."),
+    ("Deuxième trait sur une voyelle", "Ajoute un [y] : ㅏ → ㅑ, ㅓ → ㅕ, ㅗ → ㅛ, ㅜ → ㅠ."),
+    ("Voyelle verticale / horizontale", "ㅏㅑㅓㅕㅣ à droite de la consonne ; ㅗㅛㅜㅠㅡ en dessous."),
+    ("ㅇ", "Muet en début de syllabe (아), [ng] en fin (강)."),
+    ("Consonnes = forme de la bouche", "ㄱ arrière de la langue, ㄴ bout de la langue, ㅁ bouche, ㅅ dent, ㅇ gorge."),
+    ("Un trait en plus", "Son plus fort : ㄱ→ㅋ, ㄴ→ㄷ→ㅌ, ㅁ→ㅂ→ㅍ, ㅅ→ㅈ→ㅊ, ㅇ→ㅎ."),
+    ("ㄱ ㄴ ㄷ ㄹ ㅁ", "[k/g] [n] [t/d] [r/l] [m]."),
+    ("ㅂ ㅅ ㅇ ㅈ ㅎ", "[p/b] [s] muet/[ng] [j] [h]."),
+    ("ㄱ ㄷ ㅂ ㅈ entre deux voyelles", "S'adoucissent : 가구 [ka-gou], 바다 [pa-da]."),
+]
+
+
+def _w2_exercises():
+    ex = []
+    ex.append({"type": "matching", "prompt": "Associe chaque consonne de base à sa version aspirée.",
+               "pairs": [["ㅈ", "ㅊ"], ["ㄱ", "ㅋ"], ["ㄷ", "ㅌ"], ["ㅂ", "ㅍ"]],
+               "explanation": "Un trait en plus = un souffle d'air."})
+    ex.append({"type": "matching", "prompt": "Associe chaque consonne de base à sa version tendue.",
+               "pairs": [["ㄱ", "ㄲ"], ["ㄷ", "ㄸ"], ["ㅂ", "ㅃ"], ["ㅅ", "ㅆ"], ["ㅈ", "ㅉ"]],
+               "explanation": "On double la lettre : gorge serrée, sans souffle."})
+    ex.append(_mcq("Comment prononce-t-on une consonne aspirée (ㅊ ㅋ ㅌ ㅍ) ?", "Avec un fort souffle d'air",
+                   ["La gorge serrée, sans air", "Sans faire de bruit", "Comme une voyelle"],
+                   "Aspirée = souffle ; tendue = gorge serrée, sans souffle."))
+    ex.append(_mcq("Comment prononce-t-on une consonne tendue (ㄲ ㄸ ㅃ ㅆ ㅉ) ?", "La gorge serrée, sans laisser sortir d'air",
+                   ["Avec un fort souffle d'air", "Deux fois de suite", "Très doucement"],
+                   "Doubler la lettre ne veut pas dire la prononcer deux fois."))
+    for syl, kind, wrongs in [("까", "tendue", ["plaine", "aspirée"]), ("카", "aspirée", ["plaine", "tendue"]),
+                              ("가", "plaine", ["tendue", "aspirée"]), ("따", "tendue", ["plaine", "aspirée"]),
+                              ("파", "aspirée", ["plaine", "tendue"]), ("짜", "tendue", ["plaine", "aspirée"]),
+                              ("차", "aspirée", ["plaine", "tendue"])]:
+        ex.append(_mcq(f"Quel type de consonne commence {syl} ?", kind, wrongs,
+                       f"{syl} : consonne {kind}."))
+    ex.append(_mcq("Quelle consonne n'a PAS de version aspirée ?", "ㅅ", ["ㄱ", "ㄷ", "ㅂ"],
+                   "ㅅ a seulement une version tendue (ㅆ) : 사 / 싸 / —."))
+    for combo, right, wrongs in [("ㅗ + ㅏ", "ㅘ", ["ㅝ", "ㅚ", "ㅙ"]), ("ㅜ + ㅓ", "ㅝ", ["ㅘ", "ㅟ", "ㅞ"]),
+                                 ("ㅗ + ㅣ", "ㅚ", ["ㅟ", "ㅘ", "ㅢ"]), ("ㅜ + ㅣ", "ㅟ", ["ㅚ", "ㅝ", "ㅢ"]),
+                                 ("ㅡ + ㅣ", "ㅢ", ["ㅟ", "ㅚ", "ㅐ"]), ("ㅏ + ㅣ", "ㅐ", ["ㅔ", "ㅒ", "ㅖ"]),
+                                 ("ㅓ + ㅣ", "ㅔ", ["ㅐ", "ㅖ", "ㅒ"]), ("ㅗ + ㅐ", "ㅙ", ["ㅞ", "ㅚ", "ㅘ"]),
+                                 ("ㅜ + ㅔ", "ㅞ", ["ㅙ", "ㅟ", "ㅝ"])]:
+        ex.append(_mcq(f"Quelle voyelle composée donne {combo} ?", right, wrongs, f"{combo} = {right}."))
+    ex.append({"type": "matching", "prompt": "Associe chaque voyelle composée à son son.",
+               "pairs": [["ㅘ", "wa"], ["ㅝ", "wo"], ["ㅟ", "wi"], ["ㅢ", "ui"], ["ㅖ", "ye"], ["ㅒ", "yae"]],
+               "explanation": "Voyelles composées de la semaine 2."})
+    ex.append(_mcq("Pourquoi n'existe-t-il pas de voyelle « ㅗ + ㅓ » ?", "ㅗ se combine avec ㅏ, et ㅜ avec ㅓ",
+                   ["Parce qu'elle se prononce comme ㅘ", "Elle existe : c'est ㅝ", "Parce que ㅗ est vertical"],
+                   "ㅘ ㅙ (ㅗ + ㅏ/ㅐ) ; ㅝ ㅞ (ㅜ + ㅓ/ㅔ)."))
+    ex.append(_mcq("Quelles voyelles se prononcent presque toutes [wè] ?", "ㅚ, ㅙ et ㅞ", ["ㅘ, ㅝ et ㅟ", "ㅐ, ㅒ et ㅔ", "ㅢ, ㅟ et ㅚ"],
+                   "Aujourd'hui, ㅚ ㅙ ㅞ sonnent presque pareil."))
+    ex.append({"type": "matching", "prompt": "Associe chaque son final (받침) aux lettres qui le donnent.",
+               "pairs": [["[k]", "ㄱ, ㅋ, ㄲ"], ["[n]", "ㄴ"], ["[t]", "ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ"], ["[l]", "ㄹ"],
+                         ["[m]", "ㅁ"], ["[p]", "ㅂ, ㅍ"], ["[ng]", "ㅇ"]],
+               "explanation": "Les 7 sons du 받침."})
+    finals = ["[k]", "[n]", "[t]", "[l]", "[m]", "[p]", "[ng]"]
+    for word, right in [("꽃", "[t]"), ("밖", "[k]"), ("옷", "[t]"), ("부엌", "[k]"), ("앞", "[p]"), ("숲", "[p]"),
+                        ("있", "[t]"), ("밭", "[t]"), ("낮", "[t]"), ("길", "[l]"), ("봄", "[m]"), ("방", "[ng]"),
+                        ("돈", "[n]"), ("집", "[p]")]:
+        wrongs = random.Random(word).sample([f for f in finals if f != right], 3)
+        ex.append(_mcq(f"Quel son a le 받침 de {word} ?", right, wrongs,
+                       f"{word} : 받침 prononcé {right}."))
+    ex.append(_mcq("Combien de sons différents un 받침 peut-il avoir ?", "7", ["14", "10", "5"],
+                   "[k] [n] [t] [l] [m] [p] [ng]."))
+    ex.append(_mcq("Comment se prononce 낚시 (pêche) ?", "[낙씨] : après le 받침 [k], ㅅ devient tendu",
+                   ["[낚시]", "[나시]", "[낙시]"], "Après [k] [t] [p], la consonne suivante se tend."))
+    ex.append(_mcq("Comment se prononce 숟가락 (cuillère) ?", "[숟까락]", ["[숟가락]", "[수가락]", "[숫가락]"],
+                   "Après le 받침 [t], ㄱ devient ㄲ."))
+    ex.append(_mcq("입 (bouche) et 잎 (feuille) se prononcent…", "Pareil : [ip]", ["Différemment : [ip] et [iph]", "[im] et [ip]", "[i] et [ip]"],
+                   "ㅂ et ㅍ en 받침 donnent tous deux [p]."))
+    ex.append({"type": "matching", "prompt": "Associe chaque mot de la semaine 2 à son sens.",
+               "pairs": [["치마", "jupe"], ["기차", "train"], ["코", "nez"], ["포도", "raisin"], ["토끼", "lapin"], ["아빠", "papa"]],
+               "explanation": "Mots des consonnes aspirées et tendues."})
+    ex.append({"type": "matching", "prompt": "Associe d'autres mots de la semaine 2 à leur sens.",
+               "pairs": [["시계", "montre"], ["의자", "chaise"], ["과자", "gâteau sec"], ["귀", "oreille"], ["돼지", "cochon"], ["노래", "chanson"]],
+               "explanation": "Mots des voyelles composées."})
+    ex.append({"type": "matching", "prompt": "Associe ces mots à 받침 à leur sens.",
+               "pairs": [["책", "livre"], ["눈", "œil / neige"], ["꽃", "fleur"], ["길", "route"], ["봄", "printemps"], ["강", "fleuve"]],
+               "explanation": "Mots du tableau des 받침."})
+    return ex
+
+
+_W2_FC = [
+    ("Aspirées : ㅊ ㅋ ㅌ ㅍ", "Avec un souffle d'air. Base + un trait (ㅈ→ㅊ, ㄱ→ㅋ, ㄷ→ㅌ, ㅂ→ㅍ)."),
+    ("Tendues : ㄲ ㄸ ㅃ ㅆ ㅉ", "Gorge serrée, sans souffle. Base doublée."),
+    ("가 / 까 / 카", "plaine / tendue / aspirée."),
+    ("ㅅ aspirée ?", "N'existe pas : 사 / 싸 seulement."),
+    ("ㅐ / ㅔ", "ㅏ+ㅣ [è] / ㅓ+ㅣ [é] — presque pareils aujourd'hui."),
+    ("ㅘ / ㅝ", "ㅗ+ㅏ [wa] / ㅜ+ㅓ [wo]."),
+    ("ㅚ / ㅙ / ㅞ", "ㅗ+ㅣ / ㅗ+ㅐ / ㅜ+ㅔ — tous ≈ [wè]."),
+    ("ㅟ / ㅢ", "ㅜ+ㅣ [wi] / ㅡ+ㅣ [eui]."),
+    ("받침 : les 7 sons", "[k] [n] [t] [l] [m] [p] [ng]."),
+    ("받침 [k] / [p]", "[k] : ㄱ ㅋ ㄲ ; [p] : ㅂ ㅍ."),
+    ("받침 [t]", "ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ (꽃, 옷, 낮, 밭 → [t])."),
+    ("낚시 / 숟가락", "[낙씨] / [숟까락] : après [k] [t] [p], la consonne suivante se tend."),
+]
 
 
 # RR de chaque consonne initiale, dans l'ordre de _CHO (ㅇ initial est muet).
