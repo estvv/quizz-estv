@@ -8,7 +8,8 @@ Source : `voc.md`, relu et corrigé (cf. `coreen-vocab-review.md`).
 - Format d'une ligne : `français = 한글 = rr`
 - `(+)` = mot que j'ai ajouté (deck trop court, ou complément évident) — à valider.
 - `# S2` = mot des slides « Words / 단어 » du cours GEE3003 semaine 2 (week_2.pdf),
-  rangé dans le deck thématique correspondant.
+  rangé dans le deck thématique correspondant. De même `# S3` (Unité 2, salutations
+  et présentations), `# S4` (fiches de grammaire) et `# S5` (Unité 3, restaurant).
 - Verbes et adjectifs donnés en **forme du dictionnaire** (`-다`). Forme attributive
   entre parenthèses quand elle est utile : `chaud = 뜨겁다 = tteugeopda (attr. 뜨거운 tteugeoun)`.
 - Chaque mot deviendra **2 exercices** au seed : (1) carte `vocab` — on montre le hangeul,
@@ -49,6 +50,15 @@ recevoir = 받다 = batda
 avoir faim = 배고프다 = baegopeuda
 penser = 생각하다 = saenggakhada
 écrire / utiliser = 쓰다 = sseuda                          # S2
+s'asseoir = 앉다 = anda                                      # S5
+se reposer = 쉬다 = swida                                    # S5
+lire = 읽다 = ikda                                           # S5
+attendre = 기다리다 = gidarida                                 # S5
+descendre (d'un véhicule) = 내리다 = naerida                  # S5
+étudier = 공부하다 = gongbuhada                                # S5
+téléphoner = 전화하다 = jeonhwahada                            # S5
+rencontrer = 만나다 = mannada                                 # S5
+monter (dans un véhicule) = 타다 = tada                      # S5
 ```
 
 ## Adjectifs
@@ -99,6 +109,15 @@ pourquoi = 왜 = wae                                        # S2
 dehors / extérieur = 밖 = bak                              # S2
 devant = 앞 = ap                                           # S2
 à côté = 옆 = yeop                                         # S2
+ici = 여기 = yeogi                                           # S3
+cette personne (poli) = 이분 = ibun                          # S3
+personne / gens = 사람 = saram                               # S3
+nom = 이름 = ireum                                           # S3
+adresse = 주소 = juso                                        # S3
+téléphone = 전화 = jeonhwa                                   # S3
+un peu / s'il vous plaît (adoucit) = 좀 = jom               # S5
+plus / encore = 더 = deo                                    # S5
+menu = 메뉴 = menyu                                          # S5
 ```
 
 ## Politesse
@@ -115,6 +134,14 @@ enchanté = 반가워요 = bangawoyo
 suffixe de nom (M. / Mme) = 씨 = ssi
 je t'aime = 사랑해요 = saranghaeyo
 joyeux anniversaire = 생일 축하해요 = saengil chukahaeyo
+au revoir (à qui part) = 안녕히 가세요 = annyeonghi gaseyo       # S3
+au revoir (à qui reste) = 안녕히 계세요 = annyeonghi gyeseyo     # S3
+ravi de vous rencontrer = 만나서 반가워요 = mannaseo bangawoyo    # S3
+bienvenue (au client) = 어서 오세요 = eoseo oseyo               # S5
+que désirez-vous ? = 뭐 드릴까요 = mwo deurilkkayo              # S5
+excusez-moi ! (pour appeler) = 여기요 = yeogiyo               # S5
+un instant, s'il vous plaît = 잠깐만 기다리세요 = jamkkanman gidariseyo# S5
+voici / tenez = 여기 있어요 = yeogi isseoyo                     # S5
 ```
 
 ## Boissons
@@ -127,6 +154,10 @@ bière = 맥주 = maekju
 jus = 주스 = juseu
 lait = 우유 = uyu
 bubble tea = 버블티 = beobeulti
+thé noir = 홍차 = hongcha                                    # S5
+coca = 콜라 = kolla                                          # S5
+thé vert = 녹차 = nokcha                                     # S5
+boisson = 음료수 = eumnyosu                                   # S5
 ```
 
 ## Aliments
@@ -159,6 +190,21 @@ tomate = 토마토 = tomato                                   # S2
 gâteau sec / friandise = 과자 = gwaja                      # S2
 riz (cru) = 쌀 = ssal                                      # S2
 goût / saveur = 맛 = mat                                   # S2
+orange = 오렌지 = orenji                                      # S5
+hamburger = 햄버거 = haembeogeo                               # S5
+nouilles froides (naengmyeon) = 냉면 = naengmyeon            # S5
+bibimbap = 비빔밥 = bibimbap                                  # S5
+plats d'accompagnement = 반찬 = banchan                      # S5
+porc = 돼지고기 = dwaejigogi                                   # S5
+bœuf = 쇠고기 = soegogi                                       # S5
+poulet (viande) = 닭고기 = dakgogi                            # S5
+ragoût de pâte de soja = 된장찌개 = doenjangjjigae             # S5
+sauce soja = 간장 = ganjang                                  # S5
+pâte de piment = 고추장 = gochujang                           # S5
+sel = 소금 = sogeum                                          # S5
+cuisine coréenne = 한식 = hansik                             # S5
+cuisine japonaise = 일식 = ilsik                             # S5
+cuisine occidentale = 양식 = yangsik                         # S5
 ```
 
 ## Animaux
@@ -237,6 +283,7 @@ chanson = 노래 = norae                                     # S2
 histoire / récit = 이야기 = iyagi                          # S2
 argent = 돈 = don                                          # S2
 médicament = 약 = yak                                      # S2
+assiette = 접시 = jeopsi                                     # S5
 ```
 
 ## Couleurs
@@ -260,6 +307,26 @@ médecin = 의사 = uisa
 serveur = 웨이터 = weiteo
 professeur = 선생님 = seonsaengnim
 patron = 사장님 = sajangnim
+métier / profession = 직업 = jigeop                          # S3
+étudiant(e) = 학생 = haksaeng                                # S3
+cuisinier / cuisinière = 요리사 = yorisa                      # S3
+employé(e) de banque = 은행원 = eunhaengwon                   # S3
+journaliste = 기자 = gija                                    # S3
+chercheur / chercheuse = 연구원 = yeonguwon                   # S3
+homme / femme d'affaires = 사업가 = saeopga                   # S3
+pompier = 소방관 = sobanggwan                                 # S3
+policier = 경찰 = gyeongchal                                 # S3
+acteur / actrice = 배우 = baeu                               # S3
+facteur = 우체부 = uchebu                                     # S3
+coiffeur / coiffeuse = 미용사 = miyongsa                      # S3
+scientifique = 과학자 = gwahakja                              # S3
+technicien(ne) = 기술자 = gisulja                             # S3
+professeur (d'université) = 교수 = gyosu                     # S3
+avocat(e) = 변호사 = byeonhosa                                # S3
+mannequin = 모델 = model                                     # S3
+comptable = 회계사 = hoegyesa                                 # S3
+architecte = 건축가 = geonchukga                              # S4
+femme / homme au foyer = 주부 = jubu                         # S4
 ```
 
 ## Pays & nationalités
@@ -269,6 +336,23 @@ patron = 사장님 = sajangnim
 Corée = 한국 = hanguk
 Chine = 중국 = jungguk
 France = 프랑스 = peurangseu                               # (+)
+pays = 나라 = nara                                           # S3
+nationalité = 국적 = gukjeok                                 # S3
+Japon = 일본 = ilbon                                         # S3
+Inde = 인도 = indo                                           # S3
+Australie = 호주 = hoju                                      # S3
+Royaume-Uni = 영국 = yeongguk                                # S3
+Allemagne = 독일 = dogil                                     # S3
+Canada = 캐나다 = kaenada                                     # S3
+Russie = 러시아 = reosia                                      # S3
+Malaisie = 말레이시아 = malleisia                               # S4
+Finlande = 핀란드 = pillandeu / pinlandeu                     # S4
+Portugal = 포르투갈 = poreutugal                               # S4
+Pologne = 폴란드 = pollandeu                                  # S4
+Suède = 스웨덴 = seuweden                                     # S4
+Indonésie = 인도네시아 = indonesia                              # S4
+Colombie = 콜롬비아 = kollombia                                # S4
+Singapour = 싱가포르 = singgaporeu / singaporeu                # S4
 # nationalité = pays + 사람 : 프랑스 사람 = français(e)
 ```
 
@@ -322,6 +406,24 @@ cent = 백 = baek
 mille = 천 = cheon
 dix mille = 만 = man
 zéro = 영 / 공 = yeong / gong
+```
+
+## Compteurs
+
+> Les compteurs se placent **après** le nombre coréen natif en forme réduite :
+> 콜라 한 병 « un coca », 사과 두 개 « deux pommes », 커피 세 잔 « trois cafés ».
+> Source : week_5.pdf (Unité 3, Restaurant).
+
+```
+compteur des bouteilles = 병 = byeong                      # S5
+compteur général (objets) = 개 = gae                       # S5
+compteur des verres / tasses = 잔 = jan                    # S5
+compteur des personnes = 명 = myeong                       # S5
+compteur des personnes (poli) = 분 = bun                   # S5
+un (devant un compteur) = 한 = han                         # S5
+deux (devant un compteur) = 두 = du                        # S5
+trois (devant un compteur) = 세 = se                       # S5
+quatre (devant un compteur) = 네 = ne                      # S5
 ```
 
 ## Famille

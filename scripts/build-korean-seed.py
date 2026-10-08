@@ -6,8 +6,8 @@ Source of truth for vocab: documentation/coreen-vocab.md (parsed) — feeds the
 Source of truth for the Hangeul reading exercises:
   documentation/coreen-hangeul-letters.json.
 The `Cours` weeks (Coréen → Cours → Semaine N) are recap lessons hard-coded
-  below from the GEE3003 week_1.pdf / week_2.pdf slides; they duplicate the
-  vocab decks on purpose.
+  below from the GEE3003 slides (week_1 … week_5); they duplicate the vocab
+  decks on purpose. Weeks 3–5 (grammar) also carry exercises and flashcards.
 
 Hangeul exercises are ONLY "identify the sound / meaning" of a letter or word,
 never conceptual questions about the writing system.
@@ -20,7 +20,8 @@ Deterministic: a fixed-seed RNG shuffles the MCQ choices, so re-running with
 unchanged sources produces a byte-identical seed.json.
 
 Idempotent: strips any previously-inserted Korean categories (by key prefix
-"kr-") before re-appending, so it can be re-run after editing the sources.
+"kr-") and re-inserts the branch at the same place, so it can be re-run after
+editing the sources.
 """
 import json
 import re
@@ -673,8 +674,716 @@ def build_hangeul_exercises(data):
     return ex
 
 
+# --- Semaines 3 à 5 -----------------------------------------------------------
+# Unité 2 (week_3.pdf, vocabulary.pdf), fiches de grammaire (week_4/exo_1.pdf,
+# exo_2.pdf) et Unité 3 (week_5.pdf, vocabulary.pdf). Contrairement aux
+# semaines 1-2 (lecture seule), ces semaines portent sur la grammaire : elles ont
+# leurs propres exercices et flashcards. Les mots, eux, sont aussi dans les decks
+# du Vocabulaire (# S3 / # S4 / # S5 dans coreen-vocab.md).
+
+_W3_PAYS = [
+    ("pays", "나라", "nara"), ("États-Unis", "미국", "miguk"), ("Chine", "중국", "jungguk"),
+    ("Japon", "일본", "ilbon"), ("Inde", "인도", "indo"), ("Australie", "호주", "hoju"),
+    ("Royaume-Uni", "영국", "yeongguk"), ("Allemagne", "독일", "dogil"),
+    ("France", "프랑스", "peurangseu"), ("Canada", "캐나다", "kaenada"),
+    ("Corée", "한국", "hanguk"), ("Russie", "러시아", "reosia"),
+]
+_W3_METIERS = [
+    ("métier", "직업", "jigeop"), ("professeur", "선생님", "seonsaengnim"),
+    ("étudiant(e)", "학생", "haksaeng"), ("médecin", "의사", "uisa"),
+    ("cuisinier / cuisinière", "요리사", "yorisa"), ("employé(e) de banque", "은행원", "eunhaengwon"),
+    ("journaliste", "기자", "gija"), ("employé(e) de bureau", "회사원", "hoesawon"),
+    ("chercheur / chercheuse", "연구원", "yeonguwon"),
+]
+_W3_AUTRES = [
+    ("ici", "여기", "yeogi"), ("M. / Mme (après le nom)", "씨", "ssi"), ("je / moi (poli)", "저", "jeo"),
+    ("cette personne (poli)", "이분", "ibun"), ("personne / gens", "사람", "saram"),
+    ("nom", "이름", "ireum"), ("nationalité", "국적", "gukjeok"), ("adresse", "주소", "juso"),
+    ("téléphone", "전화", "jeonhwa"),
+]
+_W3_PLUS = [
+    ("homme / femme d'affaires", "사업가", "saeopga"), ("pompier", "소방관", "sobanggwan"),
+    ("policier", "경찰", "gyeongchal"), ("acteur / actrice", "배우", "baeu"),
+    ("facteur", "우체부", "uchebu"), ("coiffeur / coiffeuse", "미용사", "miyongsa"),
+    ("scientifique", "과학자", "gwahakja"), ("technicien(ne)", "기술자", "gisulja"),
+    ("professeur (d'université)", "교수", "gyosu"), ("avocat(e)", "변호사", "byeonhosa"),
+    ("mannequin", "모델", "model"), ("comptable", "회계사", "hoegyesa"),
+]
+_W4_PAYS = [
+    ("Malaisie", "말레이시아", "malleisia"), ("Finlande", "핀란드", "pillandeu"),
+    ("Portugal", "포르투갈", "poreutugal"), ("Pologne", "폴란드", "pollandeu"),
+    ("Suède", "스웨덴", "seuweden"), ("Indonésie", "인도네시아", "indonesia"),
+    ("Colombie", "콜롬비아", "kollombia"), ("Singapour", "싱가포르", "singgaporeu"),
+]
+_W5_FOOD = [
+    ("nourriture", "음식", "eumsik"), ("bulgogi", "불고기", "bulgogi"), ("ramen", "라면", "ramyeon"),
+    ("orange", "오렌지", "orenji"), ("hamburger", "햄버거", "haembeogeo"),
+    ("naengmyeon (nouilles froides)", "냉면", "naengmyeon"), ("kimbap", "김밥", "gimbap"),
+    ("kimchi", "김치", "gimchi"), ("pain", "빵", "ppang"), ("bibimbap", "비빔밥", "bibimbap"),
+    ("pomme", "사과", "sagwa"),
+]
+_W5_DRINKS = [
+    ("boisson", "음료수", "eumnyosu"), ("lait", "우유", "uyu"), ("bière", "맥주", "maekju"),
+    ("café", "커피", "keopi"), ("thé noir", "홍차", "hongcha"), ("coca", "콜라", "kolla"),
+    ("eau", "물", "mul"), ("jus", "주스", "juseu"), ("thé vert", "녹차", "nokcha"),
+]
+_W5_VERBS = [
+    ("donner", "주다", "juda"), ("aller", "가다", "gada"), ("s'asseoir", "앉다", "anda"),
+    ("se reposer", "쉬다", "swida"), ("lire", "읽다", "ikda"), ("venir", "오다", "oda"),
+    ("attendre", "기다리다", "gidarida"), ("écrire", "쓰다", "sseuda"),
+]
+_W5_OTHERS = [
+    ("menu", "메뉴", "menyu"), ("un peu / s'il vous plaît (adoucit)", "좀", "jom"),
+    ("plus / encore", "더", "deo"), ("combien", "몇", "myeot"),
+]
+_W5_EXTRA = [
+    ("verre / tasse", "컵", "keop"), ("assiette", "접시", "jeopsi"), ("riz cuit", "밥", "bap"),
+    ("plats d'accompagnement", "반찬", "banchan"), ("poisson", "생선", "saengseon"),
+    ("porc", "돼지고기", "dwaejigogi"), ("bœuf", "쇠고기", "soegogi"), ("poulet", "닭고기", "dakgogi"),
+    ("ragoût de pâte de soja", "된장찌개", "doenjangjjigae"), ("soupe", "국", "guk"),
+    ("sauce soja", "간장", "ganjang"), ("pâte de piment", "고추장", "gochujang"),
+    ("sel", "소금", "sogeum"), ("cuisine coréenne", "한식", "hansik"),
+    ("cuisine japonaise", "일식", "ilsik"), ("cuisine occidentale", "양식", "yangsik"),
+]
+
+# -(으)세요 : (verbe, sens, forme(s) acceptée(s), la première est la réponse).
+_SEYO = [
+    ("가다", "aller", ["가세요"]), ("오다", "venir", ["오세요"]),
+    ("기다리다", "attendre", ["기다리세요"]), ("공부하다", "étudier", ["공부하세요"]),
+    ("내리다", "descendre", ["내리세요"]), ("만나다", "rencontrer", ["만나세요"]),
+    ("전화하다", "téléphoner", ["전화하세요"]), ("쓰다", "écrire", ["쓰세요"]),
+    ("앉다", "s'asseoir", ["앉으세요"]), ("읽다", "lire", ["읽으세요"]),
+    ("마시다", "boire", ["드세요", "마시세요"]), ("먹다", "manger", ["드세요", "먹으세요"]),
+    ("주다", "donner", ["주세요"]), ("쉬다", "se reposer", ["쉬세요"]),
+    ("타다", "monter (dans un véhicule)", ["타세요"]),
+]
+
+# Verbes réguliers en plus, pour l'entraînement « quoi mettre après le radical ».
+# Pas d'irréguliers (만들다, 듣다, 자다, 있다…) : ils ne sont pas encore au cours.
+_SEYO_EXTRA = [
+    ("보다", "regarder", ["보세요"]), ("사다", "acheter", ["사세요"]),
+    ("배우다", "apprendre", ["배우세요"]), ("일어나다", "se lever", ["일어나세요"]),
+    ("하다", "faire", ["하세요"]), ("운동하다", "faire du sport", ["운동하세요"]),
+    ("시작하다", "commencer", ["시작하세요"]), ("찾다", "chercher", ["찾으세요"]),
+    ("받다", "recevoir", ["받으세요"]), ("입다", "mettre (un vêtement)", ["입으세요"]),
+    ("웃다", "sourire", ["웃으세요"]), ("씻다", "se laver", ["씻으세요"]),
+    ("닫다", "fermer", ["닫으세요"]), ("신다", "mettre (des chaussures)", ["신으세요"]),
+]
+
+_SEYO_EXCEPT = ("마시다", "먹다")
+_SEYO_ENDINGS = ["세요", "으세요", "Exception : tout le verbe devient 드세요"]
+
+
+def _seyo_drill():
+    """Pour chaque verbe : (1) quoi mettre après le radical (3 choix fixes),
+    (2) écrire la forme complète."""
+    ex = []
+    for verb, sens, forms in _SEYO + _SEYO_EXTRA:
+        stem = verb[:-1]
+        if verb in _SEYO_EXCEPT:
+            right = _SEYO_ENDINGS[2]
+            why = (f"{verb} est une exception : pour inviter poliment à {sens}, on ne garde pas "
+                   f"le radical {stem}, tout le verbe devient 드세요 (forme honorifique). "
+                   f"La forme régulière {forms[1]} existe mais est moins polie.")
+        elif _batchim(stem):
+            right = _SEYO_ENDINGS[1]
+            why = f"{verb} → radical {stem}, qui finit par une consonne (받침) → {stem}으세요."
+        else:
+            right = _SEYO_ENDINGS[0]
+            why = f"{verb} → radical {stem}, qui finit par une voyelle → {stem}세요."
+        ex.append({"type": "mcq",
+                   "prompt": f"{verb} ({sens}) : on enlève 다 → {stem}. Que met-on après ?",
+                   "choices": list(_SEYO_ENDINGS), "correct": _SEYO_ENDINGS.index(right),
+                   "explanation": why})
+        ex.append(_ta(f"Écris la demande polie de {verb} ({sens}).", forms, why))
+    return ex
+
+# N이에요/예요 : (nom, sens, forme correcte).
+_IEYO = [
+    ("학생", "étudiant", "학생이에요"), ("선생님", "professeur", "선생님이에요"),
+    ("의사", "médecin", "의사예요"), ("커피", "café", "커피예요"), ("시계", "montre", "시계예요"),
+    ("기자", "journaliste", "기자예요"), ("요리사", "cuisinier", "요리사예요"),
+    ("은행원", "employé de banque", "은행원이에요"), ("연구원", "chercheur", "연구원이에요"),
+    ("한국 사람", "Coréen", "한국 사람이에요"), ("회사원", "employé de bureau", "회사원이에요"),
+    ("주부", "femme au foyer", "주부예요"), ("건축가", "architecte", "건축가예요"),
+]
+
+# N은/는 : (nom, forme correcte).
+_EUN = [("이름", "이름은"), ("선생님", "선생님은"), ("저", "저는"), ("친구", "친구는"),
+        ("마이클", "마이클은"), ("여기", "여기는"), ("이분", "이분은"), ("웨이 씨", "웨이 씨는")]
+
+_SINO = ["공", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"]
+_NATIVE = ["하나", "둘", "셋", "넷", "다섯", "여섯", "일곱", "여덟", "아홉", "열"]
+_NATIVE_SHORT = {"하나": "한", "둘": "두", "셋": "세", "넷": "네"}
+
+
+def _batchim(word):
+    """True si la dernière syllabe hangeul a une consonne finale."""
+    last = [ch for ch in word if "가" <= ch <= "힣"][-1]
+    return (ord(last) - 0xAC00) % 28 != 0
+
+
+def _mcq(prompt, right, wrongs, explanation):
+    """QCM dont la bonne réponse est placée à une position stable mais variée."""
+    choices = [right] + [w for w in wrongs if w != right][:3]
+    random.Random(prompt).shuffle(choices)
+    return {"type": "mcq", "prompt": prompt, "choices": choices,
+            "correct": choices.index(right), "explanation": explanation}
+
+
+def _ta(prompt, accept, explanation, placeholder="en hangeul"):
+    return {"type": "type_answer", "prompt": prompt, "accept": accept,
+            "placeholder": placeholder, "explanation": explanation}
+
+
+def _w3_exercises():
+    ex = []
+    ex.append({"type": "matching", "prompt": "Associe chaque expression à son sens.",
+               "pairs": [["안녕하세요?", "Bonjour"], ["안녕히 가세요", "Au revoir (à qui part)"],
+                         ["안녕히 계세요", "Au revoir (à qui reste)"], ["만나서 반가워요", "Ravi de vous rencontrer"],
+                         ["이름이 뭐예요?", "Comment vous appelez-vous ?"]],
+               "explanation": "Les expressions de l'Unité 2. 가세요 : celui qui s'en va ; 계세요 : celui qui reste."})
+    ex.append(_mcq("Tu quittes le bureau d'un collègue qui, lui, reste. Que dis-tu ?", "안녕히 계세요",
+                   ["안녕히 가세요", "만나서 반가워요", "이름이 뭐예요?"],
+                   "계세요 = « restez » : on le dit à la personne qui reste. 가세요 = « allez » : à celle qui part."))
+    ex.append(_mcq("Un ami part de chez toi. Que lui dis-tu ?", "안녕히 가세요",
+                   ["안녕히 계세요", "안녕하세요?", "저는 학생이에요"],
+                   "La personne s'en va : 안녕히 가세요."))
+    ex.append({"type": "matching", "prompt": "Associe chaque pays à son nom coréen.",
+               "pairs": [[ko, fr] for fr, ko, _ in _W3_PAYS[1:9]],
+               "explanation": "Vocabulaire des pays de l'Unité 2."})
+    ex.append({"type": "matching", "prompt": "Associe chaque métier à son nom coréen.",
+               "pairs": [[ko, fr] for fr, ko, _ in _W3_METIERS[1:]],
+               "explanation": "Vocabulaire des métiers de l'Unité 2."})
+    ex.append(_mcq("Comment dit-on « Français(e) » (la nationalité) ?", "프랑스 사람",
+                   ["프랑스", "프랑스 씨", "프랑스 나라"], "Nationalité = pays + 사람 (personne)."))
+    ex.append(_ta("Écris « Japonais(e) » (la nationalité) en coréen.", ["일본 사람", "일본사람"],
+                  "일본 (Japon) + 사람 (personne) = 일본 사람."))
+    ex.append(_mcq("Quelle règle choisit entre 이에요 et 예요 ?", "이에요 après une consonne finale, 예요 après une voyelle",
+                   ["예요 après une consonne finale, 이에요 après une voyelle", "이에요 pour les questions, 예요 pour les affirmations",
+                    "이에요 pour les personnes, 예요 pour les objets"],
+                   "학생 (finale ㅇ) → 학생이에요 ; 의사 (voyelle) → 의사예요. Question ou affirmation : seule l'intonation change."))
+    for noun, sens, right in _IEYO:
+        other = noun + ("예요" if _batchim(noun) else "이에요")
+        ex.append(_mcq(f"« C'est {sens}. » : quelle forme est correcte ?", right, [other, noun + "는", noun + "은"],
+                       f"{noun} se termine par {'une consonne' if _batchim(noun) else 'une voyelle'} → {right}."))
+    ex.append(_ta("« Qu'est-ce que c'est ? » en coréen (뭐 + 이에요/예요).", ["뭐예요", "뭐예요?"],
+                  "뭐 se termine par une voyelle : 뭐예요?"))
+    ex.append(_mcq("Comment demande-t-on « Vous êtes étudiant ? »", "학생이에요?",
+                   ["학생예요?", "학생은요?", "학생이요?"],
+                   "La même forme 학생이에요 sert de question avec une intonation montante."))
+    ex.append(_mcq("À quoi sert la particule 은/는 ?", "Elle marque le thème de la phrase",
+                   ["Elle marque le verbe", "Elle forme le pluriel", "Elle marque la politesse"],
+                   "은/는 indique le sujet dont on parle (le thème)."))
+    for noun, right in _EUN:
+        other = noun + ("는" if right.endswith("은") else "은")
+        ex.append(_mcq(f"{noun} + particule de thème = ?", right, [other, noun + "이", noun + "가"],
+                       f"{'Consonne finale → 은' if right.endswith('은') else 'Voyelle finale → 는'} : {right}."))
+    ex.append(_ta("Complète : 저(  ) 애니예요. (une syllabe)", ["는"], "저 finit par une voyelle : 저는."))
+    ex.append(_ta("Complète : 마이클(  ) 미국 사람이에요. (une syllabe)", ["은"], "마이클 finit par ㄹ : 마이클은."))
+    ex.append(_ta("Complète : 저는 학생(    ). (이에요 ou 예요)", ["이에요"], "학생 finit par ㅇ : 학생이에요."))
+    ex.append(_ta("Complète : 저는 쿠마르(    ). (이에요 ou 예요)", ["예요"], "쿠마르 : la dernière syllabe 르 (ㄹ + ㅡ) n'a pas de consonne finale → 쿠마르예요."))
+    ex.append(_ta("Complète : 다니엘은 의사(    ). (이에요 ou 예요)", ["예요"], "의사 finit par une voyelle : 의사예요."))
+    ex.append({"type": "order_steps", "prompt": "Remets la présentation dans l'ordre.",
+               "steps": ["안녕하세요?", "저는 잉그리드예요.", "저는 영국 사람이에요.", "저는 연구원이에요.", "만나서 반가워요."],
+               "explanation": "Salut → nom → nationalité → métier → formule de fin (la rédaction de l'Unité 2)."})
+    ex.append({"type": "order_steps", "prompt": "Remets la présentation à trois dans l'ordre.",
+               "steps": ["재민 씨, 여기는 크리스 씨예요.", "크리스 씨, 여기는 재민 씨예요.", "안녕하세요?", "안녕하세요? 만나서 반가워요."],
+               "explanation": "On présente chacun avec 여기는 ~ 씨예요, puis on se salue."})
+    ex.append(_mcq("« 로버트 씨는 의사예요? » — Robert est médecin. Que répond-il ?", "네, 의사예요.",
+                   ["아니요, 의사예요.", "네, 의사이에요.", "안녕히 계세요."], "Oui = 네 ; 의사 finit par une voyelle → 의사예요."))
+    ex.append(_mcq("« 웨이 씨는 일본 사람이에요? » — Wei est chinois. Que répond-il ?", "아니요, 중국 사람이에요.",
+                   ["네, 일본 사람이에요.", "아니요, 일본 사람이에요.", "네, 중국 사람예요."], "Non = 아니요, puis la bonne nationalité."))
+    ex.append(_mcq("Que veut dire 여기는 크리스 씨예요 ?", "Voici Chris.",
+                   ["Chris est ici depuis longtemps.", "Où est Chris ?", "Je suis Chris."],
+                   "여기 = ici ; « ici, c'est M. Chris » = voici Chris (pour présenter quelqu'un)."))
+    ex.append(_mcq("Comment s'adresser poliment à Jaemin ?", "재민 씨", ["씨 재민", "재민 님이", "재민 저"],
+                   "씨 se place après le nom (ou le prénom), jamais seul."))
+    ex.append(_mcq("Quel mot coréen veut dire « nationalité » ?", "국적", ["나라", "주소", "이름"],
+                   "국적 = nationalité ; 나라 = pays ; 주소 = adresse ; 이름 = nom."))
+    ex.append({"type": "matching", "prompt": "Associe les métiers supplémentaires (Additional Expression).",
+               "pairs": [[ko, fr] for fr, ko, _ in _W3_PLUS[:7]],
+               "explanation": "Métiers de la page « 추가 표현 »."})
+    return ex
+
+
+def _w4_exercises():
+    ex = []
+    ex.append(_mcq("Quelle est la règle de -(으)세요 ?", "세요 après un radical en voyelle, 으세요 après un radical en consonne",
+                   ["으세요 après une voyelle, 세요 après une consonne", "세요 pour les verbes en 하다 seulement",
+                    "으세요 pour les questions"],
+                   "가다 → 가세요 ; 앉다 → 앉으세요. On enlève 다 et on regarde la dernière syllabe du radical."))
+    for verb, sens, forms in [s for s in _SEYO if s[0] in ("앉다", "읽다", "가다", "쓰다", "먹다")]:
+        stem = verb[:-1]
+        wrong = stem + ("세요" if _batchim(stem) else "으세요")
+        ex.append(_mcq(f"« {sens} » (demande polie) : quelle forme est correcte ?", forms[0],
+                       [wrong, verb + "세요", stem + "어요"], f"{verb} → {forms[0]}."))
+    ex.extend(_seyo_drill())
+    pairs = [("지민", "한국", "학생"), ("유키", "일본", "기자"), ("피에르", "프랑스", "요리사"),
+             ("왕리", "중국", "의사"), ("소피", "캐나다", "은행원"), ("안나", "독일", "연구원")]
+    for name, pays, job in pairs:
+        right = f"{job}{'이에요' if _batchim(job) else '예요'}"
+        ex.append(_ta(f"가: {name} 씨는 {pays} 사람이에요? 나: 네, {pays} 사람이에요. ___ ({job}, avec 이에요/예요)",
+                      [right, right + "."], f"{job} finit par {'une consonne' if _batchim(job) else 'une voyelle'} : {right}."))
+    ex.append(_mcq("La fiche écrit « 가: 연구원예요? ». Qu'est-ce qui ne va pas ?", "Il faut 연구원이에요 : 원 finit par la consonne ㄴ",
+                   ["Rien, c'est correct", "Il faut 연구원은요", "Il faut 연구원세요"],
+                   "Consonne finale → 이에요. La fiche contient une coquille."))
+    ex.append(_mcq("가: 인도네시아 사람이에요? — Maya est indonésienne. Que répond-elle ?", "네, 인도네시아 사람이에요.",
+                   ["아니요, 인도네시아 사람이에요.", "네, 인도네시아예요.", "네, 인도네시아 사람예요."],
+                   "Nationalité = pays + 사람 ; 사람 finit par ㅁ → 이에요."))
+    ex.append(_mcq("가: 이름이 뭐예요? — Elle s'appelle Maya. Que répond-elle ?", "마야예요.",
+                   ["마야이에요.", "마야 씨예요?", "마야는요."], "마야 finit par une voyelle : 마야예요."))
+    ex.append(_ta("가: 이름이 뭐예요? — Il s'appelle Eric (에릭). Réponds.", ["에릭이에요", "에릭이에요.", "저는 에릭이에요", "저는 에릭이에요."],
+                  "에릭 finit par ㄱ : 에릭이에요."))
+    ex.append({"type": "matching", "prompt": "Associe chaque pays (fiche de la semaine 4) à son nom coréen.",
+               "pairs": [[ko, fr] for fr, ko, _ in _W4_PAYS],
+               "explanation": "Liste de pays de la fiche « 나라 & 직업 »."})
+    ex.append(_mcq("Que veut dire 건축가 ?", "architecte", ["avocat", "femme au foyer", "journaliste"], "건축가 = architecte."))
+    ex.append(_mcq("Que veut dire 주부 ?", "femme / homme au foyer", ["architecte", "étudiant", "médecin"], "주부 = housewife."))
+    return ex
+
+
+def _w5_exercises():
+    ex = []
+    ex.append({"type": "matching", "prompt": "Associe chaque expression du restaurant à son sens.",
+               "pairs": [["어서 오세요.", "Bienvenue."], ["뭐 드릴까요?", "Que désirez-vous ?"],
+                         ["여기요.", "Excusez-moi ! (pour appeler)"], ["잠깐만 기다리세요.", "Un instant, s'il vous plaît."],
+                         ["여기 있어요.", "Voici."]],
+               "explanation": "Les expressions de l'Unité 3."})
+    ex.append(_mcq("Le serveur t'accueille en disant… ", "어서 오세요.", ["여기요.", "여기 있어요.", "안녕히 계세요."],
+                   "어서 오세요 = bienvenue (entrez)."))
+    ex.append(_mcq("Tu veux appeler le serveur. Tu dis…", "여기요!", ["어서 오세요!", "여기 있어요!", "뭐 드릴까요?"],
+                   "여기요 = « ici ! » pour attirer l'attention."))
+    ex.append(_ta("Commande du bulgogi : « Du bulgogi, s'il vous plaît. »", ["불고기 주세요", "불고기 주세요."],
+                  "N + 주세요 = donnez-moi N."))
+    ex.append({"type": "matching", "prompt": "Associe chaque aliment ou boisson à son nom coréen.",
+               "pairs": [["냉면", "nouilles froides"], ["비빔밥", "bibimbap"], ["햄버거", "hamburger"],
+                         ["홍차", "thé noir"], ["녹차", "thé vert"], ["콜라", "coca"], ["우유", "lait"]],
+               "explanation": "Vocabulaire de l'Unité 3."})
+    ex.append({"type": "order_steps", "prompt": "Range ces nombres coréens natifs dans l'ordre.",
+               "steps": _NATIVE[:], "explanation": "하나 둘 셋 넷 다섯 여섯 일곱 여덟 아홉 열."})
+    for i, n in enumerate(_NATIVE, start=1):
+        if i in (3, 6, 7, 8, 9):
+            ex.append(_ta(f"Écris le nombre coréen natif {i}.", [n], f"{i} = {n}."))
+    ex.append(_mcq("Devant un compteur, 하나, 둘, 셋, 넷 deviennent…", "한, 두, 세, 네",
+                   ["하나, 둘, 셋, 넷", "일, 이, 삼, 사", "한, 둘, 세, 넷"],
+                   "Formes réduites : 한 병, 두 개, 세 잔, 네 명."))
+    for n, short in _NATIVE_SHORT.items():
+        ex.append(_ta(f"Forme de {n} devant un compteur ?", [short], f"{n} → {short} (ex : {short} 개)."))
+    ex.append({"type": "matching", "prompt": "Associe chaque compteur à ce qu'il compte.",
+               "pairs": [["병", "les bouteilles"], ["개", "les objets (général)"], ["잔", "les verres et tasses"], ["명", "les personnes"]],
+               "explanation": "몇 개 / 몇 병 / 몇 잔 / 몇 명 있어요 ?"})
+    for item, num, cnt, sens in [("콜라", "한", "병", "un coca (bouteille)"), ("커피", "두", "잔", "deux cafés (tasses)"),
+                                 ("사과", "세", "개", "trois pommes"), ("맥주", "두", "병", "deux bières (bouteilles)"),
+                                 ("물", "다섯", "병", "cinq bouteilles d'eau"), ("오렌지 주스", "세", "병", "trois jus d'orange (bouteilles)")]:
+        right = f"{item} {num} {cnt}"
+        full = {"한": "하나", "두": "둘", "세": "셋"}.get(num, "오")
+        wrongs = [f"{item} {cnt} {num}", f"{num} {cnt} {item}", f"{item} {full} {cnt}"]
+        ex.append(_mcq(f"Comment dit-on « {sens} » ?", right, wrongs, f"Nom + nombre natif (forme réduite) + compteur : {right}."))
+    ex.append(_ta("Dis « Un coca et deux bières, s'il vous plaît. » (avec 하고 et les compteurs)",
+                  ["콜라 한 병하고 맥주 두 병 주세요", "콜라 한 병하고 맥주 두 병 주세요."],
+                  "N1 하고 N2 = N1 et N2 ; 콜라 한 병하고 맥주 두 병 주세요."))
+    ex.append(_mcq("Que veut dire 하고 dans « 불고기하고 맥주 두 병 주세요 » ?", "et (entre deux noms)",
+                   ["ou", "avec beaucoup de", "s'il vous plaît"], "N하고 N = N et N."))
+    ex.append(_mcq("Quel est l'effet de 좀 dans « 물 좀 주세요 » ?", "Il adoucit la demande, plus polie",
+                   ["Il veut dire « beaucoup »", "Il forme une question", "Il veut dire « encore »"],
+                   "좀 rend la demande plus douce et polie."))
+    ex.append(_ta("Demande « encore un peu de kimchi, s'il vous plaît ».", ["김치 좀 더 주세요", "김치 좀 더 주세요."],
+                  "더 (plus, encore) se place devant 주세요 : 김치 좀 더 주세요."))
+    ex.append(_mcq("Le serveur demande « 몇 분이에요? ». Que veut-il savoir ?", "Combien de personnes vous êtes",
+                   ["Combien de minutes vous attendez", "Ce que vous voulez boire", "Votre nom"],
+                   "분 = compteur poli des personnes ; on répond « 세 명이에요 » (nous sommes trois)."))
+    ex.append(_mcq("Comment dit-on « Asseyez-vous ici » ?", "여기 앉으세요.", ["여기 앉세요.", "여기 있어요.", "여기요."],
+                   "앉다 a une consonne finale → 앉으세요."))
+    ex.append({"type": "order_steps", "prompt": "Remets le dialogue au restaurant dans l'ordre.",
+               "steps": ["어서 오세요. 뭐 드릴까요?", "불고기하고 맥주 두 병 주세요.", "네, 잠깐만 기다리세요.",
+                         "여기요. 김치 좀 더 주세요.", "네, 여기 있어요."],
+               "explanation": "Accueil → commande → attente → demande de plus → service (Conversation Drills)."})
+    ex.append(_ta("Le client dit « 오렌지 다섯 개하고 사과 두 개 주세요 ». Combien d'oranges veut-il ? (chiffre)",
+                  ["5", "cinq"], "다섯 개 = cinq (objets).", placeholder="un chiffre"))
+    ex.append(_ta("« 콜라 한 병하고 커피 네 잔 주세요 ». Combien de cafés ? (chiffre)", ["4", "quatre"],
+                  "네 잔 = quatre tasses.", placeholder="un chiffre"))
+    ex.append({"type": "matching", "prompt": "Associe chaque demande (-(으)세요) à son sens.",
+               "pairs": [["물 좀 주세요.", "De l'eau, s'il vous plaît."], ["쓰세요.", "Écrivez."], ["읽으세요.", "Lisez."],
+                         ["앉으세요.", "Asseyez-vous."], ["쉬세요.", "Reposez-vous."]],
+               "explanation": "Listening 3 de l'Unité 3."})
+    ex.append(_mcq("Pour un numéro de téléphone (010-1234-5678), quels nombres utilise-t-on ?", "Les nombres sino-coréens (공, 일, 이, 삼…)",
+                   ["Les nombres natifs (하나, 둘, 셋…)", "Les compteurs (개, 병…)", "Les nombres anglais"],
+                   "Téléphone, prix, numéros : sino-coréen ; compter des objets : natif + compteur."))
+    ex.append(_ta("Comment se dit 0 dans un numéro de téléphone ?", ["공"], "0 = 공 (aussi 영)."))
+    ex.append({"type": "matching", "prompt": "Associe les mots du restaurant (Additional Expressions).",
+               "pairs": [[ko, fr] for fr, ko, _ in _W5_EXTRA[:8]],
+               "explanation": "Page « Additional Expressions » de l'Unité 3."})
+    return ex
+
+
+def _fc(pairs):
+    return [{"front": f, "back": b} for f, b in pairs]
+
+
+def build_course_w3_w5():
+    w3 = f"""# Coréen — Semaine 3 · Unité 2, Salutations et présentations
+
+Cours GEE3003 « Active Korean 1 », 제2과 **인사와 소개** (week_3.pdf et
+vocabulary.pdf) : saluer, se présenter, présenter quelqu'un, donner son
+nom, sa nationalité et son métier.
+
+> **En bref.** **N이에요 / N예요** = « c'est N / je suis N » : **이에요**
+> après une **consonne finale**, **예요** après une **voyelle**. **N은 / N는**
+> marque le **thème** : **은** après une consonne, **는** après une voyelle.
+> Nationalité = **pays + 사람**. 씨 se met **après** le nom.
+
+## Expressions (표현)
+
+| Coréen | Sens |
+|---|---|
+| 안녕하세요? | Bonjour. / Comment allez-vous ? |
+| 안녕히 가세요. | Au revoir (à la personne **qui part**). |
+| 안녕히 계세요. | Au revoir (à la personne **qui reste**). |
+| (만나서) 반가워요. | Ravi(e) de vous rencontrer. |
+| 이름이 뭐예요? | Comment vous appelez-vous ? |
+
+> **Piège :** 가세요 = « allez » → on le dit à **celui qui s'en va** ; 계세요 =
+> « restez » → à **celui qui reste**. Si les deux partent : 안녕히 가세요.
+
+## Vocabulaire (어휘)
+
+### Pays (나라)
+
+{_word_lines(_W3_PAYS)}
+
+**Nationalité = pays + 사람** : 미국 사람 (Américain), 한국 사람 (Coréen),
+프랑스 사람 (Français).
+
+### Métiers (직업)
+
+{_word_lines(_W3_METIERS)}
+
+### Autres
+
+{_word_lines(_W3_AUTRES)}
+
+### Métiers en plus (추가 표현)
+
+{_word_lines(_W3_PLUS)}
+
+## Grammaire 1 : N이에요 / N예요
+
+« C'est N », « je suis N ». La même forme sert pour **affirmer** et pour
+**demander** : seule l'**intonation** change (학생이에요. / 학생이에요?).
+
+| N + **이에요** (consonne finale) | N + **예요** (voyelle finale) |
+|---|---|
+| 학생 → 학생**이에요** | 의사 → 의사**예요** |
+| 선생님 → 선생님**이에요** | 커피 → 커피**예요** |
+| 은행원 → 은행원**이에요** | 기자 → 기자**예요** |
+
+- 뭐예요? — Qu'est-ce que c'est ? → 시계예요. (C'est une montre.)
+- 저는 김재민**이에요**. / 저는 애니**예요**.
+
+> **Astuce :** regarde la **dernière syllabe** : y a-t-il une consonne **sous**
+> la voyelle (받침) ? 생 (ㅇ), 님 (ㅁ), 원 (ㄴ) → 이에요. 사, 피, 자, 르 → 예요
+> (르 se termine par la voyelle ㅡ).
+
+## Grammaire 2 : N은 / N는 (particule de thème)
+
+Elle indique **de quoi on parle**.
+
+| N + **은** (consonne finale) | N + **는** (voyelle finale) |
+|---|---|
+| 이름 → 이름**은** | 저 → 저**는** |
+| 선생님 → 선생님**은** | 친구 → 친구**는** |
+
+- 나원주 선생님**은** 여자예요. — Le professeur Na Wonju est une femme.
+- 저**는** 학생이에요. — Moi, je suis étudiant.
+
+## Dialogues clés (핵심 대화)
+
+**Se présenter**
+
+- A : 안녕하세요? 저는 김재민이에요.
+- B : 안녕하세요, 재민 씨? 저는 애니예요.
+
+**Présenter quelqu'un**
+
+- A : 여기는 크리스 씨예요. 여기는 김재민 씨예요. (Voici Chris. Voici Jaemin Kim.)
+- B : 안녕하세요? 김재민이에요.
+- C : 안녕하세요? 크리스예요. 만나서 반가워요.
+
+**Nationalité et métier**
+
+- A : 로버트 씨는 의사예요? — B : 네, 의사예요.
+- A : 웨이 씨는 일본 사람이에요? — B : 아니요, 중국 사람이에요.
+
+**Questions types** : 이름이 뭐예요? · 중국 사람이에요? · 학생이에요?
+
+## Pratique (corrigé)
+
+1. 저(**는**) 애니예요. · 마이클(**은**) 미국 사람이에요. · 여기(**는**) 토니 씨예요.
+   · 이분(**은**) 선생님이에요.
+2. 저는 학생**이에요**. · 웨이 씨는 중국 사람**이에요**. · 저는 쿠마르**예요**.
+   · 다니엘은 의사**예요**.
+
+## Écrire : se présenter
+
+> 안녕하세요? 저는 잉그리드예요. 저는 영국 사람이에요. 저는 연구원이에요.
+> 만나서 반가워요.
+
+Salut → nom → nationalité → métier → 만나서 반가워요.
+"""
+
+    w4 = f"""# Coréen — Semaine 4 · Fiches de grammaire
+
+Fiches d'exercices de la semaine 4 (exo_1.pdf, exo_2.pdf) : la demande polie
+**-(으)세요** et **이에요 / 예요** avec les pays et les métiers.
+
+> **En bref.** On enlève **다** du verbe : radical en **voyelle** → **세요**
+> (가다 → 가세요) ; radical en **consonne** → **으세요** (앉다 → 앉으세요).
+> 마시다 / 먹다 → **드세요** (forme honorifique). Et toujours : consonne finale
+> → **이에요**, voyelle → **예요**.
+
+## 1. -(으)세요 : la demande polie
+
+« Faites… s'il vous plaît ». Règle : **세요** après une **voyelle**, **으세요**
+après une **consonne**.
+
+| Verbe | Sens | -(으)세요 |
+|---|---|---|
+{chr(10).join(f"| {v} | {s} | {' / '.join(f)} |" for v, s, f in _SEYO)}
+
+> **Piège :** **마시다** et **먹다** donnent **드세요** dans les slides (★) :
+> c'est la forme **honorifique** (on l'utilise pour inviter quelqu'un à boire
+> ou manger). 마시세요 et 먹으세요 suivent la règle mais sont moins polis.
+
+## 2. 이에요 / 예요 avec les nationalités et les métiers
+
+Corrigé de la fiche « 이에요 / 예요 » :
+
+| Personne | Nationalité | Métier |
+|---|---|---|
+| 에밀리 | 미국 사람이에요. | 선생님이에요. |
+| 지민 | 한국 사람이에요. | 학생이에요. |
+| 유키 | 일본 사람이에요. | 기자예요. |
+| 피에르 | 프랑스 사람이에요. | 요리사예요. |
+| 왕리 | 중국 사람이에요. | 의사예요. |
+| 소피 | 캐나다 사람이에요. | 은행원이에요. |
+| 안나 | 독일 사람이에요. | 연구원이에요. |
+
+**사람** finit toujours par ㅁ → **사람이에요**, quel que soit le pays.
+
+> **Piège :** la fiche écrit « 연구원**예요**? » : c'est une **coquille**.
+> 원 finit par ㄴ → **연구원이에요**.
+
+## 3. Conversation : nom, nationalité, métier
+
+Modèle de la fiche « 나라 & 직업 » (une question est juste, l'autre fausse) :
+
+- 가 : 이름이 뭐예요? — 나 : 마야예요.
+- 가 : 인도네시아 사람이에요? — 나 : **네**, 인도네시아 사람이에요.
+- 가 : 의사예요? — 나 : **아니요**, [vrai métier]이에요/예요.
+
+## 4. Pays de la fiche
+
+{_word_lines(_W4_PAYS)}
+
+Et aussi : 독일, 프랑스, 호주, 중국, 미국, 한국, 일본, 캐나다, 러시아 (semaine 3).
+Nouveaux métiers : 건축가 (architecte), 주부 (femme / homme au foyer).
+"""
+
+    w5 = f"""# Coréen — Semaine 5 · Unité 3, Au restaurant
+
+Cours GEE3003 « Active Korean 1 », 제3과 **식당** (week_5.pdf et
+vocabulary.pdf) : commander à manger (주문하기), faire une demande
+(요청하기), compter avec les **nombres natifs** et les **compteurs**.
+
+> **En bref.** **N 주세요** = « donnez-moi N ». **V-(으)세요** = demande
+> polie. Pour compter : **nom + nombre natif + compteur** (콜라 **한 병**,
+> 커피 **두 잔**, 사과 **세 개**). 하나 / 둘 / 셋 / 넷 deviennent **한 / 두 /
+> 세 / 네** devant un compteur. **하고** = « et » ; **좀** adoucit ; **더** =
+> encore.
+
+## Expressions (표현)
+
+| Coréen | Sens |
+|---|---|
+| 어서 오세요. | Bienvenue. |
+| 뭐 드릴까요? | Que désirez-vous ? |
+| 여기요. | Excusez-moi ! (pour appeler le serveur) |
+| 잠깐만 기다리세요. | Un instant, s'il vous plaît. |
+| 여기 있어요. | Voici. / Tenez. |
+
+## Vocabulaire (어휘)
+
+### Nourriture (음식)
+
+{_word_lines(_W5_FOOD)}
+
+### Boissons (음료수)
+
+{_word_lines(_W5_DRINKS)}
+
+### Verbes
+
+{_word_lines(_W5_VERBS)}
+
+### Autres
+
+{_word_lines(_W5_OTHERS)}
+
+### En plus (Additional Expressions)
+
+{_word_lines(_W5_EXTRA)}
+
+## Grammaire 1 : N 주세요 et V-(으)세요
+
+- **N 주세요** : 불고기 주세요. (Du bulgogi, s'il vous plaît.)
+- **V-(으)세요** : radical en voyelle → **세요** (타다 → 타세요) ; radical en
+  consonne → **으세요** (앉다 → 앉으세요). 마시다 / 먹다 → **드세요**. Voir
+  la semaine 4.
+
+## Grammaire 2 : compter
+
+### Les nombres natifs (하나, 둘, 셋…)
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|
+| {" | ".join(_NATIVE)} |
+
+Ils servent à **compter des personnes ou des choses**. Devant un compteur,
+**하나 → 한, 둘 → 두, 셋 → 세, 넷 → 네**.
+
+Pour un **numéro de téléphone** (010-1234-5678) ou un **prix**, on utilise les
+nombres **sino-coréens** : {", ".join(f"{i} {n}" for i, n in enumerate(_SINO))}.
+
+### Les compteurs
+
+| Compteur | Compte | Exemple |
+|---|---|---|
+| **개** | les objets (général) | 사과 두 개 (deux pommes) |
+| **병** | les **bouteilles** | 물 다섯 병, 오렌지 주스 세 병 |
+| **잔** | les **verres / tasses** | 커피 네 잔 |
+| **명** | les **personnes** | 방탄소년단 일곱 명 (les 7 BTS) |
+| **분** | les personnes (**poli**) | 몇 분이에요? (Vous êtes combien ?) |
+
+Ordre : **nom + nombre + compteur**. Questions : 몇 개 / 몇 병 / 몇 명 있어요?
+
+## Grammaire 3 : 하고, 좀, 더
+
+- **N하고 N** = N et N : 콜라 한 병**하고** 맥주 두 병 주세요.
+- **좀** rend la demande **plus douce, plus polie** : 물 **좀** 주세요.
+- **더** (encore) se place devant 주세요 : 물 좀 **더** 주세요.
+
+## Dialogues clés (핵심 대화)
+
+1. A : 어서 오세요. 뭐 드릴까요? — B : 불고기 주세요.
+2. A : 뭐 드릴까요? — B : 냉면 둘 주세요.
+3. A : 뭐 드릴까요? — B : 콜라 한 병하고 맥주 두 병 주세요.
+4. A : 여기요. 김치 좀 더 주세요. — B : 잠깐만 기다리세요.
+5. A : 어서 오세요. 몇 분이에요? — B : 세 명이에요. — A : 여기 앉으세요.
+
+**Conversation Drills** :
+
+| 웨이터 (serveur) | 손님 (client) |
+|---|---|
+| 어서 오세요. 뭐 드릴까요? | 불고기하고 맥주 두 병 주세요. |
+| 네, 잠깐만 기다리세요. | … |
+| | 여기요. 김치 좀 더 주세요. |
+| 네, 여기 있어요. | |
+
+## Écoute (corrigé)
+
+- 오렌지 **다섯 개**하고 사과 **두 개** 주세요.
+- 불고기 **둘**하고 콜라 **한 병** 주세요.
+- 콜라 **한 병**하고 커피 **네 잔** 주세요.
+- 물 좀 주세요. · 쓰세요. · 읽으세요. · 앉으세요.
+"""
+
+    seyo = f"""# Coréen — Entraînement -(으)세요
+
+Que mettre **à la place de 다** pour faire une **demande polie** (« faites…,
+s'il vous plaît ») ? Trois cas, à reconnaître vite.
+
+## La méthode
+
+1. **Enlève 다** : 앉다 → **앉** ; 가다 → **가**.
+2. Regarde la **dernière syllabe** du radical : a-t-elle une **consonne en
+   dessous** (받침) ?
+   - **non** (voyelle) → **세요** : 가 → 가**세요** ;
+   - **oui** (consonne) → **으세요** : 앉 → 앉**으세요** (le 으 sert à
+     « adoucir » la rencontre de deux consonnes).
+3. **Exceptions : 마시다 (boire) et 먹다 (manger)** → on ne garde pas le
+   radical : **tout le verbe devient 드세요** (forme honorifique, celle des
+   slides ★). 마시세요 / 먹으세요 existent mais sont moins polis.
+
+> **Piège :** 주다 (donner) n'est **pas** une exception : 주 → 주세요.
+> 하다 aussi est régulier : 공부하다 → 공부하세요.
+
+## Tous les verbes de l'entraînement
+
+| Verbe | Sens | Radical | Demande polie |
+|---|---|---|---|
+{chr(10).join(f"| {v} | {s} | {v[:-1]} | {f[0]} |" for v, s, f in _SEYO + _SEYO_EXTRA)}
+"""
+    seyo_fc = _fc(
+        [("Méthode -(으)세요", "Enlever 다 ; radical en voyelle → 세요 ; en consonne → 으세요 ; 마시다 / 먹다 → 드세요.")]
+        + [(f"{v} ({s})", f"{f[0]}" + (" (exception)" if v in _SEYO_EXCEPT else ""))
+           for v, s, f in _SEYO + _SEYO_EXTRA])
+
+    w3_fc = _fc([
+        ("안녕히 가세요 / 안녕히 계세요", "Au revoir à celui qui part / à celui qui reste."),
+        ("만나서 반가워요", "Ravi(e) de vous rencontrer."),
+        ("이름이 뭐예요?", "Comment vous appelez-vous ?"),
+        ("N이에요 / N예요", "C'est N. 이에요 après une consonne finale (학생이에요), 예요 après une voyelle (의사예요)."),
+        ("N은 / N는", "Particule de thème. 은 après une consonne (이름은), 는 après une voyelle (저는)."),
+        ("Nationalité", "Pays + 사람 : 미국 사람, 한국 사람, 프랑스 사람."),
+        ("씨", "M. / Mme, toujours après le nom : 재민 씨."),
+        ("여기는 크리스 씨예요", "Voici Chris (pour présenter quelqu'un)."),
+        ("직업 : 학생 / 의사 / 요리사 / 은행원 / 기자 / 회사원 / 연구원", "étudiant / médecin / cuisinier / employé de banque / journaliste / employé de bureau / chercheur"),
+        ("나라 : 일본 / 영국 / 독일 / 호주 / 캐나다 / 러시아 / 인도", "Japon / Royaume-Uni / Allemagne / Australie / Canada / Russie / Inde"),
+        ("이름 / 국적 / 주소 / 전화", "nom / nationalité / adresse / téléphone"),
+    ])
+    w4_fc = _fc([
+        ("-(으)세요", "Demande polie. Voyelle → 세요 (가세요) ; consonne → 으세요 (앉으세요)."),
+        ("마시다 / 먹다 → ?", "드세요 (forme honorifique des slides)."),
+        ("앉다 / 읽다 → ?", "앉으세요 / 읽으세요."),
+        ("기다리다 / 공부하다 / 전화하다 → ?", "기다리세요 / 공부하세요 / 전화하세요."),
+        ("연구원 + 이에요/예요", "연구원이에요 (원 finit par ㄴ) — la fiche écrit 연구원예요 par erreur."),
+        ("사람 + 이에요/예요", "Toujours 사람이에요 (ㅁ final)."),
+        ("건축가 / 주부", "architecte / femme ou homme au foyer."),
+    ])
+    w5_fc = _fc([
+        ("어서 오세요 / 뭐 드릴까요?", "Bienvenue / Que désirez-vous ?"),
+        ("여기요 / 여기 있어요", "Excusez-moi ! (appeler) / Voici."),
+        ("잠깐만 기다리세요", "Un instant, s'il vous plaît."),
+        ("N 주세요", "Donnez-moi N : 불고기 주세요."),
+        ("하나 둘 셋 넷 다섯", "1 2 3 4 5 (nombres natifs)."),
+        ("여섯 일곱 여덟 아홉 열", "6 7 8 9 10 (nombres natifs)."),
+        ("Devant un compteur", "하나 → 한, 둘 → 두, 셋 → 세, 넷 → 네."),
+        ("개 / 병 / 잔 / 명 / 분", "objets / bouteilles / verres-tasses / personnes / personnes (poli)."),
+        ("콜라 한 병하고 맥주 두 병 주세요", "Un coca et deux bières, s'il vous plaît. (하고 = et)"),
+        ("좀 / 더", "좀 adoucit la demande ; 더 = encore : 물 좀 더 주세요."),
+        ("몇 분이에요?", "Vous êtes combien ? → 세 명이에요."),
+        ("홍차 / 녹차 / 콜라 / 음료수", "thé noir / thé vert / coca / boisson."),
+        ("냉면 / 비빔밥 / 햄버거 / 오렌지", "nouilles froides / bibimbap / hamburger / orange."),
+    ])
+
+    return [
+        {"name": "Semaine 3", "key": "kr-cours-w3", "color": COLOR, "parent": "kr-cours",
+         "lesson": w3, "exercises": _w3_exercises(), "flashcards": w3_fc},
+        {"name": "Semaine 4", "key": "kr-cours-w4", "color": COLOR, "parent": "kr-cours",
+         "lesson": w4, "exercises": _w4_exercises(), "flashcards": w4_fc},
+        {"name": "Semaine 5", "key": "kr-cours-w5", "color": COLOR, "parent": "kr-cours",
+         "lesson": w5, "exercises": _w5_exercises(), "flashcards": w5_fc},
+        {"name": "Entraînement -(으)세요", "key": "kr-cours-seyo", "color": COLOR, "parent": "kr-cours",
+         "lesson": seyo, "exercises": _seyo_drill(), "flashcards": seyo_fc},
+    ]
+
+
 def main():
     seed = json.loads(SEED.read_text())
+    # Re-insert the branch where it was, so a re-run does not reorder seed.json.
+    old = [i for i, c in enumerate(seed) if str(c.get("key", "")).startswith("kr")]
+    at = old[0] if old else len(seed)
     seed = [c for c in seed if not str(c.get("key", "")).startswith("kr-")
             and c.get("name") not in ("Coréen", "Hangeul", "Vocabulaire")]
 
@@ -693,6 +1402,7 @@ def main():
     })
 
     kr.extend(build_course_categories())
+    kr.extend(build_course_w3_w5())
 
     decks = parse_vocab_md(VOCAB_MD.read_text())
     for name, words in decks:
@@ -709,7 +1419,7 @@ def main():
             "vocab": words,
         })
 
-    seed.extend(kr)
+    seed[at:at] = kr
     SEED.write_text(json.dumps(seed, ensure_ascii=False, indent=2) + "\n")
 
     print(f"Hangeul: {len(hangeul_exercises)} exercises")
