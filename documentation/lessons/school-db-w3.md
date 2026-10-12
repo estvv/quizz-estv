@@ -5,6 +5,12 @@ cardinality, participation constraints, weak entity sets, superclass /
 subclass, generalization vs specialization, and a full worked example (the NHL
 database).
 
+Lecture 06 — *E-R Diagrams – 3* (sections 9–14). Aggregation, the Hospital
+Management System diagram, reducing an E-R diagram to a database schema, the
+full symbol summary (arrow cardinalities, total / partial and disjoint /
+overlapping specialization), integrity constraints, and ERD exercise 2 (a
+university).
+
 ---
 
 ## 0. The symbols, all in one place
@@ -531,6 +537,334 @@ Reading the answer:
 - `injury record` is **weak**: identified by `(p-name, id)` through the
   identifying relationship `log` (double diamond, double line).
 
+## 9. Aggregation
+
+**Limitation of the E-R model:** a relationship connects **entities**, never
+other relationships. *In the E-R model we cannot express relationships between
+two relationships.*
+
+```diagram
+{
+  "title": "The problem: Borrow would have to connect to the Works relationship itself — not allowed.",
+  "nodes": [
+    { "id": "comp", "x": 330, "y": 40, "w": 120, "label": "Company", "tone": "sky" },
+    { "id": "emp", "x": 110, "y": 130, "w": 120, "label": "Employee", "tone": "sky" },
+    { "id": "works", "x": 330, "y": 130, "shape": "diamond", "label": "Works", "tone": "amber" },
+    { "id": "dept", "x": 550, "y": 130, "w": 120, "label": "Department", "tone": "sky" },
+    { "id": "borrow", "x": 330, "y": 250, "shape": "diamond", "label": "Borrow", "tone": "amber" },
+    { "id": "loan", "x": 330, "y": 340, "w": 120, "label": "Loan", "tone": "sky" },
+    { "id": "n", "x": 560, "y": 200, "w": 250, "h": 34, "shape": "note", "size": 12, "label": "✗ cannot connect two relationships", "tone": "rose" }
+  ],
+  "edges": [
+    { "from": "comp", "to": "works", "arrow": "none" },
+    { "from": "emp", "to": "works", "arrow": "none" },
+    { "from": "works", "to": "dept", "arrow": "none" },
+    { "from": "works", "to": "borrow", "arrow": "none", "tone": "rose", "dashed": true },
+    { "from": "borrow", "to": "loan", "arrow": "none" }
+  ]
+}
+```
+
+The fix is **aggregation**: treat the whole `Employee — Works — Company —
+Department` cluster as **one higher-level entity** (here called `Customer`),
+and connect `Borrow` to that box.
+
+> **Aggregation** = the process of creating an entity by **combining various
+> components of an E-R diagram** (entities + a relationship) into one
+> abstract entity, so that it can take part in another relationship.
+
+```diagram
+{
+  "title": "The solution: the dashed box (an aggregation) behaves like an entity, so Borrow can connect to it.",
+  "groups": [
+    { "x": 330, "y": 85, "w": 620, "h": 175, "label": "Customer (aggregation)", "tone": "sky", "labelAlign": "right" }
+  ],
+  "nodes": [
+    { "id": "comp", "x": 330, "y": 40, "w": 120, "label": "Company", "tone": "sky" },
+    { "id": "emp", "x": 110, "y": 130, "w": 120, "label": "Employee", "tone": "sky" },
+    { "id": "works", "x": 330, "y": 130, "shape": "diamond", "label": "Works", "tone": "amber" },
+    { "id": "dept", "x": 550, "y": 130, "w": 120, "label": "Department", "tone": "sky" },
+    { "id": "a", "x": 330, "y": 162, "shape": "text" },
+    { "id": "borrow", "x": 330, "y": 250, "shape": "diamond", "label": "Borrow", "tone": "amber" },
+    { "id": "loan", "x": 330, "y": 340, "w": 120, "label": "Loan", "tone": "sky" }
+  ],
+  "edges": [
+    { "from": "comp", "to": "works", "arrow": "none" },
+    { "from": "emp", "to": "works", "arrow": "none" },
+    { "from": "works", "to": "dept", "arrow": "none" },
+    { "from": "a", "to": "borrow", "arrow": "none", "tone": "emerald", "bold": true },
+    { "from": "borrow", "to": "loan", "arrow": "none" }
+  ]
+}
+```
+
+Don't confuse it with generalization: generalization merges **entities with
+common attributes** into a superclass (ISA); aggregation wraps **a relationship
+together with its entities** into one box.
+
+## 10. E-R diagram of a Hospital Management System
+
+```er
+{
+  "title": "Hospital Management System (Lecture 06). Medical Record N:1 Patient, Patient N:1 Hospital, Doctor N:1 Hospital, Doctor N:N Patient (Treats); Patient specializes into Indoor / Outdoor.",
+  "nodes": [
+    { "id": "mr", "kind": "entity", "label": "Medical Record", "x": 80, "y": 170 },
+    { "id": "mrid", "kind": "key_attribute", "label": "MRID", "x": 80, "y": 70 },
+    { "id": "rn", "kind": "attribute", "label": "Report Name", "x": 80, "y": 270 },
+    { "id": "has1", "kind": "relationship", "label": "Has", "x": 230, "y": 170 },
+    { "id": "pat", "kind": "entity", "label": "Patient", "x": 380, "y": 170 },
+    { "id": "patid", "kind": "key_attribute", "label": "PatID", "x": 320, "y": 70 },
+    { "id": "pname", "kind": "attribute", "label": "Name", "x": 440, "y": 70 },
+    { "id": "adm", "kind": "relationship", "label": "Admitted", "x": 545, "y": 170 },
+    { "id": "hos", "kind": "entity", "label": "Hospital", "x": 710, "y": 170 },
+    { "id": "hosid", "kind": "key_attribute", "label": "HosID", "x": 650, "y": 70 },
+    { "id": "hname", "kind": "attribute", "label": "Name", "x": 770, "y": 70 },
+    { "id": "isa", "kind": "isa", "label": "ISA", "x": 380, "y": 260 },
+    { "id": "ind", "kind": "entity", "label": "Indoor", "x": 290, "y": 350 },
+    { "id": "room", "kind": "attribute", "label": "RoomNo", "x": 200, "y": 440 },
+    { "id": "ipdid", "kind": "key_attribute", "label": "IPDID", "x": 320, "y": 440 },
+    { "id": "out", "kind": "entity", "label": "Outdoor", "x": 470, "y": 350 },
+    { "id": "opdid", "kind": "key_attribute", "label": "OPDID", "x": 440, "y": 440 },
+    { "id": "charge", "kind": "attribute", "label": "Charge", "x": 550, "y": 440 },
+    { "id": "treats", "kind": "relationship", "label": "Treats", "x": 570, "y": 285 },
+    { "id": "doc", "kind": "entity", "label": "Doctor", "x": 710, "y": 360 },
+    { "id": "has2", "kind": "relationship", "label": "Has", "x": 710, "y": 265 },
+    { "id": "drid", "kind": "key_attribute", "label": "DrID", "x": 660, "y": 450 },
+    { "id": "drn", "kind": "attribute", "label": "Dr Name", "x": 775, "y": 450 }
+  ],
+  "edges": [
+    { "from": "mr", "to": "mrid" }, { "from": "mr", "to": "rn" },
+    { "from": "mr", "to": "has1", "card": "N" }, { "from": "has1", "to": "pat", "card": "1" },
+    { "from": "pat", "to": "patid" }, { "from": "pat", "to": "pname" },
+    { "from": "pat", "to": "adm", "card": "N" }, { "from": "adm", "to": "hos", "card": "1" },
+    { "from": "hos", "to": "hosid" }, { "from": "hos", "to": "hname" },
+    { "from": "pat", "to": "isa" }, { "from": "isa", "to": "ind" }, { "from": "isa", "to": "out" },
+    { "from": "ind", "to": "room" }, { "from": "ind", "to": "ipdid" },
+    { "from": "out", "to": "opdid" }, { "from": "out", "to": "charge" },
+    { "from": "pat", "to": "treats", "card": "N" }, { "from": "treats", "to": "doc", "card": "N" },
+    { "from": "doc", "to": "has2", "card": "N" }, { "from": "has2", "to": "hos", "card": "1" },
+    { "from": "doc", "to": "drid" }, { "from": "doc", "to": "drn" }
+  ]
+}
+```
+
+How to read it (on the slide, an **arrow points to the "one" side**):
+
+| Relationship | Cardinality | Meaning |
+|---|---|---|
+| Medical Record —Has→ Patient | **N : 1** | a patient has many medical records, a record belongs to one patient |
+| Patient —Admitted→ Hospital | **N : 1** | many patients in one hospital |
+| Doctor —Has→ Hospital | **N : 1** | a hospital has many doctors, a doctor works in one hospital |
+| Patient —Treats— Doctor | **N : N** | no arrow: a doctor treats many patients, a patient sees many doctors |
+| Patient ISA Indoor / Outdoor | specialization | `Indoor` adds `RoomNo`, `Outdoor` adds `Charge` |
+
+## 11. Reducing an E-R diagram to a database schema
+
+Turning the diagram into **tables** follows five steps.
+
+| Step | E-R element | Becomes |
+|---|---|---|
+| 1 | **Entity** + simple attributes | **one table**; each attribute (except multivalued) is a column; the key attribute is the **primary key** (underlined) |
+| 2 | **Multivalued** attribute | a **new table** with its own PK + the parent's PK as **foreign key**; 1:N between the two tables |
+| 3 | **1 : 1** relationship | both entities → tables; put the PK of **either** table into the other as FK |
+| 4 | **1 : N** relationship | both entities → tables; the PK of the **"1" side** goes as FK into the **"N" side** |
+| 5 | **N : N** relationship | both entities → tables **+ a separate table for the relationship**, holding the PKs of both as FKs |
+
+Convention from the slides: every table should **start with its primary key**,
+named `TablenameID`.
+
+### Steps 1 and 2 — entity and multivalued attribute
+
+`Person` has `PersonID` (key), `Name`, `Address`, `City` and a **multivalued**
+`PhoneNo` (one person, several phones).
+
+```diagram
+{
+  "title": "PhoneNo cannot be a column of Person (several values) → its own table, linked by the foreign key PersonID.",
+  "nodes": [
+    { "id": "p", "x": 150, "y": 60, "shape": "table", "size": 12, "tone": "sky", "label": "Person", "rows": [["PersonID","Name","Address","City"],["1","Lee","12 Inha-ro","Incheon"],["2","Kim","5 Gangnam","Seoul"]], "cols": [70, 50, 80, 60] },
+    { "id": "ph", "x": 520, "y": 60, "shape": "table", "size": 12, "tone": "emerald", "label": "PhoneNo", "rows": [["PhoneID","PersonID","PhoneNo"],["1","1","010-1111"],["2","1","010-2222"],["3","2","010-3333"]], "cols": [60, 70, 80] }
+  ],
+  "edges": [
+    { "from": "ph", "to": "p", "label": "FK PersonID (N : 1)", "tone": "emerald" }
+  ]
+}
+```
+
+Schema: `Person (PersonID, Name, Address, City)` and
+`PhoneNo (PhoneID, PersonID, PhoneNo)`.
+
+### Step 3 — 1 : 1
+
+`Person —Having— Wife`, one-to-one. Either choice is correct:
+
+- `Person (PersonID, PName)` and `Wife (WifeID, WName, PersonID)` — **or**
+- `Wife (WifeID, WName)` and `Person (PersonID, PName, WifeID)`.
+
+### Step 4 — 1 : N
+
+`Person —Having— House`: a person owns many houses, a house has one owner. The
+FK goes on the **many** side:
+
+`Person (PersonID, PName)` and `House (HouseID, HName, PersonID)`.
+
+(Putting `HouseID` in `Person` would need several values in one cell — that is
+why the FK always goes to the "N" side.)
+
+### Step 5 — N : N
+
+`Customer —Has_Acct— Account`, many-to-many: a **third table** is created for
+the relationship.
+
+```diagram
+{
+  "title": "N : N → the relationship becomes its own table, holding the primary keys of both entities as foreign keys.",
+  "nodes": [
+    { "id": "c", "x": 110, "y": 60, "shape": "table", "size": 12, "tone": "sky", "label": "Customer", "rows": [["CID","CName"],["C1","Lee"],["C2","Kim"]] },
+    { "id": "h", "x": 340, "y": 60, "shape": "table", "size": 12, "tone": "amber", "label": "Has_Acct", "rows": [["HasAcctID","CID","ActNo"],["1","C1","A1"],["2","C1","A2"],["3","C2","A2"]] },
+    { "id": "a", "x": 570, "y": 60, "shape": "table", "size": 12, "tone": "sky", "label": "Account", "rows": [["ActNo","Balance"],["A1","500"],["A2","1200"]] }
+  ],
+  "edges": [
+    { "from": "h", "to": "c", "label": "FK CID", "tone": "amber" },
+    { "from": "h", "to": "a", "label": "FK ActNo", "tone": "amber" }
+  ]
+}
+```
+
+Schema: `Customer (CID, CName)`, `Account (ActNo, Balance)`,
+`Has_Acct (HasAcctID, CID, ActNo)`. Account A2 is shared by Lee and Kim; Lee
+holds A1 and A2 — exactly what N : N needs.
+
+## 12. Summary of the E-R symbols (Lecture 06 additions)
+
+Section 0 lists the shapes. Lecture 06 adds two notations.
+
+**Cardinality with arrows** — an **arrow points towards the "one" side**:
+
+| Drawing | Cardinality |
+|---|---|
+| `E ←— R —→ E` (arrows on both sides) | **one to one** |
+| `E ←— R ——— E` (arrow on the left only) | **one to many** (left = one) |
+| `E ——— R —→ E` (arrow on the right only) | **many to one** (right = one) |
+| `E ——— R ——— E` (no arrow) | **many to many** |
+
+**Constraints on an ISA (specialization / generalization):**
+
+| Mark | Name | Meaning |
+|---|---|---|
+| **double line** above ISA | **total** specialization | every superclass entity belongs to **at least one** subclass |
+| single line above ISA | **partial** specialization | a superclass entity may belong to **no** subclass |
+| label **Disjoint** | **disjoint** | an entity belongs to **at most one** subclass |
+| label **Overlapping** | **overlapping** | an entity can belong to **several** subclasses at once |
+
+Examples: `Patient` → `Indoor` / `Outdoor` is disjoint (a stay is one or the
+other). `Person` → `Student` / `Employee` is overlapping (a working student is
+both). `Account` → `Saving` / `Current` is total if every account must be one
+of the two.
+
+## 13. Integrity constraints
+
+**Integrity constraints** are a **set of rules** used to **maintain the quality
+of information**: inserts, updates and other operations must not break data
+integrity. They **guard against accidental damage** to the database.
+
+| Constraint | Rule | Example |
+|---|---|---|
+| **Check** | a **business rule** on a column: every row must satisfy it; limits values to a set, a **range** or a list; on one or several columns | `SPI` must be between 0 and 10 |
+| **Not null** | every row must have a **definite value**; NULL is not allowed | `name` must have a value |
+| **Unique** | values are **distinct** in each row; **NULL is allowed**, duplicates are not | `enrollmentno` must be unique |
+| **Primary key** | column(s) that **uniquely identify each row**; **Primary key = Unique + Not null** | `enrollmentno` unique and never null |
+| **Foreign key** (**referential integrity**) | between two tables: every FK value in table 1 must be **NULL or present in the PK column** of table 2 | `Student.DeptID` must exist in `Department.DeptID` |
+
+```diagram
+{
+  "title": "Referential integrity: each DeptID in Student must be NULL or exist in Department.DeptID. Inserting a student with DeptID = 3 would be rejected.",
+  "nodes": [
+    { "id": "d", "x": 140, "y": 60, "shape": "table", "size": 12, "tone": "sky", "label": "Department", "rows": [["DeptID","Dept_Name","HOD"],["1","Computer","Lee"],["2","IT","Kim"]] },
+    { "id": "s", "x": 490, "y": 60, "shape": "table", "size": 12, "tone": "emerald", "label": "Student", "rows": [["RollNo","Student_Name","DeptID"],["101","Jacob","1"],["102","Alex","2"]] }
+  ],
+  "edges": [
+    { "from": "s", "to": "d", "label": "Foreign key DeptID", "tone": "emerald" }
+  ]
+}
+```
+
+The key difference to remember: **Unique accepts NULL, Primary key does not.**
+
+## 14. ERD Exercise 2 — a university
+
+```er
+{
+  "title": "E-R diagram for a university (Lecture 06, ERD Exercise 2).",
+  "nodes": [
+    { "id": "st", "kind": "entity", "label": "student", "x": 90, "y": 150 },
+    { "id": "sid", "kind": "key_attribute", "label": "sid", "x": 40, "y": 50 },
+    { "id": "sname", "kind": "attribute", "label": "name", "x": 140, "y": 50 },
+    { "id": "prog", "kind": "attribute", "label": "program", "x": 90, "y": 260 },
+    { "id": "enr", "kind": "relationship", "label": "enrols", "x": 250, "y": 150 },
+    { "id": "grade", "kind": "attribute", "label": "grade", "x": 250, "y": 260 },
+    { "id": "co", "kind": "weak_entity", "label": "course-offerings", "x": 450, "y": 150 },
+    { "id": "time", "kind": "attribute", "label": "time", "x": 360, "y": 50 },
+    { "id": "secno", "kind": "partial_key_attribute", "label": "secno", "x": 460, "y": 40 },
+    { "id": "room", "kind": "attribute", "label": "room", "x": 560, "y": 50 },
+    { "id": "year", "kind": "partial_key_attribute", "label": "year", "x": 380, "y": 250 },
+    { "id": "sem", "kind": "partial_key_attribute", "label": "semester", "x": 530, "y": 250 },
+    { "id": "te", "kind": "relationship", "label": "teaches", "x": 650, "y": 150 },
+    { "id": "ins", "kind": "entity", "label": "instructor", "x": 830, "y": 150 },
+    { "id": "iid", "kind": "key_attribute", "label": "iid", "x": 780, "y": 50 },
+    { "id": "iname", "kind": "attribute", "label": "name", "x": 890, "y": 50 },
+    { "id": "dept", "kind": "attribute", "label": "dept", "x": 770, "y": 250 },
+    { "id": "ititle", "kind": "attribute", "label": "title", "x": 890, "y": 250 },
+    { "id": "iso", "kind": "identifying_relationship", "label": "is offered", "x": 450, "y": 350 },
+    { "id": "c", "kind": "entity", "label": "course", "x": 450, "y": 480 },
+    { "id": "syl", "kind": "attribute", "label": "syllabus", "x": 330, "y": 420 },
+    { "id": "cno", "kind": "key_attribute", "label": "courseno", "x": 590, "y": 420 },
+    { "id": "ctitle", "kind": "attribute", "label": "title", "x": 600, "y": 520 },
+    { "id": "cred", "kind": "attribute", "label": "credits", "x": 450, "y": 580 },
+    { "id": "req", "kind": "relationship", "label": "requires", "x": 210, "y": 480 }
+  ],
+  "edges": [
+    { "from": "st", "to": "sid" }, { "from": "st", "to": "sname" }, { "from": "st", "to": "prog" },
+    { "from": "st", "to": "enr", "card": "M" }, { "from": "enr", "to": "co", "card": "N" },
+    { "from": "enr", "to": "grade" },
+    { "from": "co", "to": "time" }, { "from": "co", "to": "secno" }, { "from": "co", "to": "room" },
+    { "from": "co", "to": "year" }, { "from": "co", "to": "sem" },
+    { "from": "co", "to": "te", "card": "N" }, { "from": "te", "to": "ins", "card": "M" },
+    { "from": "ins", "to": "iid" }, { "from": "ins", "to": "iname" }, { "from": "ins", "to": "dept" }, { "from": "ins", "to": "ititle" },
+    { "from": "co", "to": "iso", "card": "N", "total": true }, { "from": "iso", "to": "c", "card": "1" },
+    { "from": "c", "to": "syl" }, { "from": "c", "to": "cno" }, { "from": "c", "to": "ctitle" }, { "from": "c", "to": "cred" },
+    { "from": "c", "to": "req", "role": "prerequisite" },
+    { "from": "c", "to": "req", "role": "maincourse" }
+  ]
+}
+```
+
+What to read off the diagram:
+
+- `course-offerings` is a **weak entity** (double rectangle): an offering only
+  exists for a course. It is identified through the **identifying
+  relationship** `is offered` (double diamond, **double line** = total
+  participation) and the arrow points to `course` → **many offerings, one
+  course**. Its key = `courseno` + discriminator (`secno`, `year`,
+  `semester`).
+- `requires` is a **recursive** relationship on `course` with two **roles**,
+  `prerequisite` and `maincourse`.
+- `grade` is an **attribute of the relationship** `enrols` (a grade belongs
+  to *one student in one offering*, not to either alone).
+- `enrols` and `teaches` have no arrows → **many to many**.
+
+Reduced to a schema (section 11):
+
+| Table | Why |
+|---|---|
+| `Student (sid, name, program)` | step 1 |
+| `Instructor (iid, name, dept, title)` | step 1 |
+| `Course (courseno, title, syllabus, credits)` | step 1 |
+| `Course_Offering (courseno, secno, year, semester, time, room)` | weak entity: PK = owner's PK + discriminator |
+| `Enrols (sid, courseno, secno, year, semester, grade)` | N : N → own table, carries the relationship attribute `grade` |
+| `Teaches (iid, courseno, secno, year, semester)` | N : N → own table |
+| `Requires (maincourse, prerequisite)` | recursive N : N on Course → two FKs to `Course.courseno` |
+
 ---
 
 ## To remember
@@ -552,3 +886,15 @@ Reading the answer:
   (subsets of a higher-level set, from distinguishing features).
 - Method for any statement: entities → attributes & keys → relationships →
   roles → cardinality & participation.
+- **Aggregation** = wrapping entities + their relationship into one abstract
+  entity, because a relationship **cannot connect to another relationship**.
+- **E-R → schema**: entity → table; multivalued attribute → new table with an
+  FK; **1:1** → PK of either side as FK in the other; **1:N** → PK of the
+  **one** side as FK in the **many** side; **N:N** → a **separate
+  relationship table** holding both PKs.
+- **Arrow notation**: the arrow points to the **one** side; no arrow = many.
+- **ISA constraints**: double line = **total**, single = **partial**;
+  **disjoint** = at most one subclass, **overlapping** = several.
+- **Integrity constraints**: Check, Not null, Unique, Primary key (**= Unique +
+  Not null**), Foreign key (**referential integrity**: FK value is NULL or
+  exists in the referenced PK).

@@ -30096,7 +30096,7 @@
     "key": "school-db-w3",
     "color": "slate",
     "parent": "school-db",
-    "lesson": "# Database Design — Week 3\n\nLecture 05 — *E-R Diagrams – 2*. Roles, recursive relationship sets, mapping\ncardinality, participation constraints, weak entity sets, superclass /\nsubclass, generalization vs specialization, and a full worked example (the NHL\ndatabase).\n\n---\n\n## 0. The symbols, all in one place\n\n```er\n{\n  \"title\": \"E-R diagram symbols (Chen notation, as used in the course).\",\n  \"nodes\": [\n    { \"id\": \"e\", \"kind\": \"entity\", \"label\": \"Strong entity set\", \"x\": 130, \"y\": 40 },\n    { \"id\": \"w\", \"kind\": \"weak_entity\", \"label\": \"Weak entity set\", \"x\": 130, \"y\": 115 },\n    { \"id\": \"r\", \"kind\": \"relationship\", \"label\": \"Strong relationship\", \"x\": 130, \"y\": 205 },\n    { \"id\": \"ir\", \"kind\": \"identifying_relationship\", \"label\": \"Weak relationship\", \"x\": 130, \"y\": 300 },\n    { \"id\": \"isa\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 130, \"y\": 385 },\n    { \"id\": \"a\", \"kind\": \"attribute\", \"label\": \"Simple attribute\", \"x\": 450, \"y\": 40 },\n    { \"id\": \"k\", \"kind\": \"key_attribute\", \"label\": \"Key attribute\", \"x\": 450, \"y\": 105 },\n    { \"id\": \"pk\", \"kind\": \"partial_key_attribute\", \"label\": \"Partial key (discriminator)\", \"x\": 450, \"y\": 170 },\n    { \"id\": \"m\", \"kind\": \"multi_attribute\", \"label\": \"Multivalued attribute\", \"x\": 450, \"y\": 240 },\n    { \"id\": \"d\", \"kind\": \"derived_attribute\", \"label\": \"Derived attribute\", \"x\": 450, \"y\": 310 },\n    { \"id\": \"c\", \"kind\": \"attribute\", \"label\": \"Composite attribute\", \"x\": 450, \"y\": 375 },\n    { \"id\": \"c1\", \"kind\": \"attribute\", \"label\": \"part 1\", \"x\": 380, \"y\": 440 },\n    { \"id\": \"c2\", \"kind\": \"attribute\", \"label\": \"part 2\", \"x\": 520, \"y\": 440 }\n  ],\n  \"edges\": [\n    { \"from\": \"c\", \"to\": \"c1\" }, { \"from\": \"c\", \"to\": \"c2\" }\n  ]\n}\n```\n\n| Symbol | Meaning |\n|---|---|\n| rectangle | strong entity set (has its own primary key) |\n| **double** rectangle | **weak** entity set (no primary key of its own) |\n| diamond | relationship set |\n| **double** diamond | **identifying** (weak) relationship, tying a weak entity to its strong entity |\n| oval | attribute; **underlined** = key attribute; **dashed underline** = discriminator; **double** oval = multivalued; **dashed** oval = derived; oval with sub-ovals = composite |\n| triangle \"ISA\" | superclass / subclass link (generalization, specialization) |\n| single line | (partial) participation of an entity set in a relationship |\n| **double** line | **total** participation |\n| `1` / `N` on a line | mapping cardinality |\n\n## 1. Role names\n\n**Roles** are indicated by **labelling the lines** that connect a diamond\n(relationship) to a rectangle (entity). Role labels are **optional**; they are\nused to clarify the **semantics** (meaning) of the relationship — especially\nwhen the same entity set appears twice.\n\n```er\n{\n  \"title\": \"Faculty takes part in Reports_To twice, once as Coordinator and once as Head: the two labels are roles.\",\n  \"nodes\": [\n    { \"id\": \"f\", \"kind\": \"entity\", \"label\": \"Faculty\", \"x\": 200, \"y\": 160 },\n    { \"id\": \"id\", \"kind\": \"key_attribute\", \"label\": \"EmpID\", \"x\": 100, \"y\": 60 },\n    { \"id\": \"nm\", \"kind\": \"attribute\", \"label\": \"Name\", \"x\": 270, \"y\": 50 },\n    { \"id\": \"br\", \"kind\": \"attribute\", \"label\": \"Branch\", \"x\": 100, \"y\": 270 },\n    { \"id\": \"ex\", \"kind\": \"attribute\", \"label\": \"Experience\", \"x\": 280, \"y\": 280 },\n    { \"id\": \"r\", \"kind\": \"relationship\", \"label\": \"Reports_To\", \"x\": 520, \"y\": 160 }\n  ],\n  \"edges\": [\n    { \"from\": \"f\", \"to\": \"id\" }, { \"from\": \"f\", \"to\": \"nm\" }, { \"from\": \"f\", \"to\": \"br\" }, { \"from\": \"f\", \"to\": \"ex\" },\n    { \"from\": \"f\", \"to\": \"r\", \"role\": \"Coordinator\" },\n    { \"from\": \"f\", \"to\": \"r\", \"role\": \"Head\" }\n  ]\n}\n```\n\nThe labels *Coordinator* and *Head* specify **which Faculty entities interact\nwith which** via the `Reports_To` relationship set.\n\n## 2. Recursive relationship set\n\nWhen **the same entity set participates in a relationship set more than\nonce**, the relationship set is **recursive**. `Reports_To` above is recursive:\nboth of its ends are `Faculty`.\n\n```er\n{\n  \"title\": \"Faculty works in a Department (ordinary binary relationship) and Faculty reports to Faculty (recursive relationship set).\",\n  \"nodes\": [\n    { \"id\": \"f\", \"kind\": \"entity\", \"label\": \"Faculty\", \"x\": 160, \"y\": 160 },\n    { \"id\": \"fi\", \"kind\": \"key_attribute\", \"label\": \"FacID\", \"x\": 60, \"y\": 60 },\n    { \"id\": \"fn\", \"kind\": \"attribute\", \"label\": \"FName\", \"x\": 220, \"y\": 50 },\n    { \"id\": \"po\", \"kind\": \"attribute\", \"label\": \"Post\", \"x\": 40, \"y\": 260 },\n    { \"id\": \"w\", \"kind\": \"relationship\", \"label\": \"Works\", \"x\": 380, \"y\": 160 },\n    { \"id\": \"d\", \"kind\": \"entity\", \"label\": \"Department\", \"x\": 590, \"y\": 160 },\n    { \"id\": \"di\", \"kind\": \"key_attribute\", \"label\": \"DeptID\", \"x\": 520, \"y\": 60 },\n    { \"id\": \"dn\", \"kind\": \"attribute\", \"label\": \"DName\", \"x\": 660, \"y\": 60 },\n    { \"id\": \"rr\", \"kind\": \"relationship\", \"label\": \"Reports_To\", \"x\": 160, \"y\": 330 }\n  ],\n  \"edges\": [\n    { \"from\": \"f\", \"to\": \"fi\" }, { \"from\": \"f\", \"to\": \"fn\" }, { \"from\": \"f\", \"to\": \"po\" },\n    { \"from\": \"f\", \"to\": \"w\" }, { \"from\": \"w\", \"to\": \"d\" },\n    { \"from\": \"d\", \"to\": \"di\" }, { \"from\": \"d\", \"to\": \"dn\" },\n    { \"from\": \"f\", \"to\": \"rr\", \"role\": \"HOD\" },\n    { \"from\": \"f\", \"to\": \"rr\", \"role\": \"Prof.\" }\n  ]\n}\n```\n\nWith data, the recursion is obvious: a professor's *head* is another row of the\nsame `Faculty` table.\n\n```diagram\n{\n  \"title\": \"Instances: Lee and Kim (professors) report to David (HOD) — all three are Faculty rows.\",\n  \"nodes\": [\n    { \"id\": \"f\", \"x\": 160, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Faculty\", \"rows\": [[\"FName\",\"Post\"],[\"Lee\",\"Professor\"],[\"Kim\",\"Professor\"],[\"David\",\"HOD\"]], \"mark\": [3] },\n    { \"id\": \"d\", \"x\": 500, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Department\", \"rows\": [[\"DName\"],[\"Computer\"],[\"Civil\"],[\"Mechanical\"]] },\n    { \"id\": \"n\", \"x\": 160, \"y\": 175, \"w\": 260, \"h\": 34, \"shape\": \"note\", \"size\": 12, \"label\": \"Reports_To: Lee → David, Kim → David\", \"tone\": \"amber\" }\n  ],\n  \"edges\": [\n    { \"from\": \"n\", \"to\": \"f\", \"tone\": \"amber\", \"dashed\": true }\n  ]\n}\n```\n\n## 3. Mapping cardinality (cardinality constraints)\n\nThe mapping cardinality represents **the number of entities of another entity\nset that can be connected to one entity through a relationship set**. It is\nmost useful for describing **binary** relationship sets, where it must be one\nof four types. The examples use `customer` —`borrow`— `loan`.\n\n### One-to-one (1 – 1)\n\nAn entity in A is associated with **only one** entity in B, and an entity in B\nis associated with **only one** entity in A.\n\n```diagram\n{\n  \"title\": \"1 – 1: each customer holds one loan and each loan belongs to one customer.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 110, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 110, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 70, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 110, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 150, \"shape\": \"text\", \"label\": \"C3\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 70, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 110, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 150, \"shape\": \"text\", \"label\": \"L3\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 110, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 110, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 110, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l3\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true }\n  ]\n}\n```\n\n### One-to-many (1 – N)\n\nAn entity in A is associated with **more than one** entity in B, and an entity\nin B is associated with **only one** entity in A. *A loan is connected with only\none customer, but a customer may hold several loans.*\n\n```diagram\n{\n  \"title\": \"1 – N: a customer may hold several loans; each loan has a single customer.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 120, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 80, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 120, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 160, \"shape\": \"text\", \"label\": \"C3\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 66, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 102, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 138, \"shape\": \"text\", \"label\": \"L3\" }, { \"id\": \"l4\", \"x\": 240, \"y\": 174, \"shape\": \"text\", \"label\": \"L4\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 120, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 120, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 120, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c1\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l3\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l4\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true }\n  ]\n}\n```\n\n### Many-to-one (N – 1)\n\nAn entity in A is associated with **only one** entity in B, and an entity in B\nis associated with **more than one** entity in A. *A loan is connected with\nmore than one customer (a joint loan), but a customer holds only one loan.*\n\n```diagram\n{\n  \"title\": \"N – 1: several customers can share one loan; each customer holds a single loan.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 120, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 66, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 102, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 138, \"shape\": \"text\", \"label\": \"C3\" }, { \"id\": \"c4\", \"x\": 80, \"y\": 174, \"shape\": \"text\", \"label\": \"C4\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 80, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 120, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 160, \"shape\": \"text\", \"label\": \"L3\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 120, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 120, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 120, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c4\", \"to\": \"l3\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true }\n  ]\n}\n```\n\n### Many-to-many (N – N)\n\nAn entity in A is associated with **more than one** entity in B, and an entity\nin B is associated with **more than one** entity in A. *A customer holds\nseveral loans and a loan can be shared by several customers.*\n\n```diagram\n{\n  \"title\": \"N – N: customers hold several loans and loans are shared by several customers.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 66, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 102, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 138, \"shape\": \"text\", \"label\": \"C3\" }, { \"id\": \"c4\", \"x\": 80, \"y\": 174, \"shape\": \"text\", \"label\": \"C4\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 66, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 102, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 138, \"shape\": \"text\", \"label\": \"L3\" }, { \"id\": \"l4\", \"x\": 240, \"y\": 174, \"shape\": \"text\", \"label\": \"L4\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 120, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 120, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 120, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c1\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l3\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l4\", \"arrow\": \"none\" }, { \"from\": \"c4\", \"to\": \"l4\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true }\n  ]\n}\n```\n\nHow to read the marks: the `1` or `N` written on the **loan side** says how\nmany loans **one customer** can have; the mark on the **customer side** says\nhow many customers **one loan** can have.\n\n### Exercise — which cardinality?\n\n> Draw the E-R diagram and give the mapping cardinality for each statement.\n\n| Statement | Cardinality | Why |\n|---|---|---|\n| Each customer has only one account and each account is held by only one customer *(single account)* | **1 : 1** | one on both sides |\n| Each customer has only one account but an account can be held by more than one customer *(joint account)* | **N : 1** (customer : account) | many customers → one account |\n| A customer may have more than one account but each account is held by only one customer *(multiple accounts)* | **1 : N** | one customer → many accounts |\n| A customer may have more than one account and each account is held by more than one customer *(joint + multiple)* | **N : N** | many on both sides |\n| A student can work in more than one project and a project can be done by more than one student | **N : N** | |\n| A student can issue more than one book but a book is issued to only one student | **1 : N** (student : book) | |\n| A subject is taught by more than one faculty and a faculty can teach more than one subject | **N : N** | |\n\n## 4. Participation constraints\n\nA participation constraint specifies **the participation of an entity set in a\nrelationship set**. Two kinds:\n\n| Kind | Meaning | Drawn as |\n|---|---|---|\n| **Partial participation** | **some** entities of the set may **not participate** in any relationship of the set | **single line** |\n| **Total participation** | **every** entity of the set participates in **at least one** relationship of the set | **double line** |\n\n```diagram\n{\n  \"title\": \"Each customer has at most one loan; every loan has a customer. Customer C3 has no loan → partial on the customer side; every loan is connected → total on the loan side.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 110, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 110, \"w\": 64, \"h\": 120, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 70, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 110, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 150, \"shape\": \"text\", \"label\": \"C3\", \"tone\": \"rose\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 90, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 130, \"shape\": \"text\", \"label\": \"L2\" },\n    { \"id\": \"n1\", \"x\": 480, \"y\": 60, \"w\": 260, \"h\": 44, \"shape\": \"note\", \"size\": 12, \"label\": \"customer side: partial\\nC3 has no loan — single line\", \"tone\": \"rose\" },\n    { \"id\": \"n2\", \"x\": 480, \"y\": 150, \"w\": 260, \"h\": 44, \"shape\": \"note\", \"size\": 12, \"label\": \"loan side: total\\nevery loan has a customer — double line\", \"tone\": \"emerald\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l2\", \"arrow\": \"none\" }\n  ]\n}\n```\n\n```er\n{\n  \"title\": \"The same constraint in E-R notation: single line on the customer side (partial), double line on the loan side (total).\",\n  \"nodes\": [\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"customer\", \"x\": 110, \"y\": 60 },\n    { \"id\": \"b\", \"kind\": \"relationship\", \"label\": \"borrow\", \"x\": 340, \"y\": 60 },\n    { \"id\": \"l\", \"kind\": \"entity\", \"label\": \"loan\", \"x\": 570, \"y\": 60 }\n  ],\n  \"edges\": [\n    { \"from\": \"c\", \"to\": \"b\", \"role\": \"partial\" },\n    { \"from\": \"b\", \"to\": \"l\", \"total\": true, \"role\": \"total\" }\n  ]\n}\n```\n\nParticipation and cardinality are **independent**: a line can be double *and*\ncarry an `N`. Read them separately — *how many?* (cardinality) and *must\nevery one take part?* (participation).\n\n## 5. Weak entity sets\n\nAn entity set that **does not have a primary key** is called a **weak entity\nset**. Its existence **depends on the existence of a strong entity set**.\n\n```er\n{\n  \"title\": \"loan (strong entity set) — L_P (weak / identifying relationship, double diamond) — payment (weak entity set, double rectangle). payment-no is the discriminator (dashed underline).\",\n  \"nodes\": [\n    { \"id\": \"l\", \"kind\": \"entity\", \"label\": \"loan\", \"x\": 150, \"y\": 160 },\n    { \"id\": \"ln\", \"kind\": \"key_attribute\", \"label\": \"loan-no\", \"x\": 70, \"y\": 50 },\n    { \"id\": \"am\", \"kind\": \"attribute\", \"label\": \"amount\", \"x\": 210, \"y\": 50 },\n    { \"id\": \"lp\", \"kind\": \"identifying_relationship\", \"label\": \"L_P\", \"x\": 350, \"y\": 160 },\n    { \"id\": \"p\", \"kind\": \"weak_entity\", \"label\": \"payment\", \"x\": 560, \"y\": 160 },\n    { \"id\": \"pn\", \"kind\": \"partial_key_attribute\", \"label\": \"payment-no\", \"x\": 450, \"y\": 50 },\n    { \"id\": \"pd\", \"kind\": \"attribute\", \"label\": \"payment-date\", \"x\": 600, \"y\": 40 },\n    { \"id\": \"pa\", \"kind\": \"attribute\", \"label\": \"payment-amount\", \"x\": 620, \"y\": 270 }\n  ],\n  \"edges\": [\n    { \"from\": \"l\", \"to\": \"ln\" }, { \"from\": \"l\", \"to\": \"am\" },\n    { \"from\": \"l\", \"to\": \"lp\", \"card\": \"1\" },\n    { \"from\": \"lp\", \"to\": \"p\", \"card\": \"N\", \"total\": true },\n    { \"from\": \"p\", \"to\": \"pn\" }, { \"from\": \"p\", \"to\": \"pd\" }, { \"from\": \"p\", \"to\": \"pa\" }\n  ]\n}\n```\n\n- Drawn as a **double rectangle**; the relationship that ties it to its strong\n  entity (the **weak entity relationship**, or identifying relationship) is a\n  **double diamond**.\n- The **discriminator** (**partial key**) of a weak entity set is the set of\n  attributes that distinguishes all the entities of the weak entity set *among\n  those attached to the same strong entity*. It is underlined with a **dashed\n  line**.\n- The **primary key** of a weak entity set = **primary key of the strong entity\n  set** it depends on **+ its own discriminator**.\n- Example: `payment` has `payment-no` as discriminator; `loan` has `loan-no` as\n  primary key; so the primary key of `payment` is **(loan-no, payment-no)**.\n  Payment n° 1 of loan 17 and payment n° 1 of loan 42 are two different\n  payments — `payment-no` alone cannot tell them apart.\n- A weak entity always participates **totally** in its identifying relationship\n  (a payment cannot exist without its loan), hence the double line on the\n  `payment` side.\n\n## 6. Superclass vs subclass\n\n| Super class | Sub class |\n|---|---|\n| an entity from which **other entities can be derived** | an entity that is **derived from another entity** |\n| `Account` has two subsets, `Saving_Account` and `Current_Account`, so `Account` is a superclass | `Saving_Account` and `Current_Account` are derived from `Account`, so they are subclasses |\n\n```er\n{\n  \"title\": \"Account is the superclass; Saving_Account and Current_Account are its subclasses, linked through the ISA triangle.\",\n  \"nodes\": [\n    { \"id\": \"a\", \"kind\": \"entity\", \"label\": \"Account\", \"x\": 330, \"y\": 40 },\n    { \"id\": \"isa\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 330, \"y\": 130 },\n    { \"id\": \"s\", \"kind\": \"entity\", \"label\": \"Saving_Account\", \"x\": 180, \"y\": 230 },\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"Current_Account\", \"x\": 480, \"y\": 230 }\n  ],\n  \"edges\": [\n    { \"from\": \"a\", \"to\": \"isa\" }, { \"from\": \"isa\", \"to\": \"s\" }, { \"from\": \"isa\", \"to\": \"c\" }\n  ]\n}\n```\n\nA subclass **inherits** all the attributes of its superclass and adds its own.\n\n## 7. Generalization vs specialization\n\nBoth produce the **same picture** — a superclass above an ISA triangle,\nsubclasses below — but they are built in **opposite directions**.\n\n```diagram\n{\n  \"title\": \"Generalization builds the superclass bottom-up from common features; specialization splits a superclass top-down into subsets.\",\n  \"nodes\": [\n    { \"id\": \"h1\", \"x\": 160, \"y\": 12, \"shape\": \"text\", \"label\": \"Generalization — bottom-up\", \"bold\": true },\n    { \"id\": \"h2\", \"x\": 500, \"y\": 12, \"shape\": \"text\", \"label\": \"Specialization — top-down\", \"bold\": true },\n    { \"id\": \"g1\", \"x\": 160, \"y\": 60, \"w\": 200, \"h\": 40, \"label\": \"Person\\n(Name, Address)\", \"tone\": \"emerald\", \"filled\": true },\n    { \"id\": \"g2\", \"x\": 80, \"y\": 200, \"w\": 130, \"h\": 40, \"label\": \"Student\\n(Name, Address, SPI)\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"g3\", \"x\": 240, \"y\": 200, \"w\": 140, \"h\": 40, \"label\": \"Faculty\\n(Name, Address, Salary)\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"gn\", \"x\": 160, \"y\": 245, \"shape\": \"text\", \"label\": \"↑ extract the common features\", \"size\": 11 },\n    { \"id\": \"s1\", \"x\": 500, \"y\": 60, \"w\": 200, \"h\": 40, \"label\": \"Person\\n(Name, Address)\", \"tone\": \"sky\" },\n    { \"id\": \"s2\", \"x\": 420, \"y\": 200, \"w\": 130, \"h\": 40, \"label\": \"Student\\n(+ SPI)\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"s3\", \"x\": 580, \"y\": 200, \"w\": 130, \"h\": 40, \"label\": \"Faculty\\n(+ Salary)\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"sn\", \"x\": 500, \"y\": 245, \"shape\": \"text\", \"label\": \"↓ split by distinguishing features\", \"size\": 11 }\n  ],\n  \"edges\": [\n    { \"from\": \"g2\", \"to\": \"g1\", \"tone\": \"emerald\" }, { \"from\": \"g3\", \"to\": \"g1\", \"tone\": \"emerald\" },\n    { \"from\": \"s1\", \"to\": \"s2\", \"tone\": \"emerald\" }, { \"from\": \"s1\", \"to\": \"s3\", \"tone\": \"emerald\" }\n  ]\n}\n```\n\n| | Generalization | Specialization |\n|---|---|---|\n| definition | **extracts the common features of multiple entities to form a new entity** | **splits an entity to form multiple new entities that inherit some feature of the splitting entity** |\n| process | creation of a **group** from various entities | creation of **sub-groups** within an entity |\n| approach | **bottom-up** | **top-down** |\n| set operation | takes the **union** of two or more **lower-level** entity sets to produce a **higher-level** entity set | takes a **subset** of a **higher-level** entity set to form a **lower-level** entity set |\n| starting point | starts from **several** entity sets and creates a high-level entity set using their **common** features | starts from a **single** entity set and creates different low-level entity sets using **different** features |\n\nExample from the slides: `Student(Name, Address, SPI)` and `Faculty(Name,\nAddress, Salary)` share `Name` and `Address` → generalize into `Person(Name,\nAddress)`; conversely, `Person` specializes into `Student` (adds `SPI`) and\n`Faculty` (adds `Salary`).\n\n### A two-level example\n\n```er\n{\n  \"title\": \"Person is specialized into Employee and Customer; Employee is further specialized into Full Time and Part Time. Subclasses can have subclasses.\",\n  \"nodes\": [\n    { \"id\": \"p\", \"kind\": \"entity\", \"label\": \"Person\", \"x\": 330, \"y\": 80 },\n    { \"id\": \"pid\", \"kind\": \"key_attribute\", \"label\": \"PID\", \"x\": 170, \"y\": 30 },\n    { \"id\": \"pn\", \"kind\": \"attribute\", \"label\": \"Name\", \"x\": 280, \"y\": 10 },\n    { \"id\": \"pa\", \"kind\": \"attribute\", \"label\": \"Address\", \"x\": 410, \"y\": 10 },\n    { \"id\": \"pc\", \"kind\": \"attribute\", \"label\": \"City\", \"x\": 520, \"y\": 40 },\n    { \"id\": \"isa1\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 330, \"y\": 170 },\n    { \"id\": \"e\", \"kind\": \"entity\", \"label\": \"Employee\", \"x\": 200, \"y\": 260 },\n    { \"id\": \"es\", \"kind\": \"attribute\", \"label\": \"Salary\", \"x\": 70, \"y\": 260 },\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"Customer\", \"x\": 470, \"y\": 260 },\n    { \"id\": \"cb\", \"kind\": \"attribute\", \"label\": \"Balance\", \"x\": 610, \"y\": 260 },\n    { \"id\": \"isa2\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 200, \"y\": 350 },\n    { \"id\": \"ft\", \"kind\": \"entity\", \"label\": \"Full Time\", \"x\": 100, \"y\": 440 },\n    { \"id\": \"fd\", \"kind\": \"attribute\", \"label\": \"Days Worked\", \"x\": 100, \"y\": 520 },\n    { \"id\": \"pt\", \"kind\": \"entity\", \"label\": \"Part Time\", \"x\": 300, \"y\": 440 },\n    { \"id\": \"ph\", \"kind\": \"attribute\", \"label\": \"Hour Worked\", \"x\": 300, \"y\": 520 }\n  ],\n  \"edges\": [\n    { \"from\": \"p\", \"to\": \"pid\" }, { \"from\": \"p\", \"to\": \"pn\" }, { \"from\": \"p\", \"to\": \"pa\" }, { \"from\": \"p\", \"to\": \"pc\" },\n    { \"from\": \"p\", \"to\": \"isa1\" }, { \"from\": \"isa1\", \"to\": \"e\" }, { \"from\": \"isa1\", \"to\": \"c\" },\n    { \"from\": \"e\", \"to\": \"es\" }, { \"from\": \"c\", \"to\": \"cb\" },\n    { \"from\": \"e\", \"to\": \"isa2\" }, { \"from\": \"isa2\", \"to\": \"ft\" }, { \"from\": \"isa2\", \"to\": \"pt\" },\n    { \"from\": \"ft\", \"to\": \"fd\" }, { \"from\": \"pt\", \"to\": \"ph\" }\n  ]\n}\n```\n\n### Exercise — find generalization / specialization\n\n> Give examples of generalization / specialization in: a hospital management\n> system, a college management system, a bank management system, an insurance\n> company.\n\n| System | Superclass | Subclasses |\n|---|---|---|\n| Hospital | `Person` | `Patient`, `Doctor`, `Nurse` (then `Doctor` → `Surgeon`, `Physician`) |\n| College | `Person` | `Student`, `Faculty`, `Staff`; `Student` → `Undergraduate`, `Postgraduate` |\n| Bank | `Account` | `Saving_Account`, `Current_Account`, `Fixed_Deposit`; `Customer` → `Individual`, `Corporate` |\n| Insurance | `Policy` | `Life_Policy`, `Vehicle_Policy`, `Health_Policy`; `Person` → `Policy_Holder`, `Agent` |\n\n## 8. Worked example — the NHL database\n\n> The NHL has many **teams**; each team has a name, a city, a coach, a captain\n> and a set of players. Each **player** belongs to only one team; a player has a\n> name, a position (left wing, goalie…), a skill level and a set of **injury\n> records**. A team captain is also a player. A **game** is played between two\n> teams (host team and guest team) and has a date and a score. Construct a\n> clean and concise E-R diagram.\n\nMethod — the same five steps for any description:\n\n1. **Entities** (nouns that have their own data): team, player, game, injury\n   record → rectangles.\n2. **Attributes** for each, and the **primary key** underlined. An injury\n   record has no key of its own — it only makes sense for a given player →\n   **weak entity** with a discriminator.\n3. **Relationships** (verbs): a player *belongs to* a team; a team *has a\n   captain*; a game is *hosted by* a team and *visited by* a team; a player\n   *logs* injury records.\n4. **Roles** where one entity plays two parts in one relationship (a team is\n   `host` in one game and `guest` in another).\n5. **Cardinality and participation** on every line.\n\n```er\n{\n  \"title\": \"NHL database: team, player, game, and injury record as a weak entity identified through player.\",\n  \"nodes\": [\n    { \"id\": \"t\", \"kind\": \"entity\", \"label\": \"team\", \"x\": 150, \"y\": 170 },\n    { \"id\": \"tn\", \"kind\": \"key_attribute\", \"label\": \"t-name\", \"x\": 50, \"y\": 70 },\n    { \"id\": \"tc\", \"kind\": \"attribute\", \"label\": \"city\", \"x\": 160, \"y\": 50 },\n    { \"id\": \"tco\", \"kind\": \"attribute\", \"label\": \"coach\", \"x\": 270, \"y\": 70 },\n    { \"id\": \"p\", \"kind\": \"entity\", \"label\": \"player\", \"x\": 530, \"y\": 170 },\n    { \"id\": \"pn\", \"kind\": \"key_attribute\", \"label\": \"p-name\", \"x\": 430, \"y\": 60 },\n    { \"id\": \"pp\", \"kind\": \"attribute\", \"label\": \"position\", \"x\": 545, \"y\": 50 },\n    { \"id\": \"ps\", \"kind\": \"attribute\", \"label\": \"skill level\", \"x\": 660, \"y\": 90 },\n    { \"id\": \"bt\", \"kind\": \"relationship\", \"label\": \"belongs_to\", \"x\": 340, \"y\": 170 },\n    { \"id\": \"cap\", \"kind\": \"relationship\", \"label\": \"captain\", \"x\": 340, \"y\": 270 },\n    { \"id\": \"g\", \"kind\": \"entity\", \"label\": \"game\", \"x\": 150, \"y\": 440 },\n    { \"id\": \"gd\", \"kind\": \"attribute\", \"label\": \"date\", \"x\": 50, \"y\": 530 },\n    { \"id\": \"gs\", \"kind\": \"attribute\", \"label\": \"score\", \"x\": 190, \"y\": 530 },\n    { \"id\": \"host\", \"kind\": \"relationship\", \"label\": \"host\", \"x\": 70, \"y\": 305 },\n    { \"id\": \"guest\", \"kind\": \"relationship\", \"label\": \"guest\", \"x\": 230, \"y\": 340 },\n    { \"id\": \"log\", \"kind\": \"identifying_relationship\", \"label\": \"log\", \"x\": 530, \"y\": 300 },\n    { \"id\": \"ir\", \"kind\": \"weak_entity\", \"label\": \"injury record\", \"x\": 530, \"y\": 440 },\n    { \"id\": \"ii\", \"kind\": \"partial_key_attribute\", \"label\": \"id\", \"x\": 440, \"y\": 530 },\n    { \"id\": \"id\", \"kind\": \"attribute\", \"label\": \"description\", \"x\": 610, \"y\": 530 }\n  ],\n  \"edges\": [\n    { \"from\": \"t\", \"to\": \"tn\" }, { \"from\": \"t\", \"to\": \"tc\" }, { \"from\": \"t\", \"to\": \"tco\" },\n    { \"from\": \"p\", \"to\": \"pn\" }, { \"from\": \"p\", \"to\": \"pp\" }, { \"from\": \"p\", \"to\": \"ps\" },\n    { \"from\": \"t\", \"to\": \"bt\", \"card\": \"1\" }, { \"from\": \"bt\", \"to\": \"p\", \"card\": \"N\", \"total\": true },\n    { \"from\": \"t\", \"to\": \"cap\", \"card\": \"1\" }, { \"from\": \"cap\", \"to\": \"p\", \"card\": \"1\" },\n    { \"from\": \"g\", \"to\": \"host\", \"card\": \"N\", \"total\": true }, { \"from\": \"host\", \"to\": \"t\", \"card\": \"1\" },\n    { \"from\": \"g\", \"to\": \"guest\", \"card\": \"N\", \"total\": true }, { \"from\": \"guest\", \"to\": \"t\", \"card\": \"1\" },\n    { \"from\": \"g\", \"to\": \"gd\" }, { \"from\": \"g\", \"to\": \"gs\" },\n    { \"from\": \"p\", \"to\": \"log\", \"card\": \"1\" }, { \"from\": \"log\", \"to\": \"ir\", \"card\": \"N\", \"total\": true },\n    { \"from\": \"ir\", \"to\": \"ii\" }, { \"from\": \"ir\", \"to\": \"id\" }\n  ]\n}\n```\n\nReading the answer:\n\n- `belongs_to` is **1 : N** (one team, many players) with **total**\n  participation of `player` — every player belongs to a team.\n- `captain` is **1 : 1** — one captain per team, and that captain is a player\n  (so no separate *captain* entity: the relationship does the job).\n- `host` and `guest` are two relationships between `game` and `team`; each\n  game has exactly **one** host and **one** guest (total on the game side), a\n  team can host or visit **many** games.\n- `injury record` is **weak**: identified by `(p-name, id)` through the\n  identifying relationship `log` (double diamond, double line).\n\n---\n\n## To remember\n\n- **Role** = label on a line, needed when the same entity set takes part twice\n  in one relationship (**recursive** relationship set).\n- **Mapping cardinality** of a binary relationship: **1:1, 1:N, N:1, N:N** —\n  the `1`/`N` on one side says how many of *that* side one entity of the other\n  side can have.\n- **Participation**: single line = **partial** (some entities may not take\n  part), double line = **total** (every entity takes part).\n- **Weak entity set** = no primary key of its own; **double rectangle**, tied\n  by a **double diamond** (identifying relationship); **discriminator** with a\n  **dashed underline**; primary key = strong key + discriminator.\n- **Superclass / subclass** linked through the **ISA** triangle; the subclass\n  inherits the superclass's attributes.\n- **Generalization = bottom-up** (union of lower-level sets into one\n  higher-level set, from common features); **specialization = top-down**\n  (subsets of a higher-level set, from distinguishing features).\n- Method for any statement: entities → attributes & keys → relationships →\n  roles → cardinality & participation.\n",
+    "lesson": "# Database Design — Week 3\n\nLecture 05 — *E-R Diagrams – 2*. Roles, recursive relationship sets, mapping\ncardinality, participation constraints, weak entity sets, superclass /\nsubclass, generalization vs specialization, and a full worked example (the NHL\ndatabase).\n\nLecture 06 — *E-R Diagrams – 3* (sections 9–14). Aggregation, the Hospital\nManagement System diagram, reducing an E-R diagram to a database schema, the\nfull symbol summary (arrow cardinalities, total / partial and disjoint /\noverlapping specialization), integrity constraints, and ERD exercise 2 (a\nuniversity).\n\n---\n\n## 0. The symbols, all in one place\n\n```er\n{\n  \"title\": \"E-R diagram symbols (Chen notation, as used in the course).\",\n  \"nodes\": [\n    { \"id\": \"e\", \"kind\": \"entity\", \"label\": \"Strong entity set\", \"x\": 130, \"y\": 40 },\n    { \"id\": \"w\", \"kind\": \"weak_entity\", \"label\": \"Weak entity set\", \"x\": 130, \"y\": 115 },\n    { \"id\": \"r\", \"kind\": \"relationship\", \"label\": \"Strong relationship\", \"x\": 130, \"y\": 205 },\n    { \"id\": \"ir\", \"kind\": \"identifying_relationship\", \"label\": \"Weak relationship\", \"x\": 130, \"y\": 300 },\n    { \"id\": \"isa\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 130, \"y\": 385 },\n    { \"id\": \"a\", \"kind\": \"attribute\", \"label\": \"Simple attribute\", \"x\": 450, \"y\": 40 },\n    { \"id\": \"k\", \"kind\": \"key_attribute\", \"label\": \"Key attribute\", \"x\": 450, \"y\": 105 },\n    { \"id\": \"pk\", \"kind\": \"partial_key_attribute\", \"label\": \"Partial key (discriminator)\", \"x\": 450, \"y\": 170 },\n    { \"id\": \"m\", \"kind\": \"multi_attribute\", \"label\": \"Multivalued attribute\", \"x\": 450, \"y\": 240 },\n    { \"id\": \"d\", \"kind\": \"derived_attribute\", \"label\": \"Derived attribute\", \"x\": 450, \"y\": 310 },\n    { \"id\": \"c\", \"kind\": \"attribute\", \"label\": \"Composite attribute\", \"x\": 450, \"y\": 375 },\n    { \"id\": \"c1\", \"kind\": \"attribute\", \"label\": \"part 1\", \"x\": 380, \"y\": 440 },\n    { \"id\": \"c2\", \"kind\": \"attribute\", \"label\": \"part 2\", \"x\": 520, \"y\": 440 }\n  ],\n  \"edges\": [\n    { \"from\": \"c\", \"to\": \"c1\" }, { \"from\": \"c\", \"to\": \"c2\" }\n  ]\n}\n```\n\n| Symbol | Meaning |\n|---|---|\n| rectangle | strong entity set (has its own primary key) |\n| **double** rectangle | **weak** entity set (no primary key of its own) |\n| diamond | relationship set |\n| **double** diamond | **identifying** (weak) relationship, tying a weak entity to its strong entity |\n| oval | attribute; **underlined** = key attribute; **dashed underline** = discriminator; **double** oval = multivalued; **dashed** oval = derived; oval with sub-ovals = composite |\n| triangle \"ISA\" | superclass / subclass link (generalization, specialization) |\n| single line | (partial) participation of an entity set in a relationship |\n| **double** line | **total** participation |\n| `1` / `N` on a line | mapping cardinality |\n\n## 1. Role names\n\n**Roles** are indicated by **labelling the lines** that connect a diamond\n(relationship) to a rectangle (entity). Role labels are **optional**; they are\nused to clarify the **semantics** (meaning) of the relationship — especially\nwhen the same entity set appears twice.\n\n```er\n{\n  \"title\": \"Faculty takes part in Reports_To twice, once as Coordinator and once as Head: the two labels are roles.\",\n  \"nodes\": [\n    { \"id\": \"f\", \"kind\": \"entity\", \"label\": \"Faculty\", \"x\": 200, \"y\": 160 },\n    { \"id\": \"id\", \"kind\": \"key_attribute\", \"label\": \"EmpID\", \"x\": 100, \"y\": 60 },\n    { \"id\": \"nm\", \"kind\": \"attribute\", \"label\": \"Name\", \"x\": 270, \"y\": 50 },\n    { \"id\": \"br\", \"kind\": \"attribute\", \"label\": \"Branch\", \"x\": 100, \"y\": 270 },\n    { \"id\": \"ex\", \"kind\": \"attribute\", \"label\": \"Experience\", \"x\": 280, \"y\": 280 },\n    { \"id\": \"r\", \"kind\": \"relationship\", \"label\": \"Reports_To\", \"x\": 520, \"y\": 160 }\n  ],\n  \"edges\": [\n    { \"from\": \"f\", \"to\": \"id\" }, { \"from\": \"f\", \"to\": \"nm\" }, { \"from\": \"f\", \"to\": \"br\" }, { \"from\": \"f\", \"to\": \"ex\" },\n    { \"from\": \"f\", \"to\": \"r\", \"role\": \"Coordinator\" },\n    { \"from\": \"f\", \"to\": \"r\", \"role\": \"Head\" }\n  ]\n}\n```\n\nThe labels *Coordinator* and *Head* specify **which Faculty entities interact\nwith which** via the `Reports_To` relationship set.\n\n## 2. Recursive relationship set\n\nWhen **the same entity set participates in a relationship set more than\nonce**, the relationship set is **recursive**. `Reports_To` above is recursive:\nboth of its ends are `Faculty`.\n\n```er\n{\n  \"title\": \"Faculty works in a Department (ordinary binary relationship) and Faculty reports to Faculty (recursive relationship set).\",\n  \"nodes\": [\n    { \"id\": \"f\", \"kind\": \"entity\", \"label\": \"Faculty\", \"x\": 160, \"y\": 160 },\n    { \"id\": \"fi\", \"kind\": \"key_attribute\", \"label\": \"FacID\", \"x\": 60, \"y\": 60 },\n    { \"id\": \"fn\", \"kind\": \"attribute\", \"label\": \"FName\", \"x\": 220, \"y\": 50 },\n    { \"id\": \"po\", \"kind\": \"attribute\", \"label\": \"Post\", \"x\": 40, \"y\": 260 },\n    { \"id\": \"w\", \"kind\": \"relationship\", \"label\": \"Works\", \"x\": 380, \"y\": 160 },\n    { \"id\": \"d\", \"kind\": \"entity\", \"label\": \"Department\", \"x\": 590, \"y\": 160 },\n    { \"id\": \"di\", \"kind\": \"key_attribute\", \"label\": \"DeptID\", \"x\": 520, \"y\": 60 },\n    { \"id\": \"dn\", \"kind\": \"attribute\", \"label\": \"DName\", \"x\": 660, \"y\": 60 },\n    { \"id\": \"rr\", \"kind\": \"relationship\", \"label\": \"Reports_To\", \"x\": 160, \"y\": 330 }\n  ],\n  \"edges\": [\n    { \"from\": \"f\", \"to\": \"fi\" }, { \"from\": \"f\", \"to\": \"fn\" }, { \"from\": \"f\", \"to\": \"po\" },\n    { \"from\": \"f\", \"to\": \"w\" }, { \"from\": \"w\", \"to\": \"d\" },\n    { \"from\": \"d\", \"to\": \"di\" }, { \"from\": \"d\", \"to\": \"dn\" },\n    { \"from\": \"f\", \"to\": \"rr\", \"role\": \"HOD\" },\n    { \"from\": \"f\", \"to\": \"rr\", \"role\": \"Prof.\" }\n  ]\n}\n```\n\nWith data, the recursion is obvious: a professor's *head* is another row of the\nsame `Faculty` table.\n\n```diagram\n{\n  \"title\": \"Instances: Lee and Kim (professors) report to David (HOD) — all three are Faculty rows.\",\n  \"nodes\": [\n    { \"id\": \"f\", \"x\": 160, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Faculty\", \"rows\": [[\"FName\",\"Post\"],[\"Lee\",\"Professor\"],[\"Kim\",\"Professor\"],[\"David\",\"HOD\"]], \"mark\": [3] },\n    { \"id\": \"d\", \"x\": 500, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Department\", \"rows\": [[\"DName\"],[\"Computer\"],[\"Civil\"],[\"Mechanical\"]] },\n    { \"id\": \"n\", \"x\": 160, \"y\": 175, \"w\": 260, \"h\": 34, \"shape\": \"note\", \"size\": 12, \"label\": \"Reports_To: Lee → David, Kim → David\", \"tone\": \"amber\" }\n  ],\n  \"edges\": [\n    { \"from\": \"n\", \"to\": \"f\", \"tone\": \"amber\", \"dashed\": true }\n  ]\n}\n```\n\n## 3. Mapping cardinality (cardinality constraints)\n\nThe mapping cardinality represents **the number of entities of another entity\nset that can be connected to one entity through a relationship set**. It is\nmost useful for describing **binary** relationship sets, where it must be one\nof four types. The examples use `customer` —`borrow`— `loan`.\n\n### One-to-one (1 – 1)\n\nAn entity in A is associated with **only one** entity in B, and an entity in B\nis associated with **only one** entity in A.\n\n```diagram\n{\n  \"title\": \"1 – 1: each customer holds one loan and each loan belongs to one customer.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 110, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 110, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 70, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 110, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 150, \"shape\": \"text\", \"label\": \"C3\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 70, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 110, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 150, \"shape\": \"text\", \"label\": \"L3\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 110, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 110, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 110, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l3\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true }\n  ]\n}\n```\n\n### One-to-many (1 – N)\n\nAn entity in A is associated with **more than one** entity in B, and an entity\nin B is associated with **only one** entity in A. *A loan is connected with only\none customer, but a customer may hold several loans.*\n\n```diagram\n{\n  \"title\": \"1 – N: a customer may hold several loans; each loan has a single customer.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 120, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 80, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 120, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 160, \"shape\": \"text\", \"label\": \"C3\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 66, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 102, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 138, \"shape\": \"text\", \"label\": \"L3\" }, { \"id\": \"l4\", \"x\": 240, \"y\": 174, \"shape\": \"text\", \"label\": \"L4\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 120, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 120, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 120, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c1\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l3\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l4\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true }\n  ]\n}\n```\n\n### Many-to-one (N – 1)\n\nAn entity in A is associated with **only one** entity in B, and an entity in B\nis associated with **more than one** entity in A. *A loan is connected with\nmore than one customer (a joint loan), but a customer holds only one loan.*\n\n```diagram\n{\n  \"title\": \"N – 1: several customers can share one loan; each customer holds a single loan.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 120, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 66, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 102, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 138, \"shape\": \"text\", \"label\": \"C3\" }, { \"id\": \"c4\", \"x\": 80, \"y\": 174, \"shape\": \"text\", \"label\": \"C4\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 80, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 120, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 160, \"shape\": \"text\", \"label\": \"L3\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 120, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 120, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 120, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c4\", \"to\": \"l3\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"1\", \"bold\": true }\n  ]\n}\n```\n\n### Many-to-many (N – N)\n\nAn entity in A is associated with **more than one** entity in B, and an entity\nin B is associated with **more than one** entity in A. *A customer holds\nseveral loans and a loan can be shared by several customers.*\n\n```diagram\n{\n  \"title\": \"N – N: customers hold several loans and loans are shared by several customers.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 120, \"w\": 64, \"h\": 180, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 66, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 102, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 138, \"shape\": \"text\", \"label\": \"C3\" }, { \"id\": \"c4\", \"x\": 80, \"y\": 174, \"shape\": \"text\", \"label\": \"C4\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 66, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 102, \"shape\": \"text\", \"label\": \"L2\" }, { \"id\": \"l3\", \"x\": 240, \"y\": 138, \"shape\": \"text\", \"label\": \"L3\" }, { \"id\": \"l4\", \"x\": 240, \"y\": 174, \"shape\": \"text\", \"label\": \"L4\" },\n    { \"id\": \"e1\", \"x\": 400, \"y\": 120, \"w\": 100, \"label\": \"customer\", \"tone\": \"sky\" },\n    { \"id\": \"r\", \"x\": 540, \"y\": 120, \"shape\": \"diamond\", \"label\": \"borrow\", \"tone\": \"amber\" },\n    { \"id\": \"e2\", \"x\": 680, \"y\": 120, \"w\": 100, \"label\": \"loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c1\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l2\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l3\", \"arrow\": \"none\" }, { \"from\": \"c3\", \"to\": \"l4\", \"arrow\": \"none\" }, { \"from\": \"c4\", \"to\": \"l4\", \"arrow\": \"none\" },\n    { \"from\": \"e1\", \"to\": \"r\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true },\n    { \"from\": \"r\", \"to\": \"e2\", \"arrow\": \"none\", \"label\": \"N\", \"bold\": true }\n  ]\n}\n```\n\nHow to read the marks: the `1` or `N` written on the **loan side** says how\nmany loans **one customer** can have; the mark on the **customer side** says\nhow many customers **one loan** can have.\n\n### Exercise — which cardinality?\n\n> Draw the E-R diagram and give the mapping cardinality for each statement.\n\n| Statement | Cardinality | Why |\n|---|---|---|\n| Each customer has only one account and each account is held by only one customer *(single account)* | **1 : 1** | one on both sides |\n| Each customer has only one account but an account can be held by more than one customer *(joint account)* | **N : 1** (customer : account) | many customers → one account |\n| A customer may have more than one account but each account is held by only one customer *(multiple accounts)* | **1 : N** | one customer → many accounts |\n| A customer may have more than one account and each account is held by more than one customer *(joint + multiple)* | **N : N** | many on both sides |\n| A student can work in more than one project and a project can be done by more than one student | **N : N** | |\n| A student can issue more than one book but a book is issued to only one student | **1 : N** (student : book) | |\n| A subject is taught by more than one faculty and a faculty can teach more than one subject | **N : N** | |\n\n## 4. Participation constraints\n\nA participation constraint specifies **the participation of an entity set in a\nrelationship set**. Two kinds:\n\n| Kind | Meaning | Drawn as |\n|---|---|---|\n| **Partial participation** | **some** entities of the set may **not participate** in any relationship of the set | **single line** |\n| **Total participation** | **every** entity of the set participates in **at least one** relationship of the set | **double line** |\n\n```diagram\n{\n  \"title\": \"Each customer has at most one loan; every loan has a customer. Customer C3 has no loan → partial on the customer side; every loan is connected → total on the loan side.\",\n  \"nodes\": [\n    { \"id\": \"ha\", \"x\": 80, \"y\": 12, \"shape\": \"text\", \"label\": \"customer\", \"bold\": true },\n    { \"id\": \"hb\", \"x\": 240, \"y\": 12, \"shape\": \"text\", \"label\": \"loan\", \"bold\": true },\n    { \"id\": \"sa\", \"x\": 80, \"y\": 110, \"w\": 64, \"h\": 150, \"shape\": \"ellipse\" },\n    { \"id\": \"sb\", \"x\": 240, \"y\": 110, \"w\": 64, \"h\": 120, \"shape\": \"ellipse\" },\n    { \"id\": \"c1\", \"x\": 80, \"y\": 70, \"shape\": \"text\", \"label\": \"C1\" }, { \"id\": \"c2\", \"x\": 80, \"y\": 110, \"shape\": \"text\", \"label\": \"C2\" }, { \"id\": \"c3\", \"x\": 80, \"y\": 150, \"shape\": \"text\", \"label\": \"C3\", \"tone\": \"rose\" },\n    { \"id\": \"l1\", \"x\": 240, \"y\": 90, \"shape\": \"text\", \"label\": \"L1\" }, { \"id\": \"l2\", \"x\": 240, \"y\": 130, \"shape\": \"text\", \"label\": \"L2\" },\n    { \"id\": \"n1\", \"x\": 480, \"y\": 60, \"w\": 260, \"h\": 44, \"shape\": \"note\", \"size\": 12, \"label\": \"customer side: partial\\nC3 has no loan — single line\", \"tone\": \"rose\" },\n    { \"id\": \"n2\", \"x\": 480, \"y\": 150, \"w\": 260, \"h\": 44, \"shape\": \"note\", \"size\": 12, \"label\": \"loan side: total\\nevery loan has a customer — double line\", \"tone\": \"emerald\" }\n  ],\n  \"edges\": [\n    { \"from\": \"c1\", \"to\": \"l1\", \"arrow\": \"none\" }, { \"from\": \"c2\", \"to\": \"l2\", \"arrow\": \"none\" }\n  ]\n}\n```\n\n```er\n{\n  \"title\": \"The same constraint in E-R notation: single line on the customer side (partial), double line on the loan side (total).\",\n  \"nodes\": [\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"customer\", \"x\": 110, \"y\": 60 },\n    { \"id\": \"b\", \"kind\": \"relationship\", \"label\": \"borrow\", \"x\": 340, \"y\": 60 },\n    { \"id\": \"l\", \"kind\": \"entity\", \"label\": \"loan\", \"x\": 570, \"y\": 60 }\n  ],\n  \"edges\": [\n    { \"from\": \"c\", \"to\": \"b\", \"role\": \"partial\" },\n    { \"from\": \"b\", \"to\": \"l\", \"total\": true, \"role\": \"total\" }\n  ]\n}\n```\n\nParticipation and cardinality are **independent**: a line can be double *and*\ncarry an `N`. Read them separately — *how many?* (cardinality) and *must\nevery one take part?* (participation).\n\n## 5. Weak entity sets\n\nAn entity set that **does not have a primary key** is called a **weak entity\nset**. Its existence **depends on the existence of a strong entity set**.\n\n```er\n{\n  \"title\": \"loan (strong entity set) — L_P (weak / identifying relationship, double diamond) — payment (weak entity set, double rectangle). payment-no is the discriminator (dashed underline).\",\n  \"nodes\": [\n    { \"id\": \"l\", \"kind\": \"entity\", \"label\": \"loan\", \"x\": 150, \"y\": 160 },\n    { \"id\": \"ln\", \"kind\": \"key_attribute\", \"label\": \"loan-no\", \"x\": 70, \"y\": 50 },\n    { \"id\": \"am\", \"kind\": \"attribute\", \"label\": \"amount\", \"x\": 210, \"y\": 50 },\n    { \"id\": \"lp\", \"kind\": \"identifying_relationship\", \"label\": \"L_P\", \"x\": 350, \"y\": 160 },\n    { \"id\": \"p\", \"kind\": \"weak_entity\", \"label\": \"payment\", \"x\": 560, \"y\": 160 },\n    { \"id\": \"pn\", \"kind\": \"partial_key_attribute\", \"label\": \"payment-no\", \"x\": 450, \"y\": 50 },\n    { \"id\": \"pd\", \"kind\": \"attribute\", \"label\": \"payment-date\", \"x\": 600, \"y\": 40 },\n    { \"id\": \"pa\", \"kind\": \"attribute\", \"label\": \"payment-amount\", \"x\": 620, \"y\": 270 }\n  ],\n  \"edges\": [\n    { \"from\": \"l\", \"to\": \"ln\" }, { \"from\": \"l\", \"to\": \"am\" },\n    { \"from\": \"l\", \"to\": \"lp\", \"card\": \"1\" },\n    { \"from\": \"lp\", \"to\": \"p\", \"card\": \"N\", \"total\": true },\n    { \"from\": \"p\", \"to\": \"pn\" }, { \"from\": \"p\", \"to\": \"pd\" }, { \"from\": \"p\", \"to\": \"pa\" }\n  ]\n}\n```\n\n- Drawn as a **double rectangle**; the relationship that ties it to its strong\n  entity (the **weak entity relationship**, or identifying relationship) is a\n  **double diamond**.\n- The **discriminator** (**partial key**) of a weak entity set is the set of\n  attributes that distinguishes all the entities of the weak entity set *among\n  those attached to the same strong entity*. It is underlined with a **dashed\n  line**.\n- The **primary key** of a weak entity set = **primary key of the strong entity\n  set** it depends on **+ its own discriminator**.\n- Example: `payment` has `payment-no` as discriminator; `loan` has `loan-no` as\n  primary key; so the primary key of `payment` is **(loan-no, payment-no)**.\n  Payment n° 1 of loan 17 and payment n° 1 of loan 42 are two different\n  payments — `payment-no` alone cannot tell them apart.\n- A weak entity always participates **totally** in its identifying relationship\n  (a payment cannot exist without its loan), hence the double line on the\n  `payment` side.\n\n## 6. Superclass vs subclass\n\n| Super class | Sub class |\n|---|---|\n| an entity from which **other entities can be derived** | an entity that is **derived from another entity** |\n| `Account` has two subsets, `Saving_Account` and `Current_Account`, so `Account` is a superclass | `Saving_Account` and `Current_Account` are derived from `Account`, so they are subclasses |\n\n```er\n{\n  \"title\": \"Account is the superclass; Saving_Account and Current_Account are its subclasses, linked through the ISA triangle.\",\n  \"nodes\": [\n    { \"id\": \"a\", \"kind\": \"entity\", \"label\": \"Account\", \"x\": 330, \"y\": 40 },\n    { \"id\": \"isa\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 330, \"y\": 130 },\n    { \"id\": \"s\", \"kind\": \"entity\", \"label\": \"Saving_Account\", \"x\": 180, \"y\": 230 },\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"Current_Account\", \"x\": 480, \"y\": 230 }\n  ],\n  \"edges\": [\n    { \"from\": \"a\", \"to\": \"isa\" }, { \"from\": \"isa\", \"to\": \"s\" }, { \"from\": \"isa\", \"to\": \"c\" }\n  ]\n}\n```\n\nA subclass **inherits** all the attributes of its superclass and adds its own.\n\n## 7. Generalization vs specialization\n\nBoth produce the **same picture** — a superclass above an ISA triangle,\nsubclasses below — but they are built in **opposite directions**.\n\n```diagram\n{\n  \"title\": \"Generalization builds the superclass bottom-up from common features; specialization splits a superclass top-down into subsets.\",\n  \"nodes\": [\n    { \"id\": \"h1\", \"x\": 160, \"y\": 12, \"shape\": \"text\", \"label\": \"Generalization — bottom-up\", \"bold\": true },\n    { \"id\": \"h2\", \"x\": 500, \"y\": 12, \"shape\": \"text\", \"label\": \"Specialization — top-down\", \"bold\": true },\n    { \"id\": \"g1\", \"x\": 160, \"y\": 60, \"w\": 200, \"h\": 40, \"label\": \"Person\\n(Name, Address)\", \"tone\": \"emerald\", \"filled\": true },\n    { \"id\": \"g2\", \"x\": 80, \"y\": 200, \"w\": 130, \"h\": 40, \"label\": \"Student\\n(Name, Address, SPI)\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"g3\", \"x\": 240, \"y\": 200, \"w\": 140, \"h\": 40, \"label\": \"Faculty\\n(Name, Address, Salary)\", \"tone\": \"sky\", \"size\": 11 },\n    { \"id\": \"gn\", \"x\": 160, \"y\": 245, \"shape\": \"text\", \"label\": \"↑ extract the common features\", \"size\": 11 },\n    { \"id\": \"s1\", \"x\": 500, \"y\": 60, \"w\": 200, \"h\": 40, \"label\": \"Person\\n(Name, Address)\", \"tone\": \"sky\" },\n    { \"id\": \"s2\", \"x\": 420, \"y\": 200, \"w\": 130, \"h\": 40, \"label\": \"Student\\n(+ SPI)\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"s3\", \"x\": 580, \"y\": 200, \"w\": 130, \"h\": 40, \"label\": \"Faculty\\n(+ Salary)\", \"tone\": \"emerald\", \"filled\": true, \"size\": 11 },\n    { \"id\": \"sn\", \"x\": 500, \"y\": 245, \"shape\": \"text\", \"label\": \"↓ split by distinguishing features\", \"size\": 11 }\n  ],\n  \"edges\": [\n    { \"from\": \"g2\", \"to\": \"g1\", \"tone\": \"emerald\" }, { \"from\": \"g3\", \"to\": \"g1\", \"tone\": \"emerald\" },\n    { \"from\": \"s1\", \"to\": \"s2\", \"tone\": \"emerald\" }, { \"from\": \"s1\", \"to\": \"s3\", \"tone\": \"emerald\" }\n  ]\n}\n```\n\n| | Generalization | Specialization |\n|---|---|---|\n| definition | **extracts the common features of multiple entities to form a new entity** | **splits an entity to form multiple new entities that inherit some feature of the splitting entity** |\n| process | creation of a **group** from various entities | creation of **sub-groups** within an entity |\n| approach | **bottom-up** | **top-down** |\n| set operation | takes the **union** of two or more **lower-level** entity sets to produce a **higher-level** entity set | takes a **subset** of a **higher-level** entity set to form a **lower-level** entity set |\n| starting point | starts from **several** entity sets and creates a high-level entity set using their **common** features | starts from a **single** entity set and creates different low-level entity sets using **different** features |\n\nExample from the slides: `Student(Name, Address, SPI)` and `Faculty(Name,\nAddress, Salary)` share `Name` and `Address` → generalize into `Person(Name,\nAddress)`; conversely, `Person` specializes into `Student` (adds `SPI`) and\n`Faculty` (adds `Salary`).\n\n### A two-level example\n\n```er\n{\n  \"title\": \"Person is specialized into Employee and Customer; Employee is further specialized into Full Time and Part Time. Subclasses can have subclasses.\",\n  \"nodes\": [\n    { \"id\": \"p\", \"kind\": \"entity\", \"label\": \"Person\", \"x\": 330, \"y\": 80 },\n    { \"id\": \"pid\", \"kind\": \"key_attribute\", \"label\": \"PID\", \"x\": 170, \"y\": 30 },\n    { \"id\": \"pn\", \"kind\": \"attribute\", \"label\": \"Name\", \"x\": 280, \"y\": 10 },\n    { \"id\": \"pa\", \"kind\": \"attribute\", \"label\": \"Address\", \"x\": 410, \"y\": 10 },\n    { \"id\": \"pc\", \"kind\": \"attribute\", \"label\": \"City\", \"x\": 520, \"y\": 40 },\n    { \"id\": \"isa1\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 330, \"y\": 170 },\n    { \"id\": \"e\", \"kind\": \"entity\", \"label\": \"Employee\", \"x\": 200, \"y\": 260 },\n    { \"id\": \"es\", \"kind\": \"attribute\", \"label\": \"Salary\", \"x\": 70, \"y\": 260 },\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"Customer\", \"x\": 470, \"y\": 260 },\n    { \"id\": \"cb\", \"kind\": \"attribute\", \"label\": \"Balance\", \"x\": 610, \"y\": 260 },\n    { \"id\": \"isa2\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 200, \"y\": 350 },\n    { \"id\": \"ft\", \"kind\": \"entity\", \"label\": \"Full Time\", \"x\": 100, \"y\": 440 },\n    { \"id\": \"fd\", \"kind\": \"attribute\", \"label\": \"Days Worked\", \"x\": 100, \"y\": 520 },\n    { \"id\": \"pt\", \"kind\": \"entity\", \"label\": \"Part Time\", \"x\": 300, \"y\": 440 },\n    { \"id\": \"ph\", \"kind\": \"attribute\", \"label\": \"Hour Worked\", \"x\": 300, \"y\": 520 }\n  ],\n  \"edges\": [\n    { \"from\": \"p\", \"to\": \"pid\" }, { \"from\": \"p\", \"to\": \"pn\" }, { \"from\": \"p\", \"to\": \"pa\" }, { \"from\": \"p\", \"to\": \"pc\" },\n    { \"from\": \"p\", \"to\": \"isa1\" }, { \"from\": \"isa1\", \"to\": \"e\" }, { \"from\": \"isa1\", \"to\": \"c\" },\n    { \"from\": \"e\", \"to\": \"es\" }, { \"from\": \"c\", \"to\": \"cb\" },\n    { \"from\": \"e\", \"to\": \"isa2\" }, { \"from\": \"isa2\", \"to\": \"ft\" }, { \"from\": \"isa2\", \"to\": \"pt\" },\n    { \"from\": \"ft\", \"to\": \"fd\" }, { \"from\": \"pt\", \"to\": \"ph\" }\n  ]\n}\n```\n\n### Exercise — find generalization / specialization\n\n> Give examples of generalization / specialization in: a hospital management\n> system, a college management system, a bank management system, an insurance\n> company.\n\n| System | Superclass | Subclasses |\n|---|---|---|\n| Hospital | `Person` | `Patient`, `Doctor`, `Nurse` (then `Doctor` → `Surgeon`, `Physician`) |\n| College | `Person` | `Student`, `Faculty`, `Staff`; `Student` → `Undergraduate`, `Postgraduate` |\n| Bank | `Account` | `Saving_Account`, `Current_Account`, `Fixed_Deposit`; `Customer` → `Individual`, `Corporate` |\n| Insurance | `Policy` | `Life_Policy`, `Vehicle_Policy`, `Health_Policy`; `Person` → `Policy_Holder`, `Agent` |\n\n## 8. Worked example — the NHL database\n\n> The NHL has many **teams**; each team has a name, a city, a coach, a captain\n> and a set of players. Each **player** belongs to only one team; a player has a\n> name, a position (left wing, goalie…), a skill level and a set of **injury\n> records**. A team captain is also a player. A **game** is played between two\n> teams (host team and guest team) and has a date and a score. Construct a\n> clean and concise E-R diagram.\n\nMethod — the same five steps for any description:\n\n1. **Entities** (nouns that have their own data): team, player, game, injury\n   record → rectangles.\n2. **Attributes** for each, and the **primary key** underlined. An injury\n   record has no key of its own — it only makes sense for a given player →\n   **weak entity** with a discriminator.\n3. **Relationships** (verbs): a player *belongs to* a team; a team *has a\n   captain*; a game is *hosted by* a team and *visited by* a team; a player\n   *logs* injury records.\n4. **Roles** where one entity plays two parts in one relationship (a team is\n   `host` in one game and `guest` in another).\n5. **Cardinality and participation** on every line.\n\n```er\n{\n  \"title\": \"NHL database: team, player, game, and injury record as a weak entity identified through player.\",\n  \"nodes\": [\n    { \"id\": \"t\", \"kind\": \"entity\", \"label\": \"team\", \"x\": 150, \"y\": 170 },\n    { \"id\": \"tn\", \"kind\": \"key_attribute\", \"label\": \"t-name\", \"x\": 50, \"y\": 70 },\n    { \"id\": \"tc\", \"kind\": \"attribute\", \"label\": \"city\", \"x\": 160, \"y\": 50 },\n    { \"id\": \"tco\", \"kind\": \"attribute\", \"label\": \"coach\", \"x\": 270, \"y\": 70 },\n    { \"id\": \"p\", \"kind\": \"entity\", \"label\": \"player\", \"x\": 530, \"y\": 170 },\n    { \"id\": \"pn\", \"kind\": \"key_attribute\", \"label\": \"p-name\", \"x\": 430, \"y\": 60 },\n    { \"id\": \"pp\", \"kind\": \"attribute\", \"label\": \"position\", \"x\": 545, \"y\": 50 },\n    { \"id\": \"ps\", \"kind\": \"attribute\", \"label\": \"skill level\", \"x\": 660, \"y\": 90 },\n    { \"id\": \"bt\", \"kind\": \"relationship\", \"label\": \"belongs_to\", \"x\": 340, \"y\": 170 },\n    { \"id\": \"cap\", \"kind\": \"relationship\", \"label\": \"captain\", \"x\": 340, \"y\": 270 },\n    { \"id\": \"g\", \"kind\": \"entity\", \"label\": \"game\", \"x\": 150, \"y\": 440 },\n    { \"id\": \"gd\", \"kind\": \"attribute\", \"label\": \"date\", \"x\": 50, \"y\": 530 },\n    { \"id\": \"gs\", \"kind\": \"attribute\", \"label\": \"score\", \"x\": 190, \"y\": 530 },\n    { \"id\": \"host\", \"kind\": \"relationship\", \"label\": \"host\", \"x\": 70, \"y\": 305 },\n    { \"id\": \"guest\", \"kind\": \"relationship\", \"label\": \"guest\", \"x\": 230, \"y\": 340 },\n    { \"id\": \"log\", \"kind\": \"identifying_relationship\", \"label\": \"log\", \"x\": 530, \"y\": 300 },\n    { \"id\": \"ir\", \"kind\": \"weak_entity\", \"label\": \"injury record\", \"x\": 530, \"y\": 440 },\n    { \"id\": \"ii\", \"kind\": \"partial_key_attribute\", \"label\": \"id\", \"x\": 440, \"y\": 530 },\n    { \"id\": \"id\", \"kind\": \"attribute\", \"label\": \"description\", \"x\": 610, \"y\": 530 }\n  ],\n  \"edges\": [\n    { \"from\": \"t\", \"to\": \"tn\" }, { \"from\": \"t\", \"to\": \"tc\" }, { \"from\": \"t\", \"to\": \"tco\" },\n    { \"from\": \"p\", \"to\": \"pn\" }, { \"from\": \"p\", \"to\": \"pp\" }, { \"from\": \"p\", \"to\": \"ps\" },\n    { \"from\": \"t\", \"to\": \"bt\", \"card\": \"1\" }, { \"from\": \"bt\", \"to\": \"p\", \"card\": \"N\", \"total\": true },\n    { \"from\": \"t\", \"to\": \"cap\", \"card\": \"1\" }, { \"from\": \"cap\", \"to\": \"p\", \"card\": \"1\" },\n    { \"from\": \"g\", \"to\": \"host\", \"card\": \"N\", \"total\": true }, { \"from\": \"host\", \"to\": \"t\", \"card\": \"1\" },\n    { \"from\": \"g\", \"to\": \"guest\", \"card\": \"N\", \"total\": true }, { \"from\": \"guest\", \"to\": \"t\", \"card\": \"1\" },\n    { \"from\": \"g\", \"to\": \"gd\" }, { \"from\": \"g\", \"to\": \"gs\" },\n    { \"from\": \"p\", \"to\": \"log\", \"card\": \"1\" }, { \"from\": \"log\", \"to\": \"ir\", \"card\": \"N\", \"total\": true },\n    { \"from\": \"ir\", \"to\": \"ii\" }, { \"from\": \"ir\", \"to\": \"id\" }\n  ]\n}\n```\n\nReading the answer:\n\n- `belongs_to` is **1 : N** (one team, many players) with **total**\n  participation of `player` — every player belongs to a team.\n- `captain` is **1 : 1** — one captain per team, and that captain is a player\n  (so no separate *captain* entity: the relationship does the job).\n- `host` and `guest` are two relationships between `game` and `team`; each\n  game has exactly **one** host and **one** guest (total on the game side), a\n  team can host or visit **many** games.\n- `injury record` is **weak**: identified by `(p-name, id)` through the\n  identifying relationship `log` (double diamond, double line).\n\n## 9. Aggregation\n\n**Limitation of the E-R model:** a relationship connects **entities**, never\nother relationships. *In the E-R model we cannot express relationships between\ntwo relationships.*\n\n```diagram\n{\n  \"title\": \"The problem: Borrow would have to connect to the Works relationship itself — not allowed.\",\n  \"nodes\": [\n    { \"id\": \"comp\", \"x\": 330, \"y\": 40, \"w\": 120, \"label\": \"Company\", \"tone\": \"sky\" },\n    { \"id\": \"emp\", \"x\": 110, \"y\": 130, \"w\": 120, \"label\": \"Employee\", \"tone\": \"sky\" },\n    { \"id\": \"works\", \"x\": 330, \"y\": 130, \"shape\": \"diamond\", \"label\": \"Works\", \"tone\": \"amber\" },\n    { \"id\": \"dept\", \"x\": 550, \"y\": 130, \"w\": 120, \"label\": \"Department\", \"tone\": \"sky\" },\n    { \"id\": \"borrow\", \"x\": 330, \"y\": 250, \"shape\": \"diamond\", \"label\": \"Borrow\", \"tone\": \"amber\" },\n    { \"id\": \"loan\", \"x\": 330, \"y\": 340, \"w\": 120, \"label\": \"Loan\", \"tone\": \"sky\" },\n    { \"id\": \"n\", \"x\": 560, \"y\": 200, \"w\": 250, \"h\": 34, \"shape\": \"note\", \"size\": 12, \"label\": \"✗ cannot connect two relationships\", \"tone\": \"rose\" }\n  ],\n  \"edges\": [\n    { \"from\": \"comp\", \"to\": \"works\", \"arrow\": \"none\" },\n    { \"from\": \"emp\", \"to\": \"works\", \"arrow\": \"none\" },\n    { \"from\": \"works\", \"to\": \"dept\", \"arrow\": \"none\" },\n    { \"from\": \"works\", \"to\": \"borrow\", \"arrow\": \"none\", \"tone\": \"rose\", \"dashed\": true },\n    { \"from\": \"borrow\", \"to\": \"loan\", \"arrow\": \"none\" }\n  ]\n}\n```\n\nThe fix is **aggregation**: treat the whole `Employee — Works — Company —\nDepartment` cluster as **one higher-level entity** (here called `Customer`),\nand connect `Borrow` to that box.\n\n> **Aggregation** = the process of creating an entity by **combining various\n> components of an E-R diagram** (entities + a relationship) into one\n> abstract entity, so that it can take part in another relationship.\n\n```diagram\n{\n  \"title\": \"The solution: the dashed box (an aggregation) behaves like an entity, so Borrow can connect to it.\",\n  \"groups\": [\n    { \"x\": 330, \"y\": 85, \"w\": 620, \"h\": 175, \"label\": \"Customer (aggregation)\", \"tone\": \"sky\", \"labelAlign\": \"right\" }\n  ],\n  \"nodes\": [\n    { \"id\": \"comp\", \"x\": 330, \"y\": 40, \"w\": 120, \"label\": \"Company\", \"tone\": \"sky\" },\n    { \"id\": \"emp\", \"x\": 110, \"y\": 130, \"w\": 120, \"label\": \"Employee\", \"tone\": \"sky\" },\n    { \"id\": \"works\", \"x\": 330, \"y\": 130, \"shape\": \"diamond\", \"label\": \"Works\", \"tone\": \"amber\" },\n    { \"id\": \"dept\", \"x\": 550, \"y\": 130, \"w\": 120, \"label\": \"Department\", \"tone\": \"sky\" },\n    { \"id\": \"a\", \"x\": 330, \"y\": 162, \"shape\": \"text\" },\n    { \"id\": \"borrow\", \"x\": 330, \"y\": 250, \"shape\": \"diamond\", \"label\": \"Borrow\", \"tone\": \"amber\" },\n    { \"id\": \"loan\", \"x\": 330, \"y\": 340, \"w\": 120, \"label\": \"Loan\", \"tone\": \"sky\" }\n  ],\n  \"edges\": [\n    { \"from\": \"comp\", \"to\": \"works\", \"arrow\": \"none\" },\n    { \"from\": \"emp\", \"to\": \"works\", \"arrow\": \"none\" },\n    { \"from\": \"works\", \"to\": \"dept\", \"arrow\": \"none\" },\n    { \"from\": \"a\", \"to\": \"borrow\", \"arrow\": \"none\", \"tone\": \"emerald\", \"bold\": true },\n    { \"from\": \"borrow\", \"to\": \"loan\", \"arrow\": \"none\" }\n  ]\n}\n```\n\nDon't confuse it with generalization: generalization merges **entities with\ncommon attributes** into a superclass (ISA); aggregation wraps **a relationship\ntogether with its entities** into one box.\n\n## 10. E-R diagram of a Hospital Management System\n\n```er\n{\n  \"title\": \"Hospital Management System (Lecture 06). Medical Record N:1 Patient, Patient N:1 Hospital, Doctor N:1 Hospital, Doctor N:N Patient (Treats); Patient specializes into Indoor / Outdoor.\",\n  \"nodes\": [\n    { \"id\": \"mr\", \"kind\": \"entity\", \"label\": \"Medical Record\", \"x\": 80, \"y\": 170 },\n    { \"id\": \"mrid\", \"kind\": \"key_attribute\", \"label\": \"MRID\", \"x\": 80, \"y\": 70 },\n    { \"id\": \"rn\", \"kind\": \"attribute\", \"label\": \"Report Name\", \"x\": 80, \"y\": 270 },\n    { \"id\": \"has1\", \"kind\": \"relationship\", \"label\": \"Has\", \"x\": 230, \"y\": 170 },\n    { \"id\": \"pat\", \"kind\": \"entity\", \"label\": \"Patient\", \"x\": 380, \"y\": 170 },\n    { \"id\": \"patid\", \"kind\": \"key_attribute\", \"label\": \"PatID\", \"x\": 320, \"y\": 70 },\n    { \"id\": \"pname\", \"kind\": \"attribute\", \"label\": \"Name\", \"x\": 440, \"y\": 70 },\n    { \"id\": \"adm\", \"kind\": \"relationship\", \"label\": \"Admitted\", \"x\": 545, \"y\": 170 },\n    { \"id\": \"hos\", \"kind\": \"entity\", \"label\": \"Hospital\", \"x\": 710, \"y\": 170 },\n    { \"id\": \"hosid\", \"kind\": \"key_attribute\", \"label\": \"HosID\", \"x\": 650, \"y\": 70 },\n    { \"id\": \"hname\", \"kind\": \"attribute\", \"label\": \"Name\", \"x\": 770, \"y\": 70 },\n    { \"id\": \"isa\", \"kind\": \"isa\", \"label\": \"ISA\", \"x\": 380, \"y\": 260 },\n    { \"id\": \"ind\", \"kind\": \"entity\", \"label\": \"Indoor\", \"x\": 290, \"y\": 350 },\n    { \"id\": \"room\", \"kind\": \"attribute\", \"label\": \"RoomNo\", \"x\": 200, \"y\": 440 },\n    { \"id\": \"ipdid\", \"kind\": \"key_attribute\", \"label\": \"IPDID\", \"x\": 320, \"y\": 440 },\n    { \"id\": \"out\", \"kind\": \"entity\", \"label\": \"Outdoor\", \"x\": 470, \"y\": 350 },\n    { \"id\": \"opdid\", \"kind\": \"key_attribute\", \"label\": \"OPDID\", \"x\": 440, \"y\": 440 },\n    { \"id\": \"charge\", \"kind\": \"attribute\", \"label\": \"Charge\", \"x\": 550, \"y\": 440 },\n    { \"id\": \"treats\", \"kind\": \"relationship\", \"label\": \"Treats\", \"x\": 570, \"y\": 285 },\n    { \"id\": \"doc\", \"kind\": \"entity\", \"label\": \"Doctor\", \"x\": 710, \"y\": 360 },\n    { \"id\": \"has2\", \"kind\": \"relationship\", \"label\": \"Has\", \"x\": 710, \"y\": 265 },\n    { \"id\": \"drid\", \"kind\": \"key_attribute\", \"label\": \"DrID\", \"x\": 660, \"y\": 450 },\n    { \"id\": \"drn\", \"kind\": \"attribute\", \"label\": \"Dr Name\", \"x\": 775, \"y\": 450 }\n  ],\n  \"edges\": [\n    { \"from\": \"mr\", \"to\": \"mrid\" }, { \"from\": \"mr\", \"to\": \"rn\" },\n    { \"from\": \"mr\", \"to\": \"has1\", \"card\": \"N\" }, { \"from\": \"has1\", \"to\": \"pat\", \"card\": \"1\" },\n    { \"from\": \"pat\", \"to\": \"patid\" }, { \"from\": \"pat\", \"to\": \"pname\" },\n    { \"from\": \"pat\", \"to\": \"adm\", \"card\": \"N\" }, { \"from\": \"adm\", \"to\": \"hos\", \"card\": \"1\" },\n    { \"from\": \"hos\", \"to\": \"hosid\" }, { \"from\": \"hos\", \"to\": \"hname\" },\n    { \"from\": \"pat\", \"to\": \"isa\" }, { \"from\": \"isa\", \"to\": \"ind\" }, { \"from\": \"isa\", \"to\": \"out\" },\n    { \"from\": \"ind\", \"to\": \"room\" }, { \"from\": \"ind\", \"to\": \"ipdid\" },\n    { \"from\": \"out\", \"to\": \"opdid\" }, { \"from\": \"out\", \"to\": \"charge\" },\n    { \"from\": \"pat\", \"to\": \"treats\", \"card\": \"N\" }, { \"from\": \"treats\", \"to\": \"doc\", \"card\": \"N\" },\n    { \"from\": \"doc\", \"to\": \"has2\", \"card\": \"N\" }, { \"from\": \"has2\", \"to\": \"hos\", \"card\": \"1\" },\n    { \"from\": \"doc\", \"to\": \"drid\" }, { \"from\": \"doc\", \"to\": \"drn\" }\n  ]\n}\n```\n\nHow to read it (on the slide, an **arrow points to the \"one\" side**):\n\n| Relationship | Cardinality | Meaning |\n|---|---|---|\n| Medical Record —Has→ Patient | **N : 1** | a patient has many medical records, a record belongs to one patient |\n| Patient —Admitted→ Hospital | **N : 1** | many patients in one hospital |\n| Doctor —Has→ Hospital | **N : 1** | a hospital has many doctors, a doctor works in one hospital |\n| Patient —Treats— Doctor | **N : N** | no arrow: a doctor treats many patients, a patient sees many doctors |\n| Patient ISA Indoor / Outdoor | specialization | `Indoor` adds `RoomNo`, `Outdoor` adds `Charge` |\n\n## 11. Reducing an E-R diagram to a database schema\n\nTurning the diagram into **tables** follows five steps.\n\n| Step | E-R element | Becomes |\n|---|---|---|\n| 1 | **Entity** + simple attributes | **one table**; each attribute (except multivalued) is a column; the key attribute is the **primary key** (underlined) |\n| 2 | **Multivalued** attribute | a **new table** with its own PK + the parent's PK as **foreign key**; 1:N between the two tables |\n| 3 | **1 : 1** relationship | both entities → tables; put the PK of **either** table into the other as FK |\n| 4 | **1 : N** relationship | both entities → tables; the PK of the **\"1\" side** goes as FK into the **\"N\" side** |\n| 5 | **N : N** relationship | both entities → tables **+ a separate table for the relationship**, holding the PKs of both as FKs |\n\nConvention from the slides: every table should **start with its primary key**,\nnamed `TablenameID`.\n\n### Steps 1 and 2 — entity and multivalued attribute\n\n`Person` has `PersonID` (key), `Name`, `Address`, `City` and a **multivalued**\n`PhoneNo` (one person, several phones).\n\n```diagram\n{\n  \"title\": \"PhoneNo cannot be a column of Person (several values) → its own table, linked by the foreign key PersonID.\",\n  \"nodes\": [\n    { \"id\": \"p\", \"x\": 150, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Person\", \"rows\": [[\"PersonID\",\"Name\",\"Address\",\"City\"],[\"1\",\"Lee\",\"12 Inha-ro\",\"Incheon\"],[\"2\",\"Kim\",\"5 Gangnam\",\"Seoul\"]], \"cols\": [70, 50, 80, 60] },\n    { \"id\": \"ph\", \"x\": 520, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"emerald\", \"label\": \"PhoneNo\", \"rows\": [[\"PhoneID\",\"PersonID\",\"PhoneNo\"],[\"1\",\"1\",\"010-1111\"],[\"2\",\"1\",\"010-2222\"],[\"3\",\"2\",\"010-3333\"]], \"cols\": [60, 70, 80] }\n  ],\n  \"edges\": [\n    { \"from\": \"ph\", \"to\": \"p\", \"label\": \"FK PersonID (N : 1)\", \"tone\": \"emerald\" }\n  ]\n}\n```\n\nSchema: `Person (PersonID, Name, Address, City)` and\n`PhoneNo (PhoneID, PersonID, PhoneNo)`.\n\n### Step 3 — 1 : 1\n\n`Person —Having— Wife`, one-to-one. Either choice is correct:\n\n- `Person (PersonID, PName)` and `Wife (WifeID, WName, PersonID)` — **or**\n- `Wife (WifeID, WName)` and `Person (PersonID, PName, WifeID)`.\n\n### Step 4 — 1 : N\n\n`Person —Having— House`: a person owns many houses, a house has one owner. The\nFK goes on the **many** side:\n\n`Person (PersonID, PName)` and `House (HouseID, HName, PersonID)`.\n\n(Putting `HouseID` in `Person` would need several values in one cell — that is\nwhy the FK always goes to the \"N\" side.)\n\n### Step 5 — N : N\n\n`Customer —Has_Acct— Account`, many-to-many: a **third table** is created for\nthe relationship.\n\n```diagram\n{\n  \"title\": \"N : N → the relationship becomes its own table, holding the primary keys of both entities as foreign keys.\",\n  \"nodes\": [\n    { \"id\": \"c\", \"x\": 110, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Customer\", \"rows\": [[\"CID\",\"CName\"],[\"C1\",\"Lee\"],[\"C2\",\"Kim\"]] },\n    { \"id\": \"h\", \"x\": 340, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"amber\", \"label\": \"Has_Acct\", \"rows\": [[\"HasAcctID\",\"CID\",\"ActNo\"],[\"1\",\"C1\",\"A1\"],[\"2\",\"C1\",\"A2\"],[\"3\",\"C2\",\"A2\"]] },\n    { \"id\": \"a\", \"x\": 570, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Account\", \"rows\": [[\"ActNo\",\"Balance\"],[\"A1\",\"500\"],[\"A2\",\"1200\"]] }\n  ],\n  \"edges\": [\n    { \"from\": \"h\", \"to\": \"c\", \"label\": \"FK CID\", \"tone\": \"amber\" },\n    { \"from\": \"h\", \"to\": \"a\", \"label\": \"FK ActNo\", \"tone\": \"amber\" }\n  ]\n}\n```\n\nSchema: `Customer (CID, CName)`, `Account (ActNo, Balance)`,\n`Has_Acct (HasAcctID, CID, ActNo)`. Account A2 is shared by Lee and Kim; Lee\nholds A1 and A2 — exactly what N : N needs.\n\n## 12. Summary of the E-R symbols (Lecture 06 additions)\n\nSection 0 lists the shapes. Lecture 06 adds two notations.\n\n**Cardinality with arrows** — an **arrow points towards the \"one\" side**:\n\n| Drawing | Cardinality |\n|---|---|\n| `E ←— R —→ E` (arrows on both sides) | **one to one** |\n| `E ←— R ——— E` (arrow on the left only) | **one to many** (left = one) |\n| `E ——— R —→ E` (arrow on the right only) | **many to one** (right = one) |\n| `E ——— R ——— E` (no arrow) | **many to many** |\n\n**Constraints on an ISA (specialization / generalization):**\n\n| Mark | Name | Meaning |\n|---|---|---|\n| **double line** above ISA | **total** specialization | every superclass entity belongs to **at least one** subclass |\n| single line above ISA | **partial** specialization | a superclass entity may belong to **no** subclass |\n| label **Disjoint** | **disjoint** | an entity belongs to **at most one** subclass |\n| label **Overlapping** | **overlapping** | an entity can belong to **several** subclasses at once |\n\nExamples: `Patient` → `Indoor` / `Outdoor` is disjoint (a stay is one or the\nother). `Person` → `Student` / `Employee` is overlapping (a working student is\nboth). `Account` → `Saving` / `Current` is total if every account must be one\nof the two.\n\n## 13. Integrity constraints\n\n**Integrity constraints** are a **set of rules** used to **maintain the quality\nof information**: inserts, updates and other operations must not break data\nintegrity. They **guard against accidental damage** to the database.\n\n| Constraint | Rule | Example |\n|---|---|---|\n| **Check** | a **business rule** on a column: every row must satisfy it; limits values to a set, a **range** or a list; on one or several columns | `SPI` must be between 0 and 10 |\n| **Not null** | every row must have a **definite value**; NULL is not allowed | `name` must have a value |\n| **Unique** | values are **distinct** in each row; **NULL is allowed**, duplicates are not | `enrollmentno` must be unique |\n| **Primary key** | column(s) that **uniquely identify each row**; **Primary key = Unique + Not null** | `enrollmentno` unique and never null |\n| **Foreign key** (**referential integrity**) | between two tables: every FK value in table 1 must be **NULL or present in the PK column** of table 2 | `Student.DeptID` must exist in `Department.DeptID` |\n\n```diagram\n{\n  \"title\": \"Referential integrity: each DeptID in Student must be NULL or exist in Department.DeptID. Inserting a student with DeptID = 3 would be rejected.\",\n  \"nodes\": [\n    { \"id\": \"d\", \"x\": 140, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Department\", \"rows\": [[\"DeptID\",\"Dept_Name\",\"HOD\"],[\"1\",\"Computer\",\"Lee\"],[\"2\",\"IT\",\"Kim\"]] },\n    { \"id\": \"s\", \"x\": 490, \"y\": 60, \"shape\": \"table\", \"size\": 12, \"tone\": \"emerald\", \"label\": \"Student\", \"rows\": [[\"RollNo\",\"Student_Name\",\"DeptID\"],[\"101\",\"Jacob\",\"1\"],[\"102\",\"Alex\",\"2\"]] }\n  ],\n  \"edges\": [\n    { \"from\": \"s\", \"to\": \"d\", \"label\": \"Foreign key DeptID\", \"tone\": \"emerald\" }\n  ]\n}\n```\n\nThe key difference to remember: **Unique accepts NULL, Primary key does not.**\n\n## 14. ERD Exercise 2 — a university\n\n```er\n{\n  \"title\": \"E-R diagram for a university (Lecture 06, ERD Exercise 2).\",\n  \"nodes\": [\n    { \"id\": \"st\", \"kind\": \"entity\", \"label\": \"student\", \"x\": 90, \"y\": 150 },\n    { \"id\": \"sid\", \"kind\": \"key_attribute\", \"label\": \"sid\", \"x\": 40, \"y\": 50 },\n    { \"id\": \"sname\", \"kind\": \"attribute\", \"label\": \"name\", \"x\": 140, \"y\": 50 },\n    { \"id\": \"prog\", \"kind\": \"attribute\", \"label\": \"program\", \"x\": 90, \"y\": 260 },\n    { \"id\": \"enr\", \"kind\": \"relationship\", \"label\": \"enrols\", \"x\": 250, \"y\": 150 },\n    { \"id\": \"grade\", \"kind\": \"attribute\", \"label\": \"grade\", \"x\": 250, \"y\": 260 },\n    { \"id\": \"co\", \"kind\": \"weak_entity\", \"label\": \"course-offerings\", \"x\": 450, \"y\": 150 },\n    { \"id\": \"time\", \"kind\": \"attribute\", \"label\": \"time\", \"x\": 360, \"y\": 50 },\n    { \"id\": \"secno\", \"kind\": \"partial_key_attribute\", \"label\": \"secno\", \"x\": 460, \"y\": 40 },\n    { \"id\": \"room\", \"kind\": \"attribute\", \"label\": \"room\", \"x\": 560, \"y\": 50 },\n    { \"id\": \"year\", \"kind\": \"partial_key_attribute\", \"label\": \"year\", \"x\": 380, \"y\": 250 },\n    { \"id\": \"sem\", \"kind\": \"partial_key_attribute\", \"label\": \"semester\", \"x\": 530, \"y\": 250 },\n    { \"id\": \"te\", \"kind\": \"relationship\", \"label\": \"teaches\", \"x\": 650, \"y\": 150 },\n    { \"id\": \"ins\", \"kind\": \"entity\", \"label\": \"instructor\", \"x\": 830, \"y\": 150 },\n    { \"id\": \"iid\", \"kind\": \"key_attribute\", \"label\": \"iid\", \"x\": 780, \"y\": 50 },\n    { \"id\": \"iname\", \"kind\": \"attribute\", \"label\": \"name\", \"x\": 890, \"y\": 50 },\n    { \"id\": \"dept\", \"kind\": \"attribute\", \"label\": \"dept\", \"x\": 770, \"y\": 250 },\n    { \"id\": \"ititle\", \"kind\": \"attribute\", \"label\": \"title\", \"x\": 890, \"y\": 250 },\n    { \"id\": \"iso\", \"kind\": \"identifying_relationship\", \"label\": \"is offered\", \"x\": 450, \"y\": 350 },\n    { \"id\": \"c\", \"kind\": \"entity\", \"label\": \"course\", \"x\": 450, \"y\": 480 },\n    { \"id\": \"syl\", \"kind\": \"attribute\", \"label\": \"syllabus\", \"x\": 330, \"y\": 420 },\n    { \"id\": \"cno\", \"kind\": \"key_attribute\", \"label\": \"courseno\", \"x\": 590, \"y\": 420 },\n    { \"id\": \"ctitle\", \"kind\": \"attribute\", \"label\": \"title\", \"x\": 600, \"y\": 520 },\n    { \"id\": \"cred\", \"kind\": \"attribute\", \"label\": \"credits\", \"x\": 450, \"y\": 580 },\n    { \"id\": \"req\", \"kind\": \"relationship\", \"label\": \"requires\", \"x\": 210, \"y\": 480 }\n  ],\n  \"edges\": [\n    { \"from\": \"st\", \"to\": \"sid\" }, { \"from\": \"st\", \"to\": \"sname\" }, { \"from\": \"st\", \"to\": \"prog\" },\n    { \"from\": \"st\", \"to\": \"enr\", \"card\": \"M\" }, { \"from\": \"enr\", \"to\": \"co\", \"card\": \"N\" },\n    { \"from\": \"enr\", \"to\": \"grade\" },\n    { \"from\": \"co\", \"to\": \"time\" }, { \"from\": \"co\", \"to\": \"secno\" }, { \"from\": \"co\", \"to\": \"room\" },\n    { \"from\": \"co\", \"to\": \"year\" }, { \"from\": \"co\", \"to\": \"sem\" },\n    { \"from\": \"co\", \"to\": \"te\", \"card\": \"N\" }, { \"from\": \"te\", \"to\": \"ins\", \"card\": \"M\" },\n    { \"from\": \"ins\", \"to\": \"iid\" }, { \"from\": \"ins\", \"to\": \"iname\" }, { \"from\": \"ins\", \"to\": \"dept\" }, { \"from\": \"ins\", \"to\": \"ititle\" },\n    { \"from\": \"co\", \"to\": \"iso\", \"card\": \"N\", \"total\": true }, { \"from\": \"iso\", \"to\": \"c\", \"card\": \"1\" },\n    { \"from\": \"c\", \"to\": \"syl\" }, { \"from\": \"c\", \"to\": \"cno\" }, { \"from\": \"c\", \"to\": \"ctitle\" }, { \"from\": \"c\", \"to\": \"cred\" },\n    { \"from\": \"c\", \"to\": \"req\", \"role\": \"prerequisite\" },\n    { \"from\": \"c\", \"to\": \"req\", \"role\": \"maincourse\" }\n  ]\n}\n```\n\nWhat to read off the diagram:\n\n- `course-offerings` is a **weak entity** (double rectangle): an offering only\n  exists for a course. It is identified through the **identifying\n  relationship** `is offered` (double diamond, **double line** = total\n  participation) and the arrow points to `course` → **many offerings, one\n  course**. Its key = `courseno` + discriminator (`secno`, `year`,\n  `semester`).\n- `requires` is a **recursive** relationship on `course` with two **roles**,\n  `prerequisite` and `maincourse`.\n- `grade` is an **attribute of the relationship** `enrols` (a grade belongs\n  to *one student in one offering*, not to either alone).\n- `enrols` and `teaches` have no arrows → **many to many**.\n\nReduced to a schema (section 11):\n\n| Table | Why |\n|---|---|\n| `Student (sid, name, program)` | step 1 |\n| `Instructor (iid, name, dept, title)` | step 1 |\n| `Course (courseno, title, syllabus, credits)` | step 1 |\n| `Course_Offering (courseno, secno, year, semester, time, room)` | weak entity: PK = owner's PK + discriminator |\n| `Enrols (sid, courseno, secno, year, semester, grade)` | N : N → own table, carries the relationship attribute `grade` |\n| `Teaches (iid, courseno, secno, year, semester)` | N : N → own table |\n| `Requires (maincourse, prerequisite)` | recursive N : N on Course → two FKs to `Course.courseno` |\n\n---\n\n## To remember\n\n- **Role** = label on a line, needed when the same entity set takes part twice\n  in one relationship (**recursive** relationship set).\n- **Mapping cardinality** of a binary relationship: **1:1, 1:N, N:1, N:N** —\n  the `1`/`N` on one side says how many of *that* side one entity of the other\n  side can have.\n- **Participation**: single line = **partial** (some entities may not take\n  part), double line = **total** (every entity takes part).\n- **Weak entity set** = no primary key of its own; **double rectangle**, tied\n  by a **double diamond** (identifying relationship); **discriminator** with a\n  **dashed underline**; primary key = strong key + discriminator.\n- **Superclass / subclass** linked through the **ISA** triangle; the subclass\n  inherits the superclass's attributes.\n- **Generalization = bottom-up** (union of lower-level sets into one\n  higher-level set, from common features); **specialization = top-down**\n  (subsets of a higher-level set, from distinguishing features).\n- Method for any statement: entities → attributes & keys → relationships →\n  roles → cardinality & participation.\n- **Aggregation** = wrapping entities + their relationship into one abstract\n  entity, because a relationship **cannot connect to another relationship**.\n- **E-R → schema**: entity → table; multivalued attribute → new table with an\n  FK; **1:1** → PK of either side as FK in the other; **1:N** → PK of the\n  **one** side as FK in the **many** side; **N:N** → a **separate\n  relationship table** holding both PKs.\n- **Arrow notation**: the arrow points to the **one** side; no arrow = many.\n- **ISA constraints**: double line = **total**, single = **partial**;\n  **disjoint** = at most one subclass, **overlapping** = several.\n- **Integrity constraints**: Check, Not null, Unique, Primary key (**= Unique +\n  Not null**), Foreign key (**referential integrity**: FK value is NULL or\n  exists in the referenced PK).\n",
     "questions": [
       {
         "question_text": "What is a role, in an E-R diagram?",
@@ -31102,6 +31102,753 @@
             ]
           }
         }
+      },
+      {
+        "type": "mcq",
+        "prompt": "What limitation of the E-R model does aggregation solve?",
+        "choices": [
+          "A weak entity cannot have attributes",
+          "An entity cannot have more than one key attribute",
+          "A relationship cannot be connected to another relationship",
+          "A relationship cannot have attributes"
+        ],
+        "correct": 2,
+        "explanation": "En E-R, une relationship relie des entités, jamais une autre relationship. L'agrégation regroupe des entités et leur relationship en une seule « entité » abstraite, qui peut alors participer à une autre relationship."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is aggregation in an E-R diagram?",
+        "choices": [
+          "Creating an entity by combining various components of the E-R diagram (entities and their relationship)",
+          "Splitting an entity into several subclasses",
+          "Merging two attributes into a composite attribute",
+          "Turning a multivalued attribute into a separate table"
+        ],
+        "correct": 0,
+        "explanation": "Définition du cours : « Process of creating an entity by combining various components of E-R diagram is called aggregation. » Ne pas confondre avec la generalization (fusion d'entités qui partagent des attributs, avec ISA)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does the dashed box labelled Customer represent in this diagram?",
+        "choices": [
+          "A weak entity set",
+          "A generalization (ISA)",
+          "A ternary relationship",
+          "An aggregation: Employee–Works–Company–Department treated as one entity"
+        ],
+        "correct": 3,
+        "explanation": "Le cadre regroupe Works et ses entités : c'est une agrégation. Borrow peut ainsi se relier au cadre comme à une entité, ce qui serait interdit directement sur le losange Works.",
+        "figure": {
+          "kind": "diagram",
+          "spec": {
+            "groups": [
+              {
+                "x": 330,
+                "y": 85,
+                "w": 620,
+                "h": 175,
+                "label": "Customer",
+                "tone": "sky",
+                "labelAlign": "right"
+              }
+            ],
+            "nodes": [
+              {
+                "id": "comp",
+                "x": 330,
+                "y": 40,
+                "w": 120,
+                "label": "Company",
+                "tone": "sky"
+              },
+              {
+                "id": "emp",
+                "x": 110,
+                "y": 130,
+                "w": 120,
+                "label": "Employee",
+                "tone": "sky"
+              },
+              {
+                "id": "works",
+                "x": 330,
+                "y": 130,
+                "shape": "diamond",
+                "label": "Works",
+                "tone": "amber"
+              },
+              {
+                "id": "dept",
+                "x": 550,
+                "y": 130,
+                "w": 120,
+                "label": "Department",
+                "tone": "sky"
+              },
+              {
+                "id": "a",
+                "x": 330,
+                "y": 162,
+                "shape": "text"
+              },
+              {
+                "id": "borrow",
+                "x": 330,
+                "y": 250,
+                "shape": "diamond",
+                "label": "Borrow",
+                "tone": "amber"
+              },
+              {
+                "id": "loan",
+                "x": 330,
+                "y": 340,
+                "w": 120,
+                "label": "Loan",
+                "tone": "sky"
+              }
+            ],
+            "edges": [
+              {
+                "from": "comp",
+                "to": "works",
+                "arrow": "none"
+              },
+              {
+                "from": "emp",
+                "to": "works",
+                "arrow": "none"
+              },
+              {
+                "from": "works",
+                "to": "dept",
+                "arrow": "none"
+              },
+              {
+                "from": "a",
+                "to": "borrow",
+                "arrow": "none"
+              },
+              {
+                "from": "borrow",
+                "to": "loan",
+                "arrow": "none"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the Hospital Management System diagram, an arrow goes from Admitted to Hospital (Patient —Admitted→ Hospital). What does it mean?",
+        "choices": [
+          "One patient is admitted to many hospitals (1 : N)",
+          "Many patients are admitted to one hospital (N : 1)",
+          "Many-to-many",
+          "Total participation of Hospital"
+        ],
+        "correct": 1,
+        "explanation": "Dans la notation à flèches, la flèche pointe vers le côté « one ». Donc plusieurs patients pour un seul hôpital : N : 1."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the hospital diagram, Patient —Treats— Doctor has no arrow on either side. What is its cardinality?",
+        "choices": [
+          "1 : 1",
+          "1 : N",
+          "N : 1",
+          "M : N"
+        ],
+        "correct": 3,
+        "explanation": "Pas de flèche = « many » des deux côtés : un médecin soigne plusieurs patients, un patient voit plusieurs médecins (many-to-many)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the hospital diagram, Indoor and Outdoor hang under Patient through an ISA triangle. What is this?",
+        "choices": [
+          "Specialization of Patient into subclasses",
+          "Aggregation",
+          "A weak entity relationship",
+          "A recursive relationship"
+        ],
+        "correct": 0,
+        "explanation": "ISA = superclass / subclass. Patient se spécialise en Indoor (ajoute RoomNo) et Outdoor (ajoute Charge)."
+      },
+      {
+        "type": "order_steps",
+        "prompt": "Put the steps of reducing an E-R diagram to a database schema in the order of the lecture.",
+        "steps": [
+          "Reduce entities and simple attributes",
+          "Reduce multi-valued attributes",
+          "Reduce 1:1 mapping cardinality",
+          "Reduce 1:N mapping cardinality",
+          "Reduce N:N mapping cardinality"
+        ],
+        "explanation": "Step 1 entités, step 2 attributs multivalués, puis les relationships par cardinalité : 1:1, 1:N, N:N."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Person has a multi-valued attribute PhoneNo. How is it reduced to tables?",
+        "choices": [
+          "A column PhoneNo in Person holding a comma-separated list",
+          "Three columns Phone1, Phone2, Phone3 in Person",
+          "A new table PhoneNo(PhoneID, PersonID, PhoneNo) with PersonID as a foreign key",
+          "It is dropped: multi-valued attributes are not stored"
+        ],
+        "correct": 2,
+        "explanation": "Step 2 : un attribut multivalué devient une nouvelle table, avec sa propre PK et la PK du parent en foreign key. Les deux tables sont en 1:N."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Person —Having— House is 1 : N (one person owns many houses, a house has one owner). Where does the foreign key go?",
+        "choices": [
+          "HouseID goes into Person",
+          "PersonID goes into House",
+          "A separate table Having(PersonID, HouseID) is mandatory",
+          "Both tables receive a foreign key"
+        ],
+        "correct": 1,
+        "explanation": "Step 4 : la PK du côté « 1 » va en foreign key dans la table du côté « N ». House(HouseID, HName, PersonID)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Customer —Has_Acct— Account is N : N. Which schema is correct?",
+        "choices": [
+          "Customer(CID, CName, ActNo), Account(ActNo, Balance)",
+          "Customer(CID, CName), Account(ActNo, Balance, CID)",
+          "One table Customer_Account(CID, CName, ActNo, Balance)",
+          "Customer(CID, CName), Account(ActNo, Balance), Has_Acct(HasAcctID, CID, ActNo)"
+        ],
+        "correct": 3,
+        "explanation": "Step 5 : une N:N devient une table séparée qui contient les PK des deux entités en foreign keys. Une FK simple ne suffit pas (il faudrait plusieurs valeurs dans une case)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Person —Having— Wife is 1 : 1. Which statement is true?",
+        "choices": [
+          "The foreign key must go in Person",
+          "The foreign key must go in Wife",
+          "The primary key of either table can be placed in the other as a foreign key",
+          "A third table is required"
+        ],
+        "correct": 2,
+        "explanation": "Step 3 : en 1:1, on met la PK de n'importe laquelle des deux tables dans l'autre. Wife(WifeID, WName, PersonID) ou Person(PersonID, PName, WifeID), les deux sont corrects."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each E-R element with what it becomes in the database schema.",
+        "pairs": [
+          [
+            "Entity",
+            "A table"
+          ],
+          [
+            "Multi-valued attribute",
+            "A new table with a foreign key to the parent"
+          ],
+          [
+            "1 : 1 relationship",
+            "PK of either side as FK in the other"
+          ],
+          [
+            "1 : N relationship",
+            "PK of the one side as FK in the many side"
+          ],
+          [
+            "N : N relationship",
+            "A separate table holding both primary keys"
+          ]
+        ],
+        "explanation": "Les 5 steps de la réduction E-R → schéma."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In arrow notation, what does E ←— R ——— E (an arrow on the left side only) mean?",
+        "choices": [
+          "One to many (the left entity is the one side)",
+          "One to one",
+          "Many to one",
+          "Many to many"
+        ],
+        "correct": 0,
+        "explanation": "La flèche pointe vers le côté « one ». Flèche à gauche seulement : un E de gauche pour plusieurs E de droite, donc one to many. Deux flèches = 1:1, aucune = M:N."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does a double line between the superclass and the ISA triangle mean?",
+        "choices": [
+          "Disjoint specialization",
+          "Overlapping specialization",
+          "Partial specialization",
+          "Total specialization: every superclass entity belongs to at least one subclass"
+        ],
+        "correct": 3,
+        "explanation": "Double ligne = total (chaque entité de la superclass est dans au moins une subclass). Ligne simple = partial."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A Person can be a Student and an Employee at the same time. This specialization is:",
+        "choices": [
+          "Disjoint",
+          "Overlapping",
+          "Total",
+          "Weak"
+        ],
+        "correct": 1,
+        "explanation": "Overlapping = une entité peut appartenir à plusieurs subclasses à la fois. Disjoint = au plus une."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? In a disjoint specialization, an entity can belong to several subclasses at once.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : disjoint = au plus une subclass. Plusieurs à la fois, c'est overlapping."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each integrity constraint with its rule.",
+        "pairs": [
+          [
+            "Check",
+            "A business rule on a column, e.g. SPI between 0 and 10"
+          ],
+          [
+            "Not null",
+            "Every row must have a value"
+          ],
+          [
+            "Unique",
+            "No duplicates, but NULL is allowed"
+          ],
+          [
+            "Primary key",
+            "Unique + Not null"
+          ],
+          [
+            "Foreign key",
+            "Value is NULL or exists in the referenced primary key"
+          ]
+        ],
+        "explanation": "Les 5 integrity constraints du cours."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which formula is correct?",
+        "choices": [
+          "Primary key = Unique + Check",
+          "Primary key = Unique + Not null",
+          "Primary key = Not null + Foreign key",
+          "Primary key = Check + Not null"
+        ],
+        "correct": 1,
+        "explanation": "Primary key = Unique key + Not null. C'est la seule différence avec Unique, qui accepte NULL."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which constraint allows NULL values but forbids duplicates?",
+        "choices": [
+          "Primary key",
+          "Not null",
+          "Unique",
+          "Check"
+        ],
+        "correct": 2,
+        "explanation": "Unique : valeurs distinctes, mais une colonne Unique peut contenir NULL. La primary key, elle, interdit NULL."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Student.DeptID references Department.DeptID. Which insertion into Student is rejected?",
+        "choices": [
+          "(103, Mina, 1)",
+          "(104, Tom, 2)",
+          "(105, Ana, 3)",
+          "(106, Leo, NULL)"
+        ],
+        "correct": 2,
+        "explanation": "Referential integrity : chaque valeur de la FK doit être NULL ou exister dans la PK référencée. DeptID 3 n'existe pas dans Department ⇒ rejeté. NULL est accepté.",
+        "figure": {
+          "kind": "diagram",
+          "spec": {
+            "nodes": [
+              {
+                "id": "d",
+                "x": 140,
+                "y": 60,
+                "shape": "table",
+                "size": 12,
+                "tone": "sky",
+                "label": "Department",
+                "rows": [
+                  [
+                    "DeptID",
+                    "Dept_Name",
+                    "HOD"
+                  ],
+                  [
+                    "1",
+                    "Computer",
+                    "Lee"
+                  ],
+                  [
+                    "2",
+                    "IT",
+                    "Kim"
+                  ]
+                ]
+              },
+              {
+                "id": "s",
+                "x": 490,
+                "y": 60,
+                "shape": "table",
+                "size": 12,
+                "tone": "emerald",
+                "label": "Student",
+                "rows": [
+                  [
+                    "RollNo",
+                    "Student_Name",
+                    "DeptID"
+                  ],
+                  [
+                    "101",
+                    "Jacob",
+                    "1"
+                  ],
+                  [
+                    "102",
+                    "Alex",
+                    "2"
+                  ]
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "from": "s",
+                "to": "d",
+                "label": "FK DeptID",
+                "tone": "emerald"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "What are integrity constraints mainly used for?",
+        "choices": [
+          "Maintaining the quality of information and guarding against accidental damage to the database",
+          "Speeding up queries",
+          "Encrypting the data",
+          "Reducing disk usage"
+        ],
+        "correct": 0,
+        "explanation": "Cours : « Integrity constraints are a set of rules used to maintain the quality of information… to guard against accidental damage to the database. »"
+      },
+      {
+        "type": "mcq",
+        "prompt": "In this university diagram, course-offerings is a double rectangle linked to course by a double diamond. What does that mean?",
+        "choices": [
+          "course-offerings is an aggregation",
+          "course-offerings is a multivalued attribute of course",
+          "course-offerings is a weak entity: it only exists for a course and is identified through 'is offered'",
+          "course-offerings has total participation in teaches"
+        ],
+        "correct": 2,
+        "explanation": "Double rectangle = weak entity, double losange = identifying relationship, double ligne = participation totale. Sa clé = courseno + discriminator (secno, year, semester).",
+        "figure": {
+          "kind": "er",
+          "spec": {
+            "nodes": [
+              {
+                "id": "st",
+                "kind": "entity",
+                "label": "student",
+                "x": 90,
+                "y": 150
+              },
+              {
+                "id": "sid",
+                "kind": "key_attribute",
+                "label": "sid",
+                "x": 40,
+                "y": 50
+              },
+              {
+                "id": "sname",
+                "kind": "attribute",
+                "label": "name",
+                "x": 140,
+                "y": 50
+              },
+              {
+                "id": "enr",
+                "kind": "relationship",
+                "label": "enrols",
+                "x": 250,
+                "y": 150
+              },
+              {
+                "id": "grade",
+                "kind": "attribute",
+                "label": "grade",
+                "x": 250,
+                "y": 260
+              },
+              {
+                "id": "co",
+                "kind": "weak_entity",
+                "label": "course-offerings",
+                "x": 450,
+                "y": 150
+              },
+              {
+                "id": "secno",
+                "kind": "partial_key_attribute",
+                "label": "secno",
+                "x": 450,
+                "y": 50
+              },
+              {
+                "id": "te",
+                "kind": "relationship",
+                "label": "teaches",
+                "x": 650,
+                "y": 150
+              },
+              {
+                "id": "ins",
+                "kind": "entity",
+                "label": "instructor",
+                "x": 830,
+                "y": 150
+              },
+              {
+                "id": "iid",
+                "kind": "key_attribute",
+                "label": "iid",
+                "x": 830,
+                "y": 50
+              },
+              {
+                "id": "iso",
+                "kind": "identifying_relationship",
+                "label": "is offered",
+                "x": 450,
+                "y": 300
+              },
+              {
+                "id": "c",
+                "kind": "entity",
+                "label": "course",
+                "x": 450,
+                "y": 430
+              },
+              {
+                "id": "cno",
+                "kind": "key_attribute",
+                "label": "courseno",
+                "x": 600,
+                "y": 430
+              },
+              {
+                "id": "req",
+                "kind": "relationship",
+                "label": "requires",
+                "x": 210,
+                "y": 430
+              }
+            ],
+            "edges": [
+              {
+                "from": "st",
+                "to": "sid"
+              },
+              {
+                "from": "st",
+                "to": "sname"
+              },
+              {
+                "from": "st",
+                "to": "enr",
+                "card": "M"
+              },
+              {
+                "from": "enr",
+                "to": "co",
+                "card": "N"
+              },
+              {
+                "from": "enr",
+                "to": "grade"
+              },
+              {
+                "from": "co",
+                "to": "secno"
+              },
+              {
+                "from": "co",
+                "to": "te",
+                "card": "N"
+              },
+              {
+                "from": "te",
+                "to": "ins",
+                "card": "M"
+              },
+              {
+                "from": "ins",
+                "to": "iid"
+              },
+              {
+                "from": "co",
+                "to": "iso",
+                "card": "N",
+                "total": true
+              },
+              {
+                "from": "iso",
+                "to": "c",
+                "card": "1"
+              },
+              {
+                "from": "c",
+                "to": "cno"
+              },
+              {
+                "from": "c",
+                "to": "req",
+                "role": "prerequisite"
+              },
+              {
+                "from": "c",
+                "to": "req",
+                "role": "maincourse"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the university diagram, 'requires' links course to itself with the roles prerequisite and maincourse. It is:",
+        "choices": [
+          "A ternary relationship",
+          "A recursive relationship",
+          "A weak relationship",
+          "An ISA link"
+        ],
+        "correct": 1,
+        "explanation": "Le même entity set (course) participe deux fois, avec deux rôles : relationship récursive. En table : Requires(maincourse, prerequisite), deux FK vers Course."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the university diagram, 'grade' is attached to the 'enrols' diamond. Why?",
+        "choices": [
+          "It is a derived attribute",
+          "It is a mistake in the diagram",
+          "It is the key of enrols",
+          "It is a descriptive attribute of the relationship: a grade belongs to one student in one offering"
+        ],
+        "correct": 3,
+        "explanation": "Une note ne dépend ni de l'étudiant seul, ni de l'offering seule, mais du couple : c'est un attribut de la relationship (descriptive attribute)."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Complete: Primary key = Unique + ______",
+        "accept": [
+          "Not null",
+          "notnull",
+          "not-null"
+        ],
+        "explanation": "Primary key = Unique key + Not null.",
+        "placeholder": "constraint name"
+      }
+    ],
+    "flashcards": [
+      {
+        "front": "Role (E-R)",
+        "back": "Label sur la ligne entre un losange et un rectangle ; sert quand le même entity set participe deux fois (Coordinator / Head)."
+      },
+      {
+        "front": "Recursive relationship set",
+        "back": "Le même entity set participe plusieurs fois à la relationship (Faculty Reports_To Faculty)."
+      },
+      {
+        "front": "Mapping cardinality",
+        "back": "Nombre d'entités de l'autre côté qu'une entité peut avoir via la relationship : 1:1, 1:N, N:1, N:N."
+      },
+      {
+        "front": "Partial vs total participation",
+        "back": "Partial = ligne simple (certaines entités ne participent pas). Total = double ligne (toutes participent)."
+      },
+      {
+        "front": "Weak entity set",
+        "back": "Pas de primary key propre ; double rectangle, relié par un double losange (identifying relationship). PK = PK du strong entity + discriminator."
+      },
+      {
+        "front": "Discriminator (partial key)",
+        "back": "Attributs qui distinguent les weak entities d'un même strong entity ; souligné en pointillés."
+      },
+      {
+        "front": "Generalization vs specialization",
+        "back": "Generalization = bottom-up (union, attributs communs). Specialization = top-down (subsets, attributs distinctifs)."
+      },
+      {
+        "front": "Aggregation",
+        "back": "Regrouper des entités et leur relationship en une seule entité abstraite, car une relationship ne peut pas se relier à une autre relationship."
+      },
+      {
+        "front": "Notation à flèches",
+        "back": "La flèche pointe vers le côté « one ». Deux flèches = 1:1, une = 1:N ou N:1, aucune = M:N."
+      },
+      {
+        "front": "Total / partial specialization",
+        "back": "Double ligne au-dessus de l'ISA = total (chaque entité est dans au moins une subclass) ; simple = partial."
+      },
+      {
+        "front": "Disjoint / overlapping",
+        "back": "Disjoint = au plus une subclass. Overlapping = plusieurs subclasses à la fois."
+      },
+      {
+        "front": "E-R → schéma : entité",
+        "back": "Une table ; chaque attribut simple = une colonne ; l'attribut clé = primary key (TablenameID)."
+      },
+      {
+        "front": "E-R → schéma : attribut multivalué",
+        "back": "Nouvelle table (sa PK + la PK du parent en FK), en 1:N avec le parent."
+      },
+      {
+        "front": "E-R → schéma : 1:1",
+        "back": "PK de n'importe quelle des deux tables mise en FK dans l'autre."
+      },
+      {
+        "front": "E-R → schéma : 1:N",
+        "back": "PK du côté « 1 » en FK dans la table du côté « N »."
+      },
+      {
+        "front": "E-R → schéma : N:N",
+        "back": "Table séparée pour la relationship, avec les PK des deux entités en FK (Has_Acct(HasAcctID, CID, ActNo))."
+      },
+      {
+        "front": "Integrity constraints",
+        "back": "Règles qui maintiennent la qualité des données : Check, Not null, Unique, Primary key, Foreign key."
+      },
+      {
+        "front": "Unique vs Primary key",
+        "back": "Unique accepte NULL ; Primary key = Unique + Not null."
+      },
+      {
+        "front": "Referential integrity (foreign key)",
+        "back": "Chaque valeur de la FK est NULL ou existe dans la PK de la table référencée."
+      },
+      {
+        "front": "Check constraint",
+        "back": "Règle métier sur une colonne (plage, liste, ensemble de valeurs) : SPI entre 0 et 10."
       }
     ]
   },
@@ -34393,6 +35140,1422 @@
       }
     ],
     "lesson": "# Database Design — Week 6 · Functional Dependency & Normal Forms\n\n**Cours** : Lecture 11, *Functional Dependency*. Les **functional\ndependencies** (FD) et leurs types, les **Armstrong's axioms**, la **closure**\nd'un ensemble de FD (F⁺) et d'un ensemble d'attributs (α⁺), le **canonical\ncover**, la **decomposition** (lossy / lossless), les **anomalies**, les\n**normal forms** de la 1NF à la 5NF, et comment **trouver une clé** et la\n**meilleure forme normale** d'une relation.\n\n> **En bref.** `X → Y` : connaître X **détermine** Y. Avec les **Armstrong's\n> axioms** on déduit de nouvelles FD. Pour savoir si X est une clé, on calcule\n> **X⁺** : si X⁺ contient **tous** les attributs, X est une super key. Les\n> formes normales enlèvent une dépendance « gênante » à chaque étape :\n> **2NF** = pas de **partial**, **3NF** = pas de **transitive**, **BCNF** =\n> tout **déterminant** est une clé, **4NF** = pas de **multivalued**, **5NF** =\n> plus de décomposition lossless possible. Au quiz, sache **calculer une\n> closure** et **trouver la clé et la forme normale** d'une relation R(ABCD).\n\n---\n\n## 1. Functional dependency (FD)\n\nSoit une relation R et deux ensembles d'attributs X et Y de R. Si la valeur de\nX dans un tuple **détermine de façon unique** la valeur de Y, il existe une\n**functional dependency** de X vers Y :\n\n**X → Y** : « Y est **functionally dependent** de X », « X **functionally\ndetermines** Y ». X est le **determinant**, Y le **dependent**.\n\nExemple : dans `Student(RollNo, Name, SPI, BL)`, `RollNo → Name, SPI, BL`.\nDans `Account(account_no, balance, branch)`,\n`account_no → {balance, branch}`.\n\n```diagram\n{\n  \"title\": \"Les trois formes d'une FD : un attribut vers un attribut, un groupe vers un attribut, un attribut vers un groupe.\",\n  \"nodes\": [\n    { \"id\": \"x1\", \"x\": 40, \"y\": 40, \"w\": 50, \"label\": \"X\", \"tone\": \"sky\", \"filled\": true },\n    { \"id\": \"y1\", \"x\": 150, \"y\": 40, \"w\": 50, \"label\": \"Y\", \"tone\": \"amber\", \"filled\": true },\n    { \"id\": \"x21\", \"x\": 250, \"y\": 40, \"w\": 50, \"label\": \"X1\", \"tone\": \"sky\", \"filled\": true },\n    { \"id\": \"x22\", \"x\": 310, \"y\": 40, \"w\": 50, \"label\": \"X2\", \"tone\": \"sky\", \"filled\": true },\n    { \"id\": \"y2\", \"x\": 420, \"y\": 40, \"w\": 50, \"label\": \"Y\", \"tone\": \"amber\", \"filled\": true },\n    { \"id\": \"x3\", \"x\": 520, \"y\": 40, \"w\": 50, \"label\": \"X\", \"tone\": \"sky\", \"filled\": true },\n    { \"id\": \"y31\", \"x\": 630, \"y\": 40, \"w\": 50, \"label\": \"Y1\", \"tone\": \"amber\", \"filled\": true },\n    { \"id\": \"y32\", \"x\": 690, \"y\": 40, \"w\": 50, \"label\": \"Y2\", \"tone\": \"amber\", \"filled\": true },\n    { \"id\": \"l1\", \"x\": 95, \"y\": 95, \"shape\": \"text\", \"label\": \"X → Y\" },\n    { \"id\": \"l2\", \"x\": 335, \"y\": 95, \"shape\": \"text\", \"label\": \"{X1, X2} → Y\" },\n    { \"id\": \"l3\", \"x\": 605, \"y\": 95, \"shape\": \"text\", \"label\": \"X → {Y1, Y2}\" }\n  ],\n  \"edges\": [\n    { \"from\": \"x1\", \"to\": \"y1\" },\n    { \"from\": \"x22\", \"to\": \"y2\" },\n    { \"from\": \"x3\", \"to\": \"y31\" }\n  ]\n}\n```\n\n## 2. Les types de FD\n\n| Type | Définition | Exemple des slides |\n|---|---|---|\n| **Full** functional dependency | B dépend de A, mais **d'aucun sous-ensemble strict** de A | `{Roll_No, Semester, Department_Name} → SPI` : il faut les trois |\n| **Partial** functional dependency | B dépend de A **et aussi d'un sous-ensemble strict** de A (on peut retirer un attribut de A) | `{Enrollment_No, Department_Name} → SPI` : Enrollment_No suffit |\n| **Transitive** functional dependency | si A → B et B → C, alors A → C (C dépend de A **via** B) | `Subject → Faculty`, `Faculty → Age` ⇒ `Subject → Age` |\n| **Trivial** FD | X → Y avec **Y ⊆ X** | `{Roll_No, Department_Name, Semester} → Roll_No` |\n| **Non-trivial** FD | X → Y avec **Y ⊄ X** | `{Roll_No, Department_Name, Semester} → Student_Name` |\n\n> **Piège :** une FD trivial est **toujours vraie** (connaître Roll_No\n> détermine… Roll_No). Elle n'apporte aucune information.\n\n## 3. Armstrong's axioms (inference rules)\n\nLes **Armstrong's axioms** servent à **déduire toutes les FD** d'une relation à\npartir de celles qu'on connaît.\n\n| Règle | Si… | alors… |\n|---|---|---|\n| **Reflexivity** | B ⊆ A | A → B |\n| **Augmentation** | A → B | AC → BC |\n| **Self-determination** | — | A → A |\n| **Transitivity** | A → B et B → C | A → C |\n| **Pseudo-transitivity** | A → B et BD → C | AD → C |\n| **Decomposition** | A → BC | A → B et A → C |\n| **Union** | A → B et A → C | A → BC |\n| **Composition** | A → B et C → D | AC → BD |\n\n> **Moyen mnémotechnique :** *decomposition* **coupe** le côté droit, *union*\n> le **recolle**, *composition* combine **deux FD aux côtés gauches\n> différents**.\n\n## 4. Closure d'un ensemble de FD (F⁺)\n\nÉtant donné un ensemble F de FD, d'autres FD en découlent **logiquement**.\nL'ensemble de **toutes** les FD impliquées par F s'appelle la **closure of F**,\nnotée **F⁺**.\n\nExemple : R(A, B, C, G, H, I) et\n**F = {A → B, A → C, CG → H, CG → I, B → H}**.\n\n| FD déduite | Comment |\n|---|---|\n| **A → H** | A → B et B → H : **transitivity** |\n| **CG → HI** | CG → H et CG → I : **union** |\n| **AG → I** | A → C et CG → I : **pseudo-transitivity** (ou : augmentation A → C donne AG → CG, puis transitivity avec CG → I) |\n\nQuelques membres de F⁺ : `A → H`, `CG → HI`, `AG → I`.\n\n**Autre exemple** : R(A, B, C, D, E, F), F = {A → B, A → C, CD → E, CD → F,\nB → E}.\n\n| Règle | Résultat |\n|---|---|\n| A → B & A → C, **union** | A → BC |\n| CD → E & CD → F, **union** | CD → EF |\n| A → B & B → E, **transitivity** | A → E |\n| A → C & CD → E, **pseudo-transitivity** | AD → E |\n| A → C & CD → F, **pseudo-transitivity** | AD → F |\n\n**Troisième** : R(A, B, C, D, E), F = {AB → C, D → AC, D → E}.\nD → AC par **decomposition** donne D → A et D → C ; avec D → E, **union** :\nD → ACE.\n\n## 5. Closure d'un ensemble d'attributs (α⁺)\n\nLa **closure of α** sous F, notée **α⁺**, est l'ensemble des attributs\n**déterminés fonctionnellement** par α.\n\n**Algorithme :**\n\n1. `result = α`\n2. **tant que** result change :\n   pour chaque FD `β → γ` de F : **si β ⊆ result**, alors\n   `result = result ∪ γ`.\n\n```flowchart\n{\n  \"title\": \"Calcul de α⁺ : on ajoute le côté droit de chaque FD dont le côté gauche est déjà dans result, jusqu'à ce que plus rien ne change.\",\n  \"nodes\": [\n    { \"id\": \"s\", \"kind\": \"start\", \"label\": \"START\" },\n    { \"id\": \"i\", \"kind\": \"process\", \"label\": \"result = α\" },\n    { \"id\": \"f\", \"kind\": \"process\", \"label\": \"pour chaque β → γ :\\nsi β ⊆ result, result = result ∪ γ\" },\n    { \"id\": \"d\", \"kind\": \"decision\", \"label\": \"result a changé ?\" },\n    { \"id\": \"o\", \"kind\": \"io\", \"label\": \"α⁺ = result\" },\n    { \"id\": \"e\", \"kind\": \"end\", \"label\": \"END\" }\n  ],\n  \"edges\": [\n    { \"from\": \"s\", \"to\": \"i\" }, { \"from\": \"i\", \"to\": \"f\" }, { \"from\": \"f\", \"to\": \"d\" },\n    { \"from\": \"d\", \"to\": \"f\", \"branch\": \"yes\" }, { \"from\": \"d\", \"to\": \"o\", \"branch\": \"no\" },\n    { \"from\": \"o\", \"to\": \"e\" }\n  ]\n}\n```\n\n**Exemple : (AG)⁺** avec F = {A → B, A → C, CG → H, CG → I, B → H}.\n\n| FD | Côté gauche ⊆ result ? | result |\n|---|---|---|\n| (départ) | | **AG** |\n| A → B | A ⊆ AG ✓ | ABG |\n| A → C | A ⊆ ABG ✓ | ABCG |\n| CG → H | CG ⊆ ABCG ✓ | ABCGH |\n| CG → I | CG ⊆ ABCGH ✓ | ABCGHI |\n| B → H | B ⊆ ABCGHI ✓ | ABCGHI |\n\n**AG⁺ = ABCGHI** : AG détermine **tous** les attributs de R, donc **AG est une\nsuper key** (et une candidate key, car ni A⁺ = ABCH ni G⁺ = G ne suffisent).\n\n**Exercice** : R(A, B, C, D, E), F = {A → BC, CD → E, B → D, E → A}.\n\n| Closure | Résultat | Pourquoi |\n|---|---|---|\n| A⁺ | **ABCDE** | A → BC, B → D, CD → E |\n| CD⁺ | **ABCDE** | CD → E, E → A, A → BC |\n| B⁺ | **BD** | seulement B → D |\n| BC⁺ | **ABCDE** | B → D, CD → E, E → A |\n| E⁺ | **ABCDE** | E → A, A → BC, B → D |\n\n> **Usage clé :** X est une **super key** si **X⁺ contient tous les\n> attributs** de R ; c'est une **candidate key** si en plus aucun sous-ensemble\n> strict de X n'y arrive.\n\n## 6. Canonical cover (Fc)\n\n### Extraneous attribute\n\nUn attribut d'une FD est **extraneous** (en trop) si on peut le **retirer sans\nchanger la closure** de l'ensemble de FD. Avec F = {AB → C, A → C}, **B est\nextraneous** dans AB → C : A seul détermine déjà C.\n\n### Canonical cover\n\nLe **canonical cover** Fc est un ensemble **minimal** de FD **équivalent** à\nF, **sans dépendance redondante ni partie redondante** :\n\n- F implique toutes les FD de Fc, et Fc implique toutes celles de F ;\n- aucune FD de Fc ne contient d'attribut extraneous ;\n- **chaque côté gauche est unique** dans Fc.\n\nEx : F = {A → B, A → C} ⇒ Fc = {A → BC}.\n\n**Algorithme :** répéter — appliquer l'**union** (α → β1 et α → β2 deviennent\nα → β1β2) ; chercher un attribut extraneous dans α ou β et le supprimer —\n**jusqu'à ce que F ne change plus** (l'union peut redevenir applicable après\nune suppression).\n\n**Exemple :** R(A, B, C), F = {A → BC, B → C, A → B, AB → C}.\n\n1. Union de A → BC et A → B : {A → BC, B → C, AB → C}.\n2. **A est extraneous** dans AB → C (B → C existe déjà) : {A → BC, B → C}.\n3. **C est extraneous** dans A → BC (A → B et B → C donnent A → C) :\n   **Fc = {A → B, B → C}**.\n\n**Exemple 2 :** F = {A → BC, CD → E, B → D, E → A} : côtés gauches uniques,\naucun attribut extraneous ⇒ **Fc = F**.\n\n## 7. Decomposition\n\nLa **decomposition** remplace une relation R par **deux ou plusieurs**\nrelations : chacune contient un **sous-ensemble** des attributs de R, et\nensemble elles **contiennent tous les tuples et attributs** de R.\n\n### Lossy decomposition\n\nElle est **lossy** quand la **jointure** de R1 et R2 **ne redonne pas** R\n(*lossy-join decomposition*) : on récupère des tuples **en trop** et\nl'information d'origine est perdue. **À éviter.**\n\n### Lossless decomposition\n\nElle est **lossless** (*non-additive*, *non-loss*) quand la jointure de R1 et\nR2 **redonne exactement** R. **Toute décomposition doit être lossless.**\n\n```diagram\n{\n  \"title\": \"Customer(Ano, Balance, Bname). Couper sur Balance (non clé) est lossy : la jointure fabrique 4 lignes. Couper sur Ano (clé) est lossless.\",\n  \"nodes\": [\n    { \"id\": \"c\", \"x\": 110, \"y\": 50, \"shape\": \"table\", \"size\": 12, \"tone\": \"sky\", \"label\": \"Customer\", \"rows\": [[\"Ano\",\"Balance\",\"Bname\"],[\"A01\",\"5000\",\"Rajkot\"],[\"A02\",\"5000\",\"Surat\"]], \"cols\": [50, 60, 60] },\n    { \"id\": \"l1\", \"x\": 340, \"y\": 10, \"shape\": \"table\", \"size\": 12, \"tone\": \"rose\", \"label\": \"Lossy : R1\", \"rows\": [[\"Ano\",\"Balance\"],[\"A01\",\"5000\"],[\"A02\",\"5000\"]], \"cols\": [50, 60] },\n    { \"id\": \"l2\", \"x\": 500, \"y\": 10, \"shape\": \"table\", \"size\": 12, \"tone\": \"rose\", \"label\": \"R2\", \"rows\": [[\"Balance\",\"Bname\"],[\"5000\",\"Rajkot\"],[\"5000\",\"Surat\"]], \"cols\": [60, 60] },\n    { \"id\": \"j\", \"x\": 680, \"y\": 30, \"shape\": \"table\", \"size\": 12, \"tone\": \"rose\", \"label\": \"R1 ⋈ R2 ≠ Customer\", \"rows\": [[\"Ano\",\"Balance\",\"Bname\"],[\"A01\",\"5000\",\"Rajkot\"],[\"A01\",\"5000\",\"Surat\"],[\"A02\",\"5000\",\"Rajkot\"],[\"A02\",\"5000\",\"Surat\"]], \"cols\": [50, 60, 60] },\n    { \"id\": \"g1\", \"x\": 340, \"y\": 160, \"shape\": \"table\", \"size\": 12, \"tone\": \"emerald\", \"label\": \"Lossless : R1\", \"rows\": [[\"Ano\",\"Balance\"],[\"A01\",\"5000\"],[\"A02\",\"5000\"]], \"cols\": [50, 60] },\n    { \"id\": \"g2\", \"x\": 500, \"y\": 160, \"shape\": \"table\", \"size\": 12, \"tone\": \"emerald\", \"label\": \"R2\", \"rows\": [[\"Ano\",\"Bname\"],[\"A01\",\"Rajkot\"],[\"A02\",\"Surat\"]], \"cols\": [50, 60] }\n  ],\n  \"edges\": [\n    { \"from\": \"l2\", \"to\": \"j\", \"tone\": \"rose\", \"label\": \"join\" }\n  ]\n}\n```\n\n> **Règle pratique :** la décomposition en R1 et R2 est lossless si l'attribut\n> commun (R1 ∩ R2) est une **clé** de R1 ou de R2. `Balance` n'est clé de\n> rien ⇒ lossy ; `Ano` est clé ⇒ lossless.\n\n## 8. Les anomalies\n\nLes **anomalies** sont les problèmes d'une base **mal conçue, non\nnormalisée**, où tout est dans une seule table. Exemple :\n`Emp_Dept(EID, Ename, City, DID, Dname, Manager)`, EID primary key.\n\n| Anomalie | Exemple |\n|---|---|\n| **Insert anomaly** | un nouveau département **IT** sans employé : impossible de l'insérer, car **EID (PK) serait NULL** |\n| **Delete anomaly** | Jay est le seul employé d'IT ; il part, on supprime sa ligne… et **le département IT disparaît** |\n| **Update anomaly** | le manager de CE change : il faut modifier **toutes** les lignes de CE ; en oublier une → **incohérence** (Shah / Sah / Shaah) |\n\nSolution : **normaliser** — `Emp(EID, Ename, City, DID)` et\n`Dept(DID, Dname, Manager)`.\n\n## 9. Normalization et normal forms\n\nLa **normalization** retire les données redondantes pour améliorer :\n\n- la **data integrity** (exactitude, complétude, cohérence) ;\n- la **scalability** (continuer à bien fonctionner quand la charge grandit) ;\n- la **storage efficiency** (consommer le moins de place possible).\n\nConcrètement : on **découpe** une table en plusieurs, qu'on **rejoint** à la\nrequête.\n\n```diagram\n{\n  \"title\": \"Chaque forme normale suppose la précédente. En montant : plus de tables et de complexité, moins de redondance.\",\n  \"nodes\": [\n    { \"id\": \"n1\", \"x\": 70, \"y\": 230, \"w\": 135, \"label\": \"1NF\\natomic values\", \"tone\": \"sky\", \"filled\": true },\n    { \"id\": \"n2\", \"x\": 220, \"y\": 190, \"w\": 135, \"label\": \"2NF\\nno partial\", \"tone\": \"sky\", \"filled\": true },\n    { \"id\": \"n3\", \"x\": 370, \"y\": 150, \"w\": 135, \"label\": \"3NF\\nno transitive\", \"tone\": \"emerald\", \"filled\": true },\n    { \"id\": \"nb\", \"x\": 520, \"y\": 110, \"w\": 135, \"label\": \"BCNF\\ndeterminant = key\", \"tone\": \"emerald\", \"filled\": true },\n    { \"id\": \"n4\", \"x\": 670, \"y\": 70, \"w\": 135, \"label\": \"4NF\\nno MVD\", \"tone\": \"violet\", \"filled\": true },\n    { \"id\": \"n5\", \"x\": 820, \"y\": 30, \"w\": 135, \"label\": \"5NF\\nno lossless split\", \"tone\": \"violet\", \"filled\": true }\n  ],\n  \"edges\": [\n    { \"from\": \"n1\", \"to\": \"n2\" }, { \"from\": \"n2\", \"to\": \"n3\" }, { \"from\": \"n3\", \"to\": \"nb\" },\n    { \"from\": \"nb\", \"to\": \"n4\" }, { \"from\": \"n4\", \"to\": \"n5\" }\n  ]\n}\n```\n\n### 1NF — First Normal Form\n\nR est en **1NF** si et seulement si elle ne contient **aucun attribut\ncomposite ni multivalued** ; autrement dit, tous ses domaines contiennent des\n**valeurs atomiques** (une seule valeur par case).\n\n- **Composite** : `Address = \"Jamnagar Road, Rajkot\"` mélange la route et la\n  ville ; chercher les clients de la **ville** Jamnagar trouve aussi la\n  **route** Jamnagar Road. Solution : **découper** en `Road` et `City`.\n- **Multivalued** : `FailedinSubjects = \"DS, DBMS\"`. Solution : **deux\n  tables** — `Student(Rno, Name)` et `Result(RID, Rno, Subject)` où `Rno` est\n  une **foreign key** vers Student.\n\n### 2NF — Second Normal Form\n\nR est en **2NF** si elle est **en 1NF** et que **tout attribut non clé dépend\npleinement** de la primary key (aucune **partial dependency**).\n\nExemple : `Customer(CID, ANO, AccessDate, Balance, BranchName)`, clé\n**(CID, ANO)**.\n\n- FD1 : {CID, ANO} → {AccessDate, Balance, BranchName}\n- FD2 : **ANO → {Balance, BranchName}** ⇒ partial dependency.\n\nProblème : un compte joint (A01 de C01 et C02) répète Balance et BranchName.\nSolution : sortir les attributs partiellement dépendants avec la partie de clé\ndont ils dépendent : `Account(ANO, Balance, BranchName)` et\n`Customer(CID, ANO, AccessDate)`.\n\n### 3NF — Third Normal Form\n\nR est en **3NF** si elle est **en 2NF** et qu'**aucun attribut non clé ne\ndépend transitivement** de la primary key.\n\nExemple : `Account(ANO, Balance, BranchName, BranchAddress)`.\n\n- FD1 : ANO → {Balance, BranchName, BranchAddress}\n- FD2 : **BranchName → BranchAddress** ⇒ ANO → BranchAddress **par\n  transitivité**.\n\nProblème : l'adresse de la branche est répétée pour chaque compte. Solution :\n`Branch(BranchName, BranchAddress)` et `Account(ANO, Balance, BranchName)` avec\n`BranchName` en **foreign key**.\n\n### BCNF — Boyce-Codd Normal Form\n\nBasée sur la notion de **determinant** (le côté gauche d'une FD). R est en\n**BCNF** si elle est **en 3NF** et que **pour toute FD X → Y, X est une clé**\n(« tout déterminant est une clé »).\n\nExemple : `Student(RNO, Subject, Faculty)`.\n\n- FD1 : {RNO, Subject} → Faculty\n- FD2 : **Faculty → Subject** — un prof n'enseigne qu'une matière, mais une\n  matière a plusieurs profs.\n\n`Faculty` est un **déterminant** qui n'est **pas une clé** ⇒ **pas en BCNF**.\nSolution : `FacultySubject(Faculty, Subject)` et `StudentFaculty(RNO, Faculty)`.\n\n> **Piège :** une relation en BCNF est toujours en 3NF ; **l'inverse est\n> faux**. La différence apparaît quand le côté droit d'une FD est un attribut\n> **premier** (ici Subject, qui fait partie de la clé).\n\n### Multivalued dependency et 4NF\n\nPour X → Y, si **une seule valeur de X** correspond à **plusieurs valeurs\nindépendantes** de Y, on a une **multivalued dependency (MVD)**, notée\n**X →→ Y**.\n\nExemple : l'étudiant 101 suit DS et DBMS, avec les profs Patel et Shah,\nindépendamment : `RNO →→ Subject` et `RNO →→ Faculty`. Il faut 4 lignes pour\ntoutes les combinaisons.\n\nR est en **4NF** si elle est **en BCNF** et **sans multivalued dependency**.\nSolution : `Subject(RNO, Subject)` et `Faculty(RNO, Faculty)`. Une table peut\navoir à la fois des FD et des MVD (`RNO → Address`, `RNO →→ Subject`).\n\n### 5NF — Fifth Normal Form\n\nR est en **5NF** si elle est **en 4NF** et qu'**on ne peut plus la décomposer\nde façon lossless** en tables plus petites.\n\n`Student_Result(RID, RNO, Name, Subject, Result)` se décompose encore en\n`Student(RNO, Name)`, `Subject(SID, Name)` et `Result(RID, RNO, SID, Result)` ;\nces trois-là ne se décomposent plus : la base est en 5NF.\n\n| Forme | Condition (en plus de la précédente) |\n|---|---|\n| **1NF** | valeurs atomiques (ni composite, ni multivalued) |\n| **2NF** | pas de **partial** dependency |\n| **3NF** | pas de **transitive** dependency |\n| **BCNF** | tout **determinant** est une **clé** |\n| **4NF** | pas de **multivalued** dependency |\n| **5NF** | plus aucune décomposition **lossless** possible |\n\n## 10. Trouver la clé\n\nRègles pour chaque attribut, en regardant où il apparaît dans les FD :\n\n| L'attribut apparaît… | Dans la clé ? |\n|---|---|\n| dans **aucune** FD | **oui** (rien ne le détermine) |\n| **seulement à gauche** | **oui** |\n| **seulement à droite** | **non** |\n| **des deux côtés** | **peut-être** |\n\nOn part du **noyau** (*core*) = les attributs « oui », on calcule sa closure,\net on ajoute des attributs « peut-être » si elle ne couvre pas tout.\n\n**Exemple :** R(ABCD), F = {C → A, B → C}.\n\n- D : dans aucune FD ⇒ **oui** ; B : seulement à gauche ⇒ **oui** ;\n  A : seulement à droite ⇒ **non** ; C : des deux côtés ⇒ **?**\n- Noyau **BD** : B → C, C → A ⇒ BD⁺ = ABCD. **Clé : BD.**\n\n| FD | Clé |\n|---|---|\n| C → D, C → A, B → C | **B** (B → C → A, D) |\n| B → C, D → A | **BD** |\n| A → B, BC → D, A → C | **A** (A → B, C puis BC → D) |\n\n## 11. Clé + meilleure forme normale\n\nMéthode : trouver la clé, puis regarder chaque FD.\n\n- côté gauche = **partie** de la clé, côté droit non premier ⇒ **partial** ⇒\n  pas 2NF ;\n- côté gauche **non clé**, côté droit non premier ⇒ **transitive** ⇒ pas 3NF ;\n- côté gauche non clé mais côté droit **premier** ⇒ 3NF mais **pas BCNF**.\n\n| R(ABCD), F | Candidate key(s) | Meilleure forme | Pourquoi |\n|---|---|---|---|\n| B → C, D → A | **BD** | **1NF** (pas 2NF) | C dépend de B seul, A de D seul : **partial** |\n| C → D, C → A, B → C | **B** | **2NF** (pas 3NF) | B → C → D et B → C → A : **transitive** |\n| A → B, BC → D, A → C | **A** | **2NF** (pas 3NF) | A → BC → D : **transitive** |\n| ABC → D, D → A | **ABC** et **BCD** | **3NF** (pas BCNF) | D → A : D n'est pas une clé, mais A est **premier** |\n\n> **Astuce :** une clé à **un seul attribut** ne peut pas avoir de partial\n> dependency ⇒ la relation est **au moins en 2NF**.\n\n---\n\n## À retenir\n\n- **X → Y** : X détermine Y. **Full** (tout X nécessaire), **partial** (une\n  partie suffit), **transitive** (via un intermédiaire), **trivial** (Y ⊆ X).\n- **Armstrong** : reflexivity, augmentation, transitivity (+ union,\n  decomposition, pseudo-transitivity, composition, self-determination).\n- **F⁺** = toutes les FD déduites de F. **α⁺** = tous les attributs déterminés\n  par α ; **α⁺ = tous les attributs ⇒ α est une super key**.\n- **Canonical cover** : union des côtés gauches identiques + suppression des\n  attributs **extraneous**.\n- **Lossless** : la jointure redonne R (attribut commun = clé d'un morceau) ;\n  **lossy** : tuples parasites.\n- **2NF** pas de partial, **3NF** pas de transitive, **BCNF** déterminant = clé,\n  **4NF** pas de MVD (→→), **5NF** plus de décomposition lossless.\n- Clé : attributs **jamais à droite** = dans la clé ; **seulement à droite** =\n  hors de la clé.\n\n## Pièges classiques du quiz\n\n| Affirmation | Vrai / Faux |\n|---|---|\n| {Roll_No, Dept} → Roll_No est une FD non triviale | **Faux** : triviale (Roll_No ⊆ côté gauche) |\n| Si A → BC, alors A → B (decomposition) | **Vrai** |\n| Si AB → C, alors A → C | **Faux** : on ne peut pas couper le côté gauche |\n| Si A → B et BD → C, alors AD → C (pseudo-transitivity) | **Vrai** |\n| B⁺ = BD avec F = {A → BC, CD → E, B → D, E → A} | **Vrai** |\n| Une décomposition lossy redonne la table d'origine par jointure | **Faux** : elle donne des tuples en trop |\n| Toute relation en 3NF est en BCNF | **Faux** : l'inverse est vrai |\n| 3NF interdit les partial dependencies | **Vrai** (elle suppose la 2NF), et en plus les transitive |\n| La MVD se note X →→ Y | **Vrai** |\n| Un attribut qui n'apparaît qu'à droite des FD fait partie de la clé | **Faux** |\n| R(ABCD), F = {B → C, D → A} est en 2NF | **Faux** : clé BD, deux partial dependencies |\n"
+  },
+  {
+    "name": "Mid Term (W1–W7)",
+    "key": "school-db-midterm",
+    "color": "rose",
+    "parent": "school-db",
+    "exercises": [
+      {
+        "type": "mcq",
+        "prompt": "Which of the following best defines a DBMS?",
+        "choices": [
+          "A collection of logically related data",
+          "A file stored on a hard disk",
+          "Software designed to define, manipulate, retrieve and manage data in a database",
+          "A programming language for web pages"
+        ],
+        "correct": 2,
+        "explanation": "Database = collection de données liées ; DBMS = le logiciel qui la gère (MySQL, Oracle, SQL Server…)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Raw, unorganized facts without context are called:",
+        "choices": [
+          "Data",
+          "Metadata",
+          "Information",
+          "A data dictionary"
+        ],
+        "correct": 0,
+        "explanation": "Data = faits bruts (50/100). Information = data traitée et mise en contexte (Pass/Fail)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is metadata?",
+        "choices": [
+          "Deleted data kept in a backup",
+          "Data stored in a data warehouse",
+          "Encrypted data",
+          "Data about data: table names, column names, data types, privileges"
+        ],
+        "correct": 3,
+        "explanation": "Metadata = data about data. Elle est stockée dans le data dictionary."
+      },
+      {
+        "type": "mcq",
+        "prompt": "The data dictionary stores ___, the data warehouse stores ___.",
+        "choices": [
+          "the data / the metadata",
+          "the metadata / the data",
+          "the indices / the logs",
+          "the views / the tables"
+        ],
+        "correct": 1,
+        "explanation": "Data dictionary = metadata ; data warehouse = les données elles-mêmes."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A transfer debits account A, then the system crashes before crediting B; the DBMS rolls the debit back. Which advantage is this?",
+        "choices": [
+          "Guaranteed atomicity",
+          "Data isolation",
+          "Sharing of data",
+          "Reduced redundancy"
+        ],
+        "correct": 0,
+        "explanation": "Atomicity : une transaction s'exécute à 0 % ou à 100 %."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Prof. Lee's phone number is updated in the Computer department's file but not in three other files. This problem is called:",
+        "choices": [
+          "Atomicity",
+          "Data isolation",
+          "Data inconsistency",
+          "Data independence"
+        ],
+        "correct": 2,
+        "explanation": "La redondance entraîne l'inconsistency : la même donnée dans des états différents selon le fichier."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which ANSI-SPARC level describes HOW data is physically stored (files, blocks, indexes)?",
+        "choices": [
+          "External",
+          "Conceptual",
+          "Internal",
+          "View"
+        ],
+        "correct": 2,
+        "explanation": "Internal (physical) = comment c'est stocké. Conceptual = quoi et quelles relations. External = les vues."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which ANSI-SPARC level describes WHAT data is stored and the relationships among it, and is the DBA's level?",
+        "choices": [
+          "Internal",
+          "Conceptual",
+          "External",
+          "Physical"
+        ],
+        "correct": 1,
+        "explanation": "Conceptual (logical) level : le DBA décide quelles données garder."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which level can have many schemas, one per group of users?",
+        "choices": [
+          "Internal",
+          "Conceptual",
+          "External",
+          "Physical"
+        ],
+        "correct": 2,
+        "explanation": "External (view) level : différents utilisateurs ont besoin de vues différentes."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Changing the storage device or file structure without changing the conceptual schema is:",
+        "choices": [
+          "Logical data independence",
+          "Physical data independence",
+          "Data abstraction",
+          "Mapping"
+        ],
+        "correct": 1,
+        "explanation": "Physical data independence : modifier le schéma physique sans toucher au schéma logique ni aux programmes."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which kind of data independence is harder to achieve, and why?",
+        "choices": [
+          "Physical, because storage devices change often",
+          "Neither can be achieved",
+          "Both are equally easy",
+          "Logical, because application programs depend heavily on the logical structure"
+        ],
+        "correct": 3,
+        "explanation": "Logical data independence est plus difficile : les programmes dépendent de la structure logique."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A bank clerk who uses a GUI application with no knowledge of the database is a:",
+        "choices": [
+          "Application programmer",
+          "Sophisticated user",
+          "Naive user",
+          "Specialized user (DBA)"
+        ],
+        "correct": 2,
+        "explanation": "Naive users (end users) : zéro connaissance du système, passent par une application."
+      },
+      {
+        "type": "mcq",
+        "prompt": "An analyst who queries the database directly with SQL, without an application program, is a:",
+        "choices": [
+          "Sophisticated user",
+          "Naive user",
+          "Specialized user",
+          "Application programmer"
+        ],
+        "correct": 0,
+        "explanation": "Sophisticated users : interagissent sans programme d'application, via des outils de requête (SQL)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which component processes CREATE, ALTER and DROP and records the definitions in the data dictionary?",
+        "choices": [
+          "DML compiler",
+          "Query evaluation engine",
+          "Buffer manager",
+          "DDL interpreter"
+        ],
+        "correct": 3,
+        "explanation": "Le DDL interpreter traite les commandes DDL. Le DML compiler traduit les requêtes DML en plan d'exécution."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which storage-manager component brings blocks from disk into main memory?",
+        "choices": [
+          "File manager",
+          "Buffer manager",
+          "Transaction manager",
+          "Authorization & integrity manager"
+        ],
+        "correct": 1,
+        "explanation": "Buffer manager = disque → mémoire (cache). File manager = allocation de l'espace disque."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Defining the logical schema, granting authorizations and doing backups are all roles of the DBA.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 0,
+        "explanation": "Vrai : schema definition, storage structure, security & integrity, authorization, liaison with users, assisting programmers, monitoring performance, backup & recovery."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the difference between a schema and an instance?",
+        "choices": [
+          "Schema = the structure without any data; instance = the content at a given moment",
+          "Schema = the data at a given moment; instance = the structure",
+          "They mean the same thing",
+          "Schema = a view; instance = a table"
+        ],
+        "correct": 0,
+        "explanation": "Schema = la structure ; instance = le contenu réel à un instant donné."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each ACID property with what ensures it.",
+        "pairs": [
+          [
+            "Atomicity",
+            "Transaction-recovery subsystem"
+          ],
+          [
+            "Consistency",
+            "The programmer (database program)"
+          ],
+          [
+            "Isolation",
+            "Concurrency-control subsystem"
+          ],
+          [
+            "Durability",
+            "Recovery subsystem"
+          ]
+        ],
+        "explanation": "A : transaction-recovery (log, anciennes valeurs). C : le programmeur. I : concurrency control. D : recovery (log après un crash)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A transaction reads a value written by another transaction that has not committed yet. This is a:",
+        "choices": [
+          "Dirty write",
+          "Non-repeatable read",
+          "Dirty read",
+          "Phantom"
+        ],
+        "correct": 2,
+        "explanation": "Dirty read = lire une valeur non commitée (qui peut être annulée par un rollback)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "The same query run twice in one transaction returns a different set of rows because another transaction inserted rows. This is a:",
+        "choices": [
+          "Dirty read",
+          "Phantom",
+          "Non-repeatable read",
+          "Dirty write"
+        ],
+        "correct": 1,
+        "explanation": "Phantom = l'ensemble des lignes change. Non-repeatable read = la même ligne a une valeur différente."
+      },
+      {
+        "type": "mcq",
+        "prompt": "After a crash, the changes of committed transactions are still there. Which ACID property is this?",
+        "choices": [
+          "Atomicity",
+          "Consistency",
+          "Isolation",
+          "Durability"
+        ],
+        "correct": 3,
+        "explanation": "Durability : les changements commités persistent, assurée par le recovery subsystem."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which data model organizes data as a tree in which each child has a single parent?",
+        "choices": [
+          "Network",
+          "Hierarchical",
+          "Relational",
+          "Object-oriented"
+        ],
+        "correct": 1,
+        "explanation": "Hierarchical = arbre, un seul parent, relations 1:M. Network = graphe, plusieurs parents."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the main difference between the network and the hierarchical model?",
+        "choices": [
+          "The network model uses tables",
+          "The network model has no relationships",
+          "The hierarchical model supports M:N directly",
+          "In the network model a record can have several parents (graph instead of tree)"
+        ],
+        "correct": 3,
+        "explanation": "Le network model est une extension du hierarchical : un enregistrement peut avoir plusieurs parents."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the object-oriented model relationships use ___; in the object-relational model they use ___.",
+        "choices": [
+          "foreign keys / object identifiers",
+          "tables / trees",
+          "object identifier (OID) references / foreign keys",
+          "graphs / trees"
+        ],
+        "correct": 2,
+        "explanation": "OO : références par OID. OR (hybride) : foreign keys vers la primary key d'une autre relation."
+      },
+      {
+        "type": "mcq",
+        "prompt": "XML documents, e-mails and web pages are typical of which data model?",
+        "choices": [
+          "Relational",
+          "Semi-structured",
+          "Hierarchical",
+          "Network"
+        ],
+        "correct": 1,
+        "explanation": "Semi-structured : on ne distingue pas les données du schéma, attributs manquants ou en plus."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In an E-R diagram, a dashed oval represents a:",
+        "choices": [
+          "Derived attribute",
+          "Key attribute",
+          "Multivalued attribute",
+          "Composite attribute"
+        ],
+        "correct": 0,
+        "explanation": "Pointillés = derived (Age). Double ovale = multivalued. Souligné = key."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Age is computed from Birth Date. Age is ___ and Birth Date is ___.",
+        "choices": [
+          "stored / derived",
+          "multivalued / single-valued",
+          "composite / simple",
+          "derived / stored"
+        ],
+        "correct": 3,
+        "explanation": "Age = derived (calculé) ; Birth Date = stored (saisi)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Address split into street, city and zip code is a:",
+        "choices": [
+          "Multivalued attribute",
+          "Composite attribute",
+          "Derived attribute",
+          "Key attribute"
+        ],
+        "correct": 1,
+        "explanation": "Composite = divisible en sous-parties. Multivalued = plusieurs valeurs (plusieurs téléphones)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "The issue date of a book, stored on the Issue relationship between Student and Book, is a:",
+        "choices": [
+          "Descriptive attribute",
+          "Key attribute",
+          "Derived attribute",
+          "Multivalued attribute"
+        ],
+        "correct": 0,
+        "explanation": "Descriptive attribute = attribut de la relationship, ni de Student, ni de Book."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A relationship among three entity sets is called:",
+        "choices": [
+          "Binary",
+          "Recursive",
+          "Ternary",
+          "Unary"
+        ],
+        "correct": 2,
+        "explanation": "2 entités = binary, 3 = ternary."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the primary key of a weak entity set?",
+        "choices": [
+          "Its discriminator alone",
+          "Any one of its attributes",
+          "The primary key of its strong entity set + its discriminator",
+          "It never has one, even in tables"
+        ],
+        "correct": 2,
+        "explanation": "Ex : payment → (loan-no, payment-no)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How is the discriminator (partial key) of a weak entity drawn?",
+        "choices": [
+          "Solid underline",
+          "Dashed underline",
+          "Double oval",
+          "Dashed oval"
+        ],
+        "correct": 1,
+        "explanation": "Discriminator = souligné en pointillés. Key attribute = souligné plein."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Every loan must belong to a customer, but some customers have no loan. What is the participation of customer and of loan in borrow?",
+        "choices": [
+          "Total / total",
+          "Partial / total",
+          "Total / partial",
+          "Partial / partial"
+        ],
+        "correct": 1,
+        "explanation": "Customer : partial (ligne simple). Loan : total (double ligne)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Generalization is ___ and specialization is ___.",
+        "choices": [
+          "top-down / bottom-up",
+          "both bottom-up",
+          "both top-down",
+          "bottom-up / top-down"
+        ],
+        "correct": 3,
+        "explanation": "Generalization = bottom-up (union d'entités vers une superclass). Specialization = top-down (subsets)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A customer may have several accounts but each account is held by only one customer. What is the cardinality customer : account?",
+        "choices": [
+          "1 : 1",
+          "1 : N",
+          "N : 1",
+          "N : N"
+        ],
+        "correct": 1,
+        "explanation": "Un customer → plusieurs accounts, un account → un customer : 1 : N."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Faculty Reports_To Faculty, with the roles Head and Coordinator, is a:",
+        "choices": [
+          "Ternary relationship",
+          "Weak relationship",
+          "Recursive relationship set",
+          "Aggregation"
+        ],
+        "correct": 2,
+        "explanation": "Le même entity set participe deux fois : récursive. Les labels sont des roles."
+      },
+      {
+        "type": "mcq",
+        "prompt": "When is aggregation needed?",
+        "choices": [
+          "When a relationship has to take part in another relationship",
+          "When an entity has no key",
+          "When an attribute has several values",
+          "When two entities share attributes"
+        ],
+        "correct": 0,
+        "explanation": "Une relationship ne peut pas se relier à une autre : on agrège la première avec ses entités."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the E-R → schema reduction, an N : N relationship becomes:",
+        "choices": [
+          "A foreign key in one of the entity tables",
+          "Nothing, it disappears",
+          "A multivalued attribute",
+          "A separate table holding the primary keys of both entities"
+        ],
+        "correct": 3,
+        "explanation": "Ex : Has_Acct(HasAcctID, CID, ActNo)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which integrity constraint enforces referential integrity?",
+        "choices": [
+          "Check",
+          "Unique",
+          "Foreign key",
+          "Not null"
+        ],
+        "correct": 2,
+        "explanation": "Foreign key = referential integrity constraint : la valeur est NULL ou existe dans la PK référencée."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A table has 6 columns and 120 rows. What are its degree and cardinality?",
+        "choices": [
+          "Degree 120, cardinality 6",
+          "Degree 6, cardinality 120",
+          "Degree 720, cardinality 6",
+          "Degree 6, cardinality 6"
+        ],
+        "correct": 1,
+        "explanation": "Degree = colonnes, cardinality = lignes."
+      },
+      {
+        "type": "mcq",
+        "prompt": "The set of all possible values of a column is its:",
+        "choices": [
+          "Domain",
+          "Degree",
+          "Tuple",
+          "Cardinality"
+        ],
+        "correct": 0,
+        "explanation": "Domain = toutes les valeurs possibles d'une colonne."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which statement is TRUE?",
+        "choices": [
+          "Every candidate key is a super key",
+          "Every super key is a candidate key",
+          "A table can have two primary keys",
+          "A primary key can be NULL"
+        ],
+        "correct": 0,
+        "explanation": "Candidate key = super key minimale, donc toute candidate key est une super key. L'inverse est faux."
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C, D) and A is the only candidate key. How many super keys does R have?",
+        "choices": [
+          "4",
+          "8",
+          "16",
+          "1"
+        ],
+        "correct": 1,
+        "explanation": "A + n'importe quel sous-ensemble de {B, C, D} : 2³ = 8."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which table contains the foreign key?",
+        "choices": [
+          "The parent table",
+          "The child table",
+          "Both tables",
+          "Neither"
+        ],
+        "correct": 1,
+        "explanation": "Child = contient la FK ; parent = contient la PK référencée."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In Crow's Foot notation, a circle followed by a crow's foot means:",
+        "choices": [
+          "One and only one",
+          "Zero or one",
+          "One or many",
+          "Zero or many"
+        ],
+        "correct": 3,
+        "explanation": "Cercle = minimum 0, patte = maximum many."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In XAMPP, which module is the database server, and which port does it use by default?",
+        "choices": [
+          "Apache, 80",
+          "Tomcat, 8080",
+          "MySQL/MariaDB, 3306",
+          "FileZilla, 21"
+        ],
+        "correct": 2,
+        "explanation": "MySQL/MariaDB = database server sur 3306. Apache = web server 80/443."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deleting the last CSE student also loses the branch's HOD and office phone. This is a:",
+        "choices": [
+          "Insertion anomaly",
+          "Deletion anomaly",
+          "Update anomaly",
+          "Lossless decomposition"
+        ],
+        "correct": 1,
+        "explanation": "Deletion anomaly : supprimer une donnée fait perdre une autre information."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A cell containing 'OS, CN' violates which normal form?",
+        "choices": [
+          "1NF",
+          "2NF",
+          "3NF",
+          "BCNF"
+        ],
+        "correct": 0,
+        "explanation": "1NF : valeurs atomiques, une seule valeur par case."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A relation is in 2NF if it is in 1NF and:",
+        "choices": [
+          "It has no transitive dependency",
+          "It has no multivalued dependency",
+          "Every determinant is a key",
+          "It has no partial dependency"
+        ],
+        "correct": 3,
+        "explanation": "2NF = 1NF + pas de partial dependency. 3NF = pas de transitive, BCNF = déterminant clé, 4NF = pas de MVD."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Normalization eliminates all redundancy.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : elle minimise la redondance (la clé étrangère se répète encore)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "{RollNo, Name} → RollNo is a ___ functional dependency.",
+        "choices": [
+          "Trivial",
+          "Transitive",
+          "Partial",
+          "Non-trivial"
+        ],
+        "correct": 0,
+        "explanation": "Trivial : le côté droit est inclus dans le côté gauche."
+      },
+      {
+        "type": "mcq",
+        "prompt": "If A → B and B → C, then A → C. Which Armstrong rule is this?",
+        "choices": [
+          "Augmentation",
+          "Transitivity",
+          "Union",
+          "Reflexivity"
+        ],
+        "correct": 1,
+        "explanation": "Transitivity."
+      },
+      {
+        "type": "mcq",
+        "prompt": "If A → B, then AC → BC. Which rule is this?",
+        "choices": [
+          "Pseudo-transitivity",
+          "Decomposition",
+          "Augmentation",
+          "Composition"
+        ],
+        "correct": 2,
+        "explanation": "Augmentation : on ajoute le même attribut des deux côtés."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "R(A, B, C, D), F = {A → B, B → C, C → D}. Compute A⁺ (write the attributes, e.g. ABC).",
+        "accept": [
+          "ABCD",
+          "A B C D",
+          "A,B,C,D",
+          "A, B, C, D",
+          "{ABCD}",
+          "{A,B,C,D}",
+          "{A, B, C, D}"
+        ],
+        "explanation": "A⁺ = A → B → C → D = ABCD : A est une clé.",
+        "placeholder": "ex. ABC"
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C, D), F = {AB → C, C → D}. What is the candidate key?",
+        "choices": [
+          "A",
+          "AB",
+          "C",
+          "ABCD"
+        ],
+        "correct": 1,
+        "explanation": "A et B n'apparaissent jamais à droite : ils sont dans la clé. AB⁺ = ABCD."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A relation is in 3NF but NOT in BCNF when:",
+        "choices": [
+          "A determinant that is not a key determines a prime attribute",
+          "There is a partial dependency",
+          "There is a multivalued attribute",
+          "There is no key"
+        ],
+        "correct": 0,
+        "explanation": "Ex : ABC → D, D → A. D n'est pas clé, mais A est premier : 3NF, pas BCNF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A decomposition of R into R1 and R2 is lossless if:",
+        "choices": [
+          "The join creates extra tuples",
+          "R1 and R2 have no common attribute",
+          "R1 ∪ R2 ≠ R",
+          "R1 ∩ R2 is a key of R1 or of R2"
+        ],
+        "correct": 3,
+        "explanation": "L'attribut commun doit être une clé d'un des morceaux. Sinon la jointure crée des tuples parasites (lossy)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does X →→ Y denote, and which normal form removes it?",
+        "choices": [
+          "A full FD, 2NF",
+          "A multivalued dependency, 4NF",
+          "A transitive dependency, 3NF",
+          "A trivial FD, BCNF"
+        ],
+        "correct": 1,
+        "explanation": "MVD : une valeur de X ↔ plusieurs valeurs indépendantes de Y. 4NF = BCNF + pas de MVD."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which normal form requires that every determinant be a key?",
+        "choices": [
+          "2NF",
+          "3NF",
+          "BCNF",
+          "4NF"
+        ],
+        "correct": 2,
+        "explanation": "BCNF : pour toute FD X → Y, X est une (super) clé."
+      }
+    ],
+    "lesson": "# Database Design — Mid Term (W1–W7) · Plan de révision\n\nLe midterm (semaine 8 du syllabus) couvre **tout le cours depuis la semaine 1**.\nCette catégorie mélange des questions de **toutes les semaines** dans le style\nd'un QCM d'examen. Chaque semaine a aussi sa propre leçon, son quiz et ses\nflashcards : sers-t'en pour combler les trous.\n\n> **Semaine 7 :** pas encore de slides dans le dossier du cours ; les\n> questions couvrent les **Lectures 01 à 11** (W1–W6). La semaine 7 sera\n> ajoutée dès que ses slides seront là.\n\nPour les semaines 4 à 6, la catégorie **Quiz (W4–W7)** a une fiche plus\ndétaillée et une banque de questions dédiée.\n\n**Méthode conseillée :**\n\n1. Faire ce quiz une première fois à froid : **Toutes** puis **Aléatoire**.\n2. Pour chaque semaine où tu rates des questions, relire la **leçon** de la\n   semaine puis refaire son quiz.\n3. Revoir les ratées avec la tuile **Flashcards** (elle reprend les questions\n   du quiz).\n4. Refaire le Mid Term complet la veille.\n\n---\n\n## La checklist par semaine\n\n| Semaine | Ce qu'il faut savoir sans hésiter |\n|---|---|\n| **W1** · Intro DBMS | data vs information ; DBMS = logiciel qui définit / manipule / récupère / gère ; les **8 advantages** (redundancy, inconsistency, isolation, atomicity, integrity, sharing, access, backup) ; metadata / data dictionary / data warehouse ; **ANSI-SPARC** internal / conceptual / external ; **physical vs logical data independence** (logical = plus dure) ; les 4 types d'utilisateurs ; rôles du DBA ; query processor (DDL interpreter, DML compiler, query evaluation engine) et storage manager (buffer, file, authorization, transaction) |\n| **W2** · ACID, data models, E-R 1 | schema vs instance ; **ACID** et qui l'assure (transaction-recovery, programmeur, concurrency control, recovery) ; dirty read / dirty write / non-repeatable read / phantom ; **data models** : hierarchical (arbre, 1 parent), network (graphe), E-R, relational, OO (OID), OR (FK), semi-structured (XML) ; symboles E-R et **types d'attributs** (simple / composite, single / multi-valued, stored / derived) ; descriptive attribute ; binary / ternary |\n| **W3** · E-R 2 et 3 | roles, **recursive** ; **mapping cardinality** 1:1, 1:N, N:1, N:N ; **participation** partial / total ; **weak entity** (double rectangle, double losange, discriminator en pointillés, PK = PK forte + discriminator) ; superclass / subclass ; **generalization bottom-up, specialization top-down** ; total / partial, disjoint / overlapping ; **aggregation** ; **E-R → tables** (5 steps) ; **integrity constraints** (Check, Not null, Unique, PK = Unique + Not null, FK) |\n| **W4** · Keys & Crow's Foot | degree = colonnes, cardinality = lignes, domain ; super / candidate / primary / alternate / foreign key ; compter les super keys (2ⁿ) ; symboles **Crow's Foot** |\n| **W5** · XAMPP & Normalization 1 | modules XAMPP et ports ; anomalies insertion / deletion / update ; **1NF** (atomique) ; **2NF** (pas de partial) |\n| **W6** · FD & normal forms | types de FD ; **Armstrong** ; **closure α⁺** ; canonical cover ; lossy / lossless ; **3NF, BCNF, 4NF, 5NF** ; trouver la **clé** et la **meilleure forme normale** |\n\n## Les confusions qui coûtent des points\n\n| Ne pas confondre | |\n|---|---|\n| **Database** / **DBMS** | les données / le logiciel |\n| **Data dictionary** / **data warehouse** | la metadata / les données |\n| **Physical** / **logical** independence | changer le stockage / changer le schéma logique |\n| **Dirty read** / **non-repeatable read** / **phantom** | valeur non commitée / même ligne, autre valeur / autre ensemble de lignes |\n| **Hierarchical** / **network** | un parent (arbre) / plusieurs parents (graphe) |\n| **Derived** / **multivalued** | ovale pointillé / double ovale |\n| **Generalization** / **specialization** | bottom-up / top-down |\n| **Aggregation** / **generalization** | regrouper une relationship + ses entités / fusionner des entités (ISA) |\n| **Cardinality d'une table** / **mapping cardinality** | nombre de lignes / 1:1, 1:N… |\n| **Super key** / **candidate key** | identifie / identifie **et** minimale |\n| **Unique** / **Primary key** | NULL autorisé / NULL interdit |\n| **Partial** / **transitive** dependency | casse la 2NF / casse la 3NF |\n| **3NF** / **BCNF** | BCNF ⇒ 3NF, pas l'inverse |\n"
+  },
+  {
+    "name": "Quiz (W4–W7)",
+    "key": "school-db-quiz",
+    "color": "amber",
+    "parent": "school-db",
+    "exercises": [
+      {
+        "type": "mcq",
+        "prompt": "What are the degree and the cardinality of this table?",
+        "choices": [
+          "Degree 4, cardinality 5",
+          "Degree 5, cardinality 4",
+          "Degree 20, cardinality 4",
+          "Degree 4, cardinality 4"
+        ],
+        "correct": 0,
+        "explanation": "4 colonnes = degree 4 ; 5 lignes = cardinality 5.",
+        "figure": {
+          "kind": "diagram",
+          "spec": {
+            "nodes": [
+              {
+                "id": "t",
+                "x": 250,
+                "y": 80,
+                "shape": "table",
+                "size": 12,
+                "tone": "sky",
+                "label": "Employee",
+                "rows": [
+                  [
+                    "EmpID",
+                    "Name",
+                    "Dept",
+                    "Salary"
+                  ],
+                  [
+                    "1",
+                    "Lee",
+                    "IT",
+                    "3000"
+                  ],
+                  [
+                    "2",
+                    "Kim",
+                    "HR",
+                    "2800"
+                  ],
+                  [
+                    "3",
+                    "Park",
+                    "IT",
+                    "3200"
+                  ],
+                  [
+                    "4",
+                    "Choi",
+                    "Sales",
+                    "2500"
+                  ],
+                  [
+                    "5",
+                    "Jung",
+                    "HR",
+                    "2900"
+                  ]
+                ]
+              }
+            ],
+            "edges": []
+          }
+        }
+      },
+      {
+        "type": "mcq",
+        "prompt": "A tuple is a synonym of:",
+        "choices": [
+          "A column",
+          "A row (record)",
+          "A table",
+          "A domain"
+        ],
+        "correct": 1,
+        "explanation": "Tuple = row = record. Attribute = column. Relation = table."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Employee(EmpID, Email, Name, Phone): EmpID and Email are both unique and never NULL. The designer picks EmpID as the primary key. What is Email?",
+        "choices": [
+          "A foreign key",
+          "An alternate key",
+          "Only a super key",
+          "A partial key"
+        ],
+        "correct": 1,
+        "explanation": "Email est une candidate key non choisie : alternate key."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the same Employee table, {EmpID, Name} is unique for every row. What is it?",
+        "choices": [
+          "A candidate key",
+          "The primary key",
+          "A super key but not a candidate key",
+          "Not a key at all"
+        ],
+        "correct": 2,
+        "explanation": "Il identifie chaque ligne (super key), mais Name est en trop : pas minimal, donc pas candidate key."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A candidate key is:",
+        "choices": [
+          "Any set of attributes",
+          "A minimal super key",
+          "The key chosen by the designer",
+          "A key referencing another table"
+        ],
+        "correct": 1,
+        "explanation": "Candidate key = super key minimale. La primary key est celle qu'on choisit parmi elles."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of these is NOT a rule of the primary key?",
+        "choices": [
+          "Only one per table",
+          "It cannot be NULL",
+          "Two rows cannot share its value",
+          "It must contain only one attribute"
+        ],
+        "correct": 3,
+        "explanation": "Une primary key peut avoir plusieurs attributs (clé composée)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Project.EnrollNo references Student.EnrollNo. Which statement is true?",
+        "choices": [
+          "Student is the child table",
+          "EnrollNo must be unique in Project",
+          "EnrollNo can repeat in Project (a student can have several projects)",
+          "Project.EnrollNo must be the primary key of Project"
+        ],
+        "correct": 2,
+        "explanation": "Une FK peut se répéter. Project (qui contient la FK) est la child table."
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C) and A is the only candidate key. How many super keys does R have?",
+        "choices": [
+          "2",
+          "3",
+          "4",
+          "8"
+        ],
+        "correct": 2,
+        "explanation": "A, AB, AC, ABC : 2² = 4."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each Crow's Foot symbol with its meaning.",
+        "pairs": [
+          [
+            "One bar",
+            "One"
+          ],
+          [
+            "Two bars",
+            "One and only one"
+          ],
+          [
+            "Circle + bar",
+            "Zero or one"
+          ],
+          [
+            "Bar + crow's foot",
+            "One or many"
+          ],
+          [
+            "Circle + crow's foot",
+            "Zero or many"
+          ]
+        ],
+        "explanation": "Symbole intérieur = minimum (cercle 0, barre 1) ; symbole près de l'entité = maximum (barre 1, patte many)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Professor teaches Term: on the Term side the line ends with circle + crow's foot. A professor teaches:",
+        "choices": [
+          "Zero or many terms",
+          "Exactly one term",
+          "One or many terms",
+          "Zero or one term"
+        ],
+        "correct": 0,
+        "explanation": "Cercle = 0 minimum, patte = many maximum : un prof peut n'enseigner aucun term."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In the car-insurance E-R diagram, damage-amount is attached to 'participated'. It is:",
+        "choices": [
+          "An attribute of person",
+          "A derived attribute",
+          "A key attribute",
+          "An attribute of the relationship"
+        ],
+        "correct": 3,
+        "explanation": "Le montant dépend du conducteur, de la voiture et de l'accident ensemble : attribut de la relationship."
+      },
+      {
+        "type": "mcq",
+        "prompt": "'participated' links person, car and accident. It is a:",
+        "choices": [
+          "Binary relationship",
+          "Ternary relationship",
+          "Recursive relationship",
+          "Weak relationship"
+        ],
+        "correct": 1,
+        "explanation": "3 entity sets = ternary."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the primary key of participated(driver-id, license, report-number, damage-amount)?",
+        "choices": [
+          "(driver-id, license, report-number)",
+          "driver-id",
+          "damage-amount",
+          "report-number"
+        ],
+        "correct": 0,
+        "explanation": "La table d'une relationship a pour PK les PK des entity sets qu'elle relie."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In Crow's Foot notation, how are attributes drawn?",
+        "choices": [
+          "As ovals",
+          "As diamonds",
+          "As lines listed inside the entity box",
+          "They are not drawn"
+        ],
+        "correct": 2,
+        "explanation": "Crow's Foot : boîte avec la liste des attributs, relationship = ligne. Ovales et losanges, c'est Chen."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In XAMPP, Apache is a ___ and listens on port ___.",
+        "choices": [
+          "Database server / 3306",
+          "Web server / 80 (443 for HTTPS)",
+          "FTP server / 21",
+          "Mail server / 25"
+        ],
+        "correct": 1,
+        "explanation": "Apache = web server (80/443). MySQL = 3306."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each XAMPP module with its role.",
+        "pairs": [
+          [
+            "Apache",
+            "Web server"
+          ],
+          [
+            "MySQL",
+            "Database server"
+          ],
+          [
+            "FileZilla",
+            "FTP server"
+          ],
+          [
+            "Mercury",
+            "Mail server"
+          ],
+          [
+            "Tomcat",
+            "Java web server"
+          ]
+        ],
+        "explanation": "Apache web, MySQL/MariaDB base de données, FileZilla FTP, Mercury mail, Tomcat Java (JSP, Servlets)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which URL opens phpMyAdmin on your own machine?",
+        "choices": [
+          "http://phpmyadmin.com/",
+          "http://localhost:3306/",
+          "ftp://localhost/",
+          "http://localhost/phpmyadmin/"
+        ],
+        "correct": 3,
+        "explanation": "http://localhost/phpmyadmin/ (ou http://[YOUR_IP]/phpmyadmin/ depuis une autre machine)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which databases in phpMyAdmin are system databases you should not modify?",
+        "choices": [
+          "only test",
+          "students, branch",
+          "information_schema, mysql, performance_schema, phpmyadmin",
+          "There are none"
+        ],
+        "correct": 2,
+        "explanation": "Ce sont les bases système de MySQL/phpMyAdmin."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Data redundancy leads to which three anomalies?",
+        "choices": [
+          "Insertion, deletion, update",
+          "Read, write, commit",
+          "Partial, transitive, multivalued",
+          "Lossy, lossless, join"
+        ],
+        "correct": 0,
+        "explanation": "Insertion, deletion, update (updation)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "You cannot record a new branch until at least one student joins it. This is a(n):",
+        "choices": [
+          "None",
+          "Deletion anomaly",
+          "Update anomaly",
+          "Insertion anomaly"
+        ],
+        "correct": 3,
+        "explanation": "Insertion anomaly : impossible d'insérer une donnée sans une autre (ou obligé de répéter des données)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A HOD changes and you update 3 of the 4 rows; the table is now inconsistent. This is a(n):",
+        "choices": [
+          "Deletion anomaly",
+          "Update anomaly",
+          "Insertion anomaly",
+          "Lossy decomposition"
+        ],
+        "correct": 1,
+        "explanation": "Update anomaly : une information répétée doit être modifiée partout ; en oublier une → incohérence."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which of these is NOT a rule of 1NF?",
+        "choices": [
+          "No transitive dependency",
+          "Values of the same type in a column",
+          "Unique column names",
+          "Atomic values"
+        ],
+        "correct": 0,
+        "explanation": "Pas de transitive dependency, c'est la 3NF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Score(student_id, subject_id, marks, teacher), key (student_id, subject_id); teacher depends only on subject_id. Score is:",
+        "choices": [
+          "In 2NF",
+          "Not in 1NF",
+          "Not in 2NF: partial dependency",
+          "In BCNF"
+        ],
+        "correct": 2,
+        "explanation": "teacher dépend d'une partie de la clé : partial dependency."
+      },
+      {
+        "type": "mcq",
+        "prompt": "A partial dependency can only exist when:",
+        "choices": [
+          "The table has no key",
+          "The primary key is composite",
+          "The table has a single column",
+          "The key is a single attribute"
+        ],
+        "correct": 1,
+        "explanation": "Il faut une « partie » de clé, donc une clé composée. Clé à un attribut ⇒ au moins 2NF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How do you remove the partial dependency subject_id → teacher from Score?",
+        "choices": [
+          "Delete the marks column",
+          "Duplicate the Score table",
+          "Add teacher to the primary key",
+          "Move teacher to the Subject table (or a separate Teacher table)"
+        ],
+        "correct": 3,
+        "explanation": "On sort l'attribut partiellement dépendant avec la partie de clé dont il dépend."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the main goal of normalization?",
+        "choices": [
+          "Encrypt the data",
+          "Speed up the hardware",
+          "Reduce redundancy and improve data integrity",
+          "Increase redundancy for backups"
+        ],
+        "correct": 2,
+        "explanation": "Réduire la redondance, supprimer les anomalies, améliorer l'intégrité."
+      },
+      {
+        "type": "mcq",
+        "prompt": "In X → Y, X is called the:",
+        "choices": [
+          "Dependent",
+          "Determinant",
+          "Closure",
+          "Discriminator"
+        ],
+        "correct": 1,
+        "explanation": "X = determinant, Y = dependent."
+      },
+      {
+        "type": "mcq",
+        "prompt": "{Enrollment_No, Department_Name} → SPI, but Enrollment_No alone → SPI. This FD is:",
+        "choices": [
+          "Full",
+          "Partial",
+          "Trivial",
+          "Multivalued"
+        ],
+        "correct": 1,
+        "explanation": "On peut retirer Department_Name : partial."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Subject → Faculty and Faculty → Age, so Subject → Age. This is a ___ dependency.",
+        "choices": [
+          "Partial",
+          "Trivial",
+          "Transitive",
+          "Full"
+        ],
+        "correct": 2,
+        "explanation": "Transitive : via un intermédiaire."
+      },
+      {
+        "type": "mcq",
+        "prompt": "If A → BC, then A → B and A → C. Which rule is this?",
+        "choices": [
+          "Decomposition",
+          "Union",
+          "Composition",
+          "Pseudo-transitivity"
+        ],
+        "correct": 0,
+        "explanation": "Decomposition coupe le côté droit ; union le recolle."
+      },
+      {
+        "type": "mcq",
+        "prompt": "If A → B and BD → C, then AD → C. Which rule is this?",
+        "choices": [
+          "Transitivity",
+          "Augmentation",
+          "Union",
+          "Pseudo-transitivity"
+        ],
+        "correct": 3,
+        "explanation": "Pseudo-transitivity."
+      },
+      {
+        "type": "mcq",
+        "prompt": "If A → B and C → D, then AC → BD. Which rule is this?",
+        "choices": [
+          "Composition",
+          "Union",
+          "Decomposition",
+          "Reflexivity"
+        ],
+        "correct": 0,
+        "explanation": "Composition : deux FD aux côtés gauches différents."
+      },
+      {
+        "type": "matching",
+        "prompt": "Match each Armstrong rule with its statement.",
+        "pairs": [
+          [
+            "Reflexivity",
+            "B ⊆ A ⇒ A → B"
+          ],
+          [
+            "Augmentation",
+            "A → B ⇒ AC → BC"
+          ],
+          [
+            "Transitivity",
+            "A → B and B → C ⇒ A → C"
+          ],
+          [
+            "Union",
+            "A → B and A → C ⇒ A → BC"
+          ],
+          [
+            "Decomposition",
+            "A → BC ⇒ A → B and A → C"
+          ]
+        ],
+        "explanation": "Les règles principales d'Armstrong."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which statement is FALSE?",
+        "choices": [
+          "If A → BC then A → B",
+          "If AB → C then A → C",
+          "If A → B and A → C then A → BC",
+          "A → A always holds"
+        ],
+        "correct": 1,
+        "explanation": "On ne peut pas couper le côté gauche d'une FD."
+      },
+      {
+        "type": "type_answer",
+        "prompt": "R(A, B, C, D, E), F = {A → B, B → C, CD → E}. Compute (AD)⁺.",
+        "accept": [
+          "ABCDE",
+          "A B C D E",
+          "A,B,C,D,E",
+          "A, B, C, D, E",
+          "{ABCDE}",
+          "{A,B,C,D,E}",
+          "{A, B, C, D, E}"
+        ],
+        "explanation": "AD → (A → B) ABD → (B → C) ABCD → (CD → E) ABCDE.",
+        "placeholder": "ex. ABC"
+      },
+      {
+        "type": "type_answer",
+        "prompt": "Same F = {A → B, B → C, CD → E}. Compute A⁺.",
+        "accept": [
+          "ABC",
+          "A B C",
+          "A,B,C",
+          "A, B, C",
+          "{ABC}",
+          "{A,B,C}",
+          "{A, B, C}"
+        ],
+        "explanation": "A → B → C, mais CD → E demande D : A⁺ = ABC.",
+        "placeholder": "ex. ABC"
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C, D, E), F = {A → B, B → C, CD → E}. What is the candidate key?",
+        "choices": [
+          "A",
+          "AD",
+          "CD",
+          "ABCDE"
+        ],
+        "correct": 1,
+        "explanation": "A et D n'apparaissent jamais à droite ⇒ dans la clé. AD⁺ = ABCDE."
+      },
+      {
+        "type": "mcq",
+        "prompt": "F = {AB → C, A → C}. Which attribute is extraneous?",
+        "choices": [
+          "A in AB → C",
+          "B in AB → C",
+          "C in A → C",
+          "None"
+        ],
+        "correct": 1,
+        "explanation": "A seul détermine déjà C : B est en trop dans AB → C."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the canonical cover of F = {A → B, A → C}?",
+        "choices": [
+          "{A → BC}",
+          "{A → B}",
+          "{B → C}",
+          "{A → B, B → C}"
+        ],
+        "correct": 0,
+        "explanation": "Union des FD au même côté gauche."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Customer(Ano, Balance, Bname) is split into R1(Ano, Balance) and R2(Balance, Bname). This decomposition is:",
+        "choices": [
+          "Lossy: Balance is not a key of R1 or R2, the join creates spurious tuples",
+          "Lossless, Balance is a key",
+          "Always lossless",
+          "Not a decomposition"
+        ],
+        "correct": 0,
+        "explanation": "L'attribut commun doit être une clé d'un des morceaux. Couper sur Ano serait lossless."
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C, D), F = {AB → C, B → D}, key AB. What is the best normal form?",
+        "choices": [
+          "1NF",
+          "2NF",
+          "3NF",
+          "BCNF"
+        ],
+        "correct": 0,
+        "explanation": "B → D : D dépend d'une partie de la clé ⇒ partial ⇒ pas 2NF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C), F = {A → B, B → C}, key A. What is the best normal form?",
+        "choices": [
+          "1NF",
+          "2NF",
+          "3NF",
+          "BCNF"
+        ],
+        "correct": 1,
+        "explanation": "Clé à un attribut ⇒ 2NF. A → B → C : transitive ⇒ pas 3NF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B, C), F = {AB → C, C → B}; the candidate keys are AB and AC. What is the best normal form?",
+        "choices": [
+          "2NF",
+          "3NF but not BCNF",
+          "BCNF",
+          "1NF"
+        ],
+        "correct": 1,
+        "explanation": "C → B : C n'est pas une clé, mais B est premier ⇒ 3NF, pas BCNF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "R(A, B), F = {A → B}. What is the best normal form?",
+        "choices": [
+          "2NF",
+          "3NF",
+          "BCNF",
+          "1NF"
+        ],
+        "correct": 2,
+        "explanation": "Le seul déterminant, A, est la clé ⇒ BCNF."
+      },
+      {
+        "type": "mcq",
+        "prompt": "When finding a key, an attribute that appears only on the right-hand side of the FDs:",
+        "choices": [
+          "Is always in the key",
+          "May be in the key",
+          "Is never in the key",
+          "Is the discriminator"
+        ],
+        "correct": 2,
+        "explanation": "Seulement à droite ⇒ jamais dans la clé. Jamais à droite (ou dans aucune FD) ⇒ toujours dans la clé."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Student 101 takes DS and DBMS and, independently, has the teachers Patel and Shah: 4 rows are needed. What is the problem?",
+        "choices": [
+          "A transitive dependency: violates 3NF",
+          "RNO →→ Subject is a multivalued dependency: violates 4NF",
+          "A partial dependency: violates 2NF",
+          "There is no problem"
+        ],
+        "correct": 1,
+        "explanation": "MVD ⇒ 4NF. Solution : Subject(RNO, Subject) et Faculty(RNO, Faculty)."
+      },
+      {
+        "type": "mcq",
+        "prompt": "True or false? Every relation in 3NF is also in BCNF.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": 1,
+        "explanation": "Faux : toute relation en BCNF est en 3NF, pas l'inverse."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Emp_Dept(EID, Ename, City, DID, Dname, Manager) has EID as primary key. Why can't a new department with no employee be inserted?",
+        "choices": [
+          "DID is a foreign key",
+          "Dname is too long",
+          "Manager is a key",
+          "EID (the primary key) would be NULL"
+        ],
+        "correct": 3,
+        "explanation": "Insert anomaly : sans employé, la PK serait NULL. Solution : Emp(EID, Ename, City, DID) et Dept(DID, Dname, Manager)."
+      }
+    ],
+    "lesson": "# Database Design — Quiz (W4–W7) · Fiche de révision\n\nLe QCM porte sur les **semaines 4 à 7**. Cette fiche résume ce qui tombe ; le\ndétail (figures, exemples complets) est dans les leçons **Week 4**, **Week 5**\net **Week 6**.\n\n> **Semaine 7 :** les slides ne sont pas encore dans le dossier du cours. Les\n> questions couvrent pour l'instant les **Lectures 07 à 11** (W4–W6) ; la\n> semaine 7 sera ajoutée dès que ses slides seront là.\n\n**Méthode conseillée :** **Toutes** puis **Aléatoire**, puis la tuile\n**Flashcards** (elle reprend les questions du quiz) pour revoir les ratées.\n\n---\n\n## Week 4 — Keys & ERD notations\n\n| Terme | À savoir |\n|---|---|\n| Relation / attribute / tuple | table / colonne / ligne (record) |\n| **Degree** | nombre de **colonnes** |\n| **Cardinality** (d'une table) | nombre de **lignes** |\n| **Domain** | toutes les valeurs possibles d'une colonne |\n| **Super key** | identifie chaque ligne (attributs en trop permis) |\n| **Candidate key** | super key **minimale** |\n| **Primary key** | candidate key **choisie** : une seule, jamais NULL, ne change pas |\n| **Alternate key** | candidate key **non choisie** |\n| **Foreign key** | référence la PK d'une autre table ; **child** = contient la FK, **parent** = contient la PK ; elle **peut se répéter** |\n\n- Si A est la seule candidate key de R(A + n autres attributs) : **2ⁿ super\n  keys**.\n- Car insurance : `participated` est **ternaire** ; `damage-amount` est un\n  attribut **de la relationship** ; PK de sa table = les 3 PK.\n\n**Crow's Foot** — le symbole **intérieur** donne le minimum, celui **près de\nl'entité** le maximum :\n\n| Symbole | Sens |\n|---|---|\n| une barre | one |\n| deux barres | one and only one |\n| cercle + barre | zero or one |\n| barre + patte | one or many |\n| cercle + patte | zero or many |\n\nChen = losange pour la relationship, ovales pour les attributs. Crow's Foot =\n**ligne** pour la relationship, attributs **listés dans la boîte**.\n\n## Week 5 — XAMPP & Normalization 1\n\n| Module XAMPP | Rôle | Port |\n|---|---|---|\n| Apache | web server | 80 / 443 |\n| MySQL / MariaDB | database server | 3306 |\n| FileZilla | FTP server | 21 |\n| Mercury | mail server | 25 |\n| Tomcat | Java web server | 8080 |\n\nphpMyAdmin : `http://localhost/phpmyadmin/`. Bases système à ne pas toucher :\n`information_schema`, `mysql`, `performance_schema`, `phpmyadmin`.\n\n| Anomalie | Exemple |\n|---|---|\n| **Insertion** | impossible d'ajouter une branche sans étudiant / il faut recopier la branche à chaque ligne |\n| **Deletion** | supprimer le dernier étudiant fait perdre la branche |\n| **Update** | changer le HOD sur toutes les lignes ; en oublier une → incohérence |\n\n- La normalisation **minimise** la redondance (elle ne l'élimine pas).\n- **1NF** : valeurs atomiques, même type par colonne, noms uniques, ordre des\n  lignes sans importance, pas de repeating groups.\n- **2NF** : 1NF + **pas de partial dependency** (attribut non premier qui\n  dépend d'une **partie** d'une clé **composée**).\n\n## Week 6 — Functional dependency & normal forms\n\n**Types de FD :** full (tout X est nécessaire), partial (une partie de X\nsuffit), transitive (A → B → C), trivial (Y ⊆ X), non-trivial.\n\n| Armstrong | Règle |\n|---|---|\n| Reflexivity | B ⊆ A ⇒ A → B |\n| Augmentation | A → B ⇒ AC → BC |\n| Transitivity | A → B, B → C ⇒ A → C |\n| Pseudo-transitivity | A → B, BD → C ⇒ AD → C |\n| Union | A → B, A → C ⇒ A → BC |\n| Decomposition | A → BC ⇒ A → B, A → C |\n| Composition | A → B, C → D ⇒ AC → BD |\n\nOn ne coupe **jamais** le côté **gauche** : AB → C n'implique pas A → C.\n\n**Closure α⁺ :** partir de α, ajouter le côté droit de chaque FD dont le côté\ngauche est déjà dedans, recommencer jusqu'à stabilité. **α⁺ = tous les\nattributs ⇒ α est une super key.**\n\n**Trouver la clé :** attribut jamais à droite (ou dans aucune FD) ⇒ dans la\nclé ; seulement à droite ⇒ hors de la clé ; des deux côtés ⇒ peut-être.\n\n**Canonical cover :** union des FD au même côté gauche + suppression des\nattributs **extraneous** (AB → C avec A → C : B est extraneous).\n\n**Decomposition :** **lossless** si l'attribut commun est une **clé** d'un des\nmorceaux ; sinon **lossy** (la jointure crée des tuples parasites).\n\n| Forme | Condition |\n|---|---|\n| 1NF | valeurs atomiques |\n| 2NF | 1NF + pas de **partial** |\n| 3NF | 2NF + pas de **transitive** |\n| BCNF | tout **déterminant** est une clé |\n| 4NF | BCNF + pas de **MVD** (X →→ Y) |\n| 5NF | plus de décomposition lossless possible |\n\n**Meilleure forme normale, la méthode :** trouver la clé, puis pour chaque FD :\ngauche = partie de clé ⇒ pas 2NF ; gauche non clé, droite non premier ⇒ pas\n3NF ; gauche non clé, droite **premier** ⇒ 3NF mais pas BCNF. Clé à un seul\nattribut ⇒ au moins 2NF.\n"
   },
   {
     "name": "Week 3",
