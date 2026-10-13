@@ -41,7 +41,7 @@ MIDTERM_LESSON = ROOT / "documentation/lessons/kr-cours-midterm.md"
 
 RNG = random.Random(0)
 
-COLOR = "rose"
+COLOR = "pink"
 
 # Headers parsed from the md but NOT turned into their own category / deck of
 # exercises: phrases and proper nouns that do not fit the "what does X mean /
@@ -1696,7 +1696,7 @@ def build_midterm():
             ex.append(_mcq(e["prompt"], e["choices"][0], e["choices"][1:], e["explanation"]))
         else:
             ex.append(e)
-    return {"name": "Mid Term (S1–S7)", "key": "kr-cours-midterm", "color": COLOR,
+    return {"name": "Mid Term (S1–S7)", "key": "kr-cours-midterm", "color": "red",
             "parent": "kr-cours", "lesson": MIDTERM_LESSON.read_text().rstrip("\n") + "\n",
             "exercises": ex}
 
