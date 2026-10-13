@@ -319,6 +319,36 @@ non).
 
 # Partie 2 — Lab
 
+### Préparer la VM : Oracle Cloud, PuTTY, WinSCP
+
+Le lab (*Week 7 Lab Material*) commence par créer une **machine virtuelle
+Ubuntu dans Oracle Cloud** et s'y connecter depuis Windows.
+
+```diagram
+{
+  "title": "De la console Oracle Cloud au shell Ubuntu : PuTTYgen fabrique la clé, PuTTY ouvre le shell en SSH, WinSCP transfère les fichiers.",
+  "nodes": [
+    { "id": "oc", "x": 100, "y": 60, "w": 170, "h": 80, "label": "Oracle Cloud\nCompute → Create a VM\nimage Canonical Ubuntu\nShape Always Free", "tone": "amber", "filled": true, "size": 11 },
+    { "id": "ip", "x": 100, "y": 180, "w": 170, "h": 56, "label": "Instance RUNNING\nPublic IP + user ubuntu", "tone": "amber", "size": 11 },
+    { "id": "kg", "x": 330, "y": 60, "w": 170, "h": 80, "label": "PuTTYgen\nRSA 2048 bits\nSave public key\nSave private key (.ppk)", "tone": "violet", "filled": true, "size": 11 },
+    { "id": "pt", "x": 560, "y": 60, "w": 170, "h": 80, "label": "PuTTY\nHost = Public IP, port 22\nSSH, Auth → Credentials\n= fichier .ppk", "tone": "sky", "filled": true, "size": 11 },
+    { "id": "ws", "x": 560, "y": 190, "w": 170, "h": 70, "label": "WinSCP\nprotocole SFTP\nmême IP, user, .ppk", "tone": "emerald", "filled": true, "size": 11 },
+    { "id": "sh", "x": 330, "y": 190, "w": 170, "h": 56, "label": "ubuntu@instance:~$\ndate, ps, chmod…", "tone": "neutral", "filled": true, "size": 11 }
+  ],
+  "edges": [
+    { "from": "oc", "to": "ip" }, { "from": "kg", "to": "pt", "label": ".ppk" }, { "from": "ip", "to": "pt", "dashed": true, "label": "IP" },
+    { "from": "pt", "to": "sh", "label": "SSH" }, { "from": "pt", "to": "ws", "dashed": true }
+  ]
+}
+```
+
+| Outil | Rôle |
+|---|---|
+| **Oracle Cloud** | créer l'instance (Compute → *Create a VM instance*, image **Canonical Ubuntu**), relever l'**IP publique** et le **username** (`ubuntu`) |
+| **PuTTYgen** | générer une **paire de clés** (type **RSA**, 2048 bits) ; **public key** collée dans `authorized_keys`, **private key** sauvée en **`.ppk`** |
+| **PuTTY** | client **SSH** (et telnet) : *Host Name* = IP, **port 22**, connection type **SSH**, *Connection → SSH → Auth → Credentials* = la `.ppk` ; on **sauvegarde la session** |
+| **WinSCP** | client **SFTP** (copie de fichiers Windows ↔ VM) avec la même IP, le même user et la même clé |
+
 ## 9. Server Health Checkup
 
 Surveiller régulièrement un serveur : repérer les goulots d'étranglement, les

@@ -8,6 +8,9 @@ Source of truth for the Hangeul reading exercises:
 The `Cours` weeks (Coréen → Cours → Semaine N) are recap lessons hard-coded
   below from the GEE3003 slides (week_1 … week_5); they duplicate the vocab
   decks on purpose. Weeks 3–5 (grammar) also carry exercises and flashcards.
+The Mid Term (Coréen → Cours → Mid Term) reads its question bank from
+  documentation/coreen-midterm.json and its lesson from
+  documentation/lessons/kr-cours-midterm.md.
 
 Hangeul exercises are ONLY "identify the sound / meaning" of a letter or word,
 never conceptual questions about the writing system.
@@ -33,6 +36,8 @@ SEED = ROOT / "backend/src/db/seed.json"
 VOCAB_MD = ROOT / "documentation/coreen-vocab.md"
 HANGEUL_LESSON = ROOT / "documentation/coreen-hangeul-lesson.md"
 HANGEUL_LETTERS = ROOT / "documentation/coreen-hangeul-letters.json"
+MIDTERM_BANK = ROOT / "documentation/coreen-midterm.json"
+MIDTERM_LESSON = ROOT / "documentation/lessons/kr-cours-midterm.md"
 
 RNG = random.Random(0)
 
@@ -1682,6 +1687,20 @@ s'il vous plaît ») ? Trois cas, à reconnaître vite.
     ]
 
 
+def build_midterm():
+    """Mid Term : banque hand-authored, la bonne réponse d'un mcq est le 1er choix."""
+    bank = json.loads(MIDTERM_BANK.read_text())["exercises"]
+    ex = []
+    for e in bank:
+        if e["type"] == "mcq":
+            ex.append(_mcq(e["prompt"], e["choices"][0], e["choices"][1:], e["explanation"]))
+        else:
+            ex.append(e)
+    return {"name": "Mid Term (S1–S7)", "key": "kr-cours-midterm", "color": COLOR,
+            "parent": "kr-cours", "lesson": MIDTERM_LESSON.read_text().rstrip("\n") + "\n",
+            "exercises": ex}
+
+
 # Règles affichées en tête de la leçon de certains decks du Vocabulaire (ceux
 # où un mot ne s'emploie pas sans sa règle). Le reste des decks n'a pas de
 # leçon : la liste complète est dans la leçon du conteneur Vocabulaire.
@@ -1825,6 +1844,7 @@ def main():
 
     kr.extend(build_course_categories())
     kr.extend(build_course_w3_w5())
+    kr.append(build_midterm())
 
     decks = parse_vocab_md(VOCAB_MD.read_text())
     for name, words in decks:

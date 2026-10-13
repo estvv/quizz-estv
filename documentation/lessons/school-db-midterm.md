@@ -5,12 +5,8 @@ Cette catégorie mélange des questions de **toutes les semaines** dans le style
 d'un QCM d'examen. Chaque semaine a aussi sa propre leçon, son quiz et ses
 flashcards : sers-t'en pour combler les trous.
 
-> **Semaine 7 :** pas encore de slides dans le dossier du cours ; les
-> questions couvrent les **Lectures 01 à 11** (W1–W6). La semaine 7 sera
-> ajoutée dès que ses slides seront là.
-
-Pour les semaines 4 à 6, la catégorie **Quiz (W4–W7)** a une fiche plus
-détaillée et une banque de questions dédiée.
+Les questions couvrent les **Lectures 01 à 12** (W1–W7), y compris les
+exercices types de normalisation et de candidate keys de la semaine 7.
 
 **Méthode conseillée :**
 
@@ -33,6 +29,7 @@ détaillée et une banque de questions dédiée.
 | **W4** · Keys & Crow's Foot | degree = colonnes, cardinality = lignes, domain ; super / candidate / primary / alternate / foreign key ; compter les super keys (2ⁿ) ; symboles **Crow's Foot** |
 | **W5** · XAMPP & Normalization 1 | modules XAMPP et ports ; anomalies insertion / deletion / update ; **1NF** (atomique) ; **2NF** (pas de partial) |
 | **W6** · FD & normal forms | types de FD ; **Armstrong** ; **closure α⁺** ; canonical cover ; lossy / lossless ; **3NF, BCNF, 4NF, 5NF** ; trouver la **clé** et la **meilleure forme normale** |
+| **W7** · Normalization problems | normaliser **UNF → 1NF → 2NF → 3NF** (employés / projets, enseignants / matières) : clé composée en 1NF, sortir la **partial** dependency (2NF) puis la **transitive** (3NF, + FK) ; **(E-ID)⁺** ; **toutes** les candidate keys de R(ABCDE) = **A, E, BC, CD** |
 
 ## Les confusions qui coûtent des points
 
