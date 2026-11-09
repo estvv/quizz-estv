@@ -1,0 +1,32 @@
+{
+  "_doc": "Exercices et flashcards de kr-cours-w10 (lus par scripts/build-korean-seed.py). mcq : bonne réponse = 1er choix.",
+  "exercises": [
+    {"type": "mcq", "prompt": "Que veut dire « 지금 몇 시예요? » ?", "choices": ["Quelle heure est-il ?", "Quel jour sommes-nous ?", "Qu'est-ce que tu fais aujourd'hui ?", "À quelle heure te lèves-tu ?"], "explanation": "몇 시 = quelle heure."},
+    {"type": "mcq", "prompt": "Quels nombres utilise-t-on pour les HEURES (… 시) ?", "choices": ["Les natifs : 한, 두, 세…", "Les sino-coréens : 일, 이, 삼…", "Les deux", "Aucun, on dit l'heure en anglais"], "explanation": "Les minutes (분), elles, sont en sino-coréen."},
+    {"type": "type_answer", "prompt": "Écris 3:00 en coréen (… 시).", "accept": ["세 시", "세시"], "explanation": "셋 → 세 devant 시."},
+    {"type": "mcq", "prompt": "Comment lit-on 12:35 ?", "choices": ["열두 시 삼십오 분", "십이 시 삼십오 분", "열두 시 서른다섯 분", "열둘 시 삼십오 분"], "explanation": "Heure native (열두), minutes sino (삼십오)."},
+    {"type": "mcq", "prompt": "Comment dit-on 2:30 ?", "choices": ["두 시 반", "이 시 반", "두 시 서른 분", "둘 시 삼십 분"], "explanation": "반 = demie, équivalent de 삼십 분."},
+    {"type": "type_answer", "prompt": "Écris 5:15 en coréen.", "accept": ["다섯 시 십오 분", "다섯시 십오분", "다섯 시 십오분"], "explanation": "다섯 (natif) + 십오 (sino)."},
+    {"type": "mcq", "prompt": "Comment lit-on 04:45 pm ?", "choices": ["오후 네 시 사십오 분", "오전 네 시 사십오 분", "네 시 사십오 분 오후", "오후 사 시 사십오 분"], "explanation": "오후 = p.m., placé avant l'heure."},
+    {"type": "mcq", "prompt": "Que veut dire 오전 ?", "choices": ["le matin (a.m.)", "l'après-midi (p.m.)", "la demie", "le week-end"], "explanation": "오후 = p.m."},
+    {"type": "matching", "prompt": "Associe chaque jour à son nom coréen.", "pairs": [["lundi", "월요일"], ["mardi", "화요일"], ["mercredi", "수요일"], ["jeudi", "목요일"], ["vendredi", "금요일"], ["samedi", "토요일"], ["dimanche", "일요일"]], "explanation": "일 - 월 - 화 - 수 - 목 - 금 - 토 + 요일."},
+    {"type": "mcq", "prompt": "Que veut dire « 오늘 무슨 요일이에요? » ?", "choices": ["Quel jour sommes-nous ?", "Quelle heure est-il ?", "Que fais-tu aujourd'hui ?", "Quand viens-tu ?"], "explanation": "무슨 = quel (genre de)."},
+    {"type": "mcq", "prompt": "Complète : 일곱 시___ 일어나요.", "choices": ["에", "는", "이", "가"], "explanation": "에 après un nom de temps (heure, jour)."},
+    {"type": "mcq", "prompt": "Dans quelle phrase NE met-on PAS 에 ?", "choices": ["오늘 뭐 해요?", "주말에 영화를 봐요.", "월요일에 태권도를 배워요.", "몇 시에 일어나요?"], "explanation": "Pas de 에 après 어제, 오늘, 내일, 지금."},
+    {"type": "mcq", "prompt": "« 화요일에도 태권도를 배워요? » signifie :", "choices": ["Tu apprends le taekwondo le mardi aussi ?", "Tu n'apprends pas le taekwondo le mardi ?", "Quel jour apprends-tu le taekwondo ?", "Tu apprends le taekwondo seulement le mardi ?"], "explanation": "에도 = aussi à ce moment-là."},
+    {"type": "mcq", "prompt": "Comment répondre « non, le mardi je n'apprends pas le taekwondo » ?", "choices": ["아니요, 화요일에는 태권도를 안 배워요.", "아니요, 화요일에도 태권도를 배워요.", "네, 화요일에는 태권도를 배워요.", "아니요, 화요일 태권도를 배워요."], "explanation": "에는 met en contraste ; 안 = négation devant le verbe."},
+    {"type": "mcq", "prompt": "Que veut dire « 나는 학교에 가지만 애니 씨는 안 가요 » ?", "choices": ["Je vais à l'école, mais Annie n'y va pas.", "Annie et moi allons à l'école.", "Je ne vais pas à l'école, mais Annie y va.", "Je vais à l'école avec Annie."], "explanation": "-지만 = mais."},
+    {"type": "type_answer", "prompt": "Relie avec -지만 : « 바나나는 싸다 / 포도는 비싸다 » → 바나나는 ___ 포도는 비싸요. (écris le mot manquant)", "accept": ["싸지만"], "explanation": "Radical 싸 + 지만."},
+    {"type": "mcq", "prompt": "Que veut dire 쯤 dans « 여덟 시쯤에 먹어요 » ?", "choices": ["environ (vers 8 heures)", "exactement", "après", "avant"], "explanation": "쯤 = environ."},
+    {"type": "matching", "prompt": "Associe chaque mot à son sens.", "pairs": [["일어나다", "se lever"], ["자다", "dormir"], ["일하다", "travailler"], ["샤워하다", "prendre une douche"], ["백화점", "grand magasin"], ["언제", "quand"]], "explanation": "Vocabulaire de l'unité 6."}
+  ],
+  "flashcards": [
+    {"front": "Dire l'heure", "back": "Heure : natifs + 시 (한 시, 두 시, 세 시, 네 시… 열두 시) ; minutes : sino + 분 (십 분, 삼십오 분)."},
+    {"front": "반 / 오전 / 오후", "back": "반 = demie (두 시 반) ; 오전 = a.m., 오후 = p.m., avant l'heure."},
+    {"front": "Jours", "back": "월요일 화요일 수요일 목요일 금요일 토요일 일요일 ; 무슨 요일이에요?"},
+    {"front": "N에 (temps)", "back": "일곱 시에, 월요일에, 주말에 — mais pas après 어제, 오늘, 내일, 지금."},
+    {"front": "에도 / 에는", "back": "에도 = aussi à ce moment ; 에는 = contraste (화요일에는 안 배워요)."},
+    {"front": "-지만", "back": "Radical + 지만 = mais : 가지만, 먹지만, 싸지만."},
+    {"front": "쯤", "back": "Environ : 여덟 시쯤."}
+  ]
+}

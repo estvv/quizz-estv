@@ -8,9 +8,9 @@ Source of truth for the Hangeul reading exercises:
 The `Cours` weeks (Coréen → Cours → Semaine N) are recap lessons hard-coded
   below from the GEE3003 slides (week_1 … week_5); they duplicate the vocab
   decks on purpose. Weeks 3–5 (grammar) also carry exercises and flashcards.
-The Mid Term (Coréen → Cours → Mid Term) reads its question bank from
-  documentation/coreen-midterm.json and its lesson from
-  documentation/lessons/kr-cours-midterm.md.
+Weeks 7, 9 and 10 and the Mid Term read their lesson from
+  documentation/lessons/kr-cours-<w7|w9|w10|midterm>.md and their exercises
+  from documentation/coreen-cours-w<N>.json / coreen-midterm.json.
 
 Hangeul exercises are ONLY "identify the sound / meaning" of a letter or word,
 never conceptual questions about the writing system.
@@ -1687,18 +1687,35 @@ s'il vous plaît ») ? Trois cas, à reconnaître vite.
     ]
 
 
-def build_midterm():
-    """Mid Term : banque hand-authored, la bonne réponse d'un mcq est le 1er choix."""
-    bank = json.loads(MIDTERM_BANK.read_text())["exercises"]
+def _from_files(name, key, color, bank_path, lesson_path):
+    """Catégorie hand-authored : leçon .md + banque .json (mcq : bonne réponse = 1er choix)."""
+    bank = json.loads(bank_path.read_text())
     ex = []
-    for e in bank:
+    for e in bank["exercises"]:
         if e["type"] == "mcq":
             ex.append(_mcq(e["prompt"], e["choices"][0], e["choices"][1:], e["explanation"]))
         else:
             ex.append(e)
-    return {"name": "Mid Term (S1–S7)", "key": "kr-cours-midterm", "color": "red",
-            "parent": "kr-cours", "lesson": MIDTERM_LESSON.read_text().rstrip("\n") + "\n",
-            "exercises": ex}
+    cat = {"name": name, "key": key, "color": color, "parent": "kr-cours",
+           "lesson": lesson_path.read_text().rstrip("\n") + "\n", "exercises": ex}
+    if bank.get("flashcards"):
+        cat["flashcards"] = bank["flashcards"]
+    return cat
+
+
+# Semaines 7, 9, 10 (Unités 4 à 6) : leçon et exercices dans des fichiers.
+COURSE_WEEKS_FROM_FILES = [7, 9, 10]
+
+
+def build_course_from_files():
+    return [_from_files(f"Semaine {w}", f"kr-cours-w{w}", COLOR,
+                        ROOT / f"documentation/coreen-cours-w{w}.json",
+                        ROOT / f"documentation/lessons/kr-cours-w{w}.md")
+            for w in COURSE_WEEKS_FROM_FILES]
+
+
+def build_midterm():
+    return _from_files("Mid Term (S1–S7)", "kr-cours-midterm", "red", MIDTERM_BANK, MIDTERM_LESSON)
 
 
 # Règles affichées en tête de la leçon de certains decks du Vocabulaire (ceux
@@ -1844,6 +1861,7 @@ def main():
 
     kr.extend(build_course_categories())
     kr.extend(build_course_w3_w5())
+    kr.extend(build_course_from_files())
     kr.append(build_midterm())
 
     decks = parse_vocab_md(VOCAB_MD.read_text())

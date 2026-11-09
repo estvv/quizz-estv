@@ -9,7 +9,8 @@ Source : `voc.md`, relu et corrigé (cf. `coreen-vocab-review.md`).
 - `(+)` = mot que j'ai ajouté (deck trop court, ou complément évident) — à valider.
 - `# S2` = mot des slides « Words / 단어 » du cours GEE3003 semaine 2 (week_2.pdf),
   rangé dans le deck thématique correspondant. De même `# S3` (Unité 2, salutations
-  et présentations), `# S4` (fiches de grammaire) et `# S5` (Unité 3, restaurant).
+  et présentations), `# S4` (fiches de grammaire), `# S5` (Unité 3, restaurant),
+  `# S7` (Unité 4, shopping), `# S9` (Unité 5, vie quotidienne) et `# S10` (Unité 6, l'heure).
 - Verbes et adjectifs donnés en **forme du dictionnaire** (`-다`). Forme attributive
   entre parenthèses quand elle est utile : `chaud = 뜨겁다 = tteugeopda (attr. 뜨거운 tteugeoun)`.
 - Chaque mot deviendra **2 exercices** au seed : (1) carte `vocab` — on montre le hangeul,
@@ -59,6 +60,18 @@ descendre (d'un véhicule) = 내리다 = naerida                  # S5
 téléphoner = 전화하다 = jeonhwahada                            # S5
 rencontrer = 만나다 = mannada                                 # S5
 monter (dans un véhicule) = 타다 = tada                      # S5
+baisser le prix (faire une remise) = 깎다 = kkakda            # S7
+acheter = 사다 = sada                                         # S9
+apprendre = 배우다 = baeuda                                    # S9
+porter (un vêtement) = 입다 = ipda                            # S9
+faire du sport = 운동하다 = undonghada                          # S9
+faire le ménage = 청소하다 = cheongsohada                       # S9
+faire la lessive = 빨래하다 = ppallaehada                       # S9
+enseigner = 가르치다 = gareuchida                               # S9
+se lever = 일어나다 = ireonada                                  # S10
+dormir = 자다 = jada                                          # S10
+travailler = 일하다 = ilhada                                   # S10
+prendre une douche = 샤워하다 = syawohada                       # S10
 ```
 
 ## Adjectifs
@@ -83,6 +96,10 @@ sucré = 달다 = dalda (attr. 단 dan)
 mignon = 귀엽다 = gwiyeopda (attr. 귀여운 gwiyeoun)
 froid (météo) = 춥다 = chupda (attr. 추운 chuun)            # S2
 être salé = 짜다 = jjada (attr. 짠 jjan)                    # S2
+être doux / tiède (temps) = 따뜻하다 = ttatteuthada             # S9
+être bon marché = 싸다 = ssada                                # S9
+être bondé / embouteillé = 복잡하다 = bokjaphada                # S9
+être intéressant / amusant = 재미있다 = jaemiitda               # S9
 ```
 
 ## Mots utiles & liaisons
@@ -118,6 +135,22 @@ téléphone = 전화 = jeonhwa                                   # S3
 un peu / s'il vous plaît (adoucit) = 좀 = jom               # S5
 plus / encore = 더 = deo                                    # S5
 menu = 메뉴 = menyu                                          # S5
+ceci (cette chose, près de moi) = 이거 = igeo                 # S7
+cela (près de toi) = 그거 = geugeo                            # S7
+cela (là-bas, loin des deux) = 저거 = jeogeo                  # S7
+ce … (près de toi) = 그 = geu                                # S7
+quoi = 뭐 = mwo                                              # S7
+combien (prix) = 얼마 = eolma                                 # S7
+alors / dans ce cas = 그럼 = geureom                          # S7
+et (entre deux phrases) = 그리고 = geurigo                     # S9
+très = 아주 = aju                                             # S9
+ne … pas (devant le verbe) = 안 = an                         # S9
+où = 어디 = eodi                                              # S9
+quoi (complément, = 무엇을) = 뭘 = mwol                         # S9
+quel (genre de) = 무슨 = museun                               # S10
+quand = 언제 = eonje                                          # S10
+environ (… vers) = 쯤 = jjeum                                # S10
+ces temps-ci = 요즘 = yojeum                                  # S9
 ```
 
 ## Politesse
@@ -241,6 +274,10 @@ cuisine (pièce) = 부엌 = bueok                             # S2
 ville natale = 고향 = gohyang                              # S2
 route / chemin / rue = 길 = gil                            # S2
 Séoul = 서울 = seoul                                       # S2
+lieu / endroit = 장소 = jangso                                # S9
+parc = 공원 = gongwon                                         # S9
+montagne = 산 = san                                          # S9
+grand magasin = 백화점 = baekhwajeom                           # S10
 ```
 
 ## Temps & quotidien
@@ -259,6 +296,23 @@ bientôt = 곧 = got                                         # S2
 printemps = 봄 = bom                                       # S2
 automne = 가을 = gaeul                                     # S2
 journée / midi = 낮 = nat                                  # S2
+heure (… heures) = 시 = si                                   # S10
+week-end = 주말 = jumal                                       # S10
+matin (a.m.) = 오전 = ojeon                                   # S10
+demie (… et demie) = 반 = ban                                # S10
+jour de la semaine = 요일 = yoil                              # S10
+lundi = 월요일 = woryoil                                       # S10
+mardi = 화요일 = hwayoil                                       # S10
+mercredi = 수요일 = suyoil                                     # S10
+jeudi = 목요일 = mogyoil                                       # S10
+vendredi = 금요일 = geumyoil                                   # S10
+samedi = 토요일 = toyoil                                       # S10
+dimanche = 일요일 = iryoil                                     # S10
+sport / exercice = 운동 = undong                              # S9
+film = 영화 = yeonghwa                                        # S9
+taekwondo = 태권도 = taegwondo                                 # S9
+études = 공부 = gongbu                                        # S9
+question = 질문 = jilmun                                      # S9
 ```
 
 ## Objets
@@ -284,6 +338,14 @@ histoire / récit = 이야기 = iyagi                          # S2
 argent = 돈 = don                                          # S2
 médicament = 약 = yak                                      # S2
 assiette = 접시 = jeopsi                                     # S5
+parapluie = 우산 = usan                                       # S7
+téléphone mobile = 휴대 전화 = hyudae jeonhwa                   # S7
+cigarette = 담배 = dambae                                     # S7
+dictionnaire = 사전 = sajeon                                  # S7
+journal = 신문 = sinmun                                       # S7
+crayon = 연필 = yeonpil                                       # S7
+cahier = 공책 = gongchaek                                     # S7
+télévision = 텔레비전 = tellebijeon                             # S9
 ```
 
 ## Couleurs
@@ -354,6 +416,8 @@ Indonésie = 인도네시아 = indonesia                              # S4
 Colombie = 콜롬비아 = kollombia                                # S4
 Singapour = 싱가포르 = singgaporeu / singaporeu                # S4
 # nationalité = pays + 사람 : 프랑스 사람 = français(e)
+langue coréenne = 한국어 = hangugeo                            # S7
+anglais (langue) = 영어 = yeongeo                             # S9
 ```
 
 ## Nombres — coréens natifs
@@ -406,6 +470,8 @@ cent = 백 = baek
 mille = 천 = cheon
 dix mille = 만 = man
 zéro = 영 / 공 = yeong / gong
+cent mille = 십만 = simman                                    # S7
+won (monnaie coréenne) = 원 = won                            # S7
 ```
 
 ## Compteurs
@@ -457,6 +523,8 @@ rhume = 감기 = gamgi                                       # S2
 vêtement(s) = 옷 = ot                                      # S2
 jupe = 치마 = chima                                        # S2
 serre-tête / bandeau = 머리띠 = meoritti                   # S2
+chapeau / casquette = 모자 = moja                             # S7
+pantalon = 바지 = baji                                        # S7
 ```
 
 ## Nature
@@ -467,6 +535,7 @@ forêt = 숲 = sup                                           # S2
 champ (cultivé) = 밭 = bat                                 # S2
 fleur = 꽃 = kkot                                          # S2
 arbre = 나무 = namu                                        # S2
+météo / le temps qu'il fait = 날씨 = nalssi                   # S9
 ```
 
 ## Phrases utiles

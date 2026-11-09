@@ -1,10 +1,14 @@
-# Database Design — Week 7 · FD & Normalization : exercices types
+# Database Design — Week 7 · Normalization problems & Relational Algebra 1
 
 **Cours** : Lecture 12, *FD and Normalization Example Problems*, et la feuille
 *Assignments*. Trois exercices types du midterm : **(1)** normaliser une table
 « à plat » de **UNF jusqu'à 3NF** (cas employés / projets, puis cas
 enseignants / matières) ; **(2)** calculer une **attribute closure** ;
 **(3)** trouver **toutes les candidate keys** d'une relation.
+Puis **Lecture 13**, *Relational Algebra – 1* : un exercice d'**E-R diagram**
+(vendeurs, commandes, pièces), les **deux classes de DML**, et les deux
+premières opérations de l'**algèbre relationnelle** : **Select (σ)** et
+**Project (π)** sur la *Company Database* (partie 2).
 
 > **En bref.** On normalise en **trois coups** : **1NF** = sortir les
 > **repeating fields** dans une table à part (clé composée) ; **2NF** =
@@ -13,7 +17,9 @@ enseignants / matières) ; **(2)** calculer une **attribute closure** ;
 > supprimer les **transitive dependencies** (un attribut non-clé qui dépend
 > d'un autre non-clé part dans sa propre table, l'ancien attribut devient
 > **FK**). Pour les clés : calculer X⁺ pour chaque attribut **puis pour les
-> paires** ; une **candidate key** est **minimale**.
+> paires** ; une **candidate key** est **minimale**. En algèbre relationnelle,
+> **σ** garde des **lignes** (selon une condition), **π** garde des
+> **colonnes** (et **supprime les doublons**).
 
 ---
 
@@ -239,6 +245,198 @@ F = {A → BC, CD → E, B → D, E → A}.
 
 ---
 
+---
+
+# Partie 2 — Lecture 13 : Relational Algebra 1
+
+## 6. Exercice E-R : vendeurs, clients, commandes, pièces
+
+*Un salesperson peut manager plusieurs autres salespeople, et n'est managé
+que par un seul. Un salesperson est l'agent de plusieurs customers ; un
+customer est géré par un seul salesperson. Un customer passe plusieurs
+orders ; un order est passé par un seul customer. Un order liste plusieurs
+inventory items (products) ; un item peut être listé dans plusieurs orders.
+Un item est assemblé à partir de plusieurs parts ; une part entre dans
+plusieurs items. Plusieurs employees assemblent un item à partir de plusieurs
+parts. Un supplier fournit plusieurs parts ; une part peut être fournie par
+plusieurs suppliers.*
+
+```er
+{
+  "title": "Le corrigé des slides : 7 entités, 7 relationships. Manages est récursive (1 : M) sur SALESPERSON.",
+  "nodes": [
+    { "id": "sp", "kind": "entity", "label": "SALESPERSON", "x": 120, "y": 40 },
+    { "id": "mg", "kind": "relationship", "label": "Manages", "x": 330, "y": 40 },
+    { "id": "ag", "kind": "relationship", "label": "Agent for", "x": 120, "y": 140 },
+    { "id": "cu", "kind": "entity", "label": "CUSTOMER", "x": 120, "y": 240 },
+    { "id": "pl", "kind": "relationship", "label": "Places", "x": 330, "y": 240 },
+    { "id": "or", "kind": "entity", "label": "ORDER", "x": 540, "y": 240 },
+    { "id": "li", "kind": "relationship", "label": "Lists", "x": 540, "y": 340 },
+    { "id": "pr", "kind": "entity", "label": "PRODUCT", "x": 540, "y": 440 },
+    { "id": "ai", "kind": "relationship", "label": "Assembled into", "x": 330, "y": 440 },
+    { "id": "pa", "kind": "entity", "label": "PART", "x": 120, "y": 440 },
+    { "id": "su", "kind": "relationship", "label": "Supplies", "x": 120, "y": 540 },
+    { "id": "sr", "kind": "entity", "label": "SUPPLIER", "x": 120, "y": 640 },
+    { "id": "as", "kind": "relationship", "label": "Assembles", "x": 540, "y": 540 },
+    { "id": "em", "kind": "entity", "label": "EMPLOYEE", "x": 540, "y": 640 }
+  ],
+  "edges": [
+    { "from": "sp", "to": "mg", "card": "1", "role": "manager" },
+    { "from": "sp", "to": "mg", "card": "M", "role": "managed" },
+    { "from": "sp", "to": "ag", "card": "1" },
+    { "from": "ag", "to": "cu", "card": "M" },
+    { "from": "cu", "to": "pl", "card": "1" },
+    { "from": "pl", "to": "or", "card": "M" },
+    { "from": "or", "to": "li", "card": "M" },
+    { "from": "li", "to": "pr", "card": "M" },
+    { "from": "pa", "to": "ai", "card": "M" },
+    { "from": "ai", "to": "pr", "card": "M" },
+    { "from": "pa", "to": "su", "card": "M" },
+    { "from": "su", "to": "sr", "card": "M" },
+    { "from": "pr", "to": "as", "card": "M" },
+    { "from": "as", "to": "em", "card": "M" }
+  ]
+}
+```
+
+| Phrase de l'énoncé | Relationship | Cardinalité |
+|---|---|---|
+| un salesperson manage plusieurs salespeople, managé par un seul | **Manages** (récursive) | **1 : M** |
+| un salesperson est agent de plusieurs customers, un customer a un seul agent | **Agent for** | **1 : M** |
+| un customer passe plusieurs orders, un order a un seul customer | **Places** | **1 : M** |
+| un order liste plusieurs items, un item dans plusieurs orders | **Lists** | **M : N** |
+| un item assemblé de plusieurs parts, une part dans plusieurs items | **Assembled into** | **M : N** |
+| plusieurs employees assemblent un item | **Assembles** | **M : N** |
+| un supplier fournit plusieurs parts, une part fournie par plusieurs suppliers | **Supplies** | **M : N** |
+
+> **Méthode :** pour chaque phrase, lire **les deux sens** (« un A a
+> combien de B ? » puis « un B a combien de A ? »). « only one » d'un côté
+> + « many » de l'autre → **1 : M** ; « many » des deux côtés → **M : N**.
+
+## 7. DML : procédural ou non procédural
+
+| | **Procedural** (low level) | **Nonprocedural** (high level) |
+|---|---|---|
+| L'utilisateur dit… | **quelles** données **et comment** les obtenir | **quelles** données, **sans** dire comment |
+| Exemple | **Relational Algebra** : on fixe **l'ordre** des opérations | **SQL** |
+
+SQL s'utilise **seul** (*standalone*, comme query language) ou **intégré**
+dans un langage de programmation (*embedded*, dans un **host language**).
+
+**Relational algebra** = un **ensemble d'opérations** pour exprimer des
+**retrieval requests (queries)** dans le modèle relationnel. Une
+**relational algebra expression** est une **séquence** de ces opérations ; le
+résultat d'une opération est **une relation**, qu'on peut réutiliser.
+
+## 8. La Company Database
+
+```diagram
+{
+  "title": "Le schéma utilisé dans tous les exemples : EMPLOYEE.Dno → DEPARTMENT, WORKS_ON relie EMPLOYEE et PROJECT.",
+  "nodes": [
+    { "id": "e", "x": 330, "y": 30, "shape": "table", "size": 11, "label": "EMPLOYEE", "rows": [["Fname","Minit","Lname","Ssn","Bdate","Address","Sex","Salary","Super_ssn","Dno"]], "mark": [], "cols": [50,40,50,40,45,55,35,45,65,35] },
+    { "id": "d", "x": 160, "y": 110, "shape": "table", "size": 11, "label": "DEPARTMENT", "rows": [["Dname","Dnumber","Mgr_ssn","Mgr_start_date"]], "cols": [55,65,60,100] },
+    { "id": "p", "x": 520, "y": 110, "shape": "table", "size": 11, "label": "PROJECT", "rows": [["Pname","Pnumber","Plocation","Dnum"]], "cols": [55,65,65,45] },
+    { "id": "w", "x": 160, "y": 190, "shape": "table", "size": 11, "label": "WORKS_ON", "rows": [["Essn","Pno","Hours"]], "cols": [50,45,50] },
+    { "id": "dl", "x": 520, "y": 190, "shape": "table", "size": 11, "label": "DEPT_LOCATIONS", "rows": [["Dnumber","Dlocation"]], "cols": [65,75] },
+    { "id": "dp", "x": 330, "y": 260, "shape": "table", "size": 11, "label": "DEPENDENT", "rows": [["Essn","Dependent_name","Sex","Bdate","Relationship"]], "cols": [50,110,35,45,85] }
+  ],
+  "edges": []
+}
+```
+
+Les 8 employés (colonnes utiles) :
+
+| Fname | Lname | Ssn | Salary | Super_ssn | Dno |
+|---|---|---|---|---|---|
+| John | Smith | 123456789 | 30000 | 333445555 | 5 |
+| Franklin | Wong | 333445555 | 40000 | 888665555 | 5 |
+| Alicia | Zelaya | 999887777 | 25000 | 987654321 | 4 |
+| Jennifer | Wallace | 987654321 | 43000 | 888665555 | 4 |
+| Ramesh | Narayan | 666884444 | 38000 | 333445555 | 5 |
+| Joyce | English | 453453453 | 25000 | 333445555 | 5 |
+| Ahmad | Jabbar | 987987987 | 25000 | 987654321 | 4 |
+| James | Borg | 888665555 | 55000 | NULL | 1 |
+
+## 9. Select (σ) — choisir des lignes
+
+**Opération unaire** qui garde le **sous-ensemble des tuples** qui
+satisfont une **selection condition**.
+
+**Notation : σ<sub>selection condition</sub>(R)**
+
+- La condition est une **expression booléenne** sur les attributs de R :
+  opérateurs **AND, OR, NOT** appliqués à **<, >, <=, >=, !=, =**.
+- Le résultat a **les mêmes attributs** que R, et **au plus autant** de
+  tuples.
+
+| Requête | Expression | Résultat |
+|---|---|---|
+| employés du département 4 | **σ<sub>Dno = 4</sub>(EMPLOYEE)** | Zelaya, Wallace, Jabbar |
+| salaire > 35 000 | **σ<sub>Salary > 35000</sub>(EMPLOYEE)** | Wong, Wallace, Narayan, Borg |
+| projets du département 5 | **σ<sub>Dnum = 5</sub>(PROJECT)** | ProductX, ProductY, ProductZ |
+| (dept 4 **et** salaire > 25 000) **ou** (dept 5 **et** salaire > 30 000) | **σ<sub>(Dno = 4 AND Salary > 25000) OR (Dno = 5 AND Salary > 30000)</sub>(EMPLOYEE)** | **Wong, Wallace, Narayan** |
+
+```diagram
+{
+  "title": "σ(Dno = 4 AND Salary > 25000) OR (Dno = 5 AND Salary > 30000) : on teste chaque ligne, on garde celles où la condition est vraie.",
+  "nodes": [
+    { "id": "t", "x": 300, "y": 30, "shape": "table", "size": 12, "label": "EMPLOYEE → test de la condition", "rows": [["Lname","Salary","Dno","Dno=4 ∧ >25000","Dno=5 ∧ >30000","gardé ?"],["Smith","30000","5","non","non (30000 pas > 30000)","✗"],["Wong","40000","5","non","oui","✓"],["Zelaya","25000","4","non (pas >)","non","✗"],["Wallace","43000","4","oui","non","✓"],["Narayan","38000","5","non","oui","✓"],["English","25000","5","non","non","✗"],["Jabbar","25000","4","non","non","✗"],["Borg","55000","1","non","non","✗"]], "mark": [2,4,5], "cols": [65,55,40,105,150,55] }
+  ],
+  "edges": []
+}
+```
+
+> **Piège :** `>` est **strict** : Smith (30 000) n'a **pas** un salaire
+> > 30 000, Zelaya (25 000) n'a pas un salaire > 25 000.
+
+**Propriétés :**
+
+- σ est **commutatif** : σ<sub>c1</sub>(σ<sub>c2</sub>(R)) =
+  σ<sub>c2</sub>(σ<sub>c1</sub>(R)).
+- **Cascade** : une suite de σ équivaut à **un seul σ avec AND** :
+  σ<sub>c1</sub>(σ<sub>c2</sub>(σ<sub>c3</sub>(R))) =
+  σ<sub>c1 AND c2 AND c3</sub>(R).
+
+## 10. Project (π) — choisir des colonnes
+
+**Opération unaire** qui garde un **sous-ensemble des colonnes**.
+
+**Notation : π<sub>attribute list</sub>(R)**
+
+- Le résultat est un **ensemble** de tuples : **les doublons sont
+  supprimés**.
+- Nombre de tuples de π<sub>list</sub>(R) **≤** nombre de tuples de R ;
+  **égal** si la liste contient une **clé** de R.
+
+| Requête | Expression | Lignes |
+|---|---|---|
+| nom, prénom, salaire | **π<sub>Lname, Fname, Salary</sub>(EMPLOYEE)** | 8 (aucun doublon) |
+| les salaires | **π<sub>Salary</sub>(EMPLOYEE)** | **6** : 30000, 40000, 25000, 43000, 38000, 55000 (25 000 n'apparaît **qu'une fois**) |
+| SSN des employés qui travaillent **plus de 10 h** sur un projet | **π<sub>Essn</sub>(σ<sub>Hours > 10</sub>(WORKS_ON))** | 123456789, 666884444, 453453453, 999887777, 987987987, 987654321 |
+
+```diagram
+{
+  "title": "π Salary(EMPLOYEE) : 8 lignes en entrée, 6 en sortie, car le résultat est un ensemble (les trois 25000 n'en font qu'un).",
+  "nodes": [
+    { "id": "a", "x": 110, "y": 30, "shape": "table", "size": 12, "label": "EMPLOYEE.Salary", "rows": [["Salary"],["30000"],["40000"],["25000"],["43000"],["38000"],["25000"],["25000"],["55000"]], "mark": [3,6,7], "cols": [80] },
+    { "id": "b", "x": 360, "y": 30, "shape": "table", "size": 12, "label": "π Salary", "rows": [["Salary"],["30000"],["40000"],["25000"],["43000"],["38000"],["55000"]], "mark": [3], "cols": [80] }
+  ],
+  "edges": [ { "from": "a", "to": "b", "label": "doublons supprimés" } ]
+}
+```
+
+**π n'est pas commutatif :**
+
+- π<sub>Salary</sub>(π<sub>Lname, Fname, Salary</sub>(EMPLOYEE)) fonctionne :
+  la liste intérieure **contient** Salary.
+- π<sub>Lname, Fname, Salary</sub>(π<sub>Salary</sub>(EMPLOYEE)) est
+  **impossible** : après π<sub>Salary</sub>, les colonnes Lname et Fname
+  **n'existent plus** (« NOW WHAT ??? »).
+- Règle : π<sub>list1</sub>(π<sub>list2</sub>(R)) = π<sub>list1</sub>(R)
+  **tant que list2 contient les attributs de list1**.
+
+
 ## Pièges d'exam
 
 - **1NF** : le repeating group part avec la **PK de l'entité** → clé
@@ -250,6 +448,10 @@ F = {A → BC, CD → E, B → D, E → A}.
 - La table de liaison (**WorksOn**, **Teaches**) n'a que la clé composée.
 - Une **candidate key** est **minimale** ; ne pas oublier de tester les
   **paires**.
+- **σ** = lignes, **π** = colonnes ; π **supprime les doublons**, σ jamais.
+- σ est **commutatif** (et une cascade de σ = un σ avec AND) ; π **ne l'est
+  pas** (la liste intérieure doit contenir la liste extérieure).
+- Relational algebra = DML **procédural** ; SQL = **non procédural**.
 
 ## À retenir
 
@@ -258,3 +460,5 @@ F = {A → BC, CD → E, B → D, E → A}.
   **table de liaison** + **table de référence** (Department).
 - (E-ID)⁺ = tous les attributs → E-ID est candidate key.
 - R(ABCDE), F = {A → BC, CD → E, B → D, E → A} : clés **A, E, BC, CD**.
+- **σ<sub>condition</sub>(R)** avec AND / OR / NOT et < > <= >= = != ;
+  **π<sub>attributs</sub>(R)** ; on les combine : π…(σ…(R)).

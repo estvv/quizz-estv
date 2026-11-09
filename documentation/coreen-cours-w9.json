@@ -1,0 +1,27 @@
+{
+  "_doc": "Exercices et flashcards de kr-cours-w9 (lus par scripts/build-korean-seed.py). mcq : bonne réponse = 1er choix.",
+  "exercises": [
+    {"type": "matching", "prompt": "Associe chaque lieu à son sens.", "pairs": [["공원", "parc"], ["식당", "restaurant"], ["학교", "école"], ["병원", "hôpital"], ["산", "montagne"], ["시장", "marché"]], "explanation": "Unit 5, [장소]."},
+    {"type": "matching", "prompt": "Associe chaque mot de temps à son sens.", "pairs": [["지금", "maintenant"], ["오늘", "aujourd'hui"], ["내일", "demain"], ["요즘", "ces temps-ci"]], "explanation": "Unit 5, [시간]."},
+    {"type": "matching", "prompt": "Associe chaque verbe à son sens.", "pairs": [["좋아하다", "aimer"], ["배우다", "apprendre"], ["입다", "porter (un vêtement)"], ["청소하다", "faire le ménage"], ["빨래하다", "faire la lessive"], ["가르치다", "enseigner"]], "explanation": "Unit 5, [동사]."},
+    {"type": "mcq", "prompt": "Que veut dire 운동하다 ?", "choices": ["faire du sport", "étudier", "travailler", "faire le ménage"], "explanation": "운동 (sport) + 하다."},
+    {"type": "mcq", "prompt": "Que veut dire 사다 ?", "choices": ["acheter", "vendre", "être bon marché", "manger"], "explanation": "Attention : 싸다 = être bon marché."},
+    {"type": "mcq", "prompt": "Que veut dire 싸다 ?", "choices": ["être bon marché", "acheter", "être cher", "être délicieux"], "explanation": "Le contraire est 비싸다."},
+    {"type": "matching", "prompt": "Associe chaque adjectif à son sens.", "pairs": [["맛있다", "être délicieux"], ["따뜻하다", "être doux / tiède"], ["좋다", "être bien / bon"], ["복잡하다", "être bondé / embouteillé"], ["재미있다", "être intéressant / amusant"]], "explanation": "Unit 5, [형용사]."},
+    {"type": "matching", "prompt": "Associe chaque nom à son sens.", "pairs": [["친구", "ami(e)"], ["옷", "vêtements"], ["날씨", "météo"], ["영화", "film"], ["질문", "question"], ["영어", "anglais (langue)"]], "explanation": "Unit 5, [명사]."},
+    {"type": "mcq", "prompt": "Que veut dire 어디 ?", "choices": ["où", "quand", "quoi", "qui"], "explanation": "뭘 = quoi (= 무엇을)."},
+    {"type": "mcq", "prompt": "Que veut dire « 날씨가 좋다 » ?", "choices": ["Il fait beau.", "Il fait chaud.", "La route est encombrée.", "Il pleut."], "explanation": "날씨 = météo, 좋다 = être bien."},
+    {"type": "mcq", "prompt": "Que veut dire « 길이 복잡하다 » ?", "choices": ["La route est encombrée.", "Le chemin est long.", "Il fait doux.", "La route est fermée."], "explanation": "길 = route, 복잡하다 = être bondé."},
+    {"type": "mcq", "prompt": "Pourquoi écrit-on 길이 mais 날씨가 ?", "choices": ["길 finit par une consonne (ㄹ), 날씨 par une voyelle", "C'est l'inverse de la règle", "길 est un verbe", "Les deux sont possibles"], "explanation": "이 après consonne, 가 après voyelle (S7)."},
+    {"type": "mcq", "prompt": "Que veut dire 아주 ?", "choices": ["très", "et", "ne … pas", "nous"], "explanation": "그리고 = et, 안 = ne … pas, 우리 = nous."},
+    {"type": "type_answer", "prompt": "Écris en hangeul le mot « nous » (u-ri).", "accept": ["우리"], "explanation": "우리 = nous / notre."}
+  ],
+  "flashcards": [
+    {"front": "Lieux", "back": "공원 parc, 식당 restaurant, 학교 école, 병원 hôpital, 산 montagne, 시장 marché, 집 maison."},
+    {"front": "Temps", "back": "지금 maintenant, 오늘 aujourd'hui, 내일 demain, 요즘 ces temps-ci."},
+    {"front": "Verbes en 하다", "back": "운동하다, 공부하다, 청소하다, 빨래하다, 좋아하다 (nom + 하다)."},
+    {"front": "Adjectifs", "back": "맛있다, 따뜻하다, 싸다 (≠ 비싸다), 좋다, 복잡하다, 재미있다."},
+    {"front": "Petits mots", "back": "어디 où, 뭘 quoi, 안 ne…pas, 그리고 et, 아주 très, 우리 nous."},
+    {"front": "Phrases modèles", "back": "날씨가 좋다 (il fait beau), 길이 복잡하다 (route encombrée), 날씨가 따뜻하다 (il fait doux)."}
+  ]
+}

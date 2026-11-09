@@ -150,9 +150,43 @@ float smallest = (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
 > `sum / 3.0` (et pas `/ 3`) : si `sum` était un `int`, `/ 3` tronquerait la
 > moyenne.
 
+## 7. Exo 2 du TD — la table de multiplication (do…while imbriqués)
+
+Le second exercice de la semaine affiche les tables de **1 à 12**, chacune
+**de 1 à 10**, avec **deux boucles `do…while` imbriquées** (les boucles sont
+détaillées en **Week 9**).
+
+```c
+int x = 1, y = 1;
+do {                          /* boucle externe : une ligne par x   */
+    do {                      /* boucle interne : les 10 colonnes   */
+        printf("%i\t", x * y);
+        y += 1;
+    } while (y <= 10);
+    printf("\n");             /* fin de la ligne x                  */
+    x += 1;
+    y = 1;                    /* IMPORTANT : remettre y à 1         */
+} while (x <= 12);
+```
+
+```diagram
+{
+  "title": "La boucle interne fait 10 tours pour CHAQUE tour de la boucle externe : 12 × 10 = 120 printf.",
+  "nodes": [
+    { "id": "t", "x": 300, "y": 30, "shape": "table", "size": 12, "label": "Sortie (tabulations entre les colonnes)", "rows": [["x \\ y","1","2","3","…","10"],["1","1","2","3","…","10"],["2","2","4","6","…","20"],["3","3","6","9","…","30"],["…","…","…","…","…","…"],["12","12","24","36","…","120"]], "mark": [], "cols": [50,40,40,40,40,50] }
+  ],
+  "edges": []
+}
+```
+
+> **Piège :** sans `y = 1;` après la boucle interne, `y` vaut **11** au
+> deuxième tour : le `do` interne s'exécute **une fois** (un `do…while`
+> s'exécute toujours au moins une fois) puis s'arrête → on n'affiche plus
+> qu'**un seul nombre par ligne**.
+
 ---
 
-## 7. Fiche de révision midterm (W1 → W6)
+## 8. Fiche de révision midterm (W1 → W6)
 
 | Semaine | Thème | Ce qui tombe |
 |---|---|---|
